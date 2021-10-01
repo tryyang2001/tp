@@ -13,7 +13,7 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println("hi im xingjie");
+        System.out.println("hi im xingjie in new branch");
         System.out.println("What is your name?");
 
         Scanner in = new Scanner(System.in);
