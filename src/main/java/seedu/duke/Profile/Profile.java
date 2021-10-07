@@ -31,13 +31,13 @@ public class Profile {
 
     public double calculateBMI() {
         double heightInM = ((double) height) / 100.0;
-        double bmi = Math.round((weight/(Math.pow(heightInM,2)))*10) / 10.0;
+        double bmi = Math.round((weight / (Math.pow(heightInM, 2))) * 10) / 10.0;
         return bmi;
     }
 
     public static double calculateBMI(int height, int weight) {
         double heightInM = ((double) height) / 100.0;
-        double bmi = Math.round((weight/(Math.pow(heightInM,2)))*10) / 10.0;
+        double bmi = Math.round((weight / (Math.pow(heightInM, 2))) * 10) / 10.0;
         return bmi;
     }
 
