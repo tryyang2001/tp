@@ -48,8 +48,9 @@ public class FoodList {
      * @param index The index of the food item
      */
     public void delete(int index) {
+        Food deletedFood = foodRecords.remove(index);
         System.out.println("You have removed this food item: ");
-        System.out.println("\t" + this.foodRecords.remove(index));
+        System.out.println("\t" + deletedFood);
         System.out.println("There are " + foodRecords.size() + " food left.");
     }
 
