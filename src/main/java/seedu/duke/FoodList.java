@@ -40,6 +40,8 @@ public class FoodList {
             for (int i = 0; i < foodRecords.size(); i++) {
                 System.out.println("\t" + (i+1) + ". "  + foodRecords.get(i));
             }
+        } else{
+            System.out.println("\tThere is no record in the food list.");
         }
     }
 
