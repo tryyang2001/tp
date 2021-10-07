@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import java.text.DecimalFormat;
+import java.lang.System;
 
 public class Ui {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -19,11 +20,16 @@ public class Ui {
     public static final int BAR_WIDTH = 10;
     public static final String SPACE = " ";
     public static final String EMOJI_1 = " ᕦ(ò_óˇ)";
-    public static final String FITBOT_V0 = "  ______ _ _   _           _   \n"
-            + " |  ____(_) | | |         | |  \n"
-            + " | |__   _| |_| |__   ___ | |_ \n"
-            + " |  __| | | __| '_ \\ / _ \\| __|\n"
-            + " | |    | | |_| |_) | (_) | |_ \n"
+    public static final String FITBOT_V0 = "  ______ _ _   _           _"
+            + System.lineSeparator()
+            + " |  ____(_) | | |         | |"
+            + System.lineSeparator()
+            + " | |__   _| |_| |__   ___ | |_"
+            + System.lineSeparator()
+            + " |  __| | | __| '_ \\ / _ \\| __|"
+            + System.lineSeparator()
+            + " | |    | | |_| |_) | (_) | |_"
+            + System.lineSeparator()
             + " |_|    |_|\\__|_.__/ \\___/ \\__|";
 
     public static void printCalorieProgress(int calorieConsumed, int calorieGoal) {

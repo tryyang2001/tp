@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static java.lang.System.lineSeparator;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.lang.System;
+import org.junit.jupiter.api.Assertions;
 
 class UiTest {
     private final PrintStream standardOut = System.out;
@@ -23,17 +23,17 @@ class UiTest {
     //Credits to: https://www.baeldung.com/java-testing-system-out-println
     @Test
     void printCalorieResult_integerInputs_expectStringOnConsole() {
-        String expectedTestResult = "Your calorie gained from food is:   500" + lineSeparator()
+        String expectedTestResult = "Your calorie gained from food is:   500" + System.lineSeparator()
                 + "Your calorie lost from exercise is: 500"
-                + lineSeparator()
+                + System.lineSeparator()
                 + "Your net calorie intake is: 500"
-                + lineSeparator()
+                + System.lineSeparator()
                 + "Your calorie to goal is: 700"
-                + lineSeparator()
+                + System.lineSeparator()
                 + "Percentage to goal: \u001B[32m|████            |  41.7%\u001B[0m"
-                + lineSeparator();
+                + System.lineSeparator();
         Ui.printCalorieResult(500, 1000, 1200);
-        assertEquals(expectedTestResult, outputStreamCaptor.toString()
+        Assertions.assertEquals(expectedTestResult, outputStreamCaptor.toString()
         );
     }
 
