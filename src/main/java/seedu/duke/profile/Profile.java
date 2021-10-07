@@ -1,4 +1,4 @@
-package seedu.duke.Profile;
+package seedu.duke.profile;
 
 public class Profile {
     private int height;
@@ -29,13 +29,13 @@ public class Profile {
         this.calorieGoal = calorieGoal;
     }
 
-    public double calculateBMI() {
+    public double calculateBmi() {
         double heightInM = ((double) height) / 100.0;
         double bmi = Math.round((weight / (Math.pow(heightInM, 2))) * 10) / 10.0;
         return bmi;
     }
 
-    public static double calculateBMI(int height, int weight) {
+    public static double calculateBmi(int height, int weight) {
         double heightInM = ((double) height) / 100.0;
         double bmi = Math.round((weight / (Math.pow(heightInM, 2))) * 10) / 10.0;
         return bmi;
