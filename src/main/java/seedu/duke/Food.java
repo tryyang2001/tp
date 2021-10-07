@@ -29,7 +29,7 @@ public class Food {
      * Prints the food in the format of name plus the food calorie
      */
     @Override
-    public String toString(){
+    public String toString() {
         return this.getName() + " (" + this.getCalorie() + " cal)";
     }
 }
