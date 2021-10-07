@@ -8,16 +8,16 @@ class FoodListTest {
 
     @Test
     void testAddFoodUsingFoodClassParameter_foodClassParameter_expectExistsInList() {
-        FoodList foodlist = new FoodList();
-        foodlist.add(new Food("chicken rice", 607));
-        assertEquals("chicken rice (607 cal)", foodlist.get(foodlist.size() - 1).toString());
+        FoodList foodList = new FoodList();
+        foodList.add(new Food("chicken rice", 607));
+        assertEquals("chicken rice (607 cal)", foodList.get(foodList.size() - 1).toString());
     }
 
     @Test
     void testAddFoodUsingStringParameters_stringParameterInputs_expectExistsInList() {
-        FoodList foodlist = new FoodList();
-        foodlist.add("chicken rice", 607);
-        assertEquals("chicken rice (607 cal)", foodlist.get(foodlist.size() - 1).toString());
+        FoodList foodList = new FoodList();
+        foodList.add("chicken rice", 607);
+        assertEquals("chicken rice (607 cal)", foodList.get(foodList.size() - 1).toString());
     }
 
     @Test

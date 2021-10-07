@@ -5,19 +5,31 @@ import java.util.ArrayList;
 public class FoodList {
     private ArrayList<Food> foodRecords = new ArrayList<>();
 
-    public Food get(int index){
+    /**
+     * Returns food item in the food list
+     *
+     * @param index The index of the food item
+     * @return Returns the food item with the given index
+     */
+    public Food get(int index) {
         return this.foodRecords.get(index);
     }
 
-    public int size(){
+    /**
+     * Returns the size of the array list
+     *
+     * @return Returns the size of the array list attribute
+     */
+    public int size() {
         return foodRecords.size();
     }
 
     /**
      * Adds a food item into the food list
+     *
      * @param food The food class object to add
      */
-    public void add(Food food){
+    public void add(Food food) {
         this.foodRecords.add(food);
     }
 
@@ -25,9 +37,9 @@ public class FoodList {
      * Adds a food item according to its name and calorie into the food list
      *
      * @param foodName The name description of the food
-     * @param calorie The calorie of the food
+     * @param calorie  The calorie of the food
      */
-    public void add(String foodName, int calorie){
+    public void add(String foodName, int calorie) {
         this.foodRecords.add(new Food(foodName, calorie));
     }
 
@@ -38,15 +50,16 @@ public class FoodList {
         if (foodRecords.size() > 0) {
             System.out.println("You have consumed " + foodRecords.size() + " food items:");
             for (int i = 0; i < foodRecords.size(); i++) {
-                System.out.println("\t" + (i+1) + ". "  + foodRecords.get(i));
+                System.out.println("\t" + (i + 1) + ". " + foodRecords.get(i));
             }
-        } else{
+        } else {
             System.out.println("\tThere is no record in the food list.");
         }
     }
 
     /**
      * Deletes a food item according to its index number
+     *
      * @param index The index of the food item
      */
     public void delete(int index) {
