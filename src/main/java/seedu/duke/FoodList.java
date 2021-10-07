@@ -5,6 +5,14 @@ import java.util.ArrayList;
 public class FoodList {
     private ArrayList<Food> foodRecords = new ArrayList<>();
 
+    public Food get(int index){
+        return this.foodRecords.get(index);
+    }
+
+    public int size(){
+        return foodRecords.size();
+    }
+
     /**
      * Adds a food item into the food list
      * @param food The food class object to add
