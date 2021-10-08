@@ -52,7 +52,6 @@ public class Profile {
     public static double calculateBmi(double height, double weight) throws InvalidCharacteristicException {
         checkHeightValidity(height);
         checkWeightValidity(weight);
-
         return computeBmi(height, weight);
     }
 
@@ -71,6 +70,27 @@ public class Profile {
         if (height < 0) {
             throw new InvalidCharacteristicException("Height");
         }
+    }
+
+    /**
+     * Retrieves the indication with regard to the value of their BMI.
+     * Should not have any exceptions thrown since the other functions handled invalid cases.
+     *
+     * @param bmi The bmi of the user
+     * @return The status of his current body
+     **/
+    public static String retrieveBmiStatus(double bmi) {
+        String result;
+        if (bmi < 18.5) {
+            result = "Underweight";
+        } else if (bmi <= 24.9) {
+            result = "Healthy";
+        } else if (bmi <= 29.9) {
+            result = "Overweight";
+        } else {
+            result = "Obese";
+        }
+        return result;
     }
 
     public int calculateNetCalories(int foodCalories, int exerciseCalories) {

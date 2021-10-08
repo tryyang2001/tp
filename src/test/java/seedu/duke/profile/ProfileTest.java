@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ProfileTest {
 
     @Test
-    void createProfile_negativeInput_expectException() {
+    void createProfile_negativeInputs_expectException() {
         assertThrows(InvalidCharacteristicException.class,
             () -> {
                 Profile p = new Profile(-1, -1);
@@ -42,4 +42,8 @@ class ProfileTest {
             () -> Profile.calculateBmi(-171.2, -59.8));
     }
 
+    @Test
+    void retrieveBmiStatus_healthyBmiInput_expectHealthyStatus() {
+        assertEquals("Healthy", Profile.retrieveBmiStatus(22.5));
+    }
 }
