@@ -6,26 +6,26 @@ public class FoodList {
     private ArrayList<Food> foodRecords = new ArrayList<>();
 
     /**
-     * Returns food item in the food list
+     * Returns food item in the food list.
      *
      * @param index The index of the food item
-     * @return Returns the food item with the given index
+     * @return the food item with the given index
      */
     public Food get(int index) {
         return this.foodRecords.get(index);
     }
 
     /**
-     * Returns the size of the array list
+     * Returns the size of the array list.
      *
-     * @return Returns the size of the array list attribute
+     * @return the size of the array list attribute
      */
     public int size() {
         return foodRecords.size();
     }
 
     /**
-     * Adds a food item into the food list
+     * Adds a food item into the food list.
      *
      * @param food The food class object to add
      */
@@ -34,7 +34,7 @@ public class FoodList {
     }
 
     /**
-     * Adds a food item according to its name and calorie into the food list
+     * Adds a food item according to its name and calorie into the food list.
      *
      * @param foodName The name description of the food
      * @param calorie  The calorie of the food
@@ -44,7 +44,7 @@ public class FoodList {
     }
 
     /**
-     * Prints the list of all the food items
+     * Prints the list of all the food items.
      */
     public void printFoodList() {
         if (foodRecords.size() > 0) {
@@ -58,7 +58,7 @@ public class FoodList {
     }
 
     /**
-     * Deletes a food item according to its index number
+     * Deletes a food item according to its index number.
      *
      * @param index The index of the food item
      */
@@ -70,7 +70,7 @@ public class FoodList {
     }
 
     /**
-     * Deletes all the food items from the food list
+     * Deletes all the food items from the food list.
      */
     public void deleteAll() {
         this.foodRecords.clear();
