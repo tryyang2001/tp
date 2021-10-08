@@ -3,6 +3,9 @@ package seedu.duke.food;
 import java.util.ArrayList;
 
 public class FoodList {
+    public static final String FOOD_CLEAR_MSG = "All food items have been deleted.";
+    public static final String EMPTY_LIST_MSG = "\tThere is no record in the food list.";
+    public static final String FOOD_DELETION_MSG = "You have removed this food item: ";
     private ArrayList<Food> foodRecords = new ArrayList<>();
 
     /**
@@ -53,7 +56,7 @@ public class FoodList {
                 System.out.println("\t" + (i + 1) + ". " + foodRecords.get(i));
             }
         } else {
-            System.out.println("\tThere is no record in the food list.");
+            System.out.println(EMPTY_LIST_MSG);
         }
     }
 
@@ -64,7 +67,7 @@ public class FoodList {
      */
     public void delete(int index) {
         Food deletedFood = foodRecords.remove(index);
-        System.out.println("You have removed this food item: ");
+        System.out.println(FOOD_DELETION_MSG);
         System.out.println("\t" + deletedFood);
         System.out.println("There are " + foodRecords.size() + " food left.");
     }
@@ -74,6 +77,6 @@ public class FoodList {
      */
     public void deleteAll() {
         this.foodRecords.clear();
-        System.out.println("All food items have been deleted.");
+        System.out.println(FOOD_CLEAR_MSG);
     }
 }
