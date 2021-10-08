@@ -3,6 +3,10 @@ package seedu.duke;
 import java.text.DecimalFormat;
 import java.lang.System;
 
+/**
+ * This class deals with interaction with user on CLI.
+ * Also helps to change color of output if required.
+ */
 public class Ui {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -33,15 +37,22 @@ public class Ui {
             + " | |    | | |_| |_) | (_) | |_"
             + LS
             + " |_|    |_|\\__|_.__/ \\___/ \\__|";
-    public static final String MESSAGE_CALORIE_GAIN = "Your calorie gained from food is:   %d";
+    public static final String MESSAGE_CALORIE_GAIN = "Your calorie gained from food is: %d";
     public static final String MESSAGE_CALORIE_LOST = "Your calorie lost from exercise is: %d";
     public static final String MESSAGE_CALORIE_NET = "Your net calorie intake is: %d";
     public static final String MESSAGE_CALORIE_GOAL = "Your calorie to goal is: %d";
     public static final String MESSAGE_CALORIE_TO_GOAL_PERCENTAGE = "Percentage to goal: ";
 
-    public static String printCalorieProgress(int calorieConsumed, int calorieGoal) {
+    /**
+     * Generate a progress bar between net calorie and calorieGoal.
+     *
+     * @param netCalorie  is the net calories gained by consuming food and calorie lost by exercising.
+     * @param calorieGoal is the goal set by the user.
+     * @return progress statistic if calorieGoal is positive integer.
+     */
+    private static String printCalorieProgress(int netCalorie, int calorieGoal) {
         if (calorieGoal > 0) {
-            float percentage = (float) (((float) calorieConsumed / calorieGoal) * 100.0);
+            float percentage = (float) (((float) netCalorie / calorieGoal) * 100.0);
             String newPercentage = getPercentage(percentage);
             int barNum = getBarNum(percentage);
             String result = getResult(barNum);
@@ -64,13 +75,22 @@ public class Ui {
 
     private static String getResult(int barNum) {
         String result = "|";
+        int counter = 0;
         for (int i = 0; i < barNum; i++) {
             result = result + FULL_BLOCK;
+            counter++;
+            if (counter == 10) {
+                result += '|';
+            }
         }
         for (int i = 0; i < (MAX_BAR - barNum); i++) {
             result = result + SPACE;
+            counter++;
+            if (counter == 10) {
+                result += '|';
+            }
         }
-        return result + "|  ";
+        return result + "  ";
     }
 
     private static String determineColor(float percentage) {
@@ -85,25 +105,45 @@ public class Ui {
         return color;
     }
 
-    public static void formatMessageFramedWithDivider(String... lines) {
+    /**
+     * Surround strings with lines for user to differentiate results.
+     *
+     * @param messages is the strings that need to be printed on CLI
+     */
+    public static void formatMessageFramedWithDivider(String... messages) {
         System.out.println(DIVIDER);
-        for (String line : lines) {
-            System.out.println(line);
+        for (String message : messages) {
+            System.out.println(message);
         }
         System.out.println(DIVIDER);
     }
 
-    public static String[] printCalories(int exerciseCalories, int foodCalories, int calorieGoal) {
-        int netCalories = foodCalories = exerciseCalories;
+    /**
+     * Calculate netCalories and format exerciseCalories, foodCalories, calorieGoal
+     * into strings.
+     *
+     * @param exerciseCalories is the total calories lost by exercising
+     * @param foodCalories     is the total calories gained by consuming food
+     * @param calorieGoal      is the goal set by the user
+     * @return formatted strings.
+     */
+    private static String[] printCalories(int exerciseCalories, int foodCalories, int calorieGoal) {
+        int netCalories = foodCalories - exerciseCalories;
         int remainingCalories = calorieGoal - netCalories;
         return new String[]{String.format(MESSAGE_CALORIE_GAIN, foodCalories),
                 String.format(MESSAGE_CALORIE_LOST, exerciseCalories),
                 String.format(MESSAGE_CALORIE_NET, netCalories),
                 String.format(MESSAGE_CALORIE_GOAL, remainingCalories),
                 printCalorieProgress(netCalories, calorieGoal)};
-        //System.out.print(MESSAGE_CALORIE_TO_GOAL_PERCENTAGE);// need to change the functions according to slam
     }
 
+    /**
+     * Print all the statistics regarding calories.
+     *
+     * @param exerciseCalories is the total calories lost by exercising
+     * @param foodCalories     is the total calories gained by consuming food
+     * @param calorieGoal      is the goal set by the user
+     */
     public static void printCalorieResult(int exerciseCalories, int foodCalories, int calorieGoal) {
         formatMessageFramedWithDivider(printCalories(exerciseCalories, foodCalories, calorieGoal));
     }

@@ -26,7 +26,7 @@ class UiTest {
     void printCalorieResult_integerInputs_expectStringOnConsole() {
         String expectedTestResult = Ui.DIVIDER
                 + Ui.LS
-                + "Your calorie gained from food is:   500"
+                + "Your calorie gained from food is: 1000"
                 + Ui.LS
                 + "Your calorie lost from exercise is: 500"
                 + Ui.LS
@@ -34,7 +34,7 @@ class UiTest {
                 + Ui.LS
                 + "Your calorie to goal is: 700"
                 + Ui.LS
-                + "Percentage to goal: \u001B[32m|████            |  41.7%\u001B[0m"
+                + "Percentage to goal: \u001B[32m|████      |        41.7%\u001B[0m"
                 + Ui.LS
                 + Ui.DIVIDER
                 + Ui.LS;
