@@ -25,7 +25,7 @@ class FoodListTest {
     }
 
     @Test
-    void printEmptyFoodList_noItemInList_expectErrorMessage() {
+    void printEmptyFoodList_noItemInList_expectEmptyListMessage() {
         new FoodList().printFoodList();
     }
 
