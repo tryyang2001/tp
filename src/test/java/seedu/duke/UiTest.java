@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import java.lang.System;
+
 import org.junit.jupiter.api.Assertions;
 
 class UiTest {
@@ -23,15 +24,20 @@ class UiTest {
     //Credits to: https://www.baeldung.com/java-testing-system-out-println
     @Test
     void printCalorieResult_integerInputs_expectStringOnConsole() {
-        String expectedTestResult = "Your calorie gained from food is:   500" + System.lineSeparator()
+        String expectedTestResult = Ui.DIVIDER
+                + Ui.LS
+                + "Your calorie gained from food is:   500"
+                + Ui.LS
                 + "Your calorie lost from exercise is: 500"
-                + System.lineSeparator()
+                + Ui.LS
                 + "Your net calorie intake is: 500"
-                + System.lineSeparator()
+                + Ui.LS
                 + "Your calorie to goal is: 700"
-                + System.lineSeparator()
+                + Ui.LS
                 + "Percentage to goal: \u001B[32m|████            |  41.7%\u001B[0m"
-                + System.lineSeparator();
+                + Ui.LS
+                + Ui.DIVIDER
+                + Ui.LS;
         Ui.printCalorieResult(500, 1000, 1200);
         Assertions.assertEquals(expectedTestResult, outputStreamCaptor.toString()
         );
