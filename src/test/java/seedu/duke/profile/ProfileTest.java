@@ -10,25 +10,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ProfileTest {
 
     @Test
-    void Profile_negativeInput_expectException() {
+    void createProfile_negativeInput_expectException() {
         assertThrows(InvalidCharacteristicException.class,
-                () -> {
-                    Profile p = new Profile(-1,-1);
-                });
+            () -> {
+                Profile p = new Profile(-1, -1);
+            });
     }
 
     @Test
     void setHeight_negativeInput_expectException() throws InvalidCharacteristicException {
-        Profile p = new Profile(170.2,60.5);
+        Profile p = new Profile(170.2, 60.5);
         assertThrows(InvalidCharacteristicException.class,
-                () -> p.setHeight(-1));
+            () -> p.setHeight(-1));
     }
 
     @Test
     void setWeight_negativeInput_expectException() throws InvalidCharacteristicException {
         Profile p = new Profile(170.2, 60.5);
         assertThrows(InvalidCharacteristicException.class,
-                () -> p.setWeight(-1));
+            () -> p.setWeight(-1));
     }
 
     @Test
@@ -39,7 +39,7 @@ class ProfileTest {
     @Test
     void calculateBmi_negativeInputs_expectException() {
         assertThrows(InvalidCharacteristicException.class,
-                () -> Profile.calculateBmi(-171.2, -59.8));
+            () -> Profile.calculateBmi(-171.2, -59.8));
     }
 
 }
