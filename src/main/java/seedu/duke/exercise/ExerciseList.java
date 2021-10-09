@@ -52,8 +52,9 @@ public class ExerciseList {
         System.out.println("\t" + deletedExercise);
         if (exerciseList.size() == 1) {
             System.out.println("There is" + exerciseList.size() + "task left.");
-        } else
+        } else {
             System.out.println("There are" + exerciseList.size() + "tasks left.");
+        }
     }
 
     /**
