@@ -7,7 +7,7 @@ public class Exercise {
     /**
      * Constructor for exercise object.
      *
-     * @param name Description of the exercise.
+     * @param name    Description of the exercise.
      * @param calorie Calorie burnt from the exercise.
      */
     public Exercise(String name, int calorie) {

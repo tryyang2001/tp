@@ -30,13 +30,13 @@ class ExerciseListTest {
         exerciseList.addExercise(new Exercise("Running", 250));
         exerciseList.addExercise(new Exercise("Jumping Jacks", 100));
         exerciseList.deleteExercise(0);
-        assertEquals( 1, exerciseList.getSize());
+        assertEquals(1, exerciseList.getSize());
     }
 
     @Test
     void deleteExercise_invalidIndex_expectException() {
         ExerciseList exerciseList = new ExerciseList();
-        assertThrows(IndexOutOfBoundsException.class , () -> exerciseList.deleteExercise(0));
+        assertThrows(IndexOutOfBoundsException.class, () -> exerciseList.deleteExercise(0));
     }
 
     @Test

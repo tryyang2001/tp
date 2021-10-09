@@ -24,7 +24,7 @@ public class ExerciseList {
      *
      * @return Number of exercises in the exercise list.
      */
-    public int getSize(){
+    public int getSize() {
         return exerciseList.size();
     }
 
