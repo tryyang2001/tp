@@ -11,9 +11,4 @@ public class ParamInvalidException extends Exception {
         super(errorMessage);
         ParamInvalidException.errorMessage = errorMessage;
     }
-
-    @Override
-    public String toString() {
-        return errorMessage;
-    }
 }

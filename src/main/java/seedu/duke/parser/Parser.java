@@ -99,7 +99,7 @@ public class Parser {
                     AddFoodCommand.MESSAGE_COMMAND_FORMAT,
                     AddExerciseCommand.MESSAGE_COMMAND_FORMAT));
         } catch (ParamInvalidException e) {
-            return new InvalidCommand(e.toString());
+            return new InvalidCommand(e.getMessage());
         }
     }
 
@@ -154,7 +154,7 @@ public class Parser {
                 final double weight = extractWeight(params);
                 return new CalculateBmiCommand(height, weight);
             } catch (ParamInvalidException e) {
-                return new InvalidCommand(e.toString());
+                return new InvalidCommand(e.getMessage());
             }
         } else {
             return new InvalidCommand(CalculateBmiCommand.MESSAGE_INVALID_COMMAND_FORMAT);
@@ -192,7 +192,7 @@ public class Parser {
             final double weight = extractWeight(params);
             return new CreateProfileCommand(name, height, weight);
         } catch (ParamInvalidException e) {
-            return new InvalidCommand(e.toString());
+            return new InvalidCommand(e.getMessage());
         }
     }
 
