@@ -1,5 +1,8 @@
 package seedu.duke.commands;
 
+/**
+ * Represents the command that when executed, lists all the items in the FoodList and ExerciseList.
+ */
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD + QUOTATION;
