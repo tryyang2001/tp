@@ -1,25 +1,37 @@
 package seedu.duke.profile;
 
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
+import seedu.duke.profile.exceptions.NullCharacteristicException;
 
 /**
  * Profile that contains the relevant data input by user.
  */
 public class Profile {
+    private String name;
     private double height;
     private double weight;
     private int calorieGoal;
 
-    public Profile(double height, double weight) throws InvalidCharacteristicException {
+    /**
+     * Constructor for the Profile class.
+     *
+     * @param name Name of user
+     * @param height Height of user
+     * @param weight Weight of user
+     * @throws InvalidCharacteristicException If a value of <= 0 is provided for height or weight
+     * @throws NullCharacteristicException When the input name is null or ""
+     */
+    public Profile(String name, double height, double weight)
+            throws InvalidCharacteristicException, NullCharacteristicException {
+        setName(name);
         setHeight(height);
         setWeight(weight);
         setCalorieGoal(0); //Initialize to 0 first
     }
 
-    public Profile() throws InvalidCharacteristicException {
-        setHeight(0);
-        setWeight(0);
-        setCalorieGoal(0);
+    public void setName(String name) throws NullCharacteristicException {
+        checkNameValidity(name);
+        this.name = name;
     }
 
     public void setHeight(double height) throws InvalidCharacteristicException {
@@ -42,7 +54,7 @@ public class Profile {
 
     /**
      * Manually calculates the BMI.
-     * Used when the user decides that he input values that is not be stored in his profile.
+     * Used when the user input values that is not be stored in his/her profile.
      *
      * @param height Value of manual input of height
      * @param weight Value of manual input of weight
@@ -60,15 +72,22 @@ public class Profile {
         return Math.round((weight / (Math.pow(heightInM, 2))) * 10) / 10.0;
     }
 
+
     private static void checkWeightValidity(double weight) throws InvalidCharacteristicException {
-        if (weight < 0) {
+        if (weight <= 0) {
             throw new InvalidCharacteristicException("Weight");
         }
     }
 
     private static void checkHeightValidity(double height) throws InvalidCharacteristicException {
-        if (height < 0) {
+        if (height <= 0) {
             throw new InvalidCharacteristicException("Height");
+        }
+    }
+
+    private static void checkNameValidity(String name) throws NullCharacteristicException {
+        if (name == null || name.length() == 0) {
+            throw new NullCharacteristicException("Name");
         }
     }
 

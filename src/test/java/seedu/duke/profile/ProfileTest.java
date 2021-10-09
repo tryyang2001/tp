@@ -2,6 +2,7 @@ package seedu.duke.profile;
 
 import org.junit.jupiter.api.Test;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
+import seedu.duke.profile.exceptions.NullCharacteristicException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,40 +11,66 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ProfileTest {
 
     @Test
-    void createProfile_negativeInputs_expectException() {
-        assertThrows(InvalidCharacteristicException.class,
+    void createProfile_nullNameInput_expectException() {
+        String name = null;
+        double height = 170.2;
+        double weight = 60.8;
+        assertThrows(NullCharacteristicException.class,
             () -> {
-                Profile p = new Profile(-1, -1);
+                Profile p = new Profile(name, height, weight);
             });
     }
 
     @Test
-    void setHeight_negativeInput_expectException() throws InvalidCharacteristicException {
-        Profile p = new Profile(170.2, 60.5);
+    void createProfile_negativeInputs_expectException() {
+        String name = "John";
+        double height = -1;
+        double weight = -1;
+        assertThrows(InvalidCharacteristicException.class,
+            () -> {
+                Profile p = new Profile(name, height, weight);
+            });
+    }
+
+    @Test
+    void setHeight_negativeInput_expectException() throws InvalidCharacteristicException, NullCharacteristicException {
+        String name = "John";
+        double height = 170.2;
+        double weight = 60.5;
+        Profile p = new Profile(name, height, weight);
         assertThrows(InvalidCharacteristicException.class,
             () -> p.setHeight(-1));
     }
 
     @Test
-    void setWeight_negativeInput_expectException() throws InvalidCharacteristicException {
-        Profile p = new Profile(170.2, 60.5);
+    void setWeight_negativeInput_expectException() throws InvalidCharacteristicException, NullCharacteristicException {
+        String name = "John";
+        double height = 170.2;
+        double weight = 60.5;
+        Profile p = new Profile(name, height, weight);
         assertThrows(InvalidCharacteristicException.class,
             () -> p.setWeight(-1));
     }
 
     @Test
     void calculateBmi_twoDoubleInputs_expectDoubleReturned() throws InvalidCharacteristicException {
-        assertEquals(20.4, Profile.calculateBmi(171.2, 59.8));
+        double height = 171.2;
+        double weight = 59.8;
+        assertEquals(20.4, Profile.calculateBmi(height, weight));
     }
 
     @Test
     void calculateBmi_negativeInputs_expectException() {
+        double height = -171.2;
+        double weight = -59.8;
         assertThrows(InvalidCharacteristicException.class,
-            () -> Profile.calculateBmi(-171.2, -59.8));
+            () -> Profile.calculateBmi(height, weight));
     }
 
     @Test
     void retrieveBmiStatus_healthyBmiInput_expectHealthyStatus() {
-        assertEquals("Healthy", Profile.retrieveBmiStatus(22.5));
+        String expectedStatus = "Healthy";
+        double bmi = 22.5;
+        assertEquals(expectedStatus, Profile.retrieveBmiStatus(bmi));
     }
 }
