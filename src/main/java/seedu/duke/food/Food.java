@@ -2,17 +2,17 @@ package seedu.duke.food;
 
 public class Food {
     private String name;
-    private int calorie;
+    private int calories;
 
     /**
      * Constructor for the food object.
      *
      * @param name The name or description of the food
-     * @param calorie The calorie of the food consumed
+     * @param calories The calorie of the food consumed
      */
-    public Food(String name, int calorie) {
+    public Food(String name, int calories) {
         this.name = name;
-        this.calorie = calorie;
+        this.calories = calories;
     }
 
     /**
@@ -38,17 +38,17 @@ public class Food {
      *
      * @return The amount of calorie in integer
      */
-    public int getCalorie() {
-        return calorie;
+    public int getCalories() {
+        return calories;
     }
 
     /**
      * Sets or updates the amount of calorie for the food consumed.
      *
-     * @param calorie The new amount of calorie in integer
+     * @param calories The new amount of calorie in integer
      */
-    public void setCalorie(int calorie) {
-        this.calorie = calorie;
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 
     /**
@@ -56,6 +56,6 @@ public class Food {
      */
     @Override
     public String toString() {
-        return this.getName() + " (" + this.getCalorie() + " cal)";
+        return this.getName() + " (" + this.getCalories() + " cal)";
     }
 }

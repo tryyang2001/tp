@@ -9,6 +9,7 @@ public class FoodList {
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been deleted.";
     public static final String MESSAGE_EMPTY_FOOD_LIST = "\tThere is no record in the food list.";
     public static final String MESSAGE_FOOD_DELETION = "You have removed this food item: " + LS + "\t%s" + LS;
+
     private ArrayList<Food> foodRecords = new ArrayList<>();
 
     /**
@@ -43,10 +44,10 @@ public class FoodList {
      * Adds a food item according to its name and calorie into the food list.
      *
      * @param foodName The name description of the food
-     * @param calorie  The calorie of the food
+     * @param calories  The calorie of the food
      */
-    public void add(String foodName, int calorie) {
-        this.foodRecords.add(new Food(foodName, calorie));
+    public void add(String foodName, int calories) {
+        this.foodRecords.add(new Food(foodName, calories));
     }
 
     /**
