@@ -11,40 +11,45 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class FoodListTest {
 
     @Test
-    void testAddFoodUsingFoodClassParameter_foodClassParameter_expectExistsInList() {
+    void addFoodUsingFoodClassParameter_foodClassParameter_expectExistsInList() {
         FoodList foodList = new FoodList();
-        foodList.add(new Food("chicken rice", 607));
-        assertEquals("chicken rice (607 cal)", foodList.get(foodList.size() - 1).toString());
+        foodList.addFood(new Food("chicken rice", 607));
+        assertEquals("chicken rice (607 cal)", foodList.get(foodList.getSize() - 1).toString());
     }
 
     @Test
-    void printEmptyFoodList_noItemInList_expectEmptyListMessage() {
-        new FoodList().printFoodList();
+    void printNonEmptyFoodList_nonEmptyFoodList_expectCorrectOutputString() {
+        FoodList foodList = new FoodList();
+        foodList.addFood(new Food("chicken rice", 607));
+        foodList.addFood(new Food("yong tau foo", 536));
+        foodList.addFood(new Food("mcspicy alacarte", 528));
+        foodList.addFood(new Food("char kway teow", 744));
+        System.out.println(foodList.convertToString());
     }
 
     @Test
     void deleteExistingFoodItem_validIndexInput_expectDeleteSuccessful() {
         FoodList foodList = new FoodList();
-        foodList.add(new Food("chicken rice", 607));
-        foodList.add(new Food("yong tau foo", 536));
-        foodList.delete(1);
-        assertNotEquals(2, foodList.size());
+        foodList.addFood(new Food("chicken rice", 607));
+        foodList.addFood(new Food("yong tau foo", 536));
+        foodList.deleteFood(1);
+        assertNotEquals(2, foodList.getSize());
     }
 
     @Test
     void deleteNonExistingFoodItem_invalidIndexInput_expectIndexOutOfBoundException() {
         FoodList foodList = new FoodList();
-        assertThrows(IndexOutOfBoundsException.class, () -> foodList.delete(0));
+        assertThrows(IndexOutOfBoundsException.class, () -> foodList.deleteFood(0));
     }
 
     @Test
     void deleteAllFoodItems_callDeleteAllMethod_expectEmptyList() {
         FoodList foodList = new FoodList();
-        foodList.add(new Food("chicken rice", 607));
-        foodList.add(new Food("yong tau foo", 536));
-        foodList.add(new Food("mcspicy alacarte", 528));
-        foodList.add(new Food("char kway teow", 744));
+        foodList.addFood(new Food("chicken rice", 607));
+        foodList.addFood(new Food("yong tau foo", 536));
+        foodList.addFood(new Food("mcspicy alacarte", 528));
+        foodList.addFood(new Food("char kway teow", 744));
         foodList.deleteAll();
-        assertEquals(0, foodList.size());
+        assertEquals(0, foodList.getSize());
     }
 }
