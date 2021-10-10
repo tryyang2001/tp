@@ -3,9 +3,12 @@ package seedu.duke.food;
 import java.util.ArrayList;
 
 public class FoodList {
+    public static final String LS = System.lineSeparator();
+    public static final String MESSAGE_FOOD_LEFT_COUNT = "There %s %d food left" + LS;
+    public static final String MESSAGE_FOOD_COUNT = "You have consumed %d food items:" + LS;
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been deleted.";
     public static final String MESSAGE_EMPTY_FOOD_LIST = "\tThere is no record in the food list.";
-    public static final String MESSAGE_FOOD_DELETION = "You have removed this food item: ";
+    public static final String MESSAGE_FOOD_DELETION = "You have removed this food item: " + LS + "\t%s" + LS;
     private ArrayList<Food> foodRecords = new ArrayList<>();
 
     /**
@@ -51,7 +54,7 @@ public class FoodList {
      */
     public void printFoodList() {
         if (foodRecords.size() > 0) {
-            System.out.println("You have consumed " + foodRecords.size() + " food items:");
+            System.out.printf(MESSAGE_FOOD_COUNT, foodRecords.size());
             for (int i = 0; i < foodRecords.size(); i++) {
                 System.out.println("\t" + (i + 1) + ". " + foodRecords.get(i));
             }
@@ -67,9 +70,12 @@ public class FoodList {
      */
     public void delete(int index) {
         Food deletedFood = foodRecords.remove(index);
-        System.out.println(MESSAGE_FOOD_DELETION);
-        System.out.println("\t" + deletedFood);
-        System.out.println("There are " + foodRecords.size() + " food left.");
+        System.out.printf(MESSAGE_FOOD_DELETION, deletedFood);
+        String isOrAre = "is";
+        if (foodRecords.size() > 1) {
+            isOrAre = "are";
+        }
+        System.out.printf(MESSAGE_FOOD_LEFT_COUNT, isOrAre, foodRecords.size());
     }
 
     /**
