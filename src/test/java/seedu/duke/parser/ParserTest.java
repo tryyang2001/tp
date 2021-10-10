@@ -29,10 +29,10 @@ class ParserTest {
 
     @Test
     void parseAddCommand_correctInput_addCommand() {
-      parseAndAssertCommandType("add f/potato c/20", AddFoodCommand.class);
-      parseAndAssertCommandType("aDD c/20 f/potato", AddFoodCommand.class);
-      parseAndAssertCommandType("add e/potato c/20", AddExerciseCommand.class);
-      parseAndAssertCommandType("aDD c/20 e/potato", AddExerciseCommand.class);
+        parseAndAssertCommandType("add f/potato c/20", AddFoodCommand.class);
+        parseAndAssertCommandType("aDD c/20 f/potato", AddFoodCommand.class);
+        parseAndAssertCommandType("add e/potato c/20", AddExerciseCommand.class);
+        parseAndAssertCommandType("aDD c/20 e/potato", AddExerciseCommand.class);
     }
 
     @Test
@@ -83,7 +83,7 @@ class ParserTest {
     /**
      * Parses input and asserts the class/type of the returned command object.
      *
-     * @param input to be parsed
+     * @param input                to be parsed
      * @param expectedCommandClass expected class of returned command
      * @return the parsed command object
      */
