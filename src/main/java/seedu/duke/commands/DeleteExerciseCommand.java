@@ -12,15 +12,17 @@ public class DeleteExerciseCommand extends Command {
             + LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "An exercise item has been deleted:" + LS + "%s";
 
-    private final int itemNum;
+    private final int itemIndex;
 
-    public DeleteExerciseCommand(int itemNum) {
-        this.itemNum = itemNum;
+    public DeleteExerciseCommand(int itemIndex) {
+        this.itemIndex = itemIndex;
     }
 
     @Override
     public CommandResult execute() {
-        //TODO: Call relevant method, catch exceptions and return InvalidCommand if required
-        return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemNum));
+        //TODO: Check if list is empty first, print error if it is
+        //TODO: Call relevant method, catch exceptions (index out of bounds)
+        // and return CommandResult with error message if required
+        return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex));
     }
 }

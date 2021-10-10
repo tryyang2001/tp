@@ -26,18 +26,18 @@ import seedu.duke.parser.exceptions.ParamInvalidException;
  * Parses user input to determine which command to execute.
  */
 public class Parser {
-    private static final String EMPTY = "";
-    private static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Fitbot is unable to understand this command! "
+    protected static final String EMPTY = "";
+    protected static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Fitbot is unable to understand this command! "
             + "Lost? Try typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + " to see the list of commands!";
-    private static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please input a description for this item!";
-    private static final String MESSAGE_ERROR_NO_NAME = "Please input your name!";
-    private static final String MESSAGE_ERROR_NO_HEIGHT = "Please input height as a number!";
-    private static final String MESSAGE_ERROR_NO_WEIGHT = "Please input weight as a number!";
-    private static final String MESSAGE_ERROR_NO_CALORIES_INFO = "Please input the number of calories!";
-    private static final String MESSAGE_ERROR_INVALID_CALORIES_INFO = "Please input calories as a number! E.g 123";
-    private static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
-    private static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a number! E.g 1";
-    private static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input a number!";
+    protected static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please input a description for this item!";
+    protected static final String MESSAGE_ERROR_NO_NAME = "Please input your name!";
+    protected static final String MESSAGE_ERROR_NO_HEIGHT = "Please input height as a number!";
+    protected static final String MESSAGE_ERROR_NO_WEIGHT = "Please input weight as a number!";
+    protected static final String MESSAGE_ERROR_NO_CALORIES_INFO = "Please input the number of calories!";
+    protected static final String MESSAGE_ERROR_INVALID_CALORIES_INFO = "Please input calories as a number! E.g 123";
+    protected static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
+    protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a number! E.g 1";
+    protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input a number!";
 
 
     /**
@@ -107,11 +107,11 @@ public class Parser {
         try {
             final String itemTypePrefix = extractItemTypePrefix(params);
             final String description = extractItemDescription(params, itemTypePrefix).split(" ")[0];
-            final int taskNum = Integer.parseInt(description.trim());
+            final int itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
-                return new DeleteExerciseCommand(taskNum);
+                return new DeleteExerciseCommand(itemIndex);
             } else {
-                return new DeleteFoodCommand(taskNum);
+                return new DeleteFoodCommand(itemIndex);
             }
         } catch (ItemNotSpecifiedException e) {
             return new InvalidCommand(String.format(Command.MESSAGE_ERROR_ITEM_NOT_SPECIFIED,
@@ -163,7 +163,7 @@ public class Parser {
 
     private Command parseChangeHeight(String params) {
         try {
-            final double height = Double.parseDouble(params.trim());
+            final double height = Double.parseDouble(params);
             return new ChangeHeightCommand(height);
         } catch (NumberFormatException e) {
             return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
@@ -172,7 +172,7 @@ public class Parser {
 
     private Command parseChangeWeight(String params) {
         try {
-            final double weight = Double.parseDouble(params.trim());
+            final double weight = Double.parseDouble(params);
             return new ChangeWeightCommand(weight);
         } catch (NumberFormatException e) {
             return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
@@ -198,7 +198,7 @@ public class Parser {
 
     private Command parseSetGoal(String params) {
         try {
-            final int goal = Integer.parseInt(params.trim());
+            final int goal = Integer.parseInt(params);
             return new SetGoalCommand(goal);
         } catch (NumberFormatException e) {
             return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
@@ -219,7 +219,7 @@ public class Parser {
         //command string
         commandAndParams[0] = inputSplit[0];
         //param string; if not given, set to EMPTY for error handling
-        commandAndParams[1] = (inputSplit.length >= 2) ? inputSplit[1] : EMPTY;
+        commandAndParams[1] = (inputSplit.length >= 2) ? inputSplit[1].trim() : EMPTY;
         return commandAndParams;
     }
 
@@ -249,6 +249,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Extract only the parameter required so that any additional parameter
+     * specified behind this string (if any) removed.
+     * E.g. "John Doe w/20" is returned as "John Doe".
+     */
     private String extractRelevantParameter(String params) {
         if (params.contains(Command.COMMAND_PREFIX_DELIMITER)) {
             return params.substring(0, params.indexOf(Command.COMMAND_PREFIX_DELIMITER) - 1).trim();
@@ -259,7 +264,7 @@ public class Parser {
 
     private String extractItemDescription(String params, String prefix) throws ParamInvalidException {
         try {
-            String stringAfterPrefix = params.trim().split(prefix + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String stringAfterPrefix = params.split(prefix + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String description = extractRelevantParameter(stringAfterPrefix);
             if (description.equals(EMPTY)) {
                 throw new ParamInvalidException(MESSAGE_ERROR_NO_DESCRIPTION);
@@ -274,9 +279,8 @@ public class Parser {
         try {
             if (params.contains(Command.COMMAND_PREFIX_CALORIES + Command.COMMAND_PREFIX_DELIMITER)) {
                 String stringAfterPrefix =
-                        params.substring(params.indexOf(Command.COMMAND_PREFIX_CALORIES
-                                + Command.COMMAND_PREFIX_DELIMITER)
-                                + 2);
+                        params.split(Command.COMMAND_PREFIX_CALORIES
+                                + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
                 String caloriesString = stringAfterPrefix.split(" ", 2)[0];
                 return Integer.parseInt(caloriesString);
             } else {
@@ -290,9 +294,8 @@ public class Parser {
     private double extractHeight(String params) throws ParamInvalidException {
         try {
             String stringAfterPrefix =
-                    params.substring(params.indexOf(Command.COMMAND_PREFIX_HEIGHT
-                            + Command.COMMAND_PREFIX_DELIMITER)
-                            + 2);
+                    params.split(Command.COMMAND_PREFIX_HEIGHT
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String doubleString = stringAfterPrefix.split(" ", 2)[0];
             return Double.parseDouble(doubleString);
         } catch (NumberFormatException e) {
@@ -303,9 +306,8 @@ public class Parser {
     private double extractWeight(String params) throws ParamInvalidException {
         try {
             String stringAfterPrefix =
-                    params.substring(params.indexOf(Command.COMMAND_PREFIX_WEIGHT
-                            + Command.COMMAND_PREFIX_DELIMITER)
-                            + 2);
+                    params.split(Command.COMMAND_PREFIX_WEIGHT
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String doubleString = stringAfterPrefix.split(" ", 2)[0];
             return Double.parseDouble(doubleString);
         } catch (NumberFormatException e) {
@@ -317,7 +319,7 @@ public class Parser {
     private String extractProfileName(String params) throws ParamInvalidException {
         try {
             String stringAfterPrefix =
-                    params.trim().split(Command.COMMAND_PREFIX_NAME
+                    params.split(Command.COMMAND_PREFIX_NAME
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String name = extractRelevantParameter(stringAfterPrefix);
             if (name.equals(EMPTY)) {
@@ -327,6 +329,10 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             throw new ParamInvalidException(MESSAGE_ERROR_NO_NAME);
         }
+    }
+
+    private int convertItemNumToItemIndex(int itemNum) {
+        return itemNum - 1;
     }
 
 }

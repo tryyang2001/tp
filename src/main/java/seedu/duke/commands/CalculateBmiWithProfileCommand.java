@@ -10,7 +10,7 @@ public class CalculateBmiWithProfileCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        //TODO: Call relevant method, catch exceptions and return InvalidCommand if required
+        //TODO: Call relevant method, catch exceptions and return CommandResult with error message if required
         return new CommandResult(String.format(MESSAGE_SUCCESS, 0, "bmi_status"));
     }
 }

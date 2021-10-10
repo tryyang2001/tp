@@ -5,7 +5,7 @@ package seedu.duke.commands;
  * Contains a String of message that describes the error.
  */
 public class InvalidCommand extends Command {
-    private final String errorMessage;
+    public final String errorMessage;
 
     public InvalidCommand(String errorMessage) {
         this.errorMessage = errorMessage;

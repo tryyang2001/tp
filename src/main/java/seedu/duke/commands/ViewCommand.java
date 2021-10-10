@@ -12,7 +12,8 @@ public class ViewCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        //TODO: Call relevant method, catch exceptions and return InvalidCommand if required
+        //TODO: Check if list is empty first, print error if it is
+        //TODO: Call relevant method, catch exceptions and return CommandResult with error message if required
         return new CommandResult(String.format(MESSAGE_SUCCESS, "list_of_food", "list_of_exercises"));
     }
 }
