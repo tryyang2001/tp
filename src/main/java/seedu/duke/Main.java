@@ -3,9 +3,12 @@ package seedu.duke;
 import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
+import seedu.duke.exercise.ExerciseList;
+import seedu.duke.food.FoodList;
 import seedu.duke.parser.Parser;
+import seedu.duke.profile.Profile;
+import seedu.duke.ui.Ui;
 
-import java.util.Scanner;
 
 /**
  * Main class of Fitbot.
@@ -13,11 +16,12 @@ import java.util.Scanner;
  */
 public class Main {
 
-    //TODO: Initialise all required objects (Ui, ExerciseList, FoodList, Profile, Storage)
-    private static Parser parser; //Parser should be moved into UI
-    private static Scanner scanner; //Scanner should be moved into UI
+    //TODO: Initialise Storage
+    private ExerciseList exerciseItems;
+    private FoodList foodItems;
+    private Profile profile;
+    private Ui ui;
 
-    private static final String MESSAGE_BYE = "Bye! Hope to see you again soon!!";
 
     /**
      * Entry point of the application.
@@ -40,20 +44,12 @@ public class Main {
      * storage file, then showing the welcome message.
      */
     private void start() {
-        parser = new Parser();
-        scanner = new Scanner(System.in);
-        //TODO: Instantiate all required objects
+        this.exerciseItems = new ExerciseList();
+        this.foodItems = new FoodList();
+        this.profile = new Profile();
+        this.ui = new Ui();
     }
 
-    public String getUserInput() {  //To be moved into UI
-        return scanner.nextLine();
-    }
-
-    public void showMessages(String... lines) { //To be moved into UI
-        for (String line : lines) {
-            System.out.println(line);
-        }
-    }
 
     /**
      * Reads the user input and executes appropriate command.
@@ -62,10 +58,10 @@ public class Main {
     private void enterTaskModeUntilByeCommand() {
         Command command;
         do {
-            String userInput = getUserInput();
-            command = parser.parseCommand(userInput);
+            String userInput = ui.getUserInput();
+            command = new Parser().parseCommand(userInput);
             CommandResult result = executeCommand(command);
-            showMessages(result.toString());
+            ui.formatMessageFramedWithDivider(result.toString());
         } while (!ByeCommand.isBye(command));
     }
 
@@ -76,7 +72,7 @@ public class Main {
      * @return CommandResult representing result of execution of the command
      */
     private CommandResult executeCommand(Command command) {
-        //TODO: command.setData();
+        command.setData(this.profile, this.exerciseItems, this.foodItems);
         CommandResult result = command.execute();
         return result;
     }
@@ -85,7 +81,6 @@ public class Main {
      * Exits the application.
      */
     private void exit() {
-        System.out.println(MESSAGE_BYE);
         System.exit(0);
     }
 
