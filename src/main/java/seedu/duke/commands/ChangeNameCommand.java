@@ -1,15 +1,17 @@
 package seedu.duke.commands;
 
+import seedu.duke.ui.Ui;
+
 /**
  * Represents the command that when executed, changes the value of name in the Profile.
  */
 public class ChangeNameCommand extends Command {
     public static final String COMMAND_WORD = "name";
-    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD
-            + " X" + QUOTATION + "where X is your name";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format!"
-            + "Trying to update your name? Use this format:" + LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "Your name has been updated!" + LS + "Hello %s!";
+    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD
+            + " X" + Ui.QUOTATION + ", where X is your name";
+    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
+            + "Trying to update your name? Use this format:" + Ui.LS + MESSAGE_COMMAND_FORMAT;
+    public static final String MESSAGE_SUCCESS = "Your name has been updated!" + Ui.LS + "Hello %s!";
 
     private final String name;
 
@@ -19,7 +21,10 @@ public class ChangeNameCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        //TODO: Call relevant method, catch exceptions and return CommandResult with error message if required
-        return new CommandResult(String.format(MESSAGE_SUCCESS, this.name));
+        if (this.name.isEmpty()) {
+            return new CommandResult(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        super.profile.setName(this.name);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, super.profile.getName()));
     }
 }

@@ -11,8 +11,9 @@ import java.io.PrintStream;
 import java.lang.System;
 
 import org.junit.jupiter.api.Assertions;
+import seedu.duke.ui.Ui;
 
-class UiTest {
+class uiTest {
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
@@ -24,21 +25,22 @@ class UiTest {
     //Credits to: https://www.baeldung.com/java-testing-system-out-println
     @Test
     void printCalorieResult_integerInputs_expectStringOnConsole() {
-        String expectedTestResult = Ui.DIVIDER
-                + Ui.LS
+        Ui ui = new Ui();
+        String expectedTestResult = ui.DIVIDER
+                + ui.LS
                 + "Your calorie gained from food is: 1000"
-                + Ui.LS
+                + ui.LS
                 + "Your calorie lost from exercise is: 500"
-                + Ui.LS
+                + ui.LS
                 + "Your net calorie intake is: 500"
-                + Ui.LS
+                + ui.LS
                 + "Your calorie to goal is: 700"
-                + Ui.LS
+                + ui.LS
                 + "Percentage to goal: \u001B[32m|████      |        41.7%\u001B[0m"
-                + Ui.LS
-                + Ui.DIVIDER
-                + Ui.LS;
-        Ui.printCalorieResult(500, 1000, 1200);
+                + ui.LS
+                + ui.DIVIDER
+                + ui.LS;
+        ui.printCalorieResult(500, 1000, 1200);
         Assertions.assertEquals(expectedTestResult, outputStreamCaptor.toString()
         );
     }
