@@ -16,8 +16,10 @@ public class ViewExerciseListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        //TODO: Check if list is empty first, print error if it is
-        //TODO: Call relevant method, catch exceptions and return CommandResult with error message if required
-        return new CommandResult(String.format(MESSAGE_SUCCESS, 0, "list of exercise items (placeholder)"));
+        if (super.exerciseItems.getSize() == 0) {
+            return new CommandResult(MESSAGE_EMPTY_EXERCISE_LIST);
+        }
+        final String stringOfAllItems = super.exerciseItems.convertToString();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, super.exerciseItems.getSize(), stringOfAllItems));
     }
 }

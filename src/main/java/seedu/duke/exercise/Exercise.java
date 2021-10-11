@@ -3,6 +3,8 @@ package seedu.duke.exercise;
 public class Exercise {
     private String name;
     private int calorie;
+    public static final String EXERCISE_TYPE = "E";
+    public static final String FILE_TEXT_DELIMITER = "|";
 
     /**
      * Constructor for exercise object.
@@ -66,8 +68,8 @@ public class Exercise {
      *
      * @return Name and calorie of exercise in file format.
      */
-    public String toFiletextString(){
-        return this.getName() + "|" + this.getCalorie();
+    public String toFileTextString(){
+        return EXERCISE_TYPE + FILE_TEXT_DELIMITER + this.getName() + FILE_TEXT_DELIMITER + this.getCalorie();
     }
 
     //todo: handle negative calorie exception
