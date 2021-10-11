@@ -9,7 +9,7 @@ public class ExerciseList {
     private ArrayList<Exercise> exerciseList = new ArrayList<>();
 
     /**
-     * Returns the exercise list
+     * Returns the exercise list.
      *
      * @return Exercise list.
      */
@@ -60,15 +60,10 @@ public class ExerciseList {
      * @return Exercise list in string format.
      */
     public String convertToString() {
-        StringBuilder exerciseListToString;
+        StringBuilder exerciseListToString = new StringBuilder();
 
-        if (exerciseList.size() == 1) {
-            exerciseListToString = new StringBuilder("You have done 1 exercise:" + LS);
-        } else {
-            exerciseListToString = new StringBuilder("You have done " + exerciseList.size() + " exercises:" + LS);
-        }
         for (int i = 0; i < exerciseList.size(); i++) {
-            exerciseListToString.append("\t").append(i+1).append(". ").append(exerciseList.get(i)).append(LS);
+            exerciseListToString.append("\t").append(i + 1).append(". ").append(exerciseList.get(i)).append(LS);
         }
         return exerciseListToString.toString();
     }
@@ -78,13 +73,20 @@ public class ExerciseList {
      *
      * @return Integer value of the sum of calorie of all exercises.
      */
-    public int totalCalorie(){
+    public int totalCalorie() {
         int sumOfExerciseCalorie = 0;
 
         for (Exercise exercise : exerciseList) {
             sumOfExerciseCalorie += exercise.getCalories();
         }
         return sumOfExerciseCalorie;
+    }
+
+    /**
+     * Deletes all exercises in the exercise list.
+     */
+    public void clearExerciseList() {
+        this.exerciseList.clear();
     }
 
 }
