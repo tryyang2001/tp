@@ -69,4 +69,6 @@ public class Exercise {
     public String toFiletextString(){
         return this.getName() + "|" + this.getCalorie();
     }
+
+    //todo: handle negative calorie exception
 }

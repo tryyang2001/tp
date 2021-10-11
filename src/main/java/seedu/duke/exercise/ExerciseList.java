@@ -19,7 +19,7 @@ public class ExerciseList {
     public ArrayList<Exercise> getExerciseList() {
         return exerciseList;
     }
-    
+
     /**
      * Returns exercise item at a specific index in the exercise list.
      *
@@ -105,4 +105,7 @@ public class ExerciseList {
         }
         return exerciseListToString.toString();
     }
+
+    //todo get total calorie method
+
 }
