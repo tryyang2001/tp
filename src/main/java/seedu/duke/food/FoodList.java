@@ -35,7 +35,7 @@ public class FoodList {
     }
 
     /**
-     * Converts the entire food list to string format for printing purpose
+     * Converts the entire food list to string format for printing purpose.
      *
      * @return The food list in a single string
      */
