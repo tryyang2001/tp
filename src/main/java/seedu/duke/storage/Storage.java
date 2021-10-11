@@ -62,8 +62,8 @@ public class Storage {
      * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
     public ExerciseList loadExerciseListFile() throws UnableToReadFileException {
-        File profileFile = new File(FILEPATH_PROFILE);
-        checkForFile(profileFile, FILEPATH_PROFILE);
+        File profileFile = new File(FILEPATH_EXERCISE_LIST);
+        checkForFile(profileFile, FILEPATH_EXERCISE_LIST);
         //TODO Decode from exercise_list.txt
         ExerciseList exercises;
         return exercises;
@@ -77,8 +77,8 @@ public class Storage {
      * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
     public FoodList loadFoodListFile() throws UnableToReadFileException {
-        File profileFile = new File(FILEPATH_PROFILE);
-        checkForFile(profileFile, FILEPATH_PROFILE);
+        File profileFile = new File(FILEPATH_FOOD_LIST);
+        checkForFile(profileFile, FILEPATH_FOOD_LIST);
         //TODO Decode from food_list.txt
         FoodList foodItems;
         return foodItems;
