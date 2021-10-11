@@ -5,7 +5,7 @@ package seedu.duke.storage.exceptions;
  */
 public class UnableToReadFileException extends Exception {
     private static final String ERROR_MESSAGE = " file is inaccessible due to an environment error."
-            + System.lineSeparator() + "Please restart Fitbot and try again :(";
+            + System.lineSeparator() + "Please restart Fitbot and try again.";
 
     public UnableToReadFileException(String fileName) {
         super(fileName + ERROR_MESSAGE);

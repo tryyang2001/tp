@@ -6,18 +6,21 @@ import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-//TODO Add JavaDocs to public methods and class
-
+/**
+ * Handles all read and write operations to the storage files.
+ */
 public class Storage {
-    private static final String FILEPATH = "./data";
-    private static final String FILEPATH_PROFILE = FILEPATH + "/profile.txt";
-    private static final String FILEPATH_FOOD_LIST = FILEPATH + "/food_list.txt";
-    private static final String FILEPATH_EXERCISE_LIST = FILEPATH + "/exercise_list.txt";
+    private static final String FILEPATH = "./data/";
+    private static final String FILENAME_PROFILE = "profile.txt";
+    private static final String FILENAME_FOOD_LIST = "food_list.txt";
+    private static final String FILENAME_EXERCISE_LIST = "exercise_list.txt";
+    private static final String FILEPATH_PROFILE = FILEPATH + FILENAME_PROFILE;
+    private static final String FILEPATH_FOOD_LIST = FILEPATH + FILENAME_FOOD_LIST;
+    private static final String FILEPATH_EXERCISE_LIST = FILEPATH + FILENAME_EXERCISE_LIST;
 
     private static final String MESSAGE_CREATE_PROFILE = "No profile detected!"
             + "A new profile has been created successfully.";
@@ -27,22 +30,19 @@ public class Storage {
             + "A new exercise has been created successfully.";
 
     private final Encoder ENCODER = new Encoder();
+    private final Decoder DECODER = new Decoder();
 
     public Storage() {
 
     }
 
-    public void loadFiles() {
-        try {
-            loadProfileFile();
-            loadFoodListFile();
-            loadExerciseListFile();
-        } catch (UnableToReadFileException e) {
-            e.getMessage();
-            return;
-        }
-    }
-
+    /**
+     * Load profile data into a profile object.
+     * Used when the selected profile is accessed.
+     *
+     * @return Profile object with the details from the storage file
+     * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
+     */
     public Profile loadProfileFile() throws UnableToReadFileException {
         File profileFile = new File(FILEPATH_PROFILE);
         checkForFile(profileFile, FILEPATH_PROFILE);
@@ -51,6 +51,13 @@ public class Storage {
         return profile;
     }
 
+    /**
+     * Load exercises into an ExerciseList object.
+     * Used when the selected profile is accessed and its respective ExerciseList is loaded.
+     *
+     * @return ExerciseList object with the details from the storage file
+     * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
+     */
     public ExerciseList loadExerciseListFile() throws UnableToReadFileException {
         File profileFile = new File(FILEPATH_PROFILE);
         checkForFile(profileFile, FILEPATH_PROFILE);
@@ -59,6 +66,13 @@ public class Storage {
         return exercises;
     }
 
+    /**
+     * Load food items into a FoodList object.
+     * Used when the selected profile is accessed and its respective ExerciseList is loaded.
+     *
+     * @return ExerciseList object with the details from the storage file
+     * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
+     */
     public FoodList loadFoodListFile() throws UnableToReadFileException {
         File profileFile = new File(FILEPATH_PROFILE);
         checkForFile(profileFile, FILEPATH_PROFILE);
@@ -82,13 +96,13 @@ public class Storage {
 
     private void printFileCreated(String fileName) {
         switch (fileName) {
-        case "profile.txt":
+        case FILENAME_PROFILE:
             System.out.println(MESSAGE_CREATE_PROFILE);
             break;
-        case "exercise_list.txt":
+        case FILENAME_EXERCISE_LIST:
             System.out.println(MESSAGE_CREATE_EXERCISE_LIST);
             break;
-        case "food_list.txt":
+        case FILENAME_FOOD_LIST:
             System.out.println(MESSAGE_CREATE_FOOD_LIST);
             break;
         default:
@@ -96,13 +110,26 @@ public class Storage {
         }
     }
 
-    //TODO Import class Profile, ExerciseList, FoodList
+    /**
+     * Saves all the files into storage.
+     * Used when the program exits.
+     *
+     * @param p Profile of the current user
+     * @param e ExerciseList of the respective profile
+     * @param f FoodList of the respective profile
+     */
     public void saveAll(Profile p, ExerciseList e, FoodList f) {
         saveProfile(p);
         saveExercises(e);
         saveFoodList(f);
     }
 
+    /**
+     * Saves the profile details into storage.
+     * Used when there is an update to a profile attribute.
+     *
+     * @param profile Profile of the current user
+     */
     public void saveProfile(Profile profile) {
         ArrayList<String> profileDetails = ENCODER.encodeProfileDetails(profile);
         try {
@@ -112,6 +139,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the exercises into storage.
+     * Used when there is an update to the list.
+     *
+     * @param exercises ExerciseList to be saved
+     */
     public void saveExercises(ExerciseList exercises) {
         ArrayList<String> exerciseList = ENCODER.encodeExerciseList(exercises);
         try {
@@ -121,6 +154,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the food items into storage.
+     * Used when there is an update to the list.
+     *
+     * @param foodItems FoodList to be saved
+     */
     public void saveFoodList(FoodList foodItems) {
         ArrayList<String> foodList = ENCODER.encodeFoodList(foodItems);
         try {
