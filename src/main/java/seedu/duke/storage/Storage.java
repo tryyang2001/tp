@@ -1,5 +1,8 @@
 package seedu.duke.storage;
 
+import seedu.duke.exercise.ExerciseList;
+import seedu.duke.food.FoodList;
+import seedu.duke.profile.Profile;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 

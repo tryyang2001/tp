@@ -1,5 +1,11 @@
 package seedu.duke.storage;
 
+import seedu.duke.exercise.Exercise;
+import seedu.duke.exercise.ExerciseList;
+import seedu.duke.food.Food;
+import seedu.duke.food.FoodList;
+import seedu.duke.profile.Profile;
+
 import java.util.ArrayList;
 
 /**
@@ -20,10 +26,10 @@ public class Encoder {
     public ArrayList<String> encodeProfileDetails(Profile profile) {
         //TODO Update profile to incorporate toFileTextString() after merging
         ArrayList<String> profileDetails = new ArrayList<>();
-        profileDetails.add(profile.name);
-        profileDetails.add(profile.height.toString());
-        profileDetails.add(profile.weight.toString());
-        profileDetails.add(profile.calorieGoal.toString());
+        profileDetails.add(profile.getName());
+        profileDetails.add(profile.getHeight().toString());
+        profileDetails.add(profile.getWeight().toString());
+        profileDetails.add(profile.getCalorieGoal().toString());
         return profileDetails;
     }
 
