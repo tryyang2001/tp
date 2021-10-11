@@ -14,7 +14,7 @@ public class DeleteExerciseCommand extends Command {
             + "Trying to delete an exercise item? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "An exercise item has been deleted:" + Ui.LS + "%s"
-            + Ui.LS + "Number of exercise item(s) left: %2$d";;
+            + Ui.LS + "Number of exercise item(s) left: %2$d";
 
     private final int itemIndex;
 
@@ -24,7 +24,7 @@ public class DeleteExerciseCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (super.exerciseItems.getSize() == 0 ) {
+        if (super.exerciseItems.getSize() == 0) {
             return new CommandResult(MESSAGE_EMPTY_EXERCISE_LIST);
         }
         try {

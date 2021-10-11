@@ -16,7 +16,7 @@ public class ViewCommand extends Command {
     public CommandResult execute() {
         String foodMessage = "";
         if (super.foodItems.getSize() == 0) {
-           foodMessage = foodMessage + MESSAGE_EMPTY_FOOD_LIST;
+            foodMessage = foodMessage + MESSAGE_EMPTY_FOOD_LIST;
         }
         foodMessage = foodMessage + super.foodItems.convertToString();
 

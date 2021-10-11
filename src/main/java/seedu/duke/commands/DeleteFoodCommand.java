@@ -24,7 +24,7 @@ public class DeleteFoodCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (super.foodItems.getSize() == 0 ) {
+        if (super.foodItems.getSize() == 0) {
             return new CommandResult(MESSAGE_EMPTY_FOOD_LIST);
         }
         try {

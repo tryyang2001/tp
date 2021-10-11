@@ -9,7 +9,7 @@ public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
     private static final String MESSAGE_SUCCESS = "Exiting Fitbot...." + Ui.LS
-        + "Bye! Hope to see you again soon!!";
+            + "Bye! Hope to see you again soon!!";
 
     @Override
     public CommandResult execute() {

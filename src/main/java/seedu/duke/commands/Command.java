@@ -34,7 +34,7 @@ public abstract class Command {
     protected Profile profile;
     protected ExerciseList exerciseItems;
     protected FoodList foodItems;
-     
+
 
     /**
      * Returns the appropriate CommandResult after execution of the command.
@@ -48,6 +48,8 @@ public abstract class Command {
         this.profile = profile;
         this.exerciseItems = exerciseItems;
         this.foodItems = foodItems;
-    };
+    }
+
+    ;
 
 }

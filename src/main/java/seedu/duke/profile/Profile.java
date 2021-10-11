@@ -15,11 +15,11 @@ public class Profile {
     /**
      * Constructor for the Profile class.
      *
-     * @param name Name of user
+     * @param name   Name of user
      * @param height Height of user
      * @param weight Weight of user
      * @throws InvalidCharacteristicException If a value of <= 0 is provided for height or weight
-     * @throws NullCharacteristicException When the input name is null or ""
+     * @throws NullCharacteristicException    When the input name is null or ""
      */
     public Profile(String name, double height, double weight)
             throws InvalidCharacteristicException {
@@ -29,18 +29,18 @@ public class Profile {
         setCalorieGoal(0); //Initialize to 0 first
     }
 
-    public Profile () {
+    public Profile() {
 
     }
 
-    public void setProfile(String name, double height, double weight)  throws InvalidCharacteristicException {
+    public void setProfile(String name, double height, double weight) throws InvalidCharacteristicException {
         setName(name);
         setHeight(height);
         setWeight(weight);
     }
 
     public void setName(String name) {
-     //   checkNameValidity(name);
+        //   checkNameValidity(name);
         this.name = name;
     }
 
