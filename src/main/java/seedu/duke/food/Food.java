@@ -1,6 +1,8 @@
 package seedu.duke.food;
 
 public class Food {
+    public static final String FOOD_TYPE = "F";
+    public static final String FILE_TEXT_DELIMITER = "|";
     private String name;
     private int calories;
 
@@ -52,10 +54,19 @@ public class Food {
     }
 
     /**
-     * Prints the food in the format of name plus the food calorie.
+     * Prints the food item in the format of food name description + (calories consumed).
+     * @return The food item with name and calories in string format
      */
     @Override
     public String toString() {
         return this.getName() + " (" + this.getCalories() + " cal)";
+    }
+
+    /**
+     * Converts the food item to string with attributes separated by delimiter for data storage.
+     * @return The food item with food type, name and calories in the string format with delimiters
+     */
+    public String toFileTextString() {
+        return FOOD_TYPE + FILE_TEXT_DELIMITER + this.getName() + FILE_TEXT_DELIMITER + this.getCalories();
     }
 }
