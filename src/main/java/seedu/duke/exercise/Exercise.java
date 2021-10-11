@@ -2,7 +2,7 @@ package seedu.duke.exercise;
 
 public class Exercise {
     private String name;
-    private int calorie;
+    private int calories;
     public static final String EXERCISE_TYPE = "E";
     public static final String FILE_TEXT_DELIMITER = "|";
 
@@ -10,11 +10,11 @@ public class Exercise {
      * Constructor for exercise object.
      *
      * @param name    Description of the exercise.
-     * @param calorie Calorie burnt from the exercise.
+     * @param calories Calorie burnt from the exercise.
      */
-    public Exercise(String name, int calorie) {
+    public Exercise(String name, int calories) {
         this.name = name;
-        this.calorie = calorie;
+        this.calories = calories;
     }
 
     /**
@@ -31,8 +31,8 @@ public class Exercise {
      *
      * @return Calorie burnt from the exercise.
      */
-    public int getCalorie() {
-        return calorie;
+    public int getCalories() {
+        return calories;
     }
 
     /**
@@ -47,10 +47,10 @@ public class Exercise {
     /**
      * Sets or updates the calorie burnt from the exercise.
      *
-     * @param calorie New calorie burnt from the exercise.
+     * @param calories New calorie burnt from the exercise.
      */
-    public void setCalorie(int calorie) {
-        this.calorie = calorie;
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Exercise {
      */
     @Override
     public String toString() {
-        return this.getName() + " (" + this.getCalorie() + " cal)";
+        return this.getName() + " (" + this.getCalories() + " cal)";
     }
 
     /**
@@ -69,8 +69,6 @@ public class Exercise {
      * @return Name and calorie of exercise in file format.
      */
     public String toFileTextString(){
-        return EXERCISE_TYPE + FILE_TEXT_DELIMITER + this.getName() + FILE_TEXT_DELIMITER + this.getCalorie();
+        return EXERCISE_TYPE + FILE_TEXT_DELIMITER + this.getName() + FILE_TEXT_DELIMITER + this.getCalories();
     }
-
-    //todo: handle negative calorie exception
 }

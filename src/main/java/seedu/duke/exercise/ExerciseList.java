@@ -54,23 +54,6 @@ public class ExerciseList {
         return exerciseList.remove(index);
     }
 
-//    /**
-//     * Prints out all the exercises in the exercise list.
-//     */
-//    public void printExerciseList() {
-//        if (exerciseList.size() == 0) {
-//            System.out.println(MESSAGE_EMPTY_EXERCISE_LIST);
-//        } else if (exerciseList.size() == 1) {
-//            System.out.println("You have done 1 exercise:");
-//            System.out.println("\t" + exerciseList.get(0));
-//        } else {
-//            System.out.println("You have done " + exerciseList.size() + " exercises:");
-//            for (int i = 0; i < exerciseList.size(); i++) {
-//                System.out.println("\t" + i + 1 + ". " + exerciseList.get(i));
-//            }
-//        }
-//    }
-
     /**
      * Returns exercise list in a string format.
      *
@@ -99,7 +82,7 @@ public class ExerciseList {
         int sumOfExerciseCalorie = 0;
 
         for (Exercise exercise : exerciseList) {
-            sumOfExerciseCalorie += exercise.getCalorie();
+            sumOfExerciseCalorie += exercise.getCalories();
         }
         return sumOfExerciseCalorie;
     }
