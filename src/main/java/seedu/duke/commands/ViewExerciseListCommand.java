@@ -11,7 +11,7 @@ public class ViewExerciseListCommand extends Command {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format!"
             + "Trying to view the exercise list? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "You have done %1$d exercises:" + Ui.LS + "%2$s";
+    public static final String MESSAGE_SUCCESS = "You have done %1$d exercise(s):" + Ui.LS + "%2$s";
 
 
     @Override

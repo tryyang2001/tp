@@ -29,7 +29,7 @@ public class AddExerciseCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (exercise.getCalories() <= 0){
+        if (exercise.getCalories() <= 0) {
             return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
         }
         super.exerciseItems.addExercise(this.exercise);

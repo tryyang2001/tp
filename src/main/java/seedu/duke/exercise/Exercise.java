@@ -9,7 +9,7 @@ public class Exercise {
     /**
      * Constructor for exercise object.
      *
-     * @param name    Description of the exercise.
+     * @param name     Description of the exercise.
      * @param calories Calorie burnt from the exercise.
      */
     public Exercise(String name, int calories) {
@@ -68,7 +68,7 @@ public class Exercise {
      *
      * @return Name and calorie of exercise in file format.
      */
-    public String toFileTextString(){
+    public String toFileTextString() {
         return EXERCISE_TYPE + FILE_TEXT_DELIMITER + this.getName() + FILE_TEXT_DELIMITER + this.getCalories();
     }
 }
