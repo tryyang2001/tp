@@ -11,17 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ProfileTest {
 
     @Test
-    void createProfile_nullNameInput_expectException() {
-        String name = null;
-        double height = 170.2;
-        double weight = 60.8;
-        assertThrows(NullCharacteristicException.class,
-            () -> {
-                Profile p = new Profile(name, height, weight);
-            });
-    }
-
-    @Test
     void createProfile_negativeInputs_expectException() {
         String name = "John";
         double height = -1;

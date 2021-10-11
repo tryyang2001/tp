@@ -1,15 +1,13 @@
-package seedu.duke;
+package seedu.duke.food;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.food.Food;
-import seedu.duke.food.FoodList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class FoodListTest {
 
+class FoodListTest {
     @Test
     void addFoodUsingFoodClassParameter_foodClassParameter_expectExistsInList() {
         FoodList foodList = new FoodList();

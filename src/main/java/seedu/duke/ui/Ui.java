@@ -1,7 +1,10 @@
-package seedu.duke;
+package seedu.duke.ui;
+
+import seedu.duke.parser.Parser;
 
 import java.text.DecimalFormat;
 import java.lang.System;
+import java.util.Scanner;
 
 /**
  * This class deals with interaction with user on CLI.
@@ -23,7 +26,8 @@ public class Ui {
     public static final int MAX_BAR = 16;
     public static final int BAR_WIDTH = 10;
     public static final String SPACE = " ";
-    public static final String DIVIDER = "_____________________________________________________________________";
+    public static final String DIVIDER = "___________________________________________"
+            + "_______________________________________________";
     public static final String LS = System.lineSeparator();
     public static final String EMOJI_1 = " ᕦ(ò_óˇ)";
     public static final String FITBOT_V0 = "  ______ _ _   _           _"
@@ -42,6 +46,20 @@ public class Ui {
     public static final String MESSAGE_CALORIE_NET = "Your net calorie intake is: %d";
     public static final String MESSAGE_CALORIE_GOAL = "Your calorie to goal is: %d";
     public static final String MESSAGE_CALORIE_TO_GOAL_PERCENTAGE = "Percentage to goal: ";
+    //TODO: These constants are to be moved to UI class
+    public static final String QUOTATION = "\"";
+    private static final String MESSAGE_BYE = "Bye! Hope to see you again soon!!";
+
+    private Scanner scanner;
+
+    public Ui() {
+        this.scanner = new Scanner(System.in);
+        this.printStartApplicationPage();
+    }
+
+    public String getUserInput() {  //To be moved into UI
+        return scanner.nextLine();
+    }
 
     /**
      * Generate a progress bar between net calorie and calorieGoal.
@@ -110,7 +128,7 @@ public class Ui {
      *
      * @param messages is the strings that need to be printed on CLI
      */
-    public static void formatMessageFramedWithDivider(String... messages) {
+    public void formatMessageFramedWithDivider(String... messages) {
         System.out.println(DIVIDER);
         for (String message : messages) {
             System.out.println(message);
@@ -144,11 +162,12 @@ public class Ui {
      * @param foodCalories     is the total calories gained by consuming food
      * @param calorieGoal      is the goal set by the user
      */
-    public static void printCalorieResult(int exerciseCalories, int foodCalories, int calorieGoal) {
+    public void printCalorieResult(int exerciseCalories, int foodCalories, int calorieGoal) {
         formatMessageFramedWithDivider(printCalories(exerciseCalories, foodCalories, calorieGoal));
     }
 
-    public static void printStartApplicationPage() {
+
+    public void printStartApplicationPage() {
         System.out.println(FITBOT_V0 + EMOJI_1);
     }
 }

@@ -9,7 +9,7 @@ public class Food {
     /**
      * Constructor for the food object.
      *
-     * @param name The name or description of the food
+     * @param name     The name or description of the food
      * @param calories The calorie of the food consumed
      */
     public Food(String name, int calories) {
@@ -55,6 +55,7 @@ public class Food {
 
     /**
      * Prints the food item in the format of food name description + (calories consumed).
+     *
      * @return The food item with name and calories in string format
      */
     @Override
@@ -64,6 +65,7 @@ public class Food {
 
     /**
      * Converts the food item to string with attributes separated by delimiter for data storage.
+     *
      * @return The food item with food type, name and calories in the string format with delimiters
      */
     public String toFileTextString() {

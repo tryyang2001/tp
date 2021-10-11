@@ -56,16 +56,8 @@ public class ExerciseList {
      *
      * @param index Index of the exercise to be deleted.
      */
-    public void deleteExercise(int index) {
-        Exercise deletedExercise = exerciseList.remove(index);
-
-        System.out.println(MESSAGE_EXERCISE_DELETED);
-        System.out.println("\t" + deletedExercise);
-        if (exerciseList.size() == 1) {
-            System.out.println("There is" + exerciseList.size() + "task left.");
-        } else {
-            System.out.println("There are" + exerciseList.size() + "tasks left.");
-        }
+    public Exercise deleteExercise(int index) {
+        return exerciseList.remove(index);
     }
 
     /**

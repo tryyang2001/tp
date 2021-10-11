@@ -21,6 +21,7 @@ import seedu.duke.commands.ViewExerciseListCommand;
 import seedu.duke.commands.ViewFoodListCommand;
 import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
+import seedu.duke.ui.Ui;
 
 /**
  * Parses user input to determine which command to execute.
@@ -28,7 +29,7 @@ import seedu.duke.parser.exceptions.ParamInvalidException;
 public class Parser {
     protected static final String EMPTY = "";
     protected static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Fitbot is unable to understand this command! "
-            + "Lost? Try typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + " to see the list of commands!";
+            + Ui.LS + "Lost? Try typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + " to see the list of commands!";
     protected static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please input a description for this item!";
     protected static final String MESSAGE_ERROR_NO_NAME = "Please input your name!";
     protected static final String MESSAGE_ERROR_NO_HEIGHT = "Please input height as a number!";
@@ -251,7 +252,7 @@ public class Parser {
 
     /**
      * Extract only the parameter required so that any additional parameter
-     * specified behind this string (if any) removed.
+     * specified behind this string (if any) is removed.
      * E.g. "John Doe w/20" is returned as "John Doe".
      */
     private String extractRelevantParameter(String params) {
@@ -321,7 +322,7 @@ public class Parser {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_NAME
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String name = extractRelevantParameter(stringAfterPrefix);
+            String name = extractRelevantParameter(stringAfterPrefix).trim();
             if (name.equals(EMPTY)) {
                 throw new ParamInvalidException(MESSAGE_ERROR_NO_NAME);
             }
