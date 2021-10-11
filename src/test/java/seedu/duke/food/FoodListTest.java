@@ -47,7 +47,7 @@ class FoodListTest {
         foodList.addFood(new Food("yong tau foo", 536));
         foodList.addFood(new Food("mcspicy alacarte", 528));
         foodList.addFood(new Food("char kway teow", 744));
-        foodList.deleteAll();
+        foodList.clearFoodList();
         assertEquals(0, foodList.getSize());
     }
 }
