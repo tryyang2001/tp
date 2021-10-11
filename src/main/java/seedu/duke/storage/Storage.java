@@ -3,10 +3,12 @@ package seedu.duke.storage;
 import seedu.duke.exercise.ExerciseList;
 import seedu.duke.food.FoodList;
 import seedu.duke.profile.Profile;
+import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,12 +20,12 @@ import java.util.ArrayList;
  */
 public class Storage {
     private static final String FILEPATH = "./data/";
-    private static final String FILENAME_PROFILE = "profile.txt";
-    private static final String FILENAME_FOOD_LIST = "food_list.txt";
-    private static final String FILENAME_EXERCISE_LIST = "exercise_list.txt";
-    private static final String FILEPATH_PROFILE = FILEPATH + FILENAME_PROFILE;
-    private static final String FILEPATH_FOOD_LIST = FILEPATH + FILENAME_FOOD_LIST;
-    private static final String FILEPATH_EXERCISE_LIST = FILEPATH + FILENAME_EXERCISE_LIST;
+    public static final String FILENAME_PROFILE = "profile.txt";
+    public static final String FILENAME_FOOD_LIST = "food_list.txt";
+    public static final String FILENAME_EXERCISE_LIST = "exercise_list.txt";
+    public static final String FILEPATH_PROFILE = FILEPATH + FILENAME_PROFILE;
+    public static final String FILEPATH_FOOD_LIST = FILEPATH + FILENAME_FOOD_LIST;
+    public static final String FILEPATH_EXERCISE_LIST = FILEPATH + FILENAME_EXERCISE_LIST;
 
     private static final String MESSAGE_CREATE_PROFILE = "No profile detected!"
             + "A new profile has been created successfully.";
@@ -32,8 +34,8 @@ public class Storage {
     private static final String MESSAGE_CREATE_EXERCISE_LIST = "No exercises detected!"
             + "A new exercise has been created successfully.";
 
-    private final Encoder ENCODER = new Encoder();
-    private final Decoder DECODER = new Decoder();
+    private final Encoder encoder = new Encoder();
+    private final Decoder decoder = new Decoder();
 
     public Storage() {
 
@@ -47,11 +49,8 @@ public class Storage {
      * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
     public Profile loadProfileFile() throws UnableToReadFileException {
-        File profileFile = new File(FILEPATH_PROFILE);
-        checkForFile(profileFile, FILEPATH_PROFILE);
-        //TODO Decode from profile.txt
-        Profile profile;
-        return profile;
+        checkForFile(FILEPATH_PROFILE);
+        return readFromProfileFile();
     }
 
     /**
@@ -63,10 +62,8 @@ public class Storage {
      */
     public ExerciseList loadExerciseListFile() throws UnableToReadFileException {
         File profileFile = new File(FILEPATH_EXERCISE_LIST);
-        checkForFile(profileFile, FILEPATH_EXERCISE_LIST);
-        //TODO Decode from exercise_list.txt
-        ExerciseList exercises;
-        return exercises;
+        checkForFile(FILEPATH_EXERCISE_LIST);
+        return readFromExerciseListFile();
     }
 
     /**
@@ -77,39 +74,47 @@ public class Storage {
      * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
     public FoodList loadFoodListFile() throws UnableToReadFileException {
-        File profileFile = new File(FILEPATH_FOOD_LIST);
-        checkForFile(profileFile, FILEPATH_FOOD_LIST);
-        //TODO Decode from food_list.txt
-        FoodList foodItems;
-        return foodItems;
+        checkForFile(FILEPATH_FOOD_LIST);
+        return readFromFoodListFile();
     }
 
-    private void checkForFile(File f, String filePath) throws UnableToReadFileException {
+    private void checkForFile(String filePath) throws UnableToReadFileException {
+        File f = new File(filePath);
         String[] paths = filePath.split("/");
         String fileName = paths[2];
         try {
-            Files.createDirectories(Paths.get(FILEPATH));
-            if (f.createNewFile()) {
-                printFileCreated(fileName);
+            Files.createDirectories(Paths.get("./data"));
+            if (!f.exists()) {
+                f.createNewFile();
             }
         } catch (IOException e) {
             throw new UnableToReadFileException(fileName);
         }
     }
 
-    private void printFileCreated(String fileName) {
-        switch (fileName) {
-        case FILENAME_PROFILE:
-            System.out.println(MESSAGE_CREATE_PROFILE);
-            break;
-        case FILENAME_EXERCISE_LIST:
-            System.out.println(MESSAGE_CREATE_EXERCISE_LIST);
-            break;
-        case FILENAME_FOOD_LIST:
-            System.out.println(MESSAGE_CREATE_FOOD_LIST);
-            break;
-        default:
-            break;
+    private Profile readFromProfileFile() throws UnableToReadFileException {
+        try {
+            return decoder.getProfileFromData();
+        } catch (FileNotFoundException e) {
+            throw new UnableToReadFileException(Storage.FILENAME_PROFILE);
+        } catch (InvalidCharacteristicException e) {
+            throw new UnableToReadFileException(Storage.FILENAME_PROFILE);
+        }
+    }
+
+    private ExerciseList readFromExerciseListFile() throws UnableToReadFileException {
+        try {
+            return decoder.getExerciseListFromData();
+        } catch (FileNotFoundException e) {
+            throw new UnableToReadFileException(Storage.FILEPATH_EXERCISE_LIST);
+        }
+    }
+
+    private FoodList readFromFoodListFile() throws UnableToReadFileException {
+        try {
+            return decoder.getFoodListFromData();
+        } catch (FileNotFoundException e) {
+            throw new UnableToReadFileException(Storage.FILEPATH_FOOD_LIST);
         }
     }
 
@@ -134,7 +139,7 @@ public class Storage {
      * @param profile Profile of the current user
      */
     public void saveProfile(Profile profile) {
-        ArrayList<String> profileDetails = ENCODER.encodeProfileDetails(profile);
+        ArrayList<String> profileDetails = encoder.encodeProfileDetails(profile);
         try {
             writeToFile(profileDetails, FILEPATH_PROFILE);
         } catch (UnableToWriteFileException e) {
@@ -149,7 +154,7 @@ public class Storage {
      * @param exercises ExerciseList to be saved
      */
     public void saveExercises(ExerciseList exercises) {
-        ArrayList<String> exerciseList = ENCODER.encodeExerciseList(exercises);
+        ArrayList<String> exerciseList = encoder.encodeExerciseList(exercises);
         try {
             writeToFile(exerciseList, FILEPATH_EXERCISE_LIST);
         } catch (UnableToWriteFileException e) {
@@ -164,7 +169,7 @@ public class Storage {
      * @param foodItems FoodList to be saved
      */
     public void saveFoodList(FoodList foodItems) {
-        ArrayList<String> foodList = ENCODER.encodeFoodList(foodItems);
+        ArrayList<String> foodList = encoder.encodeFoodList(foodItems);
         try {
             writeToFile(foodList, FILEPATH_FOOD_LIST);
         } catch (UnableToWriteFileException e) {
@@ -183,5 +188,4 @@ public class Storage {
             throw new UnableToWriteFileException();
         }
     }
-
 }

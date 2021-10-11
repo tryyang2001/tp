@@ -15,28 +15,31 @@ class ProfileTest {
         String name = "John";
         double height = -1;
         double weight = -1;
+        int calorieGoal = 0;
         assertThrows(InvalidCharacteristicException.class,
             () -> {
-                Profile p = new Profile(name, height, weight);
+                Profile p = new Profile(name, height, weight, calorieGoal);
             });
     }
 
     @Test
-    void setHeight_negativeInput_expectException() throws InvalidCharacteristicException, NullCharacteristicException {
+    void setHeight_negativeInput_expectException() throws InvalidCharacteristicException {
         String name = "John";
         double height = 170.2;
         double weight = 60.5;
-        Profile p = new Profile(name, height, weight);
+        int calorieGoal = 1240;
+        Profile p = new Profile(name, height, weight, calorieGoal);
         assertThrows(InvalidCharacteristicException.class,
             () -> p.setHeight(-1));
     }
 
     @Test
-    void setWeight_negativeInput_expectException() throws InvalidCharacteristicException, NullCharacteristicException {
+    void setWeight_negativeInput_expectException() throws InvalidCharacteristicException {
         String name = "John";
         double height = 170.2;
         double weight = 60.5;
-        Profile p = new Profile(name, height, weight);
+        int calorieGoal = 1240;
+        Profile p = new Profile(name, height, weight, calorieGoal);
         assertThrows(InvalidCharacteristicException.class,
             () -> p.setWeight(-1));
     }

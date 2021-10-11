@@ -7,7 +7,11 @@ public class ExerciseList {
     public static final String MESSAGE_EXERCISE_ADDED = "An exercise has been added:";
     private static final String MESSAGE_EXERCISE_DELETED = "You have removed the exercise:";
     private static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise is found.";
-    private ArrayList<Exercise> exerciseList = new ArrayList<>();
+    private ArrayList<Exercise> exerciseList;
+
+    public ExerciseList() {
+        this.exerciseList = new ArrayList<>();
+    }
 
     /**
      * Returns exercise item at a specific index in the exercise list.

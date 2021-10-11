@@ -27,12 +27,12 @@ public class Profile {
      * @throws InvalidCharacteristicException If a value of <= 0 is provided for height or weight
      * @throws NullCharacteristicException    When the input name is null or ""
      */
-    public Profile(String name, double height, double weight)
+    public Profile(String name, double height, double weight, int calorieGoal)
             throws InvalidCharacteristicException {
         setName(name);
         setHeight(height);
         setWeight(weight);
-        setCalorieGoal(0); //Initialize to 0 first
+        setCalorieGoal(calorieGoal); //Initialize to 0 first
     }
 
     public Profile() {
@@ -46,7 +46,6 @@ public class Profile {
     }
 
     public void setName(String name) {
-        //   checkNameValidity(name);
         this.name = name;
     }
 
@@ -126,6 +125,7 @@ public class Profile {
      **/
     public static String retrieveBmiStatus(double bmi) {
         String result;
+        assert bmi > 0;
         if (bmi < 18.5) {
             result = BMI_STATUS_UNDERWEIGHT;
         } else if (bmi <= 24.9) {
@@ -140,6 +140,10 @@ public class Profile {
 
     public int calculateNetCalories(int foodCalories, int exerciseCalories) {
         return foodCalories - exerciseCalories;
+    }
+
+    public String toFileTextString() {
+        return getName() + "|" + getHeight() + "|" + getWeight() + "|" + getCalorieGoal();
     }
 
 }

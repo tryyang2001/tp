@@ -7,6 +7,9 @@ import seedu.duke.exercise.ExerciseList;
 import seedu.duke.food.FoodList;
 import seedu.duke.parser.Parser;
 import seedu.duke.profile.Profile;
+import seedu.duke.storage.Decoder;
+import seedu.duke.storage.Storage;
+import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.ui.Ui;
 
 
@@ -16,11 +19,11 @@ import seedu.duke.ui.Ui;
  */
 public class Main {
 
-    //TODO: Initialise Storage
     private ExerciseList exerciseItems;
     private FoodList foodItems;
     private Profile profile;
     private Ui ui;
+    private Storage storage;
 
 
     /**
@@ -44,10 +47,19 @@ public class Main {
      * storage file, then showing the welcome message.
      */
     private void start() {
+        this.storage = new Storage();
+        //TODO initialize this with the storage file after merging
         this.exerciseItems = new ExerciseList();
-        this.foodItems = new FoodList();
-        this.profile = new Profile();
         this.ui = new Ui();
+        try {
+            this.profile = storage.loadProfileFile();
+            this.foodItems = storage.loadFoodListFile();
+        } catch (UnableToReadFileException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
