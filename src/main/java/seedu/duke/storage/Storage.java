@@ -61,7 +61,6 @@ public class Storage {
      * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
     public ExerciseList loadExerciseListFile() throws UnableToReadFileException {
-        File profileFile = new File(FILEPATH_EXERCISE_LIST);
         checkForFile(FILEPATH_EXERCISE_LIST);
         return readFromExerciseListFile();
     }
