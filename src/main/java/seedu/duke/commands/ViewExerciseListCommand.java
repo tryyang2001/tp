@@ -11,13 +11,15 @@ public class ViewExerciseListCommand extends Command {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format!"
             + "Trying to view the exercise list? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "You have done %1$d exercises:" + Ui.LS + "%2$s";
+    public static final String MESSAGE_SUCCESS = "You have done %1$d exercise(s):" + Ui.LS + "%2$s";
 
 
     @Override
     public CommandResult execute() {
-        //TODO: Check if list is empty first, print error if it is
-        //TODO: Call relevant method, catch exceptions and return CommandResult with error message if required
-        return new CommandResult(String.format(MESSAGE_SUCCESS, 0, "list of exercise items (placeholder)"));
+        if (super.exerciseItems.getSize() == 0) {
+            return new CommandResult(MESSAGE_EMPTY_EXERCISE_LIST);
+        }
+        final String stringOfAllItems = super.exerciseItems.convertToString();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, super.exerciseItems.getSize(), stringOfAllItems));
     }
 }

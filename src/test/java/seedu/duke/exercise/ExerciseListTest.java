@@ -40,9 +40,12 @@ class ExerciseListTest {
     }
 
     @Test
-    void printExerciseList_threeExercisesInList_expectPrintFromList() {
+    void totalCalorie_someExercises_expectTotalCalorie() {
         ExerciseList exerciseList = new ExerciseList();
         exerciseList.addExercise(new Exercise("Running", 250));
-        exerciseList.printExerciseList();
+        exerciseList.addExercise(new Exercise("Jumping Jacks", 100));
+        exerciseList.addExercise(new Exercise("Skipping", 200));
+        exerciseList.addExercise(new Exercise("Swimming", 300));
+        assertEquals(850, exerciseList.totalCalorie());
     }
 }
