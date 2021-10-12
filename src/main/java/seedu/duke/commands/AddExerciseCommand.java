@@ -1,6 +1,7 @@
 package seedu.duke.commands;
 
 import seedu.duke.exercise.Exercise;
+import seedu.duke.storage.Storage;
 import seedu.duke.ui.Ui;
 
 /**
@@ -31,7 +32,7 @@ public class AddExerciseCommand extends Command {
     public CommandResult execute() {
         if (exercise.getCalories() <= 0) {
             return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
-        }
+        
         super.exerciseItems.addExercise(this.exercise);
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.exercise));
     }

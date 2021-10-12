@@ -32,8 +32,7 @@ public class Encoder {
     public ArrayList<String> encodeExerciseList(ExerciseList exerciseList) {
         ArrayList<String> exercises = new ArrayList<>();
         for (int i = 0; i < exerciseList.getSize(); i++) {
-            //TODO fix this code once the command of .toFileTextString is avail
-            //exercises.add(exerciseList.getExercise(i).toFileTextString());
+            exercises.add(exerciseList.getExercise(i).toFileTextString());
         }
         return exercises;
     }

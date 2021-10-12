@@ -48,18 +48,16 @@ public class Main {
      */
     private void start() {
         this.storage = new Storage();
-        //TODO initialize this with the storage file after merging
-        this.exerciseItems = new ExerciseList();
         this.ui = new Ui();
         try {
             this.profile = storage.loadProfileFile();
             this.foodItems = storage.loadFoodListFile();
+            this.exerciseItems = storage.loadExerciseListFile();
         } catch (UnableToReadFileException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 

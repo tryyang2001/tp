@@ -95,9 +95,9 @@ public class Storage {
         try {
             return decoder.getProfileFromData();
         } catch (FileNotFoundException e) {
-            throw new UnableToReadFileException(Storage.FILENAME_PROFILE);
+            throw new UnableToReadFileException(FILENAME_PROFILE);
         } catch (InvalidCharacteristicException e) {
-            throw new UnableToReadFileException(Storage.FILENAME_PROFILE);
+            throw new UnableToReadFileException(FILENAME_PROFILE);
         }
     }
 
@@ -105,7 +105,7 @@ public class Storage {
         try {
             return decoder.getExerciseListFromData();
         } catch (FileNotFoundException e) {
-            throw new UnableToReadFileException(Storage.FILEPATH_EXERCISE_LIST);
+            throw new UnableToReadFileException(FILEPATH_EXERCISE_LIST);
         }
     }
 
@@ -113,7 +113,7 @@ public class Storage {
         try {
             return decoder.getFoodListFromData();
         } catch (FileNotFoundException e) {
-            throw new UnableToReadFileException(Storage.FILEPATH_FOOD_LIST);
+            throw new UnableToReadFileException(FILEPATH_FOOD_LIST);
         }
     }
 
