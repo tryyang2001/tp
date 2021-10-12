@@ -84,4 +84,5 @@ public class Ui {
         logger.log(Level.INFO, "start of application");
         System.out.println(FITBOT_V0 + EMOJI_1 + LS + MESSAGE_WELCOME);
     }
+
 }
