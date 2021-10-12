@@ -31,7 +31,7 @@ public class DeleteFoodCommand extends Command {
         }
         if (this.itemIndex == Parser.ALL_INDICES) {
             super.foodItems.clearFoodList();
-            assert(foodItems.getSize() == 0);
+            assert foodItems.getSize() == 0 : "The size of the food list should be 0 after clear";
             return new CommandResult(MESSAGE_FOOD_CLEAR);
         }
         try {

@@ -29,7 +29,7 @@ public class AddFoodCommand extends Command {
             return new CommandResult(MESSAGE_INVALID_FOOD_CALORIES);
         }
         super.foodItems.addFood(this.food);
-        assert(foodItems.getSize() > 0);
+        assert foodItems.getSize() > 0 : "The size of the food list should at least larger than 0";
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.food));
     }
 }
