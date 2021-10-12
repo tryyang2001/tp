@@ -114,7 +114,7 @@ public class Parser {
                 itemIndex= convertItemNumToItemIndex(Integer.parseInt(description.trim()));
                 return new DeleteExerciseCommand(itemIndex);
             } else {
-                boolean isClear = description.trim().toLowerCase().equals("all");
+                boolean isClear = description.trim().equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
                 if (isClear) {
                     return new DeleteFoodCommand(ALL_INDICES);
                 }
