@@ -23,6 +23,8 @@ import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
 import seedu.duke.ui.Ui;
 
+import java.util.Locale;
+
 /**
  * Parses user input to determine which command to execute.
  */
@@ -108,10 +110,19 @@ public class Parser {
         try {
             final String itemTypePrefix = extractItemTypePrefix(params);
             final String description = extractItemDescription(params, itemTypePrefix).split(" ")[0];
-            final int itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
+            final int itemIndex;
+            boolean isClear = description.trim().toLowerCase().equals("all");
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
+                if (isClear) {
+                    return new DeleteExerciseCommand(0);
+                }
+                itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
                 return new DeleteExerciseCommand(itemIndex);
             } else {
+                if (isClear) {
+                    return new DeleteFoodCommand(0);
+                }
+                itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
                 return new DeleteFoodCommand(itemIndex);
             }
         } catch (ItemNotSpecifiedException e) {

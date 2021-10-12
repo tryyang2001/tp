@@ -14,6 +14,8 @@ public class AddExerciseCommand extends Command {
             + "Trying to add an exercise item? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "An exercise item has been added:" + Ui.LS + "%s";
+    public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
+            + Ui.LS + "Try a positive value instead";
 
     private Exercise exercise;
     private final String description;
@@ -27,6 +29,9 @@ public class AddExerciseCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        if (exercise.getCalories() <= 0) {
+            return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
+        }
         super.exerciseItems.addExercise(this.exercise);
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.exercise));
     }
