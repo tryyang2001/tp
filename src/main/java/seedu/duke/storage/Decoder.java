@@ -88,7 +88,6 @@ public class Decoder {
         String[] foodDetails = line.split(FILE_TEXT_DELIMITER);
         String name = foodDetails[1];
         int calories = Integer.parseInt(foodDetails[2]);
-        Food temp = new Food(name, calories);
         foodItems.addFood(new Food(name, calories));
     }
 }

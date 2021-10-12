@@ -6,7 +6,6 @@ import seedu.duke.ui.Ui;
  * Represents the command that when executed, shows the value of name, height and weight in the Profile.
  */
 public class ProfileCommand extends Command {
-    public static final String COMMAND_WORD = "profile";
     public static final String MESSAGE_SUCCESS = "Hello! This is your current profile:";
     private static final String MESSAGE_NAME = "Your name is %s.";
     private static final String MESSAGE_HEIGHT = "Your height is %scm.";

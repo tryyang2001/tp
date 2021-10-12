@@ -22,6 +22,7 @@ public abstract class Command {
     public static final String COMMAND_WORD_DELETE = "delete";
     public static final String COMMAND_WORD_VIEW = "view";
     public static final String COMMAND_WORD_BMI = "bmi";
+    public static final String COMMAND_WORD_PROFILE = "profile";
     public static final int COMMAND_ADD_EXPECTED_NUM_DELIMITERS = 2;
     public static final int COMMAND_BMI_EXPECTED_NUM_DELIMITERS = 2;
     public static final String COMMAND_WORD_DELETE_ALL = "all";
@@ -54,6 +55,9 @@ public abstract class Command {
         this.profile = profile;
         this.exerciseItems = exerciseItems;
         this.foodItems = foodItems;
+        assert profile != null : "Profile supplied to command should not be null";
+        assert exerciseItems != null : "Exercise items supplied to command should not be null";
+        assert foodItems != null : "Food items supplied to command should not be null";
     }
 
 

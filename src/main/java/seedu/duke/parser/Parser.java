@@ -22,8 +22,6 @@ import seedu.duke.commands.ViewExerciseListCommand;
 import seedu.duke.commands.ViewFoodListCommand;
 import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
-import seedu.duke.storage.Decoder;
-import seedu.duke.storage.Storage;
 import seedu.duke.ui.Ui;
 
 /**
@@ -52,7 +50,6 @@ public class Parser {
     public static final int PARAMS_ALL_INDICES = 0;
 
 
-
     /**
      * Returns the correct command to be executed depending on user input.
      * Command words are case-insensitive.
@@ -79,14 +76,14 @@ public class Parser {
             return parseViewItems(params);
         case Command.COMMAND_WORD_BMI:
             return parseBmi(params);
+        case Command.COMMAND_WORD_PROFILE:
+            return parseProfile(params);
         case ChangeNameCommand.COMMAND_WORD:
             return new ChangeNameCommand(params);
         case ChangeHeightCommand.COMMAND_WORD:
             return parseChangeHeight(params);
         case ChangeWeightCommand.COMMAND_WORD:
             return parseChangeWeight(params);
-        case ProfileCreateCommand.COMMAND_WORD:
-            return parseCreateProfile(params);
         case SetGoalCommand.COMMAND_WORD:
             return parseSetGoal(params);
         case OverviewCommand.COMMAND_WORD:
@@ -195,26 +192,8 @@ public class Parser {
 
     }
 
-    private Command parseChangeHeight(String params) {
-        try {
-            final double height = Double.parseDouble(params);
-            return new ChangeHeightCommand(height);
-        } catch (NumberFormatException e) {
-            return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
-        }
-    }
-
-    private Command parseChangeWeight(String params) {
-        try {
-            final double weight = Double.parseDouble(params);
-            return new ChangeWeightCommand(weight);
-        } catch (NumberFormatException e) {
-            return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
-        }
-    }
-
-    private Command parseCreateProfile(String params) {
-        if (params.isEmpty()) {
+    private Command parseProfile(String params) {
+        if (params.isEmpty()) { //no additional parameters, assumed to be view profile command
             return new ProfileCommand();
         }
         if (!hasRequiredParams(params,
@@ -233,6 +212,24 @@ public class Parser {
             return new ProfileCreateCommand(name, height, weight);
         } catch (ParamInvalidException e) {
             return new InvalidCommand(e.getMessage());
+        }
+    }
+
+    private Command parseChangeHeight(String params) {
+        try {
+            final double height = Double.parseDouble(params);
+            return new ChangeHeightCommand(height);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
+        }
+    }
+
+    private Command parseChangeWeight(String params) {
+        try {
+            final double weight = Double.parseDouble(params);
+            return new ChangeWeightCommand(weight);
+        } catch (NumberFormatException e) {
+            return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
         }
     }
 
