@@ -1,5 +1,7 @@
 package seedu.duke.commands;
 
+import seedu.duke.food.FoodList;
+import seedu.duke.ui.Statistics;
 import seedu.duke.ui.Ui;
 
 /**
@@ -13,10 +15,18 @@ public class OverviewCommand extends Command {
             + "Calories lost: %2$d calories" + Ui.LS
             + "Net calories: %3$d calories" + Ui.LS + "%4$s";
 
+    //TODO: Move the statistics class to command class
+    protected Statistics statistics = new Statistics();
 
     @Override
     public CommandResult execute() {
         //TODO: Implement total calories method for ExerciseList, FoodList
-        return new CommandResult(String.format(MESSAGE_SUCCESS, 1, 1, 2, "goal_status"));
+        int caloriesConsumed = this.foodItems.totalCalories();
+        int caloriesLost = this.exerciseItems.totalCalorie();
+        int caloriesGoal = this.profile.getCalorieGoal();
+
+
+        String[] calorieReport = this.statistics.getCaloriesReport(caloriesLost, caloriesConsumed, caloriesGoal);
+        return new CommandResult(this.statistics.formatMessage(calorieReport));
     }
 }
