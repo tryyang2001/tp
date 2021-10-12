@@ -73,7 +73,7 @@ public class ExerciseList {
      *
      * @return Integer value of the sum of calorie of all exercises.
      */
-    public int totalCalorie() {
+    public int getTotalCalorie() {
         int sumOfExerciseCalorie = 0;
 
         for (Exercise exercise : exerciseList) {
