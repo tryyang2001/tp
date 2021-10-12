@@ -65,11 +65,12 @@ public class FoodList {
 
     /**
      * Calculates the total calories of all the food items stored in the list.
+     *
      * @return The total calories intake
      */
     public int totalCalories() {
         int totalCalories = 0;
-        for(Food food: foodRecords) {
+        for (Food food : foodRecords) {
             totalCalories += food.getCalories();
         }
         return totalCalories;
