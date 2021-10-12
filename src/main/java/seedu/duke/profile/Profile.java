@@ -7,6 +7,12 @@ import seedu.duke.profile.exceptions.NullCharacteristicException;
  * Profile that contains the relevant data input by user.
  */
 public class Profile {
+
+    private static final String BMI_STATUS_UNDERWEIGHT = "Underweight";
+    private static final String BMI_STATUS_HEALTHY = "Healthy";
+    private static final String BMI_STATUS_OVERWEIGHT = "Overweight";
+    private static final String BMI_STATUS_OBESE = "Obese";
+
     private String name;
     private double height;
     private double weight;
@@ -21,12 +27,12 @@ public class Profile {
      * @throws InvalidCharacteristicException If a value of <= 0 is provided for height or weight
      * @throws NullCharacteristicException    When the input name is null or ""
      */
-    public Profile(String name, double height, double weight)
+    public Profile(String name, double height, double weight, int calorieGoal)
             throws InvalidCharacteristicException {
         setName(name);
         setHeight(height);
         setWeight(weight);
-        setCalorieGoal(0); //Initialize to 0 first
+        setCalorieGoal(calorieGoal); //Initialize to 0 first
     }
 
     public Profile() {
@@ -40,7 +46,6 @@ public class Profile {
     }
 
     public void setName(String name) {
-        //   checkNameValidity(name);
         this.name = name;
     }
 
@@ -111,12 +116,6 @@ public class Profile {
         }
     }
 
-    private static void checkNameValidity(String name) throws NullCharacteristicException {
-        if (name == null || name.length() == 0) {
-            throw new NullCharacteristicException("Name");
-        }
-    }
-
     /**
      * Retrieves the indication with regard to the value of their BMI.
      * Should not have any exceptions thrown since the other functions handled invalid cases.
@@ -126,20 +125,25 @@ public class Profile {
      **/
     public static String retrieveBmiStatus(double bmi) {
         String result;
+        assert bmi > 0;
         if (bmi < 18.5) {
-            result = "Underweight";
+            result = BMI_STATUS_UNDERWEIGHT;
         } else if (bmi <= 24.9) {
-            result = "Healthy";
+            result = BMI_STATUS_HEALTHY;
         } else if (bmi <= 29.9) {
-            result = "Overweight";
+            result = BMI_STATUS_OVERWEIGHT;
         } else {
-            result = "Obese";
+            result = BMI_STATUS_OBESE;
         }
         return result;
     }
 
     public int calculateNetCalories(int foodCalories, int exerciseCalories) {
         return foodCalories - exerciseCalories;
+    }
+
+    public String toFileTextString() {
+        return getName() + "|" + getHeight() + "|" + getWeight() + "|" + getCalorieGoal();
     }
 
 }

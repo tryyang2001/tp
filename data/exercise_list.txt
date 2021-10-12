@@ -1,0 +1,4 @@
+E|run 2.4km|250
+E|chest workout|180
+E|floorball training|340
+E|frisbee drills|185

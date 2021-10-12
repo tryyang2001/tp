@@ -24,6 +24,7 @@ public abstract class Command {
     public static final String COMMAND_WORD_BMI = "bmi";
     public static final int COMMAND_ADD_EXPECTED_NUM_DELIMITERS = 2;
     public static final int COMMAND_BMI_EXPECTED_NUM_DELIMITERS = 2;
+    public static final String COMMAND_WORD_DELETE_ALL = "all";
     public static final String MESSAGE_ERROR_ITEM_NOT_SPECIFIED = "Invalid format for this command! "
             + "Please follow one of the formats:" + Ui.LS
             + "1. %1$s" + Ui.LS
