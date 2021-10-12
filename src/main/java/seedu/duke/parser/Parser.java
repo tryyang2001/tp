@@ -23,8 +23,6 @@ import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
 import seedu.duke.ui.Ui;
 
-import java.util.Locale;
-
 /**
  * Parses user input to determine which command to execute.
  */
@@ -41,6 +39,7 @@ public class Parser {
     protected static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
     protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a number! E.g 1";
     protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input a number!";
+    public static final int PARAMS_ALL_INDICES = 0;
 
 
     /**
@@ -111,16 +110,16 @@ public class Parser {
             final String itemTypePrefix = extractItemTypePrefix(params);
             final String description = extractItemDescription(params, itemTypePrefix).split(" ")[0];
             final int itemIndex;
-            boolean isClear = description.trim().toLowerCase().equals("all");
+            boolean isClear = description.trim().equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
                 if (isClear) {
-                    return new DeleteExerciseCommand(0);
+                    return new DeleteExerciseCommand(PARAMS_ALL_INDICES);
                 }
                 itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
                 return new DeleteExerciseCommand(itemIndex);
             } else {
                 if (isClear) {
-                    return new DeleteFoodCommand(0);
+                    return new DeleteFoodCommand(PARAMS_ALL_INDICES);
                 }
                 itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
                 return new DeleteFoodCommand(itemIndex);

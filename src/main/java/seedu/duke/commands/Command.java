@@ -22,6 +22,7 @@ public abstract class Command {
     public static final String COMMAND_WORD_DELETE = "delete";
     public static final String COMMAND_WORD_VIEW = "view";
     public static final String COMMAND_WORD_BMI = "bmi";
+    public static final String COMMAND_WORD_DELETE_ALL = "all";
     public static final String MESSAGE_ERROR_ITEM_NOT_SPECIFIED = "Invalid format for this command! "
             + "Please follow one of the formats:" + Ui.LS
             + "1. %1$s" + Ui.LS
