@@ -8,9 +8,11 @@ import seedu.duke.ui.Ui;
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
-    public static final String MESSAGE_SUCCESS = "What you have recorded so far:" + Ui.LS
-            + "Food items consumed:" + Ui.LS + "%1$s" + Ui.LS
-            + "Exercises done:" + Ui.LS + "%2$s" + Ui.LS;
+    public static final String MESSAGE_SUCCESS = "What you have recorded so far:"
+            + Ui.LS + "Food items consumed:"
+            + Ui.INDENTED_LS + "%1$s"
+            + Ui.LS + "Exercises done:"
+            + Ui.INDENTED_LS + "%2$s";
 
     @Override
     public CommandResult execute() {
@@ -18,13 +20,14 @@ public class ViewCommand extends Command {
         if (super.foodItems.getSize() == 0) {
             foodMessage = foodMessage + MESSAGE_EMPTY_FOOD_LIST;
         }
+
         foodMessage = foodMessage + super.foodItems.convertToString();
 
         String exerciseMessage = "";
         if (super.exerciseItems.getSize() == 0) {
             exerciseMessage = exerciseMessage + MESSAGE_EMPTY_EXERCISE_LIST;
         }
-        exerciseMessage = exerciseMessage + "exercises list (placeholder)";
+        exerciseMessage = exerciseMessage + super.exerciseItems.convertToString();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, foodMessage, exerciseMessage));
     }

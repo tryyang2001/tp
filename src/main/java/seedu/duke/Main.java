@@ -74,6 +74,22 @@ public class Main {
     private CommandResult executeCommand(Command command) {
         command.setData(this.profile, this.exerciseItems, this.foodItems);
         CommandResult result = command.execute();
+        try {
+            if (ByeCommand.isBye(command)) {
+                //TODO: call storage all rewrite
+            }
+            if (Command.requiresProfileStorageRewrite(command)) {
+                //TODO: call storage profile rewrite
+            }
+            if (Command.requiresExerciseListStorageRewrite(command)) {
+                //TODO: call storage exercise list rewrite
+            }
+            if (Command.requiresFoodListStorageRewrite(command)) {
+                //TODO: call storage food list exercise rewrite
+            }
+        } catch (Exception e) {
+            //TODO: catch any exceptions in writing to file
+        }
         return result;
     }
 

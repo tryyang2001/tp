@@ -13,7 +13,8 @@ public class AddFoodCommand extends Command {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to add a food item? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "A food item has been added:" + Ui.LS + "%s";
+    public static final String MESSAGE_SUCCESS = "A food item has been added:"
+            + Ui.INDENTED_LS + "%s";
 
     private Food food;
     private final String description;

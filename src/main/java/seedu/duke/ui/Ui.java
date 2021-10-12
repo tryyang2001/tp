@@ -26,9 +26,11 @@ public class Ui {
     public static final int MAX_BAR = 16;
     public static final int BAR_WIDTH = 10;
     public static final String SPACE = " ";
+    public static final String TAB = "\t";
     public static final String DIVIDER = "___________________________________________"
-            + "_______________________________________________";
+            + "_______________________________________________________________";
     public static final String LS = System.lineSeparator();
+    public static final String INDENTED_LS = LS + TAB;
     public static final String EMOJI_1 = " ᕦ(ò_óˇ)";
     public static final String FITBOT_V0 = "  ______ _ _   _           _"
             + LS
@@ -46,9 +48,7 @@ public class Ui {
     public static final String MESSAGE_CALORIE_NET = "Your net calorie intake is: %d";
     public static final String MESSAGE_CALORIE_GOAL = "Your calorie to goal is: %d";
     public static final String MESSAGE_CALORIE_TO_GOAL_PERCENTAGE = "Percentage to goal: ";
-    //TODO: These constants are to be moved to UI class
     public static final String QUOTATION = "\"";
-    private static final String MESSAGE_BYE = "Bye! Hope to see you again soon!!";
 
     private Scanner scanner;
 

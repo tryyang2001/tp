@@ -22,6 +22,8 @@ public abstract class Command {
     public static final String COMMAND_WORD_DELETE = "delete";
     public static final String COMMAND_WORD_VIEW = "view";
     public static final String COMMAND_WORD_BMI = "bmi";
+    public static final int COMMAND_ADD_EXPECTED_NUM_DELIMITERS = 2;
+    public static final int COMMAND_BMI_EXPECTED_NUM_DELIMITERS = 2;
     public static final String MESSAGE_ERROR_ITEM_NOT_SPECIFIED = "Invalid format for this command! "
             + "Please follow one of the formats:" + Ui.LS
             + "1. %1$s" + Ui.LS
@@ -44,12 +46,49 @@ public abstract class Command {
     public abstract CommandResult execute();
 
 
+    /**
+     * Provides the necessary data structures for the command to operate on.
+     */
     public void setData(Profile profile, ExerciseList exerciseItems, FoodList foodItems) {
         this.profile = profile;
         this.exerciseItems = exerciseItems;
         this.foodItems = foodItems;
     }
 
-    ;
 
+    /**
+     * Returns true if the command requires the profile storage file to be rewritten after execution.
+     *
+     * @param command Command that has just been executed
+     * @return True if profile storage file is to be rewritten after execution of the command
+     */
+    public static boolean requiresProfileStorageRewrite(Command command) {
+        return command instanceof ChangeHeightCommand
+                || command instanceof ChangeNameCommand
+                || command instanceof ChangeWeightCommand
+                || command instanceof ProfileCreateCommand
+                || command instanceof SetGoalCommand;
+    }
+
+    /**
+     * Returns true if the command requires the exercise list storage file to be rewritten after execution.
+     *
+     * @param command Command that has just been executed
+     * @return True if exercise list storage file is to be rewritten after execution of the command
+     */
+    public static boolean requiresExerciseListStorageRewrite(Command command) {
+        return command instanceof AddExerciseCommand
+                || command instanceof DeleteExerciseCommand;
+    }
+
+    /**
+     * Returns true if the command requires the food list storage file to be rewritten after execution.
+     *
+     * @param command Command that has just been executed
+     * @return True if food list storage file is to be rewritten after execution of the command
+     */
+    public static boolean requiresFoodListStorageRewrite(Command command) {
+        return command instanceof AddFoodCommand
+                || command instanceof DeleteFoodCommand;
+    }
 }
