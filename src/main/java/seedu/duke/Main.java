@@ -10,6 +10,7 @@ import seedu.duke.profile.Profile;
 import seedu.duke.storage.Decoder;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
+import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Ui;
 
 
@@ -43,7 +44,7 @@ public class Main {
     }
 
     /**
-     * Initialises the application by creating the required objects and (to be implemented) loading data from the
+     * Initialises the application by creating the required objects and loading data from the
      * storage file, then showing the welcome message.
      */
     private void start() {
@@ -54,9 +55,7 @@ public class Main {
             this.foodItems = storage.loadFoodListFile();
             this.exerciseItems = storage.loadExerciseListFile();
         } catch (UnableToReadFileException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+            ui.formatMessageFramedWithDivider(e.getMessage());
         }
     }
 
@@ -86,19 +85,19 @@ public class Main {
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {
-                //TODO: call storage all rewrite
+                storage.saveAll(this.profile, this.exerciseItems, this.foodItems);
             }
             if (Command.requiresProfileStorageRewrite(command)) {
-                //TODO: call storage profile rewrite
+                storage.saveProfile(this.profile);
             }
             if (Command.requiresExerciseListStorageRewrite(command)) {
-                //TODO: call storage exercise list rewrite
+                storage.saveExercises(this.exerciseItems);
             }
             if (Command.requiresFoodListStorageRewrite(command)) {
-                //TODO: call storage food list exercise rewrite
+                storage.saveFoodList(this.foodItems);
             }
-        } catch (Exception e) {
-            //TODO: catch any exceptions in writing to file
+        } catch (UnableToWriteFileException e) {
+            ui.formatMessageFramedWithDivider(e.getMessage());
         }
         return result;
     }

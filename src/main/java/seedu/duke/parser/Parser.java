@@ -22,6 +22,8 @@ import seedu.duke.commands.ViewExerciseListCommand;
 import seedu.duke.commands.ViewFoodListCommand;
 import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
+import seedu.duke.storage.Decoder;
+import seedu.duke.storage.Storage;
 import seedu.duke.ui.Ui;
 
 /**
@@ -43,7 +45,12 @@ public class Parser {
     protected static final String MESSAGE_ERROR_TOO_MANY_DELIMITERS = "Please do not use the character "
             + Ui.QUOTATION + Command.COMMAND_PREFIX_DELIMITER + Ui.QUOTATION
             + " in your input other than to specify parameters!";
+    protected static final String FILE_TEXT_DELIMITER = "|";
+    protected static final String MESSAGE_ERROR_ILLEGAL_CHARACTER = "Please do not use the character "
+            + Ui.QUOTATION + FILE_TEXT_DELIMITER + Ui.QUOTATION
+            + " in your input!";
     public static final int PARAMS_ALL_INDICES = 0;
+
 
 
     /**
@@ -54,6 +61,11 @@ public class Parser {
      * @return Command class representing the correct command to be executed
      */
     public Command parseCommand(String input) {
+
+        if (hasTextFileDelimiter(input)) {
+            return new InvalidCommand(MESSAGE_ERROR_ILLEGAL_CHARACTER);
+        }
+
         final String[] commandAndParams = splitInputIntoCommandAndParams(input);
         final String commandWord = commandAndParams[0].toLowerCase(); //case-insensitive (all lower case)
         final String params = commandAndParams[1];
@@ -211,7 +223,7 @@ public class Parser {
                 Command.COMMAND_PREFIX_WEIGHT)) {
             return new InvalidCommand(ProfileCreateCommand.MESSAGE_INVALID_COMMAND_FORMAT);
         }
-        if (hasExtraDelimiters(params, ProfileCreateCommand.COMMAND_EXPECTED_NUM_DELIMITERS)){
+        if (hasExtraDelimiters(params, ProfileCreateCommand.COMMAND_EXPECTED_NUM_DELIMITERS)) {
             return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
         }
         try {
@@ -247,7 +259,7 @@ public class Parser {
         //command string
         commandAndParams[0] = inputSplit[0];
         //param string; if not given, set to EMPTY for error handling
-        commandAndParams[1] = (inputSplit.length >= 2) ? inputSplit[1].trim() : EMPTY;
+        commandAndParams[1] = (inputSplit.length == 2) ? inputSplit[1].trim() : EMPTY;
         return commandAndParams;
     }
 
@@ -368,6 +380,10 @@ public class Parser {
     private boolean hasExtraDelimiters(String params, int expectedNum) {
         int numOfDelimiters = params.split(Command.COMMAND_PREFIX_DELIMITER).length - 1;
         return numOfDelimiters > expectedNum;
+    }
+
+    private boolean hasTextFileDelimiter(String input) {
+        return input.contains(FILE_TEXT_DELIMITER);
     }
 
 }

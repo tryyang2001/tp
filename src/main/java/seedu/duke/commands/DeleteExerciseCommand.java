@@ -15,7 +15,7 @@ public class DeleteExerciseCommand extends Command {
             + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "An exercise item has been deleted:"
             + Ui.INDENTED_LS + "%s"
-            + Ui.INDENTED_LS + "Number of exercise item(s) left: %2$d";
+            + Ui.LS + "Number of exercise item(s) left: %2$d";
     private static final String MESSAGE_EXERCISE_CLEAR = "All exercise items have been removed.";
 
     private final int itemIndex;
