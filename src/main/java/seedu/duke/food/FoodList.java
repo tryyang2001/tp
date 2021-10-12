@@ -41,12 +41,7 @@ public class FoodList {
      * @return The food list in a single string
      */
     public String convertToString() {
-        StringBuilder foodListInString; //declares as StringBuilder for mutable String object
-        if (foodRecords.size() == 1) {
-            foodListInString = new StringBuilder("You have consumed 1 food item:" + LS);
-        } else {
-            foodListInString = new StringBuilder("You have consumed " + foodRecords.size() + " food items: " + LS);
-        }
+        StringBuilder foodListInString = new StringBuilder(""); //declares as StringBuilder for mutable String object
         for (int i = 0; i < foodRecords.size(); i++) {
             foodListInString.append("\t").append(i + 1).append(". ").append(foodRecords.get(i)).append(LS);
         }
@@ -65,7 +60,20 @@ public class FoodList {
     /**
      * Deletes all the food items from the food list.
      */
-    public void deleteAll() {
+    public void clearFoodList() {
         this.foodRecords.clear();
+    }
+
+    /**
+     * Calculates the total calories of all the food items stored in the list.
+     *
+     * @return The total calories intake
+     */
+    public int totalCalories() {
+        int totalCalories = 0;
+        for (Food food : foodRecords) {
+            totalCalories += food.getCalories();
+        }
+        return totalCalories;
     }
 }

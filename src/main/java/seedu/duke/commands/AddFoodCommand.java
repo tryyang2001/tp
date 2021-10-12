@@ -14,20 +14,22 @@ public class AddFoodCommand extends Command {
             + "Trying to add a food item? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "A food item has been added:" + Ui.LS + "%s";
+    public static final String MESSAGE_INVALID_FOOD_CALORIES = "Food calories cannot be less than 0" + Ui.LS
+            + "Try a positive value instead";
 
     private Food food;
-    private final String description;
-    private final int calories;
 
     public AddFoodCommand(String description, int calories) {
         this.food = new Food(description, calories);
-        this.description = description;
-        this.calories = calories;
     }
 
     @Override
     public CommandResult execute() {
+        if (this.food.getCalories() < 0) {
+            return new CommandResult(MESSAGE_INVALID_FOOD_CALORIES);
+        }
         super.foodItems.addFood(this.food);
+        assert foodItems.getSize() > 0 : "The size of the food list should at least larger than 0";
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.food));
     }
 }
