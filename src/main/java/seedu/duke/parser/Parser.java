@@ -39,7 +39,7 @@ public class Parser {
     protected static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
     protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a number! E.g 1";
     protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input a number!";
-    public static final int ALL_INDICES = 0;
+    public static final int PARAMS_ALL_INDICES = 0;
 
 
     /**
@@ -51,7 +51,7 @@ public class Parser {
      */
     public Command parseCommand(String input) {
         final String[] commandAndParams = splitInputIntoCommandAndParams(input);
-        final String commandWord = commandAndParams[ALL_INDICES].toLowerCase(); //case-insensitive (all lower case)
+        final String commandWord = commandAndParams[0].toLowerCase(); //case-insensitive (all lower case)
         final String params = commandAndParams[1];
 
         switch (commandWord) {
@@ -108,15 +108,18 @@ public class Parser {
     private Command parseDeleteItems(String params) {
         try {
             final String itemTypePrefix = extractItemTypePrefix(params);
-            final String description = extractItemDescription(params, itemTypePrefix).split(" ")[ALL_INDICES];
+            final String description = extractItemDescription(params, itemTypePrefix).split(" ")[0];
             final int itemIndex;
+            boolean isClear = description.trim().equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
+                if (isClear) {
+                    return new DeleteExerciseCommand(PARAMS_ALL_INDICES);
+                }
                 itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
                 return new DeleteExerciseCommand(itemIndex);
             } else {
-                boolean isClear = description.trim().equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
                 if (isClear) {
-                    return new DeleteFoodCommand(ALL_INDICES);
+                    return new DeleteFoodCommand(PARAMS_ALL_INDICES);
                 }
                 itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
                 return new DeleteFoodCommand(itemIndex);
@@ -225,7 +228,7 @@ public class Parser {
         String[] commandAndParams = new String[2];
         final String[] inputSplit = input.trim().split(" ", 2);
         //command string
-        commandAndParams[ALL_INDICES] = inputSplit[ALL_INDICES];
+        commandAndParams[0] = inputSplit[0];
         //param string; if not given, set to EMPTY for error handling
         commandAndParams[1] = (inputSplit.length >= 2) ? inputSplit[1].trim() : EMPTY;
         return commandAndParams;
@@ -264,7 +267,7 @@ public class Parser {
      */
     private String extractRelevantParameter(String params) {
         if (params.contains(Command.COMMAND_PREFIX_DELIMITER)) {
-            return params.substring(ALL_INDICES, params.indexOf(Command.COMMAND_PREFIX_DELIMITER) - 1).trim();
+            return params.substring(0, params.indexOf(Command.COMMAND_PREFIX_DELIMITER) - 1).trim();
         } else {
             return params;
         }
@@ -289,7 +292,7 @@ public class Parser {
                 String stringAfterPrefix =
                         params.split(Command.COMMAND_PREFIX_CALORIES
                                 + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-                String caloriesString = stringAfterPrefix.split(" ", 2)[ALL_INDICES];
+                String caloriesString = stringAfterPrefix.split(" ", 2)[0];
                 return Integer.parseInt(caloriesString);
             } else {
                 throw new ParamInvalidException(MESSAGE_ERROR_NO_CALORIES_INFO);
@@ -304,7 +307,7 @@ public class Parser {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_HEIGHT
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String doubleString = stringAfterPrefix.split(" ", 2)[ALL_INDICES];
+            String doubleString = stringAfterPrefix.split(" ", 2)[0];
             return Double.parseDouble(doubleString);
         } catch (NumberFormatException e) {
             throw new ParamInvalidException(MESSAGE_ERROR_NO_HEIGHT);
@@ -316,7 +319,7 @@ public class Parser {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_WEIGHT
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String doubleString = stringAfterPrefix.split(" ", 2)[ALL_INDICES];
+            String doubleString = stringAfterPrefix.split(" ", 2)[0];
             return Double.parseDouble(doubleString);
         } catch (NumberFormatException e) {
             throw new ParamInvalidException(MESSAGE_ERROR_NO_WEIGHT);
