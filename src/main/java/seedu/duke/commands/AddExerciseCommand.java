@@ -1,6 +1,7 @@
 package seedu.duke.commands;
 
 import seedu.duke.exercise.Exercise;
+import seedu.duke.storage.Storage;
 import seedu.duke.ui.Ui;
 
 /**
