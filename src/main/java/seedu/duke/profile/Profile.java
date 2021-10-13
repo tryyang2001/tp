@@ -136,7 +136,7 @@ public class Profile {
      **/
     public static String retrieveBmiStatus(double bmi) {
         String result;
-        assert bmi > 0 : "BMI Cannot be non-positive.";
+        assert bmi > 0 : "BMI cannot be non-positive.";
         if (bmi < 18.5) {
             result = BMI_STATUS_UNDERWEIGHT;
         } else if (bmi <= 24.9) {
