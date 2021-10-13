@@ -38,7 +38,7 @@ public class Storage {
 
     private final Encoder encoder = new Encoder();
     private final Decoder decoder = new Decoder();
-    private static final Logger logger = Logger.getLogger("Decoder");
+    private static final Logger logger = Logger.getLogger(Storage.class.getName());
 
     public Storage() {
 

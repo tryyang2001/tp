@@ -22,7 +22,7 @@ public class Decoder {
     private static final int FOOD_LENGTH = 3;
     public static final String FILE_TEXT_DELIMITER = "\\|";
 
-    private static final Logger logger = Logger.getLogger("Decoder");
+    private static final Logger logger = Logger.getLogger(Decoder.class.getName());
 
     /**
      * Retrieves profile data from profile.txt
@@ -35,6 +35,7 @@ public class Decoder {
         File file = new File(Storage.FILEPATH_PROFILE);
         Scanner in = new Scanner(file);
         if (in.hasNext()) {
+            logger.log(Level.INFO, "Retrieving profile file.");
             return decodeProfileData(in.nextLine());
         }
         return new Profile();
@@ -74,9 +75,11 @@ public class Decoder {
         ExerciseList exercises = new ExerciseList();
         File file = new File(Storage.FILEPATH_EXERCISE_LIST);
         Scanner in = new Scanner(file);
+        logger.log(Level.INFO, "Decoding exercise data from file...");
         while (in.hasNext()) {
             decodeExerciseData(exercises, in.nextLine());
         }
+        logger.log(Level.INFO, "Retrieved exercise data from file.");
         return exercises;
     }
 
@@ -101,9 +104,11 @@ public class Decoder {
         FoodList foodItems = new FoodList();
         File file = new File(Storage.FILEPATH_FOOD_LIST);
         Scanner in = new Scanner(file);
+        logger.log(Level.INFO, "Decoding food list data from file...");
         while (in.hasNext()) {
             decodeFoodData(foodItems, in.nextLine());
         }
+        logger.log(Level.INFO, "Retrieved food list data from file.");
         return foodItems;
     }
 
