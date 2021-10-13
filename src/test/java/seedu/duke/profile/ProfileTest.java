@@ -2,7 +2,6 @@ package seedu.duke.profile;
 
 import org.junit.jupiter.api.Test;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
-import seedu.duke.profile.exceptions.NullCharacteristicException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
