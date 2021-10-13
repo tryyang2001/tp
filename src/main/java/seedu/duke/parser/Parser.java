@@ -331,10 +331,12 @@ public class Parser {
             String stringAfterPrefix = params.split(prefix + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String description = extractRelevantParameter(stringAfterPrefix);
             if (description.equals(EMPTY)) {
+                //TODO: add logger.log(Level.WARNING, "Detected ..."); here
                 throw new ParamInvalidException(MESSAGE_ERROR_NO_DESCRIPTION);
             }
             return description;
         } catch (IndexOutOfBoundsException e) {
+            //TODO: add logger.log(Level.WARNING, "Detected ..."); here
             throw new ParamInvalidException(MESSAGE_ERROR_NO_DESCRIPTION);
         }
     }
@@ -348,9 +350,11 @@ public class Parser {
                 String caloriesString = stringAfterPrefix.split(" ", 2)[0];
                 return Integer.parseInt(caloriesString);
             } else {
+                //TODO: add logger.log(Level.WARNING, "Detected ..."); here
                 throw new ParamInvalidException(MESSAGE_ERROR_NO_CALORIES_INFO);
             }
         } catch (NumberFormatException e) {
+            //TODO: add logger.log(Level.WARNING, "Detected ..."); here
             throw new ParamInvalidException(MESSAGE_ERROR_INVALID_CALORIES_INFO);
         }
     }
