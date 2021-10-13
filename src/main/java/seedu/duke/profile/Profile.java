@@ -19,7 +19,7 @@ public class Profile {
     private int calorieGoal;
 
     /**
-     * Constructor for the Profile class for use in storage.
+     * Constructor for the Profile class.
      *
      * @param name   Name of user
      * @param height Height of user
@@ -29,9 +29,9 @@ public class Profile {
      */
     public Profile(String name, double height, double weight, int calorieGoal)
             throws InvalidCharacteristicException {
-        this.name = name;
-        this.height = height;
-        this.weight = weight;
+        setName(name);
+        setHeight(height);
+        setWeight(weight);
         setCalorieGoal(calorieGoal);
     }
 
