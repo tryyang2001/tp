@@ -179,7 +179,7 @@ public class Parser {
         if (hasExtraDelimiters(params, Command.COMMAND_BMI_EXPECTED_NUM_DELIMITERS)) {
             return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
         }
-        if (!hasRequiredParams(params,
+        if (hasRequiredParams(params,
                 Command.COMMAND_PREFIX_HEIGHT,
                 Command.COMMAND_PREFIX_WEIGHT)) {
             try {
