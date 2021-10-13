@@ -19,7 +19,7 @@ public class Profile {
     private int calorieGoal;
 
     /**
-     * Constructor for the Profile class.
+     * Constructor for the Profile class for use in storage.
      *
      * @param name   Name of user
      * @param height Height of user
@@ -29,10 +29,10 @@ public class Profile {
      */
     public Profile(String name, double height, double weight, int calorieGoal)
             throws InvalidCharacteristicException {
-        setName(name);
-        setHeight(height);
-        setWeight(weight);
-        setCalorieGoal(calorieGoal); //Initialize to 0 first
+        this.name = name;
+        this.height = height;
+        this.weight = weight;
+        setCalorieGoal(calorieGoal);
     }
 
     public Profile() {
@@ -112,6 +112,12 @@ public class Profile {
 
     private static void checkHeightValidity(double height) throws InvalidCharacteristicException {
         if (height <= 0) {
+            throw new InvalidCharacteristicException("Height");
+        }
+    }
+
+    private static void checkBmiValidity(int bmi) throws InvalidCharacteristicException {
+        if (bmi <= 1) {
             throw new InvalidCharacteristicException("Height");
         }
     }

@@ -25,23 +25,36 @@ public class Decoder {
      * @throws InvalidCharacteristicException When the data is corrupted in the file.
      */
     public Profile getProfileFromData() throws FileNotFoundException, InvalidCharacteristicException {
-        Profile profile = new Profile();
         File file = new File(Storage.FILEPATH_PROFILE);
         Scanner in = new Scanner(file);
         if (in.hasNext()) {
-            profile = decodeProfileData(in.nextLine());
+            return decodeProfileData(in.nextLine());
         }
-        return profile;
+        return new Profile();
     }
 
     private Profile decodeProfileData(String input) throws InvalidCharacteristicException {
+        Profile profile = new Profile();
         String[] profileDetails = input.split(FILE_TEXT_DELIMITER);
         String name = profileDetails[0];
         double height = Double.parseDouble(profileDetails[1]);
         double weight = Double.parseDouble(profileDetails[2]);
         int calorieGoal = Integer.parseInt(profileDetails[3]);
-        return new Profile(name, height, weight, calorieGoal);
+        if (!name.equals("null")){
+            profile.setName(name);
+        }
+        if (height != 0.0) {
+            profile.setHeight(height);
+        }
+        if (weight != 0.0) {
+            profile.setWeight(weight);
+        }
+        profile.setCalorieGoal(calorieGoal);
+        return profile;
     }
+
+
+
 
 
     /**
