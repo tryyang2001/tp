@@ -385,7 +385,6 @@ public class Parser {
         }
     }
 
-
     private String extractProfileName(String params) throws ParamInvalidException {
         try {
             String stringAfterPrefix =
@@ -420,5 +419,4 @@ public class Parser {
     private boolean hasTextFileDelimiter(String input) {
         return input.contains(FILE_TEXT_DELIMITER);
     }
-
 }
