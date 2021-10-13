@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Handles all read and write operations to the storage files.
@@ -36,6 +38,7 @@ public class Storage {
 
     private final Encoder encoder = new Encoder();
     private final Decoder decoder = new Decoder();
+    private static final Logger logger = Logger.getLogger("Decoder");
 
     public Storage() {
 
@@ -87,6 +90,7 @@ public class Storage {
                 f.createNewFile();
             }
         } catch (IOException e) {
+            logger.log(Level.WARNING, "There is an error accessing the file ", fileName);
             throw new UnableToReadFileException(fileName);
         }
     }
@@ -95,8 +99,10 @@ public class Storage {
         try {
             return decoder.getProfileFromData();
         } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "The path is missing ", FILEPATH_PROFILE);
             throw new UnableToReadFileException(FILENAME_PROFILE);
         } catch (InvalidCharacteristicException e) {
+            logger.log(Level.WARNING, "The profile has a invalid characteristic.");
             throw new UnableToReadFileException(FILENAME_PROFILE);
         }
     }
@@ -105,6 +111,7 @@ public class Storage {
         try {
             return decoder.getExerciseListFromData();
         } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "The path is missing ", FILEPATH_EXERCISE_LIST);
             throw new UnableToReadFileException(FILEPATH_EXERCISE_LIST);
         }
     }
@@ -113,6 +120,7 @@ public class Storage {
         try {
             return decoder.getFoodListFromData();
         } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "The path is missing ", FILEPATH_FOOD_LIST);
             throw new UnableToReadFileException(FILEPATH_FOOD_LIST);
         }
     }
