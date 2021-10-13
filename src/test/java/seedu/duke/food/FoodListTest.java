@@ -58,6 +58,6 @@ class FoodListTest {
         foodList.addFood(new Food("yong tau foo", 536));
         foodList.addFood(new Food("mcspicy alacarte", 528));
         foodList.addFood(new Food("char kway teow", 744));
-        assertEquals(2415, foodList.totalCalories());
+        assertEquals(2415, foodList.getTotalCalories());
     }
 }

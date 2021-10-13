@@ -69,7 +69,7 @@ public class FoodList {
      *
      * @return The total calories intake
      */
-    public int totalCalories() {
+    public int getTotalCalories() {
         int totalCalories = 0;
         for (Food food : foodRecords) {
             totalCalories += food.getCalories();
