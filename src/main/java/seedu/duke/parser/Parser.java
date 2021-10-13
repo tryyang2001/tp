@@ -420,5 +420,4 @@ public class Parser {
     private boolean hasTextFileDelimiter(String input) {
         return input.contains(FILE_TEXT_DELIMITER);
     }
-
 }
