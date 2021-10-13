@@ -1,6 +1,7 @@
 package seedu.duke.commands;
 
 import seedu.duke.exercise.Exercise;
+import seedu.duke.parser.Parser;
 import seedu.duke.ui.Ui;
 
 /**
@@ -25,7 +26,7 @@ public class DeleteExerciseCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (this.itemIndex == 0) {
+        if (this.itemIndex == Parser.PARAMS_ALL_INDICES) {
             super.exerciseItems.clearExerciseList();
             return new CommandResult(MESSAGE_EXERCISE_CLEAR);
         }

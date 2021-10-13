@@ -23,6 +23,9 @@ import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
 import seedu.duke.ui.Ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Parses user input to determine which command to execute.
  */
@@ -41,6 +44,7 @@ public class Parser {
     protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input a number!";
     public static final int PARAMS_ALL_INDICES = 0;
 
+    private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
     /**
      * Returns the correct command to be executed depending on user input.
@@ -82,7 +86,6 @@ public class Parser {
         default:
             return new InvalidCommand(MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST);
         }
-
     }
 
     private Command parseAddItems(String params) {
@@ -90,13 +93,13 @@ public class Parser {
             final String itemTypePrefix = extractItemTypePrefix(params);
             final String description = extractItemDescription(params, itemTypePrefix);
             final int calories = extractItemCalories(params);
-
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
                 return new AddExerciseCommand(description, calories);
             } else {
                 return new AddFoodCommand(description, calories);
             }
         } catch (ItemNotSpecifiedException e) {
+            logger.log(Level.WARNING, "Detected empty item input.");
             return new InvalidCommand(String.format(Command.MESSAGE_ERROR_ITEM_NOT_SPECIFIED,
                     AddFoodCommand.MESSAGE_COMMAND_FORMAT,
                     AddExerciseCommand.MESSAGE_COMMAND_FORMAT));

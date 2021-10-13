@@ -73,6 +73,7 @@ public class FoodList {
         for (Food food : foodRecords) {
             totalCalories += food.getCalories();
         }
+        assert totalCalories >= 0 : "Total calories cannot less than 0";
         return totalCalories;
     }
 }

@@ -50,4 +50,14 @@ class FoodListTest {
         foodList.clearFoodList();
         assertEquals(0, foodList.getSize());
     }
+
+    @Test
+    void totalFoodCalories_callTotalCaloriesMethod_expectSumOfFoodCalories() {
+        FoodList foodList = new FoodList();
+        foodList.addFood(new Food("chicken rice", 607));
+        foodList.addFood(new Food("yong tau foo", 536));
+        foodList.addFood(new Food("mcspicy alacarte", 528));
+        foodList.addFood(new Food("char kway teow", 744));
+        assertEquals(2415, foodList.totalCalories());
+    }
 }
