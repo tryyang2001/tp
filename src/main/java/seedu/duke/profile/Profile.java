@@ -82,7 +82,9 @@ public class Profile {
         this.calorieGoal = calorieGoal;
     }
 
-    public double calculateBmi() {
+    public double calculateBmi() throws InvalidCharacteristicException {
+        checkHeightValidity(height);
+        checkWeightValidity(weight);
         return computeBmi(height, weight);
     }
 
