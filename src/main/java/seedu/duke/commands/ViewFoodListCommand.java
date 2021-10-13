@@ -11,15 +11,17 @@ public class ViewFoodListCommand extends Command {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to view the food list? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "You have consumed %1$d food item(s):" + Ui.LS + "%2$s";
-
+    public static final String MESSAGE_SUCCESS = "You have consumed %1$d food item(s):"
+            + Ui.LS + "%2$s"
+            + Ui.LS + "Total calories consumed: %3$s";
 
     @Override
     public CommandResult execute() {
         if (super.foodItems.getSize() == 0) {
             return new CommandResult(MESSAGE_EMPTY_FOOD_LIST);
         }
-        final String stringOfAllItems = super.foodItems.convertToString();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, super.foodItems.getSize(), stringOfAllItems));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, super.foodItems.getSize(),
+                super.foodItems.convertToString(),
+                super.foodItems.getTotalCalories()));
     }
 }

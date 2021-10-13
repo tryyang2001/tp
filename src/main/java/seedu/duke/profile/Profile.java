@@ -121,6 +121,12 @@ public class Profile {
         }
     }
 
+    private static void checkBmiValidity(int bmi) throws InvalidCharacteristicException {
+        if (bmi <= 1) {
+            throw new InvalidCharacteristicException("Height");
+        }
+    }
+
     /**
      * Retrieves the indication with regard to the value of their BMI.
      * Should not have any exceptions thrown since the other functions handled invalid cases.

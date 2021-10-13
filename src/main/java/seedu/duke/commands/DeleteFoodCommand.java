@@ -13,9 +13,10 @@ public class DeleteFoodCommand extends Command {
             + ", where X is the item number in the food list";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to delete a food item?"
-            + "Use this format:" + Ui.LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "A food item has been deleted:" + Ui.LS + "%1$s"
-            + Ui.LS + "Number of food item(s) left: %2$d";
+            + Ui.INDENTED_LS + "Use this format:" + Ui.LS + MESSAGE_COMMAND_FORMAT;
+    public static final String MESSAGE_SUCCESS = "A food item has been deleted:"
+            + Ui.INDENTED_LS + "%1$s"
+            + Ui.INDENTED_LS + "Number of food item(s) left: %2$d";
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
 
     private final int itemIndex;

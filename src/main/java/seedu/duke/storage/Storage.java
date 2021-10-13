@@ -72,7 +72,7 @@ public class Storage {
      * Load food items into a FoodList object.
      * Used when the selected profile is accessed and its respective ExerciseList is loaded.
      *
-     * @return ExerciseList object with the details from the storage file
+     * @return FoodList object with the details from the storage file
      * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
     public FoodList loadFoodListFile() throws UnableToReadFileException {
@@ -133,7 +133,7 @@ public class Storage {
      * @param e ExerciseList of the respective profile
      * @param f FoodList of the respective profile
      */
-    public void saveAll(Profile p, ExerciseList e, FoodList f) {
+    public void saveAll(Profile p, ExerciseList e, FoodList f) throws UnableToWriteFileException {
         saveProfile(p);
         saveExercises(e);
         saveFoodList(f);
@@ -145,13 +145,9 @@ public class Storage {
      *
      * @param profile Profile of the current user
      */
-    public void saveProfile(Profile profile) {
+    public void saveProfile(Profile profile) throws UnableToWriteFileException {
         ArrayList<String> profileDetails = encoder.encodeProfileDetails(profile);
-        try {
-            writeToFile(profileDetails, FILEPATH_PROFILE);
-        } catch (UnableToWriteFileException e) {
-            e.getMessage();
-        }
+        writeToFile(profileDetails, FILEPATH_PROFILE);
     }
 
     /**
@@ -160,13 +156,9 @@ public class Storage {
      *
      * @param exercises ExerciseList to be saved
      */
-    public void saveExercises(ExerciseList exercises) {
+    public void saveExercises(ExerciseList exercises) throws UnableToWriteFileException {
         ArrayList<String> exerciseList = encoder.encodeExerciseList(exercises);
-        try {
-            writeToFile(exerciseList, FILEPATH_EXERCISE_LIST);
-        } catch (UnableToWriteFileException e) {
-            e.getMessage();
-        }
+        writeToFile(exerciseList, FILEPATH_EXERCISE_LIST);
     }
 
     /**
@@ -175,13 +167,9 @@ public class Storage {
      *
      * @param foodItems FoodList to be saved
      */
-    public void saveFoodList(FoodList foodItems) {
+    public void saveFoodList(FoodList foodItems) throws UnableToWriteFileException {
         ArrayList<String> foodList = encoder.encodeFoodList(foodItems);
-        try {
-            writeToFile(foodList, FILEPATH_FOOD_LIST);
-        } catch (UnableToWriteFileException e) {
-            e.getMessage();
-        }
+        writeToFile(foodList, FILEPATH_FOOD_LIST);
     }
 
     private void writeToFile(ArrayList<String> itemList, String filePath) throws UnableToWriteFileException {
