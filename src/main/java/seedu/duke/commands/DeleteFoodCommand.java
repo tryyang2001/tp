@@ -33,7 +33,7 @@ public class DeleteFoodCommand extends Command {
     @Override
     public CommandResult execute() {
         if (this.itemIndex == Parser.PARAMS_ALL_INDICES) {
-            logger.log(Level.INFO,"Clearing food list");
+            logger.log(Level.INFO, "Clearing food list");
             super.foodItems.clearFoodList();
             assert foodItems.getSize() == 0 : "The size of the food list should be 0 after clear";
             return new CommandResult(MESSAGE_FOOD_CLEAR);
@@ -43,7 +43,7 @@ public class DeleteFoodCommand extends Command {
             logger.log(Level.WARNING, "Food list is empty.");
             return new CommandResult(MESSAGE_EMPTY_FOOD_LIST);
         }
-        logger.log(Level.INFO,"Trying to delete item now");
+        logger.log(Level.INFO, "Trying to delete item now");
         try {
             Food deletedFood;
             deletedFood = super.foodItems.deleteFood(this.itemIndex);
