@@ -12,6 +12,7 @@ public class Profile {
     private static final String BMI_STATUS_HEALTHY = "Healthy";
     private static final String BMI_STATUS_OVERWEIGHT = "Overweight";
     private static final String BMI_STATUS_OBESE = "Obese";
+    public static final String FILE_TEXT_DELIMITER = "\\|";
 
     private String name;
     private double height;
@@ -67,11 +68,13 @@ public class Profile {
 
     public void setHeight(double height) throws InvalidCharacteristicException {
         checkHeightValidity(height);
+        assert height > 0 : "Height cannot be non-positive.";
         this.height = height;
     }
 
     public void setWeight(double weight) throws InvalidCharacteristicException {
         checkWeightValidity(weight);
+        assert weight > 0 : "Weight cannot be non-positive.";
         this.weight = weight;
     }
 
@@ -125,7 +128,7 @@ public class Profile {
      **/
     public static String retrieveBmiStatus(double bmi) {
         String result;
-        assert bmi > 0;
+        assert bmi > 0 : "BMI Cannot be non-positive.";
         if (bmi < 18.5) {
             result = BMI_STATUS_UNDERWEIGHT;
         } else if (bmi <= 24.9) {
@@ -138,12 +141,25 @@ public class Profile {
         return result;
     }
 
+    /**
+     * Calculates the difference between food calories and exercise calories.
+     *
+     * @param foodCalories Total intake consumption
+     * @param exerciseCalories Total output exerted
+     * @return The net calories of food - exercise
+     */
     public int calculateNetCalories(int foodCalories, int exerciseCalories) {
         return foodCalories - exerciseCalories;
     }
 
+    /**
+     * Converts the file into a string that is used for storage.
+     *
+     * @return String that is used for storage.
+     */
     public String toFileTextString() {
-        return getName() + "|" + getHeight() + "|" + getWeight() + "|" + getCalorieGoal();
+        return getName() + FILE_TEXT_DELIMITER + getHeight() + FILE_TEXT_DELIMITER
+                + getWeight() + FILE_TEXT_DELIMITER + getCalorieGoal();
     }
 
 }
