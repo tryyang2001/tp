@@ -77,7 +77,7 @@ public class Ui {
         for (String message : messages) {
             System.out.println(message);
         }
-        System.out.println(DIVIDER);
+        System.out.println(DIVIDER); 
     }
 
 
