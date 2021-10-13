@@ -9,7 +9,8 @@ import seedu.duke.commands.ChangeHeightCommand;
 import seedu.duke.commands.ChangeNameCommand;
 import seedu.duke.commands.ChangeWeightCommand;
 import seedu.duke.commands.Command;
-import seedu.duke.commands.CreateProfileCommand;
+import seedu.duke.commands.ProfileCommand;
+import seedu.duke.commands.ProfileCreateCommand;
 import seedu.duke.commands.DeleteExerciseCommand;
 import seedu.duke.commands.DeleteFoodCommand;
 import seedu.duke.commands.HelpCommand;
@@ -39,6 +40,13 @@ public class Parser {
     protected static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
     protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a number! E.g 1";
     protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input a number!";
+    protected static final String MESSAGE_ERROR_TOO_MANY_DELIMITERS = "Please do not use the character "
+            + Ui.QUOTATION + Command.COMMAND_PREFIX_DELIMITER + Ui.QUOTATION
+            + " in your input other than to specify parameters!";
+    protected static final String FILE_TEXT_DELIMITER = "|";
+    protected static final String MESSAGE_ERROR_ILLEGAL_CHARACTER = "Please do not use the character "
+            + Ui.QUOTATION + FILE_TEXT_DELIMITER + Ui.QUOTATION
+            + " in your input!";
     public static final int PARAMS_ALL_INDICES = 0;
 
 
@@ -50,6 +58,11 @@ public class Parser {
      * @return Command class representing the correct command to be executed
      */
     public Command parseCommand(String input) {
+
+        if (hasTextFileDelimiter(input)) {
+            return new InvalidCommand(MESSAGE_ERROR_ILLEGAL_CHARACTER);
+        }
+
         final String[] commandAndParams = splitInputIntoCommandAndParams(input);
         final String commandWord = commandAndParams[0].toLowerCase(); //case-insensitive (all lower case)
         final String params = commandAndParams[1];
@@ -63,14 +76,14 @@ public class Parser {
             return parseViewItems(params);
         case Command.COMMAND_WORD_BMI:
             return parseBmi(params);
+        case Command.COMMAND_WORD_PROFILE:
+            return parseProfile(params);
         case ChangeNameCommand.COMMAND_WORD:
             return new ChangeNameCommand(params);
         case ChangeHeightCommand.COMMAND_WORD:
             return parseChangeHeight(params);
         case ChangeWeightCommand.COMMAND_WORD:
             return parseChangeWeight(params);
-        case CreateProfileCommand.COMMAND_WORD:
-            return parseCreateProfile(params);
         case SetGoalCommand.COMMAND_WORD:
             return parseSetGoal(params);
         case OverviewCommand.COMMAND_WORD:
@@ -86,6 +99,10 @@ public class Parser {
     }
 
     private Command parseAddItems(String params) {
+        if (hasExtraDelimiters(params, Command.COMMAND_ADD_EXPECTED_NUM_DELIMITERS)) {
+            return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+        }
+
         try {
             final String itemTypePrefix = extractItemTypePrefix(params);
             final String description = extractItemDescription(params, itemTypePrefix);
@@ -157,18 +174,44 @@ public class Parser {
         if (params.equals(EMPTY)) { //no additional parameters, assumed to be bmi from current profile
             return new CalculateBmiWithProfileCommand();
         }
-        if (hasRequiredParams(params,
+        if (!hasRequiredParams(params,
                 Command.COMMAND_PREFIX_HEIGHT,
                 Command.COMMAND_PREFIX_WEIGHT)) {
-            try {
-                final double height = extractHeight(params);
-                final double weight = extractWeight(params);
-                return new CalculateBmiCommand(height, weight);
-            } catch (ParamInvalidException e) {
-                return new InvalidCommand(e.getMessage());
-            }
-        } else {
             return new InvalidCommand(CalculateBmiCommand.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        if (hasExtraDelimiters(params, Command.COMMAND_BMI_EXPECTED_NUM_DELIMITERS)) {
+            return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+        }
+        try {
+            final double height = extractHeight(params);
+            final double weight = extractWeight(params);
+            return new CalculateBmiCommand(height, weight);
+        } catch (ParamInvalidException e) {
+            return new InvalidCommand(e.getMessage());
+        }
+
+    }
+
+    private Command parseProfile(String params) {
+        if (params.isEmpty()) { //no additional parameters, assumed to be view profile command
+            return new ProfileCommand();
+        }
+        if (!hasRequiredParams(params,
+                Command.COMMAND_PREFIX_NAME,
+                Command.COMMAND_PREFIX_HEIGHT,
+                Command.COMMAND_PREFIX_WEIGHT)) {
+            return new InvalidCommand(ProfileCreateCommand.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        if (hasExtraDelimiters(params, ProfileCreateCommand.COMMAND_EXPECTED_NUM_DELIMITERS)) {
+            return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+        }
+        try {
+            final String name = extractProfileName(params);
+            final double height = extractHeight(params);
+            final double weight = extractWeight(params);
+            return new ProfileCreateCommand(name, height, weight);
+        } catch (ParamInvalidException e) {
+            return new InvalidCommand(e.getMessage());
         }
     }
 
@@ -187,23 +230,6 @@ public class Parser {
             return new ChangeWeightCommand(weight);
         } catch (NumberFormatException e) {
             return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
-        }
-    }
-
-    private Command parseCreateProfile(String params) {
-        if (!hasRequiredParams(params,
-                Command.COMMAND_PREFIX_NAME,
-                Command.COMMAND_PREFIX_HEIGHT,
-                Command.COMMAND_PREFIX_WEIGHT)) {
-            return new InvalidCommand(CreateProfileCommand.MESSAGE_INVALID_COMMAND_FORMAT);
-        }
-        try {
-            final String name = extractProfileName(params);
-            final double height = extractHeight(params);
-            final double weight = extractWeight(params);
-            return new CreateProfileCommand(name, height, weight);
-        } catch (ParamInvalidException e) {
-            return new InvalidCommand(e.getMessage());
         }
     }
 
@@ -230,7 +256,7 @@ public class Parser {
         //command string
         commandAndParams[0] = inputSplit[0];
         //param string; if not given, set to EMPTY for error handling
-        commandAndParams[1] = (inputSplit.length >= 2) ? inputSplit[1].trim() : EMPTY;
+        commandAndParams[1] = (inputSplit.length == 2) ? inputSplit[1].trim() : EMPTY;
         return commandAndParams;
     }
 
@@ -264,6 +290,8 @@ public class Parser {
      * Extract only the parameter required so that any additional parameter
      * specified behind this string (if any) is removed.
      * E.g. "John Doe w/20" is returned as "John Doe".
+     * NOTE: This is why users are not allowed to include the character "/" in their inputs
+     * other than to specify a parameter.
      */
     private String extractRelevantParameter(String params) {
         if (params.contains(Command.COMMAND_PREFIX_DELIMITER)) {
@@ -344,6 +372,15 @@ public class Parser {
 
     private int convertItemNumToItemIndex(int itemNum) {
         return itemNum - 1;
+    }
+
+    private boolean hasExtraDelimiters(String params, int expectedNum) {
+        int numOfDelimiters = params.split(Command.COMMAND_PREFIX_DELIMITER).length - 1;
+        return numOfDelimiters > expectedNum;
+    }
+
+    private boolean hasTextFileDelimiter(String input) {
+        return input.contains(FILE_TEXT_DELIMITER);
     }
 
 }

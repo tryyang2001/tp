@@ -8,15 +8,21 @@ import seedu.duke.ui.Ui;
 public class OverviewCommand extends Command {
     public static final String COMMAND_WORD = "overview";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
-    public static final String MESSAGE_SUCCESS = "This is an overview of your day:" + Ui.LS
-            + "Calories consumed: %1$d calories" + Ui.LS
-            + "Calories lost: %2$d calories" + Ui.LS
-            + "Net calories: %3$d calories" + Ui.LS + "%4$s";
+    public static final String MESSAGE_SUCCESS = "This is an overview of your day:"
+            + Ui.INDENTED_LS + "Calories consumed: %1$d calories"
+            + Ui.INDENTED_LS + "Calories burnt: %2$d calories"
+            + Ui.INDENTED_LS + "Net calories: %3$d calories"
+            + Ui.LS + "%4$s";
 
 
     @Override
     public CommandResult execute() {
-        //TODO: Implement total calories method for ExerciseList, FoodList
-        return new CommandResult(String.format(MESSAGE_SUCCESS, 1, 1, 2, "goal_status"));
+        int foodCalories = super.foodItems.getTotalCalories();
+        int exerciseCalories = super.exerciseItems.getTotalCalories();
+        int netCalories = super.profile.calculateNetCalories(foodCalories, exerciseCalories);
+        //TODO: get goal status
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                foodCalories, exerciseCalories, netCalories,
+                "goal_status (placeholder)"));
     }
 }

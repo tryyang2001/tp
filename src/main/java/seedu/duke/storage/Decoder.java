@@ -21,7 +21,7 @@ public class Decoder {
      * Retrieves profile data from profile.txt
      *
      * @return The profile object with its corresponding characteristics
-     * @throws FileNotFoundException If the file is misplaced/missing
+     * @throws FileNotFoundException          If the file is misplaced/missing
      * @throws InvalidCharacteristicException When the data is corrupted in the file.
      */
     public Profile getProfileFromData() throws FileNotFoundException, InvalidCharacteristicException {
@@ -64,7 +64,7 @@ public class Decoder {
         String[] exerciseDetails = line.split(FILE_TEXT_DELIMITER);
         String name = exerciseDetails[1];
         int calories = Integer.parseInt(exerciseDetails[2]);
-        exercises.addExercise(new Exercise(name,calories));
+        exercises.addExercise(new Exercise(name, calories));
     }
 
     /**
@@ -88,8 +88,6 @@ public class Decoder {
         String[] foodDetails = line.split(FILE_TEXT_DELIMITER);
         String name = foodDetails[1];
         int calories = Integer.parseInt(foodDetails[2]);
-        Food temp = new Food(name, calories);
-        System.out.println(temp.toString());
         foodItems.addFood(new Food(name, calories));
     }
 }

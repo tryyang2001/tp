@@ -4,13 +4,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.commands.AddExerciseCommand;
 import seedu.duke.commands.AddFoodCommand;
+import seedu.duke.commands.ByeCommand;
+import seedu.duke.commands.CalculateBmiCommand;
+import seedu.duke.commands.CalculateBmiWithProfileCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.InvalidCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_ILLEGAL_CHARACTER;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_CALORIES_INFO;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_NOT_A_NUMBER;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_HEIGHT;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_WEIGHT;
 
 
 class ParserTest {
@@ -25,6 +32,11 @@ class ParserTest {
     @Test
     void parseCommand_invalidCommandWord_commandDoesNotExistMessage() {
         parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST, "potato", "hi");
+    }
+
+    @Test
+    void parseCommand_containsTextFileDelimiter_illegalCharacterMessage() {
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_ILLEGAL_CHARACTER, "potato | as", "add |", "name h|o");
     }
 
     @Test
@@ -62,6 +74,58 @@ class ParserTest {
         parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_CALORIES_INFO,
                 "add f/potato c/potato", "add e/hiit c/potato");
     }
+
+    @Test
+    void parseByeCommand_correctInput_byeCommand() {
+        parseAndAssertCommandType("bye", ByeCommand.class);
+        parseAndAssertCommandType("ByE", ByeCommand.class);
+    }
+
+    @Test
+    void parseCalculateBmiWithProfileCommand_correctInput_calculateBmiWithProfileCommand() {
+        parseAndAssertCommandType("bmi", CalculateBmiWithProfileCommand.class);
+        parseAndAssertCommandType("BMI", CalculateBmiWithProfileCommand.class);
+    }
+
+    @Test
+    void parseCalculateBmiCommand_correctInput_calculateBmiCommand() {
+        parseAndAssertCommandType("bmi h/50 w/20", CalculateBmiCommand.class);
+        parseAndAssertCommandType("BMI w/20 h/50", CalculateBmiCommand.class);
+    }
+
+    @Test
+    void parseCalculateBmiCommand_parametersNotGiven_invalidCommand() {
+        parseAndAssertCommandType("bmi w/20", InvalidCommand.class);
+        parseAndAssertCommandType("bmi h/20", InvalidCommand.class);
+    }
+
+    @Test
+    void parseCalculateCommand_parametersInvalid_errorMessage() {
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_HEIGHT, "BMI w/20 h/potato");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_WEIGHT, "BMI w/potato h/20");
+    }
+
+
+    @Test
+    void changeHeightCommand_heightNotGiven_invalidCommand() {
+        parseAndAssertCommandType("height", InvalidCommand.class);
+    }
+
+    @Test
+    void changeHeightCommand_heightNotANumber_errorMessage() {
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NOT_A_NUMBER, "height abc");
+    }
+
+    @Test
+    void changeWeightCommand_weightNotGiven_invalidCommand() {
+        parseAndAssertCommandType("weight", InvalidCommand.class);
+    }
+
+    @Test
+    void changeWeightCommand_weightNotANumber_errorMessage() {
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NOT_A_NUMBER, "weight abc");
+    }
+
 
 
     /*

@@ -1,13 +1,11 @@
 package seedu.duke.exercise;
 
+import seedu.duke.ui.Ui;
+
 import java.util.ArrayList;
 
-public class ExerciseList {
 
-    public static final String MESSAGE_EXERCISE_ADDED = "An exercise has been added:";
-    private static final String MESSAGE_EXERCISE_DELETED = "You have removed the exercise:";
-    private static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise is found.";
-    private static final String LS = System.lineSeparator();
+public class ExerciseList {
 
     private ArrayList<Exercise> exerciseList = new ArrayList<>();
 
@@ -66,7 +64,7 @@ public class ExerciseList {
         StringBuilder exerciseListToString = new StringBuilder();
 
         for (int i = 0; i < exerciseList.size(); i++) {
-            exerciseListToString.append("\t").append(i + 1).append(". ").append(exerciseList.get(i)).append(LS);
+            exerciseListToString.append("\t").append(i + 1).append(". ").append(exerciseList.get(i)).append(Ui.LS);
         }
         return exerciseListToString.toString();
     }
@@ -76,7 +74,7 @@ public class ExerciseList {
      *
      * @return Integer value of the sum of calorie of all exercises.
      */
-    public int totalCalorie() {
+    public int getTotalCalories() {
         int sumOfExerciseCalorie = 0;
 
         for (Exercise exercise : exerciseList) {
