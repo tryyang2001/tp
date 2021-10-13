@@ -1,9 +1,10 @@
 package seedu.duke.food;
 
+import seedu.duke.ui.Ui;
+
 import java.util.ArrayList;
 
 public class FoodList {
-    public static final String LS = System.lineSeparator();
 
     private ArrayList<Food> foodRecords = new ArrayList<>();
 
@@ -43,7 +44,7 @@ public class FoodList {
     public String convertToString() {
         StringBuilder foodListInString = new StringBuilder(""); //declares as StringBuilder for mutable String object
         for (int i = 0; i < foodRecords.size(); i++) {
-            foodListInString.append("\t").append(i + 1).append(". ").append(foodRecords.get(i)).append(LS);
+            foodListInString.append("\t").append(i + 1).append(". ").append(foodRecords.get(i)).append(Ui.LS);
         }
         return foodListInString.toString();
     }
