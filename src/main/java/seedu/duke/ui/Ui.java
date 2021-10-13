@@ -1,8 +1,5 @@
 package seedu.duke.ui;
 
-import seedu.duke.parser.Parser;
-
-import java.text.DecimalFormat;
 import java.lang.System;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -29,9 +26,11 @@ public class Ui {
     public static final int MAX_BAR = 16;
     public static final int BAR_WIDTH = 10;
     public static final String SPACE = " ";
+    public static final String TAB = "\t";
     public static final String DIVIDER = "___________________________________________"
-            + "_______________________________________________";
+            + "_______________________________________________________________";
     public static final String LS = System.lineSeparator();
+    public static final String INDENTED_LS = LS + TAB;
     public static final String EMOJI_1 = " ᕦ(ò_óˇ)";
     public static final String FITBOT_V0 = "  ______ _ _   _           _"
             + LS
@@ -45,13 +44,15 @@ public class Ui {
             + LS
             + " |_|    |_|\\__|_.__/ \\___/ \\__|";
 
+
     //TODO: These constants are to be moved to UI class
     public static final String QUOTATION = "\"";
     public static final String MESSAGE_WELCOME = "Welcome to Fitbot, a desktop app that helps university students"
             + " who are looking to keep track of their "
             + LS
             + "fitness and health. Please type a command or view the list of"
-            + "available commands by typing \'help\'.";
+            + "available commands by typing 'help'.";
+
 
     private Scanner scanner;
 

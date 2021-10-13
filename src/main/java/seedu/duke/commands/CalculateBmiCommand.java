@@ -13,7 +13,7 @@ public class CalculateBmiCommand extends Command {
             + Ui.QUOTATION + " where X is the height in CM and Y is the weight in KG";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to calculate BMI for a certain height and weight? Use this format:"
-            + Ui.LS + MESSAGE_COMMAND_FORMAT;
+            + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "The calculated BMI value is %1$,.1f (%2$s)";
 
     private final double height;

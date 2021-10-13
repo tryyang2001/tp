@@ -7,10 +7,10 @@ import seedu.duke.exercise.ExerciseList;
 import seedu.duke.food.FoodList;
 import seedu.duke.parser.Parser;
 import seedu.duke.profile.Profile;
-import seedu.duke.storage.Decoder;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.ui.Statistics;
+import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Ui;
 
 
@@ -45,7 +45,7 @@ public class Main {
     }
 
     /**
-     * Initialises the application by creating the required objects and (to be implemented) loading data from the
+     * Initialises the application by creating the required objects and loading data from the
      * storage file, then showing the welcome message.
      */
     private void start() {
@@ -56,9 +56,7 @@ public class Main {
             this.foodItems = storage.loadFoodListFile();
             this.exerciseItems = storage.loadExerciseListFile();
         } catch (UnableToReadFileException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+            ui.formatMessageFramedWithDivider(e.getMessage());
         }
     }
 
@@ -86,6 +84,22 @@ public class Main {
     private CommandResult executeCommand(Command command) {
         command.setData(this.profile, this.exerciseItems, this.foodItems, this.statistics);
         CommandResult result = command.execute();
+        try {
+            if (ByeCommand.isBye(command)) {
+                storage.saveAll(this.profile, this.exerciseItems, this.foodItems);
+            }
+            if (Command.requiresProfileStorageRewrite(command)) {
+                storage.saveProfile(this.profile);
+            }
+            if (Command.requiresExerciseListStorageRewrite(command)) {
+                storage.saveExercises(this.exerciseItems);
+            }
+            if (Command.requiresFoodListStorageRewrite(command)) {
+                storage.saveFoodList(this.foodItems);
+            }
+        } catch (UnableToWriteFileException e) {
+            ui.formatMessageFramedWithDivider(e.getMessage());
+        }
         return result;
     }
 
