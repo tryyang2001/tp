@@ -10,6 +10,8 @@ public class Statistics {
     public static final String MESSAGE_CALORIE_LOST = "Your calorie lost from exercise is: %d";
     public static final String MESSAGE_CALORIE_NET = "Your net calorie intake is: %d";
     public static final String MESSAGE_CALORIE_GOAL = "Your calorie to goal is: %d";
+    public static final int REVERSE_APPEND = 1;
+    public static final String EMPTY = "";
 
 
     public Statistics() {
@@ -38,10 +40,11 @@ public class Statistics {
     }
 
     public String formatMessage(String... messages) {
-        StringBuilder content = new StringBuilder("");
+        StringBuilder content = new StringBuilder(EMPTY);
         for (String message : messages) {
             content.append(message).append(Ui.LS);
         }
+        content.setLength(content.length() - REVERSE_APPEND);
         return content.toString();
     }
 
@@ -50,9 +53,9 @@ public class Statistics {
         logger.log(Level.FINE, "preparing calories message");
         int calorieDifference = calorieGoal - netCalories;
         String message;
-        if (calorieDifference > 0) {
+        if (calorieGoal > netCalories) {
             message = String.format("You are %s cal away from your goal", calorieDifference);
-        } else if (calorieDifference < 0) {
+        } else if (calorieGoal < netCalories) {
             message = String.format("You have exceeded your calorie goal by %s cal ", calorieDifference);
         } else {
             assert calorieDifference == 0 : "calorieDifference should be 0";
