@@ -20,7 +20,7 @@ public class Ui {
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
-    public static final String ANSI_GRAY = "\u001B[90m";
+    public static final String ANSI_GRAY = "\u001B[90m"; 
     public static final String FULL_BLOCK = "█";
     public static final String HALF_BLOCK = "▌";
     public static final int MAX_BAR = 16;
@@ -77,13 +77,17 @@ public class Ui {
         for (String message : messages) {
             System.out.println(message);
         }
-        System.out.println(DIVIDER); 
+        System.out.println(DIVIDER);
     }
 
 
     public void printStartApplicationPage() {
         logger.log(Level.FINE, "start of application");
-        System.out.println(FITBOT_V0 + EMOJI_1 + LS + MESSAGE_WELCOME);
+        System.out.println(FITBOT_V0 + EMOJI_1 + LS + MESSAGE_WELCOME + MESSAGE_HELP_HELP);
     }
 
+    public static final String MESSAGE_HELP_HELP = "Welcome to the help page.\n" +
+            "Below are the commands to get you started.\n" +
+            "More details could be found on: \n" +
+            "https://frost-action-9f0.notion.site/FitBot-User-Guide-ddffabf5e4d546acb200bffab02b9ecb";
 }
