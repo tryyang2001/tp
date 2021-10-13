@@ -78,4 +78,6 @@ public class FoodList {
         assert totalCalories >= 0 : "Total calories cannot less than 0";
         return totalCalories;
     }
+
+    
 }
