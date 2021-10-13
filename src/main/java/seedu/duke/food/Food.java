@@ -7,6 +7,14 @@ public class Food {
     private int calories;
 
     /**
+     * Empty constructor for default.
+     */
+    public Food() {
+        this.name = "";
+        this.calories = 0;
+    }
+
+    /**
      * Constructor for the food object.
      *
      * @param name     The name or description of the food
