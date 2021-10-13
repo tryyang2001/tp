@@ -15,7 +15,7 @@ public class Statistics {
     public Statistics() {
     }
 
-    private static Logger logger = Logger.getLogger("Foo");
+    private static Logger logger = Logger.getLogger(Statistics.class.getName());
 
     /**
      * Calculate netCalories and format exerciseCalories, foodCalories, calorieGoal
@@ -47,7 +47,7 @@ public class Statistics {
 
 
     public String printCaloriesMessage(int netCalories, int calorieGoal) {
-        logger.log(Level.INFO, "preparing calories message");
+        logger.log(Level.FINE, "preparing calories message");
         int calorieDifference = calorieGoal - netCalories;
         String message;
         if (calorieDifference > 0) {

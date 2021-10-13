@@ -21,7 +21,7 @@ public class AddExerciseCommand extends Command {
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
             + Ui.LS + "Try a positive value instead";
 
-    private static Logger logger = Logger.getLogger("AddExerciseCommand");
+    private static Logger logger = Logger.getLogger(AddExerciseCommand.class.getName());
 
     private Exercise exercise;
     private final String description;

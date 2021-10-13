@@ -20,7 +20,7 @@ public class DeleteExerciseCommand extends Command {
             + Ui.LS + "Number of exercise item(s) left: %2$d";
     private static final String MESSAGE_EXERCISE_CLEAR = "All exercise items have been removed.";
 
-    private static Logger logger = Logger.getLogger("DeleteExerciseCommand");
+    private static Logger logger = Logger.getLogger(DeleteExerciseCommand.class.getName());
 
     private final int itemIndex;
 
