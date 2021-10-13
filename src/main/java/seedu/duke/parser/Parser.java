@@ -113,6 +113,8 @@ public class Parser {
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
                 return new AddExerciseCommand(description, calories);
             } else {
+                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
+                        "at this point, if the item is not exercise, it must be food";
                 return new AddFoodCommand(description, calories);
             }
         } catch (ItemNotSpecifiedException e) {
@@ -137,6 +139,8 @@ public class Parser {
                 itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
                 return new DeleteExerciseCommand(itemIndex);
             } else {
+                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
+                        "at this point, if the item is not exercise, it must be food";
                 if (isClear) {
                     return new DeleteFoodCommand(PARAMS_ALL_INDICES);
                 }
@@ -163,6 +167,8 @@ public class Parser {
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
                 return new ViewExerciseListCommand();
             } else {
+                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
+                        "at this point, if the item is not exercise, it must be food";
                 return new ViewFoodListCommand();
             }
         } catch (ItemNotSpecifiedException e) {
@@ -285,7 +291,7 @@ public class Parser {
                         + Command.COMMAND_PREFIX_DELIMITER);
 
         if (isExercise && isFood || !isExercise && !isFood) {
-            logger.log(Level.WARNING, "Detected both food and exercise prefix.");
+            logger.log(Level.WARNING, "Detected neither food or exercise/ both food and exercise prefix.");
             throw new ItemNotSpecifiedException(); //cannot be both and cannot be neither
         } else if (isExercise) {
             return Command.COMMAND_PREFIX_EXERCISE;
