@@ -15,7 +15,9 @@ public class ViewExerciseListCommand extends Command {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format!"
             + "Trying to view the exercise list? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "You have done %1$d exercise(s):" + Ui.LS + "%2$s";
+    public static final String MESSAGE_SUCCESS = "You have done %1$d exercise(s):"
+            + Ui.LS + "%2$s"
+            + Ui.LS + "Total calories burnt: %3$s";
 
     private static Logger logger = Logger.getLogger("ViewExerciseCommand");
 
@@ -26,8 +28,8 @@ public class ViewExerciseListCommand extends Command {
             return new CommandResult(MESSAGE_EMPTY_EXERCISE_LIST);
         }
         assert exerciseItems.getSize() > 0 : "Exercise list is not empty";
-        final String stringOfAllItems = super.exerciseItems.convertToString();
-        logger.log(Level.INFO, "Exercise is converted to string to be viewed");
-        return new CommandResult(String.format(MESSAGE_SUCCESS, super.exerciseItems.getSize(), stringOfAllItems));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, super.exerciseItems.getSize(),
+                super.exerciseItems.convertToString(),
+                super.exerciseItems.getTotalCalories()));
     }
 }

@@ -32,7 +32,7 @@ public class Profile {
         setName(name);
         setHeight(height);
         setWeight(weight);
-        setCalorieGoal(calorieGoal); //Initialize to 0 first
+        setCalorieGoal(calorieGoal);
     }
 
     public Profile() {
@@ -112,6 +112,12 @@ public class Profile {
 
     private static void checkHeightValidity(double height) throws InvalidCharacteristicException {
         if (height <= 0) {
+            throw new InvalidCharacteristicException("Height");
+        }
+    }
+
+    private static void checkBmiValidity(int bmi) throws InvalidCharacteristicException {
+        if (bmi <= 1) {
             throw new InvalidCharacteristicException("Height");
         }
     }

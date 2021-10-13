@@ -7,7 +7,8 @@ import seedu.duke.ui.Ui;
  */
 public class CalculateBmiWithProfileCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD_BMI + Ui.QUOTATION;
-    public static final String MESSAGE_SUCCESS = "Your BMI value according to your current profile is %1$,.1f (%2$s)";
+    public static final String MESSAGE_SUCCESS = "Your BMI value according to your current profile is:"
+            + Ui.INDENTED_LS + "%1$,.1f (%2$s)";
 
 
     @Override

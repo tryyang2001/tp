@@ -14,8 +14,9 @@ public class DeleteExerciseCommand extends Command {
             + ", where X is the item number in the exercise list";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to delete an exercise item? Use this format:"
-            + Ui.LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "An exercise item has been deleted:" + Ui.LS + "%s"
+            + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
+    public static final String MESSAGE_SUCCESS = "An exercise item has been deleted:"
+            + Ui.INDENTED_LS + "%s"
             + Ui.LS + "Number of exercise item(s) left: %2$d";
     private static final String MESSAGE_EXERCISE_CLEAR = "All exercise items have been removed.";
 

@@ -9,10 +9,10 @@ import seedu.duke.ui.Ui;
 public class ChangeWeightCommand extends Command {
     public static final String COMMAND_WORD = "weight";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD
-            + " X" + Ui.QUOTATION + "where X is your weight in KG";
+            + " X" + Ui.QUOTATION + ", where X is your weight in KG";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to update your weight? Use this format:"
-            + Ui.LS + MESSAGE_COMMAND_FORMAT;
+            + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "Your weight has been updated!" + Ui.LS + "Your weight is %skg.";
 
     private final double weight;

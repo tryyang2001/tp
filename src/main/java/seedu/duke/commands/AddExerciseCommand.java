@@ -16,7 +16,8 @@ public class AddExerciseCommand extends Command {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to add an exercise item? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "An exercise item has been added:" + Ui.LS + "%s";
+    public static final String MESSAGE_SUCCESS = "An exercise item has been added:"
+            + Ui.INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
             + Ui.LS + "Try a positive value instead";
 

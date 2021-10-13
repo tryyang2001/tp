@@ -10,12 +10,14 @@ public class ChangeNameCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD
             + " X" + Ui.QUOTATION + ", where X is your name";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to update your name? Use this format:" + Ui.LS + MESSAGE_COMMAND_FORMAT;
+            + "Trying to update your name? Use this format:"
+            + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "Your name has been updated!" + Ui.LS + "Hello %s!";
 
     private final String name;
 
     public ChangeNameCommand(String name) {
+        assert name != null : "parser should have ensured name is not null";
         this.name = name;
     }
 

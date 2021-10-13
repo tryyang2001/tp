@@ -46,6 +46,6 @@ class ExerciseListTest {
         exerciseList.addExercise(new Exercise("Jumping Jacks", 100));
         exerciseList.addExercise(new Exercise("Skipping", 200));
         exerciseList.addExercise(new Exercise("Swimming", 300));
-        assertEquals(850, exerciseList.totalCalorie());
+        assertEquals(850, exerciseList.getTotalCalories());
     }
 }
