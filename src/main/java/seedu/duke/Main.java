@@ -7,9 +7,9 @@ import seedu.duke.exercise.ExerciseList;
 import seedu.duke.food.FoodList;
 import seedu.duke.parser.Parser;
 import seedu.duke.profile.Profile;
-import seedu.duke.storage.Decoder;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
+import seedu.duke.ui.Statistics;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Ui;
 
@@ -25,6 +25,7 @@ public class Main {
     private Profile profile;
     private Ui ui;
     private Storage storage;
+    private Statistics statistics;
 
 
     /**
@@ -81,7 +82,7 @@ public class Main {
      * @return CommandResult representing result of execution of the command
      */
     private CommandResult executeCommand(Command command) {
-        command.setData(this.profile, this.exerciseItems, this.foodItems);
+        command.setData(this.profile, this.exerciseItems, this.foodItems, this.statistics);
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {

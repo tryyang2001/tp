@@ -1,16 +1,16 @@
 package seedu.duke.ui;
 
-import seedu.duke.parser.Parser;
-
-import java.text.DecimalFormat;
 import java.lang.System;
 import java.util.Scanner;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * This class deals with interaction with user on CLI.
  * Also helps to change color of output if required.
  */
 public class Ui {
+    // to delete on v2.1
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -43,12 +43,16 @@ public class Ui {
             + " | |    | | |_| |_) | (_) | |_"
             + LS
             + " |_|    |_|\\__|_.__/ \\___/ \\__|";
-    public static final String MESSAGE_CALORIE_GAIN = "Your calorie gained from food is: %d";
-    public static final String MESSAGE_CALORIE_LOST = "Your calorie lost from exercise is: %d";
-    public static final String MESSAGE_CALORIE_NET = "Your net calorie intake is: %d";
-    public static final String MESSAGE_CALORIE_GOAL = "Your calorie to goal is: %d";
-    public static final String MESSAGE_CALORIE_TO_GOAL_PERCENTAGE = "Percentage to goal: ";
+
+
+    //TODO: These constants are to be moved to UI class
     public static final String QUOTATION = "\"";
+    public static final String MESSAGE_WELCOME = "Welcome to Fitbot, a desktop app that helps university students"
+            + " who are looking to keep track of their "
+            + LS
+            + "fitness and health. Please type a command or view the list of"
+            + "available commands by typing 'help'.";
+
 
     private Scanner scanner;
 
@@ -61,67 +65,7 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    /**
-     * Generate a progress bar between net calorie and calorieGoal.
-     *
-     * @param netCalorie  is the net calories gained by consuming food and calorie lost by exercising.
-     * @param calorieGoal is the goal set by the user.
-     * @return progress statistic if calorieGoal is positive integer.
-     */
-    private static String printCalorieProgress(int netCalorie, int calorieGoal) {
-        if (calorieGoal > 0) {
-            float percentage = (float) (((float) netCalorie / calorieGoal) * 100.0);
-            String newPercentage = getPercentage(percentage);
-            int barNum = getBarNum(percentage);
-            String result = getResult(barNum);
-            String color = determineColor(percentage);
-            return MESSAGE_CALORIE_TO_GOAL_PERCENTAGE + color + result + newPercentage + '%' + ANSI_RESET;
-        }
-        return "";
-    }
-
-    private static String getPercentage(float percentage) {
-        DecimalFormat df = new DecimalFormat("#.#");
-        String newPercentage = df.format(percentage);
-        return newPercentage == null ? "0.0" : newPercentage;
-    }
-
-    private static int getBarNum(float percentage) {
-        int barNum = Math.round(percentage / BAR_WIDTH);
-        return barNum > 15 ? 15 : barNum;
-    }
-
-    private static String getResult(int barNum) {
-        String result = "|";
-        int counter = 0;
-        for (int i = 0; i < barNum; i++) {
-            result = result + FULL_BLOCK;
-            counter++;
-            if (counter == 10) {
-                result += '|';
-            }
-        }
-        for (int i = 0; i < (MAX_BAR - barNum); i++) {
-            result = result + SPACE;
-            counter++;
-            if (counter == 10) {
-                result += '|';
-            }
-        }
-        return result + "  ";
-    }
-
-    private static String determineColor(float percentage) {
-        String color;
-        if (percentage <= 100) {
-            color = ANSI_GREEN;
-        } else if (percentage <= 120) {
-            color = ANSI_YELLOW;
-        } else {
-            color = ANSI_RED;
-        }
-        return color;
-    }
+    private static Logger logger = Logger.getLogger("Foo");
 
     /**
      * Surround strings with lines for user to differentiate results.
@@ -136,38 +80,10 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
-    /**
-     * Calculate netCalories and format exerciseCalories, foodCalories, calorieGoal
-     * into strings.
-     *
-     * @param exerciseCalories is the total calories lost by exercising
-     * @param foodCalories     is the total calories gained by consuming food
-     * @param calorieGoal      is the goal set by the user
-     * @return formatted strings.
-     */
-    private static String[] printCalories(int exerciseCalories, int foodCalories, int calorieGoal) {
-        int netCalories = foodCalories - exerciseCalories;
-        int remainingCalories = calorieGoal - netCalories;
-        return new String[]{String.format(MESSAGE_CALORIE_GAIN, foodCalories),
-                String.format(MESSAGE_CALORIE_LOST, exerciseCalories),
-                String.format(MESSAGE_CALORIE_NET, netCalories),
-                String.format(MESSAGE_CALORIE_GOAL, remainingCalories),
-                printCalorieProgress(netCalories, calorieGoal)};
-    }
-
-    /**
-     * Print all the statistics regarding calories.
-     *
-     * @param exerciseCalories is the total calories lost by exercising
-     * @param foodCalories     is the total calories gained by consuming food
-     * @param calorieGoal      is the goal set by the user
-     */
-    public void printCalorieResult(int exerciseCalories, int foodCalories, int calorieGoal) {
-        formatMessageFramedWithDivider(printCalories(exerciseCalories, foodCalories, calorieGoal));
-    }
-
 
     public void printStartApplicationPage() {
-        System.out.println(FITBOT_V0 + EMOJI_1);
+        logger.log(Level.INFO, "start of application");
+        System.out.println(FITBOT_V0 + EMOJI_1 + LS + MESSAGE_WELCOME);
     }
+
 }
