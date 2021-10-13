@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class FoodList {
     public static final String LS = System.lineSeparator();
+
     private ArrayList<Food> foodRecords = new ArrayList<>();
 
     /**

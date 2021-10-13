@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public class ExerciseList {
 
+    public static final String MESSAGE_EXERCISE_ADDED = "An exercise has been added:";
+    private static final String MESSAGE_EXERCISE_DELETED = "You have removed the exercise:";
+    private static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise is found.";
     private static final String LS = System.lineSeparator();
 
     private ArrayList<Exercise> exerciseList = new ArrayList<>();
