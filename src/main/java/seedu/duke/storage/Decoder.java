@@ -39,8 +39,7 @@ public class Decoder {
         String name = profileDetails[0];
         double height = Double.parseDouble(profileDetails[1]);
         double weight = Double.parseDouble(profileDetails[2]);
-        int calorieGoal = Integer.parseInt(profileDetails[3]);
-        if (!name.equals("null")){
+        if (!name.equals("null")) {
             profile.setName(name);
         }
         if (height != 0.0) {
@@ -49,12 +48,10 @@ public class Decoder {
         if (weight != 0.0) {
             profile.setWeight(weight);
         }
+        int calorieGoal = Integer.parseInt(profileDetails[3]);
         profile.setCalorieGoal(calorieGoal);
         return profile;
     }
-
-
-
 
 
     /**
