@@ -3,6 +3,8 @@ package seedu.duke.commands;
 import seedu.duke.exercise.Exercise;
 import seedu.duke.storage.Storage;
 import seedu.duke.ui.Ui;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents the command that when executed, adds an Exercise item to the ExerciseList.
@@ -19,6 +21,8 @@ public class AddExerciseCommand extends Command {
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
             + Ui.LS + "Try a positive value instead";
 
+    private static Logger logger = Logger.getLogger("AddExerciseCommand");
+
     private Exercise exercise;
     private final String description;
     private final int calories;
@@ -32,9 +36,12 @@ public class AddExerciseCommand extends Command {
     @Override
     public CommandResult execute() {
         if (exercise.getCalories() <= 0) {
+            logger.log(Level.WARNING,"Exercise calorie is invalid");
             return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
         }
+        assert exercise.getCalories() > 0 : "Exercise calorie is valid";
         super.exerciseItems.addExercise(this.exercise);
+        logger.log(Level.INFO, "Exercise is successfully added");
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.exercise));
     }
 }

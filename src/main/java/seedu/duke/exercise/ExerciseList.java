@@ -1,9 +1,7 @@
 package seedu.duke.exercise;
 
 import seedu.duke.ui.Ui;
-
 import java.util.ArrayList;
-
 
 public class ExerciseList {
 

@@ -196,14 +196,14 @@ public class Parser {
         if (params.isEmpty()) { //no additional parameters, assumed to be view profile command
             return new ProfileCommand();
         }
+        if (hasExtraDelimiters(params, ProfileCreateCommand.COMMAND_EXPECTED_NUM_DELIMITERS)) {
+            return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+        }
         if (!hasRequiredParams(params,
                 Command.COMMAND_PREFIX_NAME,
                 Command.COMMAND_PREFIX_HEIGHT,
                 Command.COMMAND_PREFIX_WEIGHT)) {
             return new InvalidCommand(ProfileCreateCommand.MESSAGE_INVALID_COMMAND_FORMAT);
-        }
-        if (hasExtraDelimiters(params, ProfileCreateCommand.COMMAND_EXPECTED_NUM_DELIMITERS)) {
-            return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
         }
         try {
             final String name = extractProfileName(params);
@@ -375,7 +375,12 @@ public class Parser {
     }
 
     private boolean hasExtraDelimiters(String params, int expectedNum) {
-        int numOfDelimiters = params.split(Command.COMMAND_PREFIX_DELIMITER).length - 1;
+        int numOfDelimiters = 0;
+        for (int i = 0; i < params.length(); i++) {
+            if (params.charAt(i) == Command.COMMAND_PREFIX_DELIMITER.charAt(0)) {
+                numOfDelimiters++;
+            }
+        }
         return numOfDelimiters > expectedNum;
     }
 
