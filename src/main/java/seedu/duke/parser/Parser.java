@@ -24,6 +24,9 @@ import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
 import seedu.duke.ui.Ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Parses user input to determine which command to execute.
  */
@@ -49,6 +52,7 @@ public class Parser {
             + " in your input!";
     public static final int PARAMS_ALL_INDICES = 0;
 
+    private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
     /**
      * Returns the correct command to be executed depending on user input.
@@ -95,7 +99,6 @@ public class Parser {
         default:
             return new InvalidCommand(MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST);
         }
-
     }
 
     private Command parseAddItems(String params) {
@@ -107,7 +110,6 @@ public class Parser {
             final String itemTypePrefix = extractItemTypePrefix(params);
             final String description = extractItemDescription(params, itemTypePrefix);
             final int calories = extractItemCalories(params);
-
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
                 return new AddExerciseCommand(description, calories);
             } else {
@@ -174,22 +176,23 @@ public class Parser {
         if (params.equals(EMPTY)) { //no additional parameters, assumed to be bmi from current profile
             return new CalculateBmiWithProfileCommand();
         }
-        if (!hasRequiredParams(params,
-                Command.COMMAND_PREFIX_HEIGHT,
-                Command.COMMAND_PREFIX_WEIGHT)) {
-            return new InvalidCommand(CalculateBmiCommand.MESSAGE_INVALID_COMMAND_FORMAT);
-        }
         if (hasExtraDelimiters(params, Command.COMMAND_BMI_EXPECTED_NUM_DELIMITERS)) {
             return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
         }
-        try {
-            final double height = extractHeight(params);
-            final double weight = extractWeight(params);
-            return new CalculateBmiCommand(height, weight);
-        } catch (ParamInvalidException e) {
-            return new InvalidCommand(e.getMessage());
+        if (hasRequiredParams(params,
+                Command.COMMAND_PREFIX_HEIGHT,
+                Command.COMMAND_PREFIX_WEIGHT)) {
+            try {
+                final double height = extractHeight(params);
+                final double weight = extractWeight(params);
+                return new CalculateBmiCommand(height, weight);
+            } catch (ParamInvalidException e) {
+                return new InvalidCommand(e.getMessage());
+            }
+        } else {
+            logger.log(Level.WARNING, "Detected invalid input parameters for BMI calculation.");
+            return new InvalidCommand(CalculateBmiCommand.MESSAGE_INVALID_COMMAND_FORMAT);
         }
-
     }
 
     private Command parseProfile(String params) {
@@ -220,6 +223,7 @@ public class Parser {
             final double height = Double.parseDouble(params);
             return new ChangeHeightCommand(height);
         } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit height input.");
             return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
         }
     }
@@ -229,7 +233,26 @@ public class Parser {
             final double weight = Double.parseDouble(params);
             return new ChangeWeightCommand(weight);
         } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit weight input.");
             return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
+        }
+    }
+
+    private Command parseCreateProfile(String params) {
+        if (!hasRequiredParams(params,
+                Command.COMMAND_PREFIX_NAME,
+                Command.COMMAND_PREFIX_HEIGHT,
+                Command.COMMAND_PREFIX_WEIGHT)) {
+            logger.log(Level.WARNING, "Detected insufficient prefix for creating profile.");
+            return new InvalidCommand(ProfileCreateCommand.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        try {
+            final String name = extractProfileName(params);
+            final double height = extractHeight(params);
+            final double weight = extractWeight(params);
+            return new ProfileCreateCommand(name, height, weight);
+        } catch (ParamInvalidException e) {
+            return new InvalidCommand(e.getMessage());
         }
     }
 
@@ -238,6 +261,7 @@ public class Parser {
             final int goal = Integer.parseInt(params);
             return new SetGoalCommand(goal);
         } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-integer calorie goal input.");
             return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
         }
     }
@@ -278,6 +302,7 @@ public class Parser {
                         + Command.COMMAND_PREFIX_DELIMITER);
 
         if (isExercise && isFood || !isExercise && !isFood) {
+            logger.log(Level.WARNING, "Detected both food and exercise prefix.");
             throw new ItemNotSpecifiedException(); //cannot be both and cannot be neither
         } else if (isExercise) {
             return Command.COMMAND_PREFIX_EXERCISE;
@@ -287,7 +312,7 @@ public class Parser {
     }
 
     /**
-     * Extract only the parameter required so that any additional parameter
+     * Extracts only the parameter required so that any additional parameter
      * specified behind this string (if any) is removed.
      * E.g. "John Doe w/20" is returned as "John Doe".
      * NOTE: This is why users are not allowed to include the character "/" in their inputs
@@ -306,10 +331,12 @@ public class Parser {
             String stringAfterPrefix = params.split(prefix + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String description = extractRelevantParameter(stringAfterPrefix);
             if (description.equals(EMPTY)) {
+                //TODO: add logger.log(Level.WARNING, "Detected ..."); here
                 throw new ParamInvalidException(MESSAGE_ERROR_NO_DESCRIPTION);
             }
             return description;
         } catch (IndexOutOfBoundsException e) {
+            //TODO: add logger.log(Level.WARNING, "Detected ..."); here
             throw new ParamInvalidException(MESSAGE_ERROR_NO_DESCRIPTION);
         }
     }
@@ -323,9 +350,11 @@ public class Parser {
                 String caloriesString = stringAfterPrefix.split(" ", 2)[0];
                 return Integer.parseInt(caloriesString);
             } else {
+                //TODO: add logger.log(Level.WARNING, "Detected ..."); here
                 throw new ParamInvalidException(MESSAGE_ERROR_NO_CALORIES_INFO);
             }
         } catch (NumberFormatException e) {
+            //TODO: add logger.log(Level.WARNING, "Detected ..."); here
             throw new ParamInvalidException(MESSAGE_ERROR_INVALID_CALORIES_INFO);
         }
     }
@@ -338,6 +367,7 @@ public class Parser {
             String doubleString = stringAfterPrefix.split(" ", 2)[0];
             return Double.parseDouble(doubleString);
         } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit height input.");
             throw new ParamInvalidException(MESSAGE_ERROR_NO_HEIGHT);
         }
     }
@@ -350,6 +380,7 @@ public class Parser {
             String doubleString = stringAfterPrefix.split(" ", 2)[0];
             return Double.parseDouble(doubleString);
         } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit weight input.");
             throw new ParamInvalidException(MESSAGE_ERROR_NO_WEIGHT);
         }
     }
@@ -362,10 +393,12 @@ public class Parser {
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String name = extractRelevantParameter(stringAfterPrefix).trim();
             if (name.equals(EMPTY)) {
+                logger.log(Level.WARNING, "Detected empty name input.");
                 throw new ParamInvalidException(MESSAGE_ERROR_NO_NAME);
             }
             return name;
         } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Detected empty name input after prefix.");
             throw new ParamInvalidException(MESSAGE_ERROR_NO_NAME);
         }
     }
@@ -387,5 +420,4 @@ public class Parser {
     private boolean hasTextFileDelimiter(String input) {
         return input.contains(FILE_TEXT_DELIMITER);
     }
-
 }

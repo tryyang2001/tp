@@ -1,7 +1,9 @@
 package seedu.duke.commands;
 
 import seedu.duke.exercise.Exercise;
+import seedu.duke.parser.Parser;
 import seedu.duke.ui.Ui;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +22,7 @@ public class DeleteExerciseCommand extends Command {
             + Ui.LS + "Number of exercise item(s) left: %2$d";
     private static final String MESSAGE_EXERCISE_CLEAR = "All exercise items have been removed.";
 
-    private static Logger logger = Logger.getLogger("DeleteExerciseCommand");
+    private static Logger logger = Logger.getLogger(DeleteExerciseCommand.class.getName());
 
     private final int itemIndex;
 
@@ -30,27 +32,23 @@ public class DeleteExerciseCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (this.itemIndex == 0) {
-            logger.log(Level.INFO,"Clearing exercise list");
+        if (this.itemIndex == Parser.PARAMS_ALL_INDICES) {
+            logger.log(Level.INFO, "Clearing exercise list");
             super.exerciseItems.clearExerciseList();
             return new CommandResult(MESSAGE_EXERCISE_CLEAR);
         }
-
         assert this.itemIndex > 0 : "Deleting an item only";
-
         if (super.exerciseItems.getSize() == 0) {
-            logger.log(Level.WARNING,"Exercise list is empty");
+            logger.log(Level.WARNING, "Exercise list is empty.");
             return new CommandResult(MESSAGE_EMPTY_EXERCISE_LIST);
         }
-
-        logger.log(Level.INFO,"Trying to delete item now");
-
+        logger.log(Level.INFO, "Trying to delete item now");
         try {
             Exercise deletedExercise;
             deletedExercise = super.exerciseItems.deleteExercise(this.itemIndex);
             return new CommandResult(String.format(MESSAGE_SUCCESS, deletedExercise, super.exerciseItems.getSize()));
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING,"Index is out of bound");
+            logger.log(Level.WARNING, "Detected invalid exercise item index.");
             if (super.exerciseItems.getSize() == 1) {
                 return new CommandResult(MESSAGE_ONLY_ONE_IN_LIST);
             }
