@@ -83,7 +83,7 @@ public class Ui {
 
     public void printStartApplicationPage() {
         logger.log(Level.FINE, "start of application");
-        System.out.println(FITBOT_V0 + EMOJI_1 + LS + MESSAGE_WELCOME + MESSAGE_HELP_HELP);
+        System.out.println(FITBOT_V0 + EMOJI_1 + LS + MESSAGE_WELCOME);
     }
-    
+
 }
