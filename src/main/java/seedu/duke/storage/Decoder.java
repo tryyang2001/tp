@@ -35,11 +35,9 @@ public class Decoder {
         Profile profile = new Profile();
         File file = new File(Storage.FILEPATH_PROFILE);
         Scanner in = new Scanner(file);
-        logger.log(Level.INFO, "Getting profile from data...");
         if (in.hasNext()) {
             profile = decodeProfileData(in.nextLine());
         }
-        logger.log(Level.INFO, "Retrieved profile from data.");
         return profile;
     }
 
@@ -66,12 +64,9 @@ public class Decoder {
         ExerciseList exercises = new ExerciseList();
         File file = new File(Storage.FILEPATH_EXERCISE_LIST);
         Scanner in = new Scanner(file);
-        logger.log(Level.INFO, "Getting exercises from data...");
         while (in.hasNext()) {
             decodeExerciseData(exercises, in.nextLine());
         }
-        logger.log(Level.INFO, "Retrieved exercises from data.");
-
         return exercises;
     }
 
@@ -96,12 +91,9 @@ public class Decoder {
         FoodList foodItems = new FoodList();
         File file = new File(Storage.FILEPATH_FOOD_LIST);
         Scanner in = new Scanner(file);
-        logger.log(Level.INFO, "Getting food list from data...");
         while (in.hasNext()) {
             decodeFoodData(foodItems, in.nextLine());
         }
-        logger.log(Level.INFO, "Retrieved food list from data.");
-
         return foodItems;
     }
 
@@ -112,8 +104,6 @@ public class Decoder {
         }
         String name = foodDetails[1];
         int calories = Integer.parseInt(foodDetails[2]);
-        Food temp = new Food(name, calories);
-        System.out.println(temp.toString());
         foodItems.addFood(new Food(name, calories));
     }
 }
