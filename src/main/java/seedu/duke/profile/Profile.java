@@ -33,7 +33,7 @@ public class Profile {
         setName(name);
         setHeight(height);
         setWeight(weight);
-        setCalorieGoal(calorieGoal); //Initialize to 0 first
+        setCalorieGoal(calorieGoal);
     }
 
     public Profile() {
