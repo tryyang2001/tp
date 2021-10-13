@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-/* A class that manage the statics of the calories*/
+/* A class that manage the statistics of the calories*/
 public class Statistics {
     public static final String MESSAGE_CALORIE_GAIN = "Your calorie gained from food is: %d";
     public static final String MESSAGE_CALORIE_LOST = "Your calorie lost from exercise is: %d";

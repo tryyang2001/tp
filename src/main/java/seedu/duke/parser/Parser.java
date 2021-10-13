@@ -206,6 +206,7 @@ public class Parser {
                 Command.COMMAND_PREFIX_NAME,
                 Command.COMMAND_PREFIX_HEIGHT,
                 Command.COMMAND_PREFIX_WEIGHT)) {
+            logger.log(Level.WARNING, "Detected insufficient prefix for creating profile.");
             return new InvalidCommand(ProfileCreateCommand.MESSAGE_INVALID_COMMAND_FORMAT);
         }
         try {
@@ -235,24 +236,6 @@ public class Parser {
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Detected non-digit weight input.");
             return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
-        }
-    }
-
-    private Command parseCreateProfile(String params) {
-        if (!hasRequiredParams(params,
-                Command.COMMAND_PREFIX_NAME,
-                Command.COMMAND_PREFIX_HEIGHT,
-                Command.COMMAND_PREFIX_WEIGHT)) {
-            logger.log(Level.WARNING, "Detected insufficient prefix for creating profile.");
-            return new InvalidCommand(ProfileCreateCommand.MESSAGE_INVALID_COMMAND_FORMAT);
-        }
-        try {
-            final String name = extractProfileName(params);
-            final double height = extractHeight(params);
-            final double weight = extractWeight(params);
-            return new ProfileCreateCommand(name, height, weight);
-        } catch (ParamInvalidException e) {
-            return new InvalidCommand(e.getMessage());
         }
     }
 
@@ -331,12 +314,12 @@ public class Parser {
             String stringAfterPrefix = params.split(prefix + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String description = extractRelevantParameter(stringAfterPrefix);
             if (description.equals(EMPTY)) {
-                //TODO: add logger.log(Level.WARNING, "Detected ..."); here
+                logger.log(Level.WARNING, "Detected empty description");
                 throw new ParamInvalidException(MESSAGE_ERROR_NO_DESCRIPTION);
             }
             return description;
         } catch (IndexOutOfBoundsException e) {
-            //TODO: add logger.log(Level.WARNING, "Detected ..."); here
+            logger.log(Level.WARNING, String.format("Detected missing command prefix (%s)", prefix));
             throw new ParamInvalidException(MESSAGE_ERROR_NO_DESCRIPTION);
         }
     }
@@ -350,11 +333,11 @@ public class Parser {
                 String caloriesString = stringAfterPrefix.split(" ", 2)[0];
                 return Integer.parseInt(caloriesString);
             } else {
-                //TODO: add logger.log(Level.WARNING, "Detected ..."); here
+                logger.log(Level.WARNING, "Detected missing calories prefix");
                 throw new ParamInvalidException(MESSAGE_ERROR_NO_CALORIES_INFO);
             }
         } catch (NumberFormatException e) {
-            //TODO: add logger.log(Level.WARNING, "Detected ..."); here
+            logger.log(Level.WARNING, "Detected non-digit calories input");
             throw new ParamInvalidException(MESSAGE_ERROR_INVALID_CALORIES_INFO);
         }
     }
