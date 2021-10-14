@@ -7,8 +7,19 @@ import seedu.duke.commands.AddFoodCommand;
 import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.CalculateBmiCommand;
 import seedu.duke.commands.CalculateBmiWithProfileCommand;
+import seedu.duke.commands.ChangeHeightCommand;
+import seedu.duke.commands.ChangeNameCommand;
+import seedu.duke.commands.ChangeWeightCommand;
 import seedu.duke.commands.Command;
+import seedu.duke.commands.DeleteExerciseCommand;
+import seedu.duke.commands.DeleteFoodCommand;
+import seedu.duke.commands.HelpCommand;
 import seedu.duke.commands.InvalidCommand;
+import seedu.duke.commands.OverviewCommand;
+import seedu.duke.commands.ProfileCreateCommand;
+import seedu.duke.commands.ViewCommand;
+import seedu.duke.commands.ViewExerciseListCommand;
+import seedu.duke.commands.ViewFoodListCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,7 +28,9 @@ import static seedu.duke.parser.Parser.MESSAGE_ERROR_ILLEGAL_CHARACTER;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_CALORIES_INFO;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_NOT_A_NUMBER;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_HEIGHT;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_NAME;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_WEIGHT;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_TOO_MANY_DELIMITERS;
 
 
 class ParserTest {
@@ -100,32 +113,115 @@ class ParserTest {
     }
 
     @Test
-    void parseCalculateCommand_parametersInvalid_errorMessage() {
+    void parseCalculateBmiCommand_parametersInvalid_errorMessage() {
         parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_HEIGHT, "BMI w/20 h/potato");
         parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_WEIGHT, "BMI w/potato h/20");
     }
 
 
     @Test
-    void changeHeightCommand_heightNotGiven_invalidCommand() {
+    void parseChangeHeightCommand_correctInput_changeHeightCommand() {
+        parseAndAssertCommandType("height 50", ChangeHeightCommand.class);
+    }
+
+    @Test
+    void parseChangeHeightCommand_heightNotGiven_invalidCommand() {
         parseAndAssertCommandType("height", InvalidCommand.class);
     }
 
     @Test
-    void changeHeightCommand_heightNotANumber_errorMessage() {
+    void parseChangeHeightCommand_heightNotANumber_errorMessage() {
         parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NOT_A_NUMBER, "height abc");
     }
 
     @Test
-    void changeWeightCommand_weightNotGiven_invalidCommand() {
+    void parseChangeNameCommand_correctInput_changeNameCommand() {
+        parseAndAssertCommandType("name hello", ChangeNameCommand.class);
+    }
+
+    @Test
+    void parseChangeWeightCommand_correctInput_changeWeightCommand() {
+        parseAndAssertCommandType("weight 50", ChangeWeightCommand.class);
+    }
+
+    @Test
+    void parseChangeWeightCommand_weightNotGiven_invalidCommand() {
         parseAndAssertCommandType("weight", InvalidCommand.class);
     }
 
     @Test
-    void changeWeightCommand_weightNotANumber_errorMessage() {
+    void parseChangeWeightCommand_weightNotANumber_errorMessage() {
         parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NOT_A_NUMBER, "weight abc");
     }
 
+    @Test
+    void parseDeleteCommand_itemTypeNotSpecified_itemTypeNotSpecifiedMessage() {
+        final String expectedMessage = String.format(Command.MESSAGE_ERROR_ITEM_NOT_SPECIFIED,
+                DeleteFoodCommand.MESSAGE_COMMAND_FORMAT,
+                DeleteExerciseCommand.MESSAGE_COMMAND_FORMAT);
+        parseAndAssertIncorrectWithMessage(expectedMessage, "delete", "delete e", "delete c/");
+    }
+
+    @Test
+    void parseDeleteCommand_itemNumInvalid_invalidCommand() {
+        parseAndAssertCommandType("delete e/ ", InvalidCommand.class);
+        parseAndAssertCommandType("delete f/", InvalidCommand.class);
+        parseAndAssertCommandType("delete f/potato", InvalidCommand.class);
+        parseAndAssertCommandType("delete e/potato", InvalidCommand.class);
+    }
+
+    @Test
+    void parseHelpCommand_correctInput_helpCommand() {
+        parseAndAssertCommandType("help", HelpCommand.class);
+    }
+
+    @Test
+    void parseOverviewCommand_correctInput_overviewCommand() {
+        parseAndAssertCommandType("overview", OverviewCommand.class);
+    }
+
+    @Test
+    void parseProfileCreateCommand_correctInput_ProfileCreateCommand() {
+        parseAndAssertCommandType("profile n/hello w/50 h/80 ", ProfileCreateCommand.class);
+        parseAndAssertCommandType("profile w/50 h/80 n/hi potato", ProfileCreateCommand.class);
+        parseAndAssertCommandType("profile h/50 n/hello potato w/20", ProfileCreateCommand.class);
+    }
+
+    @Test
+    void parseProfileCreateCommand_parametersNotGiven_invalidCommand() {
+        parseAndAssertCommandType("profile n/ ", InvalidCommand.class);
+        parseAndAssertCommandType("profile h/", InvalidCommand.class);
+        parseAndAssertCommandType("profile w/", InvalidCommand.class);
+        parseAndAssertCommandType("profile n/ h/", InvalidCommand.class);
+    }
+
+    @Test
+    void parseProfileCreateCommand_parametersInvalid_parametersMissingMessage() {
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_NAME,"profile n/h/50w/20 ");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_HEIGHT,"profile n/hello h/no w/50");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_WEIGHT, "profile n/hello h/50 w/no");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/hi/ h/50 w/20");
+    }
+
+    @Test
+    void parseSetGoalCommand_parametersNotGivenOrInvalid_notANumberMessage() {
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NOT_A_NUMBER, "goal", "goal nope");
+    }
+
+    @Test
+    void parseViewCommand_correctInput_viewCommand() {
+        parseAndAssertCommandType("view", ViewCommand.class);
+        parseAndAssertCommandType("view e/", ViewExerciseListCommand.class);
+        parseAndAssertCommandType("view f/", ViewFoodListCommand.class);
+    }
+
+    @Test
+    void parseViewCommand_itemTypeNotSpecified_itemTypeNotSpecifiedMessage() {
+        final String expectedMessage = String.format(Command.MESSAGE_ERROR_ITEM_NOT_SPECIFIED,
+                ViewFoodListCommand.MESSAGE_COMMAND_FORMAT,
+                ViewExerciseListCommand.MESSAGE_COMMAND_FORMAT);
+        parseAndAssertIncorrectWithMessage(expectedMessage, "view a", "view f", "view f/ e/");
+    }
 
 
     /*
