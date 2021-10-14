@@ -10,12 +10,12 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
 
     private static final String MESSAGE_SUCCESS = "These are the available commands:" + Ui.LS;
-    private static final String MESSAGE_HELP_INTRO = "Welcome to the help page.\n"
-            + "Below are the commands to get you started.\n"
-            + "More details could be found on: \n"
-            + "https://frost-action-9f0.notion.site/FitBot-User-Guide-ddffabf5e4d546acb200bffab02b9ecb \n"
-            + MESSAGE_SUCCESS
-            + Ui.LS;
+    private static final String MESSAGE_HELP_INTRO = "Welcome to the help page." + Ui.LS
+            + "Below are the commands to get you started." + Ui.LS
+            + "More details could be found on: " + Ui.LS
+            + "https://tinyurl.com/fitbotUG";
+    
+
     public static final String MESSAGE_HELP = "help -- "
             + "Shows a list of commands and their usage with some examples."
             + Ui.INDENTED_LS  + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
