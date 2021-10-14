@@ -1,1 +1,79 @@
 James Gosling
+
+Hello, this is a ui test...
+view
+delete f/all
+delete e/all
+view
+Testing for profile command...
+profile n/
+profile n/h/
+profile n/w/
+profile h/w/
+profile n/h/w/
+profile n///// h/1 w/1
+profile n/ h/1 w/1
+profile n/test h/1 w/
+profile n/test h/ w/1
+profile n/test h/1 w/1
+name n/test" + "\n\t%s test"
+name n/testUser
+height h/-100
+weight w/-100
+height h/170
+weight w/60.5
+Testing bmi...
+bmi
+bmi h/171 w/0
+bmi h/0 w/60
+bmi h/-1 w/-1
+bmi h/171
+bmi w/60
+bmi h/171 w/60.5
+Testing add food and exercise...
+add food test 300
+add f/food test 300
+add f/ c/300
+add f/food test c/-300
+add f/food/test c/300
+add f/food test c/300
+add f/zeroCalorieFood c/0
+view f/
+add exercise test 250
+add e/exercise test 250
+add e/ c/250
+add e/exercise test c/-250
+add e/exercise/test c/250
+add e/exercise test c/0
+add e/exercise test c/250
+add e/exercise test2 c/200
+view e/
+view
+Test overview...
+overview
+goal -1000
+overview
+goal 0
+overview
+goal 2000
+overview
+Test delete...
+delete 1
+delete f/
+delete e/
+delete food
+delete f/100
+delete f/-1
+delete f/0
+delete f/1
+view f/
+delete f/1
+view f/
+delete e/100
+delete e/-1
+delete e/0
+delete e/1
+view e/
+delete e/1
+view e/
+bye
