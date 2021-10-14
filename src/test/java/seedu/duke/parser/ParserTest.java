@@ -23,14 +23,7 @@ import seedu.duke.commands.ViewFoodListCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_ILLEGAL_CHARACTER;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_CALORIES_INFO;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_NOT_A_NUMBER;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_HEIGHT;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_NAME;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_WEIGHT;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_TOO_MANY_DELIMITERS;
+import static seedu.duke.parser.Parser.*;
 
 
 class ParserTest {
@@ -182,9 +175,9 @@ class ParserTest {
 
     @Test
     void parseProfileCreateCommand_correctInput_ProfileCreateCommand() {
-        parseAndAssertCommandType("profile n/hello w/50 h/80 ", ProfileCreateCommand.class);
-        parseAndAssertCommandType("profile w/50 h/80 n/hi potato", ProfileCreateCommand.class);
-        parseAndAssertCommandType("profile h/50 n/hello potato w/20", ProfileCreateCommand.class);
+        parseAndAssertCommandType("profile n/hello w/50 h/80 g/50 ", ProfileCreateCommand.class);
+        parseAndAssertCommandType("profile g/100 w/50 h/80 n/hi potato", ProfileCreateCommand.class);
+        parseAndAssertCommandType("profile h/50 n/hello potato g/20 w/20", ProfileCreateCommand.class);
     }
 
     @Test
@@ -197,15 +190,16 @@ class ParserTest {
 
     @Test
     void parseProfileCreateCommand_parametersInvalid_parametersMissingMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_NAME,"profile n/h/50w/20 ");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_HEIGHT,"profile n/hello h/no w/50");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_WEIGHT, "profile n/hello h/50 w/no");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/hi/ h/50 w/20");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_NAME,"profile n/h/50w/20 g/20 ");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_HEIGHT,"profile n/hello h/no w/50 g/20");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_WEIGHT, "profile n/hello h/50 w/no g/30");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_GOAL, "profile n/hello h/50 w/50 g/no");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/hi/ h/50 w/20 g/30");
     }
 
     @Test
     void parseSetGoalCommand_parametersNotGivenOrInvalid_notANumberMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NOT_A_NUMBER, "goal", "goal nope");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_GOAL, "goal", "goal nope");
     }
 
     @Test

@@ -38,6 +38,7 @@ public class Parser {
     protected static final String MESSAGE_ERROR_NO_NAME = "Please input your name!";
     protected static final String MESSAGE_ERROR_NO_HEIGHT = "Please input height as a number!";
     protected static final String MESSAGE_ERROR_NO_WEIGHT = "Please input weight as a number!";
+    protected static final String MESSAGE_ERROR_NO_GOAL = "Please input calorie goal as a number!";
     protected static final String MESSAGE_ERROR_NO_CALORIES_INFO = "Please input the number of calories!";
     protected static final String MESSAGE_ERROR_INVALID_CALORIES_INFO = "Please input calories as a number! E.g 123";
     protected static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
@@ -211,7 +212,8 @@ public class Parser {
         if (!hasRequiredParams(params,
                 Command.COMMAND_PREFIX_NAME,
                 Command.COMMAND_PREFIX_HEIGHT,
-                Command.COMMAND_PREFIX_WEIGHT)) {
+                Command.COMMAND_PREFIX_WEIGHT,
+                Command.COMMAND_PREFIX_GOAL)) {
             logger.log(Level.WARNING, "Detected insufficient prefix for creating profile.");
             return new InvalidCommand(ProfileCreateCommand.MESSAGE_INVALID_COMMAND_FORMAT);
         }
@@ -219,7 +221,8 @@ public class Parser {
             final String name = extractProfileName(params);
             final double height = extractHeight(params);
             final double weight = extractWeight(params);
-            return new ProfileCreateCommand(name, height, weight);
+            final int calorieGoal = extractCalorieGoal(params);
+            return new ProfileCreateCommand(name, height, weight, calorieGoal);
         } catch (ParamInvalidException e) {
             return new InvalidCommand(e.getMessage());
         }
@@ -251,7 +254,7 @@ public class Parser {
             return new SetGoalCommand(goal);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Detected non-integer calorie goal input.");
-            return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
+            return new InvalidCommand(MESSAGE_ERROR_NO_GOAL);
         }
     }
 
@@ -371,6 +374,19 @@ public class Parser {
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Detected non-digit weight input.");
             throw new ParamInvalidException(MESSAGE_ERROR_NO_WEIGHT);
+        }
+    }
+
+    private int extractCalorieGoal(String params) throws ParamInvalidException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_GOAL
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String intString = stringAfterPrefix.split(" ", 2)[0];
+            return Integer.parseInt(intString);
+        } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit goal input.");
+            throw new ParamInvalidException(MESSAGE_ERROR_NO_GOAL);
         }
     }
 

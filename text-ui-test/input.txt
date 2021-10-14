@@ -5,17 +5,14 @@ view
 profile
           profile
 profile n/
-profile n/h/
-profile n/w/
-profile h/w/
-profile n/h/w/
-profile n///// h/1 w/1
-profile n/tes||t h/1 w/1
-profile n/ h/1 w/1
-profile n/test h/1 w/
-profile n/test h/ w/1
-profile n/test     h/1               w/1
-profile n/test h/1 w/1
+profile n/h/w/g/
+profile n///// h/1 w/1 g/100
+profile n/tes||t h/1 w/1 g/100
+profile n/ h/1 w/1 g/100
+profile n/test h/1 w/ g/100
+profile n/test h/ w/1 g/100
+profile n/test     h/1               w/1      g/100
+profile n/test h/1 w/1 g/100
 name n/test" + "\n\t%s test"
 name test" + "\n\t%s test"
 name testUser
