@@ -54,6 +54,8 @@ public class Ui {
             + LS
             + "fitness and health. Please type a command or view the list of"
             + "available commands by typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + ".";
+    public static final String FORMAT_HEADER = "Format: ";
+    public static final String FORMAT_PLACEHOLDER = "        ";
 
     private Scanner scanner;
 

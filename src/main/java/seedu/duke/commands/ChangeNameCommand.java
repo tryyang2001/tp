@@ -15,6 +15,8 @@ public class ChangeNameCommand extends Command {
     public static final String MESSAGE_DO_NOT_USE_DELIMITER = "Sorry! We do not allow the character "
             + Ui.QUOTATION + COMMAND_PREFIX_DELIMITER + Ui.QUOTATION + " in your name!";
     public static final String MESSAGE_SUCCESS = "Your name has been updated!" + Ui.LS + "Hello %s!";
+    public static final String MESSAGE_HELP = "name -- change the name in the profile." + Ui.LS
+                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
 
     private final String name;
 

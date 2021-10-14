@@ -19,6 +19,10 @@ public class ProfileCreateCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Hello %1$s! Your profile has been created!"
             + Ui.INDENTED_LS + "Your height is %2$scm."
             + Ui.INDENTED_LS + "Your weight is %3$skg.";
+    public static final String MESSAGE_HELP = "profile -- "
+            + "Inputs height of user in centimetres, weight of user in kg\n"
+            + "\t      and name of user in test." + Ui.LS
+                 + Ui.FORMAT_HEADER + ProfileCreateCommand.MESSAGE_COMMAND_FORMAT + Ui.LS;
 
     private final String name;
     private final double weight;

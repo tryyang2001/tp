@@ -14,6 +14,8 @@ public class ChangeWeightCommand extends Command {
             + "Trying to update your weight? Use this format:"
             + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "Your weight has been updated!" + Ui.LS + "Your weight is %skg.";
+    public static final String MESSAGE_HELP = "weight -- changes weight in profile." + Ui.LS
+                 + Ui.FORMAT_HEADER + ChangeWeightCommand.MESSAGE_COMMAND_FORMAT + Ui.LS;
 
     private final double weight;
 

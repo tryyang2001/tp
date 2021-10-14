@@ -8,8 +8,11 @@ import seedu.duke.ui.Ui;
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
+    public static final String MESSAGE_HELP = "bye -- "
+            + "Exits the program and save results from food and exercise items." + Ui.LS;
     private static final String MESSAGE_SUCCESS = "Exiting Fitbot...." + Ui.LS
             + "Bye! Hope to see you again soon!!";
+
 
     @Override
     public CommandResult execute() {

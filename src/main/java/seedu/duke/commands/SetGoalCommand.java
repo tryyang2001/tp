@@ -11,7 +11,8 @@ public class SetGoalCommand extends Command {
             + ", where X is your net calorie goal for the day";
     public static final String MESSAGE_SUCCESS = "Your goal has been set!"
             + Ui.INDENTED_LS + "Current net calorie goal per day: %s";
-
+    public static final String MESSAGE_HELP = "goal -- Inputs net calorie goal of user in kilocalories(kcal)." + Ui.LS
+                 + Ui.FORMAT_HEADER + SetGoalCommand.MESSAGE_COMMAND_FORMAT + Ui.LS;
     private final int calorieGoal;
 
     public SetGoalCommand(int calorieGoal) {
