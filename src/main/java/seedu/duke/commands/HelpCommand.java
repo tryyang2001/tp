@@ -35,20 +35,20 @@ public class HelpCommand extends Command {
     private static final String FORMAT_HEADER = "Format: ";
 
     private String buildHelpString() {
-        StringBuilder helpMessage = new StringBuilder(EMPTY);// need to include the format later
-        helpMessage.append(MESSAGE_HELP_INTRO).append(Ui.LS).append(Ui.LS) // complete by tonight
-                .append(MESSAGE_HELP_HELP).append(Ui.LS)
-                .append(MESSAGE_HELP_PROFILE).append(Ui.LS)
+        StringBuilder helpMessage = new StringBuilder(EMPTY);// format to be added later
+        helpMessage.append(MESSAGE_HELP_INTRO).append(Ui.LS).append(Ui.LS)
+                .append(MESSAGE_HELP_ADD).append(Ui.LS)
+                .append(MESSAGE_HELP_BMI).append(Ui.LS)
+                .append(MESSAGE_HELP_BYE).append(Ui.LS)
+                .append(MESSAGE_HELP_DELETE).append(Ui.LS)
+                .append(MESSAGE_HELP_GOAL).append(Ui.LS)
                 .append(MESSAGE_HELP_HEIGHT).append(Ui.LS)
-                .append(MESSAGE_HELP_WEIGHT).append(Ui.LS)
+                .append(MESSAGE_HELP_HELP).append(Ui.LS)
                 .append(MESSAGE_HELP_NAME).append(Ui.LS)
                 .append(MESSAGE_HELP_OVERVIEW).append(Ui.LS)
-                .append(MESSAGE_HELP_GOAL).append(Ui.LS)
-                .append(MESSAGE_HELP_BMI).append(Ui.LS)
-                .append(MESSAGE_HELP_ADD).append(Ui.LS)
+                .append(MESSAGE_HELP_PROFILE).append(Ui.LS)
                 .append(MESSAGE_HELP_VIEW).append(Ui.LS)
-                .append(MESSAGE_HELP_DELETE).append(Ui.LS)
-                .append(MESSAGE_HELP_BYE).append(Ui.LS);
+                .append(MESSAGE_HELP_WEIGHT).append(Ui.LS);
         helpMessage.setLength(helpMessage.length() - REVERSE_APPEND);
         return helpMessage.toString();
     }
