@@ -18,6 +18,10 @@ public class HelpCommand extends Command {
     private static final String MESSAGE_HELP_PROFILE = "profile -- "
             + "Inputs height of user in centimetres, weight of user in kg\n"
             + "\t      and name of user in test.";
+    private static final String MESSAGE_HELP_NAME = "name -- change the name in the profile.";
+    private static final String MESSAGE_HELP_OVERVIEW = "overview -- shows relevant calories statistics.";
+    private static final String MESSAGE_HELP_HEIGHT = "height -- changes height in profile.";
+    private static final String MESSAGE_HELP_WEIGHT = "weight -- changes weight in profile.";
     private static final String MESSAGE_HELP_GOAL = "goal -- Inputs net calorie goal of user in calorie.";
     private static final String MESSAGE_HELP_BMI = "bmi -- "
             + "Calculates the BMI value based on the user's input height and weight.";
@@ -28,12 +32,17 @@ public class HelpCommand extends Command {
             + "Exits the program and save results from food and exercise items.";
     private static final String EMPTY = "";
     private static final int REVERSE_APPEND = 1;
+    private static final String FORMAT_HEADER = "Format: ";
 
     private String buildHelpString() {
         StringBuilder helpMessage = new StringBuilder(EMPTY);// need to include the format later
         helpMessage.append(MESSAGE_HELP_INTRO).append(Ui.LS).append(Ui.LS) // complete by tonight
-                .append(MESSAGE_HELP_HELP).append(Ui.LS).append(Ui.LS)
+                .append(MESSAGE_HELP_HELP).append(Ui.LS)
                 .append(MESSAGE_HELP_PROFILE).append(Ui.LS)
+                .append(MESSAGE_HELP_HEIGHT).append(Ui.LS)
+                .append(MESSAGE_HELP_WEIGHT).append(Ui.LS)
+                .append(MESSAGE_HELP_NAME).append(Ui.LS)
+                .append(MESSAGE_HELP_OVERVIEW).append(Ui.LS)
                 .append(MESSAGE_HELP_GOAL).append(Ui.LS)
                 .append(MESSAGE_HELP_BMI).append(Ui.LS)
                 .append(MESSAGE_HELP_ADD).append(Ui.LS)
