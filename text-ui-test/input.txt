@@ -1,5 +1,3 @@
-James Gosling
-
 Hello, this is a ui test...
 view
 delete f/all
@@ -22,6 +20,7 @@ height h/-100
 weight w/-100
 height h/170
 weight w/60.5
+
 Testing bmi...
 bmi
 bmi h/171 w/0
@@ -30,6 +29,7 @@ bmi h/-1 w/-1
 bmi h/171
 bmi w/60
 bmi h/171 w/60.5
+
 Testing add food and exercise...
 add food test 300
 add f/food test 300
@@ -49,6 +49,7 @@ add e/exercise test c/250
 add e/exercise test2 c/200
 view e/
 view
+
 Test overview...
 overview
 goal -1000
@@ -57,6 +58,7 @@ goal 0
 overview
 goal 2000
 overview
+
 Test delete...
 delete 1
 delete f/
