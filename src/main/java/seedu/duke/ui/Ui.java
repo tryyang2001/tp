@@ -65,7 +65,7 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    private static Logger logger = Logger.getLogger("Foo");
+    private static Logger logger = Logger.getLogger(Ui.class.getName());
 
     /**
      * Surround strings with lines for user to differentiate results.
@@ -82,7 +82,7 @@ public class Ui {
 
 
     public void printStartApplicationPage() {
-        logger.log(Level.INFO, "start of application");
+        logger.log(Level.FINE, "start of application");
         System.out.println(FITBOT_V0 + EMOJI_1 + LS + MESSAGE_WELCOME);
     }
 
