@@ -52,7 +52,7 @@ public class Ui {
     public static final String MESSAGE_WELCOME = "Welcome to Fitbot, a desktop app that helps university students"
             + " who are looking to keep track of their "
             + LS
-            + "fitness and health. Please type a command or view the list of"
+            + "fitness and health. Please type a command or view the list of "
             + "available commands by typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + ".";
 
     private Scanner scanner;
