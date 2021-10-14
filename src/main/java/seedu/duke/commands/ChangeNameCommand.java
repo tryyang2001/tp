@@ -12,6 +12,8 @@ public class ChangeNameCommand extends Command {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to update your name? Use this format:"
             + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
+    public static final String MESSAGE_DO_NOT_USE_DELIMITER = "Sorry! We do not allow the character "
+            + Ui.QUOTATION + COMMAND_PREFIX_DELIMITER + Ui.QUOTATION + " in your name!";
     public static final String MESSAGE_SUCCESS = "Your name has been updated!" + Ui.LS + "Hello %s!";
 
     private final String name;
@@ -26,6 +28,11 @@ public class ChangeNameCommand extends Command {
         if (this.name.isEmpty()) {
             return new CommandResult(MESSAGE_INVALID_COMMAND_FORMAT);
         }
+
+        if (this.name.contains(COMMAND_PREFIX_DELIMITER)) {
+            return new CommandResult(MESSAGE_DO_NOT_USE_DELIMITER);
+        }
+
         super.profile.setName(this.name);
         return new CommandResult(String.format(MESSAGE_SUCCESS, super.profile.getName()));
     }

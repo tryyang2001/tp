@@ -15,13 +15,14 @@ public class OverviewCommand extends Command {
             + Ui.INDENTED_LS + "Calories burnt: %2$d calories"
             + Ui.INDENTED_LS + "Net calories: %3$d calories"
             + Ui.LS + "%4$s";
+    protected Statistics statistics = new Statistics();
 
     @Override
     public CommandResult execute() {
         int caloriesConsumed = super.foodItems.getTotalCalories();
         int caloriesLost = super.exerciseItems.getTotalCalories();
         int caloriesGoal = super.profile.getCalorieGoal();
-        String[] calorieReport = super.statistics.getCaloriesReport(caloriesLost, caloriesConsumed, caloriesGoal);
-        return new CommandResult(super.statistics.formatMessage(calorieReport));
+        String[] calorieReport = this.statistics.getCaloriesReport(caloriesLost, caloriesConsumed, caloriesGoal);
+        return new CommandResult(this.statistics.formatMessage(calorieReport));
     }
 }

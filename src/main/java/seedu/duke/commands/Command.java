@@ -39,7 +39,7 @@ public abstract class Command {
     protected Profile profile;
     protected ExerciseList exerciseItems;
     protected FoodList foodItems;
-    protected Statistics statistics;
+
 
 
     /**
@@ -53,11 +53,10 @@ public abstract class Command {
     /**
      * Provides the necessary data structures for the command to operate on.
      */
-    public void setData(Profile profile, ExerciseList exerciseItems, FoodList foodItems, Statistics statistics) {
+    public void setData(Profile profile, ExerciseList exerciseItems, FoodList foodItems) {
         this.profile = profile;
         this.exerciseItems = exerciseItems;
         this.foodItems = foodItems;
-        this.statistics = statistics;
         assert profile != null : "Profile supplied to command should not be null";
         assert exerciseItems != null : "Exercise items supplied to command should not be null";
         assert foodItems != null : "Food items supplied to command should not be null";

@@ -1,5 +1,7 @@
 package seedu.duke.ui;
 
+import seedu.duke.commands.HelpCommand;
+
 import java.lang.System;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -45,14 +47,13 @@ public class Ui {
             + " |_|    |_|\\__|_.__/ \\___/ \\__|";
 
 
-    //TODO: These constants are to be moved to UI class
+
     public static final String QUOTATION = "\"";
     public static final String MESSAGE_WELCOME = "Welcome to Fitbot, a desktop app that helps university students"
             + " who are looking to keep track of their "
             + LS
             + "fitness and health. Please type a command or view the list of"
-            + "available commands by typing 'help'.";
-
+            + "available commands by typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + ".";
 
     private Scanner scanner;
 
@@ -65,7 +66,7 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    private static Logger logger = Logger.getLogger("Foo");
+    private static Logger logger = Logger.getLogger(Ui.class.getName());
 
     /**
      * Surround strings with lines for user to differentiate results.
@@ -82,7 +83,7 @@ public class Ui {
 
 
     public void printStartApplicationPage() {
-        logger.log(Level.INFO, "start of application");
+        logger.log(Level.FINE, "start of application");
         System.out.println(FITBOT_V0 + EMOJI_1 + LS + MESSAGE_WELCOME);
     }
 

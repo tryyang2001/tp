@@ -82,7 +82,7 @@ public class Main {
      * @return CommandResult representing result of execution of the command
      */
     private CommandResult executeCommand(Command command) {
-        command.setData(this.profile, this.exerciseItems, this.foodItems, this.statistics);
+        command.setData(this.profile, this.exerciseItems, this.foodItems);
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {
