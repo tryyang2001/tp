@@ -9,14 +9,14 @@ public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
     private static final String MESSAGE_SUCCESS = "These are the available commands:" + Ui.LS + "%s";
-    private static final String MESSAGE_HELP_INTRO = "Welcome to the help page.\n"
-            + "Below are the commands to get you started.\n"
-            + "More details could be found on: \n"
-            + "https://frost-action-9f0.notion.site/FitBot-User-Guide-ddffabf5e4d546acb200bffab02b9ecb";
+    private static final String MESSAGE_HELP_INTRO = "Welcome to the help page." + Ui.LS
+            + "Below are the commands to get you started." + Ui.LS
+            + "More details could be found on: " + Ui.LS
+            + "https://tinyurl.com/fitbotUG";
     private static final String MESSAGE_HELP_HELP = "help -- "
             + "Shows a list of commands and their usage with some examples.";
     private static final String MESSAGE_HELP_PROFILE = "profile -- "
-            + "Inputs height of user in centimetres, weight of user in kg\n"
+            + "Inputs height of user in centimetres, weight of user in kg" + Ui.LS
             + "\t      and name of user in test.";
     private static final String MESSAGE_HELP_GOAL = "goal -- Inputs net calorie goal of user in calorie.";
     private static final String MESSAGE_HELP_BMI = "bmi -- "

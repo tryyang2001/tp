@@ -46,7 +46,7 @@ public class FoodList {
         for (int i = 0; i < foodRecords.size(); i++) {
             foodListInString.append("\t").append(i + 1).append(". ").append(foodRecords.get(i)).append(Ui.LS);
         }
-        return foodListInString.toString();
+        return foodListInString.toString().stripTrailing();
     }
 
     /**

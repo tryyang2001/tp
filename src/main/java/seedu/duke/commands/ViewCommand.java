@@ -9,7 +9,7 @@ import seedu.duke.ui.Ui;
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
-    public static final String MESSAGE_SUCCESS = "This is what you have recorded so far!" + Ui.LS;
+    public static final String MESSAGE_SUCCESS = "This is what you have recorded so far!";
     public static final String MESSAGE_FOOD = "You have consumed %1$d food item(s):"
             + Ui.LS + "%2$s"
             + Ui.LS + "Total calories consumed: %3$s";
@@ -37,6 +37,6 @@ public class ViewCommand extends Command {
                     super.exerciseItems.getTotalCalories());
         }
 
-        return new CommandResult(MESSAGE_SUCCESS + foodMessage + exerciseMessage);
+        return new CommandResult(MESSAGE_SUCCESS + Ui.LS + foodMessage + Ui.LS + Ui.LS + exerciseMessage);
     }
 }
