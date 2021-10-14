@@ -29,7 +29,7 @@ public class HelpCommand extends Command {
     private static final String EMPTY = "";
     private static final int REVERSE_APPEND = 1;
 
-    private String buildHelpString () {
+    private String buildHelpString() {
         StringBuilder helpMessage = new StringBuilder(EMPTY);// need to include the format later
         helpMessage.append(MESSAGE_HELP_INTRO).append(Ui.LS).append(Ui.LS) // complete by tonight
                 .append(MESSAGE_HELP_HELP).append(Ui.LS).append(Ui.LS)
@@ -43,6 +43,7 @@ public class HelpCommand extends Command {
         helpMessage.setLength(helpMessage.length() - REVERSE_APPEND);
         return helpMessage.toString();
     }
+
     @Override
     public CommandResult execute() {
         return new CommandResult(String.format(MESSAGE_SUCCESS, buildHelpString()));
