@@ -1,9 +1,7 @@
-Hello, this is a ui test...
 view
 delete f/all
 delete e/all
 view
-Testing for profile command...
 profile
           profile
 profile n/
@@ -29,8 +27,6 @@ height                           100
 weight                           100
 height 170
 weight 60.5
-
-Testing bmi...
 bmi
 bmi h/171 w/0
 bmi h/0 w/60
@@ -38,8 +34,6 @@ bmi h/-1 w/-1
 bmi h/171
 bmi w/60
 bmi h/171 w/60.5
-
-Testing add food and exercise...
                 add f/test with space c/300
 delete f/all
 add food test 300
@@ -70,8 +64,6 @@ add e/exercise test2 c/250
 add e/exercise test3 c/200
 view e/
 view
-
-Test overview...
 overview
 goal i want lose weight!!!
 goal -1000
@@ -80,8 +72,6 @@ goal 0
 overview
 goal 2000
 overview
-
-Test delete...
 delete 1
 delete f/
 delete e/

@@ -63,8 +63,6 @@ public class ExerciseList {
 
         for (int i = 0; i < exerciseList.size(); i++) {
             exerciseListToString.append("\t").append(i + 1).append(". ").append(exerciseList.get(i)).append(Ui.LS);
-            //avoids counting the new line character as the length of the string
-            exerciseListToString.setLength(exerciseListToString.length() - 1);
         }
         return exerciseListToString.toString().stripTrailing();
     }
