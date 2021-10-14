@@ -35,7 +35,7 @@ public class Decoder {
         File file = new File(Storage.FILEPATH_PROFILE);
         Scanner in = new Scanner(file);
         if (in.hasNext()) {
-            logger.log(Level.INFO, "Retrieving profile file.");
+            logger.log(Level.FINE, "Retrieving profile file.");
             return decodeProfileData(in.nextLine());
         }
         return new Profile();
@@ -64,7 +64,6 @@ public class Decoder {
         return profile;
     }
 
-
     /**
      * Retrieves exercise list from exercise_list.txt.
      *
@@ -75,11 +74,11 @@ public class Decoder {
         ExerciseList exercises = new ExerciseList();
         File file = new File(Storage.FILEPATH_EXERCISE_LIST);
         Scanner in = new Scanner(file);
-        logger.log(Level.INFO, "Decoding exercise data from file...");
+        logger.log(Level.FINE, "Decoding exercise data from file...");
         while (in.hasNext()) {
             decodeExerciseData(exercises, in.nextLine());
         }
-        logger.log(Level.INFO, "Retrieved exercise data from file.");
+        logger.log(Level.FINE, "Retrieved exercise data from file.");
         return exercises;
     }
 
@@ -104,11 +103,11 @@ public class Decoder {
         FoodList foodItems = new FoodList();
         File file = new File(Storage.FILEPATH_FOOD_LIST);
         Scanner in = new Scanner(file);
-        logger.log(Level.INFO, "Decoding food list data from file...");
+        logger.log(Level.FINE, "Decoding food list data from file...");
         while (in.hasNext()) {
             decodeFoodData(foodItems, in.nextLine());
         }
-        logger.log(Level.INFO, "Retrieved food list data from file.");
+        logger.log(Level.FINE, "Retrieved food list data from file.");
         return foodItems;
     }
 

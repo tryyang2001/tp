@@ -28,15 +28,21 @@ public class DeleteExerciseCommand extends Command {
     private static Logger logger = Logger.getLogger(DeleteExerciseCommand.class.getName());
 
     private final int itemIndex;
+    private boolean isClear = false;
 
     public DeleteExerciseCommand(int itemIndex) {
-        this.itemIndex = itemIndex;
+        this.itemIndex = itemIndex; //-2
+    }
+
+    public DeleteExerciseCommand(boolean isClear) {
+        this.itemIndex = -1;
+        this.isClear = isClear;
     }
 
     @Override
     public CommandResult execute() {
-        if (this.itemIndex == Parser.PARAMS_ALL_INDICES) {
-            logger.log(Level.INFO, "Clearing exercise list");
+        if (this.isClear) {
+            logger.log(Level.FINE, "Clearing exercise list");
             super.exerciseItems.clearExerciseList();
             return new CommandResult(MESSAGE_EXERCISE_CLEAR);
         }
@@ -45,7 +51,7 @@ public class DeleteExerciseCommand extends Command {
             logger.log(Level.WARNING, "Exercise list is empty.");
             return new CommandResult(MESSAGE_EMPTY_EXERCISE_LIST);
         }
-        logger.log(Level.INFO, "Trying to delete item now");
+        logger.log(Level.FINE, "Trying to delete item now");
         try {
             Exercise deletedExercise;
             deletedExercise = super.exerciseItems.deleteExercise(this.itemIndex);

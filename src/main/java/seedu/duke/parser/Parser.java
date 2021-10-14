@@ -50,7 +50,6 @@ public class Parser {
     protected static final String MESSAGE_ERROR_ILLEGAL_CHARACTER = "Please do not use the character "
             + Ui.QUOTATION + FILE_TEXT_DELIMITER + Ui.QUOTATION
             + " in your input!";
-    public static final int PARAMS_ALL_INDICES = 0;
 
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
@@ -134,7 +133,7 @@ public class Parser {
             boolean isClear = description.trim().equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
                 if (isClear) {
-                    return new DeleteExerciseCommand(PARAMS_ALL_INDICES);
+                    return new DeleteExerciseCommand(isClear);
                 }
                 itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
                 return new DeleteExerciseCommand(itemIndex);
@@ -142,9 +141,10 @@ public class Parser {
                 assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
                         "at this point, if the item is not exercise, it must be food";
                 if (isClear) {
-                    return new DeleteFoodCommand(PARAMS_ALL_INDICES);
+                    return new DeleteFoodCommand(isClear);
                 }
                 itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
+
                 return new DeleteFoodCommand(itemIndex);
             }
         } catch (ItemNotSpecifiedException e) {
@@ -373,7 +373,6 @@ public class Parser {
             throw new ParamInvalidException(MESSAGE_ERROR_NO_WEIGHT);
         }
     }
-
 
     private String extractProfileName(String params) throws ParamInvalidException {
         try {

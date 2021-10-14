@@ -10,6 +10,7 @@ public class ProfileCommand extends Command {
     private static final String MESSAGE_NAME = "Your name is %s.";
     private static final String MESSAGE_HEIGHT = "Your height is %scm.";
     private static final String MESSAGE_WEIGHT = "Your weight is %skg.";
+    private static final String MESSAGE_CALORIE_GOAL = "Your calorie goal is %s cal.";
     private static final String MESSAGE_NO_INFO = "I do not know your %1$s yet, tell me using the command %2$s!";
 
     public ProfileCommand() {
@@ -26,9 +27,13 @@ public class ProfileCommand extends Command {
         final String weightString = super.profile.getWeight() == 0
                 ? String.format(MESSAGE_NO_INFO, "weight", ChangeWeightCommand.MESSAGE_COMMAND_FORMAT)
                 : String.format(MESSAGE_WEIGHT, super.profile.getWeight());
+        final String calorieGoalString = super.profile.getCalorieGoal() == 0
+                ? String.format(MESSAGE_NO_INFO, "calorie goal", SetGoalCommand.MESSAGE_COMMAND_FORMAT)
+                : String.format(MESSAGE_CALORIE_GOAL, super.profile.getCalorieGoal());
         return new CommandResult(MESSAGE_SUCCESS
                 + Ui.INDENTED_LS + nameString
                 + Ui.INDENTED_LS + heightString
-                + Ui.INDENTED_LS + weightString);
+                + Ui.INDENTED_LS + weightString
+                + Ui.INDENTED_LS + calorieGoalString);
     }
 }

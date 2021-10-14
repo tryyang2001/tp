@@ -29,7 +29,6 @@ public class ViewCommand extends Command {
                     super.foodItems.convertToString(),
                     super.foodItems.getTotalCalories());
         }
-
         String exerciseMessage;
         if (super.exerciseItems.getSize() == 0) {
             exerciseMessage = MESSAGE_EMPTY_EXERCISE_LIST;
@@ -38,7 +37,6 @@ public class ViewCommand extends Command {
                     super.exerciseItems.convertToString(),
                     super.exerciseItems.getTotalCalories());
         }
-
         return new CommandResult(MESSAGE_SUCCESS + Ui.LS + foodMessage + Ui.LS + Ui.LS + exerciseMessage);
     }
 }
