@@ -45,9 +45,9 @@ public class FoodList {
         StringBuilder foodListInString = new StringBuilder(""); //declares as StringBuilder for mutable String object
         for (int i = 0; i < foodRecords.size(); i++) {
             foodListInString.append("\t").append(i + 1).append(". ").append(foodRecords.get(i)).append(Ui.LS);
+            //avoids counting the new line character as the length
+            foodListInString.setLength(foodListInString.length() - 1);
         }
-        //avoids counting the new line character as the length
-        foodListInString.setLength(foodListInString.length() - 1);
         return foodListInString.toString();
     }
 
