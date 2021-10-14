@@ -3,6 +3,9 @@ package seedu.duke.commands;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.ui.Ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Represents the command that when executed, changes the value of height in the Profile.
  */
@@ -15,6 +18,7 @@ public class ChangeHeightCommand extends Command {
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "Your height has been updated!" + Ui.LS + "Your height is %scm.";
 
+    private Logger logger = Logger.getLogger(ChangeHeightCommand.class.getName());
     private final double height;
 
     public ChangeHeightCommand(double height) {
@@ -27,6 +31,7 @@ public class ChangeHeightCommand extends Command {
             super.profile.setHeight(this.height);
             return new CommandResult(String.format(MESSAGE_SUCCESS, super.profile.getHeight()));
         } catch (InvalidCharacteristicException e) {
+            logger.log(Level.WARNING, "Detected negative height input");
             return new CommandResult(e.getMessage());
         }
     }

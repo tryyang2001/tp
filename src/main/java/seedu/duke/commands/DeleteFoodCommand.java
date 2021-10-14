@@ -23,6 +23,7 @@ public class DeleteFoodCommand extends Command {
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
 
     private final int itemIndex;
+    private boolean isClear = false;
 
     private static final Logger logger = Logger.getLogger(DeleteFoodCommand.class.getName());
 
@@ -30,10 +31,15 @@ public class DeleteFoodCommand extends Command {
         this.itemIndex = itemIndex;
     }
 
+    public DeleteFoodCommand(boolean isClear) {
+        this.itemIndex = -1;
+        this.isClear = isClear;
+    }
+
     @Override
     public CommandResult execute() {
-        if (this.itemIndex == Parser.PARAMS_ALL_INDICES) {
-            logger.log(Level.INFO, "Clearing food list");
+        if (this.isClear) {
+            logger.log(Level.FINE, "Clearing food list");
             super.foodItems.clearFoodList();
             assert foodItems.getSize() == 0 : "The size of the food list should be 0 after clear";
             return new CommandResult(MESSAGE_FOOD_CLEAR);
@@ -43,13 +49,13 @@ public class DeleteFoodCommand extends Command {
             logger.log(Level.WARNING, "Food list is empty.");
             return new CommandResult(MESSAGE_EMPTY_FOOD_LIST);
         }
-        logger.log(Level.INFO, "Trying to delete item now");
+        logger.log(Level.FINE, "Trying to delete item now");
         try {
             Food deletedFood;
             deletedFood = super.foodItems.deleteFood(this.itemIndex);
             return new CommandResult(String.format(MESSAGE_SUCCESS, deletedFood, super.foodItems.getSize()));
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.INFO, "Detected invalid food item index.");
+            logger.log(Level.FINE, "Detected invalid food item index.");
             if (super.foodItems.getSize() == 1) {
                 return new CommandResult(MESSAGE_ONLY_ONE_IN_LIST);
             }
