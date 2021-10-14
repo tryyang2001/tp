@@ -10,6 +10,7 @@ profile n/w/
 profile h/w/
 profile n/h/w/
 profile n///// h/1 w/1
+profile n/tes||t h/1 w/1
 profile n/ h/1 w/1
 profile n/test h/1 w/
 profile n/test h/ w/1
@@ -36,6 +37,7 @@ add f/food test 300
 add f/ c/300
 add f/food test c/-300
 add f/food/test c/300
+add f/food|test c/300
 add f/food test c/300
 add f/zeroCalorieFood c/0
 view f/
@@ -45,6 +47,7 @@ add e/ c/250
 add e/exercise test c/-250
 add e/exercise/test c/250
 add e/exercise test c/0
+add e/exercise|test c/250
 add e/exercise test c/250
 add e/exercise test2 c/200
 view e/
