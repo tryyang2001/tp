@@ -46,6 +46,8 @@ public class FoodList {
         for (int i = 0; i < foodRecords.size(); i++) {
             foodListInString.append("\t").append(i + 1).append(". ").append(foodRecords.get(i)).append(Ui.LS);
         }
+        //avoids counting the new line character as the length
+        foodListInString.setLength(foodListInString.length() - 1);
         return foodListInString.toString();
     }
 
@@ -66,16 +68,16 @@ public class FoodList {
     }
 
     /**
-     * Calculates the total calories of all the food items stored in the list.
+     * Computes the sum of calorie of all food items in the food list.
      *
-     * @return The total calories intake
+     * @return Integer value of the sum of calorie of all food
      */
     public int getTotalCalories() {
-        int totalCalories = 0;
+        int sumOfFoodCalorie = 0;
         for (Food food : foodRecords) {
-            totalCalories += food.getCalories();
+            sumOfFoodCalorie += food.getCalories();
         }
-        assert totalCalories >= 0 : "Total calories cannot less than 0";
-        return totalCalories;
+        assert sumOfFoodCalorie >= 0 : "Total calories cannot less than 0";
+        return sumOfFoodCalorie;
     }
 }
