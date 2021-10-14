@@ -16,7 +16,8 @@ profile n/test h/1 w/
 profile n/test h/ w/1
 profile n/test h/1 w/1
 name n/test" + "\n\t%s test"
-name n/testUser
+name test" + "\n\t%s test"
+name testUser
 height h/-100
 weight w/-100
 height h/170
@@ -38,6 +39,8 @@ add f/ c/300
 add f/food test c/-300
 add f/food/test c/300
 add f/food|test c/300
+add f/food test c/abc
+add f/food test c/3.14159
 add f/food test c/300
 add f/zeroCalorieFood c/0
 view f/
@@ -48,6 +51,8 @@ add e/exercise test c/-250
 add e/exercise/test c/250
 add e/exercise test c/0
 add e/exercise|test c/250
+add e/exercise test c/abc
+add e/exercise test c/3.14159
 add e/exercise test c/250
 add e/exercise test2 c/200
 view e/
@@ -55,6 +60,7 @@ view
 
 Test overview...
 overview
+goal i want lose weight!!!
 goal -1000
 overview
 goal 0
