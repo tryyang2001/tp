@@ -66,7 +66,7 @@ public class ExerciseList {
             //avoids counting the new line character as the length of the string
             exerciseListToString.setLength(exerciseListToString.length() - 1);
         }
-        return exerciseListToString.toString();
+        return exerciseListToString.toString().stripTrailing();
     }
 
     /**

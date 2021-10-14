@@ -48,7 +48,7 @@ public class FoodList {
             //avoids counting the new line character as the length
             foodListInString.setLength(foodListInString.length() - 1);
         }
-        return foodListInString.toString();
+        return foodListInString.toString().stripTrailing();
     }
 
     /**
