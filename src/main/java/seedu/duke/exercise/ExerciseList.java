@@ -64,7 +64,7 @@ public class ExerciseList {
         for (int i = 0; i < exerciseList.size(); i++) {
             exerciseListToString.append("\t").append(i + 1).append(". ").append(exerciseList.get(i)).append(Ui.LS);
         }
-        return exerciseListToString.toString();
+        return exerciseListToString.toString().stripTrailing();
     }
 
     /**

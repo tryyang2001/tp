@@ -32,7 +32,7 @@ public abstract class Command {
             + "1. %1$s" + Ui.LS
             + "2. %2$s";
     public static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise items yet!";
-    public static final String MESSAGE_EMPTY_FOOD_LIST = "No food items yet!";
+    public static final String MESSAGE_EMPTY_FOOD_LIST = "No food items yet!" + Ui.LS;
     public static final String MESSAGE_ONLY_ONE_IN_LIST = "You have only 1 item in the list!";
     public static final String MESSAGE_LIST_OUT_OF_BOUNDS = "Please input a valid item number from 1 to %s";
 
