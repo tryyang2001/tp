@@ -12,7 +12,7 @@ public class Profile {
     private static final String BMI_STATUS_HEALTHY = "Healthy";
     private static final String BMI_STATUS_OVERWEIGHT = "Overweight";
     private static final String BMI_STATUS_OBESE = "Obese";
-    public static final String FILE_TEXT_DELIMITER = "\\|";
+    public static final String FILE_TEXT_DELIMITER = "|";
 
     private String name;
     private double height;

@@ -8,6 +8,7 @@ import seedu.duke.ui.Ui;
 public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
+
     private static final String MESSAGE_SUCCESS = "These are the available commands:" + Ui.LS;
     private static final String MESSAGE_HELP_INTRO = "Welcome to the help page.\n"
             + "Below are the commands to get you started.\n"
@@ -30,6 +31,7 @@ public class HelpCommand extends Command {
             + ProfileCreateCommand.MESSAGE_HELP
             + ViewCommand.MESSAGE_HELP
             + ChangeWeightCommand.MESSAGE_HELP;
+
 
     @Override
     public CommandResult execute() {
