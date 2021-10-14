@@ -23,7 +23,16 @@ import seedu.duke.commands.ViewFoodListCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.duke.parser.Parser.*;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_ILLEGAL_CHARACTER;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_CALORIES_INFO;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_NOT_A_NUMBER;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_GOAL;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_HEIGHT;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_NAME;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_WEIGHT;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_TOO_MANY_DELIMITERS;
+
 
 
 class ParserTest {

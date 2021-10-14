@@ -41,7 +41,12 @@ public class ProfileCreateCommand extends Command {
     public CommandResult execute() {
         try {
             super.profile.setProfile(this.name, this.height, this.weight, this.calorieGoal);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, this.name, this.height, this.weight, this.calorieGoal));
+            return new CommandResult(String.format(
+                    MESSAGE_SUCCESS,
+                    this.name,
+                    this.height,
+                    this.weight,
+                    this.calorieGoal));
         } catch (InvalidCharacteristicException e) {
             return new CommandResult(e.getMessage());
         }
