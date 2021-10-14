@@ -18,34 +18,21 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_HELP = "help -- "
             + "Shows a list of commands and their usage with some examples."
             + Ui.INDENTED_LS  + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
-    private static final String EMPTY = "";
-    private static final int REVERSE_APPEND = 1;
-
-    /**
-     * Combines help messages from different command class and combine them into a string.
-     *
-     * @return String of help message for console
-     */
-    private String buildHelpString() {
-        StringBuilder helpMessage = new StringBuilder(EMPTY);// format to be added later
-        helpMessage.append(MESSAGE_HELP_INTRO)
-                .append(AddExerciseCommand.MESSAGE_HELP)
-                .append(CalculateBmiCommand.MESSAGE_HELP)
-                .append(ByeCommand.MESSAGE_HELP)
-                .append(DeleteExerciseCommand.MESSAGE_HELP)
-                .append(SetGoalCommand.MESSAGE_HELP)
-                .append(ChangeHeightCommand.MESSAGE_HELP)
-                .append(MESSAGE_HELP)
-                .append(OverviewCommand.MESSAGE_HELP)
-                .append(ProfileCreateCommand.MESSAGE_HELP)
-                .append(ViewCommand.MESSAGE_HELP)
-                .append(ChangeWeightCommand.MESSAGE_HELP);
-        helpMessage.setLength(helpMessage.length() - REVERSE_APPEND);
-        return helpMessage.toString();
-    }
+    private static final String helpMessage = MESSAGE_HELP_INTRO
+            + AddExerciseCommand.MESSAGE_HELP
+            + CalculateBmiCommand.MESSAGE_HELP
+            + ByeCommand.MESSAGE_HELP
+            + DeleteExerciseCommand.MESSAGE_HELP
+            + SetGoalCommand.MESSAGE_HELP
+            + ChangeHeightCommand.MESSAGE_HELP
+            + MESSAGE_HELP
+            + OverviewCommand.MESSAGE_HELP
+            + ProfileCreateCommand.MESSAGE_HELP
+            + ViewCommand.MESSAGE_HELP
+            + ChangeWeightCommand.MESSAGE_HELP;
 
     @Override
     public CommandResult execute() {
-        return new CommandResult(buildHelpString());
+        return new CommandResult(helpMessage.stripTrailing());
     }
 }
