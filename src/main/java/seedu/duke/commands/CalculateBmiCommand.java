@@ -16,9 +16,9 @@ public class CalculateBmiCommand extends Command {
             + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "The calculated BMI value is %1$,.1f (%2$s)";
     public static final String MESSAGE_HELP = "bmi -- "
-            + "Calculates the BMI value based on the user's input height and weight." + Ui.LS
-                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS
-                 + Ui.FORMAT_PLACEHOLDER + CalculateBmiWithProfileCommand.MESSAGE_COMMAND_FORMAT + Ui.LS;
+            + "Calculates the BMI value based on the user's input height and weight." + Ui.INDENTED_LS
+                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.INDENTED_LS
+                 + Ui.FORMAT_PLACEHOLDER + CalculateBmiWithProfileCommand.MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
 
     private final double height;
     private final double weight;

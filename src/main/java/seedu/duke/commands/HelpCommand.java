@@ -17,10 +17,15 @@ public class HelpCommand extends Command {
             + Ui.LS;
     public static final String MESSAGE_HELP = "help -- "
             + "Shows a list of commands and their usage with some examples."
-            + Ui.LS  + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
+            + Ui.INDENTED_LS  + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
     private static final String EMPTY = "";
     private static final int REVERSE_APPEND = 1;
-    
+
+    /**
+     * Combines help messages from different command class and combine them into a string.
+     *
+     * @return String of help message for console
+     */
     private String buildHelpString() {
         StringBuilder helpMessage = new StringBuilder(EMPTY);// format to be added later
         helpMessage.append(MESSAGE_HELP_INTRO)

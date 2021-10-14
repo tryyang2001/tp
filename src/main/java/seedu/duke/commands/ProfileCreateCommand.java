@@ -21,8 +21,8 @@ public class ProfileCreateCommand extends Command {
             + Ui.INDENTED_LS + "Your weight is %3$skg.";
     public static final String MESSAGE_HELP = "profile -- "
             + "Inputs height of user in centimetres, weight of user in kg\n"
-            + "\t      and name of user in test." + Ui.LS
-                 + Ui.FORMAT_HEADER + ProfileCreateCommand.MESSAGE_COMMAND_FORMAT + Ui.LS;
+            + "\t      and name of user in test." + Ui.INDENTED_LS
+                 + Ui.FORMAT_HEADER + ProfileCreateCommand.MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
 
     private final String name;
     private final double weight;
