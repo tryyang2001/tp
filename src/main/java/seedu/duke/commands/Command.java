@@ -19,6 +19,7 @@ public abstract class Command {
     public static final String COMMAND_PREFIX_NAME = "n";
     public static final String COMMAND_PREFIX_HEIGHT = "h";
     public static final String COMMAND_PREFIX_WEIGHT = "w";
+    public static final String COMMAND_PREFIX_GOAL = "g";
     public static final String COMMAND_WORD_ADD = "add";
     public static final String COMMAND_WORD_DELETE = "delete";
     public static final String COMMAND_WORD_VIEW = "view";
