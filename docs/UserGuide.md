@@ -192,17 +192,17 @@ profile n/John Doe w/65 h/170 g/2000
 
 __________________________________________________________________________________________________________
 Hello John Doe! Your profile has been created!
-        Your height is 170.0cm.
-        Your weight is 65.0kg.
-        Your calories goal is 2000 cal.
+    Your height is 170.0cm.
+    Your weight is 65.0kg.
+    Your calories goal is 2000 cal.
 __________________________________________________________________________________________________________
 profile
 __________________________________________________________________________________________________________
 Hello! This is your current profile:
-        Your name is John.
-        Your height is 170.0cm.
-        Your weight is 65.0kg.
-        Your calorie goal is 2000 cal.
+    Your name is John.
+    Your height is 170.0cm.
+    Your weight is 65.0kg.
+    Your calorie goal is 2000 cal.
 __________________________________________________________________________________________________________
 ```
 
