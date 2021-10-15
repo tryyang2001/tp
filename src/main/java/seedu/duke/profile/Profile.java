@@ -40,10 +40,12 @@ public class Profile {
 
     }
 
-    public void setProfile(String name, double height, double weight) throws InvalidCharacteristicException {
+    public void setProfile(String name, double height, double weight, int calorieGoal)
+            throws InvalidCharacteristicException {
         setName(name);
         setHeight(height);
         setWeight(weight);
+        setCalorieGoal(calorieGoal);
     }
 
     public void setName(String name) {
