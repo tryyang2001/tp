@@ -392,7 +392,7 @@ There is no need to save manually. Any updates made to the data will be automati
 |---------|----------|-------|
 add|`add f/ITEM c/CALORIE`  `add e/ITEM c/CALORIES` | `add f/chicken rice c/607`, `add e/hiit c/290`
 bmi|`bmi h/HEIGHT_IN_CM w/WEIGHT_IN_KG` `bmi`|`bmi h/170 w/65` , `bmi`
-bye||
+bye|`bye`|
 delete|`delete f/LIST_NO.`  `delete e/LIST_NO.`  `delete f/all`  `delete e/all` |`delete f/1`, `delete e/2`, `delete f/all`,  `delete e/all`
 goal |`goal CALORIE_IN_CAL` | `goal 2000`
 height|`height HEIGHT_IN_CM` | `height 170`
