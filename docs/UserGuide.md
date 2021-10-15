@@ -11,7 +11,7 @@
 - [Update height: `height`](#update-height-height)
 - [Update weight: `weight`](#update-weight-weight)
 - [Update net calorie goal: `goal`](#update-net-calorie-goal-goal)
-- [Update or View the profile details: `profile`](#update-view-the-profile-details-profile)
+- [Update/View the profile details: `profile`](#updateview-the-profile-details-profile)
 - [BMI calculator: `bmi`](#bmi-calculator-bmi)
 - [Add Exercise and Food Items: `add`](#add-exercise-and-food-items-add)
 - [View Exercise and Food Items: `view`](#view-exercise-and-food-items-view)
@@ -187,7 +187,7 @@ Example:
 - `profile n/John Doe w/65 /h170 g/2000` creates a profile with name John Doe of height 170cm and 65kg with a calorie goal of 2000 calories.
 - `profile` displays your profile details.
 
-```bash
+```text
 profile n/John Doe w/65 h/170 g/2000
 
 __________________________________________________________________________________________________________
@@ -243,7 +243,7 @@ Examples:
 
 - `add f/chicken rice c/607` adds record of food consumed: chicken rice with 607 calories gained.
 
-```bash
+```text
 add f/chicken rice c/607
 __________________________________________________________________________________________
 A food item has been added:
@@ -253,7 +253,7 @@ ________________________________________________________________________________
 
 - `add e/hiit c/290` adds record of exercise done: hiit with 290 calories burnt.
 
-```bash
+```text
 add e/hiit c/290
 __________________________________________________________________________________________
 An exercise has been added:
@@ -269,7 +269,7 @@ Format:
 
 - `view f/` views all the food and the calories added to the list.
 
-```bash
+```text
 view f/
 __________________________________________________________________________________________
 You have consumed 4 food item(s):
@@ -283,7 +283,7 @@ ________________________________________________________________________________
 
 - `view e/` views all the exercises and the calories added to list.
 
-```bash
+```text
 view e/
 __________________________________________________________________________________________
 You have done 2 exercise(s):
@@ -295,7 +295,7 @@ ________________________________________________________________________________
 
 - `view` views all food and exercises in the list and their respective calories.
 
-```bash
+```text
 view
 __________________________________________________________________________________________
 You have consumed 4 food item(s):
@@ -328,7 +328,7 @@ Format:
 
 ❗ `LIST_NO.` must be a positive integer within the range of the number of items in the list.
 
-```bash
+```text
 delete f/2
 __________________________________________________________________________________________
 A food item has been deleted:
@@ -357,7 +357,7 @@ Views the difference between the calories consumed and the calories lost (in cal
 
 Format: `overview`
 
-```bash
+```text
 overview
 __________________________________________________________________________________________
 Your calorie gained from food is: 2415
@@ -374,7 +374,7 @@ Exits the program.
 
 Format: `bye`
 
-```bash
+```text
 bye
 __________________________________________________________________________________________
 Exiting Fitbot....
@@ -387,6 +387,7 @@ ________________________________________________________________________________
 There is no need to save manually. Any updates made to the data will be automatically stored into the local drive and reloaded when *FitBot* is restarted.
 
 ### Command Summary
+
 | Action | Format | Examples |
 |---------|----------|-------|
 add|`add f/ITEM c/CALORIE`  `add e/ITEM c/CALORIES` | `add f/chicken rice c/607`, `add e/hiit c/290`
