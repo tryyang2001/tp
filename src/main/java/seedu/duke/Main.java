@@ -3,13 +3,14 @@ package seedu.duke;
 import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
+import seedu.duke.commands.InvalidCommand;
+import seedu.duke.commands.ProfileCreateCommand;
 import seedu.duke.exercise.ExerciseList;
 import seedu.duke.food.FoodList;
 import seedu.duke.parser.Parser;
 import seedu.duke.profile.Profile;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
-import seedu.duke.ui.Statistics;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Ui;
 
@@ -25,7 +26,7 @@ public class Main {
     private Profile profile;
     private Ui ui;
     private Storage storage;
-    private Statistics statistics;
+
 
 
     /**
@@ -69,6 +70,8 @@ public class Main {
         Command command;
         do {
             String userInput = ui.getUserInput();
+            // have a function to check if it is ok -- profile class
+            // if can can set the flag in parser flag for profile to true
             command = new Parser().parseCommand(userInput);
             CommandResult result = executeCommand(command);
             ui.formatMessageFramedWithDivider(result.toString());
@@ -83,6 +86,11 @@ public class Main {
      */
     private CommandResult executeCommand(Command command) {
         command.setData(this.profile, this.exerciseItems, this.foodItems);
+        if (!profile.checkProfileCreated()) {
+            if (!(command instanceof ProfileCreateCommand)) {
+                command = new InvalidCommand(Ui.MESSAGE_ERROR_PROFILE_NOT_CREATED);
+            }
+        }
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {
@@ -109,6 +117,5 @@ public class Main {
     private void exit() {
         System.exit(0);
     }
-
 
 }

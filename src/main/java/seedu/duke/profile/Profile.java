@@ -172,4 +172,13 @@ public class Profile {
                 + getWeight() + FILE_TEXT_DELIMITER + getCalorieGoal();
     }
 
+    /**
+     * Check if all attributes of profile are valid.
+     *
+     * @return false if at least one of the profile attributes are invalid.
+     */
+    public boolean checkProfileCreated(){
+        return height > 0 && weight > 0 && name != null;
+    }
+
 }

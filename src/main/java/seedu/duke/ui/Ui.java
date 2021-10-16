@@ -1,6 +1,7 @@
 package seedu.duke.ui;
 
 import seedu.duke.commands.HelpCommand;
+import seedu.duke.commands.ProfileCreateCommand;
 
 import java.lang.System;
 import java.util.Scanner;
@@ -54,6 +55,9 @@ public class Ui {
             + LS
             + "fitness and health. Please type a command or view the list of "
             + "available commands by typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + ".";
+    public static final String MESSAGE_ERROR_PROFILE_NOT_CREATED = "Profile has not yet been created.\n"
+            + "Please type the 'profile' command in the following format:\n"
+            + ProfileCreateCommand.MESSAGE_COMMAND_FORMAT;
 
     private Scanner scanner;
 
