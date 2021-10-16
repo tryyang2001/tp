@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.item.exercise.Exercise;
 import seedu.duke.item.exercise.ExerciseList;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -49,5 +52,58 @@ class ExerciseListTest {
         exerciseList.addExercise(new Exercise("Skipping", 200));
         exerciseList.addExercise(new Exercise("Swimming", 300));
         assertEquals(850, exerciseList.getTotalCalories());
+    }
+
+    @Test
+    void sortExerciseList_callSortExerciseListMethod_expectSortedList() {
+        ExerciseList exerciseList = new ExerciseList();
+        exerciseList.addExercise(new Exercise("Running", 250,
+                LocalDate.parse("2021-10-16", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Jumping Jacks", 100,
+                LocalDate.parse("2021-10-19", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Skipping", 200,
+                LocalDate.parse("2021-10-18", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Swimming", 300,
+                LocalDate.parse("2021-10-17", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.sortExerciseList();
+        System.out.println(exerciseList.convertToString());
+    }
+
+    @Test
+    void totalExerciseCaloriesForSingleDate_oneLocalDateInput_expectSumOfCalorieOnThatDay() {
+        ExerciseList exerciseList = new ExerciseList();
+        exerciseList.addExercise(new Exercise("Running", 250,
+                LocalDate.parse("2021-10-16", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Jumping Jacks", 100,
+                LocalDate.parse("2021-10-19", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Skipping", 200,
+                LocalDate.parse("2021-10-18", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Swimming", 300,
+                LocalDate.parse("2021-10-17", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Jump rope", 453,
+                LocalDate.parse("2021-10-17", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Biking", 420,
+                LocalDate.parse("2021-10-17", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        assertEquals(1173, exerciseList.getTotalCaloriesWithDate(
+                LocalDate.parse("17-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+    }
+
+    @Test
+    void printExerciseListByOneGivenDate_inputLocalDate_expectExerciseListOfTheDayOnly() {
+        ExerciseList exerciseList = new ExerciseList();
+        exerciseList.addExercise(new Exercise("Running", 250,
+                LocalDate.parse("2021-10-16", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Jumping Jacks", 100,
+                LocalDate.parse("2021-10-19", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Skipping", 200,
+                LocalDate.parse("2021-10-18", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Swimming", 300,
+                LocalDate.parse("2021-10-17", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Jump rope", 453,
+                LocalDate.parse("2021-10-17", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        exerciseList.addExercise(new Exercise("Biking", 420,
+                LocalDate.parse("2021-10-17", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
+        System.out.println(exerciseList.convertToStringByDate(
+                LocalDate.parse("17-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
     }
 }

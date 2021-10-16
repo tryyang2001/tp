@@ -4,14 +4,14 @@ import seedu.duke.item.Item;
 import seedu.duke.item.ItemList;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class FoodList extends ItemList {
 
-    private ArrayList<Food> foodRecords = new ArrayList<>();
+    protected ArrayList<Food> foodRecords = new ArrayList<>();
 
     /**
      * Returns food item in the food list.
@@ -49,17 +49,22 @@ public class FoodList extends ItemList {
      */
     @Override
     public String convertToString() {
-        StringBuilder foodListInString = new StringBuilder(""); //declares as StringBuilder for mutable String object
+        StringBuilder foodListInString = extractFoodListByEachDateAndTime();
+        return foodListInString.toString().stripTrailing();
+    }
+
+    private StringBuilder extractFoodListByEachDateAndTime() {
+        StringBuilder foodListInString = new StringBuilder(); //declares as StringBuilder for mutable String object
         for (int index = 0; index < foodRecords.size(); index++) {
             LocalDate currentDate = foodRecords.get(index).getDate();
             FoodList subList = new FoodList();
-            for (int i = 1; index < foodRecords.size() && currentDate.isEqual(foodRecords.get(index).getDate()); i++) {
+            while (index < foodRecords.size() && currentDate.isEqual(foodRecords.get(index).getDate())) {
                 subList.addFood(foodRecords.get(index++));
             }
-            String day = currentDate.getDayOfWeek().toString().charAt(0)
-                    + currentDate.getDayOfWeek().toString().toLowerCase().substring(1);
             foodListInString
-                    .append(String.format("You have consumed %d food item(s) in %s (%s):", subList.getSize(), day,
+                    .append(String.format("You have consumed %d food item(s) in %s (%s):",
+                            subList.getSize(),
+                            getDay(currentDate),
                             currentDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))))
                     .append(ItemList.LS);
             for (int i = 1; i <= subList.getSize(); i++) {
@@ -75,9 +80,44 @@ public class FoodList extends ItemList {
             if (index < foodRecords.size()) {
                 foodListInString.append(ItemList.LS); //prevents last line spacing
             }
-            index--;
+            index--; //prevents double adding of index
         }
+        return foodListInString;
+    }
+
+    /**
+     * Converts the food list of a specific date to string format for printing purpose.
+     *
+     * @param date The date for the food list
+     * @return The food list of the specific date in a single string
+     */
+    public String convertToStringByDate(LocalDate date) {
+        StringBuilder foodListInString = extractFoodListBySpecificDate(date);
         return foodListInString.toString().stripTrailing();
+    }
+
+    private StringBuilder extractFoodListBySpecificDate(LocalDate date) {
+        StringBuilder foodListInString = new StringBuilder(); //declares as StringBuilder for mutable String object
+        ArrayList<Food> subList = (ArrayList<Food>) this.foodRecords.stream()
+                .filter(f -> f.getDate().isEqual(date))
+                .collect(Collectors.toList());
+        foodListInString
+                .append(String.format("You have consumed %d food item(s) in %s (%s):",
+                        subList.size(),
+                        getDay(date),
+                        date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))))
+                .append(ItemList.LS);
+        for (int i = 1; i <= subList.size(); i++) {
+            foodListInString
+                    .append(ItemList.TAB)
+                    .append(String.format("%d. %s", i, subList.get(i - 1)))
+                    .append(ItemList.LS);
+        }
+        foodListInString
+                .append(String.format("Total calories consumed: %d cal",
+                        this.getTotalCaloriesWithDate(date)))
+                .append(ItemList.LS);
+        return foodListInString;
     }
 
     /**
@@ -121,6 +161,9 @@ public class FoodList extends ItemList {
         return foodRecords.stream().filter(f -> f.getDate().isEqual(date)).mapToInt(Item::getCalories).sum();
     }
 
+    /**
+     * Sorts the food list in ascending format according to the date and time.
+     */
     public void sortFoodList() {
         this.foodRecords.sort(Comparator.comparing(Food::getDateTime));
     }

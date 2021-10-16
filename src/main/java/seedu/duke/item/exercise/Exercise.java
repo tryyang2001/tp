@@ -16,6 +16,7 @@ public class Exercise extends Item {
      */
     public Exercise(String name, int calories) {
         super(name, calories);
+        this.date = LocalDate.now();
     }
 
     /**
@@ -27,6 +28,24 @@ public class Exercise extends Item {
      */
     public Exercise(String name, int calories, LocalDate date) {
         super(name, calories);
+        this.date = date;
+    }
+
+    /**
+     * Gets the date of the exercise taken.
+     *
+     * @return The date of the exercise done in LocalDate
+     */
+    public LocalDate getDate() {
+        return date;
+    }
+
+    /**
+     * Updates the date of the exercise taken.
+     *
+     * @param date The new date of the exercise done in LocalDate
+     */
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -21,6 +21,7 @@ public class Food extends Item {
      */
     public Food(String name, int calories) {
         super(name, calories);
+        this.dateTime = LocalDateTime.now();
     }
 
     /**

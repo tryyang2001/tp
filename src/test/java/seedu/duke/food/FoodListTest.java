@@ -87,7 +87,7 @@ class FoodListTest {
     void deleteAllFromEmptyFoodList_emptyFoodList_expectEmptyList() {
         FoodList foodList = new FoodList();
         foodList.clearFoodList();
-        assertEquals(0,foodList.getSize());
+        assertEquals(0, foodList.getSize());
     }
 
     @Test
@@ -146,7 +146,30 @@ class FoodListTest {
                 LocalDateTime.parse("16-10-2021 14:30", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
         foodList.addFood(new Food("Starbuck’s Old-fashioned Glazed Donut", 420,
                 LocalDateTime.parse("16-10-2021 10:20", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
-        System.out.println(foodList.getTotalCaloriesWithDate(
+        assertEquals(1683, foodList.getTotalCaloriesWithDate(
+                LocalDate.parse("16-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+    }
+
+    @Test
+    void printFoodListByOneGivenDate_inputLocalDate_expectFoodListOfThatDayOnly() {
+        FoodList foodList = new FoodList();
+        foodList.addFood(new Food("chicken rice", 607,
+                LocalDateTime.parse("2021-10-16 10:20", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+        foodList.addFood(new Food("char kway teow", 744,
+                LocalDateTime.parse("2021-10-19 19:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+        foodList.addFood(new Food("yong tau foo", 536,
+                LocalDateTime.parse("2021-10-17 14:50", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+        foodList.addFood(new Food("mcspicy alacarte", 528,
+                LocalDateTime.parse("2021-10-18 16:50", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+        foodList.addFood(new Food("maggie mee", 276,
+                LocalDateTime.parse("16-10-2021 10:20", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
+        foodList.addFood(new Food("yong tau foo", 536,
+                LocalDateTime.parse("2021-10-17 14:50", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
+        foodList.addFood(new Food("McDonald's Medium Fries", 380,
+                LocalDateTime.parse("16-10-2021 14:30", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
+        foodList.addFood(new Food("Starbuck's Old-fashioned Glazed Donut", 420,
+                LocalDateTime.parse("16-10-2021 10:20", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
+        System.out.println(foodList.convertToStringByDate(
                 LocalDate.parse("16-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
     }
 }
