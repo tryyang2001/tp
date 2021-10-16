@@ -11,16 +11,7 @@ class FoodListTest {
     void addFoodUsingFoodClassParameter_foodClassParameter_expectExistsInList() {
         FoodList foodList = new FoodList();
         foodList.addFood(new Food("chicken rice", 607));
-        assertEquals("chicken rice (607 cal)", foodList.get(foodList.getSize() - 1).toString());
-    }
-
-    @Test
-    void addFoodWithEmptyCalories_emptyConstructor_expectExistsInList() {
-        FoodList foodList = new FoodList();
-        foodList.addFood(new Food());
-        assertEquals(1, foodList.getSize());
-        assertEquals(0, foodList.get(0).getCalories());
-        assertEquals("", foodList.get(0).getName());
+        assertEquals("chicken rice (607 cal)", foodList.getFood(foodList.getSize() - 1).toString());
     }
 
     @Test

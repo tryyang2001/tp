@@ -46,7 +46,7 @@ public class Encoder {
     public ArrayList<String> encodeFoodList(FoodList foodList) {
         ArrayList<String> foodItems = new ArrayList<>();
         for (int i = 0; i < foodList.getSize(); i++) {
-            foodItems.add(foodList.get(i).toFileTextString());
+            foodItems.add(foodList.getFood(i).toFileTextString());
         }
         return foodItems;
     }

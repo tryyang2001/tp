@@ -1,10 +1,10 @@
 package seedu.duke.food;
 
-import seedu.duke.ui.Ui;
+import seedu.duke.item.ItemList;
 
 import java.util.ArrayList;
 
-public class FoodList {
+public class FoodList extends ItemList {
 
     private ArrayList<Food> foodRecords = new ArrayList<>();
 
@@ -14,7 +14,7 @@ public class FoodList {
      * @param index The index of the food item
      * @return the food item with the given index
      */
-    public Food get(int index) {
+    public Food getFood(int index) {
         return this.foodRecords.get(index);
     }
 
@@ -23,6 +23,7 @@ public class FoodList {
      *
      * @return the size of the array list attribute
      */
+    @Override
     public int getSize() {
         return foodRecords.size();
     }
@@ -41,10 +42,16 @@ public class FoodList {
      *
      * @return The food list in a single string
      */
+    @Override
     public String convertToString() {
         StringBuilder foodListInString = new StringBuilder(""); //declares as StringBuilder for mutable String object
         for (int i = 0; i < foodRecords.size(); i++) {
-            foodListInString.append("\t").append(i + 1).append(". ").append(foodRecords.get(i)).append(Ui.LS);
+            foodListInString
+                    .append(ItemList.TAB)
+                    .append(i + 1)
+                    .append(". ")
+                    .append(foodRecords.get(i))
+                    .append(ItemList.LS);
         }
         return foodListInString.toString().stripTrailing();
     }
@@ -70,6 +77,7 @@ public class FoodList {
      *
      * @return Integer value of the sum of calorie of all food
      */
+    @Override
     public int getTotalCalories() {
         int sumOfFoodCalorie = 0;
         for (Food food : foodRecords) {

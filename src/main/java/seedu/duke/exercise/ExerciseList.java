@@ -1,9 +1,9 @@
 package seedu.duke.exercise;
 
-import seedu.duke.ui.Ui;
+import seedu.duke.item.ItemList;
 import java.util.ArrayList;
 
-public class ExerciseList {
+public class ExerciseList extends ItemList {
 
     private ArrayList<Exercise> exerciseList = new ArrayList<>();
 
@@ -31,6 +31,7 @@ public class ExerciseList {
      *
      * @return Number of exercises in the exercise list.
      */
+    @Override
     public int getSize() {
         return exerciseList.size();
     }
@@ -58,11 +59,16 @@ public class ExerciseList {
      *
      * @return Exercise list in string format.
      */
+    @Override
     public String convertToString() {
         StringBuilder exerciseListToString = new StringBuilder();
-
         for (int i = 0; i < exerciseList.size(); i++) {
-            exerciseListToString.append("\t").append(i + 1).append(". ").append(exerciseList.get(i)).append(Ui.LS);
+            exerciseListToString
+                    .append(ItemList.TAB)
+                    .append(i + 1)
+                    .append(". ")
+                    .append(exerciseList.get(i))
+                    .append(ItemList.LS);
         }
         return exerciseListToString.toString().stripTrailing();
     }
@@ -72,6 +78,7 @@ public class ExerciseList {
      *
      * @return Integer value of the sum of calorie of all exercises.
      */
+    @Override
     public int getTotalCalories() {
         int sumOfExerciseCalorie = 0;
 
