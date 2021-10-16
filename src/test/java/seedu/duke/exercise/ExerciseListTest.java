@@ -1,6 +1,8 @@
 package seedu.duke.exercise;
 
 import org.junit.jupiter.api.Test;
+import seedu.duke.item.exercise.Exercise;
+import seedu.duke.item.exercise.ExerciseList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

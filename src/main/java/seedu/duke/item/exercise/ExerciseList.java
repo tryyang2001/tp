@@ -1,4 +1,4 @@
-package seedu.duke.exercise;
+package seedu.duke.item.exercise;
 
 import seedu.duke.item.ItemList;
 import java.util.ArrayList;

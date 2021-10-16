@@ -1,4 +1,4 @@
-package seedu.duke.food;
+package seedu.duke.item.food;
 
 import seedu.duke.item.ItemList;
 

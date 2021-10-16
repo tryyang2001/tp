@@ -1,6 +1,8 @@
 package seedu.duke.food;
 
 import org.junit.jupiter.api.Test;
+import seedu.duke.item.food.Food;
+import seedu.duke.item.food.FoodList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
