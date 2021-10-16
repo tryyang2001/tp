@@ -18,6 +18,8 @@ public class ViewExerciseListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "You have done %1$d exercise(s):"
             + Ui.LS + "%2$s"
             + Ui.LS + "Total calories burnt: %3$s";
+    public static final String MESSAGE_HELP = "view e/ -- Shows all exercises in exercise record." + Ui.INDENTED_LS
+            + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
 
     private static Logger logger = Logger.getLogger("ViewExerciseCommand");
 

@@ -12,25 +12,31 @@ public class HelpCommand extends Command {
     private static final String MESSAGE_SUCCESS = "These are the available commands:" + Ui.LS;
     private static final String MESSAGE_HELP_INTRO = "Welcome to the help page." + Ui.LS
             + "Below are the commands to get you started." + Ui.LS
-            + "More details could be found on: " + Ui.LS
-            + "https://tinyurl.com/fitbotUG";
+            + "More details could be found on: https://tinyurl.com/fitbotUG" + Ui.LS;
     
 
     public static final String MESSAGE_HELP = "help -- "
             + "Shows a list of commands and their usage with some examples."
-            + Ui.INDENTED_LS  + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
+            + Ui.INDENTED_LS  + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
     private static final String helpMessage = MESSAGE_HELP_INTRO
-            + AddExerciseCommand.MESSAGE_HELP
-            + CalculateBmiCommand.MESSAGE_HELP
-            + ByeCommand.MESSAGE_HELP
-            + DeleteExerciseCommand.MESSAGE_HELP
-            + SetGoalCommand.MESSAGE_HELP
-            + ChangeHeightCommand.MESSAGE_HELP
-            + MESSAGE_HELP
-            + OverviewCommand.MESSAGE_HELP
-            + ProfileCreateCommand.MESSAGE_HELP
-            + ViewCommand.MESSAGE_HELP
-            + ChangeWeightCommand.MESSAGE_HELP;
+            + Ui.LS + AddExerciseCommand.MESSAGE_HELP                 // add e/
+            + Ui.LS + AddFoodCommand.MESSAGE_HELP                     // add f/
+            + Ui.LS + CalculateBmiWithProfileCommand.MESSAGE_HELP     // bmi
+            + Ui.LS + CalculateBmiCommand.MESSAGE_HELP                // bmi h/ w/
+            + Ui.LS + ByeCommand.MESSAGE_HELP                         // bye
+            + Ui.LS + DeleteExerciseCommand.MESSAGE_HELP              // delete e/
+            + Ui.LS + DeleteFoodCommand.MESSAGE_HELP                  // delete f/
+            + Ui.LS + SetGoalCommand.MESSAGE_HELP                     // goal
+            + Ui.LS + ChangeHeightCommand.MESSAGE_HELP                // height
+            + Ui.LS + MESSAGE_HELP                                    // help
+            + Ui.LS + OverviewCommand.MESSAGE_HELP                    // overview
+            + Ui.LS + ProfileCommand.MESSAGE_HELP                     // profile
+            + Ui.LS + ProfileCreateCommand.MESSAGE_HELP               // profile n/ w/ h/ g/
+            + Ui.LS + ViewCommand.MESSAGE_HELP                        // view
+            + Ui.LS + ViewExerciseListCommand.MESSAGE_HELP            // view e/
+            + Ui.LS + ViewFoodListCommand.MESSAGE_HELP                // view f/
+            + Ui.LS + ChangeWeightCommand.MESSAGE_HELP                // weight
+            ;
 
 
     @Override

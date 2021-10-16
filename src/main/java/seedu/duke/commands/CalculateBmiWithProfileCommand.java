@@ -11,6 +11,9 @@ public class CalculateBmiWithProfileCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Your BMI value according to your current profile is:"
             + Ui.INDENTED_LS + "%1$,.1f (%2$s)";
     public static final String MESSAGE_UNINITIALIZED_PROFILE = "Your profile has not been initialized yet.";
+    public static final String MESSAGE_HELP = "bmi -- "
+            + "Calculates the BMI value based on the user's height and weight from profile." + Ui.INDENTED_LS
+            + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
 
     @Override
     public CommandResult execute() {

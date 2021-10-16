@@ -20,9 +20,9 @@ public class DeleteExerciseCommand extends Command {
     public static final String MESSAGE_SUCCESS = "An exercise item has been deleted:"
             + Ui.INDENTED_LS + "%s"
             + Ui.LS + "Number of exercise item(s) left: %2$d";
-    public static final String MESSAGE_HELP = "delete -- Deletes entry of food or exercise added." + Ui.INDENTED_LS
-                 + Ui.FORMAT_HEADER + DeleteExerciseCommand.MESSAGE_COMMAND_FORMAT + Ui.INDENTED_LS
-                 + Ui.FORMAT_PLACEHOLDER + DeleteFoodCommand.MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
+    public static final String MESSAGE_HELP = "delete e/ -- "
+            + "Deletes corresponding entry of exercise in exercise record." + Ui.INDENTED_LS
+                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT  + Ui.LS;
     private static final String MESSAGE_EXERCISE_CLEAR = "All exercise items have been removed.";
 
     private static Logger logger = Logger.getLogger(DeleteExerciseCommand.class.getName());

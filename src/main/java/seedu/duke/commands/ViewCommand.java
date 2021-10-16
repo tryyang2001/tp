@@ -16,8 +16,8 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_EXERCISE = "You have done %1$d exercise(s):"
             + Ui.LS + "%2$s"
             + Ui.LS + "Total calories burnt: %3$s";
-    public static final String MESSAGE_HELP = "view -- Views all the food and/or exercises added." + Ui.INDENTED_LS
-                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
+    public static final String MESSAGE_HELP = "view -- Shows all the food and exercises added." + Ui.INDENTED_LS
+                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
 
     @Override
     public CommandResult execute() {

@@ -14,8 +14,8 @@ public class OverviewCommand extends Command {
             + Ui.INDENTED_LS + "Calories burnt: %2$d calories"
             + Ui.INDENTED_LS + "Net calories: %3$d calories"
             + Ui.LS + "%4$s";
-    public static final String MESSAGE_HELP = "overview -- shows relevant calories statistics." + Ui.INDENTED_LS
-                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
+    public static final String MESSAGE_HELP = "overview -- Shows relevant calories statistics." + Ui.INDENTED_LS
+                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
     protected Statistics statistics = new Statistics();
 
     @Override

@@ -22,10 +22,9 @@ public class ProfileCreateCommand extends Command {
             + Ui.INDENTED_LS + "Your height is %2$scm."
             + Ui.INDENTED_LS + "Your weight is %3$skg."
             + Ui.INDENTED_LS + "Your calories goal is %4$s cal.";
-    public static final String MESSAGE_HELP = "profile -- "
-            + "Inputs height of user in centimetres, weight of user in kg\n"
-            + "\t      and name of user in test." + Ui.INDENTED_LS
-                 + Ui.FORMAT_HEADER + ProfileCreateCommand.MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
+    public static final String MESSAGE_HELP = "profile n/ h/ w/ g/ -- "
+            + "Creates or updates profile with name, height, weight, calorie goal." + Ui.INDENTED_LS
+                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
 
 
     private final String name;

@@ -21,6 +21,9 @@ public class DeleteFoodCommand extends Command {
             + Ui.INDENTED_LS + "%1$s"
             + Ui.INDENTED_LS + "Number of food item(s) left: %2$d";
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
+    public static final String MESSAGE_HELP = "delete f/ -- "
+            + "Deletes corresponding entry of food in food record." + Ui.INDENTED_LS
+            + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT  + Ui.LS;
 
     private final int itemIndex;
     private boolean isClear = false;

@@ -12,6 +12,7 @@ public class ProfileCommand extends Command {
     private static final String MESSAGE_WEIGHT = "Your weight is %skg.";
     private static final String MESSAGE_CALORIE_GOAL = "Your calorie goal is %s cal.";
     private static final String MESSAGE_NO_INFO = "I do not know your %1$s yet, tell me using the command %2$s!";
+    public static final String MESSAGE_HELP = "profile -- Shows all particulars in profile." + Ui.LS;
 
     public ProfileCommand() {
     }

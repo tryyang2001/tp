@@ -17,8 +17,8 @@ public class ChangeHeightCommand extends Command {
             + "Trying to update your height? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "Your height has been updated!" + Ui.LS + "Your height is %scm.";
-    public static final String MESSAGE_HELP =  "height -- changes height in profile." + Ui.INDENTED_LS
-                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS + Ui.LS;
+    public static final String MESSAGE_HELP =  "height -- Changes height in profile." + Ui.INDENTED_LS
+                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
 
     private Logger logger = Logger.getLogger(ChangeHeightCommand.class.getName());
     private final double height;

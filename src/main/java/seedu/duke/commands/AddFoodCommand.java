@@ -20,6 +20,8 @@ public class AddFoodCommand extends Command {
             + Ui.INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_FOOD_CALORIES = "Food calories cannot be less than 0" + Ui.LS
             + "Try a positive value instead";
+    public static final String MESSAGE_HELP =  "add f/ c/ -- Adds a food record to the food record."
+            + Ui.INDENTED_LS + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
 
     private Logger logger = Logger.getLogger(AddFoodCommand.class.getName());
     private Food food;

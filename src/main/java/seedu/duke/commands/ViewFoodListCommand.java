@@ -14,6 +14,8 @@ public class ViewFoodListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "You have consumed %1$d food item(s):"
             + Ui.LS + "%2$s"
             + Ui.LS + "Total calories consumed: %3$s";
+    public static final String MESSAGE_HELP = "view f/ -- Shows all food in food record." + Ui.INDENTED_LS
+            + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
 
     @Override
     public CommandResult execute() {
