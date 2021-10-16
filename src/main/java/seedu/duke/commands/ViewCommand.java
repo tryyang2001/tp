@@ -11,11 +11,9 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
     public static final String MESSAGE_SUCCESS = "This is what you have recorded so far!";
     public static final String MESSAGE_FOOD = "You have consumed %1$d food item(s):"
-            + Ui.LS + "%2$s"
-            + Ui.LS + "Total calories consumed: %3$s";
+            + Ui.LS + "%2$s";
     public static final String MESSAGE_EXERCISE = "You have done %1$d exercise(s):"
-            + Ui.LS + "%2$s"
-            + Ui.LS + "Total calories burnt: %3$s";
+            + Ui.LS + "%2$s";
 
     @Override
     public CommandResult execute() {
@@ -24,16 +22,14 @@ public class ViewCommand extends Command {
             foodMessage = MESSAGE_EMPTY_FOOD_LIST;
         } else {
             foodMessage = String.format(MESSAGE_FOOD, super.foodItems.getSize(),
-                    super.foodItems.convertToString(),
-                    super.foodItems.getTotalCalories());
+                    super.foodItems.convertToString());
         }
         String exerciseMessage;
         if (super.exerciseItems.getSize() == 0) {
             exerciseMessage = MESSAGE_EMPTY_EXERCISE_LIST;
         } else {
             exerciseMessage = String.format(MESSAGE_EXERCISE, super.exerciseItems.getSize(),
-                    super.exerciseItems.convertToString(),
-                    super.exerciseItems.getTotalCalories());
+                    super.exerciseItems.convertToString());
         }
         return new CommandResult(MESSAGE_SUCCESS + Ui.LS + foodMessage + Ui.LS + Ui.LS + exerciseMessage);
     }

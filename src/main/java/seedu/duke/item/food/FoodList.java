@@ -1,8 +1,13 @@
 package seedu.duke.item.food;
 
+import seedu.duke.item.Item;
 import seedu.duke.item.ItemList;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class FoodList extends ItemList {
 
@@ -45,13 +50,32 @@ public class FoodList extends ItemList {
     @Override
     public String convertToString() {
         StringBuilder foodListInString = new StringBuilder(""); //declares as StringBuilder for mutable String object
-        for (int i = 0; i < foodRecords.size(); i++) {
+        for (int index = 0; index < foodRecords.size(); index++) {
+            LocalDate currentDate = foodRecords.get(index).getDate();
+            FoodList subList = new FoodList();
+            for (int i = 1; index < foodRecords.size() && currentDate.isEqual(foodRecords.get(index).getDate()); i++) {
+                subList.addFood(foodRecords.get(index++));
+            }
+            String day = currentDate.getDayOfWeek().toString().charAt(0)
+                    + currentDate.getDayOfWeek().toString().toLowerCase().substring(1);
             foodListInString
-                    .append(ItemList.TAB)
-                    .append(i + 1)
-                    .append(". ")
-                    .append(foodRecords.get(i))
+                    .append(String.format("You have consumed %d food item(s) in %s (%s):", subList.getSize(), day,
+                            currentDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))))
                     .append(ItemList.LS);
+            for (int i = 1; i <= subList.getSize(); i++) {
+                foodListInString
+                        .append(ItemList.TAB)
+                        .append(String.format("%d. %s", i, subList.getFood(i - 1)))
+                        .append(ItemList.LS);
+            }
+            foodListInString
+                    .append(String.format("Total calories consumed: %d cal",
+                            this.getTotalCaloriesWithDate(currentDate)))
+                    .append(ItemList.LS);
+            if (index < foodRecords.size()) {
+                foodListInString.append(ItemList.LS); //prevents last line spacing
+            }
+            index--;
         }
         return foodListInString.toString().stripTrailing();
     }
@@ -85,5 +109,19 @@ public class FoodList extends ItemList {
         }
         assert sumOfFoodCalorie >= 0 : "Total calories cannot less than 0";
         return sumOfFoodCalorie;
+    }
+
+    /**
+     * Computes the sum of calorie of all food items consumed in a specific date.
+     *
+     * @param date The date to query all the consumed food items
+     * @return Integer value of the sum of calorie of all food items consumed in the given date
+     */
+    public int getTotalCaloriesWithDate(LocalDate date) {
+        return foodRecords.stream().filter(f -> f.getDate().isEqual(date)).mapToInt(Item::getCalories).sum();
+    }
+
+    public void sortFoodList() {
+        this.foodRecords.sort(Comparator.comparing(Food::getDateTime));
     }
 }

@@ -9,7 +9,7 @@ public abstract class Item {
      * Constructor for item object.
      *
      * @param name     The name or description of the item
-     * @param calories The calorie intake/burnt for the item
+     * @param calories The calorie intake/burnt from the item
      */
     public Item(String name, int calories) {
         this.name = name;
@@ -28,7 +28,7 @@ public abstract class Item {
     /**
      * Gets the calorie intake/burnt for the item.
      *
-     * @return The calorie intake/burnt for the item
+     * @return The calorie intake/burnt from the item
      */
     public int getCalories() {
         return this.calories;
@@ -44,9 +44,9 @@ public abstract class Item {
     }
 
     /**
-     * Updates the calorie intake/burnt for the item.
+     * Updates the calorie intake/burnt from the item.
      *
-     * @param calories The new calorie intake/burnt for the item
+     * @param calories The new calorie intake/burnt from the item
      */
     public void setCalories(int calories) {
         this.calories = calories;
