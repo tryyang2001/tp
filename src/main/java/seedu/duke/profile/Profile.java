@@ -178,7 +178,18 @@ public class Profile {
      * @return false if at least one of the profile attributes are invalid.
      */
     public boolean checkProfileCreated(){
-        return height > 0 && weight > 0 && name != null;
+        return checkNameCreated() && checkHeightCreated() && checkWeightCreated();
     }
 
+    public boolean checkNameCreated() {
+        return name != null;
+    }
+
+    public boolean checkWeightCreated() {
+        return weight > 0;
+    }
+
+    public boolean checkHeightCreated() {
+        return height > 0;
+    }
 }

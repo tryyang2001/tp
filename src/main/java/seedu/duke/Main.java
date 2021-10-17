@@ -4,7 +4,6 @@ import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
 import seedu.duke.commands.InvalidCommand;
-import seedu.duke.commands.ProfileCreateCommand;
 import seedu.duke.exercise.ExerciseList;
 import seedu.duke.food.FoodList;
 import seedu.duke.parser.Parser;
@@ -27,8 +26,6 @@ public class Main {
     private Ui ui;
     private Storage storage;
 
-
-
     /**
      * Entry point of the application.
      */
@@ -41,6 +38,7 @@ public class Main {
      **/
     private void run(String[] args) {
         start();
+        checkAndCreateProfile();
         enterTaskModeUntilByeCommand();
         exit();
     }
@@ -61,6 +59,75 @@ public class Main {
         }
     }
 
+    private void checkAndCreateProfile() {
+        if (profile.checkProfileCreated()){
+            return;
+        }
+        Command command;
+        String userInput;
+        do{
+            showUserMessage(); // this conditional statement contains messages for user to follow
+            userInput = ui.getUserInput();
+            if (userInput.equals("complete")){
+                setDefaultProfile();
+                break;
+            }
+            command = new Parser().parseCommand(userInput);
+            if (!(command instanceof InvalidCommand)) {
+                CommandResult result = executeCommand(command);
+                ui.formatMessageFramedWithDivider(result.toString());
+            } else {
+                ui.formatMessageFramedWithDivider("invalid input");
+            }
+        } while (!profile.checkProfileCreated());
+        // fills in all missing compulsory particulars.
+        setDefaultProfile();
+        ui.formatMessageFramedWithDivider("profile is set up.");
+    }
+
+    private void showUserMessage() {
+        String userMessage;
+        final String nameString = profile.getName() == null
+                ? Ui.MESSAGE_NO_INFO : profile.getName();
+        final String heightString = profile.getHeight() == 0
+                ? Ui.MESSAGE_NO_INFO : String.format(Ui.MESSAGE_HEIGHT, profile.getHeight());
+        final String weightString = profile.getWeight() == 0
+                ? Ui.MESSAGE_NO_INFO : String.format(Ui.MESSAGE_WEIGHT, profile.getWeight());
+        final String calorieGoalString = String.format(Ui.MESSAGE_CALORIE_GOAL, profile.getCalorieGoal());
+
+        userMessage =  Ui.MESSAGE_INTRO + ui.LS
+                + Ui.NAME_HEADER + nameString  + ui.INDENTED_LS + Ui.MESSAGE_NAME_USAGE + ui.LS
+                + Ui.HEIGHT_HOLDER + heightString  + ui.INDENTED_LS + Ui.MESSAGE_HEIGHT_USAGE + ui.LS
+                + Ui.WEIGHT_HOLDER + weightString  + ui.INDENTED_LS + Ui.MESSAGE_WEIGHT_USAGE + ui.LS
+                + Ui.CALORIE_HOLDER + calorieGoalString  + ui.INDENTED_LS + Ui.MESSAGE_GOAL_USAGE + ui.LS
+                + Ui.MESSAGE_COMPLETE;
+        ui.formatMessageFramedWithDivider(userMessage);
+    }
+
+    /**
+     * Set default values for name, weight, height for user.
+     */
+    private void setDefaultProfile() {
+            if (!profile.checkNameCreated()) {
+                String createDefaultNameCommand = "name User";
+                createProfile(createDefaultNameCommand);
+            }
+            if (!profile.checkHeightCreated()) {
+                String createDefaultHeightCommand = "height 170";
+                createProfile(createDefaultHeightCommand);
+            }
+            if (!profile.checkWeightCreated()) {
+                String createDefaultWeightCommand = "weight 65";
+                createProfile(createDefaultWeightCommand);
+            }
+    }
+
+    private void createProfile(String createDefaultNameCommand) {
+        Command command;
+        command = new Parser().parseCommand(createDefaultNameCommand);
+        CommandResult result = executeCommand(command);
+        ui.formatMessageFramedWithDivider(result.toString());
+    }
 
     /**
      * Reads the user input and executes appropriate command.
@@ -70,8 +137,6 @@ public class Main {
         Command command;
         do {
             String userInput = ui.getUserInput();
-            // have a function to check if it is ok -- profile class
-            // if can can set the flag in parser flag for profile to true
             command = new Parser().parseCommand(userInput);
             CommandResult result = executeCommand(command);
             ui.formatMessageFramedWithDivider(result.toString());
@@ -86,11 +151,6 @@ public class Main {
      */
     private CommandResult executeCommand(Command command) {
         command.setData(this.profile, this.exerciseItems, this.foodItems);
-        if (!profile.checkProfileCreated()) {
-            if (!(command instanceof ProfileCreateCommand)) {
-                command = new InvalidCommand(Ui.MESSAGE_ERROR_PROFILE_NOT_CREATED);
-            }
-        }
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {

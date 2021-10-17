@@ -1,7 +1,11 @@
 package seedu.duke.ui;
 
+import seedu.duke.commands.ChangeHeightCommand;
+import seedu.duke.commands.ChangeNameCommand;
+import seedu.duke.commands.ChangeWeightCommand;
 import seedu.duke.commands.HelpCommand;
 import seedu.duke.commands.ProfileCreateCommand;
+import seedu.duke.commands.SetGoalCommand;
 
 import java.lang.System;
 import java.util.Scanner;
@@ -24,6 +28,16 @@ public class Ui {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_GRAY = "\u001B[90m";
+    private static final String MESSAGE_COMMAND_USAGE = ANSI_GRAY
+            + "[ create your %1$s by typing this format: %2$s ]" + ANSI_RESET;
+    public static final String MESSAGE_GOAL_USAGE = String.format(MESSAGE_COMMAND_USAGE,
+                    "goal", SetGoalCommand.MESSAGE_COMMAND_FORMAT);
+    public static final String MESSAGE_WEIGHT_USAGE = String.format(MESSAGE_COMMAND_USAGE,
+                            "weight", ChangeWeightCommand.MESSAGE_COMMAND_FORMAT);
+    public static final String MESSAGE_HEIGHT_USAGE = String.format(MESSAGE_COMMAND_USAGE,
+                                    "height", ChangeHeightCommand.MESSAGE_COMMAND_FORMAT);
+    public static final String MESSAGE_NAME_USAGE = String.format(MESSAGE_COMMAND_USAGE,
+                                            "name", ChangeNameCommand.MESSAGE_COMMAND_FORMAT);
     public static final String FULL_BLOCK = "█";
     public static final String HALF_BLOCK = "▌";
     public static final int MAX_BAR = 16;
@@ -58,6 +72,18 @@ public class Ui {
     public static final String MESSAGE_ERROR_PROFILE_NOT_CREATED = "Profile has not yet been created.\n"
             + "Please type the 'profile' command in the following format:\n"
             + ProfileCreateCommand.MESSAGE_COMMAND_FORMAT;
+    public static final String NAME_HEADER = "Name: ";
+    public static final String MESSAGE_INTRO = "Before we begin, let us create a profile. "
+            + "Fill in the relevant details below using the respective commands.";
+    public static final String MESSAGE_NO_INFO = "(waiting for user input... )";
+    public static final String HEIGHT_HOLDER = "Height: ";
+    public static final String WEIGHT_HOLDER = "Weight: ";
+    public static final String CALORIE_HOLDER = "Calorie goal: ";
+    public static final String MESSAGE_COMPLETE = "Once you are done, type 'complete' and press enter. "
+                    + "Your profile will be saved. All compulsory fields not filled will be filled by default values.";
+    public static final String MESSAGE_HEIGHT = "%scm";
+    public static final String MESSAGE_WEIGHT = "%skg";
+    public static final String MESSAGE_CALORIE_GOAL = "%s cal";
 
     private Scanner scanner;
 
