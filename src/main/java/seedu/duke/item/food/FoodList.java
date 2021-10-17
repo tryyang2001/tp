@@ -87,7 +87,7 @@ public class FoodList extends ItemList {
         ArrayList<Food> subList = (ArrayList<Food>) this.foodRecords.stream()
                 .filter(f -> f.getDate().isEqual(date) && f.getTimePeriod().equals(timePeriod))
                 .collect(Collectors.toList());
-        if (subList.size() == 0){
+        if (subList.size() == 0) {
             foodListInString
                     .append(MESSAGE_NO_FOOD_IN_DATE_AND_TIME_PERIOD)
                     .append(ItemList.LS);
@@ -303,7 +303,7 @@ public class FoodList extends ItemList {
         ArrayList<Food> subList = (ArrayList<Food>) this.foodRecords.stream()
                 .filter(f -> f.getDate().isEqual(date))
                 .collect(Collectors.toList());
-        if (subList.size() == 0){
+        if (subList.size() == 0) {
             foodListInString
                     .append(MESSAGE_NO_FOOD_IN_DATE)
                     .append(ItemList.LS);
