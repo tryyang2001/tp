@@ -1,7 +1,7 @@
 package seedu.duke.storage;
 
-import seedu.duke.exercise.ExerciseList;
-import seedu.duke.food.FoodList;
+import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
