@@ -60,15 +60,15 @@ public class Main {
     }
 
     private void checkAndCreateProfile() {
-        if (profile.checkProfileCreated()){
+        if (profile.checkProfileCreated()) {
             return;
         }
         Command command;
         String userInput;
-        do{
+        do {
             showUserMessage(); // this conditional statement contains messages for user to follow
             userInput = ui.getUserInput();
-            if (userInput.equals("complete")){
+            if (userInput.equals("complete")) {
                 setDefaultProfile();
                 break;
             }
@@ -80,8 +80,7 @@ public class Main {
                 ui.formatMessageFramedWithDivider("invalid input");
             }
         } while (!profile.checkProfileCreated());
-        // fills in all missing compulsory particulars.
-        setDefaultProfile();
+        setDefaultProfile(); // fills in all missing compulsory particulars.
         ui.formatMessageFramedWithDivider("profile is set up.");
     }
 
@@ -95,11 +94,11 @@ public class Main {
                 ? Ui.MESSAGE_NO_INFO : String.format(Ui.MESSAGE_WEIGHT, profile.getWeight());
         final String calorieGoalString = String.format(Ui.MESSAGE_CALORIE_GOAL, profile.getCalorieGoal());
 
-        userMessage =  Ui.MESSAGE_INTRO + ui.LS
-                + Ui.NAME_HEADER + nameString  + ui.INDENTED_LS + Ui.MESSAGE_NAME_USAGE + ui.LS
-                + Ui.HEIGHT_HOLDER + heightString  + ui.INDENTED_LS + Ui.MESSAGE_HEIGHT_USAGE + ui.LS
-                + Ui.WEIGHT_HOLDER + weightString  + ui.INDENTED_LS + Ui.MESSAGE_WEIGHT_USAGE + ui.LS
-                + Ui.CALORIE_HOLDER + calorieGoalString  + ui.INDENTED_LS + Ui.MESSAGE_GOAL_USAGE + ui.LS
+        userMessage = Ui.MESSAGE_INTRO + ui.LS
+                + Ui.NAME_HEADER + nameString + ui.INDENTED_LS + Ui.MESSAGE_NAME_USAGE + ui.LS
+                + Ui.HEIGHT_HOLDER + heightString + ui.INDENTED_LS + Ui.MESSAGE_HEIGHT_USAGE + ui.LS
+                + Ui.WEIGHT_HOLDER + weightString + ui.INDENTED_LS + Ui.MESSAGE_WEIGHT_USAGE + ui.LS
+                + Ui.CALORIE_HOLDER + calorieGoalString + ui.INDENTED_LS + Ui.MESSAGE_GOAL_USAGE + ui.LS
                 + Ui.MESSAGE_COMPLETE;
         ui.formatMessageFramedWithDivider(userMessage);
     }
@@ -108,18 +107,18 @@ public class Main {
      * Set default values for name, weight, height for user.
      */
     private void setDefaultProfile() {
-            if (!profile.checkNameCreated()) {
-                String createDefaultNameCommand = "name User";
-                createProfile(createDefaultNameCommand);
-            }
-            if (!profile.checkHeightCreated()) {
-                String createDefaultHeightCommand = "height 170";
-                createProfile(createDefaultHeightCommand);
-            }
-            if (!profile.checkWeightCreated()) {
-                String createDefaultWeightCommand = "weight 65";
-                createProfile(createDefaultWeightCommand);
-            }
+        if (!profile.checkNameCreated()) {
+            String createDefaultNameCommand = "name User";
+            createProfile(createDefaultNameCommand);
+        }
+        if (!profile.checkHeightCreated()) {
+            String createDefaultHeightCommand = "height 170";
+            createProfile(createDefaultHeightCommand);
+        }
+        if (!profile.checkWeightCreated()) {
+            String createDefaultWeightCommand = "weight 65";
+            createProfile(createDefaultWeightCommand);
+        }
     }
 
     private void createProfile(String createDefaultNameCommand) {
