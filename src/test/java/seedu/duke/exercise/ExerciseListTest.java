@@ -103,7 +103,7 @@ class ExerciseListTest {
                 LocalDate.parse("2021-10-17", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
         exerciseList.addExercise(new Exercise("Biking", 420,
                 LocalDate.parse("2021-10-17", DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
-        System.out.println(exerciseList.convertToStringByDate(
+        System.out.println(exerciseList.convertToStringBySpecificDate(
                 LocalDate.parse("17-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
     }
 }

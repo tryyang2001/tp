@@ -10,7 +10,10 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class ExerciseList extends ItemList {
-
+    public static final String MESSAGE_EXERCISE_DONE = "You have done %d exercise(s) in %s (%s):";
+    public static final String MESSAGE_TOTAL_CALORIE_BURNT = "Total calories burnt: %d cal";
+    public static final String MESSAGE_EXERCISE = "%d. %s";
+    public static final String DATE_FORMAT = "dd MMM yyyy";
     protected ArrayList<Exercise> exerciseList = new ArrayList<>();
 
     /**
@@ -71,71 +74,15 @@ public class ExerciseList extends ItemList {
         return exerciseListInString.toString().stripTrailing();
     }
 
-    private StringBuilder extractExerciseListByEachDate() {
-        StringBuilder exerciseListInString = new StringBuilder(); //declares as StringBuilder for mutable String object
-        for (int index = 0; index < exerciseList.size(); index++) {
-            LocalDate currentDate = exerciseList.get(index).getDate();
-            ExerciseList subList = new ExerciseList();
-            while (index < exerciseList.size() && currentDate.isEqual(exerciseList.get(index).getDate())) {
-                subList.addExercise(exerciseList.get(index++));
-            }
-            exerciseListInString
-                    .append(String.format("You have done %d exercise(s) in %s (%s):",
-                            subList.getSize(),
-                            getDay(currentDate),
-                            currentDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))))
-                    .append(ItemList.LS);
-            for (int i = 1; i <= subList.getSize(); i++) {
-                exerciseListInString
-                        .append(ItemList.TAB)
-                        .append(String.format("%d. %s", i, subList.getExercise(i - 1)))
-                        .append(ItemList.LS);
-            }
-            exerciseListInString
-                    .append(String.format("Total calories burnt: %d cal",
-                            this.getTotalCaloriesWithDate(currentDate)))
-                    .append(ItemList.LS);
-            if (index < exerciseList.size()) {
-                exerciseListInString.append(ItemList.LS); //prevents last line spacing
-            }
-            index--;
-        }
-        return exerciseListInString;
-    }
-
     /**
      * Converts the food list of a specific date to string format for printing purpose.
      *
      * @param date The date for the food list
      * @return The food list of the specific date in a single string
      */
-    public String convertToStringByDate(LocalDate date) {
+    public String convertToStringBySpecificDate(LocalDate date) {
         StringBuilder exerciseListInString = extractExerciseListBySpecificDate(date);
         return exerciseListInString.toString().stripTrailing();
-    }
-
-    private StringBuilder extractExerciseListBySpecificDate(LocalDate date) {
-        StringBuilder exerciseListInString = new StringBuilder(); //declares as StringBuilder for mutable String object
-        ArrayList<Exercise> subList = (ArrayList<Exercise>) this.exerciseList.stream()
-                .filter(e -> e.getDate().isEqual(date))
-                .collect(Collectors.toList());
-        exerciseListInString
-                .append(String.format("You have consumed %d food item(s) in %s (%s):",
-                        subList.size(),
-                        getDay(date),
-                        date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))))
-                .append(ItemList.LS);
-        for (int i = 1; i <= subList.size(); i++) {
-            exerciseListInString
-                    .append(ItemList.TAB)
-                    .append(String.format("%d. %s", i, subList.get(i - 1)))
-                    .append(ItemList.LS);
-        }
-        exerciseListInString
-                .append(String.format("Total calories consumed: %d cal",
-                        this.getTotalCaloriesWithDate(date)))
-                .append(ItemList.LS);
-        return exerciseListInString;
     }
 
     /**
@@ -177,4 +124,70 @@ public class ExerciseList extends ItemList {
         this.exerciseList.sort(Comparator.comparing(Exercise::getDate));
     }
 
+    /**
+     * Helper function to extract exercises list according to each date presented in the entire exercise list.
+     *
+     * @return String which contains exercise lists with different date
+     */
+    private StringBuilder extractExerciseListByEachDate() {
+        StringBuilder exerciseListInString = new StringBuilder();
+        for (int index = 0; index < exerciseList.size(); index++) {
+            LocalDate currentDate = exerciseList.get(index).getDate();
+            ExerciseList subList = new ExerciseList();
+            while (index < exerciseList.size() && currentDate.isEqual(exerciseList.get(index).getDate())) {
+                subList.addExercise(exerciseList.get(index++));
+            }
+            exerciseListInString
+                    .append(String.format(MESSAGE_EXERCISE_DONE,
+                            subList.getSize(),
+                            getDay(currentDate),
+                            currentDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT))))
+                    .append(ItemList.LS);
+            for (int i = 1; i <= subList.getSize(); i++) {
+                exerciseListInString
+                        .append(ItemList.TAB)
+                        .append(String.format(MESSAGE_EXERCISE, i, subList.getExercise(i - 1)))
+                        .append(ItemList.LS);
+            }
+            exerciseListInString
+                    .append(String.format(MESSAGE_TOTAL_CALORIE_BURNT,
+                            this.getTotalCaloriesWithDate(currentDate)))
+                    .append(ItemList.LS);
+            if (index < exerciseList.size()) {
+                exerciseListInString.append(ItemList.LS); //prevents last line spacing
+            }
+            index--;
+        }
+        return exerciseListInString;
+    }
+
+    /**
+     * Helper method for extracting exercise list which contains all the exercises done on the date.
+     *
+     * @param date The date to query all the exercises done
+     * @return StringBuilder type string which contains an exercise list with the given date
+     */
+    private StringBuilder extractExerciseListBySpecificDate(LocalDate date) {
+        StringBuilder exerciseListInString = new StringBuilder(); //declares as StringBuilder for mutable String object
+        ArrayList<Exercise> subList = (ArrayList<Exercise>) this.exerciseList.stream()
+                .filter(e -> e.getDate().isEqual(date))
+                .collect(Collectors.toList());
+        exerciseListInString
+                .append(String.format(MESSAGE_EXERCISE_DONE,
+                        subList.size(),
+                        getDay(date),
+                        date.format(DateTimeFormatter.ofPattern(DATE_FORMAT))))
+                .append(ItemList.LS);
+        for (int i = 1; i <= subList.size(); i++) {
+            exerciseListInString
+                    .append(ItemList.TAB)
+                    .append(String.format(MESSAGE_EXERCISE, i, subList.get(i - 1)))
+                    .append(ItemList.LS);
+        }
+        exerciseListInString
+                .append(String.format(MESSAGE_TOTAL_CALORIE_BURNT,
+                        this.getTotalCaloriesWithDate(date)))
+                .append(ItemList.LS);
+        return exerciseListInString;
+    }
 }
