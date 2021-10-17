@@ -19,6 +19,9 @@ public class FoodList extends ItemList {
     public static final String MESSAGE_AFTERNOON = "In the afternoon:";
     public static final String MESSAGE_EVENING = "In the evening:";
     public static final String MESSAGE_NIGHT = "At night:";
+    public static final String MESSAGE_NO_FOOD_IN_DATE_AND_TIME_PERIOD =
+            "There is no food item found by the given date and time period";
+    public static final String MESSAGE_NO_FOOD_IN_DATE = "There is no food item found by the given date";
     protected ArrayList<Food> foodRecords = new ArrayList<>();
 
     /**
@@ -84,6 +87,12 @@ public class FoodList extends ItemList {
         ArrayList<Food> subList = (ArrayList<Food>) this.foodRecords.stream()
                 .filter(f -> f.getDate().isEqual(date) && f.getTimePeriod().equals(timePeriod))
                 .collect(Collectors.toList());
+        if (subList.size() == 0){
+            foodListInString
+                    .append(MESSAGE_NO_FOOD_IN_DATE_AND_TIME_PERIOD)
+                    .append(ItemList.LS);
+            return foodListInString.toString().stripTrailing();
+        }
         FoodList timePeriodList = new FoodList();
         for (Food f : subList) {
             if (f.getTimePeriod().equals(timePeriod)) {
@@ -294,6 +303,12 @@ public class FoodList extends ItemList {
         ArrayList<Food> subList = (ArrayList<Food>) this.foodRecords.stream()
                 .filter(f -> f.getDate().isEqual(date))
                 .collect(Collectors.toList());
+        if (subList.size() == 0){
+            foodListInString
+                    .append(MESSAGE_NO_FOOD_IN_DATE)
+                    .append(ItemList.LS);
+            return foodListInString;
+        }
         convertItemCountToString(date, foodListInString, subList.size());
         for (int i = 1; i <= subList.size(); i++) {
             convertFoodItemToString(foodListInString, i, subList.get(i - 1));

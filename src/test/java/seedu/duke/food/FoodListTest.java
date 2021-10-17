@@ -259,4 +259,23 @@ class FoodListTest {
                 LocalDate.parse("16-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 TimePeriod.Morning));
     }
+
+    @Test
+    void printFoodListBySpecificDateWithEmptyFoodList_emptyFoodList_expectErrorMessage() {
+        FoodList foodList = new FoodList();
+        foodList.addFood(new Food("chicken rice", 607,
+                LocalDateTime.parse("17-10-2021 23:59", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
+        assertEquals("There is no food item found by the given date", foodList.convertToStringByDate(
+                LocalDate.parse("16-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+    }
+
+    @Test
+    void printFoodListBySpecificDateAndTimePeriodWithEmptyFoodList_emptyFoodList_expectErrorMessage() {
+        FoodList foodList = new FoodList();
+        foodList.addFood(new Food("chicken rice", 607,
+                LocalDateTime.parse("17-10-2021 23:59", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
+        assertEquals("There is no food item found by the given date and time period",
+                foodList.convertToStringBySpecificDateAndTime(
+                LocalDate.parse("16-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy")), TimePeriod.Morning));
+    }
 }
