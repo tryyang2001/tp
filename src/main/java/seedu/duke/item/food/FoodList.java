@@ -3,6 +3,8 @@ package seedu.duke.item.food;
 import seedu.duke.item.ItemList;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -101,6 +103,23 @@ public class FoodList extends ItemList {
     }
 
     /**
+     * Deletes a food item according to its index number, date and time.
+     *
+     * @param index The index of the food item as shown in the view f/ command
+     * @param date  The date of the food item consumed
+     * @param time  The time of the food item consumed
+     * @return The deleted food item
+     */
+    public Food deleteFood(int index, LocalDate date, LocalTime time) {
+        assert index >= 0 && index < foodRecords.size() : "Index cannot be out of bound";
+        LocalDateTime dateTime = date.atTime(time);
+        Food deletedFood = new Food("", 0, dateTime); //constructs food object to get the time period
+        int actualIndex = getActualIndex(index, deletedFood);
+        deletedFood = foodRecords.remove(actualIndex);
+        return deletedFood;
+    }
+
+    /**
      * Deletes all the food items from the food list.
      */
     public void clearFoodList() {
@@ -148,6 +167,37 @@ public class FoodList extends ItemList {
      */
     public int getSupperCount() {
         return (int) foodRecords.stream().filter(f -> f.getTimePeriod().equals(TimePeriod.Night)).count();
+    }
+
+    /**
+     * Helper method used in deleteFood to get the actual index from the entire food list of the food item to delete.
+     *
+     * @param index       The index of the food item as shown in the view f/ command
+     * @param deletedFood The food item to delete
+     * @return The actual index of the food item in the entire food list
+     */
+    private int getActualIndex(int index, Food deletedFood) {
+        for (int i = 0; i < foodRecords.size(); i++) {
+            if (isFoodToDelete(deletedFood, i, index)) {
+                return i + index;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Helper method used in getActualIndex to determine if the food item is the food to delete.
+     *
+     * @param deletedFood  The food item to delete
+     * @param currentIndex The current index of the entire food list
+     * @param index        The index of the food item as shown in the view f/ command
+     * @return True if the current food item is the food to delete, false otherwise
+     */
+    private boolean isFoodToDelete(Food deletedFood, int currentIndex, int index) {
+        boolean isSameDate = foodRecords.get(currentIndex).getDate().equals(deletedFood.getDate());
+        boolean isSameTimePeriod = foodRecords.get(currentIndex).getTimePeriod().equals(deletedFood.getTimePeriod());
+        boolean hasTheIndex = foodRecords.get(currentIndex + index).getTimePeriod().equals(deletedFood.getTimePeriod());
+        return isSameDate && isSameTimePeriod && hasTheIndex;
     }
 
     /**
