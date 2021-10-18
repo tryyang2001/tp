@@ -92,8 +92,8 @@ public class Profile {
         setCalorieGoal(calorieGoal);
     }
 
-    public void setProfile(String name, double height, double weight, int calorieGoal, char gender, int age, int activityFactor)
-            throws InvalidCharacteristicException {
+    public void setProfile(String name, double height, double weight, int calorieGoal,
+                           char gender, int age, int activityFactor) throws InvalidCharacteristicException {
         setName(name);
         setHeight(height);
         setWeight(weight);
@@ -247,7 +247,7 @@ public class Profile {
      * Calculates the BMI based on the profile's characteristics.
      *
      * @return The calculated BMI of the profile's height and weight
-     * @throws InvalidCharacteristicException
+     * @throws InvalidCharacteristicException When the profile data integrity is compromised through modifying .txt file
      */
     public double calculateBmi() throws InvalidCharacteristicException {
         checkHeightValidity(height);

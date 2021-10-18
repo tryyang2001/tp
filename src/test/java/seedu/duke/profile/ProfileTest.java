@@ -12,12 +12,12 @@ class ProfileTest {
     @Test
     void setProfileParameters_invalidInputs_expectInvalidCharacteristicException() {
         Profile p = new Profile();
-        double height = -1;
-        double weight = -1;
-        char gender = 'D';
-        int age = -1;
-        int activityFactorUnderRange = 0;
-        int activityFactorOverRange = 6;
+        final double height = -1;
+        final double weight = -1;
+        final char gender = 'D';
+        final int age = -1;
+        final int activityFactorUnderRange = 0;
+        final int activityFactorOverRange = 6;
         assertThrows(InvalidCharacteristicException.class, () -> p.setHeight(height));
         assertThrows(InvalidCharacteristicException.class, () -> p.setWeight(weight));
         assertThrows(InvalidCharacteristicException.class, () -> p.setGender(gender));
@@ -28,37 +28,37 @@ class ProfileTest {
 
     @Test
     void calculateBmi_twoDoubleInputs_expectDoubleReturned() throws InvalidCharacteristicException {
-        double height = 171.2;
-        double weight = 59.8;
+        final double height = 171.2;
+        final double weight = 59.8;
         assertEquals(20.4, Profile.calculateBmi(height, weight));
     }
 
     @Test
     void calculateBmi_negativeHeightInput_expectInvalidCharacteristicException() {
-        double height = -171.2;
-        double weight = 59.8;
+        final double height = -171.2;
+        final double weight = 59.8;
         assertThrows(InvalidCharacteristicException.class,
             () -> Profile.calculateBmi(height, weight));
     }
 
     @Test
     void calculateBmi_negativeWeightInput_expectInvalidCharacteristicException() {
-        double height = 171.2;
-        double weight = -59.8;
+        final double height = 171.2;
+        final double weight = -59.8;
         assertThrows(InvalidCharacteristicException.class,
-                () -> Profile.calculateBmi(height, weight));
+            () -> Profile.calculateBmi(height, weight));
     }
 
     @Test
     void retrieveBmiStatus_validBmiInputs_expectCorrectStatuses() {
-        String expectedStatusUnderweight = "Underweight";
-        String expectedStatusHealthy = "Healthy";
-        String expectedStatusOverweight = "Overweight";
-        String expectedStatusObese = "Obese";
-        double bmiUnderweight = 10.5;
-        double bmiHealthy = 22.5;
-        double bmiOverweight = 25.5;
-        double bmiObese = 30.0;
+        final String expectedStatusUnderweight = "Underweight";
+        final String expectedStatusHealthy = "Healthy";
+        final String expectedStatusOverweight = "Overweight";
+        final String expectedStatusObese = "Obese";
+        final double bmiUnderweight = 10.5;
+        final double bmiHealthy = 22.5;
+        final double bmiOverweight = 25.5;
+        final double bmiObese = 30.0;
         assertEquals(expectedStatusUnderweight, Profile.retrieveBmiStatus(bmiUnderweight));
         assertEquals(expectedStatusHealthy, Profile.retrieveBmiStatus(bmiHealthy));
         assertEquals(expectedStatusOverweight, Profile.retrieveBmiStatus(bmiOverweight));
@@ -68,14 +68,14 @@ class ProfileTest {
     @Test
     void getBmrValuesMen_validInputs_expectCorrectBmrValues() throws InvalidCharacteristicException {
         Profile p = new Profile();
-        String name = "John";
-        double height = 170.1;
-        double weight = 60;
-        int calorieGoal = 300;
-        char gender = 'M';
-        int age = 22;
-        int activityFactor = 1;
-        double baseBmr = 1583.5979;
+        final String name = "John";
+        final double height = 170.1;
+        final double weight = 60;
+        final int calorieGoal = 300;
+        final char gender = 'M';
+        final int age = 22;
+        final int activityFactor = 1;
+        final double baseBmr = 1583.5979;
         p.setProfile(name, height, weight, calorieGoal, gender, age, activityFactor);
 
         int bmrSedentary = (int) Math.round(baseBmr * 1.2);
@@ -101,14 +101,14 @@ class ProfileTest {
     @Test
     void getBmrValuesFemale_validInputs_expectCorrectBmrValues() throws InvalidCharacteristicException {
         Profile p = new Profile();
-        String name = "Mary";
-        double height = 160.1;
-        double weight = 45.2;
-        int calorieGoal = 300;
-        char gender = 'F';
-        int age = 20;
-        int activityFactor = 1;
-        double baseBmr = 1274.9472;
+        final String name = "Mary";
+        final double height = 160.1;
+        final double weight = 45.2;
+        final int calorieGoal = 300;
+        final char gender = 'F';
+        final int age = 20;
+        final int activityFactor = 1;
+        final double baseBmr = 1274.9472;
         p.setProfile(name, height, weight, calorieGoal, gender, age, activityFactor);
 
         int bmrSedentary = (int) Math.round(baseBmr * 1.2);

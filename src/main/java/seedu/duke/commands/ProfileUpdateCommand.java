@@ -4,6 +4,7 @@ import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.ui.Ui;
 
 //TODO Update this class with ProfileCreateCommand once done modifying it to accommodate extra attributes
+
 /**
  * Represents the command that when executed, changes the value of name, height and weight in the Profile.
  */
@@ -33,7 +34,8 @@ public class ProfileUpdateCommand extends Command {
     private final char gender;
 
 
-    public ProfileUpdateCommand(String name, double height, double weight, int calorieGoal, int age, int activityFactor, char gender) {
+    public ProfileUpdateCommand(String name, double height, double weight, int calorieGoal, int age,
+                                int activityFactor, char gender) {
         this.name = name;
         this.height = height;
         this.weight = weight;
@@ -83,7 +85,7 @@ public class ProfileUpdateCommand extends Command {
                     this.gender,
                     this.age,
                     this.activityFactor));
-        } catch (InvalidCharacteristicException e){
+        } catch (InvalidCharacteristicException e) {
             return new CommandResult(e.getMessage());
         }
     }
