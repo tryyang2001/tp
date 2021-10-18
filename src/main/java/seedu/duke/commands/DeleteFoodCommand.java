@@ -1,7 +1,6 @@
 package seedu.duke.commands;
 
-import seedu.duke.food.Food;
-import seedu.duke.parser.Parser;
+import seedu.duke.item.food.Food;
 import seedu.duke.ui.Ui;
 
 import java.util.logging.Level;

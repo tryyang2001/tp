@@ -1,7 +1,6 @@
 package seedu.duke.commands;
 
-import seedu.duke.exercise.Exercise;
-import seedu.duke.storage.Storage;
+import seedu.duke.item.exercise.Exercise;
 import seedu.duke.ui.Ui;
 import java.util.logging.Level;
 import java.util.logging.Logger;
