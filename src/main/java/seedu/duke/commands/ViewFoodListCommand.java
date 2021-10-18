@@ -12,8 +12,7 @@ public class ViewFoodListCommand extends Command {
             + "Trying to view the food list? Use this format:"
             + Ui.LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "You have consumed %1$d food item(s):"
-            + Ui.LS + "%2$s"
-            + Ui.LS + "Total calories consumed: %3$s";
+            + Ui.LS + "%2$s";
 
     @Override
     public CommandResult execute() {
@@ -21,7 +20,6 @@ public class ViewFoodListCommand extends Command {
             return new CommandResult(MESSAGE_EMPTY_FOOD_LIST);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, super.foodItems.getSize(),
-                super.foodItems.convertToString(),
-                super.foodItems.getTotalCalories()));
+                super.foodItems.convertToString()));
     }
 }

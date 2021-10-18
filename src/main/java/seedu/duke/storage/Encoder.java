@@ -1,7 +1,7 @@
 package seedu.duke.storage;
 
-import seedu.duke.exercise.ExerciseList;
-import seedu.duke.food.FoodList;
+import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class Encoder {
     public ArrayList<String> encodeFoodList(FoodList foodList) {
         ArrayList<String> foodItems = new ArrayList<>();
         for (int i = 0; i < foodList.getSize(); i++) {
-            foodItems.add(foodList.get(i).toFileTextString());
+            foodItems.add(foodList.getFood(i).toFileTextString());
         }
         return foodItems;
     }

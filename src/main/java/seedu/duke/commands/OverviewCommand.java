@@ -1,6 +1,5 @@
 package seedu.duke.commands;
 
-import seedu.duke.food.FoodList;
 import seedu.duke.ui.Statistics;
 import seedu.duke.ui.Ui;
 
