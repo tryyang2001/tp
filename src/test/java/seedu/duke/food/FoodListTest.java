@@ -170,7 +170,7 @@ class FoodListTest {
                 LocalDateTime.parse("16-10-2021 14:30", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
         foodList.addFood(new Food("Starbuck's Old-fashioned Glazed Donut", 420,
                 LocalDateTime.parse("16-10-2021 10:20", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
-        System.out.println(foodList.convertToStringByDate(
+        System.out.println(foodList.convertToStringBySpecificDate(
                 LocalDate.parse("16-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
     }
 
@@ -265,7 +265,7 @@ class FoodListTest {
         FoodList foodList = new FoodList();
         foodList.addFood(new Food("chicken rice", 607,
                 LocalDateTime.parse("17-10-2021 23:59", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
-        assertEquals("There is no food item found by the given date", foodList.convertToStringByDate(
+        assertEquals("There is no food item found by the given date", foodList.convertToStringBySpecificDate(
                 LocalDate.parse("16-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
     }
 
@@ -276,6 +276,6 @@ class FoodListTest {
                 LocalDateTime.parse("17-10-2021 23:59", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))));
         assertEquals("There is no food item found by the given date and time period",
                 foodList.convertToStringBySpecificDateAndTime(
-                LocalDate.parse("16-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy")), TimePeriod.Morning));
+                        LocalDate.parse("16-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy")), TimePeriod.Morning));
     }
 }
