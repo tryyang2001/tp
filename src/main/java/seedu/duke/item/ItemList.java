@@ -30,6 +30,14 @@ public abstract class ItemList {
         return day;
     }
 
+    /**
+     * Common method used in food list and exercise list to generate the item count string.
+     *
+     * @param itemListInString The StringBuilder that will contain the correct output string format
+     * @param size             The size of the item list
+     * @param date             The date to query the item count
+     * @param message          The string format to display
+     */
     protected void convertItemCountToString(StringBuilder itemListInString, int size, LocalDate date, String message) {
         itemListInString
                 .append(String.format(message, size, getDay(date),
@@ -37,13 +45,27 @@ public abstract class ItemList {
                 .append(ItemList.LS);
     }
 
-    protected void convertItemToString(StringBuilder itemListInString, int index, Item item, String message) {
+    /**
+     * Common method used in food list and exercise list to generate the item string.
+     *
+     * @param itemListInString The StringBuilder that will contain the correct output string format
+     * @param index            The index of the item in the list
+     * @param item             The item to convert to string
+     */
+    protected void convertItemToString(StringBuilder itemListInString, int index, Item item) {
         itemListInString
                 .append(ItemList.TAB)
-                .append(String.format(message, index, item))
+                .append(String.format(MESSAGE_ITEM, index, item))
                 .append(ItemList.LS);
     }
 
+    /**
+     * Common method used in food list and exercise list to generate the total calorie string.
+     *
+     * @param itemListInString The StringBuilder that will contain the correct output string format
+     * @param totalCalories    The sum of calorie for each item stored inside the list
+     * @param message          The string format to display
+     */
     protected void convertTotalCaloriesToString(StringBuilder itemListInString, int totalCalories, String message) {
         itemListInString
                 .append(String.format(message,

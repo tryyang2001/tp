@@ -137,7 +137,7 @@ public class ExerciseList extends ItemList {
             }
             convertItemCountToString(exerciseListInString, subList.getSize(), currentDate, MESSAGE_EXERCISE_DONE);
             for (int i = 1; i <= subList.getSize(); i++) {
-                convertItemToString(exerciseListInString, i, subList.getExercise(i - 1), MESSAGE_ITEM);
+                convertItemToString(exerciseListInString, i, subList.getExercise(i - 1));
             }
             convertTotalCaloriesToString(
                     exerciseListInString,
@@ -165,7 +165,7 @@ public class ExerciseList extends ItemList {
                 .collect(Collectors.toList());
         convertItemCountToString(exerciseListInString, subList.size(), date, MESSAGE_EXERCISE_DONE);
         for (int i = 1; i <= subList.size(); i++) {
-            convertItemToString(exerciseListInString, i, subList.get(i - 1), MESSAGE_ITEM);
+            convertItemToString(exerciseListInString, i, subList.get(i - 1));
         }
         convertTotalCaloriesToString(
                 exerciseListInString,

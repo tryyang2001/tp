@@ -93,10 +93,15 @@ public class Food extends Item {
     /**
      * Converts the food to external file string format.
      *
-     * @return Name and calorie of the food in string
+     * @return Name, calorie, date and time of the food in string
      */
     public String toFileTextString() {
-        return FOOD_TYPE + super.toFileTextString();
+        return FOOD_TYPE
+                + super.toFileTextString()
+                + FILE_TEXT_DELIMITER
+                + this.getDate().format(DATE_FORMATTER)
+                + FILE_TEXT_DELIMITER
+                + this.getTime().format(TIME_FORMATTER);
     }
 
     /**

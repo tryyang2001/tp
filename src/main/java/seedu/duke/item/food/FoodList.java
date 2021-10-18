@@ -1,6 +1,5 @@
 package seedu.duke.item.food;
 
-import seedu.duke.item.Item;
 import seedu.duke.item.ItemList;
 
 import java.time.LocalDate;
@@ -115,8 +114,7 @@ public class FoodList extends ItemList {
      */
     @Override
     public int getTotalCalories() {
-        int sumOfFoodCalorie = 0;
-        sumOfFoodCalorie = foodRecords.stream().mapToInt(Food::getCalories).sum();
+        int sumOfFoodCalorie = foodRecords.stream().mapToInt(Food::getCalories).sum();
         assert sumOfFoodCalorie >= 0 : "Total calories cannot less than 0";
         return sumOfFoodCalorie;
     }
@@ -128,8 +126,7 @@ public class FoodList extends ItemList {
      * @return Integer value of the sum of calorie of all food items consumed in the given date
      */
     public int getTotalCaloriesWithDate(LocalDate date) {
-        int sumOfFoodCalorie = 0;
-        sumOfFoodCalorie = foodRecords.stream()
+        int sumOfFoodCalorie = foodRecords.stream()
                 .filter(f -> f.getDate().isEqual(date))
                 .mapToInt(Food::getCalories)
                 .sum();
@@ -150,9 +147,7 @@ public class FoodList extends ItemList {
      * @return The integer value count which indicates the number of food items consumed at night
      */
     public int getSupperCount() {
-        int supperCount = 0;
-        supperCount = (int) foodRecords.stream().filter(f -> f.getTimePeriod().equals(TimePeriod.Night)).count();
-        return supperCount;
+        return (int) foodRecords.stream().filter(f -> f.getTimePeriod().equals(TimePeriod.Night)).count();
     }
 
     /**
@@ -175,7 +170,7 @@ public class FoodList extends ItemList {
         convertItemCountToString(foodListInString, subList.size(), date, MESSAGE_FOOD_CONSUMED);
         addTimePeriodMessage(timePeriod, foodListInString);
         for (int i = 1; i <= timePeriodList.getSize(); i++) {
-            convertItemToString(foodListInString, i, timePeriodList.getFood(i - 1), MESSAGE_ITEM);
+            convertItemToString(foodListInString, i, timePeriodList.getFood(i - 1));
         }
         convertTotalCaloriesToString(
                 foodListInString,
@@ -280,7 +275,7 @@ public class FoodList extends ItemList {
         if (timePeriodList.getSize() > 0) {
             foodListInString.append(periodMessage).append(ItemList.LS);
             for (int i = 1; i <= timePeriodList.getSize(); i++) {
-                convertItemToString(foodListInString, i, timePeriodList.getFood(i - 1), MESSAGE_ITEM);
+                convertItemToString(foodListInString, i, timePeriodList.getFood(i - 1));
             }
         }
     }
@@ -336,7 +331,7 @@ public class FoodList extends ItemList {
         }
         convertItemCountToString(foodListInString, subList.size(), date, MESSAGE_FOOD_CONSUMED);
         for (int i = 1; i <= subList.size(); i++) {
-            convertItemToString(foodListInString, i, subList.get(i - 1), MESSAGE_ITEM);
+            convertItemToString(foodListInString, i, subList.get(i - 1));
         }
         convertTotalCaloriesToString(
                 foodListInString,
