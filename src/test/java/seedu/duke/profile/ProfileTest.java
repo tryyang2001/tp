@@ -76,24 +76,19 @@ class ProfileTest {
         final int age = 22;
         final int activityFactor = 1;
         final double baseBmr = 1583.5979;
+        final int bmrSedentary = (int) Math.round(baseBmr * 1.2);
+        final int bmrLight = (int) Math.round(baseBmr * 1.375);
+        final int bmrModerate = (int) Math.round(baseBmr * 1.55);
+        final int bmrIntense = (int) Math.round(baseBmr * 1.725);
+        final int bmrExtreme = (int) Math.round(baseBmr * 1.9);
         p.setProfile(name, height, weight, calorieGoal, gender, age, activityFactor);
-
-        int bmrSedentary = (int) Math.round(baseBmr * 1.2);
         assertEquals(bmrSedentary, p.getBmr());
-
-        int bmrLight = (int) Math.round(baseBmr * 1.375);
         p.setActivityFactor(2);
         assertEquals(bmrLight, p.getBmr());
-
-        int bmrModerate = (int) Math.round(baseBmr * 1.55);
         p.setActivityFactor(3);
         assertEquals(bmrModerate, p.getBmr());
-
-        int bmrIntense = (int) Math.round(baseBmr * 1.725);
         p.setActivityFactor(4);
         assertEquals(bmrIntense, p.getBmr());
-
-        int bmrExtreme = (int) Math.round(baseBmr * 1.9);
         p.setActivityFactor(5);
         assertEquals(bmrExtreme, p.getBmr());
     }
