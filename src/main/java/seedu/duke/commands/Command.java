@@ -1,6 +1,7 @@
 package seedu.duke.commands;
 
 import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
 import seedu.duke.ui.Ui;
@@ -32,6 +33,7 @@ public abstract class Command {
             + "1. %1$s" + Ui.LS
             + "2. %2$s";
     public static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise items yet!";
+    public static final String MESSAGE_EMPTY_FUTURE_EXERCISE_LIST = "No future exercise items yet!";
     public static final String MESSAGE_EMPTY_FOOD_LIST = "No food items yet!";
     public static final String MESSAGE_ONLY_ONE_IN_LIST = "You have only 1 item in the list!";
     public static final String MESSAGE_LIST_OUT_OF_BOUNDS = "Please input a valid item number from 1 to %s";
@@ -39,6 +41,7 @@ public abstract class Command {
     protected Profile profile;
     protected ExerciseList exerciseItems;
     protected FoodList foodItems;
+    protected FutureExerciseList futureExerciseItems;
 
 
 
@@ -53,13 +56,16 @@ public abstract class Command {
     /**
      * Provides the necessary data structures for the command to operate on.
      */
-    public void setData(Profile profile, ExerciseList exerciseItems, FoodList foodItems) {
+    public void setData(Profile profile, ExerciseList exerciseItems,
+                        FutureExerciseList futureExerciseItems , FoodList foodItems) {
         this.profile = profile;
         this.exerciseItems = exerciseItems;
         this.foodItems = foodItems;
+        this.futureExerciseItems = futureExerciseItems;
         assert profile != null : "Profile supplied to command should not be null";
         assert exerciseItems != null : "Exercise items supplied to command should not be null";
         assert foodItems != null : "Food items supplied to command should not be null";
+        assert futureExerciseItems != null : "Future exercise items supplied to command should not be null";
     }
 
 
@@ -98,4 +104,11 @@ public abstract class Command {
         return command instanceof AddFoodCommand
                 || command instanceof DeleteFoodCommand;
     }
+
+
+    public static boolean requiresFutureExerciseListStorageRewrite(Command command){
+        return command instanceof AddFutureExerciseCommand
+                || command instanceof  DeleteFutureExerciseCommand;
+    }
+
 }
