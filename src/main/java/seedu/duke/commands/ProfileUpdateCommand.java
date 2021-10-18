@@ -3,11 +3,12 @@ package seedu.duke.commands;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.ui.Ui;
 
+//TODO Update this class with ProfileCreateCommand once done modifying it to accommodate extra attributes
 /**
  * Represents the command that when executed, changes the value of name, height and weight in the Profile.
  */
-public class ProfileCreateCommand extends Command {
-    public static int COMMAND_EXPECTED_NUM_DELIMITERS = 4;
+public class ProfileUpdateCommand extends Command {
+    public static int COMMAND_EXPECTED_NUM_DELIMITERS = 7;
     public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD_PROFILE
             + " " + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "W "
             + COMMAND_PREFIX_HEIGHT + COMMAND_PREFIX_DELIMITER + "X "
@@ -27,28 +28,62 @@ public class ProfileCreateCommand extends Command {
     private final double weight;
     private final double height;
     private final int calorieGoal;
+    private final int age;
+    private final int activityFactor;
+    private final char gender;
 
 
-
-    public ProfileCreateCommand(String name, double height, double weight, int calorieGoal) {
-        assert name != null : "parser should have ensured name is not null";
+    public ProfileUpdateCommand(String name, double height, double weight, int calorieGoal, int age, int activityFactor, char gender) {
         this.name = name;
         this.height = height;
         this.weight = weight;
         this.calorieGoal = calorieGoal;
+        this.gender = gender;
+        this.age = age;
+        this.activityFactor = activityFactor;
     }
 
     @Override
     public CommandResult execute() {
         try {
-            super.profile.setProfile(this.name, this.height, this.weight, this.calorieGoal);
+            if (!this.name.equals("")) {
+                super.profile.setName(this.name);
+            }
+
+            if (this.height != 0.0) {
+                super.profile.setHeight(this.height);
+            }
+
+            if (this.weight != 0.0) {
+                super.profile.setWeight(this.weight);
+            }
+
+            if (this.calorieGoal != 0) {
+                super.profile.setCalorieGoal(this.calorieGoal);
+            }
+            //TODO Depends on what is passed from the parser, placeholder for now
+            if (this.gender != Character.MIN_VALUE) {
+                super.profile.setGender(this.gender);
+            }
+
+            if (this.age != 0) {
+                super.profile.setAge(this.age);
+            }
+
+            if (this.activityFactor != 0) {
+                super.profile.setActivityFactor(activityFactor);
+            }
+
             return new CommandResult(String.format(
                     MESSAGE_SUCCESS,
                     this.name,
                     this.height,
                     this.weight,
-                    this.calorieGoal));
-        } catch (InvalidCharacteristicException e) {
+                    this.calorieGoal,
+                    this.gender,
+                    this.age,
+                    this.activityFactor));
+        } catch (InvalidCharacteristicException e){
             return new CommandResult(e.getMessage());
         }
     }
