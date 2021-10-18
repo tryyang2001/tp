@@ -26,11 +26,11 @@ public class DeleteFutureExerciseCommand extends Command {
     private final int itemIndex;
     private boolean isClear = false;
 
-    public DeleteFutureExerciseCommand(int itemIndex){
+    public DeleteFutureExerciseCommand(int itemIndex) {
         this.itemIndex = itemIndex;
     }
 
-    public DeleteFutureExerciseCommand(boolean isClear){
+    public DeleteFutureExerciseCommand(boolean isClear) {
         this.itemIndex = -1;
         this.isClear = isClear;
     }

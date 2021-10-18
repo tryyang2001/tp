@@ -2,6 +2,7 @@ package seedu.duke.commands;
 
 import seedu.duke.item.exercise.Exercise;
 import seedu.duke.ui.Ui;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,7 +36,7 @@ public class AddExerciseCommand extends Command {
     @Override
     public CommandResult execute() {
         if (exercise.getCalories() <= 0) {
-            logger.log(Level.WARNING,"Exercise calorie is invalid");
+            logger.log(Level.WARNING, "Exercise calorie is invalid");
             return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
         }
         assert exercise.getCalories() > 0 : "Exercise calorie is valid";
