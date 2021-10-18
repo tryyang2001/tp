@@ -44,7 +44,6 @@ public abstract class Command {
     protected FutureExerciseList futureExerciseItems;
 
 
-
     /**
      * Returns the appropriate CommandResult after execution of the command.
      * Each child class that inherits this class represents an executable command and will have its own implementation
@@ -57,7 +56,7 @@ public abstract class Command {
      * Provides the necessary data structures for the command to operate on.
      */
     public void setData(Profile profile, ExerciseList exerciseItems,
-                        FutureExerciseList futureExerciseItems , FoodList foodItems) {
+                        FutureExerciseList futureExerciseItems, FoodList foodItems) {
         this.profile = profile;
         this.exerciseItems = exerciseItems;
         this.foodItems = foodItems;
@@ -104,11 +103,10 @@ public abstract class Command {
         return command instanceof AddFoodCommand
                 || command instanceof DeleteFoodCommand;
     }
-
-
-    public static boolean requiresFutureExerciseListStorageRewrite(Command command){
+    
+    public static boolean requiresFutureExerciseListStorageRewrite(Command command) {
         return command instanceof AddFutureExerciseCommand
-                || command instanceof  DeleteFutureExerciseCommand;
+                || command instanceof DeleteFutureExerciseCommand;
     }
 
 }

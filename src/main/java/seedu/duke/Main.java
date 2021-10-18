@@ -99,7 +99,7 @@ public class Main {
             if (Command.requiresFoodListStorageRewrite(command)) {
                 storage.saveFoodList(this.foodItems);
             }
-            if (Command.requiresFutureExerciseListStorageRewrite(command)){
+            if (Command.requiresFutureExerciseListStorageRewrite(command)) {
                 //TODO
                 //storage.saveFutureExercises(this.futureExerciseItems);
             }
