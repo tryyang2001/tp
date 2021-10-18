@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-
 public class Food extends Item {
     public static final String FOOD_TYPE = "F";
     private static final int EARLIEST_NIGHT_HOUR = 21;

@@ -4,7 +4,6 @@ import seedu.duke.item.Item;
 import seedu.duke.item.ItemList;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -12,14 +11,12 @@ import java.util.stream.Collectors;
 public class FoodList extends ItemList {
 
     public static final String MESSAGE_FOOD_CONSUMED = "You have consumed %d food item(s) on %s (%s):";
-    public static final String DATE_FORMAT = "dd MMM yyyy";
-    public static final String MESSAGE_FOOD = "%d. %s";
     public static final String MESSAGE_TOTAL_CALORIE_CONSUMED = "Total calories consumed: %d cal";
     public static final String MESSAGE_MORNING = "In the morning:";
     public static final String MESSAGE_AFTERNOON = "In the afternoon:";
     public static final String MESSAGE_EVENING = "In the evening:";
     public static final String MESSAGE_NIGHT = "At night:";
-    public static final String MESSAGE_NO_FOOD_IN_DATE_AND_TIME_PERIOD =
+    public static final String MESSAGE_NO_FOOD_IN_DATE_TIME =
             "There is no food item found by the given date and time period";
     public static final String MESSAGE_NO_FOOD_IN_DATE = "There is no food item found by the given date";
     protected ArrayList<Food> foodRecords = new ArrayList<>();
@@ -60,7 +57,7 @@ public class FoodList extends ItemList {
      */
     @Override
     public String convertToString() {
-        StringBuilder foodListInString = extractFoodListByEachDateAndTime();
+        StringBuilder foodListInString = extractFoodListByEachDateAndTimePeriod();
         return foodListInString.toString().stripTrailing();
     }
 
@@ -70,7 +67,7 @@ public class FoodList extends ItemList {
      * @param date The date for the food list
      * @return The food list of the specific date in a single string
      */
-    public String convertToStringByDate(LocalDate date) {
+    public String convertToStringBySpecificDate(LocalDate date) {
         StringBuilder foodListInString = extractFoodListBySpecificDate(date);
         return foodListInString.toString().stripTrailing();
     }
@@ -80,31 +77,18 @@ public class FoodList extends ItemList {
      *
      * @param date       The date given to query the food list
      * @param timePeriod The time period given to query the food list
-     * @return
+     * @return The food list of the specific date and time period in a single string
      */
     public String convertToStringBySpecificDateAndTime(LocalDate date, TimePeriod timePeriod) {
         StringBuilder foodListInString = new StringBuilder();
-        ArrayList<Food> subList = (ArrayList<Food>) this.foodRecords.stream()
-                .filter(f -> f.getDate().isEqual(date) && f.getTimePeriod().equals(timePeriod))
-                .collect(Collectors.toList());
+        ArrayList<Food> subList = filterListAccordingToDateAndTimePeriod(date, timePeriod);
         if (subList.size() == 0) {
             foodListInString
-                    .append(MESSAGE_NO_FOOD_IN_DATE_AND_TIME_PERIOD)
+                    .append(MESSAGE_NO_FOOD_IN_DATE_TIME)
                     .append(ItemList.LS);
             return foodListInString.toString().stripTrailing();
         }
-        FoodList timePeriodList = new FoodList();
-        for (Food f : subList) {
-            if (f.getTimePeriod().equals(timePeriod)) {
-                timePeriodList.addFood(f);
-            }
-        }
-        convertItemCountToString(date, foodListInString, subList.size());
-        addTimePeriodMessage(timePeriod, foodListInString);
-        for (int i = 1; i <= timePeriodList.getSize(); i++) {
-            convertFoodItemToString(foodListInString, i, timePeriodList.getFood(i - 1));
-        }
-        convertTotalCaloriesToString(foodListInString, subList.stream().mapToInt(Food::getCalories).sum());
+        processListToString(date, timePeriod, foodListInString, subList);
         return foodListInString.toString().stripTrailing();
     }
 
@@ -132,9 +116,7 @@ public class FoodList extends ItemList {
     @Override
     public int getTotalCalories() {
         int sumOfFoodCalorie = 0;
-        for (Food food : foodRecords) {
-            sumOfFoodCalorie += food.getCalories();
-        }
+        sumOfFoodCalorie = foodRecords.stream().mapToInt(Food::getCalories).sum();
         assert sumOfFoodCalorie >= 0 : "Total calories cannot less than 0";
         return sumOfFoodCalorie;
     }
@@ -146,7 +128,13 @@ public class FoodList extends ItemList {
      * @return Integer value of the sum of calorie of all food items consumed in the given date
      */
     public int getTotalCaloriesWithDate(LocalDate date) {
-        return foodRecords.stream().filter(f -> f.getDate().isEqual(date)).mapToInt(Item::getCalories).sum();
+        int sumOfFoodCalorie = 0;
+        sumOfFoodCalorie = foodRecords.stream()
+                .filter(f -> f.getDate().isEqual(date))
+                .mapToInt(Food::getCalories)
+                .sum();
+        assert sumOfFoodCalorie >= 0 : "Total calories cannot less than 0";
+        return sumOfFoodCalorie;
     }
 
     /**
@@ -162,15 +150,58 @@ public class FoodList extends ItemList {
      * @return The integer value count which indicates the number of food items consumed at night
      */
     public int getSupperCount() {
-        int count = 0;
-        for (Food f : foodRecords) {
-            if (f.getTimePeriod().equals(TimePeriod.Night)) {
-                count++;
-            }
-        }
-        return count;
+        int supperCount = 0;
+        supperCount = (int) foodRecords.stream().filter(f -> f.getTimePeriod().equals(TimePeriod.Night)).count();
+        return supperCount;
     }
 
+    /**
+     * Helper method used in convertToStringBySpecificDateAndTime to append strings to the string builder.
+     *
+     * @param date             The date to query the food list
+     * @param timePeriod       The time period to query the food list
+     * @param foodListInString The StringBuilder food list which contains the correct output string
+     * @param subList          The array list of food items that contains all the food items with same date and time
+     *                         period as the given date and timePeriod
+     */
+    private void processListToString(LocalDate date, TimePeriod timePeriod,
+                                     StringBuilder foodListInString, ArrayList<Food> subList) {
+        FoodList timePeriodList = new FoodList();
+        for (Food f : subList) {
+            if (f.getTimePeriod().equals(timePeriod)) {
+                timePeriodList.addFood(f);
+            }
+        }
+        convertItemCountToString(foodListInString, subList.size(), date, MESSAGE_FOOD_CONSUMED);
+        addTimePeriodMessage(timePeriod, foodListInString);
+        for (int i = 1; i <= timePeriodList.getSize(); i++) {
+            convertItemToString(foodListInString, i, timePeriodList.getFood(i - 1), MESSAGE_ITEM);
+        }
+        convertTotalCaloriesToString(
+                foodListInString,
+                subList.stream().mapToInt(Food::getCalories).sum(),
+                MESSAGE_TOTAL_CALORIE_CONSUMED);
+    }
+
+    /**
+     * Helper method used in convertToStringBySpecificDateAndTime to filter the original food list.
+     *
+     * @param date       The date to query the food list
+     * @param timePeriod The time period to query the food list
+     * @return The array list which contains food items with same date and time period as provided
+     */
+    private ArrayList<Food> filterListAccordingToDateAndTimePeriod(LocalDate date, TimePeriod timePeriod) {
+        return (ArrayList<Food>) this.foodRecords.stream()
+                .filter(f -> f.getDate().isEqual(date) && f.getTimePeriod().equals(timePeriod))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Helper method used in processListToString to retrieve the relevant message to the provided time period.
+     *
+     * @param timePeriod       The time period to query the food list
+     * @param foodListInString The StringBuilder food list which contains the correct output string
+     */
     private void addTimePeriodMessage(TimePeriod timePeriod, StringBuilder foodListInString) {
         switch (timePeriod) {
         case Morning:
@@ -189,35 +220,13 @@ public class FoodList extends ItemList {
         }
     }
 
-    private void convertTotalCaloriesToString(StringBuilder foodListInString, int totalCalories) {
-        foodListInString
-                .append(String.format(MESSAGE_TOTAL_CALORIE_CONSUMED,
-                        totalCalories))
-                .append(ItemList.LS);
-    }
-
-    private void convertItemCountToString(LocalDate date, StringBuilder foodListInString, int size) {
-        foodListInString
-                .append(String.format(MESSAGE_FOOD_CONSUMED,
-                        size,
-                        getDay(date),
-                        date.format(DateTimeFormatter.ofPattern(DATE_FORMAT))))
-                .append(ItemList.LS);
-    }
-
-    private void convertFoodItemToString(StringBuilder foodListInString, int index, Food food) {
-        foodListInString
-                .append(ItemList.TAB)
-                .append(String.format(MESSAGE_FOOD, index, food))
-                .append(ItemList.LS);
-    }
-
     /**
-     * Helper method for extracting each food list according to the date and time presented in the entire food list.
+     * Helper method used in convertToString for extracting each food list
+     * according to the date and time presented in the entire food list.
      *
      * @return StringBuilder type string which contains food lists with different date and time
      */
-    private StringBuilder extractFoodListByEachDateAndTime() {
+    private StringBuilder extractFoodListByEachDateAndTimePeriod() {
         StringBuilder foodListInString = new StringBuilder(); //declares as StringBuilder for mutable String object
         for (int index = 0; index < foodRecords.size(); index++) {
             LocalDate currentDate = foodRecords.get(index).getDate();
@@ -226,9 +235,12 @@ public class FoodList extends ItemList {
                 subList.addFood(foodRecords.get(index++));
             }
             assert subList.getSize() > 0 : "Sub list should not be empty.";
-            convertItemCountToString(currentDate, foodListInString, subList.getSize());
+            convertItemCountToString(foodListInString, subList.getSize(), currentDate, MESSAGE_FOOD_CONSUMED);
             separateDifferentTimePeriodFoodList(foodListInString, subList);
-            convertTotalCaloriesToString(foodListInString, this.getTotalCaloriesWithDate(currentDate));
+            convertTotalCaloriesToString(
+                    foodListInString,
+                    this.getTotalCaloriesWithDate(currentDate),
+                    MESSAGE_TOTAL_CALORIE_CONSUMED);
             if (index < foodRecords.size()) {
                 foodListInString.append(ItemList.LS); //prevents last line spacing
             }
@@ -238,7 +250,8 @@ public class FoodList extends ItemList {
     }
 
     /**
-     * Extracts food list on the same date according to its different time period.
+     * Helper method used in extractFoodListByEachDateAndTimePeriod to extract food list
+     * on the same date according to its different time period.
      *
      * @param foodListInString The StringBuilder food list.
      * @param subList          FoodList which contains only the food items for the same date
@@ -256,7 +269,8 @@ public class FoodList extends ItemList {
     }
 
     /**
-     * Appends the StringBuilder foodListInString with each time period food list.
+     * Helper method used in separateDifferentTimePeriodFoodList to append
+     * the StringBuilder foodListInString with each time period food list.
      *
      * @param foodListInString The StringBuilder food list which contains the correct output string
      * @param timePeriodList   The food list that contains food items that consumed within the time period
@@ -266,11 +280,21 @@ public class FoodList extends ItemList {
         if (timePeriodList.getSize() > 0) {
             foodListInString.append(periodMessage).append(ItemList.LS);
             for (int i = 1; i <= timePeriodList.getSize(); i++) {
-                convertFoodItemToString(foodListInString, i, timePeriodList.getFood(i - 1));
+                convertItemToString(foodListInString, i, timePeriodList.getFood(i - 1), MESSAGE_ITEM);
             }
         }
     }
 
+    /**
+     * Helper method used in separateDifferentTimePeriodFoodList to extract the larger subList into 4 smaller lists
+     * which contain food items with same date according to the time period.
+     *
+     * @param subList       The food list that contains all the food items consumed on the same date
+     * @param morningList   The food list that contains all the food items consumed in the morning of a given date
+     * @param afternoonList The food list that contains all the food items consumed in the afternoon of a given date
+     * @param eveningList   The food list that contains all the food items consumed in the evening of a given date
+     * @param nightList     The food list that contains all the food items consumed at night of a given date
+     */
     private void extractFoodListByEachTimePeriod(FoodList subList, FoodList morningList, FoodList afternoonList,
                                                  FoodList eveningList, FoodList nightList) {
         for (int i = 1; i <= subList.getSize(); i++) {
@@ -293,7 +317,8 @@ public class FoodList extends ItemList {
     }
 
     /**
-     * Helper method for extracting food list which contains all the food item consumed on the date.
+     * Helper method used in convertToStringBySpecificDate for extracting
+     * food list which contains all the food item consumed on the date.
      *
      * @param date The date to query all the food items consumed
      * @return StringBuilder type string which contains a food list with the given date
@@ -309,11 +334,14 @@ public class FoodList extends ItemList {
                     .append(ItemList.LS);
             return foodListInString;
         }
-        convertItemCountToString(date, foodListInString, subList.size());
+        convertItemCountToString(foodListInString, subList.size(), date, MESSAGE_FOOD_CONSUMED);
         for (int i = 1; i <= subList.size(); i++) {
-            convertFoodItemToString(foodListInString, i, subList.get(i - 1));
+            convertItemToString(foodListInString, i, subList.get(i - 1), MESSAGE_ITEM);
         }
-        convertTotalCaloriesToString(foodListInString, this.getTotalCaloriesWithDate(date));
+        convertTotalCaloriesToString(
+                foodListInString,
+                this.getTotalCaloriesWithDate(date),
+                MESSAGE_TOTAL_CALORIE_CONSUMED);
         return foodListInString;
     }
 }

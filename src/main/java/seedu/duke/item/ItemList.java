@@ -1,8 +1,14 @@
 package seedu.duke.item;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
+/**
+ * ItemList is an abstract class that contains all the common methods for food list and exercise list.
+ */
 public abstract class ItemList {
+    public static final String MESSAGE_ITEM = "%d. %s";
+    protected static final String DATE_FORMAT = "dd MMM yyyy";
     protected static final String LS = System.lineSeparator();
     protected static final String TAB = "\t";
 
@@ -22,5 +28,26 @@ public abstract class ItemList {
         String day = currentDate.getDayOfWeek().toString();
         day = day.charAt(0) + day.substring(1).toLowerCase();
         return day;
+    }
+
+    protected void convertItemCountToString(StringBuilder itemListInString, int size, LocalDate date, String message) {
+        itemListInString
+                .append(String.format(message, size, getDay(date),
+                        date.format(DateTimeFormatter.ofPattern(DATE_FORMAT))))
+                .append(ItemList.LS);
+    }
+
+    protected void convertItemToString(StringBuilder itemListInString, int index, Item item, String message) {
+        itemListInString
+                .append(ItemList.TAB)
+                .append(String.format(message, index, item))
+                .append(ItemList.LS);
+    }
+
+    protected void convertTotalCaloriesToString(StringBuilder itemListInString, int totalCalories, String message) {
+        itemListInString
+                .append(String.format(message,
+                        totalCalories))
+                .append(ItemList.LS);
     }
 }
