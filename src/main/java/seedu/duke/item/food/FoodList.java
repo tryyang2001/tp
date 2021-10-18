@@ -114,7 +114,7 @@ public class FoodList extends ItemList {
      * @param index The index of the food item
      */
     public Food deleteFood(int index) {
-        return foodRecords.remove(index);
+        return this.foodRecords.remove(index);
     }
 
     /**

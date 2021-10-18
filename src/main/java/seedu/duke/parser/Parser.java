@@ -1,6 +1,8 @@
 package seedu.duke.parser;
 
+import seedu.duke.commands.AddExerciseBankCommand;
 import seedu.duke.commands.AddExerciseCommand;
+import seedu.duke.commands.AddFoodBankCommand;
 import seedu.duke.commands.AddFoodCommand;
 import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.CalculateBmiCommand;
@@ -9,20 +11,23 @@ import seedu.duke.commands.ChangeHeightCommand;
 import seedu.duke.commands.ChangeNameCommand;
 import seedu.duke.commands.ChangeWeightCommand;
 import seedu.duke.commands.Command;
-import seedu.duke.commands.ProfileCommand;
-import seedu.duke.commands.ProfileCreateCommand;
+import seedu.duke.commands.DeleteExerciseBankCommand;
 import seedu.duke.commands.DeleteExerciseCommand;
+import seedu.duke.commands.DeleteFoodBankCommand;
 import seedu.duke.commands.DeleteFoodCommand;
 import seedu.duke.commands.HelpCommand;
 import seedu.duke.commands.InvalidCommand;
 import seedu.duke.commands.OverviewCommand;
+import seedu.duke.commands.ProfileCommand;
+import seedu.duke.commands.ProfileCreateCommand;
 import seedu.duke.commands.SetGoalCommand;
 import seedu.duke.commands.ViewCommand;
+import seedu.duke.commands.ViewExerciseBankCommand;
 import seedu.duke.commands.ViewExerciseListCommand;
+import seedu.duke.commands.ViewFoodBankCommand;
 import seedu.duke.commands.ViewFoodListCommand;
 import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
-import seedu.duke.ui.Ui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,8 +37,10 @@ import java.util.logging.Logger;
  */
 public class Parser {
     protected static final String EMPTY = "";
+    protected static final String LS = System.lineSeparator();
+    protected static final String QUOTATION = "\"";
     protected static final String MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST = "Fitbot is unable to understand this command! "
-            + Ui.LS + "Lost? Try typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + " to see the list of commands!";
+            + LS + "Lost? Try typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + " to see the list of commands!";
     protected static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please input a description for this item!";
     protected static final String MESSAGE_ERROR_NO_NAME = "Please input your name!";
     protected static final String MESSAGE_ERROR_NO_HEIGHT = "Please input height as a number!";
@@ -45,12 +52,15 @@ public class Parser {
     protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a number! E.g 1";
     protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input a number!";
     protected static final String MESSAGE_ERROR_TOO_MANY_DELIMITERS = "Please do not use the character "
-            + Ui.QUOTATION + Command.COMMAND_PREFIX_DELIMITER + Ui.QUOTATION
+            + QUOTATION + Command.COMMAND_PREFIX_DELIMITER + QUOTATION
             + " in your input other than to specify parameters!";
     protected static final String FILE_TEXT_DELIMITER = "|";
     protected static final String MESSAGE_ERROR_ILLEGAL_CHARACTER = "Please do not use the character "
-            + Ui.QUOTATION + FILE_TEXT_DELIMITER + Ui.QUOTATION
+            + QUOTATION + FILE_TEXT_DELIMITER + QUOTATION
             + " in your input!";
+    public static final String MESSAGE_ERROR_INVALID_FORMAT = "Invalid format for this command! "
+            + "Please follow one of the formats:";
+
 
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
@@ -112,15 +122,22 @@ public class Parser {
             final int calories = extractItemCalories(params);
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
                 return new AddExerciseCommand(description, calories);
-            } else {
-                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
-                        "at this point, if the item is not exercise, it must be food";
+            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD)) {
                 return new AddFoodCommand(description, calories);
+            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE_BANK)) {
+                return new AddExerciseBankCommand(description, calories);
+            } else {
+                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
+                        "at this point, it must be food bank";
+                return new AddFoodBankCommand(description, calories);
             }
         } catch (ItemNotSpecifiedException e) {
-            return new InvalidCommand(String.format(Command.MESSAGE_ERROR_ITEM_NOT_SPECIFIED,
-                    AddFoodCommand.MESSAGE_COMMAND_FORMAT,
-                    AddExerciseCommand.MESSAGE_COMMAND_FORMAT));
+            return new InvalidCommand(
+                    correctCommandFormatSuggestions(
+                            AddExerciseCommand.MESSAGE_COMMAND_FORMAT,
+                            AddFoodCommand.MESSAGE_COMMAND_FORMAT,
+                            AddExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
+                            AddFoodBankCommand.MESSAGE_COMMAND_FORMAT));
         } catch (ParamInvalidException e) {
             return new InvalidCommand(e.getMessage());
         }
@@ -132,26 +149,45 @@ public class Parser {
             final String description = extractItemDescription(params, itemTypePrefix).split(" ")[0];
             final int itemIndex;
             boolean isClear = description.trim().equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
                 if (isClear) {
-                    return new DeleteExerciseCommand(isClear);
+                    return new DeleteExerciseCommand(true);
+                } else {
+                    itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
+                    return new DeleteExerciseCommand(itemIndex);
                 }
-                itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
-                return new DeleteExerciseCommand(itemIndex);
-            } else {
-                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
-                        "at this point, if the item is not exercise, it must be food";
+            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD)) {
                 if (isClear) {
-                    return new DeleteFoodCommand(isClear);
+                    return new DeleteFoodCommand(true);
+                } else {
+                    itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
+                    return new DeleteFoodCommand(itemIndex);
                 }
-                itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
-
-                return new DeleteFoodCommand(itemIndex);
+            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE_BANK)) {
+                if (isClear) {
+                    return new DeleteExerciseBankCommand(true);
+                } else {
+                    itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
+                    return new DeleteExerciseBankCommand(itemIndex);
+                }
+            } else {
+                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
+                        "at this point, it must be food bank";
+                if (isClear) {
+                    return new DeleteFoodBankCommand(true);
+                } else {
+                    itemIndex = convertItemNumToItemIndex(Integer.parseInt(description.trim()));
+                    return new DeleteFoodBankCommand(itemIndex);
+                }
             }
         } catch (ItemNotSpecifiedException e) {
-            return new InvalidCommand(String.format(Command.MESSAGE_ERROR_ITEM_NOT_SPECIFIED,
-                    DeleteFoodCommand.MESSAGE_COMMAND_FORMAT,
-                    DeleteExerciseCommand.MESSAGE_COMMAND_FORMAT));
+            return new InvalidCommand(
+                    correctCommandFormatSuggestions(
+                            DeleteExerciseCommand.MESSAGE_COMMAND_FORMAT,
+                            DeleteFoodCommand.MESSAGE_COMMAND_FORMAT,
+                            DeleteExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
+                            DeleteFoodBankCommand.MESSAGE_COMMAND_FORMAT));
         } catch (ParamInvalidException e) {
             return new InvalidCommand(MESSAGE_ERROR_NO_ITEM_NUM);
         } catch (NumberFormatException e) {
@@ -167,15 +203,22 @@ public class Parser {
             final String itemTypePrefix = extractItemTypePrefix(params);
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
                 return new ViewExerciseListCommand();
-            } else {
-                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
-                        "at this point, if the item is not exercise, it must be food";
+            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD)) {
                 return new ViewFoodListCommand();
+            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE_BANK)) {
+                return new ViewExerciseBankCommand();
+            } else {
+                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
+                        "at this point, it must be food bank";
+                return new ViewFoodBankCommand();
             }
         } catch (ItemNotSpecifiedException e) {
-            return new InvalidCommand(String.format(Command.MESSAGE_ERROR_ITEM_NOT_SPECIFIED,
-                    ViewFoodListCommand.MESSAGE_COMMAND_FORMAT,
-                    ViewExerciseListCommand.MESSAGE_COMMAND_FORMAT));
+            return new InvalidCommand(
+                    correctCommandFormatSuggestions(
+                            ViewExerciseListCommand.MESSAGE_COMMAND_FORMAT,
+                            ViewFoodListCommand.MESSAGE_COMMAND_FORMAT,
+                            ViewExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
+                            ViewFoodBankCommand.MESSAGE_COMMAND_FORMAT));
         }
     }
 
@@ -292,15 +335,37 @@ public class Parser {
         boolean isFood =
                 params.toLowerCase().contains(Command.COMMAND_PREFIX_FOOD
                         + Command.COMMAND_PREFIX_DELIMITER);
+        boolean isExerciseBank =
+                params.toLowerCase().contains(Command.COMMAND_PREFIX_EXERCISE_BANK
+                        + Command.COMMAND_PREFIX_DELIMITER);
+        boolean isFoodBank =
+                params.toLowerCase().contains(Command.COMMAND_PREFIX_FOOD_BANK
+                        + Command.COMMAND_PREFIX_DELIMITER);
 
-        if (isExercise && isFood || !isExercise && !isFood) {
-            logger.log(Level.WARNING, "Detected neither food or exercise/ both food and exercise prefix.");
-            throw new ItemNotSpecifiedException(); //cannot be both and cannot be neither
+        boolean isItemSpecified = checkIsItemSpecified(isExercise, isFood, isExerciseBank, isFoodBank);
+        if (!isItemSpecified) {
+            logger.log(Level.WARNING, "Detected none or more than one item");
+            throw new ItemNotSpecifiedException();
         } else if (isExercise) {
             return Command.COMMAND_PREFIX_EXERCISE;
-        } else {
+        } else if (isFood) {
             return Command.COMMAND_PREFIX_FOOD;
+        } else if (isExerciseBank) {
+            return Command.COMMAND_PREFIX_EXERCISE_BANK;
+        } else {
+            assert isFoodBank : "Must be food bank if all above conditions are not satisfied";
+            return Command.COMMAND_PREFIX_FOOD_BANK;
         }
+    }
+
+    private boolean checkIsItemSpecified(boolean... paramBool) {
+        int numberOfParams = 0;
+        for (boolean isParam : paramBool) {
+            if (isParam) {
+                numberOfParams += 1;
+            }
+        }
+        return numberOfParams == 1 ? true : false; //item must be exactly 1
     }
 
     /**
@@ -423,5 +488,15 @@ public class Parser {
 
     private boolean hasTextFileDelimiter(String input) {
         return input.contains(FILE_TEXT_DELIMITER);
+    }
+
+    private String correctCommandFormatSuggestions(String... suggestions) {
+        String formattedSuggestions = MESSAGE_ERROR_INVALID_FORMAT + LS;
+        int i = 1;
+        for (String suggestion : suggestions) {
+            formattedSuggestions += i + ". " + suggestion + LS;
+            i += 1;
+        }
+        return formattedSuggestions.stripTrailing();
     }
 }

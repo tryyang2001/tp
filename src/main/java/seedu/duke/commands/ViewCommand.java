@@ -1,19 +1,16 @@
 package seedu.duke.commands;
 
-import seedu.duke.ui.Ui;
-
-
 /**
  * Represents the command that when executed, lists all the items in the FoodList and ExerciseList.
  */
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
-    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
+    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD + QUOTATION;
     public static final String MESSAGE_SUCCESS = "This is what you have recorded so far!";
     public static final String MESSAGE_FOOD = "You have consumed %1$d food item(s):"
-            + Ui.LS + "%2$s";
+            + LS + "%2$s";
     public static final String MESSAGE_EXERCISE = "You have done %1$d exercise(s):"
-            + Ui.LS + "%2$s";
+            + LS + "%2$s";
 
     @Override
     public CommandResult execute() {
@@ -31,6 +28,6 @@ public class ViewCommand extends Command {
             exerciseMessage = String.format(MESSAGE_EXERCISE, super.exerciseItems.getSize(),
                     super.exerciseItems.convertToString());
         }
-        return new CommandResult(MESSAGE_SUCCESS + Ui.LS + foodMessage + Ui.LS + Ui.LS + exerciseMessage);
+        return new CommandResult(MESSAGE_SUCCESS + LS + foodMessage + LS + LS + exerciseMessage);
     }
 }

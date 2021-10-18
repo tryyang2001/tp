@@ -2,7 +2,9 @@ package seedu.duke.parser;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.commands.AddExerciseBankCommand;
 import seedu.duke.commands.AddExerciseCommand;
+import seedu.duke.commands.AddFoodBankCommand;
 import seedu.duke.commands.AddFoodCommand;
 import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.CalculateBmiCommand;
@@ -18,7 +20,9 @@ import seedu.duke.commands.InvalidCommand;
 import seedu.duke.commands.OverviewCommand;
 import seedu.duke.commands.ProfileCreateCommand;
 import seedu.duke.commands.ViewCommand;
+import seedu.duke.commands.ViewExerciseBankCommand;
 import seedu.duke.commands.ViewExerciseListCommand;
+import seedu.duke.commands.ViewFoodBankCommand;
 import seedu.duke.commands.ViewFoodListCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -60,14 +64,17 @@ class ParserTest {
         parseAndAssertCommandType("aDD c/20 f/potato", AddFoodCommand.class);
         parseAndAssertCommandType("add e/potato c/20", AddExerciseCommand.class);
         parseAndAssertCommandType("aDD c/20 e/potato", AddExerciseCommand.class);
+        parseAndAssertCommandType("add fbank/potato c/20", AddFoodBankCommand.class);
+        parseAndAssertCommandType("add ebank/potato c/20", AddExerciseBankCommand.class);
+        parseAndAssertCommandType("add c/20 fbank/potato", AddFoodBankCommand.class);
+        parseAndAssertCommandType("add c/20 ebank/potato", AddExerciseBankCommand.class);
     }
 
     @Test
-    void parseAddCommand_itemTypeNotSpecified_itemTypeNotSpecifiedMessage() {
-        final String expectedMessage = String.format(Command.MESSAGE_ERROR_ITEM_NOT_SPECIFIED,
-                AddFoodCommand.MESSAGE_COMMAND_FORMAT,
-                AddExerciseCommand.MESSAGE_COMMAND_FORMAT);
-        parseAndAssertIncorrectWithMessage(expectedMessage, "add", "add e", "add c/");
+    void parseAddCommand_itemTypeNotSpecified_invalidCommand() {
+        parseAndAssertCommandType("add", InvalidCommand.class);
+        parseAndAssertCommandType("add a/", InvalidCommand.class);
+        parseAndAssertCommandType("add a", InvalidCommand.class);
     }
 
     @Test
@@ -157,11 +164,9 @@ class ParserTest {
     }
 
     @Test
-    void parseDeleteCommand_itemTypeNotSpecified_itemTypeNotSpecifiedMessage() {
-        final String expectedMessage = String.format(Command.MESSAGE_ERROR_ITEM_NOT_SPECIFIED,
-                DeleteFoodCommand.MESSAGE_COMMAND_FORMAT,
-                DeleteExerciseCommand.MESSAGE_COMMAND_FORMAT);
-        parseAndAssertIncorrectWithMessage(expectedMessage, "delete", "delete e", "delete c/");
+    void parseDeleteCommand_itemTypeNotSpecified_invalidCommand() {
+        parseAndAssertCommandType("delete", InvalidCommand.class);
+        parseAndAssertCommandType("delete a/", InvalidCommand.class);
     }
 
     @Test
@@ -170,6 +175,10 @@ class ParserTest {
         parseAndAssertCommandType("delete f/", InvalidCommand.class);
         parseAndAssertCommandType("delete f/potato", InvalidCommand.class);
         parseAndAssertCommandType("delete e/potato", InvalidCommand.class);
+        parseAndAssertCommandType("delete fbank/ ", InvalidCommand.class);
+        parseAndAssertCommandType("delete ebank/", InvalidCommand.class);
+        parseAndAssertCommandType("delete fbank/potato", InvalidCommand.class);
+        parseAndAssertCommandType("delete ebank/potato", InvalidCommand.class);
     }
 
     @Test
@@ -216,14 +225,14 @@ class ParserTest {
         parseAndAssertCommandType("view", ViewCommand.class);
         parseAndAssertCommandType("view e/", ViewExerciseListCommand.class);
         parseAndAssertCommandType("view f/", ViewFoodListCommand.class);
+        parseAndAssertCommandType("view fbank/", ViewFoodBankCommand.class);
+        parseAndAssertCommandType("view ebank/", ViewExerciseBankCommand.class);
     }
 
     @Test
-    void parseViewCommand_itemTypeNotSpecified_itemTypeNotSpecifiedMessage() {
-        final String expectedMessage = String.format(Command.MESSAGE_ERROR_ITEM_NOT_SPECIFIED,
-                ViewFoodListCommand.MESSAGE_COMMAND_FORMAT,
-                ViewExerciseListCommand.MESSAGE_COMMAND_FORMAT);
-        parseAndAssertIncorrectWithMessage(expectedMessage, "view a", "view f", "view f/ e/");
+    void parseViewCommand_itemTypeNotSpecified_invalidCommand() {
+        parseAndAssertCommandType("view a/", InvalidCommand.class);
+        parseAndAssertCommandType("view a", InvalidCommand.class);
     }
 
 

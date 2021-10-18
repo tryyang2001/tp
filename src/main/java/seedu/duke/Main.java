@@ -3,14 +3,15 @@ package seedu.duke;
 import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
+import seedu.duke.item.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.parser.Parser;
 import seedu.duke.profile.Profile;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
-import seedu.duke.ui.Statistics;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
+import seedu.duke.ui.Statistics;
 import seedu.duke.ui.Ui;
 
 
@@ -22,6 +23,8 @@ public class Main {
 
     private ExerciseList exerciseItems;
     private FoodList foodItems;
+    private ItemBank exerciseBank;
+    private ItemBank foodBank;
     private Profile profile;
     private Ui ui;
     private Storage storage;
@@ -51,6 +54,8 @@ public class Main {
     private void start() {
         this.storage = new Storage();
         this.ui = new Ui();
+        this.exerciseBank = new ItemBank();
+        this.foodBank = new ItemBank();
         try {
             this.profile = storage.loadProfileFile();
             this.foodItems = storage.loadFoodListFile();
@@ -82,7 +87,7 @@ public class Main {
      * @return CommandResult representing result of execution of the command
      */
     private CommandResult executeCommand(Command command) {
-        command.setData(this.profile, this.exerciseItems, this.foodItems);
+        command.setData(this.profile, this.exerciseItems, this.foodItems, this.exerciseBank, this.foodBank);
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {

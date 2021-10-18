@@ -6,25 +6,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Represents the command that when executed, adds an Exercise item to the ExerciseList.
+ * Represents the command that when executed, adds an Exercise item to the ExerciseBank.
  */
-public class AddExerciseCommand extends Command {
+public class AddExerciseBankCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_ADD
-            + " " + COMMAND_PREFIX_EXERCISE + COMMAND_PREFIX_DELIMITER + "exercise name"
+            + " " + COMMAND_PREFIX_EXERCISE_BANK + COMMAND_PREFIX_DELIMITER + "exercise name"
             + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories" + QUOTATION;
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to add an exercise item? Use this format:"
+            + "Trying to add an exercise item to your exercise bank? Use this format:"
             + LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "An exercise item has been added:"
+    public static final String MESSAGE_SUCCESS = "An exercise item has been added to the exercise bank:"
             + INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
             + LS + "Try a positive value instead";
 
-    private static Logger logger = Logger.getLogger(AddExerciseCommand.class.getName());
+    private static Logger logger = Logger.getLogger(AddExerciseBankCommand.class.getName());
 
     private Exercise exercise;
 
-    public AddExerciseCommand(String description, int calories) {
+    public AddExerciseBankCommand(String description, int calories) {
         this.exercise = new Exercise(description, calories);
     }
 
@@ -35,8 +35,8 @@ public class AddExerciseCommand extends Command {
             return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
         }
         assert exercise.getCalories() > 0 : "Exercise calorie is valid";
-        super.exerciseItems.addExercise(this.exercise);
-        logger.log(Level.FINE, "Exercise is successfully added");
+        super.exerciseBank.addItem(this.exercise);
+        logger.log(Level.FINE, "Exercise is successfully added to exercise bank");
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.exercise));
     }
 }

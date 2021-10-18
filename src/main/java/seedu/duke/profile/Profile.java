@@ -154,7 +154,7 @@ public class Profile {
     /**
      * Calculates the difference between food calories and exercise calories.
      *
-     * @param foodCalories Total intake consumption
+     * @param foodCalories     Total intake consumption
      * @param exerciseCalories Total output exerted
      * @return The net calories of food - exercise
      */

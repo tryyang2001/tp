@@ -1,7 +1,6 @@
 package seedu.duke.commands;
 
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
-import seedu.duke.ui.Ui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,12 +10,12 @@ import java.util.logging.Logger;
  */
 public class ChangeHeightCommand extends Command {
     public static final String COMMAND_WORD = "height";
-    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD
-            + " X" + Ui.QUOTATION + ", where X is your height in CM";
+    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD
+            + " X" + QUOTATION + ", where X is your height in CM";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to update your height? Use this format:"
-            + Ui.LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "Your height has been updated!" + Ui.LS + "Your height is %scm.";
+            + LS + MESSAGE_COMMAND_FORMAT;
+    public static final String MESSAGE_SUCCESS = "Your height has been updated!" + LS + "Your height is %scm.";
 
     private Logger logger = Logger.getLogger(ChangeHeightCommand.class.getName());
     private final double height;

@@ -1,9 +1,9 @@
 package seedu.duke.commands;
 
+import seedu.duke.item.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
-import seedu.duke.ui.Ui;
 
 /**
  * Abstract class used to represent executable Commands.
@@ -11,9 +11,15 @@ import seedu.duke.ui.Ui;
  */
 public abstract class Command {
 
+    public static final String LS = System.lineSeparator();
+    public static final String TAB = "\t";
+    public static final String INDENTED_LS = LS + TAB;
+    public static final String QUOTATION = "\"";
     public static final String COMMAND_PREFIX_DELIMITER = "/";
     public static final String COMMAND_PREFIX_EXERCISE = "e";
     public static final String COMMAND_PREFIX_FOOD = "f";
+    public static final String COMMAND_PREFIX_EXERCISE_BANK = "ebank";
+    public static final String COMMAND_PREFIX_FOOD_BANK = "fbank";
     public static final String COMMAND_PREFIX_CALORIES = "c";
     public static final String COMMAND_PREFIX_NAME = "n";
     public static final String COMMAND_PREFIX_HEIGHT = "h";
@@ -28,18 +34,21 @@ public abstract class Command {
     public static final int COMMAND_BMI_EXPECTED_NUM_DELIMITERS = 2;
     public static final String COMMAND_WORD_DELETE_ALL = "all";
     public static final String MESSAGE_ERROR_ITEM_NOT_SPECIFIED = "Invalid format for this command! "
-            + "Please follow one of the formats:" + Ui.LS
-            + "1. %1$s" + Ui.LS
+            + "Please follow one of the formats:" + LS
+            + "1. %1$s" + LS
             + "2. %2$s";
     public static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise items yet!";
     public static final String MESSAGE_EMPTY_FOOD_LIST = "No food items yet!";
+    public static final String MESSAGE_EMPTY_EXERCISE_BANK = "No exercise items yet in the exercise bank!";
+    public static final String MESSAGE_EMPTY_FOOD_BANK = "No food items yet in the food bank!";
     public static final String MESSAGE_ONLY_ONE_IN_LIST = "You have only 1 item in the list!";
     public static final String MESSAGE_LIST_OUT_OF_BOUNDS = "Please input a valid item number from 1 to %s";
 
     protected Profile profile;
     protected ExerciseList exerciseItems;
     protected FoodList foodItems;
-
+    protected ItemBank exerciseBank;
+    protected ItemBank foodBank;
 
 
     /**
@@ -53,10 +62,14 @@ public abstract class Command {
     /**
      * Provides the necessary data structures for the command to operate on.
      */
-    public void setData(Profile profile, ExerciseList exerciseItems, FoodList foodItems) {
+    public void setData(Profile profile,
+                        ExerciseList exerciseItems, FoodList foodItems,
+                        ItemBank exerciseBank, ItemBank foodBank) {
         this.profile = profile;
         this.exerciseItems = exerciseItems;
         this.foodItems = foodItems;
+        this.exerciseBank = exerciseBank;
+        this.foodBank = foodBank;
         assert profile != null : "Profile supplied to command should not be null";
         assert exerciseItems != null : "Exercise items supplied to command should not be null";
         assert foodItems != null : "Food items supplied to command should not be null";

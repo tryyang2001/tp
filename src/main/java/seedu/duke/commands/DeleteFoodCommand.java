@@ -1,7 +1,6 @@
 package seedu.duke.commands;
 
 import seedu.duke.item.food.Food;
-import seedu.duke.ui.Ui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,15 +9,12 @@ import java.util.logging.Logger;
  * Represents the command that when executed, deletes a Food item from the FoodList.
  */
 public class DeleteFoodCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD_DELETE
-            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "X" + Ui.QUOTATION
+    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_DELETE
+            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "X" + QUOTATION
             + ", where X is the item number in the food list";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to delete a food item?"
-            + Ui.INDENTED_LS + "Use this format:" + Ui.LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "A food item has been deleted:"
-            + Ui.INDENTED_LS + "%1$s"
-            + Ui.INDENTED_LS + "Number of food item(s) left: %2$d";
+            + INDENTED_LS + "%1$s"
+            + INDENTED_LS + "Number of food item(s) left: %2$d";
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
 
     private final int itemIndex;
