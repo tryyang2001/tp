@@ -36,16 +36,18 @@ public class AddRecurringExerciseCommand extends Command {
     }
 
     private void addRecurringExercises() {
-        for (Integer eachDay : day) {
-            Integer dayOfTheWeek = Integer.parseInt(startDate.getDayOfWeek().toString());
+        for (int i = 0; i < day.size(); i++) {
+            int dayOfTheWeek = startDate.getDayOfWeek().getValue();
             LocalDate currentDate = startDate;
             while (currentDate.isBefore(this.endDate) || currentDate.isEqual(this.endDate)) {
-
-                if (dayOfTheWeek.equals(eachDay)) {
+                System.out.println(this.endDate);
+                if (dayOfTheWeek == day.get(i)) {
                     super.futureExerciseItems.addFutureExercise(new Exercise(description, calories, currentDate));
                     currentDate = currentDate.plusDays(ONE_WEEK);
+                    dayOfTheWeek = currentDate.getDayOfWeek().getValue();
                 } else {
                     currentDate = currentDate.plusDays(ONE_DAY);
+                    dayOfTheWeek = currentDate.getDayOfWeek().getValue();
                 }
             }
         }
