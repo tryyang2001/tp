@@ -21,7 +21,8 @@ public class DeleteExerciseCommand extends Command {
     private static Logger logger = Logger.getLogger(DeleteExerciseCommand.class.getName());
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_EXERCISE,
-            COMMAND_PREFIX_DATE};
+            COMMAND_PREFIX_DATE
+    };
 
 
     private final int itemIndex;

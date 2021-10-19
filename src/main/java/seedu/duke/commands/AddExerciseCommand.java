@@ -24,7 +24,8 @@ public class AddExerciseCommand extends Command {
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_EXERCISE,
             COMMAND_PREFIX_CALORIES,
-            COMMAND_PREFIX_DATE};
+            COMMAND_PREFIX_DATE
+    };
 
 
     private static Logger logger = Logger.getLogger(AddExerciseCommand.class.getName());

@@ -52,7 +52,7 @@ public class Parser {
             + LS + "Lost? Try typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + " to see the list of commands!";
     protected static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please input a description for this item!";
     protected static final String MESSAGE_ERROR_NO_NAME = "Please input your name!";
-    protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input % as a number!";
+    protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input %s as a number!";
     protected static final String MESSAGE_ERROR_INVALID_HEIGHT = "Please input height as a number!";
     protected static final String MESSAGE_ERROR_INVALID_WEIGHT = "Please input weight as a number!";
     protected static final String MESSAGE_ERROR_INVALID_GOAL = "Please input calorie goal as a number!";
@@ -269,6 +269,7 @@ public class Parser {
                     correctCommandFormatSuggestions(
                             DeleteExerciseCommand.MESSAGE_COMMAND_FORMAT,
                             DeleteFoodCommand.MESSAGE_COMMAND_FORMAT,
+                            DeleteFutureExerciseCommand.MESSAGE_COMMAND_FORMAT,
                             DeleteExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
                             DeleteFoodBankCommand.MESSAGE_COMMAND_FORMAT));
         } catch (ParamInvalidException | ParamMissingException e) {
@@ -323,8 +324,7 @@ public class Parser {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 return new DeleteFutureExerciseCommand(itemIndex);
-            }
-            else {
+            } else {
                 assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
                         "at this point, it must be food bank";
                 if (hasExtraDelimiters(params,
@@ -366,6 +366,7 @@ public class Parser {
                     correctCommandFormatSuggestions(
                             ViewExerciseListCommand.MESSAGE_COMMAND_FORMAT,
                             ViewFoodListCommand.MESSAGE_COMMAND_FORMAT,
+                            ViewFutureExerciseListCommand.MESSAGE_COMMAND_FORMAT,
                             ViewExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
                             ViewFoodBankCommand.MESSAGE_COMMAND_FORMAT));
         }
@@ -446,7 +447,7 @@ public class Parser {
             return new SetGoalCommand(goal);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Detected non-integer calorie goal input.");
-            return new InvalidCommand(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "goal"));
+            return new InvalidCommand(String.format(MESSAGE_ERROR_INVALID_GOAL, "goal"));
         }
     }
 
@@ -694,7 +695,8 @@ public class Parser {
     }
 
 
-    private LocalDate extractDate(String params, boolean isRequired) throws ParamInvalidException, ParamMissingException {
+    private LocalDate extractDate(String params, boolean isRequired)
+            throws ParamInvalidException, ParamMissingException {
         try {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_DATE
@@ -739,7 +741,7 @@ public class Parser {
         return date.atTime(time);
     }
 
-    private boolean isFutureDate (LocalDate date) {
+    private boolean isFutureDate(LocalDate date) {
         return date.isAfter(LocalDate.now());
     }
 
