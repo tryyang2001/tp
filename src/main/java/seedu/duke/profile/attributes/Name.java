@@ -4,6 +4,10 @@ public class Name implements Verifiable {
 
     protected String name;
 
+    public Name() {
+
+    }
+
     public Name(String name) {
         setName(name);
     }

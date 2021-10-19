@@ -6,6 +6,10 @@ public class Weight {
 
     protected double weight;
 
+    public Weight() {
+
+    }
+
     public Weight(double weight) {
         setWeight(weight);
     }

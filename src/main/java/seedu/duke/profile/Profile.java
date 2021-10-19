@@ -17,18 +17,18 @@ public class Profile {
 
     public static final int NON_POSITIVE_LIMIT = 0;
 
-    private static final String ERROR_HEIGHT = "Height cannot be less than or equal to 0." + LS
+    public static final String ERROR_HEIGHT = "Height cannot be less than or equal to 0." + LS
             + "Try a positive value instead!";
-    private static final String ERROR_WEIGHT = "Weight cannot be less than or equal to 0." + LS
+    public static final String ERROR_WEIGHT = "Weight cannot be less than or equal to 0." + LS
             + "Try a positive value instead!";
-    private static final String ERROR_GENDER = "Please type in M or F only!";
-    private static final String ERROR_AGE = "Age cannot be less than or equal to 0." + LS
+    public static final String ERROR_GENDER = "Please type in M or F only!";
+    public static final String ERROR_AGE = "Age cannot be less than or equal to 0." + LS
             + "Try a positive value instead!";
-    private static final String ERROR_ACTIVITY_FACTOR = "Please key in a value from "
+    public static final String ERROR_ACTIVITY_FACTOR = "Please key in a value from "
             + ActivityFactor.LIMIT_LOWER_ACTIVITY_FACTOR
             + " to "
             + ActivityFactor.LIMIT_UPPER_ACTIVITY_LEVEL;
-    private static final String ERROR_CALORIE_GOAL =
+    public static final String ERROR_CALORIE_GOAL =
             "I don't think you should be aiming to be setting such a extreme goal of %d" + LS
                     + "Try a range of " + CalorieGoal.LIMIT_LOWER_CALORIES  + " to " + CalorieGoal.LIMIT_UPPER_CALORIES;
 
@@ -58,13 +58,13 @@ public class Profile {
     public static final double GENDER_F_AGE_FACTOR = 4.330;
     public static final double GENDER_F_CONSTANT = 447.593;
 
-    protected Name name;
-    protected Height height;
-    protected Weight weight;
-    protected Gender gender;
-    protected Age age;
-    protected CalorieGoal calorieGoal;
-    protected ActivityFactor activityFactor;
+    protected Name name = new Name();
+    protected Height height = new Height();
+    protected Weight weight = new Weight();
+    protected Gender gender = new Gender();
+    protected Age age = new Age();
+    protected CalorieGoal calorieGoal = new CalorieGoal();
+    protected ActivityFactor activityFactor = new ActivityFactor();
 
     public Profile(){
 
@@ -166,7 +166,7 @@ public class Profile {
         return this.calorieGoal;
     }
 
-    public ActivityFactor setProfileActivityFactor() {
+    public ActivityFactor getProfileActivityFactor() {
         return this.activityFactor;
     }
 

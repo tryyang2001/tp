@@ -9,6 +9,10 @@ public class Gender implements Verifiable {
 
     protected char gender;
 
+    public Gender() {
+
+    }
+
     public Gender(char gender) {
         this.gender = gender;
     }

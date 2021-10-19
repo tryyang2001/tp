@@ -8,6 +8,10 @@ public class Age implements Verifiable {
 
     protected int age;
 
+    public Age() {
+
+    }
+
     public Age(int age) {
         setAge(age);
     }

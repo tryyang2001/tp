@@ -5,7 +5,6 @@ import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.food.Food;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
-import seedu.duke.profile.ProfileLoader;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.storage.exceptions.InvalidDataException;
 

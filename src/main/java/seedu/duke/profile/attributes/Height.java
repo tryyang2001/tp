@@ -6,6 +6,10 @@ public class Height implements Verifiable {
 
     protected double height;
 
+    public Height() {
+
+    }
+
     public Height(double height) {
         setHeight(height);
     }

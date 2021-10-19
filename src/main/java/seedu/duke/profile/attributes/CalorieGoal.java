@@ -9,6 +9,10 @@ public class CalorieGoal implements Verifiable {
 
     protected int calorieGoal;
 
+    public CalorieGoal() {
+
+    }
+
     public CalorieGoal(int calorieGoal) {
         setCalorieGoal(calorieGoal);
     }
