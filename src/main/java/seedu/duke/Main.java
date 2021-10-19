@@ -4,6 +4,7 @@ import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
 import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.parser.Parser;
 import seedu.duke.profile.Profile;
@@ -21,6 +22,7 @@ import seedu.duke.ui.Ui;
 public class Main {
 
     private ExerciseList exerciseItems;
+    private FutureExerciseList futureExerciseItems;
     private FoodList foodItems;
     private Profile profile;
     private Ui ui;
@@ -82,7 +84,7 @@ public class Main {
      * @return CommandResult representing result of execution of the command
      */
     private CommandResult executeCommand(Command command) {
-        command.setData(this.profile, this.exerciseItems, this.foodItems);
+        command.setData(this.profile, this.exerciseItems, this.futureExerciseItems, this.foodItems);
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {
@@ -96,6 +98,10 @@ public class Main {
             }
             if (Command.requiresFoodListStorageRewrite(command)) {
                 storage.saveFoodList(this.foodItems);
+            }
+            if (Command.requiresFutureExerciseListStorageRewrite(command)) {
+                //TODO
+                //storage.saveFutureExercises(this.futureExerciseItems);
             }
         } catch (UnableToWriteFileException e) {
             ui.formatMessageFramedWithDivider(e.getMessage());

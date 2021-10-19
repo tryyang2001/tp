@@ -95,6 +95,7 @@ public class FoodList extends ItemList {
      * Deletes a food item according to its index number.
      *
      * @param index The index of the food item
+     * @return Food object removed.
      */
     public Food deleteFood(int index) {
         return foodRecords.remove(index);

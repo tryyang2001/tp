@@ -55,6 +55,7 @@ public class ExerciseList extends ItemList {
      * Deletes an exercise item from the exercise list.
      *
      * @param index Index of the exercise to be deleted.
+     * @return Exercise object removed.
      */
     public Exercise deleteExercise(int index) {
         return exerciseList.remove(index);
@@ -85,7 +86,7 @@ public class ExerciseList extends ItemList {
     /**
      * Computes the sum of calorie of all exercises in exercise list.
      *
-     * @return Integer value of the sum of calorie of all exercises.
+     * @return Integer value of the sum of calorie of all exercises in the exercise list.
      */
     @Override
     public int getTotalCalories() {
