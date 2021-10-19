@@ -14,6 +14,7 @@ public abstract class Command {
 
     public static final String COMMAND_PREFIX_DELIMITER = "/";
     public static final String COMMAND_PREFIX_EXERCISE = "e";
+    public static final String COMMAND_PREFIX_UPCOMING_EXERCISE = "u";
     public static final String COMMAND_PREFIX_FOOD = "f";
     public static final String COMMAND_PREFIX_CALORIES = "c";
     public static final String COMMAND_PREFIX_NAME = "n";
@@ -103,7 +104,7 @@ public abstract class Command {
         return command instanceof AddFoodCommand
                 || command instanceof DeleteFoodCommand;
     }
-    
+
     public static boolean requiresFutureExerciseListStorageRewrite(Command command) {
         return command instanceof AddFutureExerciseCommand
                 || command instanceof DeleteFutureExerciseCommand;
