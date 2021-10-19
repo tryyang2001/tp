@@ -9,14 +9,11 @@ import seedu.duke.commands.AddFoodCommand;
 import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.CalculateBmiCommand;
 import seedu.duke.commands.CalculateBmiWithProfileCommand;
-import seedu.duke.commands.ChangeHeightCommand;
-import seedu.duke.commands.ChangeNameCommand;
-import seedu.duke.commands.ChangeWeightCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.HelpCommand;
 import seedu.duke.commands.InvalidCommand;
 import seedu.duke.commands.OverviewCommand;
-import seedu.duke.commands.ProfileCreateCommand;
+import seedu.duke.commands.ProfileUpdateCommand;
 import seedu.duke.commands.ViewCommand;
 import seedu.duke.commands.ViewExerciseBankCommand;
 import seedu.duke.commands.ViewExerciseListCommand;
@@ -29,9 +26,6 @@ import static seedu.duke.parser.Parser.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_ILLEGAL_CHARACTER;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_CALORIES_INFO;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_NOT_A_NUMBER;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_GOAL;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_HEIGHT;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_WEIGHT;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_TOO_MANY_DELIMITERS;
 
 
@@ -81,14 +75,6 @@ class ParserTest {
     }
 
     @Test
-    void parseAddCommand_caloriesNotGiven_invalidCommand() {
-        parseAndAssertCommandType("add f/potato", InvalidCommand.class);
-        parseAndAssertCommandType("add f/potato c/", InvalidCommand.class);
-        parseAndAssertCommandType("add e/hiit", InvalidCommand.class);
-        parseAndAssertCommandType("add e/hiit c/", InvalidCommand.class);
-    }
-
-    @Test
     void parseAddCommand_caloriesNotANumber_caloriesNotNumberMessage() {
         parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_CALORIES_INFO,
                 "add f/potato c/potato", "add e/hiit c/potato");
@@ -120,44 +106,12 @@ class ParserTest {
 
     @Test
     void parseCalculateBmiCommand_parametersInvalid_errorMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_HEIGHT, "BMI w/20 h/potato");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_WEIGHT, "BMI w/potato h/20");
-    }
-
-
-    @Test
-    void parseChangeHeightCommand_correctInput_changeHeightCommand() {
-        parseAndAssertCommandType("height 50", ChangeHeightCommand.class);
-    }
-
-    @Test
-    void parseChangeHeightCommand_heightNotGiven_invalidCommand() {
-        parseAndAssertCommandType("height", InvalidCommand.class);
-    }
-
-    @Test
-    void parseChangeHeightCommand_heightNotANumber_errorMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NOT_A_NUMBER, "height abc");
-    }
-
-    @Test
-    void parseChangeNameCommand_correctInput_changeNameCommand() {
-        parseAndAssertCommandType("name hello", ChangeNameCommand.class);
-    }
-
-    @Test
-    void parseChangeWeightCommand_correctInput_changeWeightCommand() {
-        parseAndAssertCommandType("weight 50", ChangeWeightCommand.class);
-    }
-
-    @Test
-    void parseChangeWeightCommand_weightNotGiven_invalidCommand() {
-        parseAndAssertCommandType("weight", InvalidCommand.class);
-    }
-
-    @Test
-    void parseChangeWeightCommand_weightNotANumber_errorMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NOT_A_NUMBER, "weight abc");
+        parseAndAssertIncorrectWithMessage(
+                String.format(MESSAGE_ERROR_NOT_A_NUMBER, "height"),
+                "BMI w/20 h/potato");
+        parseAndAssertIncorrectWithMessage(
+                String.format(MESSAGE_ERROR_NOT_A_NUMBER, "weight"),
+                "BMI w/potato h/20");
     }
 
     @Test
@@ -189,10 +143,10 @@ class ParserTest {
     }
 
     @Test
-    void parseProfileCreateCommand_correctInput_ProfileCreateCommand() {
-        parseAndAssertCommandType("profile n/hello w/50 h/80 g/50 ", ProfileCreateCommand.class);
-        parseAndAssertCommandType("profile g/100 w/50 h/80 n/hi potato", ProfileCreateCommand.class);
-        parseAndAssertCommandType("profile h/50 n/hello potato g/20 w/20", ProfileCreateCommand.class);
+    void parseProfileUpdateCommand_correctInput_ProfileCreateCommand() {
+        parseAndAssertCommandType("profile n/hello w/50 h/80 g/50 ", ProfileUpdateCommand.class);
+        parseAndAssertCommandType("profile g/100 w/50 h/80 n/hi potato", ProfileUpdateCommand.class);
+        parseAndAssertCommandType("profile h/50 n/hello potato g/20 w/20", ProfileUpdateCommand.class);
     }
 
     @Test
@@ -212,7 +166,8 @@ class ParserTest {
 
     @Test
     void parseSetGoalCommand_parametersNotGivenOrInvalid_notANumberMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_GOAL, "goal", "goal nope");
+        parseAndAssertIncorrectWithMessage(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "goal"),
+                "goal", "goal nope");
     }
 
     @Test

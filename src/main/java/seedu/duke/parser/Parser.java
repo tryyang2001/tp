@@ -52,10 +52,7 @@ public class Parser {
             + LS + "Lost? Try typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + " to see the list of commands!";
     protected static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please input a description for this item!";
     protected static final String MESSAGE_ERROR_NO_NAME = "Please input your name!";
-    protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input % as a number!";
-    protected static final String MESSAGE_ERROR_INVALID_HEIGHT = "Please input height as a number!";
-    protected static final String MESSAGE_ERROR_INVALID_WEIGHT = "Please input weight as a number!";
-    protected static final String MESSAGE_ERROR_INVALID_GOAL = "Please input calorie goal as a number!";
+    protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input %s as a number!";
     protected static final String MESSAGE_ERROR_NO_CALORIES_INFO = "Please input the number of calories!";
     protected static final String MESSAGE_ERROR_INVALID_CALORIES_INFO = "Please input calories as a number! E.g 123";
     protected static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
