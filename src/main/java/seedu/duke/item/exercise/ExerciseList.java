@@ -30,7 +30,6 @@ public class ExerciseList extends ItemList {
     }
 
     public Exercise deleteItem(int index, LocalDate date) {
-        assert index >= 0 && index < itemList.size() : "Index cannot be out of bound";
         Exercise deletedExercise = new Exercise("", 1, date);
         int actualIndex = getActualIndex(index, deletedExercise);
         deletedExercise = (Exercise) itemList.remove(actualIndex);

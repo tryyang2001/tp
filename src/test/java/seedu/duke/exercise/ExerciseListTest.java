@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ExerciseListTest {
 
     @Test
-    void addItem_exerciseClassParameter_expectAddInList() {
+    void addExercise_exerciseClassParameter_expectAddInList() {
         ExerciseList exerciseList = new ExerciseList();
         exerciseList.addItem(new Exercise("Jumping Jacks", 100));
         assertEquals("Jumping Jacks (100 cal)", exerciseList.getItem(0).toString());
@@ -32,16 +32,20 @@ class ExerciseListTest {
     @Test
     void deleteExercise_exerciseIndex_expectCorrectNumberOfTasksLeft() {
         ExerciseList exerciseList = new ExerciseList();
-        exerciseList.addItem(new Exercise("Running", 250));
-        exerciseList.addItem(new Exercise("Jumping Jacks", 100));
-        exerciseList.deleteItem(0);
+        exerciseList.addItem(new Exercise("Running", 250,
+                LocalDate.parse("19-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+        exerciseList.addItem(new Exercise("Jumping Jacks", 100,
+                LocalDate.parse("19-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+        System.out.println(exerciseList.deleteItem(0,
+                LocalDate.parse("19-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
         assertEquals(1, exerciseList.getSize());
     }
 
     @Test
     void deleteExercise_invalidIndex_expectException() {
         ExerciseList exerciseList = new ExerciseList();
-        assertThrows(IndexOutOfBoundsException.class, () -> exerciseList.deleteItem(0));
+        assertThrows(IndexOutOfBoundsException.class, () -> exerciseList.deleteItem(0,
+                LocalDate.parse("19-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
     }
 
     @Test

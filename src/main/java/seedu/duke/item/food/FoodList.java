@@ -47,7 +47,6 @@ public class FoodList extends ItemList {
      * @return The deleted food item
      */
     public Food deleteItem(int index, LocalDate date, LocalTime time) {
-        assert index >= 0 && index < itemList.size() : "Index cannot be out of bound";
         LocalDateTime dateTime = date.atTime(time);
         Food deletedFood = new Food("", 0, dateTime); //constructs food object to get the time period
         int actualIndex = getActualIndex(index, deletedFood);
