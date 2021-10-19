@@ -52,7 +52,7 @@ public class Profile {
      * @param height      Height of user
      * @param weight      Weight of user
      * @param calorieGoal Calorie target of user
-     * @throws InvalidCharacteristicException If a value of <= 0 is provided for height or weight
+     * @throws InvalidCharacteristicException If any of the characteristics are not valid
      */
     public Profile(String name, double height, double weight, int calorieGoal)
             throws InvalidCharacteristicException {
@@ -73,7 +73,7 @@ public class Profile {
      * @param gender         Gender of user (M/F)
      * @param age            Age of user
      * @param activityFactor Activity level of user
-     * @throws InvalidCharacteristicException
+     * @throws InvalidCharacteristicException If any of the characteristics are not valid
      */
     public Profile(String name, double height, double weight, int calorieGoal, char gender, int age, int activityFactor)
             throws InvalidCharacteristicException {

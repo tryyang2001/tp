@@ -1,7 +1,7 @@
 package seedu.duke.storage.exceptions;
 
 /**
- * Exception that is thrown when the data has been modified and become unreadable
+ * Exception that is thrown when the data has been modified and become unreadable.
  */
 public class InvalidDataException extends Exception {
     private static final String LS = System.lineSeparator();

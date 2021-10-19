@@ -39,6 +39,7 @@ public class ProfileValidator {
     private static final int ATTRIBUTE_IDX_GENDER = 4;
     private static final int ATTRIBUTE_IDX_AGE = 5;
     private static final int ATTRIBUTE_IDX_ACTIVITY_FACTOR = 6;
+
     private static final int ATTRIBUTE_COUNT = 7;
 
     private boolean[] isAttributeValid = new boolean[ATTRIBUTE_COUNT];
@@ -87,7 +88,7 @@ public class ProfileValidator {
 
     public void checkCalorieGoalDataIntegrity(int calorieGoal) {
         if (calorieGoal < LIMIT_LOWER_CALORIES || calorieGoal > LIMIT_UPPER_CALORIES) {
-            this.isAttributeValid[ATTRIBUTE_IDX_WEIGHT] = false;
+            this.isAttributeValid[ATTRIBUTE_IDX_CALORIE_GOAL] = false;
         }
     }
 
