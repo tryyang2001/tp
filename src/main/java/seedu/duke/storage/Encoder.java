@@ -32,7 +32,7 @@ public class Encoder {
     public ArrayList<String> encodeExerciseList(ExerciseList exerciseList) {
         ArrayList<String> exercises = new ArrayList<>();
         for (int i = 0; i < exerciseList.getSize(); i++) {
-            exercises.add(exerciseList.getExercise(i).toFileTextString());
+            exercises.add(exerciseList.getItem(i).toFileTextString());
         }
         return exercises;
     }
@@ -46,7 +46,7 @@ public class Encoder {
     public ArrayList<String> encodeFoodList(FoodList foodList) {
         ArrayList<String> foodItems = new ArrayList<>();
         for (int i = 0; i < foodList.getSize(); i++) {
-            foodItems.add(foodList.getFood(i).toFileTextString());
+            foodItems.add(foodList.getItem(i).toFileTextString());
         }
         return foodItems;
     }

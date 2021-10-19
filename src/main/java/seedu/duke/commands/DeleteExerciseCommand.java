@@ -39,7 +39,7 @@ public class DeleteExerciseCommand extends Command {
     public CommandResult execute() {
         if (this.isClear) {
             logger.log(Level.FINE, "Clearing exercise list");
-            super.exerciseItems.clearExerciseList();
+            super.exerciseItems.clearList();
             return new CommandResult(MESSAGE_EXERCISE_CLEAR);
         }
         assert this.itemIndex > 0 : "Deleting an item only";
@@ -50,7 +50,7 @@ public class DeleteExerciseCommand extends Command {
         logger.log(Level.FINE, "Trying to delete item now");
         try {
             Exercise deletedExercise;
-            deletedExercise = super.exerciseItems.deleteExercise(this.itemIndex);
+            deletedExercise = super.exerciseItems.deleteItem(this.itemIndex);
             return new CommandResult(String.format(MESSAGE_SUCCESS, deletedExercise, super.exerciseItems.getSize()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid exercise item index.");

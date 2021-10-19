@@ -39,7 +39,7 @@ public class AddExerciseCommand extends Command {
             return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
         }
         assert exercise.getCalories() > 0 : "Exercise calorie is valid";
-        super.exerciseItems.addExercise(this.exercise);
+        super.exerciseItems.addItem(this.exercise);
         logger.log(Level.FINE, "Exercise is successfully added");
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.exercise));
     }

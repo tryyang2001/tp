@@ -89,7 +89,7 @@ public class Decoder {
         }
         String name = exerciseDetails[1];
         int calories = Integer.parseInt(exerciseDetails[2]);
-        exercises.addExercise(new Exercise(name, calories));
+        exercises.addItem(new Exercise(name, calories));
     }
 
     /**
@@ -118,7 +118,7 @@ public class Decoder {
         }
         String name = foodDetails[1];
         int calories = Integer.parseInt(foodDetails[2]);
-        foodItems.addFood(new Food(name, calories));
+        foodItems.addItem(new Food(name, calories));
     }
 }
 

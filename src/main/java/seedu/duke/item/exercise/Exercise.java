@@ -9,7 +9,7 @@ public class Exercise extends Item {
     protected LocalDate date;
 
     /**
-     * Constructor for exercise object.
+     * Constructor for exercise object when the date is not provided.
      *
      * @param name     The name or description of the exercise.
      * @param calories The calorie burnt from the exercise.
@@ -20,7 +20,7 @@ public class Exercise extends Item {
     }
 
     /**
-     * Constructor for the exercise object.
+     * Constructor for the exercise object when all attributes are provided.
      *
      * @param name     The name or description of the exercise
      * @param calories The calorie burnt from the exercise
@@ -36,6 +36,7 @@ public class Exercise extends Item {
      *
      * @return The date of the exercise done in LocalDate
      */
+    @Override
     public LocalDate getDate() {
         return date;
     }

@@ -16,24 +16,24 @@ public class Food extends Item {
     private static final int LATEST_AFTERNOON_HOUR = 16;
     private static final int EARLIEST_MORNING_HOUR = 5;
     private static final int LATEST_MORNING_HOUR = 11;
+    public static final String MESSAGE_FOOD = "[%s] %s";
     protected LocalDateTime dateTime;
     protected TimePeriod timePeriod;
 
     /**
-     * Constructor for the food object.
+     * Constructor for the food object when the date and time are not provided.
      *
      * @param name     The name or description of the food
      * @param calories The calorie of the food consumed
      */
     public Food(String name, int calories) {
         super(name, calories);
-        this.dateTime = LocalDateTime.now();
+        this.dateTime = LocalDateTime.now(); //sets to current date and time
         setTimePeriod(this.dateTime);
     }
 
     /**
-     * /**
-     * Constructor for the food object.
+     * Constructor for the food object when all attributes are provided.
      *
      * @param name     The name or description of the food
      * @param calories The calorie intake from the food
@@ -41,13 +41,6 @@ public class Food extends Item {
      */
     public Food(String name, int calories, LocalDateTime dateTime) {
         super(name, calories);
-        this.dateTime = dateTime;
-        setTimePeriod(this.dateTime);
-    }
-
-    public Food(String name, int calories, LocalDate date, LocalTime time) {
-        super(name, calories);
-        LocalDateTime dateTime = date.atTime(time);
         this.dateTime = dateTime;
         setTimePeriod(this.dateTime);
     }
@@ -76,6 +69,7 @@ public class Food extends Item {
      *
      * @return The date of the food consumed in LocalDate
      */
+    @Override
     public LocalDate getDate() {
         return this.dateTime.toLocalDate();
     }
@@ -116,6 +110,10 @@ public class Food extends Item {
      */
     public TimePeriod getTimePeriod() {
         return timePeriod;
+    }
+
+    public String toString() {
+        return String.format(MESSAGE_FOOD, this.getTime().format(TIME_FORMATTER), super.toString());
     }
 
     /**

@@ -24,29 +24,78 @@ public abstract class ItemList {
         return itemList.get(index);
     }
 
+    /**
+     * Returns the size of the array list.
+     *
+     * @return the size of the array list attribute
+     */
+    public int getSize() {
+        return itemList.size();
+    }
+
+    /**
+     * Adds an item into the item list.
+     *
+     * @param item The item class object to add
+     */
     public void addItem(Item item) {
         this.itemList.add(item);
     }
 
-    public Item deleteItem(int index) {
-        return this.itemList.remove(index);
-    }
-
+    /**
+     * Computes the sum of calorie of all items in the item list.
+     *
+     * @return Integer value of the sum of calorie of all the items
+     */
     public int getTotalCalories() {
         int totalCalories = itemList.stream().mapToInt(Item::getCalories).sum();
         assert totalCalories >= 0 : "Total calories cannot less than 0";
         return totalCalories;
     }
 
+    /**
+     * Computes the sum of calorie of all food items consumed in a specific date.
+     *
+     * @param date The date to query all the consumed food items
+     * @return Integer value of the sum of calorie of all food items consumed in the given date
+     */
+    public int getTotalCaloriesWithDate(LocalDate date) {
+        int totalCalories = itemList.stream()
+                .filter(i -> i.getDate().isEqual(date))
+                .mapToInt(Item::getCalories)
+                .sum();
+        assert totalCalories >= 0 : "Total calories cannot less than 0";
+        return totalCalories;
+    }
+
+    /**
+     * Deletes all the item inside the list.
+     */
     public void clearList() {
         itemList.clear();
     }
 
+    /**
+     * Sorts the item list according to date (and) time, will be implemented in FoodList and ExerciseList.
+     */
     public abstract void sortList();
 
+    /**
+     * Converts the item list to a string for printing purpose,
+     * will be implemented in FoodList and ExerciseList.
+     *
+     * @return The string of the item list
+     */
     public abstract String convertToString();
 
-    public abstract int getSize();
+    /**
+     * Converts the item list of a specific date to a string for printing purpose,
+     * will be implemented in FoodList and ExerciseList.
+     *
+     * @param date The given date to query the item list
+     * @return The string of the item list of a specific date
+     */
+    public abstract String convertToStringBySpecificDate(LocalDate date);
 
     /**
      * Gets the day of the week of the given date.

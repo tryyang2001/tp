@@ -34,7 +34,7 @@ public class AddFoodCommand extends Command {
             logger.log(Level.WARNING, "Detected negative food calorie");
             return new CommandResult(MESSAGE_INVALID_FOOD_CALORIES);
         }
-        super.foodItems.addFood(this.food);
+        super.foodItems.addItem(this.food);
         assert foodItems.getSize() > 0 : "The size of the food list should at least larger than 0";
         logger.log(Level.FINE, "New food item has been added to the food list");
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.food));
