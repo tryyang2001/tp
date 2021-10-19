@@ -1,6 +1,9 @@
 package seedu.duke.profile.attributes;
 
-public class Weight {
+/**
+ * Weight attribute of profile
+ */
+public class Weight implements Verifiable {
 
     public static final int NON_POSITIVE_LIMIT = 0;
 
@@ -10,6 +13,11 @@ public class Weight {
 
     }
 
+    /**
+     * Constructs a weight object.
+     *
+     * @param weight weight input by user
+     */
     public Weight(double weight) {
         setWeight(weight);
     }
@@ -22,6 +30,7 @@ public class Weight {
         this.weight = weight;
     }
 
+    @Override
     public boolean isValid() {
         if (weight <= NON_POSITIVE_LIMIT) {
             return false;

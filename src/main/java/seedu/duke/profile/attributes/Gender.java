@@ -1,7 +1,8 @@
 package seedu.duke.profile.attributes;
 
-import seedu.duke.profile.exceptions.InvalidCharacteristicException;
-
+/**
+ * Gender attribute of profile.
+ */
 public class Gender implements Verifiable {
 
     private static final char GENDER_M = 'M';
@@ -13,6 +14,11 @@ public class Gender implements Verifiable {
 
     }
 
+    /**
+     * Constructs a gender object.
+     *
+     * @param gender gender input by user.
+     */
     public Gender(char gender) {
         this.gender = gender;
     }

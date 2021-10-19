@@ -9,6 +9,9 @@ import seedu.duke.profile.attributes.Name;
 import seedu.duke.profile.attributes.Weight;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 
+/**
+ * Profile that contains the relevant details input by user.
+ */
 public class Profile {
 
     public static final String FILE_TEXT_DELIMITER = "|";

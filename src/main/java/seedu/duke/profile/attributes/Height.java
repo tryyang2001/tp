@@ -1,5 +1,8 @@
 package seedu.duke.profile.attributes;
 
+/**
+ * Height attribute of profile.
+ */
 public class Height implements Verifiable {
 
     public static final int NON_POSITIVE_LIMIT = 0;
@@ -10,6 +13,11 @@ public class Height implements Verifiable {
 
     }
 
+    /**
+     * Constructs a height object.
+     *
+     * @param height height input by user.
+     */
     public Height(double height) {
         setHeight(height);
     }
@@ -22,6 +30,7 @@ public class Height implements Verifiable {
         this.height = height;
     }
 
+    @Override
     public boolean isValid() {
         if (height <= NON_POSITIVE_LIMIT) {
             return false;

@@ -1,5 +1,8 @@
 package seedu.duke.profile.attributes;
 
+/**
+ * Activity Factor attribute of profile.
+ */
 public class ActivityFactor implements Verifiable {
 
     public static final int LIMIT_LOWER_ACTIVITY_FACTOR = 1;
@@ -11,6 +14,11 @@ public class ActivityFactor implements Verifiable {
 
     }
 
+    /**
+     * Constructs an activity factor object.
+     *
+     * @param activityFactor activity factor input by user
+     */
     public ActivityFactor(int activityFactor) {
         setActivityFactor(activityFactor);
     }
@@ -23,6 +31,7 @@ public class ActivityFactor implements Verifiable {
         this.activityFactor = activityFactor;
     }
 
+    @Override
     public boolean isValid() {
         if (activityFactor < 1 || activityFactor > 5) {
             return false;

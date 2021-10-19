@@ -1,5 +1,8 @@
 package seedu.duke.profile.attributes;
 
+/**
+ * Calorie Goal attribute of profile.
+ */
 public class CalorieGoal implements Verifiable {
 
     private static final String LS = System.lineSeparator();
@@ -13,6 +16,11 @@ public class CalorieGoal implements Verifiable {
 
     }
 
+    /**
+     * Constructs a calorie goal object.
+     *
+     * @param calorieGoal goal input by user
+     */
     public CalorieGoal(int calorieGoal) {
         setCalorieGoal(calorieGoal);
     }
@@ -25,6 +33,7 @@ public class CalorieGoal implements Verifiable {
         this.calorieGoal = calorieGoal;
     }
 
+    @Override
     public boolean isValid() {
         if (calorieGoal < LIMIT_LOWER_CALORIES || calorieGoal > LIMIT_UPPER_CALORIES) {
             return false;
