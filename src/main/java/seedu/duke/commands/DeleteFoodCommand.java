@@ -19,7 +19,8 @@ public class DeleteFoodCommand extends Command {
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD,
-            COMMAND_PREFIX_DATE};
+            COMMAND_PREFIX_DATE
+    };
 
 
     private final int itemIndex;

@@ -16,7 +16,8 @@ public class CalculateBmiCommand extends Command {
     public static final String MESSAGE_SUCCESS = "The calculated BMI value is %1$,.1f (%2$s)";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_HEIGHT,
-            COMMAND_PREFIX_WEIGHT};
+            COMMAND_PREFIX_WEIGHT
+    };
 
     private final double height;
     private final double weight;

@@ -56,7 +56,7 @@ public class ProfileUpdateCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            this.name = name.equals(NULL_STRING)? super.profile.getName() : name;
+            this.name = name.equals(NULL_STRING) ? super.profile.getName() : name;
             this.height = height == NULL_DOUBLE ? super.profile.getHeight() : height;
             this.weight = weight == NULL_DOUBLE ? super.profile.getWeight() : weight;
             this.calorieGoal = calorieGoal == NULL_INT ? super.profile.getCalorieGoal() : calorieGoal;
@@ -68,11 +68,12 @@ public class ProfileUpdateCommand extends Command {
             super.profile.setProfile(this.name, this.height, this.weight,
                     this.calorieGoal);
 
-            //TODO: After storage of profile is updated
-//            Profile tempProfile = new Profile(this.name, this.height, this.weight, this.calorieGoal,
-//                    this.gender, this.age, this.activityFactor);
-//            super.profile.setProfile(this.name, this.height, this.weight,
-//                    this.calorieGoal, this.gender, this.age, this.activityFactor);
+            /*TODO: After storage of profile is updated
+            Profile tempProfile = new Profile(this.name, this.height, this.weight, this.calorieGoal,
+                    this.gender, this.age, this.activityFactor);
+            super.profile.setProfile(this.name, this.height, this.weight,
+                    this.calorieGoal, this.gender, this.age, this.activityFactor);
+            */
 
             return new CommandResult(String.format(
                     MESSAGE_SUCCESS,

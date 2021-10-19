@@ -323,8 +323,7 @@ public class Parser {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 return new DeleteFutureExerciseCommand(itemIndex);
-            }
-            else {
+            } else {
                 assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
                         "at this point, it must be food bank";
                 if (hasExtraDelimiters(params,
@@ -694,7 +693,8 @@ public class Parser {
     }
 
 
-    private LocalDate extractDate(String params, boolean isRequired) throws ParamInvalidException, ParamMissingException {
+    private LocalDate extractDate(String params, boolean isRequired)
+            throws ParamInvalidException, ParamMissingException {
         try {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_DATE
@@ -739,7 +739,7 @@ public class Parser {
         return date.atTime(time);
     }
 
-    private boolean isFutureDate (LocalDate date) {
+    private boolean isFutureDate(LocalDate date) {
         return date.isAfter(LocalDate.now());
     }
 
