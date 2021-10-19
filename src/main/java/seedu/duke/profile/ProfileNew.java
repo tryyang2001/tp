@@ -9,7 +9,7 @@ import seedu.duke.profile.attributes.Name;
 import seedu.duke.profile.attributes.Weight;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 
-public class Profile {
+public class ProfileNew {
 
     public static final String FILE_TEXT_DELIMITER = "|";
 
@@ -66,10 +66,6 @@ public class Profile {
     protected CalorieGoal calorieGoal;
     protected ActivityFactor activityFactor;
 
-    public Profile(){
-
-    }
-
     /**
      * Constructor for the Profile class.
      *
@@ -81,7 +77,7 @@ public class Profile {
      * @param age            Age of user
      * @param activityFactor Activity level of user
      */
-    public Profile(Name name, Height height, Weight weight, Gender gender,
+    public ProfileNew(Name name, Height height, Weight weight, Gender gender,
                       Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
         this.name = name;
         this.height = height;

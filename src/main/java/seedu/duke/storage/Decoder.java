@@ -5,6 +5,7 @@ import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.food.Food;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
+import seedu.duke.profile.ProfileLoader;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
@@ -51,16 +52,18 @@ public class Decoder {
 
     private Profile decodeProfileDataFromString(String input) throws InvalidDataException {
         try {
+            Profile profile = new Profile();
             final String[] profileDetails = input.split(FILE_TEXT_DELIMITER);
             final String name = profileDetails[0];
             final double height = Double.parseDouble(profileDetails[1]);
             final double weight = Double.parseDouble(profileDetails[2]);
-            final int calorieGoal = Integer.parseInt(profileDetails[3]);
-            final char gender = profileDetails[4].charAt(0);
-            final int age = Integer.parseInt(profileDetails[5]);
+            final char gender = profileDetails[3].charAt(0);
+            final int age = Integer.parseInt(profileDetails[4]);
+            final int calorieGoal = Integer.parseInt(profileDetails[5]);
             final int activityFactor = Integer.parseInt(profileDetails[6]);
-            return new Profile(name, height, weight, calorieGoal, gender, age, activityFactor);
-        } catch (IndexOutOfBoundsException | NumberFormatException | InvalidCharacteristicException e) {
+            profile.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
+            return profile;
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new InvalidDataException(Storage.FILENAME_PROFILE, input);
         }
     }

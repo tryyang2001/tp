@@ -85,7 +85,7 @@ public class Storage {
         String[] paths = filePath.split("/");
         String fileName = paths[2];
         try {
-            Files.createDirectories(Paths.get("./data"));
+            Files.createDirectories(Paths.get(FILEPATH));
             if (!f.exists()) {
                 f.createNewFile();
             }
