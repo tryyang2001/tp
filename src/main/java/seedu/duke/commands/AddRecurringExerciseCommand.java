@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Represent the command that when executed, adds all recurring Exercise items to the FutureExerciseList.
+ */
 public class AddRecurringExerciseCommand extends Command {
 
     private static final int ONE_WEEK = 7;
@@ -35,6 +38,9 @@ public class AddRecurringExerciseCommand extends Command {
         this.day = day;
     }
 
+    /**
+     * Adds all recurring exercises between two dates into the FutureExerciseList.
+     */
     private void addRecurringExercises() {
         for (int i = 0; i < day.size(); i++) {
             int dayOfTheWeek = startDate.getDayOfWeek().getValue();
