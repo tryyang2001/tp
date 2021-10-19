@@ -2,6 +2,10 @@ package seedu.duke.item;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of Items, meant to store a repository of user-defined Exercise items or Food items.
+ * Contains all the methods for actions that can be done on the list.
+ */
 public class ItemBank {
     protected static final String LS = System.lineSeparator();
     protected static final String TAB = "\t";

@@ -19,7 +19,7 @@ import seedu.duke.commands.HelpCommand;
 import seedu.duke.commands.InvalidCommand;
 import seedu.duke.commands.OverviewCommand;
 import seedu.duke.commands.ProfileCommand;
-import seedu.duke.commands.ProfileCreateCommand;
+import seedu.duke.commands.ProfileUpdateCommand;
 import seedu.duke.commands.SetGoalCommand;
 import seedu.duke.commands.ViewCommand;
 import seedu.duke.commands.ViewExerciseBankCommand;
@@ -29,6 +29,11 @@ import seedu.duke.commands.ViewFoodListCommand;
 import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,6 +48,7 @@ public class Parser {
             + LS + "Lost? Try typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + " to see the list of commands!";
     protected static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please input a description for this item!";
     protected static final String MESSAGE_ERROR_NO_NAME = "Please input your name!";
+    protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input % as a number!";
     protected static final String MESSAGE_ERROR_NO_HEIGHT = "Please input height as a number!";
     protected static final String MESSAGE_ERROR_NO_WEIGHT = "Please input weight as a number!";
     protected static final String MESSAGE_ERROR_NO_GOAL = "Please input calorie goal as a number!";
@@ -50,7 +56,6 @@ public class Parser {
     protected static final String MESSAGE_ERROR_INVALID_CALORIES_INFO = "Please input calories as a number! E.g 123";
     protected static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
     protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a number! E.g 1";
-    protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input a number!";
     protected static final String MESSAGE_ERROR_TOO_MANY_DELIMITERS = "Please do not use the character "
             + QUOTATION + Command.COMMAND_PREFIX_DELIMITER + QUOTATION
             + " in your input other than to specify parameters!";
@@ -58,9 +63,15 @@ public class Parser {
     protected static final String MESSAGE_ERROR_ILLEGAL_CHARACTER = "Please do not use the character "
             + QUOTATION + FILE_TEXT_DELIMITER + QUOTATION
             + " in your input!";
-    public static final String MESSAGE_ERROR_INVALID_FORMAT = "Invalid format for this command! "
+    protected static final String MESSAGE_ERROR_INVALID_FORMAT = "Invalid format for this command! "
             + "Please follow one of the formats:";
-
+    protected static final String DATE_TIME_FORMAT = "dd-MM-yyyy HHmm";
+    protected static final String DATE_FORMAT = "dd-MM-yyyy";
+    protected static final String TIME_FORMAT = "HHmm";
+    protected static final String MESSAGE_ERROR_INVALID_DATE_FORMAT = "Invalid date format! Please input date as "
+            + DATE_FORMAT;
+    protected static final String MESSAGE_ERROR_INVALID_TIME_FORMAT = "Invalid time format! Please input time as "
+            + TIME_FORMAT;
 
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
@@ -83,7 +94,7 @@ public class Parser {
 
         switch (commandWord) {
         case Command.COMMAND_WORD_ADD:
-            return parseAddItems(params);
+            return parseAdd(params);
         case Command.COMMAND_WORD_DELETE:
             return parseDeleteItems(params);
         case Command.COMMAND_WORD_VIEW:
@@ -111,25 +122,19 @@ public class Parser {
         }
     }
 
-    private Command parseAddItems(String params) {
-        if (hasExtraDelimiters(params, Command.COMMAND_ADD_EXPECTED_NUM_DELIMITERS)) {
-            return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-        }
-
+    private Command parseAdd(String params) {
         try {
             final String itemTypePrefix = extractItemTypePrefix(params);
-            final String description = extractItemDescription(params, itemTypePrefix);
-            final int calories = extractItemCalories(params);
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
-                return new AddExerciseCommand(description, calories);
+                return parseAddToItems(params, itemTypePrefix);
             } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD)) {
-                return new AddFoodCommand(description, calories);
+                return parseAddToItems(params, itemTypePrefix);
             } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE_BANK)) {
-                return new AddExerciseBankCommand(description, calories);
+                return parseAddToBank(params, itemTypePrefix);
             } else {
                 assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
                         "at this point, it must be food bank";
-                return new AddFoodBankCommand(description, calories);
+                return parseAddToBank(params, itemTypePrefix);
             }
         } catch (ItemNotSpecifiedException e) {
             return new InvalidCommand(
@@ -138,10 +143,75 @@ public class Parser {
                             AddFoodCommand.MESSAGE_COMMAND_FORMAT,
                             AddExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
                             AddFoodBankCommand.MESSAGE_COMMAND_FORMAT));
+        }
+    }
+
+    private Command parseAddToItems(String params, String itemTypePrefix) {
+
+        //TODO: if calories not provided, check if banks have them
+        try {
+            final String description = extractItemDescription(params, itemTypePrefix);
+            final int calories = extractItemCalories(params);
+            final LocalTime time = extractTime(params);
+            final LocalDate date = extractDate(params);
+            final LocalDateTime dateTime = date.atTime(time);
+            logger.log(Level.INFO, String.format("dateTime detected is: %s", dateTime));
+            if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
+                if (hasExtraDelimiters(params,
+                        getNumberOfCorrectParamsDetected(params,
+                                Command.COMMAND_PREFIX_EXERCISE,
+                                Command.COMMAND_PREFIX_CALORIES,
+                                Command.COMMAND_PREFIX_DATE))) {
+                    return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                }
+                return new AddExerciseCommand(description, calories, date);
+            } else  {
+                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
+                        "at this point, it must be food";
+                if (hasExtraDelimiters(params,
+                        getNumberOfCorrectParamsDetected(params,
+                                Command.COMMAND_PREFIX_FOOD,
+                                Command.COMMAND_PREFIX_CALORIES,
+                                Command.COMMAND_PREFIX_DATE,
+                                Command.COMMAND_PREFIX_TIME))) {
+                    return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                }
+                return new AddFoodCommand(description, calories, dateTime);
+            }
         } catch (ParamInvalidException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
+
+    private Command parseAddToBank(String params, String itemTypePrefix) {
+        try {
+            final String description = extractItemDescription(params, itemTypePrefix);
+            final int calories = extractItemCalories(params);
+
+            if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE_BANK)) {
+                if (hasExtraDelimiters(params,
+                        getNumberOfCorrectParamsDetected(params,
+                                Command.COMMAND_PREFIX_EXERCISE_BANK,
+                                Command.COMMAND_PREFIX_CALORIES))) {
+                    return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                }
+                return new AddExerciseBankCommand(description, calories);
+            } else {
+                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
+                        "at this point, it must be food bank";
+                if (hasExtraDelimiters(params,
+                        getNumberOfCorrectParamsDetected(
+                                Command.COMMAND_PREFIX_FOOD_BANK,
+                                Command.COMMAND_PREFIX_CALORIES))) {
+                    return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                }
+                return new AddFoodBankCommand(description, calories);
+            }
+        } catch (ParamInvalidException e) {
+            return new InvalidCommand(e.getMessage());
+        }
+    }
+
 
     private Command parseDeleteItems(String params) {
         try {
@@ -249,23 +319,31 @@ public class Parser {
         if (params.isEmpty()) { //no additional parameters, assumed to be view profile command
             return new ProfileCommand();
         }
-        if (hasExtraDelimiters(params, ProfileCreateCommand.COMMAND_EXPECTED_NUM_DELIMITERS)) {
+
+        //TODO: Test profile again after storage has been updated
+
+        if (hasExtraDelimiters(
+                params,
+                getNumberOfCorrectParamsDetected(params,
+                        Command.COMMAND_PREFIX_NAME,
+                        Command.COMMAND_PREFIX_HEIGHT,
+                        Command.COMMAND_PREFIX_WEIGHT,
+                        Command.COMMAND_PREFIX_GOAL,
+                        Command.COMMAND_PREFIX_AGE,
+                        Command.COMMAND_PREFIX_ACTIVITY_FACTOR,
+                        Command.COMMAND_PREFIX_GENDER))) {
             return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
         }
-        if (!hasRequiredParams(params,
-                Command.COMMAND_PREFIX_NAME,
-                Command.COMMAND_PREFIX_HEIGHT,
-                Command.COMMAND_PREFIX_WEIGHT,
-                Command.COMMAND_PREFIX_GOAL)) {
-            logger.log(Level.WARNING, "Detected insufficient prefix for creating profile.");
-            return new InvalidCommand(ProfileCreateCommand.MESSAGE_INVALID_COMMAND_FORMAT);
-        }
+
         try {
             final String name = extractProfileName(params);
             final double height = extractHeight(params);
             final double weight = extractWeight(params);
             final int calorieGoal = extractCalorieGoal(params);
-            return new ProfileCreateCommand(name, height, weight, calorieGoal);
+            final int age = extractAge(params);
+            final int activityFactor = extractActivityFactor(params);
+            final char gender = extractGender(params);
+            return new ProfileUpdateCommand(name, height, weight, calorieGoal, age, activityFactor, gender);
         } catch (ParamInvalidException e) {
             return new InvalidCommand(e.getMessage());
         }
@@ -277,7 +355,7 @@ public class Parser {
             return new ChangeHeightCommand(height);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Detected non-digit height input.");
-            return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
+            return new InvalidCommand(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "height"));
         }
     }
 
@@ -287,7 +365,7 @@ public class Parser {
             return new ChangeWeightCommand(weight);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Detected non-digit weight input.");
-            return new InvalidCommand(MESSAGE_ERROR_NOT_A_NUMBER);
+            return new InvalidCommand(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "weight"));
         }
     }
 
@@ -297,7 +375,7 @@ public class Parser {
             return new SetGoalCommand(goal);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Detected non-integer calorie goal input.");
-            return new InvalidCommand(MESSAGE_ERROR_NO_GOAL);
+            return new InvalidCommand(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "goal"));
         }
     }
 
@@ -416,45 +494,6 @@ public class Parser {
         }
     }
 
-    private double extractHeight(String params) throws ParamInvalidException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_HEIGHT
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String doubleString = stringAfterPrefix.split(" ", 2)[0];
-            return Double.parseDouble(doubleString);
-        } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Detected non-digit height input.");
-            throw new ParamInvalidException(MESSAGE_ERROR_NO_HEIGHT);
-        }
-    }
-
-    private double extractWeight(String params) throws ParamInvalidException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_WEIGHT
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String doubleString = stringAfterPrefix.split(" ", 2)[0];
-            return Double.parseDouble(doubleString);
-        } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Detected non-digit weight input.");
-            throw new ParamInvalidException(MESSAGE_ERROR_NO_WEIGHT);
-        }
-    }
-
-    private int extractCalorieGoal(String params) throws ParamInvalidException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_GOAL
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String intString = stringAfterPrefix.split(" ", 2)[0];
-            return Integer.parseInt(intString);
-        } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Detected non-digit goal input.");
-            throw new ParamInvalidException(MESSAGE_ERROR_NO_GOAL);
-        }
-    }
-
     private String extractProfileName(String params) throws ParamInvalidException {
         try {
             String stringAfterPrefix =
@@ -467,13 +506,155 @@ public class Parser {
             }
             return name;
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected empty name input after prefix.");
-            throw new ParamInvalidException(MESSAGE_ERROR_NO_NAME);
+            logger.log(Level.WARNING, "Detected missing name prefix, returning empty string.");
+            return EMPTY;
         }
+    }
+
+    private double extractHeight(String params) throws ParamInvalidException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_HEIGHT
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String doubleString = stringAfterPrefix.split(" ", 2)[0];
+            return Double.parseDouble(doubleString);
+        } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit height input.");
+            throw new ParamInvalidException(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "height"));
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Detected missing height prefix, return 0 height");
+            return 0;
+        }
+    }
+
+    private double extractWeight(String params) throws ParamInvalidException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_WEIGHT
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String doubleString = stringAfterPrefix.split(" ", 2)[0];
+            return Double.parseDouble(doubleString);
+        } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit weight input.");
+            throw new ParamInvalidException(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "weight"));
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Detected missing weight prefix, return 0 weight");
+            return 0;
+        }
+    }
+
+    private int extractCalorieGoal(String params) throws ParamInvalidException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_GOAL
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String intString = stringAfterPrefix.split(" ", 2)[0];
+            return Integer.parseInt(intString);
+        } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit goal input.");
+            throw new ParamInvalidException(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "goal"));
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Detected missing goal prefix, return 0 goal");
+            return 0;
+        }
+    }
+
+    private int extractAge(String params) throws ParamInvalidException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_AGE
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String intString = stringAfterPrefix.split(" ", 2)[0];
+            return Integer.parseInt(intString);
+        } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit age input.");
+            throw new ParamInvalidException(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "age"));
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Detected missing age prefix, return 0 age");
+            return 0;
+        }
+    }
+
+    private int extractActivityFactor(String params) throws ParamInvalidException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_ACTIVITY_FACTOR
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String intString = stringAfterPrefix.split(" ", 2)[0];
+            return Integer.parseInt(intString);
+        } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit activity factor input.");
+            throw new ParamInvalidException(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "activity factor"));
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Detected missing activity factor prefix, return 0 activity factor");
+            return 0;
+        }
+    }
+
+    private char extractGender(String params) throws ParamInvalidException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_GENDER
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            return stringAfterPrefix.charAt(0);
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Detected missing gender prefix, return null gender");
+            return 0;
+        }
+    }
+
+    private LocalDate extractDate(String params) throws ParamInvalidException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_DATE
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String dateString = extractRelevantParameter(stringAfterPrefix);
+            logger.log(Level.INFO, String.format("date string detected is: %s", dateString));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+            return LocalDate.parse(dateString, formatter);
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.INFO, "Detected empty date input after prefix, assuming date to be now");
+            return LocalDate.now();
+        } catch (DateTimeParseException e) {
+            throw new ParamInvalidException(MESSAGE_ERROR_INVALID_DATE_FORMAT);
+        }
+    }
+
+    private LocalTime extractTime(String params) throws ParamInvalidException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_TIME
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String timeString = extractRelevantParameter(stringAfterPrefix);
+            logger.log(Level.INFO, String.format("time string detected is: %s", timeString));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TIME_FORMAT);
+            return LocalTime.parse(timeString, formatter);
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.INFO, "Detected empty time input after prefix, assuming time to be now");
+            return LocalTime.now();
+        } catch (DateTimeParseException e) {
+            throw new ParamInvalidException(MESSAGE_ERROR_INVALID_TIME_FORMAT);
+        }
+    }
+
+    private boolean isFutureDate (LocalDate date) {
+        return date.isAfter(LocalDate.now());
     }
 
     private int convertItemNumToItemIndex(int itemNum) {
         return itemNum - 1;
+    }
+
+
+    private int getNumberOfCorrectParamsDetected(String params, String... prefixes) {
+        int count = 0;
+        for (String prefix : prefixes) {
+            if (params.toLowerCase().contains(prefix + Command.COMMAND_PREFIX_DELIMITER)) {
+                count++;
+            }
+        }
+        logger.log(Level.INFO, String.format("no. of corrected params detected: %s", count));
+        return count;
     }
 
     private boolean hasExtraDelimiters(String params, int expectedNum) {

@@ -2,6 +2,7 @@ package seedu.duke.commands;
 
 import seedu.duke.item.food.Food;
 
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,6 +26,10 @@ public class AddFoodCommand extends Command {
 
     public AddFoodCommand(String description, int calories) {
         this.food = new Food(description, calories);
+    }
+
+    public AddFoodCommand(String description, int calories, LocalDateTime dateTime) {
+        this.food = new Food(description, calories, dateTime);
     }
 
     @Override

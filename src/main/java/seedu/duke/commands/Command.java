@@ -25,18 +25,19 @@ public abstract class Command {
     public static final String COMMAND_PREFIX_HEIGHT = "h";
     public static final String COMMAND_PREFIX_WEIGHT = "w";
     public static final String COMMAND_PREFIX_GOAL = "g";
+    public static final String COMMAND_PREFIX_DATE = "d";
+    public static final String COMMAND_PREFIX_TIME = "t";
+    public static final String COMMAND_PREFIX_RECURRING = "r";
+    public static final String COMMAND_PREFIX_GENDER = "s";
+    public static final String COMMAND_PREFIX_AGE = "a";
+    public static final String COMMAND_PREFIX_ACTIVITY_FACTOR = "x";
     public static final String COMMAND_WORD_ADD = "add";
     public static final String COMMAND_WORD_DELETE = "delete";
     public static final String COMMAND_WORD_VIEW = "view";
     public static final String COMMAND_WORD_BMI = "bmi";
     public static final String COMMAND_WORD_PROFILE = "profile";
-    public static final int COMMAND_ADD_EXPECTED_NUM_DELIMITERS = 2;
     public static final int COMMAND_BMI_EXPECTED_NUM_DELIMITERS = 2;
     public static final String COMMAND_WORD_DELETE_ALL = "all";
-    public static final String MESSAGE_ERROR_ITEM_NOT_SPECIFIED = "Invalid format for this command! "
-            + "Please follow one of the formats:" + LS
-            + "1. %1$s" + LS
-            + "2. %2$s";
     public static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise items yet!";
     public static final String MESSAGE_EMPTY_FOOD_LIST = "No food items yet!";
     public static final String MESSAGE_EMPTY_EXERCISE_BANK = "No exercise items yet in the exercise bank!";

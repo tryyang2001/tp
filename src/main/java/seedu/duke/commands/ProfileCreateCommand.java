@@ -28,6 +28,7 @@ public class ProfileCreateCommand extends Command {
     private final int calorieGoal;
 
 
+
     public ProfileCreateCommand(String name, double height, double weight, int calorieGoal) {
         assert name != null : "parser should have ensured name is not null";
         this.name = name;

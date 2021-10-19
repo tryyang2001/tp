@@ -2,6 +2,7 @@ package seedu.duke.commands;
 
 import seedu.duke.item.exercise.Exercise;
 
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +27,10 @@ public class AddExerciseCommand extends Command {
 
     public AddExerciseCommand(String description, int calories) {
         this.exercise = new Exercise(description, calories);
+    }
+
+    public AddExerciseCommand(String description, int calories, LocalDate date) {
+        this.exercise = new Exercise(description, calories, date);
     }
 
     @Override

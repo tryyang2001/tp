@@ -4,7 +4,6 @@ import seedu.duke.item.Item;
 import seedu.duke.item.ItemList;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -53,6 +52,7 @@ public class ExerciseList extends ItemList {
      */
     public void addExercise(Exercise exercise) {
         this.exerciseList.add(exercise);
+        this.sortExerciseList();
     }
 
     /**
@@ -126,7 +126,8 @@ public class ExerciseList extends ItemList {
     }
 
     /**
-     * Helper function to extract exercises list according to each date presented in the entire exercise list.
+     * Helper function used in convertToString to extract exercises list
+     * according to each date presented in the entire exercise list.
      *
      * @return String which contains exercise lists with different date
      */
@@ -138,22 +139,14 @@ public class ExerciseList extends ItemList {
             while (index < exerciseList.size() && currentDate.isEqual(exerciseList.get(index).getDate())) {
                 subList.addExercise(exerciseList.get(index++));
             }
-            exerciseListInString
-                    .append(String.format(MESSAGE_EXERCISE_DONE,
-                            subList.getSize(),
-                            getDay(currentDate),
-                            currentDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT))))
-                    .append(ItemList.LS);
+            convertItemCountToString(exerciseListInString, subList.getSize(), currentDate, MESSAGE_EXERCISE_DONE);
             for (int i = 1; i <= subList.getSize(); i++) {
-                exerciseListInString
-                        .append(ItemList.TAB)
-                        .append(String.format(MESSAGE_EXERCISE, i, subList.getExercise(i - 1)))
-                        .append(ItemList.LS);
+                convertItemToString(exerciseListInString, i, subList.getExercise(i - 1));
             }
-            exerciseListInString
-                    .append(String.format(MESSAGE_TOTAL_CALORIE_BURNT,
-                            this.getTotalCaloriesWithDate(currentDate)))
-                    .append(ItemList.LS);
+            convertTotalCaloriesToString(
+                    exerciseListInString,
+                    this.getTotalCaloriesWithDate(currentDate),
+                    MESSAGE_TOTAL_CALORIE_BURNT);
             if (index < exerciseList.size()) {
                 exerciseListInString.append(ItemList.LS); //prevents last line spacing
             }
@@ -163,7 +156,8 @@ public class ExerciseList extends ItemList {
     }
 
     /**
-     * Helper method for extracting exercise list which contains all the exercises done on the date.
+     * Helper method used in convertToStringBySpecificDate for extracting
+     * exercise list which contains all the exercises done on the date.
      *
      * @param date The date to query all the exercises done
      * @return StringBuilder type string which contains an exercise list with the given date
@@ -173,22 +167,14 @@ public class ExerciseList extends ItemList {
         ArrayList<Exercise> subList = (ArrayList<Exercise>) this.exerciseList.stream()
                 .filter(e -> e.getDate().isEqual(date))
                 .collect(Collectors.toList());
-        exerciseListInString
-                .append(String.format(MESSAGE_EXERCISE_DONE,
-                        subList.size(),
-                        getDay(date),
-                        date.format(DateTimeFormatter.ofPattern(DATE_FORMAT))))
-                .append(ItemList.LS);
+        convertItemCountToString(exerciseListInString, subList.size(), date, MESSAGE_EXERCISE_DONE);
         for (int i = 1; i <= subList.size(); i++) {
-            exerciseListInString
-                    .append(ItemList.TAB)
-                    .append(String.format(MESSAGE_EXERCISE, i, subList.get(i - 1)))
-                    .append(ItemList.LS);
+            convertItemToString(exerciseListInString, i, subList.get(i - 1));
         }
-        exerciseListInString
-                .append(String.format(MESSAGE_TOTAL_CALORIE_BURNT,
-                        this.getTotalCaloriesWithDate(date)))
-                .append(ItemList.LS);
+        convertTotalCaloriesToString(
+                exerciseListInString,
+                this.getTotalCaloriesWithDate(date),
+                MESSAGE_TOTAL_CALORIE_BURNT);
         return exerciseListInString;
     }
 }
