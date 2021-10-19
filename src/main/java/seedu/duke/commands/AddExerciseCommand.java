@@ -2,7 +2,6 @@ package seedu.duke.commands;
 
 import seedu.duke.item.ItemNotFoundInBankException;
 import seedu.duke.item.exercise.Exercise;
-import seedu.duke.item.food.Food;
 
 import java.time.LocalDate;
 import java.util.logging.Level;
@@ -14,10 +13,8 @@ import java.util.logging.Logger;
 public class AddExerciseCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_ADD
             + " " + COMMAND_PREFIX_EXERCISE + COMMAND_PREFIX_DELIMITER + "exercise name"
-            + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories" + QUOTATION;
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to add an exercise item? Use this format:"
-            + LS + MESSAGE_COMMAND_FORMAT;
+            + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories"
+            + " " + COMMAND_PREFIX_DATE + COMMAND_PREFIX_DELIMITER + "date" + QUOTATION;
     public static final String MESSAGE_SUCCESS = "An exercise item has been added:"
             + INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"

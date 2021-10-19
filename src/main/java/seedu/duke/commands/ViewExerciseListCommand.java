@@ -3,7 +3,6 @@ package seedu.duke.commands;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  * Represents the command that when executed, lists all the items in the ExerciseList.
  */

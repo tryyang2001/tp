@@ -9,9 +9,6 @@ public class ChangeWeightCommand extends Command {
     public static final String COMMAND_WORD = "weight";
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD
             + " X" + QUOTATION + ", where X is your weight in KG";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to update your weight? Use this format:"
-            + INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "Your weight has been updated!" + LS + "Your weight is %skg.";
 
     private final double weight;

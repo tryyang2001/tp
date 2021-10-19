@@ -12,9 +12,6 @@ public class AddExerciseBankCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_ADD
             + " " + COMMAND_PREFIX_EXERCISE_BANK + COMMAND_PREFIX_DELIMITER + "exercise name"
             + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories" + QUOTATION;
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to add an exercise item to your exercise bank? Use this format:"
-            + LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "An exercise item has been added to the exercise bank:"
             + INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"

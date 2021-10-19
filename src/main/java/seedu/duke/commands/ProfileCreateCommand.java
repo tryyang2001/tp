@@ -14,9 +14,6 @@ public class ProfileCreateCommand extends Command {
             + COMMAND_PREFIX_GOAL + COMMAND_PREFIX_DELIMITER + "Z"
             + QUOTATION + " where W is your name, X is your height in CM,"
             + INDENTED_LS + "Y is your weight in KG and Z is your calorie goal.";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to create your profile? Use this format:"
-            + INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "Hello %1$s! Your profile has been created!"
             + INDENTED_LS + "Your height is %2$scm."
             + INDENTED_LS + "Your weight is %3$skg."

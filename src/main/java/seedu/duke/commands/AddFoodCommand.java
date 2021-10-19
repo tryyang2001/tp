@@ -13,10 +13,9 @@ import java.util.logging.Logger;
 public class AddFoodCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_ADD
             + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "food name"
-            + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories" + QUOTATION;
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to add a food item? Use this format:"
-            + LS + MESSAGE_COMMAND_FORMAT;
+            + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories"
+            + " " + COMMAND_PREFIX_DATE + COMMAND_PREFIX_DELIMITER + "date"
+            + " " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_TIME + "time" + QUOTATION;
     public static final String MESSAGE_SUCCESS = "A food item has been added:"
             + INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_FOOD_CALORIES = "Food calories cannot be less than 0" + LS

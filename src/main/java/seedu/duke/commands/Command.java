@@ -2,6 +2,7 @@ package seedu.duke.commands;
 
 import seedu.duke.item.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
 
@@ -17,6 +18,8 @@ public abstract class Command {
     public static final String QUOTATION = "\"";
     public static final String COMMAND_PREFIX_DELIMITER = "/";
     public static final String COMMAND_PREFIX_EXERCISE = "e";
+    public static final String COMMAND_PREFIX_UPCOMING_EXERCISE = "u";
+    public static final String COMMAND_PREFIX_RECURRING = "r";
     public static final String COMMAND_PREFIX_FOOD = "f";
     public static final String COMMAND_PREFIX_EXERCISE_BANK = "ebank";
     public static final String COMMAND_PREFIX_FOOD_BANK = "fbank";
@@ -27,7 +30,6 @@ public abstract class Command {
     public static final String COMMAND_PREFIX_GOAL = "g";
     public static final String COMMAND_PREFIX_DATE = "d";
     public static final String COMMAND_PREFIX_TIME = "t";
-    public static final String COMMAND_PREFIX_RECURRING = "r";
     public static final String COMMAND_PREFIX_GENDER = "s";
     public static final String COMMAND_PREFIX_AGE = "a";
     public static final String COMMAND_PREFIX_ACTIVITY_FACTOR = "x";
@@ -39,6 +41,7 @@ public abstract class Command {
     public static final int COMMAND_BMI_EXPECTED_NUM_DELIMITERS = 2;
     public static final String COMMAND_WORD_DELETE_ALL = "all";
     public static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise items yet!";
+    public static final String MESSAGE_EMPTY_FUTURE_EXERCISE_LIST = "No future exercise items yet!";
     public static final String MESSAGE_EMPTY_FOOD_LIST = "No food items yet!";
     public static final String MESSAGE_EMPTY_EXERCISE_BANK = "No exercise items yet in the exercise bank!";
     public static final String MESSAGE_EMPTY_FOOD_BANK = "No food items yet in the food bank!";
@@ -53,8 +56,11 @@ public abstract class Command {
     protected Profile profile;
     protected ExerciseList exerciseItems;
     protected FoodList foodItems;
+    protected FutureExerciseList futureExerciseItems;
     protected ItemBank exerciseBank;
     protected ItemBank foodBank;
+
+
 
 
     /**
@@ -68,17 +74,19 @@ public abstract class Command {
     /**
      * Provides the necessary data structures for the command to operate on.
      */
-    public void setData(Profile profile,
-                        ExerciseList exerciseItems, FoodList foodItems,
+    public void setData(Profile profile, ExerciseList exerciseItems,
+                        FutureExerciseList futureExerciseItems, FoodList foodItems,
                         ItemBank exerciseBank, ItemBank foodBank) {
         this.profile = profile;
         this.exerciseItems = exerciseItems;
         this.foodItems = foodItems;
-        this.exerciseBank = exerciseBank;
-        this.foodBank = foodBank;
+        this.futureExerciseItems = futureExerciseItems;
+            this.exerciseBank = exerciseBank;
+            this.foodBank = foodBank;
         assert profile != null : "Profile supplied to command should not be null";
         assert exerciseItems != null : "Exercise items supplied to command should not be null";
         assert foodItems != null : "Food items supplied to command should not be null";
+        assert futureExerciseItems != null : "Future exercise items supplied to command should not be null";
     }
 
 
@@ -117,4 +125,10 @@ public abstract class Command {
         return command instanceof AddFoodCommand
                 || command instanceof DeleteFoodCommand;
     }
+
+    public static boolean requiresFutureExerciseListStorageRewrite(Command command) {
+        return command instanceof AddFutureExerciseCommand
+                || command instanceof DeleteFutureExerciseCommand;
+    }
+
 }
