@@ -6,9 +6,13 @@ import seedu.duke.item.food.Food;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
+import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,10 +21,10 @@ import java.util.logging.Logger;
  * Converts the profile, exercise list and food list from storage and inputs into the bot.
  */
 public class Decoder {
-    private static final int PROFILE_LENGTH = 4;
-    private static final int EXERCISE_LENGTH = 3;
-    private static final int FOOD_LENGTH = 3;
+
     public static final String FILE_TEXT_DELIMITER = "\\|";
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     private static final Logger logger = Logger.getLogger(Decoder.class.getName());
 
@@ -34,34 +38,31 @@ public class Decoder {
     public Profile getProfileFromData() throws FileNotFoundException, InvalidCharacteristicException {
         File file = new File(Storage.FILEPATH_PROFILE);
         Scanner in = new Scanner(file);
-        if (in.hasNext()) {
-            logger.log(Level.FINE, "Retrieving profile file.");
-            return decodeProfileData(in.nextLine());
+        try {
+            if (in.hasNext()) {
+                logger.log(Level.FINE, "Retrieving profile file.");
+                return decodeProfileDataFromString(in.nextLine());
+            }
+        } catch (InvalidDataException e) {
+            System.out.println(e.getMessage());
         }
         return new Profile();
     }
 
-    private Profile decodeProfileData(String input) throws InvalidCharacteristicException {
-        Profile profile = new Profile();
-        String[] profileDetails = input.split(FILE_TEXT_DELIMITER);
-        if (profileDetails.length != PROFILE_LENGTH) {
-            logger.log(Level.WARNING, "The saved profile is not valid.", input);
+    private Profile decodeProfileDataFromString(String input) throws InvalidDataException {
+        try {
+            final String[] profileDetails = input.split(FILE_TEXT_DELIMITER);
+            final String name = profileDetails[0];
+            final double height = Double.parseDouble(profileDetails[1]);
+            final double weight = Double.parseDouble(profileDetails[2]);
+            final int calorieGoal = Integer.parseInt(profileDetails[3]);
+            final char gender = profileDetails[4].charAt(0);
+            final int age = Integer.parseInt(profileDetails[5]);
+            final int activityFactor = Integer.parseInt(profileDetails[6]);
+            return new Profile(name, height, weight, calorieGoal, gender, age, activityFactor);
+        } catch (IndexOutOfBoundsException | NumberFormatException | InvalidCharacteristicException e) {
+            throw new InvalidDataException(Storage.FILENAME_PROFILE, input);
         }
-        String name = profileDetails[0];
-        double height = Double.parseDouble(profileDetails[1]);
-        double weight = Double.parseDouble(profileDetails[2]);
-        if (!name.equals("null")) {
-            profile.setName(name);
-        }
-        if (height != 0.0) {
-            profile.setHeight(height);
-        }
-        if (weight != 0.0) {
-            profile.setWeight(weight);
-        }
-        int calorieGoal = Integer.parseInt(profileDetails[3]);
-        profile.setCalorieGoal(calorieGoal);
-        return profile;
     }
 
     /**
@@ -76,20 +77,27 @@ public class Decoder {
         Scanner in = new Scanner(file);
         logger.log(Level.FINE, "Decoding exercise data from file...");
         while (in.hasNext()) {
-            decodeExerciseData(exercises, in.nextLine());
+            try {
+                decodeExerciseDataFromString(exercises, in.nextLine());
+            } catch (InvalidDataException e) {
+                System.out.println(e.getMessage());
+            }
         }
         logger.log(Level.FINE, "Retrieved exercise data from file.");
         return exercises;
     }
 
-    private void decodeExerciseData(ExerciseList exercises, String line) {
-        String[] exerciseDetails = line.split(FILE_TEXT_DELIMITER);
-        if (exerciseDetails.length != EXERCISE_LENGTH) {
+    private void decodeExerciseDataFromString(ExerciseList exercises, String line) throws InvalidDataException {
+        try {
+            final String[] exerciseDetails = line.split(FILE_TEXT_DELIMITER);
+            final String name = exerciseDetails[1];
+            final int calories = Integer.parseInt(exerciseDetails[2]);
+            final LocalDate dateOfExercise = parseDate(exerciseDetails[3]);
+            exercises.addExercise(new Exercise(name, calories, dateOfExercise));
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in exercise list is not valid.", line);
+            throw new InvalidDataException(Storage.FILENAME_EXERCISE_LIST, line);
         }
-        String name = exerciseDetails[1];
-        int calories = Integer.parseInt(exerciseDetails[2]);
-        exercises.addExercise(new Exercise(name, calories));
     }
 
     /**
@@ -105,20 +113,35 @@ public class Decoder {
         Scanner in = new Scanner(file);
         logger.log(Level.FINE, "Decoding food list data from file...");
         while (in.hasNext()) {
-            decodeFoodData(foodItems, in.nextLine());
+            try {
+                decodeFoodDataFromString(foodItems, in.nextLine());
+            } catch (InvalidDataException e) {
+                System.out.println(e.getMessage());
+            }
         }
         logger.log(Level.FINE, "Retrieved food list data from file.");
         return foodItems;
     }
 
-    private void decodeFoodData(FoodList foodItems, String line) {
-        String[] foodDetails = line.split(FILE_TEXT_DELIMITER);
-        if (foodDetails.length != FOOD_LENGTH) {
+    private void decodeFoodDataFromString(FoodList foodItems, String line) throws InvalidDataException {
+        try {
+            final String[] foodDetails = line.split(FILE_TEXT_DELIMITER);
+            final String name = foodDetails[1];
+            final int calories = Integer.parseInt(foodDetails[2]);
+            final LocalDateTime dateTimeOfFood = parseDateTime(foodDetails[3]);
+            foodItems.addFood(new Food(name, calories, dateTimeOfFood));
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in food list is not valid.", line);
+            throw new InvalidDataException(Storage.FILENAME_FOOD_LIST, line);
         }
-        String name = foodDetails[1];
-        int calories = Integer.parseInt(foodDetails[2]);
-        foodItems.addFood(new Food(name, calories));
+    }
+
+    private LocalDate parseDate(String date) {
+        return LocalDate.parse(date, DATE_FORMATTER);
+    }
+
+    private LocalDateTime parseDateTime(String dateTime) {
+        return LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
     }
 }
 
