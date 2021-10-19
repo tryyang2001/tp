@@ -1,5 +1,6 @@
 package seedu.duke.item.food;
 
+import seedu.duke.item.Item;
 import seedu.duke.item.ItemList;
 
 import java.time.LocalDate;
@@ -20,7 +21,10 @@ public class FoodList extends ItemList {
     public static final String MESSAGE_NO_FOOD_IN_DATE_TIME =
             "There is no food item found by the given date and time period";
     public static final String MESSAGE_NO_FOOD_IN_DATE = "There is no food item found by the given date";
-    protected ArrayList<Food> foodRecords = new ArrayList<>();
+
+    public FoodList() {
+        itemList = new ArrayList<>();
+    }
 
     /**
      * Returns food item in the food list.
@@ -29,7 +33,7 @@ public class FoodList extends ItemList {
      * @return the food item with the given index
      */
     public Food getFood(int index) {
-        return this.foodRecords.get(index);
+        return this.itemList.get(index);
     }
 
     /**
@@ -39,7 +43,7 @@ public class FoodList extends ItemList {
      */
     @Override
     public int getSize() {
-        return foodRecords.size();
+        return itemList.size();
     }
 
     /**
@@ -48,7 +52,7 @@ public class FoodList extends ItemList {
      * @param food The food class object to add
      */
     public void addFood(Food food) {
-        this.foodRecords.add(food);
+        this.itemList.add(food);
     }
 
     /**
@@ -99,7 +103,7 @@ public class FoodList extends ItemList {
      * @param index The index of the food item
      */
     public Food deleteFood(int index) {
-        return foodRecords.remove(index);
+        return itemList.remove(index);
     }
 
     /**
@@ -111,11 +115,11 @@ public class FoodList extends ItemList {
      * @return The deleted food item
      */
     public Food deleteFood(int index, LocalDate date, LocalTime time) {
-        assert index >= 0 && index < foodRecords.size() : "Index cannot be out of bound";
+        assert index >= 0 && index < itemList.size() : "Index cannot be out of bound";
         LocalDateTime dateTime = date.atTime(time);
         Food deletedFood = new Food("", 0, dateTime); //constructs food object to get the time period
         int actualIndex = getActualIndex(index, deletedFood);
-        deletedFood = foodRecords.remove(actualIndex);
+        deletedFood = itemList.remove(actualIndex);
         return deletedFood;
     }
 
@@ -123,7 +127,7 @@ public class FoodList extends ItemList {
      * Deletes all the food items from the food list.
      */
     public void clearFoodList() {
-        this.foodRecords.clear();
+        this.itemList.clear();
     }
 
     /**
@@ -133,7 +137,7 @@ public class FoodList extends ItemList {
      */
     @Override
     public int getTotalCalories() {
-        int sumOfFoodCalorie = foodRecords.stream().mapToInt(Food::getCalories).sum();
+        int sumOfFoodCalorie = itemList.stream().mapToInt(Food::getCalories).sum();
         assert sumOfFoodCalorie >= 0 : "Total calories cannot less than 0";
         return sumOfFoodCalorie;
     }
@@ -145,7 +149,7 @@ public class FoodList extends ItemList {
      * @return Integer value of the sum of calorie of all food items consumed in the given date
      */
     public int getTotalCaloriesWithDate(LocalDate date) {
-        int sumOfFoodCalorie = foodRecords.stream()
+        int sumOfFoodCalorie = itemList.stream()
                 .filter(f -> f.getDate().isEqual(date))
                 .mapToInt(Food::getCalories)
                 .sum();
@@ -157,7 +161,7 @@ public class FoodList extends ItemList {
      * Sorts the food list in ascending format according to the date and time.
      */
     public void sortFoodList() {
-        this.foodRecords.sort(Comparator.comparing(Food::getDateTime));
+        this.itemList.sort(Comparator.comparing(Food::getDateTime));
     }
 
     /**
@@ -166,7 +170,7 @@ public class FoodList extends ItemList {
      * @return The integer value count which indicates the number of food items consumed at night
      */
     public int getSupperCount() {
-        return (int) foodRecords.stream().filter(f -> f.getTimePeriod().equals(TimePeriod.Night)).count();
+        return (int) itemList.stream().filter(f -> f.getTimePeriod().equals(TimePeriod.Night)).count();
     }
 
     /**
@@ -177,7 +181,7 @@ public class FoodList extends ItemList {
      * @return The actual index of the food item in the entire food list
      */
     private int getActualIndex(int index, Food deletedFood) {
-        for (int i = 0; i < foodRecords.size(); i++) {
+        for (int i = 0; i < itemList.size(); i++) {
             if (isFoodToDelete(deletedFood, i, index)) {
                 return i + index;
             }
@@ -194,9 +198,9 @@ public class FoodList extends ItemList {
      * @return True if the current food item is the food to delete, false otherwise
      */
     private boolean isFoodToDelete(Food deletedFood, int currentIndex, int index) {
-        boolean isSameDate = foodRecords.get(currentIndex).getDate().equals(deletedFood.getDate());
-        boolean isSameTimePeriod = foodRecords.get(currentIndex).getTimePeriod().equals(deletedFood.getTimePeriod());
-        boolean hasTheIndex = foodRecords.get(currentIndex + index).getTimePeriod().equals(deletedFood.getTimePeriod());
+        boolean isSameDate = itemList.get(currentIndex).getDate().equals(deletedFood.getDate());
+        boolean isSameTimePeriod = itemList.get(currentIndex).getTimePeriod().equals(deletedFood.getTimePeriod());
+        boolean hasTheIndex = itemList.get(currentIndex + index).getTimePeriod().equals(deletedFood.getTimePeriod());
         return isSameDate && isSameTimePeriod && hasTheIndex;
     }
 
@@ -236,7 +240,7 @@ public class FoodList extends ItemList {
      * @return The array list which contains food items with same date and time period as provided
      */
     private ArrayList<Food> filterListAccordingToDateAndTimePeriod(LocalDate date, TimePeriod timePeriod) {
-        return (ArrayList<Food>) this.foodRecords.stream()
+        return (ArrayList<Food>) this.itemList.stream()
                 .filter(f -> f.getDate().isEqual(date) && f.getTimePeriod().equals(timePeriod))
                 .collect(Collectors.toList());
     }
@@ -273,11 +277,11 @@ public class FoodList extends ItemList {
      */
     private StringBuilder extractFoodListByEachDateAndTimePeriod() {
         StringBuilder foodListInString = new StringBuilder(); //declares as StringBuilder for mutable String object
-        for (int index = 0; index < foodRecords.size(); index++) {
-            LocalDate currentDate = foodRecords.get(index).getDate();
+        for (int index = 0; index < itemList.size(); index++) {
+            LocalDate currentDate = itemList.get(index).getDate();
             FoodList subList = new FoodList();
-            while (index < foodRecords.size() && currentDate.isEqual(foodRecords.get(index).getDate())) {
-                subList.addFood(foodRecords.get(index++));
+            while (index < itemList.size() && currentDate.isEqual(itemList.get(index).getDate())) {
+                subList.addFood(itemList.get(index++));
             }
             assert subList.getSize() > 0 : "Sub list should not be empty.";
             convertItemCountToString(foodListInString, subList.getSize(), currentDate, MESSAGE_FOOD_CONSUMED);
@@ -286,7 +290,7 @@ public class FoodList extends ItemList {
                     foodListInString,
                     this.getTotalCaloriesWithDate(currentDate),
                     MESSAGE_TOTAL_CALORIE_CONSUMED);
-            if (index < foodRecords.size()) {
+            if (index < itemList.size()) {
                 foodListInString.append(ItemList.LS); //prevents last line spacing
             }
             index--; //prevents double adding of index
@@ -370,7 +374,7 @@ public class FoodList extends ItemList {
      */
     private StringBuilder extractFoodListBySpecificDate(LocalDate date) {
         StringBuilder foodListInString = new StringBuilder(); //declares as StringBuilder for mutable String object
-        ArrayList<Food> subList = (ArrayList<Food>) this.foodRecords.stream()
+        ArrayList<Food> subList = (ArrayList<Food>) this.itemList.stream()
                 .filter(f -> f.getDate().isEqual(date))
                 .collect(Collectors.toList());
         if (subList.size() == 0) {

@@ -45,6 +45,13 @@ public class Food extends Item {
         setTimePeriod(this.dateTime);
     }
 
+    public Food(String name, int calories, LocalDate date, LocalTime time) {
+        super(name, calories);
+        LocalDateTime dateTime = date.atTime(time);
+        this.dateTime = dateTime;
+        setTimePeriod(this.dateTime);
+    }
+
     /**
      * Gets the date and time of the food consumed.
      *
@@ -74,6 +81,16 @@ public class Food extends Item {
     }
 
     /**
+     * Updates the date of the food consumed.
+     *
+     * @param date The new date of the food consumed in LocalDate
+     */
+    public void setDate(LocalDate date) {
+        LocalTime time = this.dateTime.toLocalTime();
+        setDateTime(date.atTime(time));
+    }
+
+    /**
      * Gets the time of the food consumed.
      *
      * @return The time of the food consumed in LocalTime
@@ -83,7 +100,18 @@ public class Food extends Item {
     }
 
     /**
+     * Updates the time of the food consumed.
+     *
+     * @param time The new time of the food consumed
+     */
+    public void setTime(LocalTime time) {
+        LocalDate date = this.dateTime.toLocalDate();
+        setDateTime(date.atTime(time));
+    }
+
+    /**
      * Gets the time period of the food consumed.
+     *
      * @return TimePeriod enum which represents the time period
      */
     public TimePeriod getTimePeriod() {
@@ -95,13 +123,12 @@ public class Food extends Item {
      *
      * @return Name, calorie, date and time of the food in string
      */
+    @Override
     public String toFileTextString() {
         return FOOD_TYPE
                 + super.toFileTextString()
                 + FILE_TEXT_DELIMITER
-                + this.getDate().format(DATE_FORMATTER)
-                + FILE_TEXT_DELIMITER
-                + this.getTime().format(TIME_FORMATTER);
+                + this.getDateTime().format(DATE_TIME_FORMATTER);
     }
 
     /**

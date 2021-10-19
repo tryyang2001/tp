@@ -54,6 +54,7 @@ public class Exercise extends Item {
      *
      * @return Name, calorie and date of the exercise in string
      */
+    @Override
     public String toFileTextString() {
         return EXERCISE_TYPE
                 + super.toFileTextString()
