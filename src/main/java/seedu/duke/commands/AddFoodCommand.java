@@ -26,8 +26,7 @@ public class AddFoodCommand extends Command {
             COMMAND_PREFIX_FOOD,
             COMMAND_PREFIX_CALORIES,
             COMMAND_PREFIX_DATE,
-            COMMAND_PREFIX_TIME
-    };
+            COMMAND_PREFIX_TIME};
 
     private Logger logger = Logger.getLogger(AddFoodCommand.class.getName());
     private String description;

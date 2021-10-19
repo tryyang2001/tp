@@ -35,7 +35,7 @@ public class ItemBank {
         return listToString.toString().stripTrailing();
     }
 
-    public int getCaloriesOfItemWithMatchingName(String inputName) throws ItemNotFoundInBankException {
+    public int getCaloriesOfItemWithMatchingName(String inputName) throws ItemNotFoundInBankException{
         Item matchingItem = internalItems
                 .stream()
                 .filter(item -> item.name.equalsIgnoreCase(inputName))

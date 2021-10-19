@@ -22,7 +22,6 @@ import seedu.duke.commands.ViewExerciseBankCommand;
 import seedu.duke.commands.ViewExerciseListCommand;
 import seedu.duke.commands.ViewFoodBankCommand;
 import seedu.duke.commands.ViewFoodListCommand;
-import seedu.duke.commands.ViewFutureExerciseListCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -81,6 +80,13 @@ class ParserTest {
         parseAndAssertCommandType("add e/ c/120", InvalidCommand.class);
     }
 
+    @Test
+    void parseAddCommand_caloriesNotGiven_invalidCommand() {
+        parseAndAssertCommandType("add f/potato", InvalidCommand.class);
+        parseAndAssertCommandType("add f/potato c/", InvalidCommand.class);
+        parseAndAssertCommandType("add e/hiit", InvalidCommand.class);
+        parseAndAssertCommandType("add e/hiit c/", InvalidCommand.class);
+    }
 
     @Test
     void parseAddCommand_caloriesNotANumber_caloriesNotNumberMessage() {
@@ -114,10 +120,44 @@ class ParserTest {
 
     @Test
     void parseCalculateBmiCommand_parametersInvalid_errorMessage() {
-        parseAndAssertIncorrectWithMessage(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "height"),
-                "BMI w/20 h/potato");
-        parseAndAssertIncorrectWithMessage(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "weight"),
-                "BMI h/20 w/potato");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_HEIGHT, "BMI w/20 h/potato");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_WEIGHT, "BMI w/potato h/20");
+    }
+
+
+    @Test
+    void parseChangeHeightCommand_correctInput_changeHeightCommand() {
+        parseAndAssertCommandType("height 50", ChangeHeightCommand.class);
+    }
+
+    @Test
+    void parseChangeHeightCommand_heightNotGiven_invalidCommand() {
+        parseAndAssertCommandType("height", InvalidCommand.class);
+    }
+
+    @Test
+    void parseChangeHeightCommand_heightNotANumber_errorMessage() {
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NOT_A_NUMBER, "height abc");
+    }
+
+    @Test
+    void parseChangeNameCommand_correctInput_changeNameCommand() {
+        parseAndAssertCommandType("name hello", ChangeNameCommand.class);
+    }
+
+    @Test
+    void parseChangeWeightCommand_correctInput_changeWeightCommand() {
+        parseAndAssertCommandType("weight 50", ChangeWeightCommand.class);
+    }
+
+    @Test
+    void parseChangeWeightCommand_weightNotGiven_invalidCommand() {
+        parseAndAssertCommandType("weight", InvalidCommand.class);
+    }
+
+    @Test
+    void parseChangeWeightCommand_weightNotANumber_errorMessage() {
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NOT_A_NUMBER, "weight abc");
     }
 
     @Test
@@ -148,6 +188,20 @@ class ParserTest {
         parseAndAssertCommandType("overview", OverviewCommand.class);
     }
 
+    @Test
+    void parseProfileCreateCommand_correctInput_ProfileCreateCommand() {
+        parseAndAssertCommandType("profile n/hello w/50 h/80 g/50 ", ProfileCreateCommand.class);
+        parseAndAssertCommandType("profile g/100 w/50 h/80 n/hi potato", ProfileCreateCommand.class);
+        parseAndAssertCommandType("profile h/50 n/hello potato g/20 w/20", ProfileCreateCommand.class);
+    }
+
+    @Test
+    void parseProfileCreateCommand_parametersNotGiven_invalidCommand() {
+        parseAndAssertCommandType("profile n/ ", InvalidCommand.class);
+        parseAndAssertCommandType("profile h/", InvalidCommand.class);
+        parseAndAssertCommandType("profile w/", InvalidCommand.class);
+        parseAndAssertCommandType("profile n/ h/", InvalidCommand.class);
+    }
 
     @Test
     void parseProfileCreateCommand_parametersInvalid_tooManyDelimitersMessage() {
@@ -166,7 +220,6 @@ class ParserTest {
         parseAndAssertCommandType("view", ViewCommand.class);
         parseAndAssertCommandType("view e/", ViewExerciseListCommand.class);
         parseAndAssertCommandType("view f/", ViewFoodListCommand.class);
-        parseAndAssertCommandType("view u/", ViewFutureExerciseListCommand.class);
         parseAndAssertCommandType("view fbank/", ViewFoodBankCommand.class);
         parseAndAssertCommandType("view ebank/", ViewExerciseBankCommand.class);
     }

@@ -81,8 +81,8 @@ public abstract class Command {
         this.exerciseItems = exerciseItems;
         this.foodItems = foodItems;
         this.futureExerciseItems = futureExerciseItems;
-        this.exerciseBank = exerciseBank;
-        this.foodBank = foodBank;
+            this.exerciseBank = exerciseBank;
+            this.foodBank = foodBank;
         assert profile != null : "Profile supplied to command should not be null";
         assert exerciseItems != null : "Exercise items supplied to command should not be null";
         assert foodItems != null : "Food items supplied to command should not be null";

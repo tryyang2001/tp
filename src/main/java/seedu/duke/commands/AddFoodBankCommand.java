@@ -19,8 +19,7 @@ public class AddFoodBankCommand extends Command {
             + LS + "Try a positive value instead";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD_BANK,
-            COMMAND_PREFIX_CALORIES
-    };
+            COMMAND_PREFIX_CALORIES};
 
     private static Logger logger = Logger.getLogger(AddFoodBankCommand.class.getName());
 
