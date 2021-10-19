@@ -1,8 +1,7 @@
 package seedu.duke.parser.exceptions;
 
 /**
- * Represents an error where the user did not specify a required parameter,
- * or parameter specified is invalid for the command.
+ * Represents an error where the parameter specified is invalid for the command.
  */
 public class ParamInvalidException extends Exception {
     private static String errorMessage;

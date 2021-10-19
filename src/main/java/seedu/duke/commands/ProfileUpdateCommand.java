@@ -1,44 +1,52 @@
 package seedu.duke.commands;
 
+import seedu.duke.profile.Profile;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
-import seedu.duke.ui.Ui;
 
-//TODO Update this class with ProfileCreateCommand once done modifying it to accommodate extra attributes
 
 /**
- * Represents the command that when executed, changes the value of name, height and weight in the Profile.
+ * Represents the command that when executed, changes the value of attributes in the Profile.
  */
 public class ProfileUpdateCommand extends Command {
-    public static int COMMAND_EXPECTED_NUM_DELIMITERS = 7;
-    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD_PROFILE
+    //TODO: Update this
+    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_PROFILE
             + " " + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "W "
             + COMMAND_PREFIX_HEIGHT + COMMAND_PREFIX_DELIMITER + "X "
             + COMMAND_PREFIX_WEIGHT + COMMAND_PREFIX_DELIMITER + "Y "
             + COMMAND_PREFIX_GOAL + COMMAND_PREFIX_DELIMITER + "Z"
-            + Ui.QUOTATION + " where W is your name, X is your height in CM,"
-            + Ui.INDENTED_LS + "Y is your weight in KG and Z is your calorie goal.";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to create your profile? Use this format:"
-            + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "Hello %1$s! Your profile has been created!"
-            + Ui.INDENTED_LS + "Your height is %2$scm."
-            + Ui.INDENTED_LS + "Your weight is %3$skg."
-            + Ui.INDENTED_LS + "Your calories goal is %4$s cal.";
+            + QUOTATION + " where W is your name, X is your height in CM,"
+            + INDENTED_LS + "Y is your weight in KG and Z is your calorie goal.";
+    public static final String MESSAGE_SUCCESS = "Hello %1$s! Your profile has been updated!"
+            + INDENTED_LS + "Your height is %2$scm."
+            + INDENTED_LS + "Your weight is %3$skg."
+            + INDENTED_LS + "Your calories goal is %4$s cal."
+            + INDENTED_LS + "Your gender is %5$s."
+            + INDENTED_LS + "Your age is %6$s."
+            + INDENTED_LS + "Your activity factor is %7$s.";
+    public static final String[] EXPECTED_PREFIXES = {
+            COMMAND_PREFIX_NAME,
+            COMMAND_PREFIX_HEIGHT,
+            COMMAND_PREFIX_WEIGHT,
+            COMMAND_PREFIX_GOAL,
+            COMMAND_PREFIX_AGE,
+            COMMAND_PREFIX_ACTIVITY_FACTOR,
+            COMMAND_PREFIX_GENDER};
 
-    private final String name;
-    private final double weight;
-    private final double height;
-    private final int calorieGoal;
-    private final int age;
-    private final int activityFactor;
-    private final char gender;
+
+    private String name;
+    private double weight;
+    private double height;
+    private int calorieGoal;
+    private int age;
+    private int activityFactor;
+    private char gender;
 
 
     public ProfileUpdateCommand(String name, double height, double weight, int calorieGoal, int age,
                                 int activityFactor, char gender) {
         this.name = name;
         this.height = height;
-        this.weight = weight;
+        this.weight =  weight;
         this.calorieGoal = calorieGoal;
         this.gender = gender;
         this.age = age;
@@ -48,43 +56,34 @@ public class ProfileUpdateCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            if (!this.name.equals("")) {
-                super.profile.setName(this.name);
-            }
+            this.name = name.equals(NULL_STRING) ? super.profile.getName() : name;
+            this.height = height == NULL_DOUBLE ? super.profile.getHeight() : height;
+            this.weight = weight == NULL_DOUBLE ? super.profile.getWeight() : weight;
+            this.calorieGoal = calorieGoal == NULL_INT ? super.profile.getCalorieGoal() : calorieGoal;
+            this.gender = gender == NULL_CHAR ? super.profile.getGender() : gender;
+            this.age = age == NULL_INT ? super.profile.getAge() : age;
+            this.activityFactor = activityFactor == NULL_INT ? super.profile.getActivityFactor() : activityFactor;
 
-            if (this.height != 0.0) {
-                super.profile.setHeight(this.height);
-            }
+            Profile tempProfile = new Profile(this.name, this.height, this.weight, this.calorieGoal);
+            super.profile.setProfile(this.name, this.height, this.weight,
+                    this.calorieGoal);
 
-            if (this.weight != 0.0) {
-                super.profile.setWeight(this.weight);
-            }
-
-            if (this.calorieGoal != 0) {
-                super.profile.setCalorieGoal(this.calorieGoal);
-            }
-            //TODO Depends on what is passed from the parser, placeholder for now
-            if (this.gender != Character.MIN_VALUE) {
-                super.profile.setGender(this.gender);
-            }
-
-            if (this.age != 0) {
-                super.profile.setAge(this.age);
-            }
-
-            if (this.activityFactor != 0) {
-                super.profile.setActivityFactor(activityFactor);
-            }
+            /*TODO: After storage of profile is updated
+            Profile tempProfile = new Profile(this.name, this.height, this.weight, this.calorieGoal,
+                    this.gender, this.age, this.activityFactor);
+            super.profile.setProfile(this.name, this.height, this.weight,
+                    this.calorieGoal, this.gender, this.age, this.activityFactor);
+            */
 
             return new CommandResult(String.format(
                     MESSAGE_SUCCESS,
-                    this.name,
-                    this.height,
-                    this.weight,
-                    this.calorieGoal,
-                    this.gender,
-                    this.age,
-                    this.activityFactor));
+                    super.profile.getName(),
+                    super.profile.getHeight(),
+                    super.profile.getWeight(),
+                    super.profile.getCalorieGoal(),
+                    super.profile.getGender(),
+                    super.profile.getAge(),
+                    super.profile.getActivityFactor()));
         } catch (InvalidCharacteristicException e) {
             return new CommandResult(e.getMessage());
         }

@@ -1,7 +1,5 @@
 package seedu.duke.commands;
 
-import seedu.duke.ui.Ui;
-
 /**
  * Represents the command that when executed, shows the value of name, height and weight in the Profile.
  */
@@ -18,6 +16,7 @@ public class ProfileCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        //TODO: Change the format of this. 1. Profile attributes should not be empty. 2. Missing attributes in message
         final String nameString = super.profile.getName() == null
                 ? String.format(MESSAGE_NO_INFO, "name", ChangeNameCommand.MESSAGE_COMMAND_FORMAT)
                 : String.format(MESSAGE_NAME, super.profile.getName());
@@ -31,9 +30,9 @@ public class ProfileCommand extends Command {
                 ? String.format(MESSAGE_NO_INFO, "calorie goal", SetGoalCommand.MESSAGE_COMMAND_FORMAT)
                 : String.format(MESSAGE_CALORIE_GOAL, super.profile.getCalorieGoal());
         return new CommandResult(MESSAGE_SUCCESS
-                + Ui.INDENTED_LS + nameString
-                + Ui.INDENTED_LS + heightString
-                + Ui.INDENTED_LS + weightString
-                + Ui.INDENTED_LS + calorieGoalString);
+                + INDENTED_LS + nameString
+                + INDENTED_LS + heightString
+                + INDENTED_LS + weightString
+                + INDENTED_LS + calorieGoalString);
     }
 }

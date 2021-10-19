@@ -9,8 +9,11 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class ExerciseList extends ItemList {
-    public static final String MESSAGE_EXERCISE_DONE = "You have done %d exercise(s) in %s (%s):";
+    public static final String MESSAGE_EXERCISE_DONE = "You have done %d exercise(s) on %s (%s):";
     public static final String MESSAGE_TOTAL_CALORIE_BURNT = "Total calories burnt: %d cal";
+    public static final String MESSAGE_EXERCISE = "%d. %s";
+    public static final String DATE_FORMAT = "dd MMM yyyy";
+
     protected ArrayList<Exercise> exerciseList = new ArrayList<>();
 
     /**
@@ -49,15 +52,17 @@ public class ExerciseList extends ItemList {
      */
     public void addExercise(Exercise exercise) {
         this.exerciseList.add(exercise);
+        this.sortExerciseList();
     }
 
     /**
      * Deletes an exercise item from the exercise list.
      *
      * @param index Index of the exercise to be deleted.
+     * @return Exercise object removed.
      */
     public Exercise deleteExercise(int index) {
-        return exerciseList.remove(index);
+        return this.exerciseList.remove(index);
     }
 
     /**
@@ -85,7 +90,7 @@ public class ExerciseList extends ItemList {
     /**
      * Computes the sum of calorie of all exercises in exercise list.
      *
-     * @return Integer value of the sum of calorie of all exercises.
+     * @return Integer value of the sum of calorie of all exercises in the exercise list.
      */
     @Override
     public int getTotalCalories() {
