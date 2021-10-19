@@ -40,13 +40,13 @@ public class ProfileUpdateCommand extends Command {
             COMMAND_PREFIX_GENDER};
 
 
-    private Name name = new Name("");
-    private Weight weight;
-    private Height height;
-    private CalorieGoal calorieGoal;
-    private Age age;
-    private ActivityFactor activityFactor;
-    private Gender gender;
+    private Name name = new Name();
+    private Weight weight = new Weight();
+    private Height height = new Height();
+    private CalorieGoal calorieGoal = new CalorieGoal();
+    private Age age = new Age();
+    private ActivityFactor activityFactor = new ActivityFactor();
+    private Gender gender = new Gender();
 
 
     public ProfileUpdateCommand(String name, double height, double weight, int calorieGoal, int age,
@@ -89,11 +89,11 @@ public class ProfileUpdateCommand extends Command {
             this.weight = weight.getWeight() == NULL_DOUBLE ? super.profile.getProfileWeight() : weight;
             this.gender = gender.getGender() == NULL_CHAR ? super.profile.getProfileGender() : gender;
             this.age = age.getAge() == NULL_INT ? super.profile.getProfileAge() : age;
-            this.calorieGoal = calorieGoal.getCalorieGoal() == NULL_INT ?
-                    super.profile.getProfileCalorieGoal()
+            this.calorieGoal = calorieGoal.getCalorieGoal() == NULL_INT
+                    ? super.profile.getProfileCalorieGoal()
                     : calorieGoal;
-            this.activityFactor = activityFactor.getActivityFactor() == NULL_INT ?
-                    super.profile.getProfileActivityFactor()
+            this.activityFactor = activityFactor.getActivityFactor() == NULL_INT
+                    ? super.profile.getProfileActivityFactor()
                     : activityFactor;
 
             checkIfCommandShouldExecute();

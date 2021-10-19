@@ -1,7 +1,7 @@
 package seedu.duke.profile.attributes;
 
 /**
- * Name attribute of profile
+ * Name attribute of profile.
  */
 public class Name implements Verifiable {
 

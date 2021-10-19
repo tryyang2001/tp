@@ -1,7 +1,7 @@
 package seedu.duke.profile.attributes;
 
 /**
- * Weight attribute of profile
+ * Weight attribute of profile.
  */
 public class Weight implements Verifiable {
 

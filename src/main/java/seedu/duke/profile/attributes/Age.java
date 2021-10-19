@@ -14,7 +14,7 @@ public class Age implements Verifiable {
     }
 
     /**
-     * Constructs an age object
+     * Constructs an age object.
      *
      * @param age age input by user
      */

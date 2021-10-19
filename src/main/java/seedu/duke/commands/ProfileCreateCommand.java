@@ -39,7 +39,7 @@ public class ProfileCreateCommand extends Command {
     private Gender gender;
 
     public ProfileCreateCommand(String name, double height, double weight, char gender,
-                                int age, int calorieGoal, int activityFactor ) {
+                                int age, int calorieGoal, int activityFactor) {
         assert name != null : "parser should have ensured name is not null";
         this.name.setName(name);
         this.height.setHeight(height);

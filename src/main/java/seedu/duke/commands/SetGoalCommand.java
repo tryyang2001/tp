@@ -14,7 +14,7 @@ public class SetGoalCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Your goal has been set!"
             + LS + "Current net calorie goal per day: %s";
 
-    private CalorieGoal calorieGoal;
+    private CalorieGoal calorieGoal = new CalorieGoal();
 
     public SetGoalCommand(int calorieGoal) {
         this.calorieGoal.setCalorieGoal(calorieGoal);
