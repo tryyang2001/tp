@@ -44,6 +44,11 @@ public abstract class Command {
     public static final String MESSAGE_EMPTY_FOOD_BANK = "No food items yet in the food bank!";
     public static final String MESSAGE_ONLY_ONE_IN_LIST = "You have only 1 item in the list!";
     public static final String MESSAGE_LIST_OUT_OF_BOUNDS = "Please input a valid item number from 1 to %s";
+    public static final double NULL_DOUBLE = 0;
+    public static final int NULL_INT = 0;
+    public static final char NULL_CHAR = Character.MIN_VALUE;
+    public static final int NULL_CALORIES = -1;
+    public static final String NULL_STRING = "";
 
     protected Profile profile;
     protected ExerciseList exerciseItems;

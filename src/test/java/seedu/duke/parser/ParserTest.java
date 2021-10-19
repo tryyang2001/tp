@@ -13,8 +13,6 @@ import seedu.duke.commands.ChangeHeightCommand;
 import seedu.duke.commands.ChangeNameCommand;
 import seedu.duke.commands.ChangeWeightCommand;
 import seedu.duke.commands.Command;
-import seedu.duke.commands.DeleteExerciseCommand;
-import seedu.duke.commands.DeleteFoodCommand;
 import seedu.duke.commands.HelpCommand;
 import seedu.duke.commands.InvalidCommand;
 import seedu.duke.commands.OverviewCommand;
@@ -31,10 +29,9 @@ import static seedu.duke.parser.Parser.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_ILLEGAL_CHARACTER;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_CALORIES_INFO;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_NOT_A_NUMBER;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_GOAL;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_HEIGHT;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_NAME;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_NO_WEIGHT;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_GOAL;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_HEIGHT;
+import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_WEIGHT;
 import static seedu.duke.parser.Parser.MESSAGE_ERROR_TOO_MANY_DELIMITERS;
 
 
@@ -123,8 +120,8 @@ class ParserTest {
 
     @Test
     void parseCalculateBmiCommand_parametersInvalid_errorMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_HEIGHT, "BMI w/20 h/potato");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_WEIGHT, "BMI w/potato h/20");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_HEIGHT, "BMI w/20 h/potato");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_WEIGHT, "BMI w/potato h/20");
     }
 
 
@@ -207,17 +204,15 @@ class ParserTest {
     }
 
     @Test
-    void parseProfileCreateCommand_parametersInvalid_parametersMissingMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_NAME,"profile n/h/50w/20 g/20 ");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_HEIGHT,"profile n/hello h/no w/50 g/20");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_WEIGHT, "profile n/hello h/50 w/no g/30");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_GOAL, "profile n/hello h/50 w/50 g/no");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/hi/ h/50 w/20 g/30");
+    void parseProfileCreateCommand_parametersInvalid_tooManyDelimitersMessage() {
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/hi n/hello");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/h/i n/hello");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/h/i z/hello");
     }
 
     @Test
     void parseSetGoalCommand_parametersNotGivenOrInvalid_notANumberMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_NO_GOAL, "goal", "goal nope");
+        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_GOAL, "goal", "goal nope");
     }
 
     @Test

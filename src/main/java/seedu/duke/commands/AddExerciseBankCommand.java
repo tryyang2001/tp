@@ -19,6 +19,9 @@ public class AddExerciseBankCommand extends Command {
             + INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
             + LS + "Try a positive value instead";
+    public static final String[] EXPECTED_PREFIXES = {
+            COMMAND_PREFIX_EXERCISE_BANK,
+            COMMAND_PREFIX_CALORIES};
 
     private static Logger logger = Logger.getLogger(AddExerciseBankCommand.class.getName());
 

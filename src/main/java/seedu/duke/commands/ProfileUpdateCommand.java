@@ -8,6 +8,7 @@ import seedu.duke.profile.exceptions.InvalidCharacteristicException;
  * Represents the command that when executed, changes the value of attributes in the Profile.
  */
 public class ProfileUpdateCommand extends Command {
+    //TODO: Update this
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_PROFILE
             + " " + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "W "
             + COMMAND_PREFIX_HEIGHT + COMMAND_PREFIX_DELIMITER + "X "
@@ -25,6 +26,15 @@ public class ProfileUpdateCommand extends Command {
             + INDENTED_LS + "Your gender is %5$s."
             + INDENTED_LS + "Your age is %6$s."
             + INDENTED_LS + "Your activity factor is %7$s.";
+    public static final String[] EXPECTED_PREFIXES = {
+            COMMAND_PREFIX_NAME,
+            COMMAND_PREFIX_HEIGHT,
+            COMMAND_PREFIX_WEIGHT,
+            COMMAND_PREFIX_GOAL,
+            COMMAND_PREFIX_AGE,
+            COMMAND_PREFIX_ACTIVITY_FACTOR,
+            COMMAND_PREFIX_GENDER};
+
 
     private String name;
     private double weight;
@@ -49,13 +59,13 @@ public class ProfileUpdateCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            this.name = name.equals("") ? super.profile.getName() : name;
-            this.height = height == 0.0 ? super.profile.getHeight() : height;
-            this.weight = weight == 0.0 ? super.profile.getWeight() : weight;
-            this.calorieGoal = calorieGoal == 0 ? super.profile.getCalorieGoal() : calorieGoal;
-            this.gender = gender == Character.MIN_VALUE ? super.profile.getGender() : gender;
-            this.age = age == 0 ? super.profile.getAge() : age;
-            this.activityFactor = activityFactor == 0 ? super.profile.getActivityFactor() : activityFactor;
+            this.name = name.equals(NULL_STRING)? super.profile.getName() : name;
+            this.height = height == NULL_DOUBLE ? super.profile.getHeight() : height;
+            this.weight = weight == NULL_DOUBLE ? super.profile.getWeight() : weight;
+            this.calorieGoal = calorieGoal == NULL_INT ? super.profile.getCalorieGoal() : calorieGoal;
+            this.gender = gender == NULL_CHAR ? super.profile.getGender() : gender;
+            this.age = age == NULL_INT ? super.profile.getAge() : age;
+            this.activityFactor = activityFactor == NULL_INT ? super.profile.getActivityFactor() : activityFactor;
 
             Profile tempProfile = new Profile(this.name, this.height, this.weight, this.calorieGoal);
             super.profile.setProfile(this.name, this.height, this.weight,

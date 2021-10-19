@@ -16,6 +16,8 @@ public class DeleteFoodBankCommand extends Command {
             + INDENTED_LS + "%s"
             + LS + "Number of food item(s) left in the food bank: %2$d";
     private static final String MESSAGE_FOOD_CLEAR = "All food items in the food bank have been removed.";
+    public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_FOOD_BANK};
+
 
     private static Logger logger = Logger.getLogger(DeleteFoodBankCommand.class.getName());
 

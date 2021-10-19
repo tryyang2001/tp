@@ -16,6 +16,9 @@ public class DeleteExerciseBankCommand extends Command {
             + INDENTED_LS + "%s"
             + LS + "Number of exercise item(s) left in the exercise bank: %2$d";
     private static final String MESSAGE_EXERCISE_CLEAR = "All exercise items in the exercise bank have been removed.";
+    public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_EXERCISE_BANK};
+
+
 
     private static Logger logger = Logger.getLogger(DeleteExerciseBankCommand.class.getName());
 

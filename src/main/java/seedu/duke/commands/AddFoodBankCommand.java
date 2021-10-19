@@ -20,6 +20,9 @@ public class AddFoodBankCommand extends Command {
             + INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_FOOD_CALORIES = "Food calories cannot be less than 0"
             + LS + "Try a positive value instead";
+    public static final String[] EXPECTED_PREFIXES = {
+            COMMAND_PREFIX_FOOD_BANK,
+            COMMAND_PREFIX_CALORIES};
 
     private static Logger logger = Logger.getLogger(AddFoodBankCommand.class.getName());
 

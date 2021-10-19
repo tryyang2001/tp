@@ -14,6 +14,9 @@ public class CalculateBmiCommand extends Command {
             + "Trying to calculate BMI for a certain height and weight? Use this format:"
             + INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "The calculated BMI value is %1$,.1f (%2$s)";
+    public static final String[] EXPECTED_PREFIXES = {
+            COMMAND_PREFIX_HEIGHT,
+            COMMAND_PREFIX_WEIGHT};
 
     private final double height;
     private final double weight;

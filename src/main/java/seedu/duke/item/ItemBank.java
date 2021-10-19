@@ -35,13 +35,16 @@ public class ItemBank {
         return listToString.toString().stripTrailing();
     }
 
-    public Item getItemWithMatchingName(String inputName) {
+    public int getCaloriesOfItemWithMatchingName(String inputName) throws ItemNotFoundInBankException{
         Item matchingItem = internalItems
                 .stream()
                 .filter(item -> item.name.equalsIgnoreCase(inputName))
                 .findAny()
                 .orElse(null);
-        return matchingItem;
+        if (matchingItem == null) {
+            throw new ItemNotFoundInBankException();
+        }
+        return matchingItem.getCalories();
     }
 
 }

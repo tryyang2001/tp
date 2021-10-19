@@ -16,6 +16,7 @@ public class ProfileCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        //TODO: Change the format of this. 1. Profile attributes should not be empty. 2. Missing attributes in message
         final String nameString = super.profile.getName() == null
                 ? String.format(MESSAGE_NO_INFO, "name", ChangeNameCommand.MESSAGE_COMMAND_FORMAT)
                 : String.format(MESSAGE_NAME, super.profile.getName());
