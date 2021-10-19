@@ -28,8 +28,7 @@ public class Ui {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_GRAY = "\u001B[90m";
-    private static final String MESSAGE_COMMAND_USAGE = ANSI_GRAY
-            + "[ create your %1$s by typing this format: %2$s ]" + ANSI_RESET;
+    private static final String MESSAGE_COMMAND_USAGE = "[ create your %1$s by typing this format: %2$s ]" ;
     public static final String MESSAGE_GOAL_USAGE = String.format(MESSAGE_COMMAND_USAGE,
                     "goal", SetGoalCommand.MESSAGE_COMMAND_FORMAT);
     public static final String MESSAGE_WEIGHT_USAGE = String.format(MESSAGE_COMMAND_USAGE,
