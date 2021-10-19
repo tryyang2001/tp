@@ -6,17 +6,6 @@ import seedu.duke.profile.exceptions.InvalidCharacteristicException;
  * Profile that contains the relevant data input by user.
  */
 public class Profile {
-
-    private static final String LS = System.lineSeparator();
-    private static final String ERROR_HEIGHT = "Height cannot be less than or equal to 0." + LS
-            + "Try a positive value instead!";
-    private static final String ERROR_WEIGHT = "Weight cannot be less than or equal to 0." + LS
-            + "Try a positive value instead!";
-    private static final String ERROR_GENDER = "Please type in M or F only!";
-    private static final String ERROR_AGE = "Age cannot be less than or equal to 0." + LS
-            + "Try a positive value instead!";
-    private static final String ERROR_ACTIVITY_FACTOR = "Please key in a value from 1 to 5!";
-
     private static final String BMI_STATUS_UNDERWEIGHT = "Underweight";
     private static final String BMI_STATUS_HEALTHY = "Healthy";
     private static final String BMI_STATUS_OVERWEIGHT = "Overweight";
@@ -45,32 +34,50 @@ public class Profile {
     public static final double GENDER_F_CONSTANT = 447.593;
 
     private String name;
-    private char gender;
     private double height;
     private double weight;
     private int calorieGoal;
+    private char gender;
     private int age;
     private int activityFactor;
 
+    private ProfileValidator profileValidator = new ProfileValidator();
+
     //TODO Update profile constructors and setProfile methods to more relevant attributes once merged
+
     /**
      * Constructor for the Profile class.
      *
-     * @param name   Name of user
-     * @param height Height of user
-     * @param weight Weight of user
+     * @param name        Name of user
+     * @param height      Height of user
+     * @param weight      Weight of user
+     * @param calorieGoal Calorie target of user
      * @throws InvalidCharacteristicException If a value of <= 0 is provided for height or weight
      */
     public Profile(String name, double height, double weight, int calorieGoal)
             throws InvalidCharacteristicException {
+        profileValidator.initialiseAttributesToTrue();
         setName(name);
         setHeight(height);
         setWeight(weight);
         setCalorieGoal(calorieGoal);
     }
 
+    /**
+     * Constructor for the Profile class.
+     *
+     * @param name           Name of user
+     * @param height         Height of user
+     * @param weight         Weight of user
+     * @param calorieGoal    Calorie target of user
+     * @param gender         Gender of user (M/F)
+     * @param age            Age of user
+     * @param activityFactor Activity level of user
+     * @throws InvalidCharacteristicException
+     */
     public Profile(String name, double height, double weight, int calorieGoal, char gender, int age, int activityFactor)
             throws InvalidCharacteristicException {
+        profileValidator.initialiseAttributesToTrue();
         setName(name);
         setHeight(height);
         setWeight(weight);
@@ -78,6 +85,7 @@ public class Profile {
         setGender(gender);
         setAge(age);
         setActivityFactor(activityFactor);
+
     }
 
     public Profile() {
@@ -86,14 +94,29 @@ public class Profile {
 
     public void setProfile(String name, double height, double weight, int calorieGoal)
             throws InvalidCharacteristicException {
+        profileValidator.initialiseAttributesToTrue();
         setName(name);
         setHeight(height);
         setWeight(weight);
         setCalorieGoal(calorieGoal);
     }
 
+    /**
+     * Sets the profile in ProfileUpdateCommand.
+     * Ensures the data are of valid inputs before setting them.
+     *
+     * @param name           Name of user
+     * @param height         Height of user
+     * @param weight         Weight of user
+     * @param calorieGoal    Calorie target of user
+     * @param gender         Gender of user (M/F)
+     * @param age            Age of user
+     * @param activityFactor Activity level of user
+     * @throws InvalidCharacteristicException If the data values input are not valid
+     */
     public void setProfile(String name, double height, double weight, int calorieGoal,
                            char gender, int age, int activityFactor) throws InvalidCharacteristicException {
+        profileValidator.initialiseAttributesToTrue();
         setName(name);
         setHeight(height);
         setWeight(weight);
@@ -103,28 +126,107 @@ public class Profile {
         setActivityFactor(activityFactor);
     }
 
+    /**
+     * This method is used for the checking of data integrity upon startup of the application.
+     * Ensures the user has not misappropriated the contents of the file to an invalid argument.
+     *
+     * @param name           Name of user
+     * @param height         Height of user
+     * @param weight         Weight of user
+     * @param calorieGoal    Calorie target of user
+     * @param gender         Gender of user (M/F)
+     * @param age            Age of user
+     * @param activityFactor Activity level of user
+     * @return Checks of whether each attribute is valid.
+     */
+    public boolean[] setProfileFromData(String name, double height, double weight, int calorieGoal,
+                           char gender, int age, int activityFactor) {
+        profileValidator.initialiseAttributesToTrue();
+        setNameFromData(name);
+        setHeightFromData(height);
+        setWeightFromData(weight);
+        setCalorieGoalFromData(calorieGoal);
+        setGenderFromData(gender);
+        setAgeFromData(age);
+        setActivityFactorFromData(activityFactor);
+        return profileValidator.getAttributesValidity();
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setWeight(double weight) throws InvalidCharacteristicException {
+        profileValidator.checkWeightValidity(weight);
+        this.weight = weight;
+    }
+
+    public void setHeight(double height) throws InvalidCharacteristicException {
+        profileValidator.checkHeightValidity(height);
+        this.height = height;
+    }
+
+    public void setCalorieGoal(int calorieGoal) throws InvalidCharacteristicException {
+        profileValidator.checkCalorieGoalValidity(calorieGoal);
+        this.calorieGoal = calorieGoal;
+    }
+
+    public void setGender(char gender) throws InvalidCharacteristicException {
+        profileValidator.checkGenderValidity(gender);
+        this.gender = gender;
+    }
+
+    public void setAge(int age) throws InvalidCharacteristicException {
+        profileValidator.checkAgeValidity(age);
+        this.age = age;
+    }
+
+    public void setActivityFactor(int activityFactor) throws InvalidCharacteristicException {
+        profileValidator.checkActivityFactorValidity(activityFactor);
+        this.activityFactor = activityFactor;
+    }
+
+    public void setNameFromData(String name) {
+        profileValidator.checkNameDataIntegrity(name);
+        this.name = name;
+    }
+
+    public void setWeightFromData(double weight) {
+        profileValidator.checkWeightDataIntegrity(weight);
+        this.weight = weight;
+    }
+
+    public void setHeightFromData(double height) {
+        profileValidator.checkHeightDataIntegrity(height);
+        this.height = height;
+    }
+
+    public void setCalorieGoalFromData(int calorieGoal) {
+        profileValidator.checkCalorieGoalDataIntegrity(calorieGoal);
+        this.calorieGoal = calorieGoal;
+    }
+
+    public void setGenderFromData(char gender) {
+        profileValidator.checkGenderDataIntegrity(gender);
+        this.gender = gender;
+    }
+
+    public void setAgeFromData(int age) {
+        profileValidator.checkAgeDataIntegrity(age);
+        this.age = age;
+    }
+
+    public void setActivityFactorFromData(int activityFactor) {
+        profileValidator.checkActivityFactorDataIntegrity(activityFactor);
+        this.activityFactor = activityFactor;
     }
 
     public double getHeight() {
         return this.height;
     }
 
-    public void setHeight(double height) throws InvalidCharacteristicException {
-        checkHeightValidity(height);
-        assert height > 0 : "Height cannot be non-positive.";
-        this.height = height;
-    }
-
     public double getWeight() {
         return this.weight;
-    }
-
-    public void setWeight(double weight) throws InvalidCharacteristicException {
-        checkWeightValidity(weight);
-        assert weight > 0 : "Weight cannot be non-positive.";
-        this.weight = weight;
     }
 
     public String getName() {
@@ -135,65 +237,16 @@ public class Profile {
         return this.calorieGoal;
     }
 
-    public void setCalorieGoal(int calorieGoal) {
-        this.calorieGoal = calorieGoal;
-    }
-
     public char getGender() {
         return gender;
-    }
-
-    public void setGender(char gender) throws InvalidCharacteristicException {
-        checkGenderValidity(gender);
-        this.gender = gender;
     }
 
     public int getAge() {
         return age;
     }
 
-    public void setAge(int age) throws InvalidCharacteristicException {
-        checkAgeValidity(age);
-        this.age = age;
-    }
-
     public int getActivityFactor() {
         return activityFactor;
-    }
-
-    public void setActivityFactor(int activityFactor) throws InvalidCharacteristicException {
-        checkActivityFactorValidity(activityFactor);
-        this.activityFactor = activityFactor;
-    }
-
-    private static void checkWeightValidity(double weight) throws InvalidCharacteristicException {
-        if (weight <= 0) {
-            throw new InvalidCharacteristicException(ERROR_WEIGHT);
-        }
-    }
-
-    private static void checkHeightValidity(double height) throws InvalidCharacteristicException {
-        if (height <= 0) {
-            throw new InvalidCharacteristicException(ERROR_HEIGHT);
-        }
-    }
-
-    private static void checkGenderValidity(char gender) throws InvalidCharacteristicException {
-        if (!(gender == 'M' || gender == 'F')) {
-            throw new InvalidCharacteristicException(ERROR_GENDER);
-        }
-    }
-
-    private static void checkAgeValidity(int age) throws InvalidCharacteristicException {
-        if (age <= 0) {
-            throw new InvalidCharacteristicException(ERROR_AGE);
-        }
-    }
-
-    private void checkActivityFactorValidity(int activityFactor) throws InvalidCharacteristicException {
-        if (activityFactor < 1 || activityFactor > 5) {
-            throw new InvalidCharacteristicException(ERROR_ACTIVITY_FACTOR);
-        }
     }
 
     /**
@@ -230,7 +283,7 @@ public class Profile {
     private double getBaseBmrValue() {
         double bmr;
         if (gender == GENDER_M) {
-            bmr =  GENDER_M_WEIGHT_FACTOR * weight
+            bmr = GENDER_M_WEIGHT_FACTOR * weight
                     + GENDER_M_HEIGHT_FACTOR * height
                     - GENDER_M_AGE_FACTOR * age
                     + GENDER_M_CONSTANT;
@@ -250,8 +303,6 @@ public class Profile {
      * @throws InvalidCharacteristicException When the profile data integrity is compromised through modifying .txt file
      */
     public double calculateBmi() throws InvalidCharacteristicException {
-        checkHeightValidity(height);
-        checkWeightValidity(weight);
         return computeBmi(height, weight);
     }
 
@@ -265,8 +316,10 @@ public class Profile {
      * @throws InvalidCharacteristicException When the user inputs negative values for either height or weight
      */
     public static double calculateBmi(double height, double weight) throws InvalidCharacteristicException {
-        checkHeightValidity(height);
-        checkWeightValidity(weight);
+        ProfileValidator.checkHeightValidity(height);
+        ProfileValidator.checkWeightValidity(weight);
+        assert weight > 0 : "Weight cannot be non-positive.";
+        assert height > 0 : "Height cannot be non-positive.";
         return computeBmi(height, weight);
     }
 
@@ -302,7 +355,7 @@ public class Profile {
      *
      * @param foodCalories     Total intake consumption
      * @param exerciseCalories Total output exerted
-     * @return The net calories of food - exercise
+     * @return The net calories of food - (exercise + BMR)
      * @throws InvalidCharacteristicException Only if activity factor has been misappropriated in .txt file
      */
     public int calculateNetCalories(int foodCalories, int exerciseCalories) throws InvalidCharacteristicException {

@@ -1,5 +1,6 @@
 package seedu.duke.commands;
 
+import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.ui.Ui;
 
 /**
@@ -20,7 +21,11 @@ public class SetGoalCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        super.profile.setCalorieGoal(this.calorieGoal);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, super.profile.getCalorieGoal()));
+        try {
+            super.profile.setCalorieGoal(this.calorieGoal);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, super.profile.getCalorieGoal()));
+        } catch (InvalidCharacteristicException e) {
+            return new CommandResult(e.getMessage());
+        }
     }
 }
