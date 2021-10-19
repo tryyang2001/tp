@@ -7,15 +7,13 @@ import java.util.Comparator;
 
 public class FutureExerciseList extends ExerciseList {
 
-    protected ArrayList<Exercise> futureExerciseList = new ArrayList<>();
-
     /**
      * Returns the future exercise list.
      *
      * @return Future exercise list.
      */
     public ArrayList<Exercise> getFutureExerciseList() {
-        return futureExerciseList;
+        return exerciseList;
     }
 
     /**
@@ -25,7 +23,7 @@ public class FutureExerciseList extends ExerciseList {
      * @return exercise item in the future exercise list.
      */
     public Exercise getFutureExercise(int index) {
-        return this.futureExerciseList.get(index);
+        return exerciseList.get(index);
     }
 
     /**
@@ -34,7 +32,7 @@ public class FutureExerciseList extends ExerciseList {
      * @param exercise Exercise class object to be added.
      */
     public void addFutureExercise(Exercise exercise) {
-        this.futureExerciseList.add(exercise);
+        exerciseList.add(exercise);
         sortFutureExerciseList();
     }
 
@@ -45,14 +43,14 @@ public class FutureExerciseList extends ExerciseList {
      * @return Exercise object removed.
      */
     public Exercise deleteFutureExercise(int index) {
-        return futureExerciseList.remove(index);
+        return exerciseList.remove(index);
     }
 
     /**
      * Deletes all exercises in the future exercise list.
      */
     public void clearFutureExerciseList() {
-        this.futureExerciseList.clear();
+        exerciseList.clear();
     }
 
     /**
@@ -64,16 +62,16 @@ public class FutureExerciseList extends ExerciseList {
     public String convertToString() {
         StringBuilder futureExerciseListToString = new StringBuilder();
 
-        for (int i = 0; i < futureExerciseList.size(); i++) {
+        for (int i = 0; i < exerciseList.size(); i++) {
             futureExerciseListToString
                     .append(TAB)
                     .append(i + 1)
                     .append(". ")
-                    .append(futureExerciseList.get(i))
+                    .append(exerciseList.get(i))
                     .append(" (")
-                    .append(getDay(futureExerciseList.get(i).getDate()))
+                    .append(exerciseList.get(i).getDate())
                     .append(" ")
-                    .append(futureExerciseList.get(i).getDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT)))
+                    .append(exerciseList.get(i).getDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT)))
                     .append(")")
                     .append(LS);
         }
@@ -87,7 +85,7 @@ public class FutureExerciseList extends ExerciseList {
      */
     @Override
     public int getSize() {
-        return futureExerciseList.size();
+        return exerciseList.size();
     }
 
     /**
@@ -99,7 +97,7 @@ public class FutureExerciseList extends ExerciseList {
     public int getTotalCalories() {
         int sumOfExerciseCalorie = 0;
 
-        for (Exercise exercise : futureExerciseList) {
+        for (Exercise exercise : exerciseList) {
             sumOfExerciseCalorie += exercise.getCalories();
         }
         return sumOfExerciseCalorie;
@@ -110,7 +108,7 @@ public class FutureExerciseList extends ExerciseList {
      *
      */
     public void sortFutureExerciseList() {
-        this.futureExerciseList.sort(Comparator.comparing(Exercise::getDate));
+        exerciseList.sort(Comparator.comparing(Exercise::getDate));
     }
 
 }
