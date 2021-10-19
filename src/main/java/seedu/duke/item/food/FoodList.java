@@ -98,7 +98,7 @@ public class FoodList extends ItemList {
      * @return Food object removed.
      */
     public Food deleteFood(int index) {
-        return foodRecords.remove(index);
+        return this.foodRecords.remove(index);
     }
 
     /**

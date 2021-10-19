@@ -1,7 +1,6 @@
 package seedu.duke.commands;
 
 import seedu.duke.item.exercise.Exercise;
-import seedu.duke.ui.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,14 +11,18 @@ import java.util.logging.Logger;
  * Represent the command that when executed, adds all recurring Exercise items to the FutureExerciseList.
  */
 public class AddRecurringExerciseCommand extends Command {
-
-    private static final int ONE_WEEK = 7;
-    private static final int ONE_DAY = 1;
+    //TODO: finalise on command format
+    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_ADD
+            + " " + COMMAND_PREFIX_RECURRING + COMMAND_PREFIX_DELIMITER + "exercise name"
+            + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories";
     public static final String MESSAGE_INVALID_DATES = "Your start date %s is earlier than your end date %s";
     public static final String MESSAGE_NO_EXERCISE_ADDED = "Day(s) not present between %s and %s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
-            + Ui.LS + "Try a positive value instead";
+            + LS + "Try a positive value instead";
     public static final String MESSAGE_SUCCESS = "Recurring exercise item for the future has been added";
+    private static final int ONE_WEEK = 7;
+    private static final int ONE_DAY = 1;
+
 
     private final String description;
     private final int calories;

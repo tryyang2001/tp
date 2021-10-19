@@ -1,7 +1,6 @@
 package seedu.duke.commands;
 
 import seedu.duke.item.exercise.Exercise;
-import seedu.duke.ui.Ui;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,16 +9,15 @@ import java.util.logging.Logger;
  * Represents the command that when executed, deletes an Exercise item from the Future ExerciseList.
  */
 public class DeleteFutureExerciseCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD_DELETE
-            + " " + COMMAND_PREFIX_EXERCISE + COMMAND_PREFIX_DELIMITER + "X" + Ui.QUOTATION
+    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_DELETE
+            + " " + COMMAND_PREFIX_UPCOMING_EXERCISE + COMMAND_PREFIX_DELIMITER + "X" + QUOTATION
             + ", where X is the item number in the future exercise list";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to delete an exercise item? Use this format:"
-            + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "An exercise item for the future has been deleted:"
-            + Ui.INDENTED_LS + "%s"
-            + Ui.LS + "Number of exercise item(s) left: %2$d";
+            + INDENTED_LS + "%s"
+            + LS + "Number of exercise item(s) left: %2$d";
     private static final String MESSAGE_FUTURE_EXERCISE_CLEAR = "All future exercise items have been removed.";
+    public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_UPCOMING_EXERCISE};
+
 
     private static Logger logger = Logger.getLogger(DeleteFutureExerciseCommand.class.getName());
 

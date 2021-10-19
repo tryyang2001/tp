@@ -84,6 +84,7 @@ public class Food extends Item {
 
     /**
      * Gets the time period of the food consumed.
+     *
      * @return TimePeriod enum which represents the time period
      */
     public TimePeriod getTimePeriod() {

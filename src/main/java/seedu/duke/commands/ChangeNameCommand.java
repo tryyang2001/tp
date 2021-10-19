@@ -1,20 +1,18 @@
 package seedu.duke.commands;
 
-import seedu.duke.ui.Ui;
-
 /**
  * Represents the command that when executed, changes the value of name in the Profile.
  */
 public class ChangeNameCommand extends Command {
     public static final String COMMAND_WORD = "name";
-    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD
-            + " X" + Ui.QUOTATION + ", where X is your name";
+    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD
+            + " X" + QUOTATION + ", where X is your name";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to update your name? Use this format:"
-            + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
+            + INDENTED_LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_DO_NOT_USE_DELIMITER = "Sorry! We do not allow the character "
-            + Ui.QUOTATION + COMMAND_PREFIX_DELIMITER + Ui.QUOTATION + " in your name!";
-    public static final String MESSAGE_SUCCESS = "Your name has been updated!" + Ui.LS + "Hello %s!";
+            + QUOTATION + COMMAND_PREFIX_DELIMITER + QUOTATION + " in your name!";
+    public static final String MESSAGE_SUCCESS = "Your name has been updated!" + LS + "Hello %s!";
 
     private final String name;
 
