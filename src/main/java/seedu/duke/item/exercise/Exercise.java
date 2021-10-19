@@ -52,9 +52,12 @@ public class Exercise extends Item {
     /**
      * Converts the exercise to external file string format.
      *
-     * @return Name and calorie of the exercise in string
+     * @return Name, calorie and date of the exercise in string
      */
     public String toFileTextString() {
-        return EXERCISE_TYPE + super.toFileTextString();
+        return EXERCISE_TYPE
+                + super.toFileTextString()
+                + FILE_TEXT_DELIMITER
+                + this.getDate().format(DATE_FORMATTER);
     }
 }
