@@ -1,11 +1,11 @@
 package seedu.duke.storage.profile;
 
 import seedu.duke.profile.Profile;
-import seedu.duke.storage.EncoderNew;
+import seedu.duke.storage.Encoder;
 
 import java.util.ArrayList;
 
-public class ProfileEncoder extends EncoderNew {
+public class ProfileEncoder extends Encoder {
 
     /**
      * Encodes the profile details into strings for storage.

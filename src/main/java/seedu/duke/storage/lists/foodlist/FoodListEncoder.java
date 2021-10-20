@@ -1,11 +1,11 @@
 package seedu.duke.storage.lists.foodlist;
 
 import seedu.duke.item.food.FoodList;
-import seedu.duke.storage.EncoderNew;
+import seedu.duke.storage.Encoder;
 
 import java.util.ArrayList;
 
-public class FoodListEncoder extends EncoderNew {
+public class FoodListEncoder extends Encoder {
 
     /**
      * Encodes the list of exercises into an ArrayList of string in preparation for storage.

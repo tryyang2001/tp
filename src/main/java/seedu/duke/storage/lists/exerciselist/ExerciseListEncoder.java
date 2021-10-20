@@ -1,11 +1,11 @@
 package seedu.duke.storage.lists.exerciselist;
 
 import seedu.duke.item.exercise.ExerciseList;
-import seedu.duke.storage.EncoderNew;
+import seedu.duke.storage.Encoder;
 
 import java.util.ArrayList;
 
-public class ExerciseListEncoder extends EncoderNew {
+public class ExerciseListEncoder extends Encoder {
 
     /**
      * Encodes the list of exercises into an ArrayList of string in preparation for storage.
