@@ -1,5 +1,6 @@
 package seedu.duke.storage;
 
+import seedu.duke.item.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
@@ -50,4 +51,20 @@ public class Encoder {
         }
         return foodItems;
     }
+
+    /**
+     * Encodes the list of items in the item bank in preparation for storage.
+     *
+     * @param itemBank The list of items to be encoded
+     * @return An ArrayList of the items to be stored
+     */
+    public ArrayList<String> encodeItemBank(ItemBank itemBank) {
+        ArrayList<String> items = new ArrayList<>();
+        for (int i = 0; i < itemBank.getSize(); i++) {
+            items.add(itemBank.getItem(i).toFileTextString());
+        }
+        return items;
+    }
+
+
 }

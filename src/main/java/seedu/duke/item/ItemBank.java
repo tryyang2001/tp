@@ -15,6 +15,10 @@ public class ItemBank {
         internalItems.add(item);
     }
 
+    public Item getItem(int index) {
+        return internalItems.get(index);
+    }
+
     public Item deleteItem(int index) {
         return internalItems.remove(index);
     }

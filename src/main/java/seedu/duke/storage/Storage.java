@@ -1,6 +1,8 @@
 package seedu.duke.storage;
 
+import seedu.duke.item.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
@@ -22,19 +24,19 @@ import java.util.logging.Logger;
  */
 public class Storage {
     public static final String FILENAME_PROFILE = "profile.txt";
-    public static final String FILENAME_FOOD_LIST = "food_list.txt";
-    public static final String FILENAME_EXERCISE_LIST = "exercise_list.txt";
-    public static final String FILENAME_FOOD_BANK = "food_bank.txt";
-    public static final String FILENAME_EXERCISE_BANK = "exercise_bank.txt";
-    public static final String FILENAME_FUTURE_LIST = "future_list.txt";
+    public static final String FILENAME_LIST_FOOD = "food_list.txt";
+    public static final String FILENAME_LIST_EXERCISE = "exercise_list.txt";
+    public static final String FILENAME_LIST_FUTURE = "future_list.txt";
+    public static final String FILENAME_BANK_FOOD = "food_bank.txt";
+    public static final String FILENAME_BANK_EXERCISE = "exercise_bank.txt";
 
     public static final String FILEPATH = "./data/";
     public static final String FILEPATH_PROFILE = FILEPATH + FILENAME_PROFILE;
-    public static final String FILEPATH_FOOD_LIST = FILEPATH + FILENAME_FOOD_LIST;
-    public static final String FILEPATH_EXERCISE_LIST = FILEPATH + FILENAME_EXERCISE_LIST;
-    public static final String FILEPATH_FOOD_BANK = FILEPATH + FILENAME_FOOD_BANK;
-    public static final String FILEPATH_EXERCISE_BANK = FILEPATH + FILENAME_EXERCISE_BANK;
-    public static final String FILEPATH_FUTURE_LIST = FILEPATH + FILENAME_FUTURE_LIST;
+    public static final String FILEPATH_LIST_FOOD = FILEPATH + FILENAME_LIST_FOOD;
+    public static final String FILEPATH_LIST_EXERCISE = FILEPATH + FILENAME_LIST_EXERCISE;
+    public static final String FILEPATH_LIST_FUTURE = FILEPATH + FILENAME_LIST_FUTURE;
+    public static final String FILEPATH_BANK_FOOD = FILEPATH + FILENAME_BANK_FOOD;
+    public static final String FILEPATH_BANK_EXERCISE = FILEPATH + FILENAME_BANK_EXERCISE;
 
     private final Encoder encoder = new Encoder();
     private final Decoder decoder = new Decoder();
@@ -42,6 +44,21 @@ public class Storage {
 
     public Storage() {
 
+    }
+
+    private void checkForFile(String filePath) throws UnableToReadFileException {
+        File f = new File(filePath);
+        String[] paths = filePath.split("/");
+        String fileName = paths[2];
+        try {
+            Files.createDirectories(Paths.get(FILEPATH));
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+        } catch (IOException e) {
+            logger.log(Level.WARNING, "There is an error accessing the file ", fileName);
+            throw new UnableToReadFileException(fileName);
+        }
     }
 
     /**
@@ -64,7 +81,7 @@ public class Storage {
      * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
     public ExerciseList loadExerciseListFile() throws UnableToReadFileException {
-        checkForFile(FILEPATH_EXERCISE_LIST);
+        checkForFile(FILEPATH_LIST_EXERCISE);
         return readFromExerciseListFile();
     }
 
@@ -76,23 +93,23 @@ public class Storage {
      * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
     public FoodList loadFoodListFile() throws UnableToReadFileException {
-        checkForFile(FILEPATH_FOOD_LIST);
+        checkForFile(FILEPATH_LIST_FOOD);
         return readFromFoodListFile();
     }
 
-    private void checkForFile(String filePath) throws UnableToReadFileException {
-        File f = new File(filePath);
-        String[] paths = filePath.split("/");
-        String fileName = paths[2];
-        try {
-            Files.createDirectories(Paths.get(FILEPATH));
-            if (!f.exists()) {
-                f.createNewFile();
-            }
-        } catch (IOException e) {
-            logger.log(Level.WARNING, "There is an error accessing the file ", fileName);
-            throw new UnableToReadFileException(fileName);
-        }
+    public FutureExerciseList loadFutureExerciseListFile() throws UnableToReadFileException {
+        checkForFile(FILEPATH_LIST_FUTURE);
+        return readFromFutureListFile();
+    }
+
+    public ItemBank loadFoodBankFile() throws UnableToReadFileException {
+        checkForFile(FILEPATH_BANK_FOOD);
+        return readFromFoodBankFile();
+    }
+
+    public ItemBank loadExerciseBankFile() throws UnableToReadFileException {
+        checkForFile(FILEPATH_BANK_EXERCISE);
+        return readFromExerciseBankFile();
     }
 
     private Profile readFromProfileFile() throws UnableToReadFileException {
@@ -111,8 +128,8 @@ public class Storage {
         try {
             return decoder.getExerciseListFromData();
         } catch (FileNotFoundException e) {
-            logger.log(Level.WARNING, "The path is missing ", FILEPATH_EXERCISE_LIST);
-            throw new UnableToReadFileException(FILEPATH_EXERCISE_LIST);
+            logger.log(Level.WARNING, "The path is missing ", FILEPATH_LIST_EXERCISE);
+            throw new UnableToReadFileException(FILEPATH_LIST_EXERCISE);
         }
     }
 
@@ -120,8 +137,35 @@ public class Storage {
         try {
             return decoder.getFoodListFromData();
         } catch (FileNotFoundException e) {
-            logger.log(Level.WARNING, "The path is missing ", FILEPATH_FOOD_LIST);
-            throw new UnableToReadFileException(FILEPATH_FOOD_LIST);
+            logger.log(Level.WARNING, "The path is missing ", FILEPATH_LIST_FOOD);
+            throw new UnableToReadFileException(FILEPATH_LIST_FOOD);
+        }
+    }
+
+    private FutureExerciseList readFromFutureListFile() throws UnableToReadFileException {
+        try {
+            return decoder.getFutureListFromData();
+        } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "The path is missing ", FILEPATH_LIST_FUTURE);
+            throw new UnableToReadFileException(FILEPATH_LIST_FUTURE);
+        }
+    }
+
+    private ItemBank readFromFoodBankFile() throws UnableToReadFileException {
+        try {
+            return decoder.getFoodBankFromData();
+        } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "The path is missing ", FILEPATH_LIST_FOOD);
+            throw new UnableToReadFileException(FILEPATH_LIST_FOOD);
+        }
+    }
+
+    private ItemBank readFromExerciseBankFile() throws UnableToReadFileException {
+        try {
+            return decoder.getExerciseBankFromData();
+        } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "The path is missing ", FILEPATH_LIST_FOOD);
+            throw new UnableToReadFileException(FILEPATH_LIST_FOOD);
         }
     }
 
@@ -158,7 +202,7 @@ public class Storage {
      */
     public void saveExercises(ExerciseList exercises) throws UnableToWriteFileException {
         ArrayList<String> exerciseList = encoder.encodeExerciseList(exercises);
-        writeToFile(exerciseList, FILEPATH_EXERCISE_LIST);
+        writeToFile(exerciseList, FILEPATH_LIST_EXERCISE);
     }
 
     /**
@@ -169,7 +213,22 @@ public class Storage {
      */
     public void saveFoodList(FoodList foodItems) throws UnableToWriteFileException {
         ArrayList<String> foodList = encoder.encodeFoodList(foodItems);
-        writeToFile(foodList, FILEPATH_FOOD_LIST);
+        writeToFile(foodList, FILEPATH_LIST_FOOD);
+    }
+
+    public void saveFutureList(FutureExerciseList futureExercises) throws UnableToWriteFileException {
+        ArrayList<String> futureExerciseList = encoder.encodeExerciseList(futureExercises);
+        writeToFile(futureExerciseList, FILENAME_LIST_FUTURE);
+    }
+
+    public void saveFoodBank(ItemBank foodBank) throws UnableToWriteFileException {
+        ArrayList<String> foodBankList = encoder.encodeItemBank(foodBank);
+        writeToFile(foodBankList, FILEPATH_BANK_FOOD);
+    }
+
+    public void saveExerciseBank(ItemBank exerciseBank) throws UnableToWriteFileException {
+        ArrayList<String> exerciseBankList = encoder.encodeItemBank(exerciseBank);
+        writeToFile(exerciseBankList, FILEPATH_BANK_EXERCISE);
     }
 
     private void writeToFile(ArrayList<String> itemList, String filePath) throws UnableToWriteFileException {

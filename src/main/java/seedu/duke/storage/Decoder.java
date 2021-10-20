@@ -1,7 +1,9 @@
 package seedu.duke.storage;
 
+import seedu.duke.item.ItemBank;
 import seedu.duke.item.exercise.Exercise;
 import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.Food;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
@@ -75,7 +77,7 @@ public class Decoder {
      */
     public ExerciseList getExerciseListFromData() throws FileNotFoundException {
         ExerciseList exercises = new ExerciseList();
-        File file = new File(Storage.FILEPATH_EXERCISE_LIST);
+        File file = new File(Storage.FILEPATH_LIST_EXERCISE);
         Scanner in = new Scanner(file);
         logger.log(Level.FINE, "Decoding exercise data from file...");
         while (in.hasNext()) {
@@ -98,7 +100,7 @@ public class Decoder {
             exercises.addExercise(new Exercise(name, calories, dateOfExercise));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in exercise list is not valid.", line);
-            throw new InvalidDataException(Storage.FILENAME_EXERCISE_LIST, line);
+            throw new InvalidDataException(Storage.FILENAME_LIST_EXERCISE, line);
         }
     }
 
@@ -111,7 +113,7 @@ public class Decoder {
 
     public FoodList getFoodListFromData() throws FileNotFoundException {
         FoodList foodItems = new FoodList();
-        File file = new File(Storage.FILEPATH_FOOD_LIST);
+        File file = new File(Storage.FILEPATH_LIST_FOOD);
         Scanner in = new Scanner(file);
         logger.log(Level.FINE, "Decoding food list data from file...");
         while (in.hasNext()) {
@@ -134,7 +136,98 @@ public class Decoder {
             foodItems.addFood(new Food(name, calories, dateTimeOfFood));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in food list is not valid.", line);
-            throw new InvalidDataException(Storage.FILENAME_FOOD_LIST, line);
+            throw new InvalidDataException(Storage.FILENAME_LIST_FOOD, line);
+        }
+    }
+
+    /**
+     * Retrieves future exercise list from future_list.txt.
+     *
+     * @return The exercise list with data loaded from file
+     * @throws FileNotFoundException If file is misplaced/missing
+     */
+    public FutureExerciseList getFutureListFromData() throws FileNotFoundException {
+        FutureExerciseList exercises = new FutureExerciseList();
+        File file = new File(Storage.FILEPATH_LIST_FUTURE);
+        Scanner in = new Scanner(file);
+        logger.log(Level.FINE, "Decoding exercise data from file...");
+        while (in.hasNext()) {
+            try {
+                decodeFutureExerciseDataFromString(exercises, in.nextLine());
+            } catch (InvalidDataException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        logger.log(Level.FINE, "Retrieved exercise data from file.");
+        return exercises;
+    }
+
+    private void decodeFutureExerciseDataFromString(FutureExerciseList exercises, String line) throws InvalidDataException {
+        try {
+            final String[] exerciseDetails = line.split(FILE_TEXT_DELIMITER);
+            final String name = exerciseDetails[1];
+            final int calories = Integer.parseInt(exerciseDetails[2]);
+            final LocalDate dateOfExercise = parseDate(exerciseDetails[3]);
+            exercises.addExercise(new Exercise(name, calories, dateOfExercise));
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
+            logger.log(Level.WARNING, "A line in exercise list is not valid.", line);
+            throw new InvalidDataException(Storage.FILENAME_LIST_FUTURE, line);
+        }
+    }
+
+    public ItemBank getFoodBankFromData() throws FileNotFoundException {
+        ItemBank items = new ItemBank();
+        File file = new File(Storage.FILEPATH_BANK_FOOD);
+        Scanner in = new Scanner(file);
+        logger.log(Level.FINE, "Decoding item bank data from file...");
+        while (in.hasNext()) {
+            try {
+                decodeFoodBankDataFromString(items, in.nextLine());
+            } catch (InvalidDataException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        logger.log(Level.FINE, "Retrieved item bank data from file.");
+        return items;
+    }
+
+    private void decodeFoodBankDataFromString(ItemBank items, String line) throws InvalidDataException {
+        try {
+            final String[] itemDetails = line.split(FILE_TEXT_DELIMITER);
+            final String name = itemDetails[1];
+            final int calories = Integer.parseInt(itemDetails[2]);
+            items.addItem(new Food(name, calories));
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
+            logger.log(Level.WARNING, "A line in item bank is not valid.", line);
+            throw new InvalidDataException(Storage.FILENAME_LIST_FOOD, line);
+        }
+    }
+
+    public ItemBank getExerciseBankFromData() throws FileNotFoundException {
+        ItemBank items = new ItemBank();
+        File file = new File(Storage.FILEPATH_BANK_EXERCISE);
+        Scanner in = new Scanner(file);
+        logger.log(Level.FINE, "Decoding item bank data from file...");
+        while (in.hasNext()) {
+            try {
+                decodeExerciseBankDataFromString(items, in.nextLine());
+            } catch (InvalidDataException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        logger.log(Level.FINE, "Retrieved item bank data from file.");
+        return items;
+    }
+
+    private void decodeExerciseBankDataFromString(ItemBank items, String line) throws InvalidDataException {
+        try {
+            final String[] itemDetails = line.split(FILE_TEXT_DELIMITER);
+            final String name = itemDetails[1];
+            final int calories = Integer.parseInt(itemDetails[2]);
+            items.addItem(new Food(name, calories));
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
+            logger.log(Level.WARNING, "A line in item bank is not valid.", line);
+            throw new InvalidDataException(Storage.FILENAME_BANK_EXERCISE, line);
         }
     }
 

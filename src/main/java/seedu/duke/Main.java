@@ -3,6 +3,7 @@ package seedu.duke;
 import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
+import seedu.duke.item.Item;
 import seedu.duke.item.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.exercise.FutureExerciseList;
@@ -10,6 +11,7 @@ import seedu.duke.item.food.FoodList;
 import seedu.duke.parser.Parser;
 import seedu.duke.profile.Profile;
 import seedu.duke.storage.Storage;
+import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Statistics;
@@ -29,7 +31,7 @@ public class Main {
     private ItemBank foodBank;
     private Profile profile;
     private Ui ui;
-    private Storage storage;
+    private StorageManager storageManager;
     private Statistics statistics;
 
 
@@ -54,16 +56,17 @@ public class Main {
      * storage file, then showing the welcome message.
      */
     private void start() {
-        this.storage = new Storage();
-        this.ui = new Ui();
-        //TODO: replace these with ones from storage
+        //TODO Update with yi zhi's implementation
+        this.profile = new Profile();
+        this.exerciseItems = new ExerciseList();
         this.exerciseBank = new ItemBank();
-        this.foodBank = new ItemBank();
         this.futureExerciseItems = new FutureExerciseList();
+        this.foodItems = new FoodList();
+        this.foodBank = new ItemBank();
+        this.storageManager = new StorageManager();
+        this.ui = new Ui();
         try {
-            this.profile = storage.loadProfileFile();
-            this.foodItems = storage.loadFoodListFile();
-            this.exerciseItems = storage.loadExerciseListFile();
+            storageManager.loadAll(profile, exerciseItems, foodItems, futureExerciseItems, foodBank, exerciseBank);
         } catch (UnableToReadFileException e) {
             ui.formatMessageFramedWithDivider(e.getMessage());
         }
@@ -97,19 +100,20 @@ public class Main {
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {
-                storage.saveAll(this.profile, this.exerciseItems, this.foodItems);
+                storageManager.saveAll(this.profile, this.exerciseItems, this.foodItems,
+                        this.futureExerciseItems, this.foodBank, this.exerciseBank);
             }
             if (Command.requiresProfileStorageRewrite(command)) {
-                storage.saveProfile(this.profile);
+                storageManager.saveProfile(this.profile);
             }
             if (Command.requiresExerciseListStorageRewrite(command)) {
-                storage.saveExercises(this.exerciseItems);
+                storageManager.saveExerciseList(this.exerciseItems);
             }
             if (Command.requiresFoodListStorageRewrite(command)) {
-                storage.saveFoodList(this.foodItems);
+                storageManager.saveFoodList(this.foodItems);
             }
             if (Command.requiresFutureExerciseListStorageRewrite(command)) {
-                //TODO
+                //TODO Update with the new additions
                 //storage.saveFutureExercises(this.futureExerciseItems);
             }
         } catch (UnableToWriteFileException e) {
