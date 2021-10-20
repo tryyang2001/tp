@@ -5,6 +5,7 @@ import seedu.duke.commands.AddExerciseCommand;
 import seedu.duke.commands.AddFoodBankCommand;
 import seedu.duke.commands.AddFoodCommand;
 import seedu.duke.commands.AddFutureExerciseCommand;
+import seedu.duke.commands.AddRecurringExerciseCommand;
 import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.CalculateBmiCommand;
 import seedu.duke.commands.CalculateBmiWithProfileCommand;
@@ -33,11 +34,13 @@ import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
 import seedu.duke.parser.exceptions.ParamMissingException;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -73,7 +76,22 @@ public class Parser {
             + DATE_FORMAT;
     protected static final String MESSAGE_ERROR_INVALID_TIME_FORMAT = "Invalid time format! Please input time as "
             + TIME_FORMAT;
+    protected static final String MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK = "Invalid day format! Please input day(s) "
+            + "between 1 and 7."
+            + LS + "1 : Monday"
+            + LS + "2 : Tuesday"
+            + LS + "3 : Wednesday"
+            + LS + "4 : Thursday"
+            + LS + "5 : Friday"
+            + LS + "6 : Saturday"
+            + LS + "7 : Sunday";
     protected static final String MESSAGE_ERROR_NO_DATE = "Please input the date for this item!";
+    protected static final String MESSAGE_ERROR_NO_DAY_OF_THE_WEEK = "Please input the day of reoccurrence "
+            + "for this item!";
+    protected static final String MESSAGE_ERROR_REPEATED_DAY_OF_THE_WEEK = "Please check your input of the day "
+            + "of reoccurrence and make sure that there is no repeated day";
+    protected static final int MONDAY = 1;
+    protected static final int SUNDAY = 7;
 
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
@@ -130,6 +148,8 @@ public class Parser {
             if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)
                     || itemTypePrefix.equals(Command.COMMAND_PREFIX_UPCOMING_EXERCISE)) {
                 return parseAddToItems(params, itemTypePrefix);
+            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_RECURRING)) {
+                return parseAddToItems(params, itemTypePrefix);
             } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD)) {
                 return parseAddToItems(params, itemTypePrefix);
             } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE_BANK)) {
@@ -169,7 +189,7 @@ public class Parser {
                 logger.log(Level.INFO, String.format("date detected is: %s", date));
                 if (hasExtraDelimiters(params,
                         getNumberOfCorrectParamsDetected(params,
-                               AddExerciseCommand.EXPECTED_PREFIXES))) {
+                                AddExerciseCommand.EXPECTED_PREFIXES))) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 if (isFutureDate(date)) {
@@ -178,7 +198,12 @@ public class Parser {
                 } else {
                     return new AddExerciseCommand(description, calories, date, isCaloriesFromBank);
                 }
-            } else  {
+            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_RECURRING)) {
+                final LocalDate startDate = extractStartDate(params);
+                final LocalDate endDate = extractEndDate(params);
+                final ArrayList<Integer> dayOfTheWeek = extractDayOfTheWeek(params);
+                return new AddRecurringExerciseCommand(description, calories, startDate, endDate, dayOfTheWeek);
+            } else {
                 final LocalDateTime dateTime = extractDateTime(params);
                 logger.log(Level.INFO, String.format("dateTime detected is: %s", dateTime));
                 assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
@@ -284,7 +309,7 @@ public class Parser {
                                 DeleteExerciseCommand.EXPECTED_PREFIXES))) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
-                logger.log(Level.INFO, String.format("deleting exercise item %s from %s",itemIndex, date));
+                logger.log(Level.INFO, String.format("deleting exercise item %s from %s", itemIndex, date));
                 return new DeleteExerciseCommand(itemIndex, date);
             } else {
                 assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
@@ -294,7 +319,7 @@ public class Parser {
                                 AddFoodCommand.EXPECTED_PREFIXES))) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
-                logger.log(Level.INFO, String.format("deleting food item %s from %s",itemIndex, date));
+                logger.log(Level.INFO, String.format("deleting food item %s from %s", itemIndex, date));
                 return new DeleteFoodCommand(itemIndex, date);
             }
 
@@ -325,7 +350,7 @@ public class Parser {
                         "at this point, it must be food bank";
                 if (hasExtraDelimiters(params,
                         getNumberOfCorrectParamsDetected(params,
-                               DeleteFoodBankCommand.EXPECTED_PREFIXES))) {
+                                DeleteFoodBankCommand.EXPECTED_PREFIXES))) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 return new DeleteFoodBankCommand(itemIndex);
@@ -398,7 +423,7 @@ public class Parser {
         if (hasExtraDelimiters(
                 params,
                 getNumberOfCorrectParamsDetected(params,
-                       ProfileUpdateCommand.EXPECTED_PREFIXES))) {
+                        ProfileUpdateCommand.EXPECTED_PREFIXES))) {
             return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
         }
 
@@ -489,9 +514,12 @@ public class Parser {
         boolean isFoodBank =
                 params.toLowerCase().contains(Command.COMMAND_PREFIX_FOOD_BANK
                         + Command.COMMAND_PREFIX_DELIMITER);
+        boolean isRecurringExercise =
+                params.toLowerCase().contains(Command.COMMAND_PREFIX_RECURRING
+                        + Command.COMMAND_PREFIX_DELIMITER);
 
         boolean isItemSpecified = checkIsItemSpecified(isExercise, isFood, isUpcomingExercise,
-                isExerciseBank, isFoodBank);
+                isExerciseBank, isFoodBank, isRecurringExercise);
         if (!isItemSpecified) {
             logger.log(Level.WARNING, "Detected none or more than one item");
             throw new ItemNotSpecifiedException();
@@ -503,6 +531,8 @@ public class Parser {
             return Command.COMMAND_PREFIX_UPCOMING_EXERCISE;
         } else if (isExerciseBank) {
             return Command.COMMAND_PREFIX_EXERCISE_BANK;
+        } else if (isRecurringExercise) {
+            return Command.COMMAND_PREFIX_RECURRING;
         } else {
             assert isFoodBank : "Must be food bank if all above conditions are not satisfied";
             return Command.COMMAND_PREFIX_FOOD_BANK;
@@ -713,6 +743,42 @@ public class Parser {
         }
     }
 
+    private LocalDate extractStartDate(String params)
+            throws ParamInvalidException, ParamMissingException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_START_DATE
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String dateString = extractRelevantParameter(stringAfterPrefix);
+            logger.log(Level.INFO, String.format("date string detected is: %s", dateString));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+            return LocalDate.parse(dateString, formatter);
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Detected empty start date input after prefix but date is required!");
+            throw new ParamMissingException(MESSAGE_ERROR_NO_DATE);
+        } catch (DateTimeParseException e) {
+            throw new ParamInvalidException(MESSAGE_ERROR_INVALID_DATE_FORMAT);
+        }
+    }
+
+    private LocalDate extractEndDate(String params)
+            throws ParamInvalidException, ParamMissingException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_END_DATE
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String dateString = extractRelevantParameter(stringAfterPrefix);
+            logger.log(Level.INFO, String.format("date string detected is: %s", dateString));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+            return LocalDate.parse(dateString, formatter);
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Detected empty end date input after prefix but date is required!");
+            throw new ParamMissingException(MESSAGE_ERROR_NO_DATE);
+        } catch (DateTimeParseException e) {
+            throw new ParamInvalidException(MESSAGE_ERROR_INVALID_DATE_FORMAT);
+        }
+    }
+
     private LocalTime extractTime(String params) throws ParamInvalidException {
         try {
             String stringAfterPrefix =
@@ -734,6 +800,34 @@ public class Parser {
         final LocalTime time = extractTime(params);
         final LocalDate date = extractDate(params, false);
         return date.atTime(time);
+    }
+
+    private ArrayList<Integer> extractDayOfTheWeek(String params)
+            throws ParamMissingException, ParamInvalidException {
+        ArrayList<Integer> dayOfTheWeek = new ArrayList<>();
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_DAY_OF_THE_WEEK
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            for (int i = 0; i < stringAfterPrefix.length(); i++) {
+                int day = Integer.parseInt(String.valueOf(stringAfterPrefix.charAt(i)));
+                if (day > MONDAY && day < SUNDAY) { //between monday and sunday
+                    if (dayOfTheWeek.contains(day)) {
+                        throw new ParamInvalidException(MESSAGE_ERROR_REPEATED_DAY_OF_THE_WEEK);
+                    }
+                    dayOfTheWeek.add(day);
+                } else {
+                    throw new ParamInvalidException(MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK);
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            logger.log(Level.WARNING, "Detected empty day input after prefix but day is required!");
+            throw new ParamMissingException(MESSAGE_ERROR_NO_DAY_OF_THE_WEEK);
+        } catch (NumberFormatException e) {
+            logger.log(Level.WARNING, "Detected non-digit calories input");
+            throw new ParamInvalidException(MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK);
+        }
+        return dayOfTheWeek;
     }
 
     private boolean isFutureDate(LocalDate date) {

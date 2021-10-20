@@ -68,7 +68,7 @@ public class FutureExerciseList extends ExerciseList {
                     .append(". ")
                     .append(exerciseList.get(i))
                     .append(" (")
-                    .append(exerciseList.get(i).getDate())
+                    .append(getDay(exerciseList.get(i).getDate()))
                     .append(" ")
                     .append(exerciseList.get(i).getDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT)))
                     .append(")")

@@ -15,7 +15,7 @@ public class AddRecurringExerciseCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_ADD
             + " " + COMMAND_PREFIX_RECURRING + COMMAND_PREFIX_DELIMITER + "exercise name"
             + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories";
-    public static final String MESSAGE_INVALID_DATES = "Your start date %s is earlier than your end date %s";
+    public static final String MESSAGE_INVALID_DATES = "Your start date %s is later than your end date %s";
     public static final String MESSAGE_NO_EXERCISE_ADDED = "Day(s) not present between %s and %s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
             + LS + "Try a positive value instead";
@@ -28,29 +28,28 @@ public class AddRecurringExerciseCommand extends Command {
     private final int calories;
     private final LocalDate startDate;
     private final LocalDate endDate;
-    private final ArrayList<Integer> day;
+    private final ArrayList<Integer> dayOfTheWeek;
 
     private static Logger logger = Logger.getLogger(AddRecurringExerciseCommand.class.getName());
 
     public AddRecurringExerciseCommand(String description, int calories, LocalDate startDate,
-                                       LocalDate endDate, ArrayList<Integer> day) {
+                                       LocalDate endDate, ArrayList<Integer> dayOfTheWeek) {
         this.description = description;
         this.calories = calories;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.day = day;
+        this.dayOfTheWeek = dayOfTheWeek;
     }
 
     /**
      * Adds all recurring exercises between two dates into the FutureExerciseList.
      */
     private void addRecurringExercises() {
-        for (int i = 0; i < day.size(); i++) {
+        for (Integer day : dayOfTheWeek) {
             int dayOfTheWeek = startDate.getDayOfWeek().getValue();
             LocalDate currentDate = startDate;
             while (currentDate.isBefore(this.endDate) || currentDate.isEqual(this.endDate)) {
-                System.out.println(this.endDate);
-                if (dayOfTheWeek == day.get(i)) {
+                if (dayOfTheWeek == day) {
                     super.futureExerciseItems.addFutureExercise(new Exercise(description, calories, currentDate));
                     currentDate = currentDate.plusDays(ONE_WEEK);
                     dayOfTheWeek = currentDate.getDayOfWeek().getValue();
