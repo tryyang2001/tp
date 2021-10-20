@@ -43,7 +43,7 @@ public class FutureExerciseListDecoder extends Decoder {
             final String name = exerciseDetails[1];
             final int calories = Integer.parseInt(exerciseDetails[2]);
             final LocalDate dateOfExercise = parseDate(exerciseDetails[3]);
-            exercises.addExercise(new Exercise(name, calories, dateOfExercise));
+            exercises.addItem(new Exercise(name, calories, dateOfExercise));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in exercise list is not valid.", line);
             throw new InvalidDataException(FutureExerciseListStorage.FILENAME_LIST_FUTURE, line);

@@ -43,7 +43,7 @@ public class FoodListDecoder extends Decoder {
             final String name = foodDetails[1];
             final int calories = Integer.parseInt(foodDetails[2]);
             final LocalDateTime dateTimeOfFood = parseDateTime(foodDetails[3]);
-            foodItems.addFood(new Food(name, calories, dateTimeOfFood));
+            foodItems.addItem(new Food(name, calories, dateTimeOfFood));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in food list is not valid.", line);
             throw new InvalidDataException(FoodListStorage.FILENAME_LIST_FOOD, line);
