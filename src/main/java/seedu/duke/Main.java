@@ -396,14 +396,14 @@ public class Main {
             if (Command.requiresFutureExerciseListStorageRewrite(command)) {
                 storageManager.saveFutureExerciseList(this.futureExerciseItems);
             }
-//            if (Command.requiresFoodBankStorageRewrite(command)) {
-//                //TODO Update with the new additions
-//                storageManager.saveFoodBank(this.foodBank);
-//            }
-//            if (Command.requiresExerciseBankListStorageRewrite(command)) {
-//                //TODO Update with the new additions
-//                storageManager.saveExerciseBank(this.exerciseBank);
-//            }
+            /*if (Command.requiresFoodBankStorageRewrite(command)) {
+                //TODO Update with the new additions
+                storageManager.saveFoodBank(this.foodBank);
+            }
+            if (Command.requiresExerciseBankListStorageRewrite(command)) {
+                //TODO Update with the new additions
+                storageManager.saveExerciseBank(this.exerciseBank);
+            }*/
         } catch (UnableToWriteFileException e) {
             ui.formatMessageFramedWithDivider(e.getMessage());
         }
