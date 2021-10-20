@@ -5,6 +5,8 @@ import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
+import seedu.duke.profile.attributes.ActivityFactor;
+import seedu.duke.profile.attributes.CalorieGoal;
 
 /**
  * Abstract class used to represent executable Commands.

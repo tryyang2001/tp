@@ -1,5 +1,6 @@
 package seedu.duke.commands;
 
+import seedu.duke.profile.Profile;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 
 /**
@@ -11,9 +12,19 @@ public class CalculateBmiWithProfileCommand extends Command {
             + INDENTED_LS + "%1$,.1f (%2$s)";
     public static final String MESSAGE_UNINITIALIZED_PROFILE = "Your profile has not been initialized yet.";
 
+    private void checkIfCommandShouldExecute() throws InvalidCharacteristicException {
+        if (!super.profile.getProfileWeight().isValid()) {
+            throw new InvalidCharacteristicException(Profile.ERROR_WEIGHT);
+        }
+        if (!super.profile.getProfileHeight().isValid()) {
+            throw new InvalidCharacteristicException(Profile.ERROR_HEIGHT);
+        }
+    }
+
     @Override
     public CommandResult execute() {
         try {
+            checkIfCommandShouldExecute();
             final double bmi = super.profile.calculateBmi();
             return new CommandResult(String.format(MESSAGE_SUCCESS, bmi, super.profile.retrieveBmiStatus(bmi)));
         } catch (InvalidCharacteristicException e) {

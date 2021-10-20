@@ -9,24 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ProfileTest {
 
-    @Test
-    void setProfileParameters_invalidInputs_expectInvalidCharacteristicException() {
-        Profile p = new Profile();
-        final double height = -1;
-        final double weight = -1;
-        final char gender = 'D';
-        final int age = -1;
-        final int activityFactorUnderRange = 0;
-        final int activityFactorOverRange = 6;
-
-        assertThrows(InvalidCharacteristicException.class, () -> p.setHeight(height));
-        assertThrows(InvalidCharacteristicException.class, () -> p.setWeight(weight));
-        assertThrows(InvalidCharacteristicException.class, () -> p.setGender(gender));
-        assertThrows(InvalidCharacteristicException.class, () -> p.setAge(age));
-        assertThrows(InvalidCharacteristicException.class, () -> p.setActivityFactor(activityFactorOverRange));
-        assertThrows(InvalidCharacteristicException.class, () -> p.setActivityFactor(activityFactorUnderRange));
-    }
-
+    //TODO Update JUnit for each individual attribute + update profile tests
     @Test
     void calculateBmi_twoDoubleInputs_expectDoubleReturned() throws InvalidCharacteristicException {
         final double height = 171.2;
@@ -84,15 +67,15 @@ class ProfileTest {
         final int bmrIntense = (int) Math.round(baseBmr * 1.725);
         final int bmrExtreme = (int) Math.round(baseBmr * 1.9);
 
-        p.setProfile(name, height, weight, calorieGoal, gender, age, activityFactor);
+        p.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
         assertEquals(bmrSedentary, p.getBmr());
-        p.setActivityFactor(2);
+        p.getProfileActivityFactor().setActivityFactor(2);
         assertEquals(bmrLight, p.getBmr());
-        p.setActivityFactor(3);
+        p.getProfileActivityFactor().setActivityFactor(3);
         assertEquals(bmrModerate, p.getBmr());
-        p.setActivityFactor(4);
+        p.getProfileActivityFactor().setActivityFactor(4);
         assertEquals(bmrIntense, p.getBmr());
-        p.setActivityFactor(5);
+        p.getProfileActivityFactor().setActivityFactor(5);
         assertEquals(bmrExtreme, p.getBmr());
     }
 
@@ -113,15 +96,15 @@ class ProfileTest {
         final int bmrIntense = (int) Math.round(baseBmr * 1.725);
         final int bmrExtreme = (int) Math.round(baseBmr * 1.9);
 
-        p.setProfile(name, height, weight, calorieGoal, gender, age, activityFactor);
+        p.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
         assertEquals(bmrSedentary, p.getBmr());
-        p.setActivityFactor(2);
+        p.getProfileActivityFactor().setActivityFactor(2);
         assertEquals(bmrLight, p.getBmr());
-        p.setActivityFactor(3);
+        p.getProfileActivityFactor().setActivityFactor(3);
         assertEquals(bmrModerate, p.getBmr());
-        p.setActivityFactor(4);
+        p.getProfileActivityFactor().setActivityFactor(4);
         assertEquals(bmrIntense, p.getBmr());
-        p.setActivityFactor(5);
+        p.getProfileActivityFactor().setActivityFactor(5);
         assertEquals(bmrExtreme, p.getBmr());
     }
 
@@ -136,8 +119,9 @@ class ProfileTest {
         int age = 22;
         int activityFactor = 1;
 
-        p.setProfile(name, height, weight, calorieGoal, gender, age, activityFactor);
-        String correctOutput = "John|170.1|60.0|300|M|22|1";
+        p.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
+        String correctOutput = "John|170.1|60.0|M|22|300|1";
+        System.out.println(p.toFileTextString());
         assertEquals(correctOutput, p.toFileTextString());
     }
 

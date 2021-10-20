@@ -1,5 +1,7 @@
 package seedu.duke.commands;
 
+import seedu.duke.profile.Profile;
+import seedu.duke.profile.attributes.Weight;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 
 /**
@@ -11,17 +13,24 @@ public class ChangeWeightCommand extends Command {
             + " X" + QUOTATION + ", where X is your weight in KG";
     public static final String MESSAGE_SUCCESS = "Your weight has been updated!" + LS + "Your weight is %skg.";
 
-    private final double weight;
+    private final Weight weight = new Weight();
 
     public ChangeWeightCommand(double weight) {
-        this.weight = weight;
+        this.weight.setWeight(weight);
+    }
+
+    private void checkIfCommandShouldExecute() throws InvalidCharacteristicException {
+        if (!weight.isValid()) {
+            throw new InvalidCharacteristicException(Profile.ERROR_WEIGHT);
+        }
     }
 
     @Override
     public CommandResult execute() {
         try {
-            super.profile.setWeight(this.weight);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, super.profile.getWeight()));
+            checkIfCommandShouldExecute();
+            super.profile.setProfileWeight(this.weight);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, super.profile.getProfileWeight().getWeight()));
         } catch (InvalidCharacteristicException e) {
             return new CommandResult(e.getMessage());
         }

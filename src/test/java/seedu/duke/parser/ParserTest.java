@@ -144,9 +144,9 @@ class ParserTest {
 
     @Test
     void parseProfileUpdateCommand_correctInput_ProfileCreateCommand() {
-        parseAndAssertCommandType("profile n/hello w/50 h/80 g/50 ", ProfileUpdateCommand.class);
-        parseAndAssertCommandType("profile g/100 w/50 h/80 n/hi potato", ProfileUpdateCommand.class);
-        parseAndAssertCommandType("profile h/50 n/hello potato g/20 w/20", ProfileUpdateCommand.class);
+        parseAndAssertCommandType("profile n/hello w/50 h/80 g/50 a/23 s/F x/2", ProfileUpdateCommand.class);
+        parseAndAssertCommandType("profile g/100 w/50 h/80 n/hi potato a/23 s/F x/2", ProfileUpdateCommand.class);
+        parseAndAssertCommandType("profile h/50 n/hello potato g/20 w/20 a/23 s/F x/2", ProfileUpdateCommand.class);
     }
 
     @Test
