@@ -1,12 +1,10 @@
 package seedu.duke.storage;
 
-import seedu.duke.item.Item;
 import seedu.duke.item.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
-import seedu.duke.storage.banks.ExerciseBankDecoder;
 import seedu.duke.storage.banks.ExerciseBankStorage;
 import seedu.duke.storage.banks.FoodBankStorage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
@@ -25,45 +23,39 @@ public class StorageManager {
     private FoodBankStorage foodBankStorage = new FoodBankStorage();
     private ExerciseBankStorage exerciseBankStorage = new ExerciseBankStorage();
 
-    public void loadAll(Profile profile, ExerciseList exerciseList, FoodList foodList,
-                        FutureExerciseList futureExerciseList, ItemBank foodBank,
-                        ItemBank exerciseBank) throws UnableToReadFileException {
-        loadProfile(profile); //Not sure if should keep this inside.
-        loadExerciseList(exerciseList);
-        loadFoodList(foodList);
-        loadFutureExerciseList(futureExerciseList);
-        loadFoodBank(foodBank);
-        loadExerciseBank(exerciseBank);
+    public Profile loadProfile() throws UnableToReadFileException {
+        return profileStorage.loadProfileFile();
     }
 
-    public void loadProfile(Profile profile) throws UnableToReadFileException {
-        profile = profileStorage.loadProfileFile();
+    public ExerciseList loadExerciseList() throws UnableToReadFileException {
+        return exerciseListStorage.loadExerciseListFile();
     }
 
-    public void loadExerciseList(ExerciseList exerciseList) throws UnableToReadFileException {
-        exerciseList = exerciseListStorage.loadExerciseListFile();
+    public FoodList loadFoodList() throws UnableToReadFileException {
+        return foodListStorage.loadFoodListFile();
     }
 
-    public void loadFoodList(FoodList foodList) throws UnableToReadFileException {
-        foodList = foodListStorage.loadFoodListFile();
+    public FutureExerciseList loadFutureExerciseList() throws UnableToReadFileException {
+        return futureExerciseListStorage.loadFutureExerciseListFile();
     }
 
-    public void loadFutureExerciseList(FutureExerciseList futureExerciseList) throws UnableToReadFileException {
-        futureExerciseList = futureExerciseListStorage.loadFutureExerciseListFile();
+    public ItemBank loadFoodBank() throws UnableToReadFileException {
+        return foodBankStorage.loadFoodBankFile();
     }
 
-    public void loadFoodBank(ItemBank foodBank) throws UnableToReadFileException {
-        foodBank = foodBankStorage.loadFoodBankFile();
-    }
-
-    public void loadExerciseBank(ItemBank exerciseBank) throws UnableToReadFileException {
-        exerciseBank = exerciseBankStorage.loadExerciseBankFile();
+    public ItemBank loadExerciseBank() throws UnableToReadFileException {
+        return exerciseBankStorage.loadExerciseBankFile();
     }
 
     public void saveAll(Profile profile, ExerciseList exerciseList, FoodList foodList,
                         FutureExerciseList futureExerciseList, ItemBank foodBank,
                         ItemBank exerciseBank) throws UnableToWriteFileException {
-
+        saveProfile(profile);
+        saveExerciseList(exerciseList);
+        saveFoodList(foodList);
+        saveFutureExerciseList(futureExerciseList);
+        saveFoodBank(foodBank);
+        saveExerciseBank(exerciseBank);
     }
 
     public void saveProfile(Profile profile) throws UnableToWriteFileException {

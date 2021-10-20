@@ -58,15 +58,12 @@ public abstract class Command {
     public static final int NULL_CALORIES = -1;
     public static final String NULL_STRING = "";
 
-    protected Profile profile = new Profile();
-    protected ExerciseList exerciseItems = new ExerciseList();
-    protected FoodList foodItems = new FoodList();
-    protected FutureExerciseList futureExerciseItems = new FutureExerciseList();
-    protected ItemBank exerciseBank = new ItemBank();
-    protected ItemBank foodBank = new ItemBank();
-
-
-
+    protected Profile profile;
+    protected ExerciseList exerciseItems;
+    protected FoodList foodItems;
+    protected FutureExerciseList futureExerciseItems;
+    protected ItemBank exerciseBank;
+    protected ItemBank foodBank;
 
     /**
      * Returns the appropriate CommandResult after execution of the command.
