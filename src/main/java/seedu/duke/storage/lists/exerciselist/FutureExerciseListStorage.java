@@ -1,7 +1,7 @@
 package seedu.duke.storage.lists.exerciselist;
 
 import seedu.duke.item.exercise.FutureExerciseList;
-import seedu.duke.storage.StorageNew;
+import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class FutureExerciseListStorage extends StorageNew {
+public class FutureExerciseListStorage extends Storage {
 
     public static final String FILENAME_LIST_FUTURE = "future_list.txt";
     public static final String FILEPATH_LIST_FUTURE = FILEPATH + FILENAME_LIST_FUTURE;

@@ -2,7 +2,7 @@ package seedu.duke.storage.profile;
 
 import seedu.duke.profile.Profile;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
-import seedu.duke.storage.StorageNew;
+import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class ProfileStorage extends StorageNew {
+public class ProfileStorage extends Storage {
 
     public static final String FILENAME_PROFILE = "profile.txt";
     public static final String FILEPATH_PROFILE = FILEPATH + FILENAME_PROFILE;

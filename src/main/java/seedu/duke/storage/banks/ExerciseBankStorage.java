@@ -2,7 +2,7 @@ package seedu.duke.storage.banks;
 
 import seedu.duke.item.ItemBank;
 import seedu.duke.storage.Encoder;
-import seedu.duke.storage.StorageNew;
+import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class ExerciseBankStorage extends StorageNew {
+public class ExerciseBankStorage extends Storage {
 
     public static final String FILENAME_BANK_EXERCISE = "exercise_bank.txt";
     public static final String FILEPATH_BANK_EXERCISE = FILEPATH + FILENAME_BANK_EXERCISE;

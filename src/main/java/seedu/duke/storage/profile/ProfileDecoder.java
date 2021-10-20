@@ -2,7 +2,7 @@ package seedu.duke.storage.profile;
 
 import seedu.duke.profile.Profile;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
-import seedu.duke.storage.DecoderNew;
+import seedu.duke.storage.Decoder;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-public class ProfileDecoder extends DecoderNew {
+public class ProfileDecoder extends Decoder {
 
     /**
      * Retrieves profile data from profile.txt

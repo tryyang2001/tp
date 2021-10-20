@@ -2,7 +2,7 @@ package seedu.duke.storage.banks;
 
 import seedu.duke.item.ItemBank;
 import seedu.duke.item.food.Food;
-import seedu.duke.storage.DecoderNew;
+import seedu.duke.storage.Decoder;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-public class FoodBankDecoder extends DecoderNew {
+public class FoodBankDecoder extends Decoder {
 
     public ItemBank getFoodBankFromData() throws FileNotFoundException {
         ItemBank items = new ItemBank();

@@ -2,7 +2,7 @@ package seedu.duke.storage.lists.foodlist;
 
 import seedu.duke.item.food.Food;
 import seedu.duke.item.food.FoodList;
-import seedu.duke.storage.DecoderNew;
+import seedu.duke.storage.Decoder;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-public class FoodListDecoder extends DecoderNew {
+public class FoodListDecoder extends Decoder {
 
     /**
      * Retrieves food list from food_list.txt.

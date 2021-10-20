@@ -2,7 +2,7 @@ package seedu.duke.storage.lists.exerciselist;
 
 import seedu.duke.item.exercise.Exercise;
 import seedu.duke.item.exercise.ExerciseList;
-import seedu.duke.storage.DecoderNew;
+import seedu.duke.storage.Decoder;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-public class ExerciseListDecoder extends DecoderNew {
+public class ExerciseListDecoder extends Decoder {
 
     /**
      * Retrieves exercise list from exercise_list.txt.

@@ -1,7 +1,7 @@
 package seedu.duke.storage.lists.foodlist;
 
 import seedu.duke.item.food.FoodList;
-import seedu.duke.storage.StorageNew;
+import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class FoodListStorage extends StorageNew {
+public class FoodListStorage extends Storage {
 
     public static final String FILENAME_LIST_FOOD = "food_list.txt";
     public static final String FILEPATH_LIST_FOOD = FILEPATH + FILENAME_LIST_FOOD;
