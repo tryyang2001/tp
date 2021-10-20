@@ -7,6 +7,7 @@ public class Name implements Verifiable {
 
     protected String name;
     private static final String EMPTY_STRING = "";
+
     public Name() {
 
     }
@@ -30,7 +31,7 @@ public class Name implements Verifiable {
 
     @Override
     public boolean isValid() {
-        if (name == null || EMPTY_STRING.equals(name) ) {
+        if (name == null || EMPTY_STRING.equals(name)) {
             return false;
         }
         for (int i = 0; i < name.length(); i++) {
