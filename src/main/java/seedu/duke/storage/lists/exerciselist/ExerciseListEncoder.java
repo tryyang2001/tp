@@ -16,7 +16,7 @@ public class ExerciseListEncoder extends Encoder {
     public ArrayList<String> encodeExerciseList(ExerciseList exerciseList) {
         ArrayList<String> exercises = new ArrayList<>();
         for (int i = 0; i < exerciseList.getSize(); i++) {
-            detailsToSave.add(exerciseList.getExercise(i).toFileTextString());
+            detailsToSave.add(exerciseList.getItem(i).toFileTextString());
         }
         return detailsToSave;
     }

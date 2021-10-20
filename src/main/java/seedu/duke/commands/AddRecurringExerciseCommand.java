@@ -50,7 +50,7 @@ public class AddRecurringExerciseCommand extends Command {
             LocalDate currentDate = startDate;
             while (currentDate.isBefore(this.endDate) || currentDate.isEqual(this.endDate)) {
                 if (dayOfTheWeek == day) {
-                    super.futureExerciseItems.addFutureExercise(new Exercise(description, calories, currentDate));
+                    super.futureExerciseItems.addItem(new Exercise(description, calories, currentDate));
                     currentDate = currentDate.plusDays(ONE_WEEK);
                     dayOfTheWeek = currentDate.getDayOfWeek().getValue();
                 } else {

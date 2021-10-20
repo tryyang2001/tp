@@ -15,7 +15,7 @@ public class FoodListEncoder extends Encoder {
      */
     public ArrayList<String> encodeFoodList(FoodList foodList) {
         for (int i = 0; i < foodList.getSize(); i++) {
-            detailsToSave.add(foodList.getFood(i).toFileTextString());
+            detailsToSave.add(foodList.getItem(i).toFileTextString());
         }
         return detailsToSave;
     }
