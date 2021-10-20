@@ -104,11 +104,7 @@ public abstract class Command {
      * @return True if profile storage file is to be rewritten after execution of the command
      */
     public static boolean requiresProfileStorageRewrite(Command command) {
-        return command instanceof ChangeHeightCommand
-                || command instanceof ChangeNameCommand
-                || command instanceof ChangeWeightCommand
-                || command instanceof ProfileCreateCommand
-                || command instanceof SetGoalCommand;
+        return command instanceof ProfileUpdateCommand;
     }
 
     /**

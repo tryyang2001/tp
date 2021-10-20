@@ -4,7 +4,6 @@ import seedu.duke.profile.Profile;
 import seedu.duke.profile.attributes.ActivityFactor;
 import seedu.duke.profile.attributes.Age;
 import seedu.duke.profile.attributes.CalorieGoal;
-
 import seedu.duke.profile.attributes.Gender;
 import seedu.duke.profile.attributes.Height;
 import seedu.duke.profile.attributes.Name;

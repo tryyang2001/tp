@@ -7,7 +7,7 @@ import seedu.duke.item.bank.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
-import seedu.duke.parser.Parser;
+import seedu.duke.parser.ParserManager;
 import seedu.duke.profile.Profile;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
@@ -78,7 +78,7 @@ public class Main {
         Command command;
         do {
             String userInput = ui.getUserInput();
-            command = new Parser().parseCommand(userInput);
+            command = new ParserManager().parseCommand(userInput);
             CommandResult result = executeCommand(command);
             ui.formatMessageFramedWithDivider(result.toString());
         } while (!ByeCommand.isBye(command));
