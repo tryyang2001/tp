@@ -7,10 +7,9 @@ import seedu.duke.commands.HelpCommand;
 import seedu.duke.commands.ProfileCreateCommand;
 import seedu.duke.commands.SetGoalCommand;
 
-import java.lang.System;
 import java.util.Scanner;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class deals with interaction with user on CLI.
@@ -59,7 +58,6 @@ public class Ui {
             + " | |    | | |_| |_) | (_) | |_"
             + LS
             + " |_|    |_|\\__|_.__/ \\___/ \\__|";
-
 
 
     public static final String QUOTATION = "\"";

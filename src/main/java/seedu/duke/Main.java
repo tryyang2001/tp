@@ -4,13 +4,16 @@ import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
 import seedu.duke.commands.InvalidCommand;
+import seedu.duke.item.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.parser.Parser;
 import seedu.duke.profile.Profile;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
+import seedu.duke.ui.Statistics;
 import seedu.duke.ui.Ui;
 
 
@@ -21,7 +24,10 @@ import seedu.duke.ui.Ui;
 public class Main {
 
     private ExerciseList exerciseItems;
+    private FutureExerciseList futureExerciseItems;
     private FoodList foodItems;
+    private ItemBank exerciseBank;
+    private ItemBank foodBank;
     private Profile profile;
     private Ui ui;
     private Storage storage;
@@ -50,6 +56,10 @@ public class Main {
     private void start() {
         this.storage = new Storage();
         this.ui = new Ui();
+        //TODO: replace these with ones from storage
+        this.exerciseBank = new ItemBank();
+        this.foodBank = new ItemBank();
+        this.futureExerciseItems = new FutureExerciseList();
         try {
             this.profile = storage.loadProfileFile();
             this.foodItems = storage.loadFoodListFile();
@@ -86,13 +96,14 @@ public class Main {
 
     private void showUserMessage() {
         String userMessage;
-        final String nameString = profile.getName() == null
-                ? Ui.MESSAGE_NO_INFO : profile.getName();
-        final String heightString = profile.getHeight() == 0
-                ? Ui.MESSAGE_NO_INFO : String.format(Ui.MESSAGE_HEIGHT, profile.getHeight());
-        final String weightString = profile.getWeight() == 0
-                ? Ui.MESSAGE_NO_INFO : String.format(Ui.MESSAGE_WEIGHT, profile.getWeight());
-        final String calorieGoalString = String.format(Ui.MESSAGE_CALORIE_GOAL, profile.getCalorieGoal());
+        final String nameString = profile.getProfileName().getName() == null
+                ? Ui.MESSAGE_NO_INFO : profile.getProfileName().getName();
+        final String heightString = profile.getProfileHeight().getHeight() == 0
+                ? Ui.MESSAGE_NO_INFO : String.format(Ui.MESSAGE_HEIGHT, profile.getProfileHeight().getHeight());
+        final String weightString = profile.getProfileWeight().getWeight() == 0
+                ? Ui.MESSAGE_NO_INFO : String.format(Ui.MESSAGE_WEIGHT, profile.getProfileWeight().getWeight());
+        final String calorieGoalString = String.format(Ui.MESSAGE_CALORIE_GOAL,
+                profile.getProfileCalorieGoal().getCalorieGoal());
 
         userMessage = Ui.MESSAGE_INTRO + ui.LS
                 + Ui.NAME_HEADER + nameString + ui.INDENTED_LS + Ui.MESSAGE_NAME_USAGE + ui.LS
@@ -107,18 +118,18 @@ public class Main {
      * Set default values for name, weight, height for user.
      */
     private void setDefaultProfile() {
-        if (!profile.checkNameCreated()) {
-            String createDefaultNameCommand = "name User";
-            createProfile(createDefaultNameCommand);
-        }
-        if (!profile.checkHeightCreated()) {
-            String createDefaultHeightCommand = "height 170";
-            createProfile(createDefaultHeightCommand);
-        }
-        if (!profile.checkWeightCreated()) {
-            String createDefaultWeightCommand = "weight 65";
-            createProfile(createDefaultWeightCommand);
-        }
+//        if (!profile.checkNameCreated()) {
+//            String createDefaultNameCommand = "name User";
+//            createProfile(createDefaultNameCommand);
+//        }
+//        if (!profile.checkHeightCreated()) {
+//            String createDefaultHeightCommand = "height 170";
+//            createProfile(createDefaultHeightCommand);
+//        }
+//        if (!profile.checkWeightCreated()) {
+//            String createDefaultWeightCommand = "weight 65";
+//            createProfile(createDefaultWeightCommand);
+//        }
     }
 
     private void createProfile(String createDefaultNameCommand) {
@@ -149,7 +160,9 @@ public class Main {
      * @return CommandResult representing result of execution of the command
      */
     private CommandResult executeCommand(Command command) {
-        command.setData(this.profile, this.exerciseItems, this.foodItems);
+
+        command.setData(this.profile, this.exerciseItems, this.futureExerciseItems,
+                this.foodItems, this.exerciseBank, this.foodBank);
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {
@@ -163,6 +176,10 @@ public class Main {
             }
             if (Command.requiresFoodListStorageRewrite(command)) {
                 storage.saveFoodList(this.foodItems);
+            }
+            if (Command.requiresFutureExerciseListStorageRewrite(command)) {
+                //TODO
+                //storage.saveFutureExercises(this.futureExerciseItems);
             }
         } catch (UnableToWriteFileException e) {
             ui.formatMessageFramedWithDivider(e.getMessage());

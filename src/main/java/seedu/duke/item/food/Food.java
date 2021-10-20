@@ -84,6 +84,7 @@ public class Food extends Item {
 
     /**
      * Gets the time period of the food consumed.
+     *
      * @return TimePeriod enum which represents the time period
      */
     public TimePeriod getTimePeriod() {
@@ -99,9 +100,8 @@ public class Food extends Item {
         return FOOD_TYPE
                 + super.toFileTextString()
                 + FILE_TEXT_DELIMITER
-                + this.getDate().format(DATE_FORMATTER)
-                + FILE_TEXT_DELIMITER
-                + this.getTime().format(TIME_FORMATTER);
+                + this.getDateTime().format(DATE_TIME_FORMATTER);
+
     }
 
     /**
