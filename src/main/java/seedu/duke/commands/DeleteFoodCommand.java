@@ -1,8 +1,8 @@
 package seedu.duke.commands;
 
 import seedu.duke.item.food.Food;
-import seedu.duke.ui.Ui;
 
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,29 +10,34 @@ import java.util.logging.Logger;
  * Represents the command that when executed, deletes a Food item from the FoodList.
  */
 public class DeleteFoodCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD_DELETE
-            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "X" + Ui.QUOTATION
+    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_DELETE
+            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "X" + QUOTATION
             + ", where X is the item number in the food list";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to delete a food item?"
-            + Ui.INDENTED_LS + "Use this format:" + Ui.LS + MESSAGE_COMMAND_FORMAT;
     public static final String MESSAGE_SUCCESS = "A food item has been deleted:"
-            + Ui.INDENTED_LS + "%1$s"
-            + Ui.INDENTED_LS + "Number of food item(s) left: %2$d";
+            + INDENTED_LS + "%1$s"
+            + INDENTED_LS + "Number of food item(s) left: %2$d";
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
+    public static final String[] EXPECTED_PREFIXES = {
+            COMMAND_PREFIX_FOOD,
+            COMMAND_PREFIX_DATE
+    };
+
 
     private final int itemIndex;
+    private final LocalDate date;
     private boolean isClear = false;
 
     private static final Logger logger = Logger.getLogger(DeleteFoodCommand.class.getName());
 
-    public DeleteFoodCommand(int itemIndex) {
+    public DeleteFoodCommand(int itemIndex, LocalDate date) {
         this.itemIndex = itemIndex;
+        this.date = date;
     }
 
     public DeleteFoodCommand(boolean isClear) {
         this.itemIndex = -1;
         this.isClear = isClear;
+        this.date = LocalDate.now();
     }
 
     @Override
@@ -50,6 +55,7 @@ public class DeleteFoodCommand extends Command {
         }
         logger.log(Level.FINE, "Trying to delete item now");
         try {
+            //TODO: Implement delete by date and index
             Food deletedFood;
             deletedFood = super.foodItems.deleteItem(this.itemIndex);
             return new CommandResult(String.format(MESSAGE_SUCCESS, deletedFood, super.foodItems.getSize()));

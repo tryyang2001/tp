@@ -9,21 +9,46 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class ExerciseList extends ItemList {
-    public static final String MESSAGE_EXERCISE_DONE = "You have done %d exercise(s) in %s (%s):";
+    public static final String MESSAGE_EXERCISE_DONE = "You have done %d exercise(s) on %s (%s):";
     public static final String MESSAGE_TOTAL_CALORIE_BURNT = "Total calories burnt: %d cal";
+<<<<<<< HEAD
+=======
+    public static final String MESSAGE_EXERCISE = "%d. %s";
+    public static final String DATE_FORMAT = "dd MMM yyyy";
+
+    protected ArrayList<Exercise> exerciseList = new ArrayList<>();
+>>>>>>> 176bd5365ee4cdd4eb2deca93b393a328abe985b
 
     /**
      * Default constructor for exercise list.
      */
+<<<<<<< HEAD
     public ExerciseList() {
         itemList = new ArrayList<>();
+=======
+    @Override
+    public int getSize() {
+        return exerciseList.size();
+    }
+
+    /**
+     * Adds an exercise item into the exercise list.
+     *
+     * @param exercise Exercise class object to be added.
+     */
+    public void addExercise(Exercise exercise) {
+        this.exerciseList.add(exercise);
+        this.sortExerciseList();
+>>>>>>> 176bd5365ee4cdd4eb2deca93b393a328abe985b
     }
 
     /**
      * Deletes an exercise item from the exercise list.
      *
      * @param index Index of the exercise to be deleted.
+     * @return Exercise object removed.
      */
+<<<<<<< HEAD
     //TODO: remove this method after changing code in DeleteExerciseCommand.
     public Exercise deleteItem(int index) {
         return (Exercise) itemList.remove(index);
@@ -34,6 +59,10 @@ public class ExerciseList extends ItemList {
         int actualIndex = getActualIndex(index, deletedExercise);
         deletedExercise = (Exercise) itemList.remove(actualIndex);
         return deletedExercise;
+=======
+    public Exercise deleteExercise(int index) {
+        return this.exerciseList.remove(index);
+>>>>>>> 176bd5365ee4cdd4eb2deca93b393a328abe985b
     }
 
     /**
@@ -59,7 +88,13 @@ public class ExerciseList extends ItemList {
     }
 
     /**
+<<<<<<< HEAD
      * Sorts the exercise list in ascending format according to the date.
+=======
+     * Computes the sum of calorie of all exercises in exercise list.
+     *
+     * @return Integer value of the sum of calorie of all exercises in the exercise list.
+>>>>>>> 176bd5365ee4cdd4eb2deca93b393a328abe985b
      */
     public void sortList() {
         this.itemList.sort(Comparator.comparing(Item::getDate));

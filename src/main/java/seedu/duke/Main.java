@@ -3,14 +3,16 @@ package seedu.duke;
 import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
+import seedu.duke.item.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.parser.Parser;
 import seedu.duke.profile.Profile;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
-import seedu.duke.ui.Statistics;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
+import seedu.duke.ui.Statistics;
 import seedu.duke.ui.Ui;
 
 
@@ -21,7 +23,10 @@ import seedu.duke.ui.Ui;
 public class Main {
 
     private ExerciseList exerciseItems;
+    private FutureExerciseList futureExerciseItems;
     private FoodList foodItems;
+    private ItemBank exerciseBank;
+    private ItemBank foodBank;
     private Profile profile;
     private Ui ui;
     private Storage storage;
@@ -51,6 +56,10 @@ public class Main {
     private void start() {
         this.storage = new Storage();
         this.ui = new Ui();
+        //TODO: replace these with ones from storage
+        this.exerciseBank = new ItemBank();
+        this.foodBank = new ItemBank();
+        this.futureExerciseItems = new FutureExerciseList();
         try {
             this.profile = storage.loadProfileFile();
             this.foodItems = storage.loadFoodListFile();
@@ -82,7 +91,9 @@ public class Main {
      * @return CommandResult representing result of execution of the command
      */
     private CommandResult executeCommand(Command command) {
-        command.setData(this.profile, this.exerciseItems, this.foodItems);
+
+        command.setData(this.profile, this.exerciseItems, this.futureExerciseItems,
+                this.foodItems, this.exerciseBank, this.foodBank);
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {
@@ -96,6 +107,10 @@ public class Main {
             }
             if (Command.requiresFoodListStorageRewrite(command)) {
                 storage.saveFoodList(this.foodItems);
+            }
+            if (Command.requiresFutureExerciseListStorageRewrite(command)) {
+                //TODO
+                //storage.saveFutureExercises(this.futureExerciseItems);
             }
         } catch (UnableToWriteFileException e) {
             ui.formatMessageFramedWithDivider(e.getMessage());

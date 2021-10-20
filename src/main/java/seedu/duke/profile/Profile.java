@@ -1,21 +1,39 @@
 package seedu.duke.profile;
 
+import seedu.duke.profile.attributes.ActivityFactor;
+import seedu.duke.profile.attributes.Age;
+import seedu.duke.profile.attributes.CalorieGoal;
+import seedu.duke.profile.attributes.Gender;
+import seedu.duke.profile.attributes.Height;
+import seedu.duke.profile.attributes.Name;
+import seedu.duke.profile.attributes.Weight;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
 
 /**
- * Profile that contains the relevant data input by user.
+ * Profile that contains the relevant details input by user.
  */
 public class Profile {
 
+    public static final String FILE_TEXT_DELIMITER = "|";
+
     private static final String LS = System.lineSeparator();
-    private static final String ERROR_HEIGHT = "Height cannot be less than or equal to 0." + LS
+
+    public static final int NON_POSITIVE_LIMIT = 0;
+
+    public static final String ERROR_HEIGHT = "Height cannot be less than or equal to 0." + LS
             + "Try a positive value instead!";
-    private static final String ERROR_WEIGHT = "Weight cannot be less than or equal to 0." + LS
+    public static final String ERROR_WEIGHT = "Weight cannot be less than or equal to 0." + LS
             + "Try a positive value instead!";
-    private static final String ERROR_GENDER = "Please type in M or F only!";
-    private static final String ERROR_AGE = "Age cannot be less than or equal to 0." + LS
+    public static final String ERROR_GENDER = "Please type in M or F only!";
+    public static final String ERROR_AGE = "Age cannot be less than or equal to 0." + LS
             + "Try a positive value instead!";
-    private static final String ERROR_ACTIVITY_FACTOR = "Please key in a value from 1 to 5!";
+    public static final String ERROR_ACTIVITY_FACTOR = "Please key in a value from "
+            + ActivityFactor.LIMIT_LOWER_ACTIVITY_FACTOR
+            + " to "
+            + ActivityFactor.LIMIT_UPPER_ACTIVITY_LEVEL;
+    public static final String ERROR_CALORIE_GOAL =
+            "I don't think you should be aiming to be setting such a extreme goal of %d" + LS
+                    + "Try a range of " + CalorieGoal.LIMIT_LOWER_CALORIES  + " to " + CalorieGoal.LIMIT_UPPER_CALORIES;
 
     private static final String BMI_STATUS_UNDERWEIGHT = "Underweight";
     private static final String BMI_STATUS_HEALTHY = "Healthy";
@@ -25,8 +43,6 @@ public class Profile {
     public static final double BMI_LIMIT_HEALTHY = 24.9;
     public static final double BMI_LIMIT_OVERWEIGHT = 29.9;
 
-    public static final String FILE_TEXT_DELIMITER = "|";
-
     public static final double FACTOR_SEDENTARY = 1.2;
     public static final double FACTOR_LIGHT = 1.375;
     public static final double FACTOR_MODERATE = 1.55;
@@ -35,6 +51,7 @@ public class Profile {
 
     private static final char GENDER_M = 'M';
     private static final char GENDER_F = 'F';
+
     public static final double GENDER_M_WEIGHT_FACTOR = 13.397;
     public static final double GENDER_M_HEIGHT_FACTOR = 4.799;
     public static final double GENDER_M_AGE_FACTOR = 5.677;
@@ -44,156 +61,116 @@ public class Profile {
     public static final double GENDER_F_AGE_FACTOR = 4.330;
     public static final double GENDER_F_CONSTANT = 447.593;
 
-    private String name;
-    private char gender;
-    private double height;
-    private double weight;
-    private int calorieGoal;
-    private int age;
-    private int activityFactor;
+    protected Name name = new Name();
+    protected Height height = new Height();
+    protected Weight weight = new Weight();
+    protected Gender gender = new Gender();
+    protected Age age = new Age();
+    protected CalorieGoal calorieGoal = new CalorieGoal();
+    protected ActivityFactor activityFactor = new ActivityFactor();
 
-    //TODO Update profile constructors and setProfile methods to more relevant attributes once merged
+    public Profile(){
+
+    }
+
     /**
      * Constructor for the Profile class.
      *
-     * @param name   Name of user
-     * @param height Height of user
-     * @param weight Weight of user
-     * @throws InvalidCharacteristicException If a value of <= 0 is provided for height or weight
+     * @param name           Name of user
+     * @param height         Height of user
+     * @param weight         Weight of user
+     * @param calorieGoal    Calorie target of user
+     * @param gender         Gender of user (M/F)
+     * @param age            Age of user
+     * @param activityFactor Activity level of user
      */
-    public Profile(String name, double height, double weight, int calorieGoal)
-            throws InvalidCharacteristicException {
-        setName(name);
-        setHeight(height);
-        setWeight(weight);
-        setCalorieGoal(calorieGoal);
-    }
-
-    public Profile(String name, double height, double weight, int calorieGoal, char gender, int age, int activityFactor)
-            throws InvalidCharacteristicException {
-        setName(name);
-        setHeight(height);
-        setWeight(weight);
-        setCalorieGoal(calorieGoal);
-        setGender(gender);
-        setAge(age);
-        setActivityFactor(activityFactor);
-    }
-
-    public Profile() {
-
-    }
-
-    public void setProfile(String name, double height, double weight, int calorieGoal)
-            throws InvalidCharacteristicException {
-        setName(name);
-        setHeight(height);
-        setWeight(weight);
-        setCalorieGoal(calorieGoal);
-    }
-
-    public void setProfile(String name, double height, double weight, int calorieGoal,
-                           char gender, int age, int activityFactor) throws InvalidCharacteristicException {
-        setName(name);
-        setHeight(height);
-        setWeight(weight);
-        setCalorieGoal(calorieGoal);
-        setGender(gender);
-        setAge(age);
-        setActivityFactor(activityFactor);
-    }
-
-    public void setName(String name) {
+    public Profile(Name name, Height height, Weight weight, Gender gender,
+                      Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
         this.name = name;
-    }
-
-    public double getHeight() {
-        return this.height;
-    }
-
-    public void setHeight(double height) throws InvalidCharacteristicException {
-        checkHeightValidity(height);
-        assert height > 0 : "Height cannot be non-positive.";
         this.height = height;
-    }
-
-    public double getWeight() {
-        return this.weight;
-    }
-
-    public void setWeight(double weight) throws InvalidCharacteristicException {
-        checkWeightValidity(weight);
-        assert weight > 0 : "Weight cannot be non-positive.";
         this.weight = weight;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public int getCalorieGoal() {
-        return this.calorieGoal;
-    }
-
-    public void setCalorieGoal(int calorieGoal) {
-        this.calorieGoal = calorieGoal;
-    }
-
-    public char getGender() {
-        return gender;
-    }
-
-    public void setGender(char gender) throws InvalidCharacteristicException {
-        checkGenderValidity(gender);
         this.gender = gender;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) throws InvalidCharacteristicException {
-        checkAgeValidity(age);
         this.age = age;
-    }
-
-    public int getActivityFactor() {
-        return activityFactor;
-    }
-
-    public void setActivityFactor(int activityFactor) throws InvalidCharacteristicException {
-        checkActivityFactorValidity(activityFactor);
+        this.calorieGoal = calorieGoal;
         this.activityFactor = activityFactor;
     }
 
-    private static void checkWeightValidity(double weight) throws InvalidCharacteristicException {
-        if (weight <= 0) {
-            throw new InvalidCharacteristicException(ERROR_WEIGHT);
-        }
+    /**
+     * Sets the profile in various commands with the raw inputs if necessary.
+     *
+     * @param name           Name of user
+     * @param height         Height of user
+     * @param weight         Weight of user
+     * @param calorieGoal    Calorie target of user
+     * @param gender         Gender of user (M/F)
+     * @param age            Age of user
+     * @param activityFactor Activity level of user
+     */
+    public void setProfileWithRawInputs(String name, double height, double weight,
+                                        char gender, int age, int calorieGoal, int activityFactor) {
+        this.name.setName(name);
+        this.height.setHeight(height);
+        this.weight.setWeight(weight);
+        this.gender.setGender(gender);
+        this.age.setAge(age);
+        this.calorieGoal.setCalorieGoal(calorieGoal);
+        this.activityFactor.setActivityFactor(activityFactor);
     }
 
-    private static void checkHeightValidity(double height) throws InvalidCharacteristicException {
-        if (height <= 0) {
-            throw new InvalidCharacteristicException(ERROR_HEIGHT);
-        }
+    public void setProfileName(Name name) {
+        this.name = name;
     }
 
-    private static void checkGenderValidity(char gender) throws InvalidCharacteristicException {
-        if (!(gender == 'M' || gender == 'F')) {
-            throw new InvalidCharacteristicException(ERROR_GENDER);
-        }
+    public void setProfileHeight(Height height) {
+        this.height = height;
     }
 
-    private static void checkAgeValidity(int age) throws InvalidCharacteristicException {
-        if (age <= 0) {
-            throw new InvalidCharacteristicException(ERROR_AGE);
-        }
+    public void setProfileWeight(Weight weight) {
+        this.weight = weight;
     }
 
-    private void checkActivityFactorValidity(int activityFactor) throws InvalidCharacteristicException {
-        if (activityFactor < 1 || activityFactor > 5) {
-            throw new InvalidCharacteristicException(ERROR_ACTIVITY_FACTOR);
-        }
+    public void setProfileGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setProfileAge(Age age) {
+        this.age = age;
+    }
+
+    public void setProfileCalorieGoal(CalorieGoal calorieGoal) {
+        this.calorieGoal = calorieGoal;
+    }
+
+    public void setProfileActivityFactor(ActivityFactor activityFactor) {
+        this.activityFactor = activityFactor;
+    }
+
+    public Name getProfileName() {
+        return this.name;
+    }
+
+    public Height getProfileHeight() {
+        return this.height;
+    }
+
+    public Weight getProfileWeight() {
+        return this.weight;
+    }
+
+    public Gender getProfileGender() {
+        return this.gender;
+    }
+
+    public Age getProfileAge() {
+        return this.age;
+    }
+
+    public CalorieGoal getProfileCalorieGoal() {
+        return this.calorieGoal;
+    }
+
+    public ActivityFactor getProfileActivityFactor() {
+        return this.activityFactor;
     }
 
     /**
@@ -205,7 +182,7 @@ public class Profile {
     public int getBmr() {
         double bmr = getBaseBmrValue();
         double factor = 1.0; //Initialise to 1
-        switch (activityFactor) {
+        switch (activityFactor.getActivityFactor()) {
         case 1:
             factor = FACTOR_SEDENTARY;
             break;
@@ -227,32 +204,13 @@ public class Profile {
         return (int) Math.round(bmr * factor);
     }
 
-    private double getBaseBmrValue() {
-        double bmr;
-        if (gender == GENDER_M) {
-            bmr =  GENDER_M_WEIGHT_FACTOR * weight
-                    + GENDER_M_HEIGHT_FACTOR * height
-                    - GENDER_M_AGE_FACTOR * age
-                    + GENDER_M_CONSTANT;
-        } else {
-            bmr = GENDER_F_WEIGHT_FACTOR * weight
-                    + GENDER_F_HEIGHT_FACTOR * height
-                    - GENDER_F_AGE_FACTOR * age
-                    + GENDER_F_CONSTANT;
-        }
-        return bmr;
-    }
-
     /**
      * Calculates the BMI based on the profile's characteristics.
      *
      * @return The calculated BMI of the profile's height and weight
-     * @throws InvalidCharacteristicException When the profile data integrity is compromised through modifying .txt file
      */
-    public double calculateBmi() throws InvalidCharacteristicException {
-        checkHeightValidity(height);
-        checkWeightValidity(weight);
-        return computeBmi(height, weight);
+    public double calculateBmi() {
+        return computeBmi(height.getHeight(), weight.getWeight());
     }
 
     /**
@@ -267,12 +225,26 @@ public class Profile {
     public static double calculateBmi(double height, double weight) throws InvalidCharacteristicException {
         checkHeightValidity(height);
         checkWeightValidity(weight);
+        assert weight > 0 : "Weight cannot be non-positive.";
+        assert height > 0 : "Height cannot be non-positive.";
         return computeBmi(height, weight);
     }
 
     private static double computeBmi(double height, double weight) {
         double heightInM = height / 100.0;
         return Math.round((weight / (Math.pow(heightInM, 2))) * 10) / 10.0;
+    }
+
+    public static void checkWeightValidity(double weight) throws InvalidCharacteristicException {
+        if (weight <= NON_POSITIVE_LIMIT) {
+            throw new InvalidCharacteristicException(ERROR_WEIGHT);
+        }
+    }
+
+    public static void checkHeightValidity(double height) throws InvalidCharacteristicException {
+        if (height <= NON_POSITIVE_LIMIT) {
+            throw new InvalidCharacteristicException(ERROR_HEIGHT);
+        }
     }
 
     /**
@@ -297,12 +269,28 @@ public class Profile {
         return result;
     }
 
+    private double getBaseBmrValue() {
+        double bmr;
+        if (gender.getGender() == GENDER_M) {
+            bmr = GENDER_M_WEIGHT_FACTOR * weight.getWeight()
+                    + GENDER_M_HEIGHT_FACTOR * height.getHeight()
+                    - GENDER_M_AGE_FACTOR * age.getAge()
+                    + GENDER_M_CONSTANT;
+        } else {
+            bmr = GENDER_F_WEIGHT_FACTOR * weight.getWeight()
+                    + GENDER_F_HEIGHT_FACTOR * height.getHeight()
+                    - GENDER_F_AGE_FACTOR * age.getAge()
+                    + GENDER_F_CONSTANT;
+        }
+        return bmr;
+    }
+
     /**
      * Calculates the difference between food calories and exercise calories, factoring in metabolic rate.
      *
      * @param foodCalories     Total intake consumption
      * @param exerciseCalories Total output exerted
-     * @return The net calories of food - exercise
+     * @return The net calories of food - (exercise + BMR)
      * @throws InvalidCharacteristicException Only if activity factor has been misappropriated in .txt file
      */
     public int calculateNetCalories(int foodCalories, int exerciseCalories) throws InvalidCharacteristicException {
@@ -315,10 +303,10 @@ public class Profile {
      * @return String that is used for storage.
      */
     public String toFileTextString() {
-        return getName() + FILE_TEXT_DELIMITER + getHeight() + FILE_TEXT_DELIMITER
-                + getWeight() + FILE_TEXT_DELIMITER + getCalorieGoal() + FILE_TEXT_DELIMITER
-                + getGender() + FILE_TEXT_DELIMITER + getAge() + FILE_TEXT_DELIMITER
-                + getActivityFactor();
+        return name.getName() + FILE_TEXT_DELIMITER + height.getHeight() + FILE_TEXT_DELIMITER
+                + weight.getWeight() + FILE_TEXT_DELIMITER + gender.getGender() + FILE_TEXT_DELIMITER
+                + age.getAge() + FILE_TEXT_DELIMITER + calorieGoal.getCalorieGoal() + FILE_TEXT_DELIMITER
+                + activityFactor.getActivityFactor();
     }
 
 }
