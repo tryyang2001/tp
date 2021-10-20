@@ -19,7 +19,7 @@ public class Profile {
     private static final String LS = System.lineSeparator();
 
     public static final int NON_POSITIVE_LIMIT = 0;
-
+    public static final String ERROR_NAME = "Name cannot contain '/' of '|' .";
     public static final String ERROR_HEIGHT = "Height cannot be less than or equal to 0." + LS
             + "Try a positive value instead!";
     public static final String ERROR_WEIGHT = "Weight cannot be less than or equal to 0." + LS
@@ -307,6 +307,27 @@ public class Profile {
                 + weight.getWeight() + FILE_TEXT_DELIMITER + gender.getGender() + FILE_TEXT_DELIMITER
                 + age.getAge() + FILE_TEXT_DELIMITER + calorieGoal.getCalorieGoal() + FILE_TEXT_DELIMITER
                 + activityFactor.getActivityFactor();
+    }
+
+    /**
+     * Check if all attributes of profile are valid.
+     *
+     * @return false if at least one of the profile attributes are invalid.
+     */
+    public boolean checkProfileComplete() {
+        return getProfileName().isValid() && getProfileHeight().isValid() && getProfileWeight().isValid()
+                && getProfileGender().isValid() && getProfileAge().isValid() && getProfileActivityFactor().isValid();
+    }
+
+    /**
+     * Check if any of profile attributes is valid.
+     * If all profile attributes are incorrect, it will be deemed as profile not present.
+     *
+     * @return true if at least one of the profile attributes are invalid.
+     */
+    public boolean checkProfilePresent() {
+        return getProfileName().isValid() || getProfileHeight().isValid() || getProfileWeight().isValid()
+                || getProfileGender().isValid() || getProfileAge().isValid() || getProfileActivityFactor().isValid();
     }
 
 }

@@ -60,8 +60,7 @@ public class AddFoodCommand extends Command {
             }
             food = new Food(this.description, this.calories, this.dateTime);
         }
-
-        super.foodItems.addFood(food);
+        super.foodItems.addItem(food);
         assert foodItems.getSize() > 0 : "The size of the food list should at least larger than 0";
         logger.log(Level.FINE, "New food item has been added to the food list");
         return new CommandResult(String.format(MESSAGE_SUCCESS, food));
