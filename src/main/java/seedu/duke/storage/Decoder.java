@@ -100,12 +100,6 @@ public class Decoder {
             logger.log(Level.WARNING, "A line in exercise list is not valid.", line);
             throw new InvalidDataException(Storage.FILENAME_EXERCISE_LIST, line);
         }
-<<<<<<< HEAD
-        String name = exerciseDetails[1];
-        int calories = Integer.parseInt(exerciseDetails[2]);
-        exercises.addItem(new Exercise(name, calories));
-=======
->>>>>>> 176bd5365ee4cdd4eb2deca93b393a328abe985b
     }
 
     /**
@@ -137,16 +131,11 @@ public class Decoder {
             final String name = foodDetails[1];
             final int calories = Integer.parseInt(foodDetails[2]);
             final LocalDateTime dateTimeOfFood = parseDateTime(foodDetails[3]);
-            foodItems.addFood(new Food(name, calories, dateTimeOfFood));
+            foodItems.addItem(new Food(name, calories, dateTimeOfFood));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in food list is not valid.", line);
             throw new InvalidDataException(Storage.FILENAME_FOOD_LIST, line);
         }
-<<<<<<< HEAD
-        String name = foodDetails[1];
-        int calories = Integer.parseInt(foodDetails[2]);
-        foodItems.addItem(new Food(name, calories));
-=======
     }
 
     private LocalDate parseDate(String date) {
@@ -155,7 +144,6 @@ public class Decoder {
 
     private LocalDateTime parseDateTime(String dateTime) {
         return LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
->>>>>>> 176bd5365ee4cdd4eb2deca93b393a328abe985b
     }
 }
 

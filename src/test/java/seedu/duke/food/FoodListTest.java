@@ -19,7 +19,8 @@ class FoodListTest {
         FoodList foodList = new FoodList();
         foodList.addItem(new Food("chicken rice", 607,
                 LocalDateTime.parse("2021-10-16 1020", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
-        assertEquals("[10:20] chicken rice (607 cal)", foodList.getItem(foodList.getSize() - 1).toString());
+        assertEquals("[10:20] chicken rice (607 cal)",
+                foodList.getItem(foodList.getSize() - 1).toString());
     }
 
     @Test
