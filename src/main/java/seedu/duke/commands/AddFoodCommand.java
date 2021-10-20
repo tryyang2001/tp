@@ -1,6 +1,6 @@
 package seedu.duke.commands;
 
-import seedu.duke.item.ItemNotFoundInBankException;
+import seedu.duke.item.bank.exceptions.ItemNotFoundInBankException;
 import seedu.duke.item.food.Food;
 
 import java.time.LocalDateTime;
