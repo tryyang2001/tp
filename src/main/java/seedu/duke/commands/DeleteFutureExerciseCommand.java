@@ -37,7 +37,7 @@ public class DeleteFutureExerciseCommand extends Command {
     public CommandResult execute() {
         if (this.isClear) {
             logger.log(Level.FINE, "Clearing future exercise list");
-            super.futureExerciseItems.clearFutureExerciseList();
+            super.futureExerciseItems.clearList();
             return new CommandResult(MESSAGE_FUTURE_EXERCISE_CLEAR);
         }
         assert this.itemIndex > 0 : "Deleting an item only";
@@ -48,7 +48,7 @@ public class DeleteFutureExerciseCommand extends Command {
         logger.log(Level.FINE, "Trying to delete item now");
         try {
             Exercise deletedExercise;
-            deletedExercise = super.futureExerciseItems.deleteFutureExercise(this.itemIndex);
+            deletedExercise = super.futureExerciseItems.deleteItem(this.itemIndex);
             return new CommandResult(String.format(MESSAGE_SUCCESS, deletedExercise,
                     super.futureExerciseItems.getSize()));
         } catch (IndexOutOfBoundsException e) {
