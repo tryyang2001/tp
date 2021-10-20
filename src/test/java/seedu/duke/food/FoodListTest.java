@@ -22,13 +22,6 @@ class FoodListTest {
         assertEquals("[10:20] chicken rice (607 cal)",
                 foodList.getItem(foodList.getSize() - 1).toString());
     }
-
-    @Test
-    void addFoodWithoutProvidingDateAndTime_callRespectiveConstructor_expectDateAndTimeSetToNow() {
-        FoodList foodList = new FoodList();
-        foodList.addItem(new Food("chicken rice", 607));
-        assertEquals(LocalDateTime.now(), foodList.getItem(0).getDateTime());
-    }
     
     @Test
     void printNonEmptyFoodList_nonEmptyFoodList_expectCorrectOutputString() {
