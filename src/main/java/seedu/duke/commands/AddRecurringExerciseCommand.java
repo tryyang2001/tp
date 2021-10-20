@@ -16,8 +16,8 @@ public class AddRecurringExerciseCommand extends Command {
             + " " + COMMAND_PREFIX_RECURRING + COMMAND_PREFIX_DELIMITER + "exercise name"
             + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories";
     public static final String MESSAGE_INVALID_DATES = "Your start date %s is later than your end date %s";
-    public static final String MESSAGE_INVALID_START_DATE = "Your start date %s has already passed. "
-            + "Make sure that your start and end dates are in the future";
+    public static final String MESSAGE_INVALID_FUTURE_DATES = "Make sure that your start date (%s) "
+            + "and end dates(%s) are in the future";
     public static final String MESSAGE_NO_EXERCISE_ADDED = "Day(s) not present between %s and %s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
             + LS + "Try a positive value instead";
@@ -51,14 +51,14 @@ public class AddRecurringExerciseCommand extends Command {
         assert this.endDate.isAfter(this.startDate) : "End date is after start date";
         if (this.startDate.isBefore(LocalDate.now())) {
             logger.log(Level.WARNING, "Reoccurring exercises are for future only");
-            return new CommandResult(String.format(MESSAGE_INVALID_START_DATE, this.startDate));
+            return new CommandResult(String.format(MESSAGE_INVALID_FUTURE_DATES, this.startDate, this.endDate));
         }
+        assert this.startDate.isAfter(LocalDate.now()) : "Start and end dates are in the future";
         if (this.calories <= 0) {
             logger.log(Level.WARNING, "Exercise calorie is invalid");
             return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
         }
         assert this.calories > 0 : "Exercise calorie is valid";
-
         int numberOfFutureExercises = futureExerciseItems.getSize();
         futureExerciseItems.addRecurringExercises(this.description, this.calories,
                 this.startDate, this.endDate, this.dayOfTheWeek);
