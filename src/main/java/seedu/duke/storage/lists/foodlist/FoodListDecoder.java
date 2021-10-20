@@ -23,7 +23,7 @@ public class FoodListDecoder extends Decoder {
 
     public FoodList getFoodListFromData() throws FileNotFoundException {
         FoodList foodItems = new FoodList();
-        File file = new File(Storage.FILEPATH_LIST_FOOD);
+        File file = new File(FoodListStorage.FILEPATH_LIST_FOOD);
         Scanner in = new Scanner(file);
         logger.log(Level.FINE, "Decoding food list data from file...");
         while (in.hasNext()) {
@@ -46,7 +46,7 @@ public class FoodListDecoder extends Decoder {
             foodItems.addFood(new Food(name, calories, dateTimeOfFood));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in food list is not valid.", line);
-            throw new InvalidDataException(Storage.FILENAME_LIST_FOOD, line);
+            throw new InvalidDataException(FoodListStorage.FILENAME_LIST_FOOD, line);
         }
     }
 }

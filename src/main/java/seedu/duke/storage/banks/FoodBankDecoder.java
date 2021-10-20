@@ -15,7 +15,7 @@ public class FoodBankDecoder extends Decoder {
 
     public ItemBank getFoodBankFromData() throws FileNotFoundException {
         ItemBank items = new ItemBank();
-        File file = new File(Storage.FILEPATH_BANK_FOOD);
+        File file = new File(FoodBankStorage.FILEPATH_BANK_FOOD);
         Scanner in = new Scanner(file);
         logger.log(Level.FINE, "Decoding item bank data from file...");
         while (in.hasNext()) {
@@ -37,7 +37,7 @@ public class FoodBankDecoder extends Decoder {
             items.addItem(new Food(name, calories));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in item bank is not valid.", line);
-            throw new InvalidDataException(Storage.FILENAME_LIST_FOOD, line);
+            throw new InvalidDataException(FoodBankStorage.FILENAME_BANK_FOOD, line);
         }
     }
 }

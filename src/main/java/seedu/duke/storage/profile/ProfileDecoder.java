@@ -21,7 +21,7 @@ public class ProfileDecoder extends Decoder {
      * @throws InvalidCharacteristicException When the data is corrupted in the file.
      */
     public Profile getProfileFromData() throws FileNotFoundException, InvalidCharacteristicException {
-        File file = new File(Storage.FILEPATH_PROFILE);
+        File file = new File(ProfileStorage.FILEPATH_PROFILE);
         Scanner in = new Scanner(file);
         try {
             if (in.hasNext()) {
@@ -48,7 +48,7 @@ public class ProfileDecoder extends Decoder {
             profile.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
             return profile;
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new InvalidDataException(Storage.FILENAME_PROFILE, input);
+            throw new InvalidDataException(ProfileStorage.FILENAME_PROFILE, input);
         }
     }
 

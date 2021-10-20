@@ -23,7 +23,7 @@ public class StorageManager {
     private FoodListStorage foodListStorage = new FoodListStorage();
     private FutureExerciseListStorage futureExerciseListStorage = new FutureExerciseListStorage();
     private FoodBankStorage foodBankStorage = new FoodBankStorage();
-    private ExerciseBankStorage exerciseBankStorage= new ExerciseBankStorage();
+    private ExerciseBankStorage exerciseBankStorage = new ExerciseBankStorage();
 
     public void loadAll(Profile profile, ExerciseList exerciseList, FoodList foodList,
                         FutureExerciseList futureExerciseList, ItemBank foodBank,

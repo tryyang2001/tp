@@ -22,7 +22,7 @@ public class ExerciseListDecoder extends Decoder {
      */
     public ExerciseList getExerciseListFromData() throws FileNotFoundException {
         ExerciseList exercises = new ExerciseList();
-        File file = new File(Storage.FILEPATH_LIST_EXERCISE);
+        File file = new File(ExerciseListStorage.FILEPATH_LIST_EXERCISE);
         Scanner in = new Scanner(file);
         logger.log(Level.FINE, "Decoding exercise data from file...");
         while (in.hasNext()) {
@@ -45,7 +45,7 @@ public class ExerciseListDecoder extends Decoder {
             exercises.addExercise(new Exercise(name, calories, dateOfExercise));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in exercise list is not valid.", line);
-            throw new InvalidDataException(Storage.FILENAME_LIST_EXERCISE, line);
+            throw new InvalidDataException(ExerciseListStorage.FILENAME_LIST_EXERCISE, line);
         }
     }
 

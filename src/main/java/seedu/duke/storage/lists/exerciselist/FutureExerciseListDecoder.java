@@ -22,7 +22,7 @@ public class FutureExerciseListDecoder extends Decoder {
      */
     public FutureExerciseList getFutureListFromData() throws FileNotFoundException {
         FutureExerciseList exercises = new FutureExerciseList();
-        File file = new File(Storage.FILEPATH_LIST_FUTURE);
+        File file = new File(FutureExerciseListStorage.FILEPATH_LIST_FUTURE);
         Scanner in = new Scanner(file);
         logger.log(Level.FINE, "Decoding exercise data from file...");
         while (in.hasNext()) {
@@ -36,7 +36,8 @@ public class FutureExerciseListDecoder extends Decoder {
         return exercises;
     }
 
-    private void decodeFutureExerciseDataFromString(FutureExerciseList exercises, String line) throws InvalidDataException {
+    private void decodeFutureExerciseDataFromString(FutureExerciseList exercises,
+                                                    String line) throws InvalidDataException {
         try {
             final String[] exerciseDetails = line.split(FILE_TEXT_DELIMITER);
             final String name = exerciseDetails[1];
@@ -45,7 +46,7 @@ public class FutureExerciseListDecoder extends Decoder {
             exercises.addExercise(new Exercise(name, calories, dateOfExercise));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in exercise list is not valid.", line);
-            throw new InvalidDataException(Storage.FILENAME_LIST_FUTURE, line);
+            throw new InvalidDataException(FutureExerciseListStorage.FILENAME_LIST_FUTURE, line);
         }
     }
 }
