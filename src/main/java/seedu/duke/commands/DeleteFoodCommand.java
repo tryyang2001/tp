@@ -3,6 +3,7 @@ package seedu.duke.commands;
 import seedu.duke.item.food.Food;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,25 +20,29 @@ public class DeleteFoodCommand extends Command {
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD,
-            COMMAND_PREFIX_DATE
+            COMMAND_PREFIX_DATE,
+            COMMAND_PREFIX_TIME,
     };
 
 
     private final int itemIndex;
     private final LocalDate date;
+    private final LocalTime time;
     private boolean isClear = false;
 
     private static final Logger logger = Logger.getLogger(DeleteFoodCommand.class.getName());
 
-    public DeleteFoodCommand(int itemIndex, LocalDate date) {
+    public DeleteFoodCommand(int itemIndex, LocalDate date, LocalTime time) {
         this.itemIndex = itemIndex;
         this.date = date;
+        this.time = time;
     }
 
     public DeleteFoodCommand(boolean isClear) {
         this.itemIndex = -1;
         this.isClear = isClear;
         this.date = LocalDate.now();
+        this.time = LocalTime.now();
     }
 
     @Override

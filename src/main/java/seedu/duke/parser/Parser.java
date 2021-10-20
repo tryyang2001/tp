@@ -30,6 +30,7 @@ import seedu.duke.commands.ViewExerciseListCommand;
 import seedu.duke.commands.ViewFoodBankCommand;
 import seedu.duke.commands.ViewFoodListCommand;
 import seedu.duke.commands.ViewFutureExerciseListCommand;
+import seedu.duke.item.Item;
 import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
 import seedu.duke.parser.exceptions.ParamMissingException;
@@ -68,7 +69,6 @@ public class Parser {
             + " in your input!";
     protected static final String MESSAGE_ERROR_INVALID_FORMAT = "Invalid format for this command! "
             + "Please follow one of the formats:";
-    protected static final String DATE_TIME_FORMAT = "dd-MM-yyyy HHmm";
     protected static final String DATE_FORMAT = "dd-MM-yyyy";
     protected static final String TIME_FORMAT = "HHmm";
     protected static final String MESSAGE_ERROR_INVALID_DATE_FORMAT = "Invalid date format! Please input date as "
@@ -85,6 +85,7 @@ public class Parser {
             + LS + "6 : Saturday"
             + LS + "7 : Sunday";
     protected static final String MESSAGE_ERROR_NO_DATE = "Please input the date for this item!";
+    protected static final String MESSAGE_ERROR_NO_TIME = "Please input the time for this item!";
     protected static final String MESSAGE_ERROR_NO_DAY_OF_THE_WEEK = "Please input the day of reoccurrence "
             + "for this item!";
     protected static final String MESSAGE_ERROR_REPEATED_DAY_OF_THE_WEEK = "Please check your input of the day "
@@ -144,19 +145,19 @@ public class Parser {
     private Command parseAdd(String params) {
         try {
             final String itemTypePrefix = extractItemTypePrefix(params);
-            if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)
-                    || itemTypePrefix.equals(Command.COMMAND_PREFIX_UPCOMING_EXERCISE)) {
+            switch (itemTypePrefix) {
+            case Command.COMMAND_PREFIX_EXERCISE:
+               //Fallthrough
+            case Command.COMMAND_PREFIX_FOOD:
+                //Fallthrough
+            case Command.COMMAND_PREFIX_RECURRING:
                 return parseAddToItems(params, itemTypePrefix);
-            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_RECURRING)) {
-                return parseAddToItems(params, itemTypePrefix);
-            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD)) {
-                return parseAddToItems(params, itemTypePrefix);
-            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE_BANK)) {
+            case Command.COMMAND_PREFIX_EXERCISE_BANK:
+                //Fallthrough
+            case Command.COMMAND_PREFIX_FOOD_BANK:
                 return parseAddToBank(params, itemTypePrefix);
-            } else {
-                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
-                        "at this point, it must be food bank";
-                return parseAddToBank(params, itemTypePrefix);
+            default:
+                throw new ItemNotSpecifiedException();
             }
         } catch (ItemNotSpecifiedException e) {
             return new InvalidCommand(
@@ -164,11 +165,12 @@ public class Parser {
                             AddExerciseCommand.MESSAGE_COMMAND_FORMAT,
                             AddFoodCommand.MESSAGE_COMMAND_FORMAT,
                             AddExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
-                            AddFoodBankCommand.MESSAGE_COMMAND_FORMAT));
+                            AddFoodBankCommand.MESSAGE_COMMAND_FORMAT,
+                            AddRecurringExerciseCommand.MESSAGE_COMMAND_FORMAT));
         }
     }
 
-    private Command parseAddToItems(String params, String itemTypePrefix) {
+    private Command parseAddToItems(String params, String itemTypePrefix) throws ItemNotSpecifiedException {
         try {
             final String description = extractItemDescription(params, itemTypePrefix);
             int calories = Command.NULL_CALORIES;
@@ -176,69 +178,64 @@ public class Parser {
             try {
                 calories = extractItemCalories(params);
             } catch (ParamMissingException e) {
-                // If calories is not specified, set checkFromBank boolean to true so that the
-                // Command object can try to retrieve from item bank later.
-                isCaloriesFromBank = true;
-                logger.log(Level.INFO, "No calories detected, look at item bank");
+                isCaloriesFromBank = true; //signals to Command class to check for calories from the item bank
+                logger.log(Level.INFO, "No calories detected, to try checking from item bank");
             }
 
-            if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)
-                    || itemTypePrefix.equals(Command.COMMAND_PREFIX_UPCOMING_EXERCISE)) {
+            switch (itemTypePrefix) {
+            case Command.COMMAND_PREFIX_EXERCISE:
                 final LocalDate date = extractDate(params, false);
                 logger.log(Level.INFO, String.format("date detected is: %s", date));
-                if (hasExtraDelimiters(params,
-                        getNumberOfCorrectParamsDetected(params,
-                                AddExerciseCommand.EXPECTED_PREFIXES))) {
+                if (hasExtraDelimiters(params, AddExerciseCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 if (isFutureDate(date)) {
                     logger.log(Level.INFO, String.format("adding to future list"));
-                    return new AddFutureExerciseCommand(description, calories, date);
-                } else {
-                    return new AddExerciseCommand(description, calories, date, isCaloriesFromBank);
+                    return new AddFutureExerciseCommand(description, calories, date, isCaloriesFromBank);
                 }
-            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_RECURRING)) {
-                final LocalDate startDate = extractStartDate(params);
-                final LocalDate endDate = extractEndDate(params);
-                final ArrayList<Integer> dayOfTheWeek = extractDayOfTheWeek(params);
-                return new AddRecurringExerciseCommand(description, calories, startDate, endDate, dayOfTheWeek);
-            } else {
+                return new AddExerciseCommand(description, calories, date, isCaloriesFromBank);
+            case Command.COMMAND_PREFIX_FOOD:
                 final LocalDateTime dateTime = extractDateTime(params);
                 logger.log(Level.INFO, String.format("dateTime detected is: %s", dateTime));
-                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
-                        "at this point, it must be food";
-                if (hasExtraDelimiters(params,
-                        getNumberOfCorrectParamsDetected(params,
-                                AddFoodCommand.EXPECTED_PREFIXES))) {
+                if (hasExtraDelimiters(params, AddFoodCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 return new AddFoodCommand(description, calories, dateTime, isCaloriesFromBank);
+            case Command.COMMAND_PREFIX_RECURRING:
+                final LocalDate startDate = extractStartDate(params);
+                final LocalDate endDate = extractEndDate(params);
+                final ArrayList<Integer> dayOfTheWeek = extractDayOfTheWeek(params);
+                if (hasExtraDelimiters(params, AddRecurringExerciseCommand.EXPECTED_PREFIXES)) {
+                    return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                }
+                return new AddRecurringExerciseCommand(description, calories,
+                        startDate, endDate, dayOfTheWeek, isCaloriesFromBank);
+            default:
+                throw new ItemNotSpecifiedException();
             }
         } catch (ParamInvalidException | ParamMissingException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
 
-    private Command parseAddToBank(String params, String itemTypePrefix) {
+    private Command parseAddToBank(String params, String itemTypePrefix) throws ItemNotSpecifiedException {
         try {
             final String description = extractItemDescription(params, itemTypePrefix);
             final int calories = extractItemCalories(params);
-            if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE_BANK)) {
-                if (hasExtraDelimiters(params,
-                        getNumberOfCorrectParamsDetected(params,
-                                AddExerciseBankCommand.EXPECTED_PREFIXES))) {
+
+            switch (itemTypePrefix) {
+            case Command.COMMAND_PREFIX_EXERCISE_BANK:
+                if (hasExtraDelimiters(params, AddExerciseBankCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 return new AddExerciseBankCommand(description, calories);
-            } else {
-                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
-                        "at this point, it must be food bank";
-                if (hasExtraDelimiters(params,
-                        getNumberOfCorrectParamsDetected(params,
-                                AddFoodBankCommand.EXPECTED_PREFIXES))) {
+            case Command.COMMAND_PREFIX_FOOD_BANK:
+                if (hasExtraDelimiters(params, AddFoodBankCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 return new AddFoodBankCommand(description, calories);
+            default:
+                throw new ItemNotSpecifiedException();
             }
         } catch (ParamInvalidException | ParamMissingException e) {
             return new InvalidCommand(e.getMessage());
@@ -252,38 +249,24 @@ public class Parser {
             final String description = extractItemDescription(params, itemTypePrefix).split(" ")[0].trim();
             boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
 
-            if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
-                if (isClear) {
-                    return new DeleteExerciseCommand(true);
-                } else {
-                    return parseDeleteFromItems(params, itemTypePrefix);
-                }
-            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD)) {
-                if (isClear) {
-                    return new DeleteFoodCommand(true);
-                } else {
-                    return parseDeleteFromItems(params, itemTypePrefix);
-                }
-            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_UPCOMING_EXERCISE)) {
-                if (isClear) {
-                    return new DeleteFutureExerciseCommand(true);
-                } else {
-                    return parseDeleteFromFutureOrBank(params, itemTypePrefix);
-                }
-            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE_BANK)) {
-                if (isClear) {
-                    return new DeleteExerciseBankCommand(true);
-                } else {
-                    return parseDeleteFromFutureOrBank(params, itemTypePrefix);
-                }
-            } else {
-                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
-                        "at this point, it must be food bank";
-                if (isClear) {
-                    return new DeleteFoodBankCommand(true);
-                } else {
-                    return parseDeleteFromFutureOrBank(params, itemTypePrefix);
-                }
+            switch (itemTypePrefix) {
+            case Command.COMMAND_PREFIX_EXERCISE:
+                return isClear ? new DeleteExerciseCommand(true)
+                        : parseDeleteFromItems(params, itemTypePrefix);
+            case Command.COMMAND_PREFIX_FOOD:
+                return isClear ?  new DeleteFoodCommand(true)
+                        : parseDeleteFromItems(params, itemTypePrefix);
+            case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
+                return isClear ?  new DeleteFutureExerciseCommand(true)
+                        : parseDeleteFromFutureOrBank(params, itemTypePrefix);
+            case Command.COMMAND_PREFIX_EXERCISE_BANK:
+                return isClear ? new DeleteExerciseBankCommand(true)
+                        : parseDeleteFromFutureOrBank(params, itemTypePrefix);
+            case Command.COMMAND_PREFIX_FOOD_BANK:
+                return isClear ? new DeleteFoodBankCommand(true)
+                        : parseDeleteFromFutureOrBank(params, itemTypePrefix);
+            default:
+                throw new ItemNotSpecifiedException();
             }
         } catch (ItemNotSpecifiedException e) {
             return new InvalidCommand(
@@ -291,75 +274,66 @@ public class Parser {
                             DeleteExerciseCommand.MESSAGE_COMMAND_FORMAT,
                             DeleteFoodCommand.MESSAGE_COMMAND_FORMAT,
                             DeleteExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
-                            DeleteFoodBankCommand.MESSAGE_COMMAND_FORMAT));
+                            DeleteFoodBankCommand.MESSAGE_COMMAND_FORMAT,
+                            DeleteFutureExerciseCommand.MESSAGE_COMMAND_FORMAT));
         } catch (ParamInvalidException | ParamMissingException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
 
-    private Command parseDeleteFromItems(String params, String itemTypePrefix) {
+    private Command parseDeleteFromItems(String params, String itemTypePrefix) throws ItemNotSpecifiedException {
         try {
             final int itemIndex = extractItemIndex(params, itemTypePrefix);
             final LocalDate date = extractDate(params, true);
             logger.log(Level.INFO, String.format("date detected is: %s", date));
-            if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE)) {
-                if (hasExtraDelimiters(params,
-                        getNumberOfCorrectParamsDetected(params,
-                                DeleteExerciseCommand.EXPECTED_PREFIXES))) {
+
+            switch (itemTypePrefix) {
+            case Command.COMMAND_PREFIX_EXERCISE:
+                if (hasExtraDelimiters(params, DeleteExerciseCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 logger.log(Level.INFO, String.format("deleting exercise item %s from %s", itemIndex, date));
                 return new DeleteExerciseCommand(itemIndex, date);
-            } else {
-                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD) :
-                        "at this point, it must be food";
-                if (hasExtraDelimiters(params,
-                        getNumberOfCorrectParamsDetected(params,
-                                AddFoodCommand.EXPECTED_PREFIXES))) {
+            case Command.COMMAND_PREFIX_FOOD:
+                if (hasExtraDelimiters(params, DeleteFoodCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
-                logger.log(Level.INFO, String.format("deleting food item %s from %s", itemIndex, date));
-                return new DeleteFoodCommand(itemIndex, date);
+                final LocalTime time = extractTime(params, true);
+                logger.log(Level.INFO, String.format("deleting food item %s from %s %s", itemIndex, date, time));
+                return new DeleteFoodCommand(itemIndex, date, time);
+            default:
+                throw new ItemNotSpecifiedException();
             }
-
         } catch (ParamInvalidException | ParamMissingException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
 
-    private Command parseDeleteFromFutureOrBank(String params, String itemTypePrefix) {
+    private Command parseDeleteFromFutureOrBank(String params, String itemTypePrefix) throws ItemNotSpecifiedException {
         try {
             final int itemIndex = extractItemIndex(params, itemTypePrefix);
-            if (itemTypePrefix.equals(Command.COMMAND_PREFIX_EXERCISE_BANK)) {
-                if (hasExtraDelimiters(params,
-                        getNumberOfCorrectParamsDetected(params,
-                                DeleteExerciseBankCommand.EXPECTED_PREFIXES))) {
+            switch (itemTypePrefix) {
+            case Command.COMMAND_PREFIX_EXERCISE_BANK:
+                if (hasExtraDelimiters(params, DeleteExerciseBankCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 return new DeleteExerciseBankCommand(itemIndex);
-            } else if (itemTypePrefix.equals(Command.COMMAND_PREFIX_UPCOMING_EXERCISE)) {
-                if (hasExtraDelimiters(params,
-                        getNumberOfCorrectParamsDetected(params,
-                                DeleteFutureExerciseCommand.EXPECTED_PREFIXES))) {
-                    return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                }
-                return new DeleteFutureExerciseCommand(itemIndex);
-            } else {
-                assert itemTypePrefix.equals(Command.COMMAND_PREFIX_FOOD_BANK) :
-                        "at this point, it must be food bank";
-                if (hasExtraDelimiters(params,
-                        getNumberOfCorrectParamsDetected(params,
-                                DeleteFoodBankCommand.EXPECTED_PREFIXES))) {
+            case Command.COMMAND_PREFIX_FOOD_BANK:
+                if (hasExtraDelimiters(params, DeleteFoodBankCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 return new DeleteFoodBankCommand(itemIndex);
+            case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
+                if (hasExtraDelimiters(params, DeleteFutureExerciseCommand.EXPECTED_PREFIXES)) {
+                    return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                }
+                return new DeleteFutureExerciseCommand(itemIndex);
+            default:
+                throw new ItemNotSpecifiedException();
             }
-        } catch (ParamInvalidException e) {
-            return new InvalidCommand(e.getMessage());
-        } catch (ParamMissingException e) {
+        } catch (ParamInvalidException | ParamMissingException e) {
             return new InvalidCommand(e.getMessage());
         }
-
     }
 
     private Command parseViewItems(String params) {
@@ -395,10 +369,10 @@ public class Parser {
         if (params.equals(EMPTY)) { //no additional parameters, assumed to be bmi from current profile
             return new CalculateBmiWithProfileCommand();
         }
-        if (hasExtraDelimiters(params, Command.COMMAND_BMI_EXPECTED_NUM_DELIMITERS)) {
-            return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-        }
         if (hasRequiredParams(params, CalculateBmiCommand.EXPECTED_PREFIXES)) {
+            if (hasExtraDelimiters(params, CalculateBmiCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
             try {
                 final double height = extractHeight(params);
                 final double weight = extractWeight(params);
@@ -420,12 +394,9 @@ public class Parser {
         //TODO: Test profile again after storage has been updated
 
         if (hasExtraDelimiters(
-                params,
-                getNumberOfCorrectParamsDetected(params,
-                        ProfileUpdateCommand.EXPECTED_PREFIXES))) {
+                params, ProfileUpdateCommand.EXPECTED_PREFIXES)) {
             return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
         }
-
         try {
             final String name = extractProfileName(params);
             final double height = extractHeight(params);
@@ -497,6 +468,13 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Extracts the item type prefix for command words that are common across item types (add, delete, view).
+     * @param params String containing all parameters
+     * @return String that is one of the item type prefixes
+     * @throws ItemNotSpecifiedException If parameter does not contain any of the expected prefixes,
+     * or contains more than one.
+     */
     private String extractItemTypePrefix(String params) throws ItemNotSpecifiedException {
         boolean isExercise =
                 params.toLowerCase().contains(Command.COMMAND_PREFIX_EXERCISE
@@ -519,6 +497,7 @@ public class Parser {
 
         boolean isItemSpecified = checkIsItemSpecified(isExercise, isFood, isUpcomingExercise,
                 isExerciseBank, isFoodBank, isRecurringExercise);
+
         if (!isItemSpecified) {
             logger.log(Level.WARNING, "Detected none or more than one item");
             throw new ItemNotSpecifiedException();
@@ -545,7 +524,7 @@ public class Parser {
                 numberOfParams += 1;
             }
         }
-        return numberOfParams == 1 ? true : false; //item must be exactly 1
+        return numberOfParams == 1 ? true : false; // item must be exactly 1
     }
 
     /**
@@ -718,30 +697,6 @@ public class Parser {
         }
     }
 
-
-    private LocalDate extractDate(String params, boolean isRequired)
-            throws ParamInvalidException, ParamMissingException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_DATE
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String dateString = extractRelevantParameter(stringAfterPrefix);
-            logger.log(Level.INFO, String.format("date string detected is: %s", dateString));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-            return LocalDate.parse(dateString, formatter);
-        } catch (IndexOutOfBoundsException e) {
-            if (isRequired) {
-                logger.log(Level.WARNING, "Detected empty date input after prefix but date is required!");
-                throw new ParamMissingException(MESSAGE_ERROR_NO_DATE);
-            } else {
-                logger.log(Level.INFO, "Detected empty date input after prefix, assuming date to be now");
-                return LocalDate.now();
-            }
-        } catch (DateTimeParseException e) {
-            throw new ParamInvalidException(MESSAGE_ERROR_INVALID_DATE_FORMAT);
-        }
-    }
-
     private LocalDate extractStartDate(String params)
             throws ParamInvalidException, ParamMissingException {
         try {
@@ -778,7 +733,30 @@ public class Parser {
         }
     }
 
-    private LocalTime extractTime(String params) throws ParamInvalidException {
+    private LocalDate extractDate(String params, boolean isRequired)
+            throws ParamInvalidException, ParamMissingException {
+        try {
+            String stringAfterPrefix =
+                    params.split(Command.COMMAND_PREFIX_DATE
+                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            String dateString = extractRelevantParameter(stringAfterPrefix);
+            logger.log(Level.INFO, String.format("date string detected is: %s", dateString));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+            return LocalDate.parse(dateString, formatter);
+        } catch (IndexOutOfBoundsException e) {
+            if (isRequired) {
+                logger.log(Level.WARNING, "Detected empty date input after prefix but date is required!");
+                throw new ParamMissingException(MESSAGE_ERROR_NO_DATE);
+            } else {
+                logger.log(Level.INFO, "Detected empty date input after prefix, assuming date to be now");
+                return LocalDate.now();
+            }
+        } catch (DateTimeParseException e) {
+            throw new ParamInvalidException(MESSAGE_ERROR_INVALID_DATE_FORMAT);
+        }
+    }
+
+    private LocalTime extractTime(String params, boolean isRequired) throws ParamMissingException, ParamInvalidException {
         try {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_TIME
@@ -788,15 +766,20 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TIME_FORMAT);
             return LocalTime.parse(timeString, formatter);
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.INFO, "Detected empty time input after prefix, assuming time to be now");
-            return LocalTime.now();
+            if (isRequired) {
+                logger.log(Level.WARNING, "Detected empty time input after prefix but time is required!");
+                throw new ParamMissingException(MESSAGE_ERROR_NO_TIME);
+            } else {
+                logger.log(Level.INFO, "Detected empty time input after prefix, assuming time to be now");
+                return LocalTime.now();
+            }
         } catch (DateTimeParseException e) {
             throw new ParamInvalidException(MESSAGE_ERROR_INVALID_TIME_FORMAT);
         }
     }
 
     private LocalDateTime extractDateTime(String params) throws ParamInvalidException, ParamMissingException {
-        final LocalTime time = extractTime(params);
+        final LocalTime time = extractTime(params, false);
         final LocalDate date = extractDate(params, false);
         return date.atTime(time);
     }
@@ -838,6 +821,14 @@ public class Parser {
     }
 
 
+    /**
+     * Returns the number of parameters detected that is valid for the specific command.
+     * This is required as some parameters are optional, therefore an absolute number cannot be expected.
+     *
+     * @param params User input string containing all parameters
+     * @param prefixes Variable number of prefixes that is valid for the specific command
+     * @return Number of parameters detected that is valid for the specific command
+     */
     private int getNumberOfCorrectParamsDetected(String params, String... prefixes) {
         int count = 0;
         for (String prefix : prefixes) {
@@ -849,7 +840,15 @@ public class Parser {
         return count;
     }
 
-    private boolean hasExtraDelimiters(String params, int expectedNum) {
+    /**
+     * Returns true if there are too many '/' characters in the parameter string.
+     *
+     * @param params User input string containing all parameters
+     * @param prefixes Variable number of prefixes that is valid for the specific command
+     * @return
+     */
+    private boolean hasExtraDelimiters(String params, String... prefixes) {
+        final int expectedNum = getNumberOfCorrectParamsDetected(params, prefixes);
         int numOfDelimiters = 0;
         for (int i = 0; i < params.length(); i++) {
             if (params.charAt(i) == Command.COMMAND_PREFIX_DELIMITER.charAt(0)) {

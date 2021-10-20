@@ -1,5 +1,6 @@
 package seedu.duke.commands;
 
+import seedu.duke.item.bank.exceptions.ItemNotFoundInBankException;
 import seedu.duke.item.exercise.Exercise;
 
 import java.time.LocalDate;
@@ -21,28 +22,43 @@ public class AddFutureExerciseCommand extends Command {
 
     private static Logger logger = Logger.getLogger(AddFutureExerciseCommand.class.getName());
 
-    private Exercise exercise;
-    private final String description;
-    private final int calories;
-    private final LocalDate date;
 
-    public AddFutureExerciseCommand(String description, int calories, LocalDate date) {
-        this.exercise = new Exercise(description, calories, date);
+    private final String description;
+    private int calories;
+    private final LocalDate date;
+    private boolean isCaloriesFromBank;
+
+
+    public AddFutureExerciseCommand(String description, int calories, LocalDate date, boolean isCaloriesFromBank) {
         this.description = description;
         this.calories = calories;
         this.date = date;
+        this.isCaloriesFromBank = isCaloriesFromBank;
     }
 
     @Override
     public CommandResult execute() {
-        if (exercise.getCalories() <= 0) {
-            logger.log(Level.WARNING, "Exercise calorie is invalid");
-            return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
+        final Exercise exercise;
+
+        if (isCaloriesFromBank) {
+            try {
+                this.calories = super.exerciseBank.getCaloriesOfItemWithMatchingName(this.description);
+                exercise = new Exercise(this.description, this.calories, this.date);
+            } catch (ItemNotFoundInBankException e) {
+                return new CommandResult(String.format(MESSAGE_INVALID_EXERCISE_NOT_IN_BANK, this.description));
+            }
+        } else {
+            if (this.calories <= 0) {
+                logger.log(Level.WARNING, "Exercise calorie is invalid");
+                return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
+            }
+            exercise = new Exercise(this.description, this.calories, this.date);
         }
+
         assert exercise.getCalories() > 0 : "Exercise calorie is valid";
-        super.futureExerciseItems.addFutureExercise(this.exercise);
-        logger.log(Level.FINE, "Exercise is successfully added");
-        return new CommandResult(String.format(MESSAGE_SUCCESS, this.exercise));
+        super.futureExerciseItems.addFutureExercise(exercise);
+        logger.log(Level.FINE, "Exercise is successfully added to future list");
+        return new CommandResult(String.format(MESSAGE_SUCCESS, exercise));
     }
 }
 

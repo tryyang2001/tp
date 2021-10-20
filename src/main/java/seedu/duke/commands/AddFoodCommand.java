@@ -15,13 +15,11 @@ public class AddFoodCommand extends Command {
             + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "food name"
             + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories"
             + " " + COMMAND_PREFIX_DATE + COMMAND_PREFIX_DELIMITER + "date"
-            + " " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_TIME + "time" + QUOTATION;
+            + " " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_DELIMITER + "time" + QUOTATION;
     public static final String MESSAGE_SUCCESS = "A food item has been added:"
             + INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_FOOD_CALORIES = "Food calories cannot be less than 0" + LS
             + "Try a positive value instead";
-    public static final String MESSAGE_INVALID_FOOD_NOT_IN_BANK = "%s was not found in the food bank! "
-            + "Please specify the calories for this item.";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD,
             COMMAND_PREFIX_CALORIES,
@@ -30,10 +28,10 @@ public class AddFoodCommand extends Command {
     };
 
     private Logger logger = Logger.getLogger(AddFoodCommand.class.getName());
-    private String description;
+    private final String description;
     private int calories;
-    private LocalDateTime dateTime;
-    private boolean isCaloriesFromBank;
+    private final LocalDateTime dateTime;
+    private final boolean isCaloriesFromBank;
 
     public AddFoodCommand(String description, int calories, LocalDateTime dateTime, boolean isCaloriesFromBank) {
         this.description = description;
