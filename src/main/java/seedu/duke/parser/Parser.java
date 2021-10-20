@@ -191,11 +191,6 @@ public class Parser {
                 final LocalDate startDate = extractStartDate(params);
                 final LocalDate endDate = extractEndDate(params);
                 final ArrayList<Integer> dayOfTheWeek = extractDayOfTheWeek(params);
-//                if (hasExtraDelimiters(params,
-//                        getNumberOfCorrectParamsDetected(params,
-//                                AddExerciseCommand.EXPECTED_PREFIXES))) {
-//                    return new InvalidCommand(MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-//                }
                 return new AddRecurringExerciseCommand(description, calories, startDate, endDate, dayOfTheWeek);
             } else {
                 final LocalDateTime dateTime = extractDateTime(params);
