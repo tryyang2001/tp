@@ -1,11 +1,14 @@
 package seedu.duke.item.exercise;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class FutureExerciseList extends ExerciseList {
 
+    private static final int ONE_WEEK = 7;
+    private static final int ONE_DAY = 1;
     /**
      * Returns the future exercise list.
      *
@@ -108,6 +111,28 @@ public class FutureExerciseList extends ExerciseList {
      */
     public void sortFutureExerciseList() {
         exerciseList.sort(Comparator.comparing(Exercise::getDate));
+    }
+
+    /**
+     * Adds all recurring exercises between two dates into the FutureExerciseList.
+     */
+    public void addRecurringExercises(String description, int calories,
+                                       LocalDate startDate, LocalDate endDate, ArrayList<Integer> dayOfTheWeek) {
+        for (Integer day : dayOfTheWeek) {
+            int dayOfReoccurrence = startDate.getDayOfWeek().getValue();
+            LocalDate currentDate = startDate;
+            while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
+                if (dayOfReoccurrence == day) {
+                    exerciseList.add(new Exercise(description, calories, currentDate));
+                    exerciseList.sort(Comparator.comparing(Exercise::getDate));
+                    currentDate = currentDate.plusDays(ONE_WEEK);
+                    dayOfReoccurrence = currentDate.getDayOfWeek().getValue();
+                } else {
+                    currentDate = currentDate.plusDays(ONE_DAY);
+                    dayOfReoccurrence = currentDate.getDayOfWeek().getValue();
+                }
+            }
+        }
     }
 
 }
