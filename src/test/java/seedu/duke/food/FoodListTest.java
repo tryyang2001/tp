@@ -98,14 +98,16 @@ class FoodListTest {
     @Test
     void deleteNegativeIndexFoodItem_negativeIndexInput_expectIndexOutOfBoundException() {
         FoodList foodList = new FoodList();
-        foodList.addItem(new Food("chicken rice", 607));
+        foodList.addItem(new Food("chicken rice", 607,
+                LocalDateTime.parse("2021-10-16 1020", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
         assertThrows(IndexOutOfBoundsException.class, () -> foodList.deleteItem(-1));
     }
 
     @Test
     void deleteNonDigitIndexFoodItem_nonDigitIndexInput_expectNumberFormatException() {
         FoodList foodList = new FoodList();
-        foodList.addItem(new Food("chicken rice", 607));
+        foodList.addItem(new Food("chicken rice", 607,
+                LocalDateTime.parse("2021-10-16 1020", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
         assertThrows(NumberFormatException.class, () -> foodList.deleteItem(Integer.parseInt("a")));
     }
 

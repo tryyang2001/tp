@@ -72,6 +72,7 @@ public class FoodList extends ItemList {
      * @param date The date for the food list
      * @return The food list of the specific date in a single string
      */
+    @Override
     public String convertToStringBySpecificDate(LocalDate date) {
         StringBuilder foodListInString = extractFoodListBySpecificDate(date);
         return foodListInString.toString().stripTrailing();
@@ -100,6 +101,7 @@ public class FoodList extends ItemList {
     /**
      * Sorts the food list in ascending format according to the date and time.
      */
+    @Override
     public void sortList() {
         this.itemList.sort(Comparator.comparing(Item::getDateTime));
     }
@@ -114,7 +116,8 @@ public class FoodList extends ItemList {
     }
 
     /**
-     * Helper method used in deleteFood to get the actual index from the entire food list of the food item to delete.
+     * Helper method used in deleteItem for food to get the
+     * actual index from the entire food list of the food item to delete.
      *
      * @param index       The index of the food item as shown in the view f/ command
      * @param deletedFood The food item to delete

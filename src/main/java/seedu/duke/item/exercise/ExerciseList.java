@@ -11,10 +11,6 @@ import java.util.stream.Collectors;
 public class ExerciseList extends ItemList {
     public static final String MESSAGE_EXERCISE_DONE = "You have done %d exercise(s) on %s (%s):";
     public static final String MESSAGE_TOTAL_CALORIE_BURNT = "Total calories burnt: %d cal";
-    public static final String MESSAGE_EXERCISE = "%d. %s";
-    public static final String DATE_FORMAT = "dd MMM yyyy";
-
-    protected ArrayList<Exercise> exerciseList = new ArrayList<>();
 
     /**
      * Default constructor for exercise list.
@@ -24,26 +20,12 @@ public class ExerciseList extends ItemList {
     }
 
     /**
-     * Adds an exercise item into the exercise list.
+     * Deletes a food item according to its index number, date and time.
      *
-     * @param exercise Exercise class object to be added.
+     * @param index The index of the exercise as shown in the view e/ command
+     * @param date  The date of the exercise taken
+     * @return The deleted exercise
      */
-    public void addExercise(Exercise exercise) {
-        this.exerciseList.add(exercise);
-        this.sortList();
-    }
-
-    /**
-     * Deletes an exercise item from the exercise list.
-     *
-     * @param index Index of the exercise to be deleted.
-     * @return Exercise object removed.
-     */
-    //TODO: remove this method after changing code in DeleteExerciseCommand.
-    public Exercise deleteItem(int index) {
-        return (Exercise) itemList.remove(index);
-    }
-
     public Exercise deleteItem(int index, LocalDate date) {
         Exercise deletedExercise = new Exercise("", 1, date);
         int actualIndex = getActualIndex(index, deletedExercise);
@@ -80,6 +62,14 @@ public class ExerciseList extends ItemList {
         this.itemList.sort(Comparator.comparing(Item::getDate));
     }
 
+    /**
+     * Helper method used in deleteItem for exercise to get the
+     * actual index from the entire exercise list of the exercise to delete.
+     *
+     * @param index       The index of the exercise as shown in the view e/ command
+     * @param deletedExercise  The exercise to delete
+     * @return The actual index of the exercise in the entire exercise list
+     */
     private int getActualIndex(int index, Item deletedExercise) {
         for (int i = 0; i < itemList.size(); i++) {
             if (isListToQuery(deletedExercise, i)) {
@@ -92,10 +82,25 @@ public class ExerciseList extends ItemList {
         return -1;
     }
 
+    /**
+     * Helper boolean method used in getActualIndex to determine if the exercise is the exercise to delete.
+     *
+     * @param deletedExercise  The exercise to delete
+     * @param currentIndex The current index of the entire exercise list
+     * @param index        The exercise index to delete as shown in view e/
+     * @return True if the current exercise is the exercise to delete, false otherwise
+     */
     private boolean isExerciseToDelete(Item deletedExercise, int currentIndex, int index) {
         return itemList.get(currentIndex + index).getDate().equals(deletedExercise.getDate());
     }
 
+    /**
+     * Helper method used in getActualIndex to determine if the current index points to the correct exercise position.
+     *
+     * @param deletedExercise  The exercise to delete
+     * @param currentIndex The current index of the entire exerciselist
+     * @return True if the current exercise has the same date and time period as the deletedItem, false otherwise
+     */
     private boolean isListToQuery(Item deletedExercise, int currentIndex) {
         return itemList.get(currentIndex).getDate().equals(deletedExercise.getDate());
     }

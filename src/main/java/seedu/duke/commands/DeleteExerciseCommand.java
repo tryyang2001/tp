@@ -54,9 +54,8 @@ public class DeleteExerciseCommand extends Command {
         }
         logger.log(Level.FINE, "Trying to delete item now");
         try {
-            //TODO: Implement delete by date and index
             Exercise deletedExercise;
-            deletedExercise = super.exerciseItems.deleteItem(this.itemIndex);
+            deletedExercise = super.exerciseItems.deleteItem(this.itemIndex, this.date); //edit by RY
             return new CommandResult(String.format(MESSAGE_SUCCESS, deletedExercise, super.exerciseItems.getSize()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid exercise item index.");

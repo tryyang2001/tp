@@ -25,7 +25,7 @@ class ExerciseListTest {
         ExerciseList exerciseList = new ExerciseList();
         exerciseList.addItem(new Exercise("Running", 250));
         exerciseList.addItem(new Exercise("Jumping Jacks", 100));
-        exerciseList.deleteItem(0);
+        exerciseList.deleteItem(0, LocalDate.now());
         assertEquals("Jumping Jacks (100 cal)", exerciseList.getItem(0).toString());
     }
 
