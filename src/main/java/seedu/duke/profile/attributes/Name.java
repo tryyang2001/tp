@@ -6,6 +6,7 @@ package seedu.duke.profile.attributes;
 public class Name implements Verifiable {
 
     protected String name;
+    private static final String EMPTY_STRING = "";
 
     public Name() {
 
@@ -30,6 +31,9 @@ public class Name implements Verifiable {
 
     @Override
     public boolean isValid() {
+        if (name == null || name.equals(EMPTY_STRING)) {
+            return false;
+        }
         for (int i = 0; i < name.length(); i++) {
             if (name.charAt(i) == '|' || name.charAt(i) == '/') {
                 return false;
