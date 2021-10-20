@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Parses input arguments for Add commands.
+ */
 public class AddCommandParser implements Parser {
 
     protected static final Logger logger = Logger.getLogger(AddCommandParser.class.getName());
@@ -122,11 +125,6 @@ public class AddCommandParser implements Parser {
             return new InvalidCommand(e.getMessage());
         }
     }
-
-
-
-
-
 
 
 }

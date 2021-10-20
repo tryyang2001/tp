@@ -14,7 +14,6 @@ import seedu.duke.profile.exceptions.InvalidCharacteristicException;
  * Represents the command that when executed, changes the value of attributes in the Profile.
  */
 public class ProfileUpdateCommand extends Command {
-    //TODO: Update this
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_PROFILE
             + " " + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "W "
             + COMMAND_PREFIX_HEIGHT + COMMAND_PREFIX_DELIMITER + "X "
@@ -22,13 +21,7 @@ public class ProfileUpdateCommand extends Command {
             + COMMAND_PREFIX_GOAL + COMMAND_PREFIX_DELIMITER + "Z"
             + QUOTATION + " where W is your name, X is your height in CM,"
             + INDENTED_LS + "Y is your weight in KG and Z is your calorie goal.";
-    public static final String MESSAGE_SUCCESS = "Hello %1$s! Your profile has been updated!"
-            + INDENTED_LS + "Your height is %2$scm."
-            + INDENTED_LS + "Your weight is %3$skg."
-            + INDENTED_LS + "Your gender is %4$s."
-            + INDENTED_LS + "Your age is %5$s."
-            + INDENTED_LS + "Your calories goal is %6$s cal."
-            + INDENTED_LS + "Your activity factor is %7$s.";
+
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_NAME,
             COMMAND_PREFIX_HEIGHT,
@@ -36,8 +29,10 @@ public class ProfileUpdateCommand extends Command {
             COMMAND_PREFIX_GOAL,
             COMMAND_PREFIX_AGE,
             COMMAND_PREFIX_ACTIVITY_FACTOR,
-            COMMAND_PREFIX_GENDER};
+            COMMAND_PREFIX_GENDER
+    };
 
+    public static final String MESSAGE_SUCCESS = "Your profile has been updated!" + LS + "%s";
 
     private Name name = new Name();
     private Weight weight = new Weight();
@@ -98,17 +93,8 @@ public class ProfileUpdateCommand extends Command {
             checkIfCommandShouldExecute();
             super.profile = new Profile(this.name, this.height, this.weight,
                     this.gender, this.age, this.calorieGoal, this.activityFactor);
-
-
             return new CommandResult(String.format(
-                    MESSAGE_SUCCESS,
-                    name.getName(),
-                    height.getHeight(),
-                    weight.getWeight(),
-                    gender.getGender(),
-                    age.getAge(),
-                    calorieGoal.getCalorieGoal(),
-                    activityFactor.getActivityFactor()));
+                    MESSAGE_SUCCESS, super.profile.convertToString()));
         } catch (InvalidCharacteristicException e) {
             return new CommandResult(e.getMessage());
         }

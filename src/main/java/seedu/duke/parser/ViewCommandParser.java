@@ -10,6 +10,9 @@ import seedu.duke.commands.ViewFoodListCommand;
 import seedu.duke.commands.ViewFutureExerciseListCommand;
 import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 
+/**
+ * Parses input arguments for View commands.
+ */
 public class ViewCommandParser implements Parser {
 
     @Override

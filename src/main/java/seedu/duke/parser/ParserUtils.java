@@ -14,26 +14,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Contains utility methods used by Parser classes to extract relevant parameters.
+ */
 public class ParserUtils {
     protected static final Logger logger = Logger.getLogger(ParserUtils.class.getName());
-
-    /**
-     * Returns a String array where 0th index is command string and 1st index is the remaining parameters.
-     * Command string and parameter string is assumed to be separated by the first " " in input.
-     * If no parameters are provided in the input, 1st index will be set to EMPTY.
-     *
-     * @param input Raw user input string
-     * @return String array [command, parameters]
-     */
-    protected static String[] splitInputIntoCommandAndParams(String input) {
-        String[] commandAndParams = new String[2];
-        final String[] inputSplit = input.trim().split(" ", 2);
-        //command string
-        commandAndParams[0] = inputSplit[0];
-        //param string; if not given, set to EMPTY for error handling
-        commandAndParams[1] = (inputSplit.length == 2) ? inputSplit[1].trim() : ParserMessages.EMPTY;
-        return commandAndParams;
-    }
 
     protected static boolean hasRequiredParams(String params, String... prefixes) {
         for (String prefix : prefixes) {
@@ -46,10 +31,11 @@ public class ParserUtils {
 
     /**
      * Extracts the item type prefix for command words that are common across item types (add, delete, view).
+     *
      * @param params String containing all parameters
      * @return String that is one of the item type prefixes
      * @throws ItemNotSpecifiedException If parameter does not contain any of the expected prefixes,
-     * or contains more than one.
+     *                                   or contains more than one.
      */
     protected static String extractItemTypePrefix(String params) throws ItemNotSpecifiedException {
         boolean isExercise =
@@ -125,7 +111,7 @@ public class ParserUtils {
             String stringAfterPrefix = params.split(prefix + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String description = extractRelevantParameter(stringAfterPrefix);
             if (description.equals(ParserMessages.EMPTY)) {
-             //   logger.log(Level.WARNING, "Detected empty description");
+                logger.log(Level.WARNING, "Detected empty description");
                 throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_NO_DESCRIPTION);
             }
             return description;
@@ -245,7 +231,8 @@ public class ParserUtils {
             return Integer.parseInt(intString);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Detected non-digit activity factor input.");
-            throw new ParamInvalidException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "activity factor"));
+            throw new ParamInvalidException(String.format(
+                    ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "activity factor"));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected missing activity factor prefix, return 0 activity factor");
             return Command.NULL_INT;
@@ -323,7 +310,8 @@ public class ParserUtils {
         }
     }
 
-    protected static LocalTime extractTime(String params, boolean isRequired) throws ParamMissingException, ParamInvalidException {
+    protected static LocalTime extractTime(String params, boolean isRequired)
+            throws ParamMissingException, ParamInvalidException {
         try {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_TIME
@@ -383,7 +371,8 @@ public class ParserUtils {
         return date.isAfter(LocalDate.now());
     }
 
-    protected static int extractItemIndex(String params, String prefix) throws ParamInvalidException, ParamMissingException {
+    protected static int extractItemIndex(String params, String prefix)
+            throws ParamInvalidException, ParamMissingException {
         try {
             final String itemNumString = ParserUtils.extractItemDescription(params, prefix).split(" ")[0].trim();
             return convertItemNumToItemIndex(Integer.parseInt(itemNumString));
@@ -403,7 +392,7 @@ public class ParserUtils {
      * Returns the number of parameters detected that is valid for the specific command.
      * This is required as some parameters are optional, therefore an absolute number cannot be expected.
      *
-     * @param params User input string containing all parameters
+     * @param params   User input string containing all parameters
      * @param prefixes Variable number of prefixes that is valid for the specific command
      * @return Number of parameters detected that is valid for the specific command
      */
@@ -421,9 +410,8 @@ public class ParserUtils {
     /**
      * Returns true if there are too many '/' characters in the parameter string.
      *
-     * @param params User input string containing all parameters
+     * @param params   User input string containing all parameters
      * @param prefixes Variable number of prefixes that is valid for the specific command
-     * @return
      */
     protected static boolean hasExtraDelimiters(String params, String... prefixes) {
         final int expectedNum = getNumberOfCorrectParamsDetected(params, prefixes);
@@ -434,10 +422,6 @@ public class ParserUtils {
             }
         }
         return numOfDelimiters > expectedNum;
-    }
-
-    protected static boolean hasTextFileDelimiter(String input) {
-        return input.contains(ParserMessages.FILE_TEXT_DELIMITER);
     }
 
     protected static String correctCommandFormatSuggestions(String... suggestions) {

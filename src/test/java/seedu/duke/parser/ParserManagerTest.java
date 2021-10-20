@@ -35,12 +35,14 @@ class ParserManagerTest {
 
     @Test
     void parseCommand_invalidCommandWord_commandDoesNotExistMessage() {
-        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST, "potato", "hi");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST,
+                "potato", "hi");
     }
 
     @Test
     void parseCommand_containsTextFileDelimiter_illegalCharacterMessage() {
-        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_ILLEGAL_CHARACTER, "potato | as", "add |", "name h|o");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_ILLEGAL_CHARACTER,
+                "potato | as", "add |", "name h|o");
     }
 
     @Test

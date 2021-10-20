@@ -16,7 +16,10 @@ import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DeleteCommandParser implements Parser{
+/**
+ * Parses input arguments for Delete commands.
+ */
+public class DeleteCommandParser implements Parser {
 
     protected static final Logger logger = Logger.getLogger(DeleteCommandParser.class.getName());
 
@@ -32,10 +35,10 @@ public class DeleteCommandParser implements Parser{
                 return isClear ? new DeleteExerciseCommand(true)
                         : parseDeleteFromItems(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_FOOD:
-                return isClear ?  new DeleteFoodCommand(true)
+                return isClear ? new DeleteFoodCommand(true)
                         : parseDeleteFromItems(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
-                return isClear ?  new DeleteFutureExerciseCommand(true)
+                return isClear ? new DeleteFutureExerciseCommand(true)
                         : parseDeleteFromFutureOrBank(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_EXERCISE_BANK:
                 return isClear ? new DeleteExerciseBankCommand(true)
@@ -87,7 +90,8 @@ public class DeleteCommandParser implements Parser{
         }
     }
 
-    protected Command parseDeleteFromFutureOrBank(String params, String itemTypePrefix) throws ItemNotSpecifiedException {
+    protected Command parseDeleteFromFutureOrBank(String params, String itemTypePrefix)
+            throws ItemNotSpecifiedException {
         try {
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
             switch (itemTypePrefix) {

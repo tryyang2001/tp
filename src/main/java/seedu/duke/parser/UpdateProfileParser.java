@@ -6,6 +6,9 @@ import seedu.duke.commands.ProfileCommand;
 import seedu.duke.commands.ProfileUpdateCommand;
 import seedu.duke.parser.exceptions.ParamInvalidException;
 
+/**
+ * Parses input arguments for Update Profile command.
+ */
 public class UpdateProfileParser implements Parser {
     @Override
     public Command parse(String params) {

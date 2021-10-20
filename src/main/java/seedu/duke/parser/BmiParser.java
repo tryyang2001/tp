@@ -9,6 +9,9 @@ import seedu.duke.parser.exceptions.ParamInvalidException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Parses input arguments for Bmi commands.
+ */
 public class BmiParser implements Parser {
 
     protected static final Logger logger = Logger.getLogger(BmiParser.class.getName());

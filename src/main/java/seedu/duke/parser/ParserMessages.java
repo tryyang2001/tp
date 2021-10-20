@@ -3,6 +3,9 @@ package seedu.duke.parser;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.HelpCommand;
 
+/**
+ * Contains all message constants that Parser classes uses.
+ */
 public class ParserMessages {
     protected static final String EMPTY = "";
     protected static final String LS = System.lineSeparator();
