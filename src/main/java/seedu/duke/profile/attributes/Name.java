@@ -31,7 +31,7 @@ public class Name implements Verifiable {
 
     @Override
     public boolean isValid() {
-        if (name == null || EMPTY_STRING.equals(name)) {
+        if (name == null || name.equals(EMPTY_STRING)) {
             return false;
         }
         for (int i = 0; i < name.length(); i++) {

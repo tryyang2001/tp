@@ -49,8 +49,6 @@ public class Ui {
             + " | |    | | |_| |_) | (_) | |_"
             + LS
             + " |_|    |_|\\__|_.__/ \\___/ \\__|";
-
-
     public static final String QUOTATION = "\"";
     public static final String MESSAGE_WELCOME = "Welcome to Fitbot, a desktop app that helps university students"
             + " who are looking to keep track of their calories.";
@@ -60,7 +58,8 @@ public class Ui {
             + "Please follow the inputs needed so that your profile will be complete.";
     public static final String MESSAGE_NEW_PROFILE = "Hi user, before you proceed with the application, we would like"
             + " you to complete the profile.\n"
-            + "Follow the instructions and key in the necessary information when prompted.";
+            + "Follow the instructions and key in the necessary information when prompted.\n"
+            + "Note please complete your profile before exiting so that we can store your profile data.";
 
     private Scanner scanner;
 
