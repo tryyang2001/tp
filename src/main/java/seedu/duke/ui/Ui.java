@@ -27,15 +27,6 @@ public class Ui {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_GRAY = "\u001B[90m";
-    private static final String MESSAGE_COMMAND_USAGE = "[ create your %1$s by typing this format: %2$s ]" ;
-    public static final String MESSAGE_GOAL_USAGE = String.format(MESSAGE_COMMAND_USAGE,
-                    "goal", SetGoalCommand.MESSAGE_COMMAND_FORMAT);
-    public static final String MESSAGE_WEIGHT_USAGE = String.format(MESSAGE_COMMAND_USAGE,
-                            "weight", ChangeWeightCommand.MESSAGE_COMMAND_FORMAT);
-    public static final String MESSAGE_HEIGHT_USAGE = String.format(MESSAGE_COMMAND_USAGE,
-                                    "height", ChangeHeightCommand.MESSAGE_COMMAND_FORMAT);
-    public static final String MESSAGE_NAME_USAGE = String.format(MESSAGE_COMMAND_USAGE,
-                                            "name", ChangeNameCommand.MESSAGE_COMMAND_FORMAT);
     public static final String FULL_BLOCK = "█";
     public static final String HALF_BLOCK = "▌";
     public static final int MAX_BAR = 16;
@@ -62,27 +53,17 @@ public class Ui {
 
     public static final String QUOTATION = "\"";
     public static final String MESSAGE_WELCOME = "Welcome to Fitbot, a desktop app that helps university students"
-            + " who are looking to keep track of their"
-            + LS
-            + "fitness and health. Please type a command or view the list of "
+            + " who are looking to keep track of their calories.";
+    public static final String MESSAGE_DIRECT_HELP = "Please type a command to start or view the list of "
             + "available commands by typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + ".";
-    public static final String MESSAGE_ERROR_PROFILE_NOT_CREATED = "Profile has not yet been created.\n"
-            + "Please type the 'profile' command in the following format:\n"
-            + ProfileCreateCommand.MESSAGE_COMMAND_FORMAT;
-    public static final String NAME_HEADER = "Name: ";
-    public static final String MESSAGE_INTRO = "Before we begin, let us create a profile. "
-            + "Fill in the relevant details below using the respective commands.";
-    public static final String MESSAGE_NO_INFO = "(waiting for user input... )";
-    public static final String HEIGHT_HOLDER = "Height: ";
-    public static final String WEIGHT_HOLDER = "Weight: ";
-    public static final String CALORIE_HOLDER = "Calorie goal: ";
-    public static final String MESSAGE_COMPLETE = "Once you are done, type 'complete' and press enter. "
-                    + "Your profile will be saved. All compulsory fields not filled will be filled by default values.";
-    public static final String MESSAGE_HEIGHT = "%scm";
-    public static final String MESSAGE_WEIGHT = "%skg";
-    public static final String MESSAGE_CALORIE_GOAL = "%s cal";
+    public static final String MESSAGE_FIX_PROFILE = "It seems that some of your profile attribute are missing.\n"
+            + "Please follow the inputs needed so that your profile will be complete.";
+    public static final String MESSAGE_NEW_PROFILE = "Hi user, before you proceed with the application, we would like"
+            + " you to complete the profile.\n"
+            + "Follow the instructions and key in the necessary information when prompted.";
 
     private Scanner scanner;
+    private boolean isProfileComplete;
 
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -111,7 +92,18 @@ public class Ui {
 
     public void printStartApplicationPage() {
         logger.log(Level.FINE, "start of application");
-        System.out.println(FITBOT_V0 + EMOJI_1 + LS + MESSAGE_WELCOME);
+        System.out.println(FITBOT_V0 +LS + MESSAGE_WELCOME);
+    }
+    public void printStartMessage(boolean isProfileComplete, boolean isProfilePresent){
+        if (isProfileComplete) {
+            System.out.println(MESSAGE_DIRECT_HELP);
+            return;
+        }
+        if (isProfilePresent) {
+            System.out.println(MESSAGE_FIX_PROFILE);
+        }
+
+        System.out.println(MESSAGE_NEW_PROFILE);
     }
 
 }
