@@ -35,6 +35,9 @@ public abstract class Command {
     public static final String COMMAND_PREFIX_GENDER = "s";
     public static final String COMMAND_PREFIX_AGE = "a";
     public static final String COMMAND_PREFIX_ACTIVITY_FACTOR = "x";
+    public static final String COMMAND_PREFIX_START_DATE = ":";
+    public static final String COMMAND_PREFIX_END_DATE = "-";
+    public static final String COMMAND_PREFIX_DAY_OF_THE_WEEK = "@";
     public static final String COMMAND_WORD_ADD = "add";
     public static final String COMMAND_WORD_DELETE = "delete";
     public static final String COMMAND_WORD_VIEW = "view";
