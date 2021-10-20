@@ -76,11 +76,22 @@ public class Parser {
             + DATE_FORMAT;
     protected static final String MESSAGE_ERROR_INVALID_TIME_FORMAT = "Invalid time format! Please input time as "
             + TIME_FORMAT;
-    protected static final String MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK = "Invalid day format! Please input day as "
-            + "1 for Monday ... 7 for Sunday"; //TODO
+    protected static final String MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK = "Invalid day format! Please input day(s) "
+            + "between 1 and 7."
+            + LS + "1 : Monday"
+            + LS + "2 : Tuesday"
+            + LS + "3 : Wednesday"
+            + LS + "4 : Thursday"
+            + LS + "5 : Friday"
+            + LS + "6 : Saturday"
+            + LS + "7 : Sunday";
     protected static final String MESSAGE_ERROR_NO_DATE = "Please input the date for this item!";
     protected static final String MESSAGE_ERROR_NO_DAY_OF_THE_WEEK = "Please input the day of reoccurrence "
             + "for this item!";
+    protected static final String MESSAGE_ERROR_REPEATED_DAY_OF_THE_WEEK = "Please check your input of the day "
+            + "of reoccurrence and make sure that there is no repeated day";
+    protected static final int MONDAY = 1;
+    protected static final int SUNDAY = 7;
 
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
@@ -799,7 +810,15 @@ public class Parser {
                     params.split(Command.COMMAND_PREFIX_DAY_OF_THE_WEEK
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             for (int i = 0; i < stringAfterPrefix.length(); i++) {
-                dayOfTheWeek.add(Integer.parseInt(String.valueOf(stringAfterPrefix.charAt(i))));
+                int day = Integer.parseInt(String.valueOf(stringAfterPrefix.charAt(i)));
+                if (day > MONDAY && day < SUNDAY) { //between monday and sunday
+                    if (dayOfTheWeek.contains(day)) {
+                        throw new ParamInvalidException(MESSAGE_ERROR_REPEATED_DAY_OF_THE_WEEK);
+                    }
+                    dayOfTheWeek.add(day);
+                } else {
+                    throw new ParamInvalidException(MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK);
+                }
             }
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected empty day input after prefix but day is required!");

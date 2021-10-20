@@ -49,7 +49,6 @@ public class AddRecurringExerciseCommand extends Command {
             int dayOfTheWeek = startDate.getDayOfWeek().getValue();
             LocalDate currentDate = startDate;
             while (currentDate.isBefore(this.endDate) || currentDate.isEqual(this.endDate)) {
-                System.out.println(this.endDate);
                 if (dayOfTheWeek == day) {
                     super.futureExerciseItems.addFutureExercise(new Exercise(description, calories, currentDate));
                     currentDate = currentDate.plusDays(ONE_WEEK);
