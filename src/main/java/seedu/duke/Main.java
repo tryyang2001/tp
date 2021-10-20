@@ -394,9 +394,16 @@ public class Main {
                 storageManager.saveFoodList(this.foodItems);
             }
             if (Command.requiresFutureExerciseListStorageRewrite(command)) {
-                //TODO Update with the new additions
-                //storage.saveFutureExercises(this.futureExerciseItems);
+                storageManager.saveFutureExerciseList(this.futureExerciseItems);
             }
+//            if (Command.requiresFoodBankStorageRewrite(command)) {
+//                //TODO Update with the new additions
+//                storageManager.saveFoodBank(this.foodBank);
+//            }
+//            if (Command.requiresExerciseBankListStorageRewrite(command)) {
+//                //TODO Update with the new additions
+//                storageManager.saveExerciseBank(this.exerciseBank);
+//            }
         } catch (UnableToWriteFileException e) {
             ui.formatMessageFramedWithDivider(e.getMessage());
         }
