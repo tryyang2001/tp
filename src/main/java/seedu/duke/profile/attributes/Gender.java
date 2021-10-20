@@ -23,10 +23,20 @@ public class Gender implements Verifiable {
         this.gender = gender;
     }
 
+    /**
+     * Retrieves the gender of the Gender object.
+     *
+     * @return the gender of the gender object.
+     */
     public char getGender() {
         return gender;
     }
 
+    /**
+     * Sets the gender of the Gender object.
+     *
+     * @param gender gender input by user
+     */
     public void setGender(char gender) {
         this.gender = gender;
     }

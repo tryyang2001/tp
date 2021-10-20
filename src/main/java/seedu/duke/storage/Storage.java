@@ -21,20 +21,20 @@ import java.util.logging.Logger;
  * Handles all read and write operations to the storage files.
  */
 public class Storage {
-    private static final String FILEPATH = "./data/";
     public static final String FILENAME_PROFILE = "profile.txt";
     public static final String FILENAME_FOOD_LIST = "food_list.txt";
     public static final String FILENAME_EXERCISE_LIST = "exercise_list.txt";
+    public static final String FILENAME_FOOD_BANK = "food_bank.txt";
+    public static final String FILENAME_EXERCISE_BANK = "exercise_bank.txt";
+    public static final String FILENAME_FUTURE_LIST = "future_list.txt";
+
+    public static final String FILEPATH = "./data/";
     public static final String FILEPATH_PROFILE = FILEPATH + FILENAME_PROFILE;
     public static final String FILEPATH_FOOD_LIST = FILEPATH + FILENAME_FOOD_LIST;
     public static final String FILEPATH_EXERCISE_LIST = FILEPATH + FILENAME_EXERCISE_LIST;
-
-    private static final String MESSAGE_CREATE_PROFILE = "No profile detected!"
-            + "A new profile has been created successfully.";
-    private static final String MESSAGE_CREATE_FOOD_LIST = "No food items detected!"
-            + "A new food list has been created successfully.";
-    private static final String MESSAGE_CREATE_EXERCISE_LIST = "No exercises detected!"
-            + "A new exercise has been created successfully.";
+    public static final String FILEPATH_FOOD_BANK = FILEPATH + FILENAME_FOOD_BANK;
+    public static final String FILEPATH_EXERCISE_BANK = FILEPATH + FILENAME_EXERCISE_BANK;
+    public static final String FILEPATH_FUTURE_LIST = FILEPATH + FILENAME_FUTURE_LIST;
 
     private final Encoder encoder = new Encoder();
     private final Decoder decoder = new Decoder();
