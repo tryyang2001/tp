@@ -11,7 +11,7 @@ public class FutureExerciseList extends ExerciseList {
 
     private static final int ONE_DAY = 1;
     private static final int ONE_WEEK = 7;
-
+    
     /**
      * Deletes and exercise item from the future exercise list.
      *
