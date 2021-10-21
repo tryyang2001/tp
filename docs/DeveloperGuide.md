@@ -8,14 +8,15 @@
 
 ### Profile
 
-![ProfileClassDiagram](ProfileClassDiagramv1.png)
+<img src="images/ProfileClassDiagram.png" alt="drawing" width="200"/>
 
 A Profile class has various attributes such as Name, Height, Weight, Gender, Age, Calorie Goal and Activity Factor
 
+Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you a more accurate calculation.
 
 ### Storage component
 
-![StorageManagerClassDiagram](StorageManagerClassDiagramv1.png)
+<img src="images/StorageClassDiagram.png" alt="drawing" width="200"/>
 
 The `StorageManager` component loads and saves:
 - your profile - including name, height, weight, gender, age, calorie goal and activity factor 
@@ -26,7 +27,7 @@ The `StorageManager` component loads and saves:
 
 Each storage is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
 
-![ProfileStorageClassDiagram](ProfileStorageClassDiagramv1.png)
+<img src="images/ProfileStorageClassDiagram.png" alt="drawing" width="200"/>
 
 where:
 - ProfileEncoder encodes the list to the profile.txt file.
@@ -58,17 +59,16 @@ illustrates how a user input `add f/potato c/20` is parsed and process to execut
 
 
 
-
-
-
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+University students who are looking to keep track of their calorie consumption and calorie outputs.
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+During these restricted COVID-19 times, we are confined to home-based learning. As a result, we tend to be less active and have fewer opportunities to stay active. This app aims to help you to gain or lose weight based on your goal of implementing a calorie deficit or calorie surplus.
+
+Its overview shows your progress over the weeks, indicating whether or not you have hit your daily calorie goal target for the past 7 days.
 
 ## User Stories
 
