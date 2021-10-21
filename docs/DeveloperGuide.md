@@ -9,12 +9,13 @@
 ### Architecture
 
 [Architecture Diagram]
-(will upload later)
+(will upload later by ry)\
+For description of architecture diagram, need people to do it, if not then I will do at ard 10 pm :)\
 
 ### Data Component (ItemBank and Item)
 
 [ItemBankAndItemClassDiagram]
-(will upload later)
+(will upload later by ry)
 
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.\
 `ItemBank` is the **highest superclass** that contains one attribute called `internalItems` which is an array list of item.\
@@ -28,7 +29,7 @@ the consumed food date and time, while the latter compute the time period (only 
 value must present when a `Food` object is created.\
 `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
 Classes such as `ItemList` and `Item` are set as **abstract class**, because they do not add meaningful value to the user when one tried to create them.
-
+##Xingjie rmb to add future exercise list here...^^
 
 ## Product scope
 ### Target user profile
