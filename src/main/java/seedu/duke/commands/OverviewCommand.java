@@ -17,10 +17,6 @@ public class OverviewCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        // int caloriesConsumed = super.foodItems.getTotalCalories();
-        // int caloriesLost = super.exerciseItems.getTotalCalories();
-        // int caloriesGoal = super.profile.getProfileCalorieGoal().getCalorieGoal();
-        // String[] calorieReport = this.statistics.getCaloriesReport(caloriesLost, caloriesConsumed, caloriesGoal);
         statistics = new Statistics(super.foodItems,super.exerciseItems, super.profile);
         return new CommandResult(this.statistics.overviewSummary());
     }

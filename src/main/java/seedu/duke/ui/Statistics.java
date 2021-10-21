@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 /* A class that manage the statistics of the calories*/
 public class Statistics {
     public static final String FULL_BLOCK = "█";
-    public static final String HALF_BLOCK = "▌";
     public static final String MESSAGE_CALORIE_GAIN = "Your calorie gained from food is: %d";
     public static final String MESSAGE_CALORIE_LOST = "Your calorie lost from exercise is: %d";
     public static final String MESSAGE_CALORIE_NET = "Your net calorie intake is: %d";
@@ -40,13 +39,14 @@ public class Statistics {
             + "and daily normal activities. All calculations used the "
             + "latest values from updated in profile.";
     public static final String GRAPH_BUILDER = "%1$s   %2$s    %3$s";
+    public static final int MAX_DATE_OFFSET = 6;
 
 
     private FoodList foodItems;
     private ExerciseList exerciseItems;
     private Profile profile;
 
-    public Statistics(FoodList foodItems, ExerciseList exerciseItems,Profile profile) {
+    public Statistics(FoodList foodItems, ExerciseList exerciseItems, Profile profile) {
         this.foodItems = foodItems;
         this.exerciseItems = exerciseItems;
         this.profile = profile;
@@ -111,16 +111,10 @@ public class Statistics {
         date = LocalDateTime.now().toLocalDate();
     }
 
-    private LocalDate dateOffset(int offset){
+    private LocalDate dateOffset(int offset) {
         return date.minusDays(offset);
-    };
-//    LocalDateTime today =  LocalDateTime.now();     //Today
-//    LocalDateTime tomorrow = today.plusDays(1);     //Plus 1 day
-//    LocalDateTime yesterday = today.minusDays(1);   //Minus 1 day
-
-    private void getFoodCalorie(LocalDate date) {
-        foodItems.getTotalCaloriesWithDate(date);
     }
+
 
     private void getDailyFoodCalorieForWeek() {
         ArrayList<Integer> dailyFoodCalories = getDailyFoodCalories();
@@ -140,20 +134,20 @@ public class Statistics {
         return dailyFoodCalories;
     }
 
-    private String getGraph(ArrayList<Integer> dailyCalories ) {
+    private String getGraph(ArrayList<Integer> dailyCalories) {
         int maxCalories = Collections.max(dailyCalories);
         // need to get them to print out all the items
         StringBuilder graph = new StringBuilder();
-        int dateOffset = 6;
+        int dateOffset = MAX_DATE_OFFSET;
         String progressBar = "";
         for (int calories : dailyCalories) {
             int numberOfBars = (int) (((double) calories / maxCalories) * 30);
-            assert numberOfBars <= 30: "30 is the max progress bar limit";
-            for (int i = 0; i < numberOfBars ; i++){
-               progressBar = progressBar + FULL_BLOCK;
+            assert numberOfBars <= 30 : "30 is the max progress bar limit";
+            for (int i = 0; i < numberOfBars; i++) {
+                progressBar = progressBar + FULL_BLOCK;
             }
             String formattedDate = getFormatDate(dateOffset);
-            graph.append(String.format(GRAPH_BUILDER,formattedDate,progressBar,calories)).append(Ui.LS);
+            graph.append(String.format(GRAPH_BUILDER, formattedDate, progressBar, calories)).append(Ui.LS);
             dateOffset--;
         }
         return graph.toString(); // progress bar of exercises.
@@ -171,30 +165,35 @@ public class Statistics {
         dailyExerciseCalories.add(exerciseItems.getTotalCaloriesWithDate(date.minusDays(4)));
         dailyExerciseCalories.add(exerciseItems.getTotalCaloriesWithDate(date.minusDays(3)));
         dailyExerciseCalories.add(exerciseItems.getTotalCaloriesWithDate(date.minusDays(2)));
-        dailyExerciseCalories.add(exerciseItems.getTotalCaloriesWithDate(date.minusDays(1)));// need to convert to stats chart
+        dailyExerciseCalories.add(exerciseItems.getTotalCaloriesWithDate(date.minusDays(1)));
         dailyExerciseCalories.add(exerciseItems.getTotalCaloriesWithDate(date));
         return dailyExerciseCalories;
     }
 
-    private int getTotalWeeklyCalories(ArrayList<Integer> getCalories){
+    private int getTotalWeeklyCalories(ArrayList<Integer> getCalories) {
         return getCalories.stream().mapToInt(i -> i).sum();
     }
 
-    public String overviewSummary(){
+    /**
+     * An overview on user calorie intake and calorie burnt.
+     *
+     * @return String that contains summary of calories for the week.
+     */
+    public String overviewSummary() {
         setLocalDate(); // need ensure that the date is on the time of query
         StringBuilder overviewSummary = new StringBuilder();
-        overviewSummary.append(String.format(OVERVIEW_HEADER,profile.getProfileName().getName())).append(Ui.LS)
-                .append(String.format(FOOD_HEADER,getTotalWeeklyCalories(getDailyFoodCalories()),
-                getFormatDate(6),getFormatDate(0))).append(Ui.LS)
+        overviewSummary.append(String.format(OVERVIEW_HEADER, profile.getProfileName().getName())).append(Ui.LS)
+                .append(String.format(FOOD_HEADER, getTotalWeeklyCalories(getDailyFoodCalories()),
+                        getFormatDate(6), getFormatDate(0))).append(Ui.LS)
                 .append(String.format(FOOD_GRAPH_HEADER, getGraph(getDailyFoodCalories())))
-        //TODO: get food that has the most calories.
-                .append(String.format(EXERCISE_HEADER,getTotalWeeklyCalories(getDailyExerciseCalories()))).append(Ui.LS)
-                .append(String.format(EXERCISE_GRAPH_HEADER,getGraph(getDailyExerciseCalories())))
+                //TODO: get food that has the most calories.
+                .append(String.format(EXERCISE_HEADER, getTotalWeeklyCalories(getDailyExerciseCalories())))
+                .append(Ui.LS)
+                .append(String.format(EXERCISE_GRAPH_HEADER, getGraph(getDailyExerciseCalories())))
                 //TODO: get exercise that has the most calories.
-        //TODO: get total net calories for the week.
+                //TODO: get total net calories for the week.
                 .append(MESSAGE_NET_CALORIES).append(Ui.LS)
                 .append(MESSAGE_CAUTION);
-        System.out.println("reached here");
         return overviewSummary.toString();
     }
 
