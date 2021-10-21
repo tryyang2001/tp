@@ -88,7 +88,8 @@ to complete tp dashboard
 
 
 ###Ui Component
-The 'Ui' component interacts with the user. It reads in input from the user and prints messages on the console.
+
+The `Ui` component interacts with the user. It reads in input from the user and prints messages on the console.
 Below shows a class diagram of how `Ui` component interacts with the rest of the application.
 
 ![](./images/Ui.png)
