@@ -22,31 +22,27 @@ import seedu.duke.commands.ViewFoodListCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_ILLEGAL_CHARACTER;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_INVALID_CALORIES_INFO;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_NOT_A_NUMBER;
-import static seedu.duke.parser.Parser.MESSAGE_ERROR_TOO_MANY_DELIMITERS;
 
 
+class ParserManagerTest {
 
-class ParserTest {
-
-    private Parser parser;
+    private ParserManager parser;
 
     @BeforeEach
     public void setUp() {
-        parser = new Parser();
+        parser = new ParserManager();
     }
 
     @Test
     void parseCommand_invalidCommandWord_commandDoesNotExistMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST, "potato", "hi");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST,
+                "potato", "hi");
     }
 
     @Test
     void parseCommand_containsTextFileDelimiter_illegalCharacterMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_ILLEGAL_CHARACTER, "potato | as", "add |", "name h|o");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_ILLEGAL_CHARACTER,
+                "potato | as", "add |", "name h|o");
     }
 
     @Test
@@ -76,7 +72,7 @@ class ParserTest {
 
     @Test
     void parseAddCommand_caloriesNotANumber_caloriesNotNumberMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_INVALID_CALORIES_INFO,
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_INVALID_CALORIES_INFO,
                 "add f/potato c/potato", "add e/hiit c/potato");
     }
 
@@ -107,10 +103,10 @@ class ParserTest {
     @Test
     void parseCalculateBmiCommand_parametersInvalid_errorMessage() {
         parseAndAssertIncorrectWithMessage(
-                String.format(MESSAGE_ERROR_NOT_A_NUMBER, "height"),
+                String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "height"),
                 "BMI w/20 h/potato");
         parseAndAssertIncorrectWithMessage(
-                String.format(MESSAGE_ERROR_NOT_A_NUMBER, "weight"),
+                String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "weight"),
                 "BMI w/potato h/20");
     }
 
@@ -159,15 +155,9 @@ class ParserTest {
 
     @Test
     void parseProfileCreateCommand_parametersInvalid_tooManyDelimitersMessage() {
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/hi n/hello");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/h/i n/hello");
-        parseAndAssertIncorrectWithMessage(MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/h/i z/hello");
-    }
-
-    @Test
-    void parseSetGoalCommand_parametersNotGivenOrInvalid_notANumberMessage() {
-        parseAndAssertIncorrectWithMessage(String.format(MESSAGE_ERROR_NOT_A_NUMBER, "goal"),
-                "goal", "goal nope");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/hi n/hello");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/h/i n/hello");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/h/i z/hello");
     }
 
     @Test

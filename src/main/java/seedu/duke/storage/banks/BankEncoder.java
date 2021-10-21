@@ -1,6 +1,6 @@
 package seedu.duke.storage.banks;
 
-import seedu.duke.item.ItemBank;
+import seedu.duke.item.bank.ItemBank;
 import seedu.duke.storage.Encoder;
 
 import java.util.ArrayList;
