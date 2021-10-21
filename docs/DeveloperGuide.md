@@ -10,6 +10,31 @@
 
 ![image](https://user-images.githubusercontent.com/69421979/138269962-93eeb36e-1594-479e-9ffa-f69ea4f372fe.png)
 
+Main class is the component that interacts with all the necessary classes.
+The Main class consists of the few components as shown below:
+- Ui The interaction between user and application
+- Parser Parse commands and execute them respectively
+- Data allow users to perform CRUD operations on the data in the application
+- Storage stores all data in the application. Saves a copy of data in relevant files.
+  Data will be retrieved from storage upon starting of application.
+
+Upon launching of application:
+- The application will check if there are files that are already stored in the respective folder.
+  If there is such files, the contents of the files will be loaded to the data section of the applicaton.
+  Instances of profile, data(e.g. FoodList, ExerciseList, FutureExerciseList, ItemBank) and storage will be created
+
+
+Upon exiting of application:
+- The application will save all data into the files created. All instance of components will be cleared automatically.
+
+
+Interaction between the classes could be shown by the uml sequence diagram below.
+
+![](./images/architecture.png)
+
+When there is an input, the Ui class will retrieve the information from the user.
+The information will be parsed by the `Parser` and then upon checking its validity,
+it will be saved into the `Data` and `Storage` class.
 
 ### Data Component (ItemBank and Item)
 
@@ -39,7 +64,6 @@ value must present when a `Food` object is created.\
 Classes such as `ItemList` and `Item` are _**abstract class**_, because they do not add meaningful value to the user if one tries to create them.
 
 ### Logic Component
-=======
 
 
 ### Data Component (Profile)
@@ -58,43 +82,15 @@ will include some diagrams later\
 to complete tp dashboard
 
 
-
-Main class is the component that interacts with all the necessary classes. 
-The Main class consists of the few components as shown below:
-- Ui The interaction between user and application
-- Parser Parse commands and execute them respectively
-- Data allow users to perform CRUD operations on the data in the application
-- Storage stores all data in the application. Saves a copy of data in relevant files.
-Data will be retrieved from storage upon starting of application.
-
-Upon launching of application:
-- The application will check if there are files that are already stored in the respective folder.
-If there is such files, the contents of the files will be loaded to the data section of the applicaton.
-Instances of profile, data(e.g. FoodList, ExerciseList, FutureExerciseList, ItemBank) and storage will be created
-
-
-Upon exiting of application:
-- The application will save all data into the files created. All instance of components will be cleared automatically.
-
-
-Interaction between the classes could be shown by the uml sequence diagram below.
-
-![](./images/architecture.png)
-
-When there is an input, the Ui class will retrieve the information from the user. 
-The information will be parsed by the `Parser` and then upon checking its validity, 
-it will be saved into the `Data` and `Storage` class.
-
 ###Ui Component
 The 'Ui' component interacts with the user. It reads in input from the user and prints messages on the console.
 Below shows a class diagram of how `Ui` component interacts with the rest of the application.
 
-<insert image here />
-
+![](./images/ui.png)
 
 
 ###Logic Component
->>>>>>> 7918cae574f160ce0155bd0101ef4250578c32e0
+ 
 The `Logic` component is responsible for making sense of user input.
 
 Below is a high level class diagram of the `Logic` component, which shows how it interacts with other components 
@@ -153,7 +149,17 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
 |v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
+|v1.0|new user|want to store food records|track my food intake|
+|v1.0|new user|want to store exercise records| track my exercises|
+|v1.0|new user|store all records|refer to them whenever needed|
+|v2.0|new user|have a profile| to keep track of all information to calculate my net calories|
 |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|v2.0|user|have a summary|see my calorie targets
+|v2.0|user|have a history|spend less time typing all the requirements to store items|
+|v2.0|user|have a exercise list that update itself|have more time for exercises|
+|v2.0|user|have a sorted food list|see what I have eaten on different times of the day|
+|v2.0|user|have a delete all command|start afresh|
+
 
 ## Non-Functional Requirements
 
@@ -169,3 +175,28 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+###Launch and shut down
+1. Initial launch
+   1. Download the jar file and copy into an empty folder
+   2. Go to your command prompt, and go into your directory.
+   3. Run the command `java -jar Fitbot.jar`.
+   Expected: a data folder will be created in the file that contain Fitbot.jar.
+
+###Manipulating data
+
+1. Data is saved whenever data is manipulated.
+   1. run the application
+   2. add a food entry into the application.
+   3. Exit the application.
+   4. The file food_list.txt should have one entry.
+   5. Run the application and delete the entry.
+   6. Exit the application again.
+   Expected: food_list.txt should be empty.
+
+###Saving Data
+
+1. Saving data in file
+   1. After exiting the application, change the values saved in the file.
+   2. Upon start-up, all valid values will be changed in the application.
+   3. Replace one of the text file generated by the application with lorem ipsum.
+   4. The application will be able to pick it up and ignore invalid data in relevant files.
