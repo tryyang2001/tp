@@ -139,9 +139,11 @@ public class Statistics {
         // need to get them to print out all the items
         StringBuilder graph = new StringBuilder();
         int dateOffset = MAX_DATE_OFFSET;
-        String progressBar = "";
+
         for (int calories : dailyCalories) {
-            int numberOfBars = (int)Math.round(((double) calories / maxCalories) * 30);
+            String progressBar = "";
+            int numberOfBars = 0;
+            numberOfBars = (int)Math.round(((double) calories / maxCalories) * 30);
             assert numberOfBars <= 30 : "30 is the max progress bar limit";
             for (int i = 0; i < numberOfBars; i++) {
                 progressBar = progressBar + FULL_BLOCK;
