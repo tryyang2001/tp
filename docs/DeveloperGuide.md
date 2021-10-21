@@ -10,26 +10,37 @@
 
 ![image](https://user-images.githubusercontent.com/69421979/138269962-93eeb36e-1594-479e-9ffa-f69ea4f372fe.png)
 
-For description of architecture diagram, need people to do it, if not then I will do at ard 10 pm :)\
 
 ### Data Component (ItemBank and Item)
 
-![image](https://user-images.githubusercontent.com/69421979/138271034-65cf2a05-6c0f-4f1b-b728-69f0e43d070e.png)
+![image](https://user-images.githubusercontent.com/69421979/138306373-3d41a51e-5ab1-470b-b199-7046c49b12f6.png)
 
+The `Data` component is responsible to perform operations such as data modificationand query in the code. It receives the commands from the `Logic` component, execute the 
+correct operations, and finally return the command result back to `Logic` component.\
+\
+Above is a high-level **_class diagram_** for the `ItemBank` and `Item` classes in `Data` component. Note that since `Main` and `Logic` components have accessed to some classes
+in `Data` component, they form **_dependencies_** with those classes.
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.\
+
+#### ItemBank class
 `ItemBank` is the **_highest superclass_** that contains one attribute called `internalItems` which is an _array list_ of `item`.\
-`ItemList` being the _subclass_ of `ItemBank` and _superclass_ of `FoodList`, `ExerciseList` and , which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.\
-`FoodList` and `ExerciseList` are subclasses that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
-on `Food` class and `Exercise` class respectively.\
+`ItemList` being the **_subclass_** of `ItemBank` and **_superclass_** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.\
+`FoodList` and `ExerciseList` are **_subclasses_** that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
+on `Food` class and `Exercise` class respectively.
+
+#### Item class
 An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.\
-`Food` and `Exercise` are the only two subclasses inherit the `Item` class. \
-`Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores 
-the consumed food date and time, while the latter compute the time period (only value such as `Morning`, `Afternoon`, `Evening` and `Night` as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
+`Food` and `Exercise` are the only two **_subclasses_** inherit the `Item` class. \
+`Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores the consumed food date and time, while the latter compute the time period 
+(only value such as **`Morning`, `Afternoon`, `Evening`** and **`Night`** as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
 value must present when a `Food` object is created.\
 `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
+\
 Classes such as `ItemList` and `Item` are _**abstract class**_, because they do not add meaningful value to the user if one tries to create them.
 
-## Xingjie rmb to add future exercise list description here...^^ (gg i realized future ex list is the subclass of exercise list... will update later
+### Logic Component
+=======
+
 
 ### Data Component (Profile)
 
@@ -78,11 +89,12 @@ it will be saved into the `Data` and `Storage` class.
 The 'Ui' component interacts with the user. It reads in input from the user and prints messages on the console.
 Below shows a class diagram of how `Ui` component interacts with the rest of the application.
 
-<insert image here>
+<insert image here />
 
 
 
 ###Logic Component
+>>>>>>> 7918cae574f160ce0155bd0101ef4250578c32e0
 The `Logic` component is responsible for making sense of user input.
 
 Below is a high level class diagram of the `Logic` component, which shows how it interacts with other components 
@@ -149,9 +161,11 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 2. Should be able to hold up to at least a year of data without a slowdown of performance in daily use.
 3. Any user that is comfortable with typing of speeds >55 words per minute would be able to accomplish these tasks faster than if they used a mouse to navigate.
 ## Glossary
-
-* *glossary item* - Definition
-
+**_dependency_** : In UML diagram, dependency is a directed relationship which is used to show that some elements or a set of elements requires, needs or depends on other model elements for specification or implementation.\
+**_superclass_** : A class from which other classes inherit its code. The class that inherits its code will be able to access some/all functionalities from the superclass.\
+**_subclass_**   : A class that inherits code from the other classes. Such class will be able to access some/all functionalities from its superclass, but not vice versa.\
+**_abstract class_** : A class that cannot be created using constructor. Usually such class is a superclass, and it does not give meaningful value if one tries to construct it.\
+(more coming in the future...)
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
