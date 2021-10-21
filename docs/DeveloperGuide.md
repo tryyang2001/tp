@@ -6,13 +6,39 @@
 
 ## Design & implementation
 
-### Profile
+### Architecture
+
+![image](https://user-images.githubusercontent.com/69421979/138269962-93eeb36e-1594-479e-9ffa-f69ea4f372fe.png)
+
+For description of architecture diagram, need people to do it, if not then I will do at ard 10 pm :)\
+
+### Data Component (ItemBank and Item)
+
+![image](https://user-images.githubusercontent.com/69421979/138271034-65cf2a05-6c0f-4f1b-b728-69f0e43d070e.png)
+
+The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.\
+`ItemBank` is the **_highest superclass_** that contains one attribute called `internalItems` which is an _array list_ of `item`.\
+`ItemList` being the _subclass_ of `ItemBank` and _superclass_ of `FoodList`, `ExerciseList` and , which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.\
+`FoodList` and `ExerciseList` are subclasses that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
+on `Food` class and `Exercise` class respectively.\
+An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.\
+`Food` and `Exercise` are the only two subclasses inherit the `Item` class. \
+`Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores 
+the consumed food date and time, while the latter compute the time period (only value such as `Morning`, `Afternoon`, `Evening` and `Night` as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
+value must present when a `Food` object is created.\
+`Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
+Classes such as `ItemList` and `Item` are _**abstract class**_, because they do not add meaningful value to the user if one tries to create them.
+
+## Xingjie rmb to add future exercise list description here...^^ (gg i realized future ex list is the subclass of exercise list... will update later
+
+### Data Component (Profile)
 
 <img src="images/ProfileClassDiagram.png" alt="Profile" width="600"/>
 
 A Profile class has various attributes such as Name, Height, Weight, Gender, Age, Calorie Goal and Activity Factor
 
 Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you a more accurate calculation.
+
 
 ###Logic Component
 The `Logic` component is responsible for making sense of user input.
