@@ -46,8 +46,8 @@ ________________________________________________________________________________
 Input calorie goal is successful.
 __________________________________________________________________________________________________________
 __________________________________________________________________________________________________________
-Please input your activity factor.
-Below are the activity factor and the corresponding description you can consider:
+Please input your activity factor based on  the value shown on the left.
+Below are the activity factor values and the corresponding description you can consider:
 1 -> Sedentary - Little or no exercise
 2 -> Lightly Active - Light exercise or sports, around 1-3 days a week
 3 -> Moderately Active - Regular exercise or sports, around 3-5 days a week
@@ -59,6 +59,7 @@ Input activity factor is successful.
 __________________________________________________________________________________________________________
 __________________________________________________________________________________________________________
 Profile created successfully
+Please type a command to start or view the list of available commands by typing "help".
 __________________________________________________________________________________________________________
 __________________________________________________________________________________________________________
 Hello name! This is your profile:
