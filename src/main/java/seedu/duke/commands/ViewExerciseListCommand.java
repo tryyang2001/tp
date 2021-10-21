@@ -12,6 +12,7 @@ public class ViewExerciseListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "You have done %1$d exercise(s):"
             + LS + "%2$s";
 
+
     private static Logger logger = Logger.getLogger("ViewExerciseCommand");
 
     @Override

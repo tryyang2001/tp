@@ -12,6 +12,7 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_EXERCISE = "You have done %1$d exercise(s):"
             + LS + "%2$s";
 
+
     @Override
     public CommandResult execute() {
         String foodMessage;

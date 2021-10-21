@@ -42,6 +42,7 @@ public class Ui {
             + "Follow the instructions and key in the necessary information when prompted.\n"
             + "Note please complete your profile before exiting so that we can store your profile data.";
 
+
     private Scanner scanner;
 
     public Ui() {
