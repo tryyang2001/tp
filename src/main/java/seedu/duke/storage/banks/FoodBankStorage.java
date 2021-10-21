@@ -25,7 +25,7 @@ public class FoodBankStorage extends Storage {
 
     private ItemBank readFromFoodBankFile() throws UnableToReadFileException {
         try {
-            return decoder.getFoodBankFromData();
+            return new FoodBankDecoder().getFoodBankFromData();
         } catch (FileNotFoundException e) {
             logger.log(Level.WARNING, "The path is missing ", FILEPATH_BANK_FOOD);
             throw new UnableToReadFileException(FILEPATH_BANK_FOOD);
@@ -33,7 +33,7 @@ public class FoodBankStorage extends Storage {
     }
 
     public void saveFoodBank(ItemBank foodBank) throws UnableToWriteFileException {
-        ArrayList<String> foodBankList = encoder.encodeItemBank(foodBank);
+        ArrayList<String> foodBankList = new BankEncoder().encodeItemBank(foodBank);
         writeToFile(foodBankList, FILEPATH_BANK_FOOD);
     }
 

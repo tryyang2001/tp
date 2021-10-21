@@ -31,7 +31,7 @@ public class ExerciseListStorage extends Storage {
 
     private ExerciseList readFromExerciseListFile() throws UnableToReadFileException {
         try {
-            return decoder.getExerciseListFromData();
+            return new ExerciseListDecoder().getExerciseListFromData();
         } catch (FileNotFoundException e) {
             logger.log(Level.WARNING, "The path is missing ", FILEPATH_LIST_EXERCISE);
             throw new UnableToReadFileException(FILEPATH_LIST_EXERCISE);
@@ -45,7 +45,7 @@ public class ExerciseListStorage extends Storage {
      * @param exercises ExerciseList to be saved
      */
     public void saveExercises(ExerciseList exercises) throws UnableToWriteFileException {
-        ArrayList<String> exerciseList = encoder.encodeExerciseList(exercises);
+        ArrayList<String> exerciseList = new ExerciseListEncoder().encodeExerciseList(exercises);
         writeToFile(exerciseList, FILEPATH_LIST_EXERCISE);
     }
 }

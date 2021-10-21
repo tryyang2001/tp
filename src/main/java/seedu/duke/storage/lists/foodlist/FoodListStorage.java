@@ -31,7 +31,7 @@ public class FoodListStorage extends Storage {
 
     private FoodList readFromFoodListFile() throws UnableToReadFileException {
         try {
-            return decoder.getFoodListFromData();
+            return new FoodListDecoder().getFoodListFromData();
         } catch (FileNotFoundException e) {
             logger.log(Level.WARNING, "The path is missing ", FILEPATH_LIST_FOOD);
             throw new UnableToReadFileException(FILEPATH_LIST_FOOD);
@@ -39,7 +39,7 @@ public class FoodListStorage extends Storage {
     }
 
     public void saveFoodList(FoodList foodItems) throws UnableToWriteFileException {
-        ArrayList<String> foodList = encoder.encodeFoodList(foodItems);
+        ArrayList<String> foodList = new FoodListEncoder().encodeFoodList(foodItems);
         writeToFile(foodList, FILEPATH_LIST_FOOD);
     }
 
