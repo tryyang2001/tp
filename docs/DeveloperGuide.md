@@ -33,6 +33,34 @@ where:
 - ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
 - ProfileStorage initializes the encoder and decoder and utilizes them for reading or writing operations.
 
+###Logic Component
+The `Logic` component is responsible for making sense of user input.
+
+Below is a high level class diagram of the `Logic` component, which shows how it interacts with other components 
+like `Main` and `Data`.
+
+
+<img src="images/LogicClassDiagram.png" width = "600" /> 
+
+
+Here is a more detailed class diagram of the `Logic` component.
+
+<img src ="images/ParserClassDiagram" width = "600" />
+
+Taking a closer look into the parsing process, the `ParserManager` actually does not do most of the parsing itself.
+(To be completed)
+
+
+The sequence diagram below models the interactions between the different classes within the `Logic` component and 
+illustrates how a user input `add f/potato c/20` is parsed and process to execute the appropriate actions.
+
+<img src="images/LogicSequenceDiagram.png" width = "600" />
+
+
+
+
+
+
 ## Product scope
 ### Target user profile
 

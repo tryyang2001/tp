@@ -19,7 +19,6 @@ public class DeleteExerciseBankCommand extends Command {
     public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_EXERCISE_BANK};
 
 
-
     private static Logger logger = Logger.getLogger(DeleteExerciseBankCommand.class.getName());
 
     private final int itemIndex;

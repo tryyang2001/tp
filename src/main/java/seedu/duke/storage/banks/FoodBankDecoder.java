@@ -1,9 +1,9 @@
 package seedu.duke.storage.banks;
 
-import seedu.duke.item.ItemBank;
+import seedu.duke.item.bank.ItemBank;
+import seedu.duke.item.bank.exceptions.DuplicateItemInBankException;
 import seedu.duke.item.food.Food;
 import seedu.duke.storage.Decoder;
-import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
@@ -35,7 +35,8 @@ public class FoodBankDecoder extends Decoder {
             final String name = itemDetails[1];
             final int calories = Integer.parseInt(itemDetails[2]);
             items.addItem(new Food(name, calories));
-        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException
+                | DuplicateItemInBankException e) {
             logger.log(Level.WARNING, "A line in item bank is not valid.", line);
             throw new InvalidDataException(FoodBankStorage.FILENAME_BANK_FOOD, line);
         }

@@ -30,4 +30,5 @@ public class ViewCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS + LS + foodMessage + LS + LS + exerciseMessage);
     }
+
 }
