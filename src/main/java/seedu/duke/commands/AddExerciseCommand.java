@@ -1,6 +1,6 @@
 package seedu.duke.commands;
 
-import seedu.duke.item.ItemNotFoundInBankException;
+import seedu.duke.item.bank.exceptions.ItemNotFoundInBankException;
 import seedu.duke.item.exercise.Exercise;
 
 import java.time.LocalDate;
@@ -19,8 +19,6 @@ public class AddExerciseCommand extends Command {
             + INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
             + LS + "Try a positive value instead";
-    public static final String MESSAGE_INVALID_EXERCISE_NOT_IN_BANK = "%s was not found in the exercise bank! "
-            + "Please specify the calories for this item.";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_EXERCISE,
             COMMAND_PREFIX_CALORIES,
@@ -30,10 +28,10 @@ public class AddExerciseCommand extends Command {
 
     private static Logger logger = Logger.getLogger(AddExerciseCommand.class.getName());
 
-    private String description;
+    private final String description;
     private int calories;
-    private LocalDate date;
-    private boolean isCaloriesFromBank;
+    private final LocalDate date;
+    private final boolean isCaloriesFromBank;
 
     public AddExerciseCommand(String description, int calories, LocalDate date, boolean isCaloriesFromBank) {
         this.description = description;

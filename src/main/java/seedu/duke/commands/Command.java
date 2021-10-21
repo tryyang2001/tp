@@ -1,12 +1,10 @@
 package seedu.duke.commands;
 
-import seedu.duke.item.ItemBank;
+import seedu.duke.item.bank.ItemBank;
 import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
-import seedu.duke.profile.attributes.ActivityFactor;
-import seedu.duke.profile.attributes.CalorieGoal;
 
 /**
  * Abstract class used to represent executable Commands.
@@ -43,7 +41,6 @@ public abstract class Command {
     public static final String COMMAND_WORD_VIEW = "view";
     public static final String COMMAND_WORD_BMI = "bmi";
     public static final String COMMAND_WORD_PROFILE = "profile";
-    public static final int COMMAND_BMI_EXPECTED_NUM_DELIMITERS = 2;
     public static final String COMMAND_WORD_DELETE_ALL = "all";
     public static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise items yet!";
     public static final String MESSAGE_EMPTY_FUTURE_EXERCISE_LIST = "No future exercise items yet!";
@@ -52,6 +49,10 @@ public abstract class Command {
     public static final String MESSAGE_EMPTY_FOOD_BANK = "No food items yet in the food bank!";
     public static final String MESSAGE_ONLY_ONE_IN_LIST = "You have only 1 item in the list!";
     public static final String MESSAGE_LIST_OUT_OF_BOUNDS = "Please input a valid item number from 1 to %s";
+    public static final String MESSAGE_INVALID_EXERCISE_NOT_IN_BANK = "%s was not found in the exercise bank! "
+            + "Please specify the calories for this item.";
+    public static final String MESSAGE_INVALID_FOOD_NOT_IN_BANK = "%s was not found in the food bank! "
+            + "Please specify the calories for this item.";
     public static final double NULL_DOUBLE = 0;
     public static final int NULL_INT = 0;
     public static final char NULL_CHAR = Character.MIN_VALUE;
@@ -64,8 +65,6 @@ public abstract class Command {
     protected FutureExerciseList futureExerciseItems;
     protected ItemBank exerciseBank;
     protected ItemBank foodBank;
-
-
 
 
     /**
@@ -102,11 +101,7 @@ public abstract class Command {
      * @return True if profile storage file is to be rewritten after execution of the command
      */
     public static boolean requiresProfileStorageRewrite(Command command) {
-        return command instanceof ChangeHeightCommand
-                || command instanceof ChangeNameCommand
-                || command instanceof ChangeWeightCommand
-                || command instanceof ProfileCreateCommand
-                || command instanceof SetGoalCommand;
+        return command instanceof ProfileUpdateCommand;
     }
 
     /**
@@ -131,9 +126,40 @@ public abstract class Command {
                 || command instanceof DeleteFoodCommand;
     }
 
+    /**
+     * Returns true if the command requires the future exercise list storage file to be rewritten after execution.
+     *
+     * @param command Command that has just been executed
+     * @return True if future exercise list storage file is to be rewritten after execution of the command
+     */
     public static boolean requiresFutureExerciseListStorageRewrite(Command command) {
         return command instanceof AddFutureExerciseCommand
-                || command instanceof DeleteFutureExerciseCommand;
+                || command instanceof DeleteFutureExerciseCommand
+                || command instanceof AddRecurringExerciseCommand;
     }
+
+    /**
+     * Returns true if the command requires the food bank storage file to be rewritten after execution.
+     *
+     * @param command Command that has just been executed
+     * @return True if food bank storage file is to be rewritten after execution of the command
+     */
+    public static boolean requiresFoodBankStorageRewrite(Command command) {
+        return command instanceof AddFoodBankCommand
+                || command instanceof DeleteFoodBankCommand;
+    }
+
+    /**
+     * Returns true if the command requires the exercise bank storage file to be rewritten after execution.
+     *
+     * @param command Command that has just been executed
+     * @return True if food bank storage file is to be rewritten after execution of the command
+     */
+    public static boolean requiresExerciseBankStorageRewrite(Command command) {
+        return command instanceof AddExerciseBankCommand
+                || command instanceof DeleteExerciseBankCommand;
+    }
+
+
 
 }

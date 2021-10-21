@@ -40,6 +40,7 @@ public abstract class ItemList {
      */
     public void addItem(Item item) {
         this.itemList.add(item);
+        sortList();
     }
 
     /**

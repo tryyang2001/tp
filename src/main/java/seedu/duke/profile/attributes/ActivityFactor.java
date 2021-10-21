@@ -23,10 +23,20 @@ public class ActivityFactor implements Verifiable {
         setActivityFactor(activityFactor);
     }
 
+    /**
+     * Retrieves the activity factor of ActivityFactor object.
+     *
+     * @return the activity factor of ActivityFactor object
+     */
     public int getActivityFactor() {
         return activityFactor;
     }
 
+    /**
+     * Sets the activity factor of ActivityFactor object.
+     *
+     * @param activityFactor activity factor input by user
+     */
     public void setActivityFactor(int activityFactor) {
         this.activityFactor = activityFactor;
     }

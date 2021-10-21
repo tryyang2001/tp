@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ProfileTest {
 
-    //TODO Update JUnit for each individual attribute + update profile tests
     @Test
     void calculateBmi_twoDoubleInputs_expectDoubleReturned() throws InvalidCharacteristicException {
         final double height = 171.2;
@@ -51,7 +50,7 @@ class ProfileTest {
     }
 
     @Test
-    void getBmrValuesMen_validInputs_expectCorrectBmrValues() throws InvalidCharacteristicException {
+    void getBmrValuesMen_validInputs_expectCorrectBmrValues() {
         Profile p = new Profile();
         final String name = "John";
         final double height = 170.1;
@@ -80,7 +79,7 @@ class ProfileTest {
     }
 
     @Test
-    void getBmrValuesFemale_validInputs_expectCorrectBmrValues() throws InvalidCharacteristicException {
+    void getBmrValuesFemale_validInputs_expectCorrectBmrValues() {
         Profile p = new Profile();
         final String name = "Mary";
         final double height = 160.1;
@@ -109,7 +108,7 @@ class ProfileTest {
     }
 
     @Test
-    void toFileTextString_validInputs_expectCorrectString() throws InvalidCharacteristicException {
+    void toFileTextString_validInputs_expectCorrectString() {
         Profile p = new Profile();
         String name = "John";
         double height = 170.1;
@@ -121,7 +120,6 @@ class ProfileTest {
 
         p.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
         String correctOutput = "John|170.1|60.0|M|22|300|1";
-        System.out.println(p.toFileTextString());
         assertEquals(correctOutput, p.toFileTextString());
     }
 

@@ -17,6 +17,8 @@ public class Profile {
     public static final String FILE_TEXT_DELIMITER = "|";
 
     private static final String LS = System.lineSeparator();
+    private static final String TAB = "\t";
+    private static final String INDENTED_LS = LS + TAB;
 
     public static final int NON_POSITIVE_LIMIT = 0;
     public static final String ERROR_NAME = "Name cannot contain '/' of '|' .";
@@ -33,7 +35,7 @@ public class Profile {
             + ActivityFactor.LIMIT_UPPER_ACTIVITY_LEVEL;
     public static final String ERROR_CALORIE_GOAL =
             "I don't think you should be aiming to be setting such a extreme goal of %d" + LS
-                    + "Try a range of " + CalorieGoal.LIMIT_LOWER_CALORIES  + " to " + CalorieGoal.LIMIT_UPPER_CALORIES;
+                    + "Try a range of " + CalorieGoal.LIMIT_LOWER_CALORIES + " to " + CalorieGoal.LIMIT_UPPER_CALORIES;
 
     private static final String BMI_STATUS_UNDERWEIGHT = "Underweight";
     private static final String BMI_STATUS_HEALTHY = "Healthy";
@@ -61,6 +63,15 @@ public class Profile {
     public static final double GENDER_F_AGE_FACTOR = 4.330;
     public static final double GENDER_F_CONSTANT = 447.593;
 
+    public static final String MESSAGE_PROFILE = "Hello %1$s! This is your profile:"
+            + INDENTED_LS + "Your height is %2$scm."
+            + INDENTED_LS + "Your weight is %3$skg."
+            + INDENTED_LS + "Your gender is %4$s."
+            + INDENTED_LS + "Your age is %5$s."
+            + INDENTED_LS + "Your calories goal is %6$s cal."
+            + INDENTED_LS + "Your activity factor is %7$s.";
+
+
     protected Name name = new Name();
     protected Height height = new Height();
     protected Weight weight = new Weight();
@@ -69,7 +80,7 @@ public class Profile {
     protected CalorieGoal calorieGoal = new CalorieGoal();
     protected ActivityFactor activityFactor = new ActivityFactor();
 
-    public Profile(){
+    public Profile() {
 
     }
 
@@ -85,7 +96,29 @@ public class Profile {
      * @param activityFactor Activity level of user
      */
     public Profile(Name name, Height height, Weight weight, Gender gender,
-                      Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
+                   Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
+        this.name = name;
+        this.height = height;
+        this.weight = weight;
+        this.gender = gender;
+        this.age = age;
+        this.calorieGoal = calorieGoal;
+        this.activityFactor = activityFactor;
+    }
+
+    /**
+     * A set command that enables setting of profile through passing by reference.
+     *
+     * @param name           Name of user
+     * @param height         Height of user
+     * @param weight         Weight of user
+     * @param calorieGoal    Calorie target of user
+     * @param gender         Gender of user (M/F)
+     * @param age            Age of user
+     * @param activityFactor Activity level of user
+     */
+    public void setProfile(Name name, Height height, Weight weight, Gender gender,
+                   Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
         this.name = name;
         this.height = height;
         this.weight = weight;
@@ -97,6 +130,7 @@ public class Profile {
 
     /**
      * Sets the profile in various commands with the raw inputs if necessary.
+     * Usually used for retrieving data from storage.
      *
      * @param name           Name of user
      * @param height         Height of user
@@ -117,58 +151,128 @@ public class Profile {
         this.activityFactor.setActivityFactor(activityFactor);
     }
 
+    /**
+     * Sets the profile name with a new Name object.
+     *
+     * @param name Name object to be set
+     */
     public void setProfileName(Name name) {
         this.name = name;
     }
 
+    /**
+     * Sets the profile height with a new Height object.
+     *
+     * @param height Height object to be set
+     */
     public void setProfileHeight(Height height) {
         this.height = height;
     }
 
+    /**
+     * Sets the profile weight with a new Weight object.
+     *
+     * @param weight Weight object to be set
+     */
     public void setProfileWeight(Weight weight) {
         this.weight = weight;
     }
 
+    /**
+     * Sets the profile gender with a new Profile object.
+     *
+     * @param gender Gender object to be set
+     */
     public void setProfileGender(Gender gender) {
         this.gender = gender;
     }
 
+    /**
+     * Sets the profile age with a new Age object.
+     *
+     * @param age Age object to be set
+     */
     public void setProfileAge(Age age) {
         this.age = age;
     }
 
+    /**
+     * Sets the profile calorie goal with a new CalorieGoal object.
+     *
+     * @param calorieGoal CalorieGoal object to be set
+     */
     public void setProfileCalorieGoal(CalorieGoal calorieGoal) {
         this.calorieGoal = calorieGoal;
     }
 
+    /**
+     * Sets the profile activity factor with a new ActivityFactor object.
+     *
+     * @param activityFactor ActivityFactor object to be set
+     */
     public void setProfileActivityFactor(ActivityFactor activityFactor) {
         this.activityFactor = activityFactor;
     }
 
+    /**
+     * Retrieves the Name object from the profile.
+     *
+     * @return Name object
+     */
     public Name getProfileName() {
         return this.name;
     }
 
+    /**
+     * Retrieves the Height object from the profile.
+     *
+     * @return Height object
+     */
     public Height getProfileHeight() {
         return this.height;
     }
 
+    /**
+     * Retrieves the Weight object from the profile.
+     *
+     * @return Weight object
+     */
     public Weight getProfileWeight() {
         return this.weight;
     }
 
+    /**
+     * Retrieves the Gender object from the profile.
+     *
+     * @return Gender object
+     */
     public Gender getProfileGender() {
         return this.gender;
     }
 
+    /**
+     * Retrieves the Age object from the profile.
+     *
+     * @return Age object
+     */
     public Age getProfileAge() {
         return this.age;
     }
 
+    /**
+     * Retrieves the CalorieGoal object from the profile.
+     *
+     * @return CalorieGoal object
+     */
     public CalorieGoal getProfileCalorieGoal() {
         return this.calorieGoal;
     }
 
+    /**
+     * Retrieves the ActivityFactor object from the profile.
+     *
+     * @return ActivityFactor object
+     */
     public ActivityFactor getProfileActivityFactor() {
         return this.activityFactor;
     }
@@ -328,6 +432,22 @@ public class Profile {
     public boolean checkProfilePresent() {
         return getProfileName().isValid() || getProfileHeight().isValid() || getProfileWeight().isValid()
                 || getProfileGender().isValid() || getProfileAge().isValid() || getProfileActivityFactor().isValid();
+    }
+
+    /**
+     * Converts the Profile to a String for printing purposes.
+     *
+     * @return Formatted String with all Profile attributes.
+     */
+    public String convertToString() {
+        return String.format(MESSAGE_PROFILE,
+                this.name.getName(),
+                this.height.getHeight(),
+                this.weight.getWeight(),
+                this.gender.getGender(),
+                this.age.getAge(),
+                this.calorieGoal.getCalorieGoal(),
+                this.activityFactor.getActivityFactor());
     }
 
 }
