@@ -39,6 +39,12 @@ A Profile class has various attributes such as Name, Height, Weight, Gender, Age
 
 Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you a more accurate calculation.
 
+TODO\
+future exercise list\
+foodbank\
+exercisebank\
+will include some diagrams later\
+to complete tp dashboard
 
 ###Logic Component
 The `Logic` component is responsible for making sense of user input.
