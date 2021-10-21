@@ -133,8 +133,7 @@ public class Main {
 
                 } else if (!profile.getProfileActivityFactor().isValid()) {
                     createNewProfileActivityFactor(profile);
-                }
-                if (profile.checkProfileComplete()) {
+                } else if (profile.getProfileCalorieGoal().isValid()) {
                     createNewProfileCalorieGoal(profile);
                 }
                 storage.saveProfile(this.profile);
