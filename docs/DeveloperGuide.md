@@ -34,7 +34,7 @@ Upon exiting of application:
 Interaction between the classes could be shown by the uml sequence diagram below.
 
 <p align="center" width="100%">
-  <img width="70%" src="images/architecture.png" alt="Architecture Sequence Diagram"/>
+  <img width="60%" src="images/architecture.png" alt="Architecture Sequence Diagram"/>
 </p>
 
 
