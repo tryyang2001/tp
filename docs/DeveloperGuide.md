@@ -46,6 +46,42 @@ exercisebank\
 will include some diagrams later\
 to complete tp dashboard
 
+
+
+Main class is the component that interacts with all the necessary classes. 
+The Main class consists of the few components as shown below:
+- Ui The interaction between user and application
+- Parser Parse commands and execute them respectively
+- Data allow users to perform CRUD operations on the data in the application
+- Storage stores all data in the application. Saves a copy of data in relevant files.
+Data will be retrieved from storage upon starting of application.
+
+Upon launching of application:
+- The application will check if there are files that are already stored in the respective folder.
+If there is such files, the contents of the files will be loaded to the data section of the applicaton.
+Instances of profile, data(e.g. FoodList, ExerciseList, FutureExerciseList, ItemBank) and storage will be created
+
+
+Upon exiting of application:
+- The application will save all data into the files created. All instance of components will be cleared automatically.
+
+
+Interaction between the classes could be shown by the uml sequence diagram below.
+
+![](./images/architecture.png)
+
+When there is an input, the Ui class will retrieve the information from the user. 
+The information will be parsed by the `Parser` and then upon checking its validity, 
+it will be saved into the `Data` and `Storage` class.
+
+###Ui Component
+The 'Ui' component interacts with the user. It reads in input from the user and prints messages on the console.
+Below shows a class diagram of how `Ui` component interacts with the rest of the application.
+
+<insert image here>
+
+
+
 ###Logic Component
 The `Logic` component is responsible for making sense of user input.
 
