@@ -17,6 +17,8 @@ public class Profile {
     public static final String FILE_TEXT_DELIMITER = "|";
 
     private static final String LS = System.lineSeparator();
+    private static final String TAB = "\t";
+    private static final String INDENTED_LS = LS + TAB;
 
     public static final int NON_POSITIVE_LIMIT = 0;
     public static final String ERROR_NAME = "Name cannot contain '/' of '|' .";
@@ -33,7 +35,7 @@ public class Profile {
             + ActivityFactor.LIMIT_UPPER_ACTIVITY_LEVEL;
     public static final String ERROR_CALORIE_GOAL =
             "I don't think you should be aiming to be setting such a extreme goal of %d" + LS
-                    + "Try a range of " + CalorieGoal.LIMIT_LOWER_CALORIES  + " to " + CalorieGoal.LIMIT_UPPER_CALORIES;
+                    + "Try a range of " + CalorieGoal.LIMIT_LOWER_CALORIES + " to " + CalorieGoal.LIMIT_UPPER_CALORIES;
 
     private static final String BMI_STATUS_UNDERWEIGHT = "Underweight";
     private static final String BMI_STATUS_HEALTHY = "Healthy";
@@ -61,6 +63,15 @@ public class Profile {
     public static final double GENDER_F_AGE_FACTOR = 4.330;
     public static final double GENDER_F_CONSTANT = 447.593;
 
+    public static final String MESSAGE_PROFILE = "Hello %1$s! This is your profile:"
+            + INDENTED_LS + "Your height is %2$scm."
+            + INDENTED_LS + "Your weight is %3$skg."
+            + INDENTED_LS + "Your gender is %4$s."
+            + INDENTED_LS + "Your age is %5$s."
+            + INDENTED_LS + "Your calories goal is %6$s cal."
+            + INDENTED_LS + "Your activity factor is %7$s.";
+
+
     protected Name name = new Name();
     protected Height height = new Height();
     protected Weight weight = new Weight();
@@ -69,7 +80,7 @@ public class Profile {
     protected CalorieGoal calorieGoal = new CalorieGoal();
     protected ActivityFactor activityFactor = new ActivityFactor();
 
-    public Profile(){
+    public Profile() {
 
     }
 
@@ -85,7 +96,7 @@ public class Profile {
      * @param activityFactor Activity level of user
      */
     public Profile(Name name, Height height, Weight weight, Gender gender,
-                      Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
+                   Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
         this.name = name;
         this.height = height;
         this.weight = weight;
@@ -421,6 +432,22 @@ public class Profile {
     public boolean checkProfilePresent() {
         return getProfileName().isValid() || getProfileHeight().isValid() || getProfileWeight().isValid()
                 || getProfileGender().isValid() || getProfileAge().isValid() || getProfileActivityFactor().isValid();
+    }
+
+    /**
+     * Converts the Profile to a String for printing purposes.
+     *
+     * @return Formatted String with all Profile attributes.
+     */
+    public String convertToString() {
+        return String.format(MESSAGE_PROFILE,
+                this.name.getName(),
+                this.height.getHeight(),
+                this.weight.getWeight(),
+                this.gender.getGender(),
+                this.age.getAge(),
+                this.calorieGoal.getCalorieGoal(),
+                this.activityFactor.getActivityFactor());
     }
 
 }

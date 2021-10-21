@@ -1,6 +1,6 @@
 package seedu.duke.storage.banks;
 
-import seedu.duke.item.ItemBank;
+import seedu.duke.item.bank.ItemBank;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;

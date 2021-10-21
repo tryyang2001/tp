@@ -1,4 +1,8 @@
-package seedu.duke.item;
+package seedu.duke.item.bank;
+
+import seedu.duke.item.Item;
+import seedu.duke.item.bank.exceptions.DuplicateItemInBankException;
+import seedu.duke.item.bank.exceptions.ItemNotFoundInBankException;
 
 import java.util.ArrayList;
 
@@ -11,8 +15,13 @@ public class ItemBank {
     protected static final String TAB = "\t";
     protected final ArrayList<Item> internalItems = new ArrayList<>();
 
-    public void addItem(Item item) {
-        internalItems.add(item);
+    public void addItem(Item item) throws DuplicateItemInBankException {
+        try {
+            getCaloriesOfItemWithMatchingName(item.getName());
+            throw new DuplicateItemInBankException();
+        } catch (ItemNotFoundInBankException e) {
+            internalItems.add(item);
+        }
     }
 
     public Item getItem(int index) {
@@ -42,7 +51,7 @@ public class ItemBank {
     public int getCaloriesOfItemWithMatchingName(String inputName) throws ItemNotFoundInBankException {
         Item matchingItem = internalItems
                 .stream()
-                .filter(item -> item.name.equalsIgnoreCase(inputName))
+                .filter(item -> item.getName().equalsIgnoreCase(inputName))
                 .findAny()
                 .orElse(null);
         if (matchingItem == null) {

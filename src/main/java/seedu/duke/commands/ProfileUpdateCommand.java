@@ -4,7 +4,6 @@ import seedu.duke.profile.Profile;
 import seedu.duke.profile.attributes.ActivityFactor;
 import seedu.duke.profile.attributes.Age;
 import seedu.duke.profile.attributes.CalorieGoal;
-
 import seedu.duke.profile.attributes.Gender;
 import seedu.duke.profile.attributes.Height;
 import seedu.duke.profile.attributes.Name;
@@ -15,21 +14,19 @@ import seedu.duke.profile.exceptions.InvalidCharacteristicException;
  * Represents the command that when executed, changes the value of attributes in the Profile.
  */
 public class ProfileUpdateCommand extends Command {
-    //TODO: Update this
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_PROFILE
-            + " " + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "W "
-            + COMMAND_PREFIX_HEIGHT + COMMAND_PREFIX_DELIMITER + "X "
-            + COMMAND_PREFIX_WEIGHT + COMMAND_PREFIX_DELIMITER + "Y "
-            + COMMAND_PREFIX_GOAL + COMMAND_PREFIX_DELIMITER + "Z"
-            + QUOTATION + " where W is your name, X is your height in CM,"
-            + INDENTED_LS + "Y is your weight in KG and Z is your calorie goal.";
-    public static final String MESSAGE_SUCCESS = "Hello %1$s! Your profile has been updated!"
-            + INDENTED_LS + "Your height is %2$scm."
-            + INDENTED_LS + "Your weight is %3$skg."
-            + INDENTED_LS + "Your gender is %4$s."
-            + INDENTED_LS + "Your age is %5$s."
-            + INDENTED_LS + "Your calories goal is %6$s cal."
-            + INDENTED_LS + "Your activity factor is %7$s.";
+            + " " + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "NAME "
+            + COMMAND_PREFIX_HEIGHT + COMMAND_PREFIX_DELIMITER + "HEIGHT(CM) "
+            + COMMAND_PREFIX_WEIGHT + COMMAND_PREFIX_DELIMITER + "WEIGHT(KG) "
+            + COMMAND_PREFIX_AGE + COMMAND_PREFIX_DELIMITER + "AGE "
+            + COMMAND_PREFIX_GOAL + COMMAND_PREFIX_DELIMITER + "CALORIEGOAL "
+            + COMMAND_PREFIX_GENDER + COMMAND_PREFIX_DELIMITER + "GENDER(M/F) "
+            + COMMAND_PREFIX_ACTIVITY_FACTOR + COMMAND_PREFIX_DELIMITER + "ACTIVITYFACTOR(1-5)"
+            + QUOTATION;
+    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Trying to update your profile? "
+            + "Use the following format:" + INDENTED_LS + MESSAGE_COMMAND_FORMAT;
+
+
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_NAME,
             COMMAND_PREFIX_HEIGHT,
@@ -37,7 +34,10 @@ public class ProfileUpdateCommand extends Command {
             COMMAND_PREFIX_GOAL,
             COMMAND_PREFIX_AGE,
             COMMAND_PREFIX_ACTIVITY_FACTOR,
-            COMMAND_PREFIX_GENDER};
+            COMMAND_PREFIX_GENDER
+    };
+
+    public static final String MESSAGE_SUCCESS = "Your profile has been updated!" + LS + "%s";
 
     private Name name;
     private Weight weight;
@@ -97,16 +97,8 @@ public class ProfileUpdateCommand extends Command {
             checkIfCommandShouldExecute();
             super.profile.setProfile(this.name, this.height, this.weight,
                     this.gender, this.age, this.calorieGoal, this.activityFactor);
-
             return new CommandResult(String.format(
-                    MESSAGE_SUCCESS,
-                    name.getName(),
-                    height.getHeight(),
-                    weight.getWeight(),
-                    gender.getGender(),
-                    age.getAge(),
-                    calorieGoal.getCalorieGoal(),
-                    activityFactor.getActivityFactor()));
+                    MESSAGE_SUCCESS, super.profile.convertToString()));
         } catch (InvalidCharacteristicException e) {
             return new CommandResult(e.getMessage());
         }

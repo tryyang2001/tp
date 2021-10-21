@@ -1,6 +1,7 @@
 package seedu.duke.commands;
 
 
+import seedu.duke.item.bank.exceptions.DuplicateItemInBankException;
 import seedu.duke.item.food.Food;
 
 import java.util.logging.Level;
@@ -17,6 +18,9 @@ public class AddFoodBankCommand extends Command {
             + INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_FOOD_CALORIES = "Food calories cannot be less than 0"
             + LS + "Try a positive value instead";
+    public static final String MESSAGE_FOOD_ALREADY_EXISTS = "The food with name "
+            + QUOTATION + "%s" + QUOTATION + " already exists in the food bank! (Names are case insensitive)"
+            + LS + "Try using another name, or delete the existing item first!";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD_BANK,
             COMMAND_PREFIX_CALORIES
@@ -37,8 +41,12 @@ public class AddFoodBankCommand extends Command {
             return new CommandResult(MESSAGE_INVALID_FOOD_CALORIES);
         }
         assert food.getCalories() >= 0 : "Food calorie is valid";
-        super.foodBank.addItem(this.food);
-        logger.log(Level.FINE, "Food is successfully added to food bank");
-        return new CommandResult(String.format(MESSAGE_SUCCESS, this.food));
+        try {
+            super.foodBank.addItem(this.food);
+            logger.log(Level.FINE, "Food is successfully added to food bank");
+            return new CommandResult(String.format(MESSAGE_SUCCESS, this.food));
+        } catch (DuplicateItemInBankException e) {
+            return new CommandResult(String.format(MESSAGE_FOOD_ALREADY_EXISTS, this.food.getName()));
+        }
     }
 }
