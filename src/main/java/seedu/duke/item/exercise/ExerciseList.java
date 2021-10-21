@@ -66,8 +66,8 @@ public class ExerciseList extends ItemList {
      * Helper method used in deleteItem for exercise to get the
      * actual index from the entire exercise list of the exercise to delete.
      *
-     * @param index       The index of the exercise as shown in the view e/ command
-     * @param deletedExercise  The exercise to delete
+     * @param index           The index of the exercise as shown in the view e/ command
+     * @param deletedExercise The exercise to delete
      * @return The actual index of the exercise in the entire exercise list
      */
     private int getActualIndex(int index, Item deletedExercise) {
@@ -85,9 +85,9 @@ public class ExerciseList extends ItemList {
     /**
      * Helper boolean method used in getActualIndex to determine if the exercise is the exercise to delete.
      *
-     * @param deletedExercise  The exercise to delete
-     * @param currentIndex The current index of the entire exercise list
-     * @param index        The exercise index to delete as shown in view e/
+     * @param deletedExercise The exercise to delete
+     * @param currentIndex    The current index of the entire exercise list
+     * @param index           The exercise index to delete as shown in view e/
      * @return True if the current exercise is the exercise to delete, false otherwise
      */
     private boolean isExerciseToDelete(Item deletedExercise, int currentIndex, int index) {
@@ -97,8 +97,8 @@ public class ExerciseList extends ItemList {
     /**
      * Helper method used in getActualIndex to determine if the current index points to the correct exercise position.
      *
-     * @param deletedExercise  The exercise to delete
-     * @param currentIndex The current index of the entire exerciselist
+     * @param deletedExercise The exercise to delete
+     * @param currentIndex    The current index of the entire exerciselist
      * @return True if the current exercise has the same date and time period as the deletedItem, false otherwise
      */
     private boolean isListToQuery(Item deletedExercise, int currentIndex) {

@@ -15,8 +15,7 @@ public class HelpCommand extends Command {
             + "More details could be found on: " + LS
             + "https://tinyurl.com/fitbotUG";
     private static final String MESSAGE_HELP_ADD = "add -- Adds food or exercise record to the current list." + LS
-            + FORMAT_HEADER + AddExerciseCommand.MESSAGE_COMMAND_FORMAT + LS
-            + FORMAT_PLACEHOLDER + AddExerciseBankCommand.MESSAGE_COMMAND_FORMAT + LS
+            + FORMAT_HEADER + AddExerciseBankCommand.MESSAGE_COMMAND_FORMAT + LS
             + FORMAT_PLACEHOLDER + AddFoodBankCommand.MESSAGE_COMMAND_FORMAT + LS
             + FORMAT_PLACEHOLDER + AddFoodCommand.MESSAGE_COMMAND_FORMAT + LS
             + FORMAT_PLACEHOLDER + AddFutureExerciseCommand.MESSAGE_COMMAND_FORMAT + LS
@@ -42,8 +41,7 @@ public class HelpCommand extends Command {
     private static final String MESSAGE_HELP_PROFILE = "profile -- "
             + "Edit profile particulars based on the given input. If no inputs is given,\n" + FORMAT_PLACEHOLDER
             + "profile is used to view the current profile attributes" + LS
-            + FORMAT_HEADER + ProfileCreateCommand.MESSAGE_COMMAND_FORMAT + LS
-            + FORMAT_PLACEHOLDER + ProfileUpdateCommand.MESSAGE_COMMAND_FORMAT + LS;
+            + FORMAT_HEADER + ProfileUpdateCommand.MESSAGE_COMMAND_FORMAT + LS;
     private static final String MESSAGE_HELP_VIEW = "view -- Views all the food and/or exercises added." + LS
             + FORMAT_HEADER + ViewCommand.MESSAGE_COMMAND_FORMAT + LS
             + FORMAT_PLACEHOLDER + ViewExerciseBankCommand.MESSAGE_COMMAND_FORMAT + LS
@@ -51,7 +49,6 @@ public class HelpCommand extends Command {
             + FORMAT_PLACEHOLDER + ViewFoodBankCommand.MESSAGE_COMMAND_FORMAT + LS
             + FORMAT_PLACEHOLDER + ViewFoodListCommand.MESSAGE_COMMAND_FORMAT + LS
             + FORMAT_PLACEHOLDER + ViewFutureExerciseListCommand.MESSAGE_COMMAND_FORMAT;
-    private static final String MESSAGE_HELP_GOAL = "goal -- Inputs net calorie goal of user in calorie.";//(deprecated)
     private static final String EMPTY = "";
     private static final int REVERSE_APPEND = 1;
 

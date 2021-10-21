@@ -1,11 +1,6 @@
 package seedu.duke.ui;
 
-import seedu.duke.commands.ChangeHeightCommand;
-import seedu.duke.commands.ChangeNameCommand;
-import seedu.duke.commands.ChangeWeightCommand;
 import seedu.duke.commands.HelpCommand;
-import seedu.duke.commands.ProfileCreateCommand;
-import seedu.duke.commands.SetGoalCommand;
 
 import java.util.Scanner;
 import java.util.logging.Level;

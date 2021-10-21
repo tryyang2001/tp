@@ -11,7 +11,7 @@ public class FutureExerciseList extends ExerciseList {
 
     private static final int ONE_DAY = 1;
     private static final int ONE_WEEK = 7;
-    
+
     /**
      * Deletes and exercise item from the future exercise list.
      *
@@ -56,7 +56,7 @@ public class FutureExerciseList extends ExerciseList {
      * Adds all recurring exercises between two dates into the FutureExerciseList.
      */
     public void addRecurringExercises(String description, int calories,
-                                       LocalDate startDate, LocalDate endDate, ArrayList<Integer> dayOfTheWeek) {
+                                      LocalDate startDate, LocalDate endDate, ArrayList<Integer> dayOfTheWeek) {
         for (Integer day : dayOfTheWeek) {
             int dayOfReoccurrence = startDate.getDayOfWeek().getValue();
             LocalDate currentDate = startDate;

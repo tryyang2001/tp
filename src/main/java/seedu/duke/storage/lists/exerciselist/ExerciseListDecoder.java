@@ -3,7 +3,6 @@ package seedu.duke.storage.lists.exerciselist;
 import seedu.duke.item.exercise.Exercise;
 import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.storage.Decoder;
-import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
