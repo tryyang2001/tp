@@ -13,6 +13,7 @@ public class OverviewCommand extends Command {
             + INDENTED_LS + "Calories burnt: %2$d calories"
             + INDENTED_LS + "Net calories: %3$d calories"
             + LS + "%4$s";
+
     protected Statistics statistics = new Statistics();
 
     @Override
