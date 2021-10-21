@@ -31,6 +31,14 @@ Classes such as `ItemList` and `Item` are _**abstract class**_, because they do 
 
 ## Xingjie rmb to add future exercise list description here...^^ (gg i realized future ex list is the subclass of exercise list... will update later
 
+### Data Component (Profile)
+
+<img src="images/ProfileClassDiagram.png" alt="Profile" width="600"/>
+
+A Profile class has various attributes such as Name, Height, Weight, Gender, Age, Calorie Goal and Activity Factor
+
+Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you a more accurate calculation.
+
 TODO\
 future exercise list\
 foodbank\
@@ -61,19 +69,36 @@ illustrates how a user input `add f/potato c/20` is parsed and process to execut
 
 <img src="images/LogicSequenceDiagram.png" width = "600" />
 
+### Storage component
 
+<img src="images/StorageClassDiagram.png" alt="StorageManager" width="600"/>
 
+The `StorageManager` component loads and saves:
+- your profile - including name, height, weight, gender, age, calorie goal and activity factor
+- list of exercises done - including date performed
+- list of food consumed - including date and time of consumption
+- scheduled exercises - recurring exercises that are scheduled in the future
+- food and exercise banks - names and calories of relevant item
 
+Each storage is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
 
+<img src="images/ProfileStorageClassDiagram.png" alt="ProfileStorage" width="600"/>
+
+where:
+- ProfileEncoder encodes the list to the profile.txt file.
+- ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
+- ProfileStorage initializes the encoder and decoder and utilizes them for reading or writing operations.
 
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+University students who are looking to keep track of their calorie consumption and calorie outputs.
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+During these restricted COVID-19 times, we are confined to home-based learning. As a result, we tend to be less active and have fewer opportunities to stay active. This app aims to help you to gain or lose weight based on your goal of implementing a calorie deficit or calorie surplus.
+
+Its overview shows your progress over the weeks, indicating whether or not you have hit your daily calorie goal target for the past 7 days.
 
 ## User Stories
 
@@ -84,8 +109,9 @@ illustrates how a user input `add f/potato c/20` is parsed and process to execut
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
-
+1. Should work on any OS as long as it has Java 11 or above installed on their PC.
+2. Should be able to hold up to at least a year of data without a slowdown of performance in daily use.
+3. Any user that is comfortable with typing of speeds >55 words per minute would be able to accomplish these tasks faster than if they used a mouse to navigate.
 ## Glossary
 
 * *glossary item* - Definition
