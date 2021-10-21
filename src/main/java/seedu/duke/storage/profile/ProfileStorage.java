@@ -44,6 +44,7 @@ public class ProfileStorage extends Storage {
     public void saveProfile(Profile profile) throws UnableToWriteFileException {
         ArrayList<String> profileDetails = encoder.encodeProfileDetails(profile);
         writeToFile(profileDetails, FILEPATH_PROFILE);
+        logger.log(Level.INFO, "Saved profile.");
     }
 
 }

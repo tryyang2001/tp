@@ -39,25 +39,23 @@ public class ProfileUpdateCommand extends Command {
             COMMAND_PREFIX_ACTIVITY_FACTOR,
             COMMAND_PREFIX_GENDER};
 
-
-    private Name name = new Name();
-    private Weight weight = new Weight();
-    private Height height = new Height();
-    private CalorieGoal calorieGoal = new CalorieGoal();
-    private Age age = new Age();
-    private ActivityFactor activityFactor = new ActivityFactor();
-    private Gender gender = new Gender();
-
+    private Name name;
+    private Weight weight;
+    private Height height;
+    private CalorieGoal calorieGoal;
+    private Age age;
+    private ActivityFactor activityFactor;
+    private Gender gender;
 
     public ProfileUpdateCommand(String name, double height, double weight, int calorieGoal, int age,
                                 int activityFactor, char gender) {
-        this.name.setName(name);
-        this.height.setHeight(height);
-        this.weight.setWeight(weight);
-        this.calorieGoal.setCalorieGoal(calorieGoal);
-        this.gender.setGender(gender);
-        this.age.setAge(age);
-        this.activityFactor.setActivityFactor(activityFactor);
+        this.name = new Name(name);
+        this.height = new Height(height);
+        this.weight = new Weight(weight);
+        this.calorieGoal = new CalorieGoal(calorieGoal);
+        this.gender = new Gender(gender);
+        this.age = new Age(age);
+        this.activityFactor = new ActivityFactor(activityFactor);
     }
 
     private void checkIfCommandShouldExecute() throws InvalidCharacteristicException {
@@ -97,9 +95,8 @@ public class ProfileUpdateCommand extends Command {
                     : activityFactor;
 
             checkIfCommandShouldExecute();
-            super.profile = new Profile(this.name, this.height, this.weight,
+            super.profile.setProfile(this.name, this.height, this.weight,
                     this.gender, this.age, this.calorieGoal, this.activityFactor);
-
 
             return new CommandResult(String.format(
                     MESSAGE_SUCCESS,
