@@ -107,7 +107,30 @@ public class Profile {
     }
 
     /**
+     * A set command that enables setting of profile through passing by reference.
+     *
+     * @param name           Name of user
+     * @param height         Height of user
+     * @param weight         Weight of user
+     * @param calorieGoal    Calorie target of user
+     * @param gender         Gender of user (M/F)
+     * @param age            Age of user
+     * @param activityFactor Activity level of user
+     */
+    public void setProfile(Name name, Height height, Weight weight, Gender gender,
+                   Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
+        this.name = name;
+        this.height = height;
+        this.weight = weight;
+        this.gender = gender;
+        this.age = age;
+        this.calorieGoal = calorieGoal;
+        this.activityFactor = activityFactor;
+    }
+
+    /**
      * Sets the profile in various commands with the raw inputs if necessary.
+     * Usually used for retrieving data from storage.
      *
      * @param name           Name of user
      * @param height         Height of user
@@ -128,58 +151,128 @@ public class Profile {
         this.activityFactor.setActivityFactor(activityFactor);
     }
 
+    /**
+     * Sets the profile name with a new Name object.
+     *
+     * @param name Name object to be set
+     */
     public void setProfileName(Name name) {
         this.name = name;
     }
 
+    /**
+     * Sets the profile height with a new Height object.
+     *
+     * @param height Height object to be set
+     */
     public void setProfileHeight(Height height) {
         this.height = height;
     }
 
+    /**
+     * Sets the profile weight with a new Weight object.
+     *
+     * @param weight Weight object to be set
+     */
     public void setProfileWeight(Weight weight) {
         this.weight = weight;
     }
 
+    /**
+     * Sets the profile gender with a new Profile object.
+     *
+     * @param gender Gender object to be set
+     */
     public void setProfileGender(Gender gender) {
         this.gender = gender;
     }
 
+    /**
+     * Sets the profile age with a new Age object.
+     *
+     * @param age Age object to be set
+     */
     public void setProfileAge(Age age) {
         this.age = age;
     }
 
+    /**
+     * Sets the profile calorie goal with a new CalorieGoal object.
+     *
+     * @param calorieGoal CalorieGoal object to be set
+     */
     public void setProfileCalorieGoal(CalorieGoal calorieGoal) {
         this.calorieGoal = calorieGoal;
     }
 
+    /**
+     * Sets the profile activity factor with a new ActivityFactor object.
+     *
+     * @param activityFactor ActivityFactor object to be set
+     */
     public void setProfileActivityFactor(ActivityFactor activityFactor) {
         this.activityFactor = activityFactor;
     }
 
+    /**
+     * Retrieves the Name object from the profile.
+     *
+     * @return Name object
+     */
     public Name getProfileName() {
         return this.name;
     }
 
+    /**
+     * Retrieves the Height object from the profile.
+     *
+     * @return Height object
+     */
     public Height getProfileHeight() {
         return this.height;
     }
 
+    /**
+     * Retrieves the Weight object from the profile.
+     *
+     * @return Weight object
+     */
     public Weight getProfileWeight() {
         return this.weight;
     }
 
+    /**
+     * Retrieves the Gender object from the profile.
+     *
+     * @return Gender object
+     */
     public Gender getProfileGender() {
         return this.gender;
     }
 
+    /**
+     * Retrieves the Age object from the profile.
+     *
+     * @return Age object
+     */
     public Age getProfileAge() {
         return this.age;
     }
 
+    /**
+     * Retrieves the CalorieGoal object from the profile.
+     *
+     * @return CalorieGoal object
+     */
     public CalorieGoal getProfileCalorieGoal() {
         return this.calorieGoal;
     }
 
+    /**
+     * Retrieves the ActivityFactor object from the profile.
+     *
+     * @return ActivityFactor object
+     */
     public ActivityFactor getProfileActivityFactor() {
         return this.activityFactor;
     }

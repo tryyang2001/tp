@@ -18,10 +18,15 @@ public class UpdateProfileParser implements Parser {
 
         //TODO: Test profile again after storage has been updated
 
+        if (ParserUtils.getNumberOfCorrectParamsDetected(params, ProfileUpdateCommand.EXPECTED_PREFIXES) == 0) {
+            return new InvalidCommand(ProfileUpdateCommand.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+
         if (ParserUtils.hasExtraDelimiters(
                 params, ProfileUpdateCommand.EXPECTED_PREFIXES)) {
             return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
         }
+
         try {
             final String name = ParserUtils.extractProfileName(params);
             final double height = ParserUtils.extractHeight(params);

@@ -21,10 +21,20 @@ public class Name implements Verifiable {
         setName(name);
     }
 
+    /**
+     * Retrieves the name from Name object.
+     *
+     * @return name of Name object
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name for the Name Object.
+     *
+     * @param name name input by the user
+     */
     public void setName(String name) {
         this.name = name;
     }

@@ -25,10 +25,20 @@ public class CalorieGoal implements Verifiable {
         setCalorieGoal(calorieGoal);
     }
 
+    /**
+     * Retrieves the calorie goal of CalorieGoal object.
+     *
+     * @return the calorie goal stored in CalorieGoal object
+     */
     public int getCalorieGoal() {
         return calorieGoal;
     }
 
+    /**
+     * Sets the calorie goal for CalorieGoal object.
+     *
+     * @param calorieGoal calorie goal input by user
+     */
     public void setCalorieGoal(int calorieGoal) {
         this.calorieGoal = calorieGoal;
     }

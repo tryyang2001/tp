@@ -22,10 +22,20 @@ public class Age implements Verifiable {
         setAge(age);
     }
 
+    /**
+     * Retrieves age of Age object.
+     *
+     * @return age of Age object
+     */
     public int getAge() {
         return age;
     }
 
+    /**
+     * Sets the age of Age object.
+     *
+     * @param age age input by user
+     */
     public void setAge(int age) {
         this.age = age;
     }
