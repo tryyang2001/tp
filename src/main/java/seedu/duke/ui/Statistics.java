@@ -141,7 +141,7 @@ public class Statistics {
         int dateOffset = MAX_DATE_OFFSET;
         String progressBar = "";
         for (int calories : dailyCalories) {
-            int numberOfBars = (int) (((double) calories / maxCalories) * 30);
+            int numberOfBars = (int)Math.round(((double) calories / maxCalories) * 30);
             assert numberOfBars <= 30 : "30 is the max progress bar limit";
             for (int i = 0; i < numberOfBars; i++) {
                 progressBar = progressBar + FULL_BLOCK;
@@ -192,7 +192,7 @@ public class Statistics {
                 .append(String.format(EXERCISE_GRAPH_HEADER, getGraph(getDailyExerciseCalories())))
                 //TODO: get exercise that has the most calories.
                 //TODO: get total net calories for the week.
-                .append(MESSAGE_NET_CALORIES).append(Ui.LS)
+                //.append(MESSAGE_NET_CALORIES).append(Ui.LS)
                 .append(MESSAGE_CAUTION);
         return overviewSummary.toString();
     }
