@@ -1,93 +1,287 @@
 package seedu.duke.profile;
 
+import seedu.duke.profile.attributes.ActivityFactor;
+import seedu.duke.profile.attributes.Age;
+import seedu.duke.profile.attributes.CalorieGoal;
+import seedu.duke.profile.attributes.Gender;
+import seedu.duke.profile.attributes.Height;
+import seedu.duke.profile.attributes.Name;
+import seedu.duke.profile.attributes.Weight;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
-import seedu.duke.profile.exceptions.NullCharacteristicException;
 
 /**
- * Profile that contains the relevant data input by user.
+ * Profile that contains the relevant details input by user.
  */
 public class Profile {
+
+    public static final String FILE_TEXT_DELIMITER = "|";
+
+    private static final String LS = System.lineSeparator();
+
+    public static final int NON_POSITIVE_LIMIT = 0;
+    public static final String ERROR_NAME = "Name cannot contain '/' of '|' .";
+    public static final String ERROR_HEIGHT = "Height cannot be less than or equal to 0." + LS
+            + "Try a positive value instead!";
+    public static final String ERROR_WEIGHT = "Weight cannot be less than or equal to 0." + LS
+            + "Try a positive value instead!";
+    public static final String ERROR_GENDER = "Please type in M or F only!";
+    public static final String ERROR_AGE = "Age cannot be less than or equal to 0." + LS
+            + "Try a positive value instead!";
+    public static final String ERROR_ACTIVITY_FACTOR = "Please key in a value from "
+            + ActivityFactor.LIMIT_LOWER_ACTIVITY_FACTOR
+            + " to "
+            + ActivityFactor.LIMIT_UPPER_ACTIVITY_LEVEL;
+    public static final String ERROR_CALORIE_GOAL =
+            "I don't think you should be aiming to be setting such a extreme goal of %d" + LS
+                    + "Try a range of " + CalorieGoal.LIMIT_LOWER_CALORIES  + " to " + CalorieGoal.LIMIT_UPPER_CALORIES;
 
     private static final String BMI_STATUS_UNDERWEIGHT = "Underweight";
     private static final String BMI_STATUS_HEALTHY = "Healthy";
     private static final String BMI_STATUS_OVERWEIGHT = "Overweight";
     private static final String BMI_STATUS_OBESE = "Obese";
-    public static final String FILE_TEXT_DELIMITER = "|";
+    public static final double BMI_LIMIT_UNDERWEIGHT = 18.5;
+    public static final double BMI_LIMIT_HEALTHY = 24.9;
+    public static final double BMI_LIMIT_OVERWEIGHT = 29.9;
 
-    private String name;
-    private double height;
-    private double weight;
-    private int calorieGoal;
+    public static final double FACTOR_SEDENTARY = 1.2;
+    public static final double FACTOR_LIGHT = 1.375;
+    public static final double FACTOR_MODERATE = 1.55;
+    public static final double FACTOR_INTENSE = 1.725;
+    public static final double FACTOR_EXTREME = 1.9;
+
+    private static final char GENDER_M = 'M';
+    private static final char GENDER_F = 'F';
+
+    public static final double GENDER_M_WEIGHT_FACTOR = 13.397;
+    public static final double GENDER_M_HEIGHT_FACTOR = 4.799;
+    public static final double GENDER_M_AGE_FACTOR = 5.677;
+    public static final double GENDER_M_CONSTANT = 88.362;
+    public static final double GENDER_F_WEIGHT_FACTOR = 9.247;
+    public static final double GENDER_F_HEIGHT_FACTOR = 3.098;
+    public static final double GENDER_F_AGE_FACTOR = 4.330;
+    public static final double GENDER_F_CONSTANT = 447.593;
+
+    protected Name name = new Name();
+    protected Height height = new Height();
+    protected Weight weight = new Weight();
+    protected Gender gender = new Gender();
+    protected Age age = new Age();
+    protected CalorieGoal calorieGoal = new CalorieGoal();
+    protected ActivityFactor activityFactor = new ActivityFactor();
+
+    public Profile(){
+
+    }
 
     /**
      * Constructor for the Profile class.
      *
-     * @param name   Name of user
-     * @param height Height of user
-     * @param weight Weight of user
-     * @throws InvalidCharacteristicException If a value of <= 0 is provided for height or weight
-     * @throws NullCharacteristicException    When the input name is null or ""
+     * @param name           Name of user
+     * @param height         Height of user
+     * @param weight         Weight of user
+     * @param calorieGoal    Calorie target of user
+     * @param gender         Gender of user (M/F)
+     * @param age            Age of user
+     * @param activityFactor Activity level of user
      */
-    public Profile(String name, double height, double weight, int calorieGoal)
-            throws InvalidCharacteristicException {
-        setName(name);
-        setHeight(height);
-        setWeight(weight);
-        setCalorieGoal(calorieGoal);
+    public Profile(Name name, Height height, Weight weight, Gender gender,
+                      Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
+        this.name = name;
+        this.height = height;
+        this.weight = weight;
+        this.gender = gender;
+        this.age = age;
+        this.calorieGoal = calorieGoal;
+        this.activityFactor = activityFactor;
     }
 
-    public Profile() {
-
+    /**
+     * Sets the profile in various commands with the raw inputs if necessary.
+     * Usually used for retrieving data from storage.
+     *
+     * @param name           Name of user
+     * @param height         Height of user
+     * @param weight         Weight of user
+     * @param calorieGoal    Calorie target of user
+     * @param gender         Gender of user (M/F)
+     * @param age            Age of user
+     * @param activityFactor Activity level of user
+     */
+    public void setProfileWithRawInputs(String name, double height, double weight,
+                                        char gender, int age, int calorieGoal, int activityFactor) {
+        this.name.setName(name);
+        this.height.setHeight(height);
+        this.weight.setWeight(weight);
+        this.gender.setGender(gender);
+        this.age.setAge(age);
+        this.calorieGoal.setCalorieGoal(calorieGoal);
+        this.activityFactor.setActivityFactor(activityFactor);
     }
 
-    public void setProfile(String name, double height, double weight, int calorieGoal)
-            throws InvalidCharacteristicException {
-        setName(name);
-        setHeight(height);
-        setWeight(weight);
-        setCalorieGoal(calorieGoal);
-    }
-
-    public void setName(String name) {
+    /**
+     * Sets the profile name with a new Name object.
+     *
+     * @param name Name object to be set
+     */
+    public void setProfileName(Name name) {
         this.name = name;
     }
 
-    public double getHeight() {
-        return this.height;
-    }
-
-    public double getWeight() {
-        return this.weight;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public int getCalorieGoal() {
-        return this.calorieGoal;
-    }
-
-    public void setHeight(double height) throws InvalidCharacteristicException {
-        checkHeightValidity(height);
-        assert height > 0 : "Height cannot be non-positive.";
+    /**
+     * Sets the profile height with a new Height object.
+     *
+     * @param height Height object to be set
+     */
+    public void setProfileHeight(Height height) {
         this.height = height;
     }
 
-    public void setWeight(double weight) throws InvalidCharacteristicException {
-        checkWeightValidity(weight);
-        assert weight > 0 : "Weight cannot be non-positive.";
+    /**
+     * Sets the profile weight with a new Weight object.
+     *
+     * @param weight Weight object to be set
+     */
+    public void setProfileWeight(Weight weight) {
         this.weight = weight;
     }
 
-    public void setCalorieGoal(int calorieGoal) {
+    /**
+     * Sets the profile gender with a new Profile object.
+     *
+     * @param gender Gender object to be set
+     */
+    public void setProfileGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * Sets the profile age with a new Age object.
+     *
+     * @param age Age object to be set
+     */
+    public void setProfileAge(Age age) {
+        this.age = age;
+    }
+
+    /**
+     * Sets the profile calorie goal with a new CalorieGoal object.
+     *
+     * @param calorieGoal CalorieGoal object to be set
+     */
+    public void setProfileCalorieGoal(CalorieGoal calorieGoal) {
         this.calorieGoal = calorieGoal;
     }
 
-    public double calculateBmi() throws InvalidCharacteristicException {
-        checkHeightValidity(height);
-        checkWeightValidity(weight);
-        return computeBmi(height, weight);
+    /**
+     * Sets the profile activity factor with a new ActivityFactor object.
+     *
+     * @param activityFactor ActivityFactor object to be set
+     */
+    public void setProfileActivityFactor(ActivityFactor activityFactor) {
+        this.activityFactor = activityFactor;
+    }
+
+    /**
+     * Retrieves the Name object from the profile.
+     *
+     * @return Name object
+     */
+    public Name getProfileName() {
+        return this.name;
+    }
+
+    /**
+     * Retrieves the Height object from the profile.
+     *
+     * @return Height object
+     */
+    public Height getProfileHeight() {
+        return this.height;
+    }
+
+    /**
+     * Retrieves the Weight object from the profile.
+     *
+     * @return Weight object
+     */
+    public Weight getProfileWeight() {
+        return this.weight;
+    }
+
+    /**
+     * Retrieves the Gender object from the profile.
+     *
+     * @return Gender object
+     */
+    public Gender getProfileGender() {
+        return this.gender;
+    }
+
+    /**
+     * Retrieves the Age object from the profile.
+     *
+     * @return Age object
+     */
+    public Age getProfileAge() {
+        return this.age;
+    }
+
+    /**
+     * Retrieves the CalorieGoal object from the profile.
+     *
+     * @return CalorieGoal object
+     */
+    public CalorieGoal getProfileCalorieGoal() {
+        return this.calorieGoal;
+    }
+
+    /**
+     * Retrieves the ActivityFactor object from the profile.
+     *
+     * @return ActivityFactor object
+     */
+    public ActivityFactor getProfileActivityFactor() {
+        return this.activityFactor;
+    }
+
+    /**
+     * Retrieves the Basal Metabolic Rate of the user based on their activity factor indicated on the profile.
+     * A higher activity factor indicates a greater metabolic rate and thus more calories they burn off.
+     *
+     * @return BMR value based on their indicated activity factor
+     */
+    public int getBmr() {
+        double bmr = getBaseBmrValue();
+        double factor = 1.0; //Initialise to 1
+        switch (activityFactor.getActivityFactor()) {
+        case 1:
+            factor = FACTOR_SEDENTARY;
+            break;
+        case 2:
+            factor = FACTOR_LIGHT;
+            break;
+        case 3:
+            factor = FACTOR_MODERATE;
+            break;
+        case 4:
+            factor = FACTOR_INTENSE;
+            break;
+        case 5:
+            factor = FACTOR_EXTREME;
+            break;
+        default:
+            break;
+        }
+        return (int) Math.round(bmr * factor);
+    }
+
+    /**
+     * Calculates the BMI based on the profile's characteristics.
+     *
+     * @return The calculated BMI of the profile's height and weight
+     */
+    public double calculateBmi() {
+        return computeBmi(height.getHeight(), weight.getWeight());
     }
 
     /**
@@ -102,6 +296,8 @@ public class Profile {
     public static double calculateBmi(double height, double weight) throws InvalidCharacteristicException {
         checkHeightValidity(height);
         checkWeightValidity(weight);
+        assert weight > 0 : "Weight cannot be non-positive.";
+        assert height > 0 : "Height cannot be non-positive.";
         return computeBmi(height, weight);
     }
 
@@ -110,22 +306,15 @@ public class Profile {
         return Math.round((weight / (Math.pow(heightInM, 2))) * 10) / 10.0;
     }
 
-
-    private static void checkWeightValidity(double weight) throws InvalidCharacteristicException {
-        if (weight <= 0) {
-            throw new InvalidCharacteristicException("Weight");
+    public static void checkWeightValidity(double weight) throws InvalidCharacteristicException {
+        if (weight <= NON_POSITIVE_LIMIT) {
+            throw new InvalidCharacteristicException(ERROR_WEIGHT);
         }
     }
 
-    private static void checkHeightValidity(double height) throws InvalidCharacteristicException {
-        if (height <= 0) {
-            throw new InvalidCharacteristicException("Height");
-        }
-    }
-
-    private static void checkBmiValidity(int bmi) throws InvalidCharacteristicException {
-        if (bmi <= 1) {
-            throw new InvalidCharacteristicException("Height");
+    public static void checkHeightValidity(double height) throws InvalidCharacteristicException {
+        if (height <= NON_POSITIVE_LIMIT) {
+            throw new InvalidCharacteristicException(ERROR_HEIGHT);
         }
     }
 
@@ -139,11 +328,11 @@ public class Profile {
     public static String retrieveBmiStatus(double bmi) {
         String result;
         assert bmi > 0 : "BMI cannot be non-positive.";
-        if (bmi < 18.5) {
+        if (bmi < BMI_LIMIT_UNDERWEIGHT) {
             result = BMI_STATUS_UNDERWEIGHT;
-        } else if (bmi <= 24.9) {
+        } else if (bmi <= BMI_LIMIT_HEALTHY) {
             result = BMI_STATUS_HEALTHY;
-        } else if (bmi <= 29.9) {
+        } else if (bmi <= BMI_LIMIT_OVERWEIGHT) {
             result = BMI_STATUS_OVERWEIGHT;
         } else {
             result = BMI_STATUS_OBESE;
@@ -151,15 +340,32 @@ public class Profile {
         return result;
     }
 
+    private double getBaseBmrValue() {
+        double bmr;
+        if (gender.getGender() == GENDER_M) {
+            bmr = GENDER_M_WEIGHT_FACTOR * weight.getWeight()
+                    + GENDER_M_HEIGHT_FACTOR * height.getHeight()
+                    - GENDER_M_AGE_FACTOR * age.getAge()
+                    + GENDER_M_CONSTANT;
+        } else {
+            bmr = GENDER_F_WEIGHT_FACTOR * weight.getWeight()
+                    + GENDER_F_HEIGHT_FACTOR * height.getHeight()
+                    - GENDER_F_AGE_FACTOR * age.getAge()
+                    + GENDER_F_CONSTANT;
+        }
+        return bmr;
+    }
+
     /**
-     * Calculates the difference between food calories and exercise calories.
+     * Calculates the difference between food calories and exercise calories, factoring in metabolic rate.
      *
-     * @param foodCalories Total intake consumption
+     * @param foodCalories     Total intake consumption
      * @param exerciseCalories Total output exerted
-     * @return The net calories of food - exercise
+     * @return The net calories of food - (exercise + BMR)
+     * @throws InvalidCharacteristicException Only if activity factor has been misappropriated in .txt file
      */
-    public int calculateNetCalories(int foodCalories, int exerciseCalories) {
-        return foodCalories - exerciseCalories;
+    public int calculateNetCalories(int foodCalories, int exerciseCalories) throws InvalidCharacteristicException {
+        return foodCalories - exerciseCalories - getBmr();
     }
 
     /**
@@ -168,8 +374,31 @@ public class Profile {
      * @return String that is used for storage.
      */
     public String toFileTextString() {
-        return getName() + FILE_TEXT_DELIMITER + getHeight() + FILE_TEXT_DELIMITER
-                + getWeight() + FILE_TEXT_DELIMITER + getCalorieGoal();
+        return name.getName() + FILE_TEXT_DELIMITER + height.getHeight() + FILE_TEXT_DELIMITER
+                + weight.getWeight() + FILE_TEXT_DELIMITER + gender.getGender() + FILE_TEXT_DELIMITER
+                + age.getAge() + FILE_TEXT_DELIMITER + calorieGoal.getCalorieGoal() + FILE_TEXT_DELIMITER
+                + activityFactor.getActivityFactor();
+    }
+
+    /**
+     * Check if all attributes of profile are valid.
+     *
+     * @return false if at least one of the profile attributes are invalid.
+     */
+    public boolean checkProfileComplete() {
+        return getProfileName().isValid() && getProfileHeight().isValid() && getProfileWeight().isValid()
+                && getProfileGender().isValid() && getProfileAge().isValid() && getProfileActivityFactor().isValid();
+    }
+
+    /**
+     * Check if any of profile attributes is valid.
+     * If all profile attributes are incorrect, it will be deemed as profile not present.
+     *
+     * @return true if at least one of the profile attributes are invalid.
+     */
+    public boolean checkProfilePresent() {
+        return getProfileName().isValid() || getProfileHeight().isValid() || getProfileWeight().isValid()
+                || getProfileGender().isValid() || getProfileAge().isValid() || getProfileActivityFactor().isValid();
     }
 
 }

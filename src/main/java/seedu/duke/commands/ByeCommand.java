@@ -1,16 +1,12 @@
 package seedu.duke.commands;
 
-import seedu.duke.ui.Ui;
-
 /**
  * Represents the command that when executed, signals to the application to exit.
  */
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
-    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD + Ui.QUOTATION;
-    public static final String MESSAGE_HELP = "bye -- "
-            + "Exits the program and save results from food and exercise items." + Ui.LS;
-    private static final String MESSAGE_SUCCESS = "Exiting Fitbot...." + Ui.LS
+    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD + QUOTATION;
+    private static final String MESSAGE_SUCCESS = "Exiting Fitbot...." + LS
             + "Bye! Hope to see you again soon!!";
 
 

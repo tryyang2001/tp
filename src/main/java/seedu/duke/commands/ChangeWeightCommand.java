@@ -1,33 +1,37 @@
 package seedu.duke.commands;
 
+import seedu.duke.profile.Profile;
+import seedu.duke.profile.attributes.Weight;
 import seedu.duke.profile.exceptions.InvalidCharacteristicException;
-import seedu.duke.ui.Ui;
 
 /**
  * Represents the command that when executed, changes the value of weight in the Profile.
  */
 public class ChangeWeightCommand extends Command {
     public static final String COMMAND_WORD = "weight";
-    public static final String MESSAGE_COMMAND_FORMAT = Ui.QUOTATION + COMMAND_WORD
-            + " X" + Ui.QUOTATION + ", where X is your weight in KG";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
-            + "Trying to update your weight? Use this format:"
-            + Ui.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
-    public static final String MESSAGE_SUCCESS = "Your weight has been updated!" + Ui.LS + "Your weight is %skg.";
-    public static final String MESSAGE_HELP = "weight -- Changes weight in profile." + Ui.INDENTED_LS
-                 + Ui.FORMAT_HEADER + MESSAGE_COMMAND_FORMAT + Ui.LS;
+    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD
+            + " X" + QUOTATION + ", where X is your weight in KG";
+    public static final String MESSAGE_SUCCESS = "Your weight has been updated!" + LS + "Your weight is %skg.";
 
-    private final double weight;
+
+    private final Weight weight = new Weight();
 
     public ChangeWeightCommand(double weight) {
-        this.weight = weight;
+        this.weight.setWeight(weight);
+    }
+
+    private void checkIfCommandShouldExecute() throws InvalidCharacteristicException {
+        if (!weight.isValid()) {
+            throw new InvalidCharacteristicException(Profile.ERROR_WEIGHT);
+        }
     }
 
     @Override
     public CommandResult execute() {
         try {
-            super.profile.setWeight(this.weight);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, super.profile.getWeight()));
+            checkIfCommandShouldExecute();
+            super.profile.setProfileWeight(this.weight);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, super.profile.getProfileWeight().getWeight()));
         } catch (InvalidCharacteristicException e) {
             return new CommandResult(e.getMessage());
         }

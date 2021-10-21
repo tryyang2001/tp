@@ -1,11 +1,15 @@
 package seedu.duke.ui;
 
+import seedu.duke.commands.ChangeHeightCommand;
+import seedu.duke.commands.ChangeNameCommand;
+import seedu.duke.commands.ChangeWeightCommand;
 import seedu.duke.commands.HelpCommand;
+import seedu.duke.commands.ProfileCreateCommand;
+import seedu.duke.commands.SetGoalCommand;
 
-import java.lang.System;
 import java.util.Scanner;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class deals with interaction with user on CLI.
@@ -45,17 +49,18 @@ public class Ui {
             + " | |    | | |_| |_) | (_) | |_"
             + LS
             + " |_|    |_|\\__|_.__/ \\___/ \\__|";
-
-
-
     public static final String QUOTATION = "\"";
     public static final String MESSAGE_WELCOME = "Welcome to Fitbot, a desktop app that helps university students"
-            + " who are looking to keep track of their"
-            + LS
-            + "fitness and health. Please type a command or view the list of "
+            + " who are looking to keep track of their calories.";
+    public static final String MESSAGE_DIRECT_HELP = "Please type a command to start or view the list of "
             + "available commands by typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + ".";
-    public static final String FORMAT_HEADER = "Format: ";
-    public static final String FORMAT_PLACEHOLDER = "        ";
+    public static final String MESSAGE_FIX_PROFILE = "It seems that some of your profile attribute are missing.\n"
+            + "Please follow the inputs needed so that your profile will be complete.";
+    public static final String MESSAGE_NEW_PROFILE = "Hi user, before you proceed with the application, we would like"
+            + " you to complete the profile.\n"
+            + "Follow the instructions and key in the necessary information when prompted.\n"
+            + "Note please complete your profile before exiting so that we can store your profile data.";
+
 
     private Scanner scanner;
 
@@ -86,7 +91,19 @@ public class Ui {
 
     public void printStartApplicationPage() {
         logger.log(Level.FINE, "start of application");
-        System.out.println(FITBOT_V0 + EMOJI_1 + LS + MESSAGE_WELCOME);
+        System.out.println(FITBOT_V0 + LS + MESSAGE_WELCOME);
+    }
+
+    public void printStartMessage(boolean isProfileComplete, boolean isProfilePresent) {
+        if (isProfileComplete) {
+            System.out.println(MESSAGE_DIRECT_HELP);
+            return;
+        }
+        if (isProfilePresent) {
+            System.out.println(MESSAGE_FIX_PROFILE);
+        }
+
+        System.out.println(MESSAGE_NEW_PROFILE);
     }
 
 }
