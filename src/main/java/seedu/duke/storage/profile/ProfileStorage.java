@@ -25,7 +25,7 @@ public class ProfileStorage extends Storage {
 
     private Profile readFromProfileFile() throws UnableToReadFileException {
         try {
-            return decoder.getProfileFromData();
+            return new ProfileDecoder().getProfileFromData();
         } catch (FileNotFoundException e) {
             logger.log(Level.WARNING, "The path is missing ", FILEPATH_PROFILE);
             throw new UnableToReadFileException(FILENAME_PROFILE);
@@ -42,7 +42,7 @@ public class ProfileStorage extends Storage {
      * @param profile Profile of the current user
      */
     public void saveProfile(Profile profile) throws UnableToWriteFileException {
-        ArrayList<String> profileDetails = encoder.encodeProfileDetails(profile);
+        ArrayList<String> profileDetails = new ProfileEncoder().encodeProfileDetails(profile);
         writeToFile(profileDetails, FILEPATH_PROFILE);
         logger.log(Level.INFO, "Saved profile.");
     }

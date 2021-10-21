@@ -1,3 +1,4 @@
+
 # Developer Guide
 
 ## Acknowledgements
@@ -8,19 +9,21 @@
 
 ### Architecture
 
-![image](https://user-images.githubusercontent.com/69421979/138269962-93eeb36e-1594-479e-9ffa-f69ea4f372fe.png)
+<p align="center" width="100%">
+  <image width="80%" src="images/ArchitectureDiagram.png" alt="Architecture Diagram"/>
+</p>
 
-Main class is the component that interacts with all the necessary classes.
-The Main class consists of the few components as shown below:
-- Ui The interaction between user and application
-- Parser Parse commands and execute them respectively
-- Data allow users to perform CRUD operations on the data in the application
-- Storage stores all data in the application. Saves a copy of data in relevant files.
+`Main` class is the component that interacts with all the necessary classes.
+The `Main` class consists of the few components as shown below:
+- `Ui`: The interaction between user and application
+- `Logic`: Parse commands and execute them respectively
+- `Data`: allow users to perform CRUD operations on the data in the application
+- `Storage`: stores all data in the application. Saves a copy of data in relevant files.
   Data will be retrieved from storage upon starting of application.
 
 Upon launching of application:
 - The application will check if there are files that are already stored in the respective folder.
-  If there is such files, the contents of the files will be loaded to the data section of the applicaton.
+  If there is such files, the contents of the files will be loaded to the data section of the application.
   Instances of profile, data(e.g. FoodList, ExerciseList, FutureExerciseList, ItemBank) and storage will be created
 
 
@@ -30,17 +33,25 @@ Upon exiting of application:
 
 Interaction between the classes could be shown by the uml sequence diagram below.
 
+<p align="center" width="100%">
+  <img width="50%" src="images/architecture.png" alt="Architecture Sequence Diagram"/>
+</p>
+
+
 ![](./images/architecture.png)
 
 When there is an input, the Ui class will retrieve the information from the user.
-The information will be parsed by the `Parser` and then upon checking its validity,
+The information will be parsed by the `Logic` and then upon checking its validity,
+
 it will be saved into the `Data` and `Storage` class.
 
 ### Data Component (ItemBank and Item)
 
-![image](https://user-images.githubusercontent.com/69421979/138306373-3d41a51e-5ab1-470b-b199-7046c49b12f6.png)
+<p align="center" width="100%">
+  <img width="80%" src="images/DataClassDiagram.png" alt="Data Class Diagram"/>
+</p>
 
-The `Data` component is responsible to perform operations such as data modificationand query in the code. It receives the commands from the `Logic` component, execute the 
+The `Data` component is responsible to perform operations such as data modification and query in the code. It receives the commands from the `Logic` component, execute the 
 correct operations, and finally return the command result back to `Logic` component.\
 \
 Above is a high-level **_class diagram_** for the `ItemBank` and `Item` classes in `Data` component. Note that since `Main` and `Logic` components have accessed to some classes
@@ -63,13 +74,13 @@ value must present when a `Food` object is created.\
 \
 Classes such as `ItemList` and `Item` are _**abstract class**_, because they do not add meaningful value to the user if one tries to create them.
 
-### Logic Component
 
 
 ### Data Component (Profile)
 
-<img src="images/ProfileClassDiagram.png" alt="Profile" width="600"/>
-
+<p align="center" width="100%">
+  <img width="60%" src="images/ProfileClassDiagram.png" alt="Profile"/>
+</p>
 A Profile class has various attributes such as Name, Height, Weight, Gender, Age, Calorie Goal and Activity Factor
 
 Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you a more accurate calculation.
@@ -82,11 +93,20 @@ will include some diagrams later\
 to complete tp dashboard
 
 
+
+
+
+
 ###Ui Component
-The 'Ui' component interacts with the user. It reads in input from the user and prints messages on the console.
+
+The `Ui` component interacts with the user. It reads in input from the user and prints messages on the console.
 Below shows a class diagram of how `Ui` component interacts with the rest of the application.
 
-![](./images/ui.png)
+
+<p align="center" width="100%">
+  <img width="50%" src="images/Ui.png" alt="Ui Class Diagram"/>
+</p>
+
 
 
 ###Logic Component
@@ -96,27 +116,34 @@ The `Logic` component is responsible for making sense of user input.
 Below is a high level class diagram of the `Logic` component, which shows how it interacts with other components 
 like `Main` and `Data`.
 
-
-<img src="images/LogicClassDiagram.png" width = "600" /> 
-
+<p align="center" width="100%">
+  <img width="80%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
+</p>
 
 Here is a more detailed class diagram of the `Logic` component.
 
-<img src ="images/ParserClassDiagram" width = "600" />
+<p align="center" width="100%">
+  <img width="90%" src="images/ParserClassDiagram.png" alt="Parser Class Diagram">
+</p>
 
 Taking a closer look into the parsing process, the `ParserManager` actually does not do most of the parsing itself.
-(To be completed)
+It creates a `XYZCommandParser` object (`XYZ` is a placeholder for a specific `Command` type), which is then responsible 
+for actually creating the `XYZCommand` object. All `XYZCommandParser` implements the interface `Parser`, which dictates that 
+they are able to parse user inputs.
 
 
-The sequence diagram below models the interactions between the different classes within the `Logic` component and 
-illustrates how a user input `add f/potato c/20` is parsed and process to execute the appropriate actions.
+The sequence diagram below models the interactions between the different classes within the `Logic` component.
+This particular case illustrates how a user input `add f/potato c/20` is parsed and process to execute the appropriate actions.
 
-<img src="images/LogicSequenceDiagram.png" width = "600" />
+<p align="center" width="100%">
+  <img width="90%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
+</p>
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" alt="StorageManager" width="600"/>
-
+<p align="center" width="100%">
+  <img width="60%" src="images/StorageClassDiagram.png" alt="Storage Class Diagram"/>
+</p>
 The `StorageManager` component loads and saves:
 - your profile - including name, height, weight, gender, age, calorie goal and activity factor
 - list of exercises done - including date performed
@@ -126,7 +153,9 @@ The `StorageManager` component loads and saves:
 
 Each storage is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
 
-<img src="images/ProfileStorageClassDiagram.png" alt="ProfileStorage" width="600"/>
+<p align="center" width="100%">
+  <img width="60%" src="images/ProfileStorageClassDiagram.png" alt="Profile Storage"/>
+</p>
 
 where:
 - ProfileEncoder encodes the list to the profile.txt file.

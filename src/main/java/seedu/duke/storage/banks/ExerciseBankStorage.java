@@ -24,7 +24,7 @@ public class ExerciseBankStorage extends Storage {
 
     private ItemBank readFromExerciseBankFile() throws UnableToReadFileException {
         try {
-            return decoder.getExerciseBankFromData();
+            return new ExerciseBankDecoder().getExerciseBankFromData();
         } catch (FileNotFoundException e) {
             logger.log(Level.WARNING, "The path is missing ", FILEPATH_BANK_EXERCISE);
             throw new UnableToReadFileException(FILEPATH_BANK_EXERCISE);
@@ -32,7 +32,7 @@ public class ExerciseBankStorage extends Storage {
     }
 
     public void saveExerciseBank(ItemBank exerciseBank) throws UnableToWriteFileException {
-        ArrayList<String> exerciseBankList = encoder.encodeItemBank(exerciseBank);
+        ArrayList<String> exerciseBankList = new BankEncoder().encodeItemBank(exerciseBank);
         writeToFile(exerciseBankList, FILEPATH_BANK_EXERCISE);
     }
 }
