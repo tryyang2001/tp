@@ -31,7 +31,7 @@ Upon exiting of application:
 
 Interaction between the classes could be shown by the uml sequence diagram below.
 
-<img src ="images/architecture.png" width = "600" />
+![](./images/architecture.png)
 
 When there is an input, the Ui class will retrieve the information from the user. 
 The information will be parsed by the `Parser` and then upon checking its validity, 
