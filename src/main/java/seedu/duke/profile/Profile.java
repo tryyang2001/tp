@@ -96,6 +96,28 @@ public class Profile {
     }
 
     /**
+     * A set command that enables setting of profile through passing by reference.
+     *
+     * @param name           Name of user
+     * @param height         Height of user
+     * @param weight         Weight of user
+     * @param calorieGoal    Calorie target of user
+     * @param gender         Gender of user (M/F)
+     * @param age            Age of user
+     * @param activityFactor Activity level of user
+     */
+    public void setProfile(Name name, Height height, Weight weight, Gender gender,
+                   Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
+        this.name = name;
+        this.height = height;
+        this.weight = weight;
+        this.gender = gender;
+        this.age = age;
+        this.calorieGoal = calorieGoal;
+        this.activityFactor = activityFactor;
+    }
+
+    /**
      * Sets the profile in various commands with the raw inputs if necessary.
      * Usually used for retrieving data from storage.
      *

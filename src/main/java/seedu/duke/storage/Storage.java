@@ -38,6 +38,7 @@ public abstract class Storage {
             FileWriter fw = new FileWriter(filePath);
             for (String item : itemList) {
                 fw.write(item + System.lineSeparator());
+                logger.log(Level.INFO, "Logging " + item);
             }
             fw.close();
         } catch (IOException e) {

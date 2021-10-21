@@ -100,10 +100,11 @@ public abstract class Command {
      */
     public static boolean requiresProfileStorageRewrite(Command command) {
         return command instanceof ChangeHeightCommand
-                || command instanceof ChangeNameCommand
-                || command instanceof ChangeWeightCommand
-                || command instanceof ProfileCreateCommand
-                || command instanceof SetGoalCommand;
+                || command instanceof ProfileUpdateCommand;
+//                || command instanceof ChangeNameCommand
+//                || command instanceof ChangeWeightCommand
+//                || command instanceof ProfileCreateCommand
+//                || command instanceof SetGoalCommand;
     }
 
     /**
