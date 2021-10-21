@@ -22,10 +22,20 @@ public class Height implements Verifiable {
         setHeight(height);
     }
 
+    /**
+     * Retrieves the height of Height object.
+     *
+     * @return the height of Height object
+     */
     public double getHeight() {
         return height;
     }
 
+    /**
+     * Sets the height for Height object.
+     *
+     * @param height height input by user
+     */
     public void setHeight(double height) {
         this.height = height;
     }

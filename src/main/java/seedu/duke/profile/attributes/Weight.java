@@ -22,10 +22,20 @@ public class Weight implements Verifiable {
         setWeight(weight);
     }
 
+    /**
+     * Retrieves the weight from the Weight object.
+     *
+     * @return the weight of Weight object
+     */
     public double getWeight() {
         return weight;
     }
 
+    /**
+     * Sets the weight of the Weight object.
+     *
+     * @param weight weight input by user
+     */
     public void setWeight(double weight) {
         this.weight = weight;
     }

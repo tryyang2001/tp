@@ -65,9 +65,6 @@ public abstract class Command {
     protected ItemBank exerciseBank;
     protected ItemBank foodBank;
 
-
-
-
     /**
      * Returns the appropriate CommandResult after execution of the command.
      * Each child class that inherits this class represents an executable command and will have its own implementation
