@@ -9,6 +9,7 @@ public class ByeCommand extends Command {
     private static final String MESSAGE_SUCCESS = "Exiting Fitbot...." + LS
             + "Bye! Hope to see you again soon!!";
 
+
     @Override
     public CommandResult execute() {
         return new CommandResult(MESSAGE_SUCCESS);

@@ -9,6 +9,7 @@ public class ViewFoodListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "You have consumed %1$d food item(s):"
             + LS + "%2$s";
 
+
     @Override
     public CommandResult execute() {
         if (super.foodItems.getSize() == 0) {

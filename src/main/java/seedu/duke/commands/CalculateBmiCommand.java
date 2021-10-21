@@ -19,6 +19,7 @@ public class CalculateBmiCommand extends Command {
             COMMAND_PREFIX_WEIGHT
     };
 
+
     private final double height;
     private final double weight;
 
