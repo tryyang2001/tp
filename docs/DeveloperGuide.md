@@ -6,8 +6,32 @@
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+### Profile
 
+![ProfileClassDiagram](ProfileClassDiagramv1.png)
+
+A Profile class has various attributes such as Name, Height, Weight, Gender, Age, Calorie Goal and Activity Factor
+
+
+### Storage component
+
+![StorageManagerClassDiagram](StorageManagerClassDiagramv1.png)
+
+The `StorageManager` component loads and saves:
+- your profile - including name, height, weight, gender, age, calorie goal and activity factor 
+- list of exercises done - including date performed
+- list of food consumed - including date and time of consumption
+- scheduled exercises - recurring exercises that are scheduled in the future
+- food and exercise banks - names and calories of relevant item
+
+Each storage is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
+
+![ProfileStorageClassDiagram](ProfileStorageClassDiagramv1.png)
+
+where:
+- ProfileEncoder encodes the list to the profile.txt file.
+- ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
+- ProfileStorage initializes the encoder and decoder and utilizes them for reading or writing operations.
 
 ## Product scope
 ### Target user profile
