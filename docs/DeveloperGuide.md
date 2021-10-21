@@ -31,6 +31,13 @@ Classes such as `ItemList` and `Item` are _**abstract class**_, because they do 
 
 ## Xingjie rmb to add future exercise list description here...^^ (gg i realized future ex list is the subclass of exercise list... will update later
 
+TODO\
+future exercise list\
+foodbank\
+exercisebank\
+will include some diagrams later\
+to complete tp dashboard
+
 ###Logic Component
 The `Logic` component is responsible for making sense of user input.
 
