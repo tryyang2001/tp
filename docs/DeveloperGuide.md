@@ -39,6 +39,62 @@ value must present when a `Food` object is created.\
 Classes such as `ItemList` and `Item` are _**abstract class**_, because they do not add meaningful value to the user if one tries to create them.
 
 ### Logic Component
+=======
+
+
+### Data Component (Profile)
+
+<img src="images/ProfileClassDiagram.png" alt="Profile" width="600"/>
+
+A Profile class has various attributes such as Name, Height, Weight, Gender, Age, Calorie Goal and Activity Factor
+
+Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you a more accurate calculation.
+
+TODO\
+future exercise list\
+foodbank\
+exercisebank\
+will include some diagrams later\
+to complete tp dashboard
+
+
+
+Main class is the component that interacts with all the necessary classes. 
+The Main class consists of the few components as shown below:
+- Ui The interaction between user and application
+- Parser Parse commands and execute them respectively
+- Data allow users to perform CRUD operations on the data in the application
+- Storage stores all data in the application. Saves a copy of data in relevant files.
+Data will be retrieved from storage upon starting of application.
+
+Upon launching of application:
+- The application will check if there are files that are already stored in the respective folder.
+If there is such files, the contents of the files will be loaded to the data section of the applicaton.
+Instances of profile, data(e.g. FoodList, ExerciseList, FutureExerciseList, ItemBank) and storage will be created
+
+
+Upon exiting of application:
+- The application will save all data into the files created. All instance of components will be cleared automatically.
+
+
+Interaction between the classes could be shown by the uml sequence diagram below.
+
+![](./images/architecture.png)
+
+When there is an input, the Ui class will retrieve the information from the user. 
+The information will be parsed by the `Parser` and then upon checking its validity, 
+it will be saved into the `Data` and `Storage` class.
+
+###Ui Component
+The 'Ui' component interacts with the user. It reads in input from the user and prints messages on the console.
+Below shows a class diagram of how `Ui` component interacts with the rest of the application.
+
+<insert image here />
+
+
+
+###Logic Component
+>>>>>>> 7918cae574f160ce0155bd0101ef4250578c32e0
 The `Logic` component is responsible for making sense of user input.
 
 Below is a high level class diagram of the `Logic` component, which shows how it interacts with other components 
@@ -61,19 +117,36 @@ illustrates how a user input `add f/potato c/20` is parsed and process to execut
 
 <img src="images/LogicSequenceDiagram.png" width = "600" />
 
+### Storage component
 
+<img src="images/StorageClassDiagram.png" alt="StorageManager" width="600"/>
 
+The `StorageManager` component loads and saves:
+- your profile - including name, height, weight, gender, age, calorie goal and activity factor
+- list of exercises done - including date performed
+- list of food consumed - including date and time of consumption
+- scheduled exercises - recurring exercises that are scheduled in the future
+- food and exercise banks - names and calories of relevant item
 
+Each storage is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
 
+<img src="images/ProfileStorageClassDiagram.png" alt="ProfileStorage" width="600"/>
+
+where:
+- ProfileEncoder encodes the list to the profile.txt file.
+- ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
+- ProfileStorage initializes the encoder and decoder and utilizes them for reading or writing operations.
 
 ## Product scope
 ### Target user profile
 
-{Describe the target user profile}
+University students who are looking to keep track of their calorie consumption and calorie outputs.
 
 ### Value proposition
 
-{Describe the value proposition: what problem does it solve?}
+During these restricted COVID-19 times, we are confined to home-based learning. As a result, we tend to be less active and have fewer opportunities to stay active. This app aims to help you to gain or lose weight based on your goal of implementing a calorie deficit or calorie surplus.
+
+Its overview shows your progress over the weeks, indicating whether or not you have hit your daily calorie goal target for the past 7 days.
 
 ## User Stories
 
@@ -84,8 +157,9 @@ illustrates how a user input `add f/potato c/20` is parsed and process to execut
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
-
+1. Should work on any OS as long as it has Java 11 or above installed on their PC.
+2. Should be able to hold up to at least a year of data without a slowdown of performance in daily use.
+3. Any user that is comfortable with typing of speeds >55 words per minute would be able to accomplish these tasks faster than if they used a mouse to navigate.
 ## Glossary
 **_dependency_** : In UML diagram, dependency is a directed relationship which is used to show that some elements or a set of elements requires, needs or depends on other model elements for specification or implementation.\
 **_superclass_** : A class from which other classes inherit its code. The class that inherits its code will be able to access some/all functionalities from the superclass.\
