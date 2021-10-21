@@ -24,7 +24,7 @@ public class FutureExerciseListStorage extends Storage {
 
     private FutureExerciseList readFromFutureListFile() throws UnableToReadFileException {
         try {
-            return decoder.getFutureListFromData();
+            return new FutureExerciseListDecoder().getFutureListFromData();
         } catch (FileNotFoundException e) {
             logger.log(Level.WARNING, "The path is missing ", FILEPATH_LIST_FUTURE);
             throw new UnableToReadFileException(FILEPATH_LIST_FUTURE);
@@ -32,7 +32,7 @@ public class FutureExerciseListStorage extends Storage {
     }
 
     public void saveFutureList(FutureExerciseList futureExercises) throws UnableToWriteFileException {
-        ArrayList<String> futureExerciseList = encoder.encodeExerciseList(futureExercises);
+        ArrayList<String> futureExerciseList = new ExerciseListEncoder().encodeExerciseList(futureExercises);
         writeToFile(futureExerciseList, FILENAME_LIST_FUTURE);
     }
 
