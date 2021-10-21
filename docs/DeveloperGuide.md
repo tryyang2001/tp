@@ -10,7 +10,7 @@
 ### Architecture
 
 <p align="center" width="100%">
-  <image width="80%" src="images/ArchitectureDiagram.png" alt="Architecture Diagram"/>
+  <image width="70%" src="images/ArchitectureDiagram.png" alt="Architecture Diagram"/>
 </p>
 
 `Main` class is the component that interacts with all the necessary classes.
@@ -34,7 +34,7 @@ Upon exiting of application:
 Interaction between the classes could be shown by the uml sequence diagram below.
 
 <p align="center" width="100%">
-  <img width="50%" src="images/architecture.png" alt="Architecture Sequence Diagram"/>
+  <img width="70%" src="images/architecture.png" alt="Architecture Sequence Diagram"/>
 </p>
 
 When there is an input, the Ui class will retrieve the information from the user.
@@ -44,7 +44,7 @@ it will be saved into the `Data` and `Storage` class.
 ### Data Component (ItemBank and Item)
 
 <p align="center" width="100%">
-  <img width="80%" src="images/DataClassDiagram.png" alt="Data Class Diagram"/>
+  <img width="90%" src="images/DataClassDiagram.png" alt="Data Class Diagram"/>
 </p>
 
 The `Data` component is responsible to perform operations such as data modification and query in the code. It receives the commands from the `Logic` component, execute the 
@@ -109,13 +109,13 @@ Below is a high level class diagram of the `Logic` component, which shows how it
 like `Main` and `Data`.
 
 <p align="center" width="100%">
-  <img width="80%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
+  <img width="60%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
 </p>
 
 Here is a more detailed class diagram of the `Logic` component.
 
 <p align="center" width="100%">
-  <img width="90%" src="images/ParserClassDiagram.png" alt="Parser Class Diagram">
+  <img width="60%" src="images/ParserClassDiagram.png" alt="Parser Class Diagram">
 </p>
 
 Taking a closer look into the parsing process, the `ParserManager` actually does not do most of the parsing itself.
