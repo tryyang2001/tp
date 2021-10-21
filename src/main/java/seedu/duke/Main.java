@@ -42,6 +42,7 @@ public class Main {
     public static final String MESSAGE_INTRO_NAME = "Please input your name.\n"
             + "Note that '/' and '|' inside name are invalid.";
     public static final String MESSAGE_INTRO_HEIGHT = "Please input your height(in cm).";
+    public static final String MESSAGE_CREATE_PROFILE_SUCCESSFUL = "Profile created successfully";
 
     private ExerciseList exerciseItems;
     private FutureExerciseList futureExerciseItems;
@@ -89,6 +90,7 @@ public class Main {
             ui.formatMessageFramedWithDivider(e.getMessage());
         }
         ui.printStartMessage(profile.checkProfileComplete(), profile.checkProfilePresent());
+
     }
 
     /**
@@ -108,7 +110,8 @@ public class Main {
         } else {
             createNewProfile();
         }
-        ui.formatMessageFramedWithDivider("Profile created successfully");
+        ui.formatMessageFramedWithDivider(MESSAGE_CREATE_PROFILE_SUCCESSFUL,
+                ui.MESSAGE_DIRECT_HELP);
     }
 
     /**
@@ -131,8 +134,7 @@ public class Main {
 
                 } else if (!profile.getProfileActivityFactor().isValid()) {
                     createNewProfileActivityFactor(profile);
-                }
-                if (profile.checkProfileComplete()) {
+                } else if (profile.getProfileCalorieGoal().isValid()) {
                     createNewProfileCalorieGoal(profile);
                 }
                 storageManager.saveProfile(this.profile);
@@ -196,8 +198,9 @@ public class Main {
         }
     }
 
-    public static final String MESSAGE_INTRO_ACTIVITY_FACTOR = "Please input your activity factor.\n"
-            + "Below are the activity factor and the corresponding description you can consider:\n"
+    public static final String MESSAGE_INTRO_ACTIVITY_FACTOR = "Please input your activity factor based on "
+            + " the value shown on the left.\n"
+            + "Below are the activity factor values and the corresponding description you can consider:\n"
             + "1 -> Sedentary - Little or no exercise\n"
             + "2 -> Lightly Active - Light exercise or sports, around 1-3 days a week\n"
             + "3 -> Moderately Active - Regular exercise or sports, around 3-5 days a week\n"
