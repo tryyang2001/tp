@@ -10,7 +10,7 @@
 ### Architecture
 
 <p align="center" width="100%">
-  <image width="80%" src="images/ArchitectureDiagram.png" alt="Architecture Diagram"/>
+  <image width="70%" src="images/ArchitectureDiagram.png" alt="Architecture Diagram"/>
 </p>
 
 `Main` class is the component that interacts with all the necessary classes.
@@ -34,17 +34,19 @@ Upon exiting of application:
 Interaction between the classes could be shown by the uml sequence diagram below.
 
 <p align="center" width="100%">
-  <img width="50%" src="images/architecture.png" alt="Architecture Sequence Diagram"/>
+  <img width="60%" src="images/architecture.png" alt="Architecture Sequence Diagram"/>
 </p>
+
 
 When there is an input, the Ui class will retrieve the information from the user.
 The information will be parsed by the `Logic` and then upon checking its validity,
+
 it will be saved into the `Data` and `Storage` class.
 
 ### Data Component (ItemBank and Item)
 
 <p align="center" width="100%">
-  <img width="80%" src="images/DataClassDiagram.png" alt="Data Class Diagram"/>
+  <img width="90%" src="images/DataClassDiagram.png" alt="Data Class Diagram"/>
 </p>
 
 The `Data` component is responsible to perform operations such as data modification and query in the code. It receives the commands from the `Logic` component, execute the 
@@ -71,11 +73,13 @@ value must present when a `Food` object is created.\
 Classes such as `ItemList` and `Item` are _**abstract class**_, because they do not add meaningful value to the user if one tries to create them.
 
 
+
 ### Data Component (Profile)
 
 <p align="center" width="100%">
   <img width="60%" src="images/ProfileClassDiagram.png" alt="Profile"/>
 </p>
+
 A Profile class has various attributes such as Name, Height, Weight, Gender, Age, Calorie Goal and Activity Factor
 
 Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you a more accurate calculation.
@@ -91,10 +95,12 @@ to complete tp dashboard
 
 
 
-###Ui Component
+
+### Ui Component
 
 The `Ui` component interacts with the user. It reads in input from the user and prints messages on the console.
 Below shows a class diagram of how `Ui` component interacts with the rest of the application.
+
 
 <p align="center" width="100%">
   <img width="50%" src="images/Ui.png" alt="Ui Class Diagram"/>
@@ -102,20 +108,21 @@ Below shows a class diagram of how `Ui` component interacts with the rest of the
 
 
 
-###Logic Component
+### Logic Component
+ 
 The `Logic` component is responsible for making sense of user input.
 
 Below is a high level class diagram of the `Logic` component, which shows how it interacts with other components 
 like `Main` and `Data`.
 
 <p align="center" width="100%">
-  <img width="80%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
+  <img width="60%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
 </p>
 
 Here is a more detailed class diagram of the `Logic` component.
 
 <p align="center" width="100%">
-  <img width="90%" src="images/ParserClassDiagram.png" alt="Parser Class Diagram">
+  <img width="60%" src="images/ParserClassDiagram.png" alt="Parser Class Diagram">
 </p>
 
 Taking a closer look into the parsing process, the `ParserManager` actually does not do most of the parsing itself.
@@ -170,7 +177,17 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
 |v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
+|v1.0|new user|want to store food records|track my food intake|
+|v1.0|new user|want to store exercise records| track my exercises|
+|v1.0|new user|store all records|refer to them whenever needed|
+|v2.0|new user|have a profile| to keep track of all information to calculate my net calories|
 |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|v2.0|user|have a summary|see my calorie targets
+|v2.0|user|have a history|spend less time typing all the requirements to store items|
+|v2.0|user|have a exercise list that update itself|have more time for exercises|
+|v2.0|user|have a sorted food list|see what I have eaten on different times of the day|
+|v2.0|user|have a delete all command|start afresh|
+
 
 ## Non-Functional Requirements
 
@@ -186,3 +203,29 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+### Launch and shut down
+1. Initial launch
+   1. Download the jar file and copy into an empty folder
+   2. Go to your command prompt, and go into your directory.
+   3. Run the command `java -jar Fitbot.jar`.
+   Expected: a data folder will be created in the file that contain Fitbot.jar.
+
+### Manipulating data
+
+1. Data is saved whenever data is manipulated.
+   1. run the application
+   2. add a food entry into the application.
+   3. Exit the application.
+   4. The file food_list.txt should have one entry.
+   5. Run the application and delete the entry.
+   6. Exit the application again.
+   Expected: food_list.txt should be empty.
+
+### Saving Data
+
+1. Saving data in file
+   1. After exiting the application, change the values saved in the file.
+   2. Upon start-up, all valid values will be changed in the application.
+   3. Replace one of the text file generated by the application with lorem ipsum.
+   4. The application will be able to pick it up and ignore invalid data in relevant files.
