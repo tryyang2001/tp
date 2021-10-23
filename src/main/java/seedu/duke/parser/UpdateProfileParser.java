@@ -28,7 +28,7 @@ public class UpdateProfileParser implements Parser {
         }
 
         try {
-            final String name = ParserUtils.extractProfileName(params);
+            final String name = ParserUtils.extractName(params);
             final double height = ParserUtils.extractHeight(params);
             final double weight = ParserUtils.extractWeight(params);
             final int calorieGoal = ParserUtils.extractCalorieGoal(params);

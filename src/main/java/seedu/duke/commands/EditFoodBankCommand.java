@@ -1,18 +1,21 @@
 package seedu.duke.commands;
 
-import seedu.duke.item.exercise.Exercise;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class EditFoodBankCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_EDIT
             + " " + COMMAND_PREFIX_FOOD_BANK + COMMAND_PREFIX_DELIMITER + "X "
-            + "+" + COMMAND_PREFIX_DELIMITER + "Y "
+            + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "Y "
             + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "Z " + QUOTATION
             + ", where X is the item number in the food bank, Y is the new name, Z is the new calories";
     public static final String MESSAGE_SUCCESS = "Food bank item number %d has been changed to:"
             + INDENTED_LS + "%s";
+    public static final String[] EXPECTED_PREFIXES = {
+            COMMAND_PREFIX_FOOD_BANK,
+            COMMAND_PREFIX_NAME,
+            COMMAND_PREFIX_CALORIES
+    };
 
     private static Logger logger = Logger.getLogger(EditFoodBankCommand.class.getName());
 
@@ -33,9 +36,13 @@ public class EditFoodBankCommand extends Command {
             return new CommandResult(MESSAGE_EMPTY_FOOD_BANK);
         }
         try {
-            super.foodBank.getItem(this.itemIndex).setName(this.newName);
-            super.foodBank.getItem(this.itemIndex).setCalories(this.newCalories);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex,
+            if (!this.newName.equals(NULL_STRING)) {
+                super.foodBank.getItem(this.itemIndex).setName(this.newName);
+            }
+            if (this.newCalories != NULL_CALORIES) {
+                super.foodBank.getItem(this.itemIndex).setCalories(this.newCalories);
+            }
+            return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
                     super.foodBank.getItem(this.itemIndex).toString()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid food bank item index.");

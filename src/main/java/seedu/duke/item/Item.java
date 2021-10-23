@@ -91,6 +91,14 @@ public abstract class Item {
     public abstract LocalDate getDate();
 
     /**
+     * Updates the date. To be implemented in Exercise class.
+     *
+     * @param date The new date of the exercise done in LocalDate
+     */
+    public abstract void setDate(LocalDate date);
+
+
+    /**
      * Gets the time period of the item, will be implemented in Food class.
      *
      * @return The time period of the food item

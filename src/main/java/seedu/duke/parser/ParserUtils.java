@@ -122,7 +122,7 @@ public class ParserUtils {
     }
 
 
-    protected static int extractItemCalories(String params)
+    protected static int extractItemCalories(String params, boolean isRequired)
             throws ParamInvalidException, ParamMissingException {
         try {
             if (params.contains(Command.COMMAND_PREFIX_CALORIES + Command.COMMAND_PREFIX_DELIMITER)) {
@@ -132,8 +132,14 @@ public class ParserUtils {
                 String caloriesString = stringAfterPrefix.split(" ", 2)[0];
                 return Integer.parseInt(caloriesString);
             } else {
-                logger.log(Level.WARNING, "Detected missing calories prefix");
-                throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_CALORIES_INFO);
+                if (isRequired) {
+                    logger.log(Level.WARNING, "Detected missing calories prefix");
+                    throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_CALORIES_INFO);
+                } else {
+                    logger.log(Level.INFO, "Detected missing calories prefix but calories not required, "
+                            + "returning null calorie value");
+                    return Command.NULL_CALORIES;
+                }
             }
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Detected non-digit calories input");
@@ -141,7 +147,7 @@ public class ParserUtils {
         }
     }
 
-    protected static String extractProfileName(String params) throws ParamInvalidException {
+    protected static String extractName(String params) throws ParamInvalidException {
         try {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_NAME
@@ -375,7 +381,11 @@ public class ParserUtils {
             throws ParamInvalidException, ParamMissingException {
         try {
             final String itemNumString = ParserUtils.extractItemDescription(params, prefix).split(" ")[0].trim();
-            return convertItemNumToItemIndex(Integer.parseInt(itemNumString));
+            final int itemIndex = convertItemNumToItemIndex(Integer.parseInt(itemNumString));
+            if (itemIndex < 0 ) {
+                throw new NumberFormatException();
+            }
+            return itemIndex;
         } catch (ParamInvalidException | ParamMissingException e) {
             throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_ITEM_NUM);
         } catch (NumberFormatException e) {

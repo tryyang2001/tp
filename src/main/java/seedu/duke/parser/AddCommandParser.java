@@ -60,7 +60,7 @@ public class AddCommandParser implements Parser {
             int calories = Command.NULL_CALORIES;
             boolean isCaloriesFromBank = false;
             try {
-                calories = ParserUtils.extractItemCalories(params);
+                calories = ParserUtils.extractItemCalories(params, true);
             } catch (ParamMissingException e) {
                 isCaloriesFromBank = true; //signals to Command class to check for calories from the item bank
                 logger.log(Level.INFO, "No calories detected, to try checking from item bank");
@@ -105,7 +105,7 @@ public class AddCommandParser implements Parser {
     protected Command parseAddToBank(String params, String itemTypePrefix) throws ItemNotSpecifiedException {
         try {
             final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
-            final int calories = ParserUtils.extractItemCalories(params);
+            final int calories = ParserUtils.extractItemCalories(params, true);
 
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_EXERCISE_BANK:

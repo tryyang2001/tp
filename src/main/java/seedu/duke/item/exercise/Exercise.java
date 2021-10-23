@@ -46,6 +46,7 @@ public class Exercise extends Item {
      *
      * @param date The new date of the exercise done in LocalDate
      */
+    @Override
     public void setDate(LocalDate date) {
         this.date = date;
     }

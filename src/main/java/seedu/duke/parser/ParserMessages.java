@@ -18,7 +18,8 @@ public class ParserMessages {
     protected static final String MESSAGE_ERROR_NO_CALORIES_INFO = "Please input the number of calories!";
     protected static final String MESSAGE_ERROR_INVALID_CALORIES_INFO = "Please input calories as a number! E.g 123";
     protected static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
-    protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a number! E.g 1";
+    protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a number " +
+            "greater than 0! E.g 1";
     protected static final String MESSAGE_ERROR_TOO_MANY_DELIMITERS = "Please do not use the character "
             + QUOTATION + Command.COMMAND_PREFIX_DELIMITER + QUOTATION
             + " in your input other than to specify parameters!";
@@ -51,4 +52,6 @@ public class ParserMessages {
             + "of reoccurrence and make sure that there is no repeated day";
     protected static final int MONDAY = 1;
     protected static final int SUNDAY = 7;
+    protected static final String MESSAGE_ERROR_EDIT_NO_PARAMETERS = "Please input at least one detail to change "
+            + "about this item!";
 }
