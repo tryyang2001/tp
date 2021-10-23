@@ -19,7 +19,7 @@ public class FutureExerciseList extends ExerciseList {
      * @return Exercise object removed.
      */
     public Exercise deleteItem(int index) {
-        return (Exercise) itemList.remove(index);
+        return (Exercise) internalItems.remove(index);
     }
     /**
      * Converts the entire future exercise list to string format for printing purpose.
@@ -36,16 +36,16 @@ public class FutureExerciseList extends ExerciseList {
     public String convertToString() {
         StringBuilder futureExerciseListToString = new StringBuilder();
 
-        for (int i = 0; i < itemList.size(); i++) {
+        for (int i = 0; i < internalItems.size(); i++) {
             futureExerciseListToString
                     .append(TAB)
                     .append(i + 1)
                     .append(". ")
-                    .append(itemList.get(i))
+                    .append(internalItems.get(i))
                     .append(" (")
-                    .append(getDayOfWeek(itemList.get(i).getDate()))
+                    .append(getDayOfWeek(internalItems.get(i).getDate()))
                     .append(" ")
-                    .append(itemList.get(i).getDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT)))
+                    .append(internalItems.get(i).getDate().format(DateTimeFormatter.ofPattern(DATE_FORMAT)))
                     .append(")")
                     .append(LS);
         }
@@ -62,8 +62,8 @@ public class FutureExerciseList extends ExerciseList {
             LocalDate currentDate = startDate;
             while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
                 if (dayOfReoccurrence == day) {
-                    this.itemList.add(new Exercise(description, calories, currentDate));
-                    this.itemList.sort(Comparator.comparing(Item::getDate));
+                    this.internalItems.add(new Exercise(description, calories, currentDate));
+                    this.internalItems.sort(Comparator.comparing(Item::getDate));
                     currentDate = currentDate.plusDays(ONE_WEEK);
                     dayOfReoccurrence = currentDate.getDayOfWeek().getValue();
                 } else {

@@ -1,13 +1,18 @@
 package seedu.duke.ui;
 
 import org.junit.jupiter.api.Test;
+import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.item.food.FoodList;
+import seedu.duke.profile.Profile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StatisticsTest {
 
-
-    Statistics stats = new Statistics();
+    private FoodList foodItems;
+    private ExerciseList exerciseItems;
+    private Profile profile;
+    Statistics stats = new Statistics(foodItems, exerciseItems,profile);
 
     @Test
     void printCalorieResult_netCaloriesAndCalorieGoal_messages() {
