@@ -14,9 +14,6 @@ public class FutureExerciseListStorage extends Storage {
     public static final String FILENAME_LIST_FUTURE = "future_list.txt";
     public static final String FILEPATH_LIST_FUTURE = FILEPATH + FILENAME_LIST_FUTURE;
 
-    private FutureExerciseListDecoder decoder = new FutureExerciseListDecoder();
-    private ExerciseListEncoder encoder = new ExerciseListEncoder();
-
     public FutureExerciseList loadFutureExerciseListFile() throws UnableToReadFileException {
         checkForFile(FILEPATH_LIST_FUTURE);
         return readFromFutureListFile();
@@ -33,7 +30,7 @@ public class FutureExerciseListStorage extends Storage {
 
     public void saveFutureList(FutureExerciseList futureExercises) throws UnableToWriteFileException {
         ArrayList<String> futureExerciseList = new ExerciseListEncoder().encodeExerciseList(futureExercises);
-        writeToFile(futureExerciseList, FILENAME_LIST_FUTURE);
+        writeToFile(futureExerciseList, FILEPATH_LIST_FUTURE);
     }
 
 }

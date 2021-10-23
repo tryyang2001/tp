@@ -4,6 +4,8 @@ import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.storage.Encoder;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ExerciseListEncoder extends Encoder {
 
@@ -14,7 +16,6 @@ public class ExerciseListEncoder extends Encoder {
      * @return An ArrayList of the exercises to be stored
      */
     public ArrayList<String> encodeExerciseList(ExerciseList exerciseList) {
-        ArrayList<String> exercises = new ArrayList<>();
         for (int i = 0; i < exerciseList.getSize(); i++) {
             detailsToSave.add(exerciseList.getItem(i).toFileTextString());
         }
