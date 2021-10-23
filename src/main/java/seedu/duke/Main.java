@@ -383,8 +383,8 @@ public class Main {
         int index = 0;
         LocalDate today = LocalDate.now();
         if (futureExerciseItems.getSize() != 0) {
-            while (futureExerciseItems.getItem(index).getDate().isBefore(today) ||
-                    futureExerciseItems.getItem(index).getDate().isEqual(today)) {
+            while (futureExerciseItems.getItem(index).getDate().isBefore(today)
+                    || futureExerciseItems.getItem(index).getDate().isEqual(today)) {
                 System.out.println(today);
                 String name = futureExerciseItems.getItem(index).getName();
                 int calories = futureExerciseItems.getItem(index).getCalories();
