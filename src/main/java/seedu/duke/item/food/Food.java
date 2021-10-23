@@ -112,9 +112,12 @@ public class Food extends Item {
         return timePeriod;
     }
 
+    @Override
     public String toString() {
         return String.format(MESSAGE_FOOD, this.getTime().format(TIME_FORMATTER), super.toString());
     }
+
+
 
     /**
      * Converts the food to external file string format.

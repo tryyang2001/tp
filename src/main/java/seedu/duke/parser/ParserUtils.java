@@ -382,7 +382,7 @@ public class ParserUtils {
         try {
             final String itemNumString = ParserUtils.extractItemDescription(params, prefix).split(" ")[0].trim();
             final int itemIndex = convertItemNumToItemIndex(Integer.parseInt(itemNumString));
-            if (itemIndex < 0 ) {
+            if (itemIndex < 0) {
                 throw new NumberFormatException();
             }
             return itemIndex;

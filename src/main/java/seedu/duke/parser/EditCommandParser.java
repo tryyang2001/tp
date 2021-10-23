@@ -88,7 +88,7 @@ public class EditCommandParser implements Parser {
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
                 if (ParserUtils.hasExtraDelimiters(params, EditFutureExerciseCommand.EXPECTED_PREFIXES)) {
-                  return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 return new EditFutureExerciseCommand(itemIndex, description, calories, date);
             default:
