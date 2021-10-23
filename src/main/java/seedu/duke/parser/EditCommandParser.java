@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Parses input arguments for Edit commands
+ * Parses input arguments for Edit commands.
  */
 public class EditCommandParser implements Parser {
 
