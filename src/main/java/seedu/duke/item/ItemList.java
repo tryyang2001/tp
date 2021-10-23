@@ -1,5 +1,7 @@
 package seedu.duke.item;
 
+import seedu.duke.item.bank.ItemBank;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -7,39 +9,20 @@ import java.util.ArrayList;
 /**
  * ItemList is an abstract class that contains all the common methods for food list and exercise list.
  */
-public abstract class ItemList {
+public abstract class ItemList extends ItemBank {
     public static final String MESSAGE_ITEM = "%d. %s";
     protected static final String DATE_FORMAT = "dd MMM yyyy";
     protected static final String LS = System.lineSeparator();
     protected static final String TAB = "\t";
-    protected ArrayList<Item> itemList;
-
-    /**
-     * Returns item in the item list.
-     *
-     * @param index The index of the item
-     * @return the item with the given index
-     */
-    public Item getItem(int index) {
-        return itemList.get(index);
-    }
-
-    /**
-     * Returns the size of the array list.
-     *
-     * @return the size of the array list attribute
-     */
-    public int getSize() {
-        return itemList.size();
-    }
 
     /**
      * Adds an item into the item list.
      *
      * @param item The item class object to add
      */
+    @Override
     public void addItem(Item item) {
-        this.itemList.add(item);
+        this.internalItems.add(item);
         sortList();
     }
 
@@ -49,7 +32,7 @@ public abstract class ItemList {
      * @return Integer value of the sum of calorie of all the items
      */
     public int getTotalCalories() {
-        int totalCalories = itemList.stream().mapToInt(Item::getCalories).sum();
+        int totalCalories = internalItems.stream().mapToInt(Item::getCalories).sum();
         assert totalCalories >= 0 : "Total calories cannot less than 0";
         return totalCalories;
     }
@@ -61,7 +44,7 @@ public abstract class ItemList {
      * @return Integer value of the sum of calorie of all food items consumed in the given date
      */
     public int getTotalCaloriesWithDate(LocalDate date) {
-        int totalCalories = itemList.stream()
+        int totalCalories = internalItems.stream()
                 .filter(i -> i.getDate().isEqual(date))
                 .mapToInt(Item::getCalories)
                 .sum();
@@ -70,24 +53,9 @@ public abstract class ItemList {
     }
 
     /**
-     * Deletes all the item inside the list.
-     */
-    public void clearList() {
-        itemList.clear();
-    }
-
-    /**
      * Sorts the item list according to date (and) time, will be implemented in FoodList and ExerciseList.
      */
     public abstract void sortList();
-
-    /**
-     * Converts the item list to a string for printing purpose,
-     * will be implemented in FoodList and ExerciseList.
-     *
-     * @return The string of the item list
-     */
-    public abstract String convertToString();
 
     /**
      * Converts the item list of a specific date to a string for printing purpose,

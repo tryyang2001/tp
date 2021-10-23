@@ -38,8 +38,6 @@ Interaction between the classes could be shown by the uml sequence diagram below
 </p>
 
 
-![](./images/architecture.png)
-
 When there is an input, the Ui class will retrieve the information from the user.
 The information will be parsed by the `Logic` and then upon checking its validity,
 
@@ -81,6 +79,7 @@ Classes such as `ItemList` and `Item` are _**abstract class**_, because they do 
 <p align="center" width="100%">
   <img width="60%" src="images/ProfileClassDiagram.png" alt="Profile"/>
 </p>
+
 A Profile class has various attributes such as Name, Height, Weight, Gender, Age, Calorie Goal and Activity Factor
 
 Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you a more accurate calculation.
@@ -97,7 +96,7 @@ to complete tp dashboard
 
 
 
-###Ui Component
+### Ui Component
 
 The `Ui` component interacts with the user. It reads in input from the user and prints messages on the console.
 Below shows a class diagram of how `Ui` component interacts with the rest of the application.
@@ -109,7 +108,7 @@ Below shows a class diagram of how `Ui` component interacts with the rest of the
 
 
 
-###Logic Component
+### Logic Component
  
 The `Logic` component is responsible for making sense of user input.
 
@@ -204,14 +203,15 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
-###Launch and shut down
+
+### Launch and shut down
 1. Initial launch
    1. Download the jar file and copy into an empty folder
    2. Go to your command prompt, and go into your directory.
    3. Run the command `java -jar Fitbot.jar`.
    Expected: a data folder will be created in the file that contain Fitbot.jar.
 
-###Manipulating data
+### Manipulating data
 
 1. Data is saved whenever data is manipulated.
    1. run the application
@@ -222,7 +222,7 @@ Its overview shows your progress over the weeks, indicating whether or not you h
    6. Exit the application again.
    Expected: food_list.txt should be empty.
 
-###Saving Data
+### Saving Data
 
 1. Saving data in file
    1. After exiting the application, change the values saved in the file.

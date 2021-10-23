@@ -41,7 +41,8 @@ public class ViewCommandParser implements Parser {
                             ViewExerciseListCommand.MESSAGE_COMMAND_FORMAT,
                             ViewFoodListCommand.MESSAGE_COMMAND_FORMAT,
                             ViewExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
-                            ViewFoodBankCommand.MESSAGE_COMMAND_FORMAT));
+                            ViewFoodBankCommand.MESSAGE_COMMAND_FORMAT,
+                            ViewExerciseListCommand.MESSAGE_COMMAND_FORMAT));
         }
     }
 }
