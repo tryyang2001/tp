@@ -16,7 +16,7 @@ public class ExerciseList extends ItemList {
      * Default constructor for exercise list.
      */
     public ExerciseList() {
-        itemList = new ArrayList<>();
+        internalItems = new ArrayList<>();
     }
 
     /**
@@ -29,7 +29,7 @@ public class ExerciseList extends ItemList {
     public Exercise deleteItem(int index, LocalDate date) {
         Exercise deletedExercise = new Exercise("", 1, date);
         int actualIndex = getActualIndex(index, deletedExercise);
-        deletedExercise = (Exercise) itemList.remove(actualIndex);
+        deletedExercise = (Exercise) internalItems.remove(actualIndex);
         return deletedExercise;
     }
 
@@ -59,7 +59,7 @@ public class ExerciseList extends ItemList {
      * Sorts the exercise list in ascending format according to the date.
      */
     public void sortList() {
-        this.itemList.sort(Comparator.comparing(Item::getDate));
+        this.internalItems.sort(Comparator.comparing(Item::getDate));
     }
 
     /**
@@ -71,7 +71,7 @@ public class ExerciseList extends ItemList {
      * @return The actual index of the exercise in the entire exercise list
      */
     private int getActualIndex(int index, Item deletedExercise) {
-        for (int i = 0; i < itemList.size(); i++) {
+        for (int i = 0; i < internalItems.size(); i++) {
             if (isListToQuery(deletedExercise, i)) {
                 if (isExerciseToDelete(deletedExercise, i, index)) {
                     return i + index;
@@ -91,7 +91,7 @@ public class ExerciseList extends ItemList {
      * @return True if the current exercise is the exercise to delete, false otherwise
      */
     private boolean isExerciseToDelete(Item deletedExercise, int currentIndex, int index) {
-        return itemList.get(currentIndex + index).getDate().equals(deletedExercise.getDate());
+        return internalItems.get(currentIndex + index).getDate().equals(deletedExercise.getDate());
     }
 
     /**
@@ -102,7 +102,7 @@ public class ExerciseList extends ItemList {
      * @return True if the current exercise has the same date and time period as the deletedItem, false otherwise
      */
     private boolean isListToQuery(Item deletedExercise, int currentIndex) {
-        return itemList.get(currentIndex).getDate().equals(deletedExercise.getDate());
+        return internalItems.get(currentIndex).getDate().equals(deletedExercise.getDate());
     }
 
     /**
@@ -113,11 +113,11 @@ public class ExerciseList extends ItemList {
      */
     private StringBuilder extractExerciseListByEachDate() {
         StringBuilder exerciseListInString = new StringBuilder();
-        for (int index = 0; index < itemList.size(); index++) {
-            LocalDate currentDate = itemList.get(index).getDate();
+        for (int index = 0; index < internalItems.size(); index++) {
+            LocalDate currentDate = internalItems.get(index).getDate();
             ExerciseList subList = new ExerciseList();
-            while (index < itemList.size() && currentDate.isEqual(itemList.get(index).getDate())) {
-                subList.addItem(itemList.get(index++));
+            while (index < internalItems.size() && currentDate.isEqual(internalItems.get(index).getDate())) {
+                subList.addItem(internalItems.get(index++));
             }
             convertItemCountToString(exerciseListInString, subList.getSize(), currentDate, MESSAGE_EXERCISE_DONE);
             for (int i = 1; i <= subList.getSize(); i++) {
@@ -127,7 +127,7 @@ public class ExerciseList extends ItemList {
                     exerciseListInString,
                     this.getTotalCaloriesWithDate(currentDate),
                     MESSAGE_TOTAL_CALORIE_BURNT);
-            if (index < itemList.size()) {
+            if (index < internalItems.size()) {
                 exerciseListInString.append(ItemList.LS); //prevents last line spacing
             }
             index--;
@@ -144,7 +144,7 @@ public class ExerciseList extends ItemList {
      */
     private StringBuilder extractExerciseListBySpecificDate(LocalDate date) {
         StringBuilder exerciseListInString = new StringBuilder();
-        ArrayList<Item> subList = (ArrayList<Item>) this.itemList.stream()
+        ArrayList<Item> subList = (ArrayList<Item>) this.internalItems.stream()
                 .filter(e -> e.getDate().isEqual(date))
                 .collect(Collectors.toList());
         convertItemCountToString(exerciseListInString, subList.size(), date, MESSAGE_EXERCISE_DONE);
