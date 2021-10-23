@@ -40,6 +40,8 @@ public class ParserManager {
             return new DeleteCommandParser().parse(params);
         case Command.COMMAND_WORD_VIEW:
             return new ViewCommandParser().parse(params);
+        case Command.COMMAND_WORD_EDIT:
+            return new EditCommandParser().parse(params);
         case Command.COMMAND_WORD_BMI:
             return new BmiParser().parse(params);
         case Command.COMMAND_WORD_PROFILE:

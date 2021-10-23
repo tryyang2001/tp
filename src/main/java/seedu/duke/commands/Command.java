@@ -36,9 +36,11 @@ public abstract class Command {
     public static final String COMMAND_PREFIX_START_DATE = ":";
     public static final String COMMAND_PREFIX_END_DATE = "-";
     public static final String COMMAND_PREFIX_DAY_OF_THE_WEEK = "@";
+    public static final String COMMAND_PREFIX_EDIT_NAME = "\\+";
     public static final String COMMAND_WORD_ADD = "add";
     public static final String COMMAND_WORD_DELETE = "delete";
     public static final String COMMAND_WORD_VIEW = "view";
+    public static final String COMMAND_WORD_EDIT = "edit";
     public static final String COMMAND_WORD_BMI = "bmi";
     public static final String COMMAND_WORD_PROFILE = "profile";
     public static final String COMMAND_WORD_DELETE_ALL = "all";
@@ -146,7 +148,8 @@ public abstract class Command {
      */
     public static boolean requiresFoodBankStorageRewrite(Command command) {
         return command instanceof AddFoodBankCommand
-                || command instanceof DeleteFoodBankCommand;
+                || command instanceof DeleteFoodBankCommand
+                || command instanceof EditFoodBankCommand;
     }
 
     /**
@@ -157,7 +160,8 @@ public abstract class Command {
      */
     public static boolean requiresExerciseBankStorageRewrite(Command command) {
         return command instanceof AddExerciseBankCommand
-                || command instanceof DeleteExerciseBankCommand;
+                || command instanceof DeleteExerciseBankCommand
+                || command instanceof EditExerciseBankCommand;
     }
 
 
