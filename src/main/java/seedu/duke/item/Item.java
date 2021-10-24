@@ -74,6 +74,11 @@ public abstract class Item {
         return this.getName() + " (" + this.getCalories() + " cal)";
     }
 
+
+    public String toStringWithoutTime() {
+        return this.getName() + " (" + this.getCalories() + " cal)";
+    }
+
     /**
      * Converts the item to external file string format.
      *
@@ -89,6 +94,14 @@ public abstract class Item {
      * @return The date of the item
      */
     public abstract LocalDate getDate();
+
+    /**
+     * Updates the date. To be implemented in Exercise class.
+     *
+     * @param date The new date of the exercise done in LocalDate
+     */
+    public abstract void setDate(LocalDate date);
+
 
     /**
      * Gets the time period of the item, will be implemented in Food class.

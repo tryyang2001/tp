@@ -6,6 +6,8 @@ import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
 import seedu.duke.profile.Profile;
 
+import java.time.LocalDate;
+
 /**
  * Abstract class used to represent executable Commands.
  * All Commands can be executed to return a CommandResult.
@@ -36,7 +38,6 @@ public abstract class Command {
     public static final String COMMAND_PREFIX_START_DATE = ":";
     public static final String COMMAND_PREFIX_END_DATE = "-";
     public static final String COMMAND_PREFIX_DAY_OF_THE_WEEK = "@";
-    public static final String COMMAND_PREFIX_EDIT_NAME = "\\+";
     public static final String COMMAND_WORD_ADD = "add";
     public static final String COMMAND_WORD_DELETE = "delete";
     public static final String COMMAND_WORD_VIEW = "view";
@@ -60,6 +61,7 @@ public abstract class Command {
     public static final char NULL_CHAR = Character.MIN_VALUE;
     public static final int NULL_CALORIES = -1;
     public static final String NULL_STRING = "";
+    public static final LocalDate NULL_DATE = LocalDate.MIN;
 
     protected Profile profile;
     protected ExerciseList exerciseItems;

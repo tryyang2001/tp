@@ -4,7 +4,6 @@ import seedu.duke.item.bank.ItemBank;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 /**
  * ItemList is an abstract class that contains all the common methods for food list and exercise list.

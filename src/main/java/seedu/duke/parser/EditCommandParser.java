@@ -1,16 +1,6 @@
 package seedu.duke.parser;
 
-import seedu.duke.commands.AddExerciseBankCommand;
-import seedu.duke.commands.AddExerciseCommand;
-import seedu.duke.commands.AddFoodBankCommand;
-import seedu.duke.commands.AddFoodCommand;
-import seedu.duke.commands.AddRecurringExerciseCommand;
 import seedu.duke.commands.Command;
-import seedu.duke.commands.DeleteExerciseBankCommand;
-import seedu.duke.commands.DeleteExerciseCommand;
-import seedu.duke.commands.DeleteFoodBankCommand;
-import seedu.duke.commands.DeleteFoodCommand;
-import seedu.duke.commands.DeleteFutureExerciseCommand;
 import seedu.duke.commands.EditExerciseBankCommand;
 import seedu.duke.commands.EditFoodBankCommand;
 import seedu.duke.commands.EditFutureExerciseCommand;
@@ -19,10 +9,7 @@ import seedu.duke.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.parser.exceptions.ParamInvalidException;
 import seedu.duke.parser.exceptions.ParamMissingException;
 
-
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -41,6 +28,8 @@ public class EditCommandParser implements Parser {
                 //Fallthrough
             case Command.COMMAND_PREFIX_FOOD_BANK:
                 return parseEditBank(params, itemTypePrefix);
+            case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
+                return parseEditUpcomingExercise(params, itemTypePrefix);
             default:
                 throw new ItemNotSpecifiedException();
             }
@@ -57,24 +46,51 @@ public class EditCommandParser implements Parser {
             throws ItemNotSpecifiedException {
         try {
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
-            final String description = ParserUtils.extractItemDescription(params, Command.COMMAND_PREFIX_EDIT_NAME);
-            final int calories = ParserUtils.extractItemCalories(params);
+            if (ParserUtils.getNumberOfCorrectParamsDetected(params,
+                    Command.COMMAND_PREFIX_NAME, Command.COMMAND_PREFIX_CALORIES) == 0) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_EDIT_NO_PARAMETERS);
+            }
+            final String description = ParserUtils.extractName(params);
+            final int calories = ParserUtils.extractItemCalories(params, false);
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_EXERCISE_BANK:
-                //if (ParserUtils.hasExtraDelimiters(params, DeleteExerciseBankCommand.EXPECTED_PREFIXES)) {
-                //    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                //}
+                if (ParserUtils.hasExtraDelimiters(params, EditExerciseBankCommand.EXPECTED_PREFIXES)) {
+                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                }
                 return new EditExerciseBankCommand(itemIndex, description, calories);
             case Command.COMMAND_PREFIX_FOOD_BANK:
-                //if (ParserUtils.hasExtraDelimiters(params, DeleteFoodBankCommand.EXPECTED_PREFIXES)) {
-                //    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                //}
+                if (ParserUtils.hasExtraDelimiters(params, EditFoodBankCommand.EXPECTED_PREFIXES)) {
+                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                }
                 return new EditFoodBankCommand(itemIndex, description, calories);
+            default:
+                throw new ItemNotSpecifiedException();
+            }
+        } catch (ParamInvalidException | ParamMissingException e) {
+            return new InvalidCommand(e.getMessage());
+        }
+    }
+
+    protected Command parseEditUpcomingExercise(String params, String itemTypePrefix)
+            throws ItemNotSpecifiedException {
+        try {
+            final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
+            if (ParserUtils.getNumberOfCorrectParamsDetected(params,
+                    Command.COMMAND_PREFIX_NAME, Command.COMMAND_PREFIX_CALORIES, Command.COMMAND_PREFIX_DATE) == 0) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_EDIT_NO_PARAMETERS);
+            }
+
+            final String description = ParserUtils.extractItemDescription(params, Command.COMMAND_PREFIX_NAME);
+            final int calories = ParserUtils.extractItemCalories(params, false);
+            final LocalDate date = ParserUtils.hasRequiredParams(params, Command.COMMAND_PREFIX_DATE)
+                    ? ParserUtils.extractDate(params, false)
+                    : Command.NULL_DATE;
+            switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
-                //if (ParserUtils.hasExtraDelimiters(params, DeleteFutureExerciseCommand.EXPECTED_PREFIXES)) {
-                //  return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                //}
-                return new EditFutureExerciseCommand(itemIndex, description, calories);
+                if (ParserUtils.hasExtraDelimiters(params, EditFutureExerciseCommand.EXPECTED_PREFIXES)) {
+                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                }
+                return new EditFutureExerciseCommand(itemIndex, description, calories, date);
             default:
                 throw new ItemNotSpecifiedException();
             }
