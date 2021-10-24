@@ -18,13 +18,7 @@ public class ExerciseListStorage extends Storage implements ExerciseStorageInter
         this.fileName = getFileName(filePath);
     }
 
-    /**
-     * Load exercises into an ExerciseList object.
-     * Used when the selected profile is accessed and its respective ExerciseList is loaded.
-     *
-     * @return ExerciseList object with the details from the storage file
-     * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
-     */
+    @Override
     public ExerciseList loadExerciseList() throws UnableToReadFileException {
         FileChecker.createFileIfMissing(filePath);
         return readFromExerciseListFile();
@@ -39,12 +33,7 @@ public class ExerciseListStorage extends Storage implements ExerciseStorageInter
         }
     }
 
-    /**
-     * Saves the exercises into storage.
-     * Used when there is an update to the list.
-     *
-     * @param exercises ExerciseList to be saved
-     */
+    @Override
     public void saveExerciseList(ExerciseList exercises) throws UnableToWriteFileException {
         FileSaver.saveToFile(filePath, ItemEncoder.encode(exercises));
     }

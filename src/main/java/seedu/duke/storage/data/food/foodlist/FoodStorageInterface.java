@@ -15,5 +15,11 @@ public interface FoodStorageInterface {
      */
     FoodList loadFoodList() throws UnableToReadFileException;
 
+    /**
+     * Saves the food items into the respective food list data file.
+     *
+     * @param foodItems food items to be saved to the storage file
+     * @throws UnableToWriteFileException If the file is inaccessible or due to environment variables
+     */
     void saveFoodList(FoodList foodItems) throws UnableToWriteFileException;
 }
