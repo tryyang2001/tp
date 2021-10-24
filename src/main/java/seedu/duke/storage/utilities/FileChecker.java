@@ -12,7 +12,7 @@ import java.nio.file.Paths;
  */
 public class FileChecker {
 
-    private final static String FILEPATH = "./data/";
+    private static final String FILEPATH = "./data/";
 
     /**
      * Creates the directory and file if it is unable to find the file.

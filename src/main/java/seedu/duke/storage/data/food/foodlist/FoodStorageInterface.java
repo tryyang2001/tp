@@ -5,6 +5,7 @@ import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
 public interface FoodStorageInterface {
+
     /**
      * Load food items into a FoodList object.
      * Used when the selected profile is accessed and its respective ExerciseList is loaded.
@@ -13,5 +14,6 @@ public interface FoodStorageInterface {
      * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
     FoodList loadFoodList() throws UnableToReadFileException;
+
     void saveFoodList(FoodList foodItems) throws UnableToWriteFileException;
 }

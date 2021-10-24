@@ -5,6 +5,9 @@ import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
 public interface UpcomingStorageInterface {
+
     FutureExerciseList loadFutureExerciseList() throws UnableToReadFileException;
+
     void saveFutureExerciseList(FutureExerciseList futureExercises) throws UnableToWriteFileException;
+
 }
