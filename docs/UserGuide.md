@@ -19,6 +19,9 @@
 - [Calculate net calories: `overview`](#calculate-net-calories-overview)
 - [Exit the program: `bye`](#exit-the-program-bye)
 - [Saving the data](#saving-the-data)
+- [Editing the data file](#editing-the-data-file)
+
+[FAQ](#faq)
 
 [Command Summary](#command-summary)
 
@@ -232,12 +235,14 @@ ________________________________________________________________________________
 
 ### **Add** **Exercise and Food Items:** `add`
 
-Adds food or exercise record to the current list.
+Adds food or exercise record to a list.
 
 Format:
 
 - `add f/ITEM c/CALORIES` adds a food item consumed with its respective calories.
-- `add e/ITEM c/CALORIES` adds an exercise with its respective calories burnt.
+- `add e/ITEM c/CALORIES` adds an exercise with its respective calories burnt. 
+  1. If `DATE` is the current date or before, the exercise will be added to the exercise list.
+  2. If `DATE` is in the future, the exercise will be added to the upcoming exercise list. 
 
 Examples:
 
@@ -251,12 +256,12 @@ A food item has been added:
 __________________________________________________________________________________________
 ```
 
-- `add e/hiit c/290` adds record of exercise done: hiit with 290 calories burnt.
+- `add e/hiit c/290` adds record of exercise done: hiit with 290 calories burnt to the upcoming exercise list.
 
 ```text
-add e/hiit c/290
+add e/hiit c/290 d/01-01-2022
 __________________________________________________________________________________________
-An exercise has been added:
+An exercise item for the future has been added:
     hiit (290 cal)
 __________________________________________________________________________________________
 ```
@@ -293,6 +298,17 @@ Total calories burnt: 790
 __________________________________________________________________________________________
 ```
 
+- `view u/` views all the exercises and the calories added to upcoming exercise list.
+
+```text
+view u/
+__________________________________________________________________________________________
+You have 2 upcoming exercise(s):
+    1. hiit (200 cal) (Saturday 01 Jan 2022)
+    2. running (300 cal) (Sunday 02 Jan 2022)
+__________________________________________________________________________________________
+```
+
 - `view` views all food and exercises in the list and their respective calories.
 
 ```text
@@ -322,9 +338,13 @@ Format:
 
 `delete e/LIST_NO.` deletes the n<sup>th</sup> item in the exercise list.
 
+`delete u/LIST_NO.` deletes the n<sup>th</sup> item in the upcoming exercise list.
+
 `delete f/all` deletes all the food items in the food list.
 
 `delete e/all` deletes all the exercise items in the exercise list.
+
+`delete u/all` deletes all the upcoming exercise items in the upcoming exercise list.
 
 ❗ `LIST_NO.` must be a positive integer within the range of the number of items in the list.
 
@@ -341,6 +361,12 @@ You have removed the exercise:
     hiit (290 cal)
 Number of exercise item(s) left: 1
 __________________________________________________________________________________________
+delete u/1
+__________________________________________________________________________________________
+An exercise item for the future has been deleted:
+    running (300 cal)
+Number of exercise item(s) left: 1
+__________________________________________________________________________________________
 delete f/all
 __________________________________________________________________________________________________________
 All food items have been removed.
@@ -348,6 +374,10 @@ ________________________________________________________________________________
 delete e/all
 __________________________________________________________________________________________________________
 All exercise items have been removed.
+__________________________________________________________________________________________________________
+delete u/all
+__________________________________________________________________________________________________________
+All future exercise items have been removed.
 __________________________________________________________________________________________________________
 ```
 
@@ -384,7 +414,21 @@ ________________________________________________________________________________
 
 ### Saving the data
 
-There is no need to save manually. Any updates made to the data will be automatically stored into the local drive and reloaded when *FitBot* is restarted.
+There is no need to save manually. Any updates made to the data will be automatically stored into the local drive and reloaded when *Fitbot* is restarted.
+
+### Editing the data file
+
+*Fitbot* data files are saved as .text files `<JAR file location>/data/<text file name>.txt`. \
+Advanced users are welcome to update data directly by editing the data files. \
+❗ If your changes to the data files format are invalid, *Fitbot* will skip the wrongly formatted line when it loads in the data.
+
+### FAQ
+
+**Q:** How do I transfer my data to another computer?\
+**A:** Zip the folder with *Fitbot* and its data files, and transfer to the new computer. Extract the zipped folder onto your new computer and follow steps 1, 4 and 5 in [Quick Start](#quick-start) to get your *Fitbot* running on your new computer.
+
+**Q:** How many profiles can I create?\
+**A:** *Fitbot* only supports having 1 profile. If you need to make any changes to your current profile, you can refer to [here](#updateview-the-profile-details-profile).
 
 ### Command Summary
 
