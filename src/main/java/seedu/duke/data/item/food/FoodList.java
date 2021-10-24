@@ -224,6 +224,9 @@ public class FoodList extends ItemList {
      * @return StringBuilder type string which contains food lists with different date and time
      */
     private StringBuilder extractFoodListByEachDateAndTimePeriod() {
+        if (getSize() == 0) {
+            return new StringBuilder();
+        }
         StringBuilder foodListInString = new StringBuilder(); //declares as StringBuilder for mutable String object
         for (int index = 0; index < internalItems.size(); index++) {
             LocalDate currentDate = internalItems.get(index).getDate();
