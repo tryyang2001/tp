@@ -1,3 +1,4 @@
+
 # Fitbot User Guide
 
 *Fitbot* is a **desktop app** that helps university students who are looking to **keep track of their calorie consumption and calorie output** with the speed and convenience of **command-line based** tools, especially in times of online school.
@@ -7,11 +8,14 @@
 [Features](#features)
 
 - [View help: `help`](#view-help-help)
-- [Update name: `name`](#update-name-name)
-- [Update height: `height`](#update-height-height)
-- [Update weight: `weight`](#update-weight-weight)
-- [Update net calorie goal: `goal`](#update-net-calorie-goal-goal)
-- [Update/View the profile details: `profile`](#updateview-the-profile-details-profile)
+- [View your profile details: `profile`](#view-the-profile-details-profile)
+  - [Updating your name](#update-name)
+  - [Updating your height](#update-height)
+  - [Updating your weight](#update-weight)
+  - [Updating your gender](#update-gender)
+  - [Updating your age](#update-age)
+  - [Updating your calorie goal](#update-calorie-goal)
+  - [Updating your activity level](#update-activity-factor)
 - [BMI calculator: `bmi`](#bmi-calculator-bmi)
 - [Add Exercise and Food Items: `add`](#add-exercise-and-food-items-add)
 - [View Exercise and Food Items: `view`](#view-exercise-and-food-items-view)
@@ -37,13 +41,13 @@ If successfully loaded, you will see this screen:
 
 ## **Features**
 
-ℹ️  ***Command Format***
+ℹ️ ***Command Format***
 
 - Commands are not case sensitive (e.g. `help`, `HELP`,`hElP` are all able to execute the `help` command)
 - Words in upper case (e.g. `UPPER_CASE`) are known as parameters; values to be provided by users
 - Parameters in square brackets are optional.
 
-  e.g. `bmi [h/HEIGHT_IN_CM w/WEIGHT_IN_KG]`  can be `bmi` or `bmi h/150 w/70`
+  e.g. `bmi [h/HEIGHT_IN_CM w/WEIGHT_IN_KG]` can be `bmi` or `bmi h/150 w/70`
 
 - The order of the parameters do not matter.
 
@@ -60,151 +64,97 @@ Format: `help`
 
 Example:
 
-```text
-help
-__________________________________________________________________________________________________________
-These are the available commands:
-Welcome to the help page.
-Below are the commands to get you started.
-More details could be found on: 
-https://tinyurl.com/fitbotUG
+```text  
+help  
+__________________________________________________________________________________________________________  
+These are the available commands:  
+Welcome to the help page.  
+Below are the commands to get you started.  
+More details could be found on: https://tinyurl.com/fitbotUG  
+  
+help -- Shows a list of commands and their usage with some examples.  
+  
+profile -- Inputs height of user in centimetres, weight of user in kg  
+ and name of user in test.goal -- Inputs net calorie goal of user in calorie.  
+bmi -- Calculates the BMI value based on the user's input height and weight.  
+add -- Adds food or exercise record to the current list.  
+view -- Views all the food and/or exercises added.  
+delete -- Deletes entry of food or exercise added.  
+bye -- Exits the program and save results from food and exercise items.  
+__________________________________________________________________________________________________________  
+```  
 
-help -- Shows a list of commands and their usage with some examples.
+### View the profile details: `profile`
 
-profile -- Inputs height of user in centimetres, weight of user in kg
-	      and name of user in test.
-goal -- Inputs net calorie goal of user in calorie.
-bmi -- Calculates the BMI value based on the user's input height and weight.
-add -- Adds food or exercise record to the current list.
-view -- Views all the food and/or exercises added.
-delete -- Deletes entry of food or exercise added.
-bye -- Exits the program and save results from food and exercise items.
-__________________________________________________________________________________________________________
-```
-
-### **Update name: `name`**
-
-Updates name of user.
-
-Format: `name NAME`
+Typing `profile` lets you view your name, height, weight, gender, age, calorie goal and activity factor.
 
 Example:
 
-- `name John`
-
 ```text
-name John
-__________________________________________________________________________________________
-Your name has been updated!
-Hello John!
-__________________________________________________________________________________________
-```
+profile 
+__________________________________________________________________________________________________________ 
+Hello hi! This is your profile: 
+*====================================== 
+	Name 				Lisa 
+	Height 				159cm 
+	Weight 				50.0kg 
+	Gender 				F 
+	Age 				21 
+	Calories goal 		1500 cal 
+	Activity factor 	2 
+======================================* 
+__________________________________________________________________________________________________________ 
+```  
 
-### **Update height:** `height`
+#### **Update name**
 
-Updates height of user in centimetres.
+Change your name with `profile n/NAME`
 
-Format: `height HEIGHT_IN_CM`
 
-- Records height of user.
+
+#### **Update height:**
+
+Change your height with `profile h/HEIGHT_IN_CM`.
 
 ❗ `HEIGHT_IN_CM` must be a positive number.
 
-Example:
 
-- `height 170`
 
-```text
-height 170
-__________________________________________________________________________________________
-Your height has been updated.
-Your height is 170.0cm.
-__________________________________________________________________________________________
-```
 
-### **Update weight:** `weight`
+#### **Update weight:**
 
-Updates weight of user in kilograms.
-
-Format: `weight WEIGHT_IN_KG`
-
-- Records weight of user.
+Change your weight with `profile w/WEIGHT_IN_KG`.
 
 ❗ `WEIGHT_IN_KG` must be a positive number.
 
-Example:
+#### Update gender:
 
-- `weight 65`
+Change your age with `profile s/GENDER`
 
-```text
-weight 65
-__________________________________________________________________________________________
-Your weight has been updated.
-Your weight is 65.0kg.
-__________________________________________________________________________________________
-```
+❗ `GENDER` must be either `M` or `F` (case insensitive).
 
-### Update net calorie goal: `goal`
+#### Update age:
 
-Updates net calorie goal of user.
+Change your age with `profile a/AGE`
 
-Format: `goal CALORIE_IN_CAL`
+❗ `AGE` must be a positive number.
 
-- Records net calorie goal of user.
+#### Update calorie goal
 
-❗`CALORIE_IN_CAL` must be an integer.
+Change your calorie goal with `profile g/GOAL_IN_CAL`
 
-Example:
+#### Update activity factor
 
-- `goal 2000`
+Change your activity factor with `profile x/ACTIVITY_FACTOR`
 
-```text
-goal 2000
-__________________________________________________________________________________________
-Your goal has been set!
-Current net calorie goal per day: 2000
-__________________________________________________________________________________________
-```
+❗ `ACTIVITY_FACTOR` must be a number between 1 and 5.
 
-💡  **Tip:** Use `profile` to add name, height, weight and calorie goal at the same time.
 
-### Update/View the profile details: `profile`
+💡 **Tip:** Use `profile n/NAME h/HEIGHT w/WEIGHT s/GENDER a/AGE g/CALORIE_GOAL x/ACTIVITY_FACTOR` to set all the attributes at once. You need at least one parameter and you can type it in _any_ order you'd like.
 
-Updates/Views the name, height, weight and the calorie goal values.
+_Format:_
+- `profile {n/NAME} {h/HEIGHT} {w/WEIGHT} {s/GENDER} {a/AGE} {g/CALORIE_GOAL} {x/ACTIVITY_FACTOR}`
 
-Format:
-
-`profile h/HEIGHT_IN_CM w/WEIGHT_IN_KG n/NAME g/CALORIE_IN_CAL`
-
-`profile`
-
-❗ `HEIGHT_IN_CM` and `WEIGHT_IN_KG` must be positive numbers.
-
-❗`CALORIE_IN_CAL` must be an integer.
-
-Example:
-
-- `profile n/John Doe w/65 /h170 g/2000` creates a profile with name John Doe of height 170cm and 65kg with a calorie goal of 2000 calories.
-- `profile` displays your profile details.
-
-```text
-profile n/John Doe w/65 h/170 g/2000
-
-__________________________________________________________________________________________________________
-Hello John Doe! Your profile has been created!
-    Your height is 170.0cm.
-    Your weight is 65.0kg.
-    Your calories goal is 2000 cal.
-__________________________________________________________________________________________________________
-profile
-__________________________________________________________________________________________________________
-Hello! This is your current profile:
-    Your name is John.
-    Your height is 170.0cm.
-    Your weight is 65.0kg.
-    Your calorie goal is 2000 cal.
-__________________________________________________________________________________________________________
-```
 
 ### **BMI calculator:** `bmi`
 
@@ -223,12 +173,18 @@ Example:
 - `bmi` calculates the BMI value based on the user's height and weight in his or her profile.
 - `bmi h/170 w/65` calculates the BMI value based on height 170cm and weight 65cm.
 
-```text
-bmi h/170 w/65
-__________________________________________________________________________________________
-Your BMI value is 22.5 (Healthy)
-__________________________________________________________________________________________
-```
+```text  
+bmi
+__________________________________________________________________________________________________________
+Your BMI value according to your current profile is:
+	15.5 (Underweight)
+__________________________________________________________________________________________________________
+
+bmi h/170 w/65  
+__________________________________________________________________________________________  
+The calculated BMI value is 20.1 (Healthy)
+__________________________________________________________________________________________  
+```  
 
 ### **Add** **Exercise and Food Items:** `add`
 
@@ -243,23 +199,21 @@ Examples:
 
 - `add f/chicken rice c/607` adds record of food consumed: chicken rice with 607 calories gained.
 
-```text
-add f/chicken rice c/607
-__________________________________________________________________________________________
-A food item has been added:
-    chicken rice (607 cal)
-__________________________________________________________________________________________
-```
+```text  
+add f/chicken rice c/607  
+__________________________________________________________________________________________  
+A food item has been added:  
+ chicken rice (607 cal)__________________________________________________________________________________________  
+```  
 
 - `add e/hiit c/290` adds record of exercise done: hiit with 290 calories burnt.
 
-```text
-add e/hiit c/290
-__________________________________________________________________________________________
-An exercise has been added:
-    hiit (290 cal)
-__________________________________________________________________________________________
-```
+```text  
+add e/hiit c/290  
+__________________________________________________________________________________________  
+An exercise has been added:  
+ hiit (290 cal)__________________________________________________________________________________________  
+```  
 
 ### **View** **Exercise and Food Items:** `view`
 
@@ -269,48 +223,36 @@ Format:
 
 - `view f/` views all the food and the calories added to the list.
 
-```text
-view f/
-__________________________________________________________________________________________
-You have consumed 4 food item(s):
-    1. chicken rice (607 cal)
-    2. yong tau foo (536 cal)
-    3. mcspicy alacarte (528 cal)
-    4. char kway teow (744 cal)
-Total calories consumed: 2415
-__________________________________________________________________________________________
-```
+```text  
+view f/  
+__________________________________________________________________________________________  
+You have consumed 4 food item(s):  
+ 1. chicken rice (607 cal) 2. yong tau foo (536 cal) 3. mcspicy alacarte (528 cal) 4. char kway teow (744 cal)Total calories consumed: 2415  
+__________________________________________________________________________________________  
+```  
 
 - `view e/` views all the exercises and the calories added to list.
 
-```text
-view e/
-__________________________________________________________________________________________
-You have done 2 exercise(s):
-    1. hiit (290 cal)
-    2. biking (500 cal)
-Total calories burnt: 790
-__________________________________________________________________________________________
-```
+```text  
+view e/  
+__________________________________________________________________________________________  
+You have done 2 exercise(s):  
+ 1. hiit (290 cal) 2. biking (500 cal)Total calories burnt: 790  
+__________________________________________________________________________________________  
+```  
 
 - `view` views all food and exercises in the list and their respective calories.
 
-```text
-view
-__________________________________________________________________________________________
-You have consumed 4 food item(s):
-    1. chicken rice (607 cal)
-    2. yong tau foo (536 cal)
-    3. mcspicy alacarte (528 cal)
-    4. char kway teow (744 cal)
-Total calories consumed: 2415
-
-You have done 2 exercise(s):
-    1. hiit (290 cal)
-    2. biking (500 cal)
-Total calories burnt: 790
-__________________________________________________________________________________________
-```
+```text  
+view  
+__________________________________________________________________________________________  
+You have consumed 4 food item(s):  
+ 1. chicken rice (607 cal) 2. yong tau foo (536 cal) 3. mcspicy alacarte (528 cal) 4. char kway teow (744 cal)Total calories consumed: 2415  
+  
+You have done 2 exercise(s):  
+ 1. hiit (290 cal) 2. biking (500 cal)Total calories burnt: 790  
+__________________________________________________________________________________________  
+```  
 
 ### **Delete** **Exercise and Food Items:** `delete`
 
@@ -328,28 +270,25 @@ Format:
 
 ❗ `LIST_NO.` must be a positive integer within the range of the number of items in the list.
 
-```text
-delete f/2
-__________________________________________________________________________________________
-A food item has been deleted:
-    yong tau foo (536 cal)
-    Number of food item(s) left: 3
-__________________________________________________________________________________________
-delete e/1
-__________________________________________________________________________________________
-You have removed the exercise:
-    hiit (290 cal)
-Number of exercise item(s) left: 1
-__________________________________________________________________________________________
-delete f/all
-__________________________________________________________________________________________________________
-All food items have been removed.
-__________________________________________________________________________________________________________
-delete e/all
-__________________________________________________________________________________________________________
-All exercise items have been removed.
-__________________________________________________________________________________________________________
-```
+```text  
+delete f/2  
+__________________________________________________________________________________________  
+A food item has been deleted:  
+ yong tau foo (536 cal) Number of food item(s) left: 3__________________________________________________________________________________________  
+delete e/1  
+__________________________________________________________________________________________  
+You have removed the exercise:  
+ hiit (290 cal)Number of exercise item(s) left: 1  
+__________________________________________________________________________________________  
+delete f/all  
+__________________________________________________________________________________________________________  
+All food items have been removed.  
+__________________________________________________________________________________________________________  
+delete e/all  
+__________________________________________________________________________________________________________  
+All exercise items have been removed.  
+__________________________________________________________________________________________________________  
+```  
 
 ### **Calculate net calories**: `overview`
 
@@ -357,16 +296,16 @@ Views the difference between the calories consumed and the calories lost (in cal
 
 Format: `overview`
 
-```text
-overview
-__________________________________________________________________________________________
-Your calorie gained from food is: 2415
-Your calorie lost from exercise is: 790
-Your net calorie intake is: 1625
-Your calorie goal is: 2000
-You are 375 cal away from your goal
-__________________________________________________________________________________________
-```
+```text  
+overview  
+__________________________________________________________________________________________  
+Your calorie gained from food is: 2415  
+Your calorie lost from exercise is: 790  
+Your net calorie intake is: 1625  
+Your calorie goal is: 2000  
+You are 375 cal away from your goal  
+__________________________________________________________________________________________  
+```  
 
 ### Exit the program: `bye`
 
@@ -374,13 +313,13 @@ Exits the program.
 
 Format: `bye`
 
-```text
-bye
-__________________________________________________________________________________________
-Exiting Fitbot....
-Bye! Hope to see you again soon!!
-__________________________________________________________________________________________
-```
+```text  
+bye  
+__________________________________________________________________________________________  
+Exiting Fitbot....  
+Bye! Hope to see you again soon!!  
+__________________________________________________________________________________________  
+```  
 
 ### Saving the data
 
@@ -388,8 +327,8 @@ There is no need to save manually. Any updates made to the data will be automati
 
 ### Command Summary
 
-| Action | Format | Examples |
-|---------|----------|-------|
+| Action | Format | Examples |  
+|---------|----------|-------|  
 add|`add f/ITEM c/CALORIE`  `add e/ITEM c/CALORIES` | `add f/chicken rice c/607`, `add e/hiit c/290`
 bmi|`bmi h/HEIGHT_IN_CM w/WEIGHT_IN_KG` `bmi`|`bmi h/170 w/65` , `bmi`
 bye|`bye`|
