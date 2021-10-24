@@ -338,7 +338,7 @@ At night:
 	1. roti prata x3 (507 cal) @ 23:50
 Total calories consumed in the day: 1651 cal
 ..........................................................................................................
-Total number of food consumed: 7
+Total number of food consumed in this week: 7
 Total calories consumed in this week: 3425 cal
 __________________________________________________________________________________________________________
 ```

@@ -21,7 +21,7 @@ public class FoodList extends ItemList {
     public static final String MESSAGE_NO_FOOD_IN_DATE_TIME =
             "There is no food item found by the given date and time period";
     public static final String MESSAGE_NO_FOOD_IN_DATE = "There is no food item found by the given date";
-    public static final String MESSAGE_TOTAL_FOOD_CONSUMED_PER_WEEK = "Total number of food consumed: %d";
+    public static final String MESSAGE_TOTAL_FOOD_CONSUMED_PER_WEEK = "Total number of food consumed in this week: %d";
 
     /**
      * Default constructor for food list.
