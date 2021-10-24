@@ -35,7 +35,7 @@ public class EditExerciseBankCommand extends Command {
     public CommandResult execute() {
         if (super.exerciseBank.getSize() == 0) {
             logger.log(Level.WARNING, "Exercise bank list is empty.");
-            return new CommandResult(MESSAGE_EMPTY_FOOD_BANK);
+            return new CommandResult(MESSAGE_EMPTY_EXERCISE_BANK);
         }
         try {
             if (!this.newName.equals(NULL_STRING)) {

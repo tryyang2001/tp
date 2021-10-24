@@ -1,7 +1,31 @@
 # Fitbot User Guide
 
-*Fitbot* is a **desktop app** that helps university students who are looking to **keep track of their calorie consumption and calorie output** with the speed and convenience of **command-line based** tools, especially in times of online school.
+##Introducing _Fitbot_ 
+_Fitbot_ is a **desktop app** that helps university students who are looking to 
+**keep track of their calorie consumption and calorie output** with the speed and convenience of 
+**command-line based** tools, especially in times of online school. 
 
+_Fitbot_ can be used across all operating systems such as Windows, Mac OS X, Linux and Unix. 
+
+If you need an easy and fast way to record your calories, _Fitbot_ is the app for you! 💪💯
+
+##About This User Guide
+Welcome to the _Fitbot_ User Guide! \ This guide explains how you can use all the features available on _Fitbot_ and
+maximise your user experience. \
+
+
+Throughout this guide, we will be using some special formatting and symbols to bring your attention to certain aspects:
+
+**abc**: Text that has been **bolded** indicates that it is important. \
+`abc`: Text with a grey highlight indicates that it is a code that can be typed by you into the command line or shown from _Fitbot_.\
+ℹ️: This symbol indicates important information. \
+❗: This symbol indicates **important** rules to follow. Make sure you pay extra attention to the information, else _Fitbot_ will fail to execute certain functions! \
+💡: This symbol indicates tips and tricks that you can use to make your _Fitbot_ experience even smoother. 
+
+
+
+
+##Content Page
 [Quick Start](#quick-start)
 
 [Features](#features)
@@ -27,8 +51,8 @@
 1. Ensure you have Java 11 or above installed in your computer.  If not, install Java 11 [here](https://www.oracle.com/java/technologies/downloads/).
 2. Download the latest version of [Fitbot.jar](https://github.com/AY2122S1-CS2113T-F14-2/tp/releases/tag/v1.0) from the cloud.
 3. Copy the file to the folder you want to use as the home folder for your *FitBot*.
-4. Go to command prompt and change the directory to the file's location.
-5. Type `java -jar FitBot_v1.0.jar` into the command prompt and press enter to start the program.
+4. Go to command prompt and change the directory to the file's location. [Not sure how to do this?](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)
+5. Type `java -jar FitBot.jar` into the command prompt and press enter to start the program.
 
 If successfully loaded, you will see this screen:
 
@@ -39,8 +63,8 @@ If successfully loaded, you will see this screen:
 
 ℹ️  ***Command Format***
 
-- Commands are not case sensitive (e.g. `help`, `HELP`,`hElP` are all able to execute the `help` command)
-- Words in upper case (e.g. `UPPER_CASE`) are known as parameters; values to be provided by users
+- Commands are not case-sensitive (e.g. `help`, `HELP`,`hElP` are all able to execute the `help` command)
+- Words in upper case (e.g. `UPPER_CASE`) are known as parameters. These are values that _Fitbot_ expects you to provide.
 - Parameters in square brackets are optional.
 
   e.g. `bmi [h/HEIGHT_IN_CM w/WEIGHT_IN_KG]`  can be `bmi` or `bmi h/150 w/70`
@@ -49,8 +73,8 @@ If successfully loaded, you will see this screen:
 
   e.g. `add f/potato c/200` or `add c/200 f/potato` both adds a food item called "potato" with 200 calories.
 
-
-❗ Please do not use the characters `/` and `|` in your input!
+`
+❗ Please do not use the characters `/` and `|` in your input other than to specify parameters!
 
 ### **View help:** `help`
 
@@ -350,6 +374,31 @@ ________________________________________________________________________________
 All exercise items have been removed.
 __________________________________________________________________________________________________________
 ```
+
+### **Edit items**: `edit`
+Edit any record of items that you have previously entered into the food bank, exercise bank or upcoming exercise list.
+Format:
+
+- `edit fbank/LIST_NO. [n/NEW_NAME] [c/NEW_CALORIES]` edits the n<sup>th</sup> item in the food list.
+
+- `edit ebank/LIST_NO. [n/NEW_NAME] [c/NEW_CALORIES]` edits the n<sup>th</sup> item in the exercise list.
+
+- `edit u/LIST_NO. [n/NEW_NAME] [c/NEW_CALORIES] [d/NEW_DATE]` edits the n<sup>th</sup> item in the exercise list.
+
+  - ❗ `NEW_DATE` must be a date greater than today.
+
+❗ `LIST_NO.` must be a positive integer within the range of the number of items in the list. \
+❗ While all the parameters are optional, please specify **at least one** parameter so that _Fitbot_ knows which attribute you would like to update.
+
+```
+edit fbank/1 c/50
+__________________________________________________________________________________________________________
+Food bank item number 1 has been changed to:
+  potato (50 cal)
+__________________________________________________________________________________________________________
+````
+
+
 
 ### **Calculate net calories**: `overview`
 
