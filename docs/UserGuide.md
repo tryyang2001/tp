@@ -4,6 +4,8 @@
 
 [Quick Start](#quick-start)
 
+[Create Profile](#create-profile)
+
 [Features](#features)
 
 - [View help: `help`](#view-help-help)
@@ -34,7 +36,7 @@ If successfully loaded, you will see this logo:
 
 ![Untitled](./images/StartupLogo.png)
 
-## **Create Profile**
+## Create Profile
 
 Fitbot will detect if there is a profile present in the application. If you have not set up a profile,
 Fitbot will ask you for your particulars.

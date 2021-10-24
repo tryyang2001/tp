@@ -12,7 +12,6 @@ import java.util.logging.Logger;
  */
 public class Ui {
 
-
     public static final String TAB = "\t";
     public static final String DIVIDER = "___________________________________________"
             + "_______________________________________________________________";
@@ -31,17 +30,15 @@ public class Ui {
             + LS
             + " |_|    |_|\\__|_.__/ \\___/ \\__|";
     public static final String QUOTATION = "\"";
-    public static final String MESSAGE_WELCOME = "Welcome to Fitbot, a desktop app that helps university students"
-            + " who are looking to keep track of their calories.";
-    public static final String MESSAGE_DIRECT_HELP = "Please type a command to start or view the list of "
+    public static final String MESSAGE_WELCOME = "Welcome to Fitbot!" +
+            " Fitbot is here to help you to keep track of your calories.";
+    public static final String MESSAGE_DIRECT_HELP = "You can start by typing a command or view the list of "
             + "available commands by typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + ".";
-    public static final String MESSAGE_FIX_PROFILE = "It seems that some of your profile attribute are missing.\n"
-            + "Please follow the inputs needed so that your profile will be complete.";
-    public static final String MESSAGE_NEW_PROFILE = "Hi user, before you proceed with the application, we would like"
-            + " you to complete the profile.\n"
-            + "Follow the instructions and key in the necessary information when prompted.\n"
-            + "Note please complete your profile before exiting so that we can store your profile data.";
-
+    public static final String MESSAGE_FIX_PROFILE = "Fitbot realised that some of your profile "
+            + "attributes are missing.\n"
+            + "Please follow the guide below so that your profile can be complete.";
+    public static final String MESSAGE_NEW_PROFILE = "Fitbot realised that your profile has not been created."
+            + "Let's start creating profile below!";
 
     private Scanner scanner;
 
@@ -50,7 +47,7 @@ public class Ui {
         this.printStartApplicationPage();
     }
 
-    public String getUserInput() {  //To be moved into UI
+    public String getUserInput() {
         return scanner.nextLine();
     }
 
@@ -66,9 +63,8 @@ public class Ui {
         for (String message : messages) {
             System.out.println(message);
         }
-        System.out.println(DIVIDER);
+        System.out.println(DIVIDER + '\n');
     }
-
 
     public void printStartApplicationPage() {
         logger.log(Level.FINE, "start of application");

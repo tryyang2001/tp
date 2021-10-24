@@ -21,7 +21,8 @@ public class Profile {
     private static final String INDENTED_LS = LS + TAB;
 
     public static final int NON_POSITIVE_LIMIT = 0;
-    public static final String ERROR_NAME = "Name cannot contain '/' of '|' .";
+    public static final String ERROR_NAME = "Try not to use / and | in your name as it can make our commands invalid.\n" +
+            "Maybe you can replace them with \\ or - and try again:";
     public static final String ERROR_HEIGHT = "Height cannot be less than or equal to 0." + LS
             + "Try a positive value instead!";
     public static final String ERROR_WEIGHT = "Weight cannot be less than or equal to 0." + LS
