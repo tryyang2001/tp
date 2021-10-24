@@ -4,6 +4,7 @@ import seedu.duke.commands.ByeCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
 import seedu.duke.item.bank.ItemBank;
+import seedu.duke.item.exercise.Exercise;
 import seedu.duke.item.exercise.ExerciseList;
 import seedu.duke.item.exercise.FutureExerciseList;
 import seedu.duke.item.food.FoodList;
@@ -21,6 +22,8 @@ import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Ui;
+
+import java.time.LocalDate;
 
 
 /**
@@ -57,16 +60,17 @@ public class Main {
     /**
      * Entry point of the application.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnableToWriteFileException {
         new Main().run(args);
     }
 
     /**
      * Runs the application until command is given to exit it.
      **/
-    private void run(String[] args) {
+    private void run(String[] args) throws UnableToWriteFileException {
         start();
         checkAndCreateProfile();
+        loadsFutureExercisesToList();
         enterTaskModeUntilByeCommand();
         exit();
     }
@@ -369,6 +373,28 @@ public class Main {
             CommandResult result = executeCommand(command);
             ui.formatMessageFramedWithDivider(result.toString());
         } while (!ByeCommand.isBye(command));
+    }
+
+    /**
+     * Check whether the dates of the exercises in the future exercise list have passed.
+     * If the dates have passed, move the exercises in the exercise list.
+     */
+    private void loadsFutureExercisesToList() throws UnableToWriteFileException {
+        int index = 0;
+        LocalDate today = LocalDate.now();
+        if (futureExerciseItems.getSize() != 0) {
+            while (futureExerciseItems.getItem(index).getDate().isBefore(today)
+                    || futureExerciseItems.getItem(index).getDate().isEqual(today)) {
+                System.out.println(today);
+                String name = futureExerciseItems.getItem(index).getName();
+                int calories = futureExerciseItems.getItem(index).getCalories();
+                LocalDate date = futureExerciseItems.getItem(index).getDate();
+                exerciseItems.addItem(new Exercise(name, calories, date));
+                futureExerciseItems.deleteItem(index);
+                storageManager.saveExerciseList(exerciseItems);
+                storageManager.saveFutureExerciseList(futureExerciseItems);
+            }
+        }
     }
 
     /**
