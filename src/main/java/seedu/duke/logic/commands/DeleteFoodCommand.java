@@ -60,9 +60,8 @@ public class DeleteFoodCommand extends Command {
         }
         logger.log(Level.FINE, "Trying to delete item now");
         try {
-            //TODO: Implement delete by date and index
             Food deletedFood;
-            deletedFood = super.foodItems.deleteItem(this.itemIndex);
+            deletedFood = super.foodItems.deleteItem(this.itemIndex, this.date, this.time);
             return new CommandResult(String.format(MESSAGE_SUCCESS, deletedFood, super.foodItems.getSize()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.FINE, "Detected invalid food item index.");

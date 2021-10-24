@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 
 public class FoodList extends ItemList {
     public static final String MESSAGE_FOOD_CONSUMED = "You have consumed %d food item(s) on %s (%s):";
-    public static final String MESSAGE_TOTAL_CALORIE_CONSUMED = "Total calories consumed: %d cal";
+    public static final String MESSAGE_TOTAL_CALORIE_CONSUMED_PER_DAY = "Total calories consumed in the day: %d cal";
+    public static final String MESSAGE_TOTAL_CALORIE_CONSUMED_PER_WEEK = "Total calories consumed in this week: %d cal";
     public static final String MESSAGE_MORNING = "In the morning:";
     public static final String MESSAGE_AFTERNOON = "In the afternoon:";
     public static final String MESSAGE_EVENING = "In the evening:";
@@ -20,22 +21,13 @@ public class FoodList extends ItemList {
     public static final String MESSAGE_NO_FOOD_IN_DATE_TIME =
             "There is no food item found by the given date and time period";
     public static final String MESSAGE_NO_FOOD_IN_DATE = "There is no food item found by the given date";
+    public static final String MESSAGE_TOTAL_FOOD_CONSUMED_PER_WEEK = "Total number of food consumed: %d";
 
     /**
      * Default constructor for food list.
      */
     public FoodList() {
         internalItems = new ArrayList<>();
-    }
-
-    /**
-     * Deletes a food item according to its index number.
-     *
-     * @param index The index of the food item
-     */
-    //TODO: remove this method after changing code in DeleteFoodCommand.
-    public Food deleteItem(int index) {
-        return (Food) internalItems.remove(index);
     }
 
     /**
@@ -185,7 +177,7 @@ public class FoodList extends ItemList {
         convertTotalCaloriesToString(
                 foodListInString,
                 subList.stream().mapToInt(Item::getCalories).sum(),
-                MESSAGE_TOTAL_CALORIE_CONSUMED);
+                MESSAGE_TOTAL_CALORIE_CONSUMED_PER_DAY);
     }
 
     /**
@@ -240,17 +232,19 @@ public class FoodList extends ItemList {
                 subList.addItem(internalItems.get(index++));
             }
             assert subList.getSize() > 0 : "Sub list should not be empty.";
+            foodListInString.append(ITEM_LIST_DIVIDER).append(LS);
             convertItemCountToString(foodListInString, subList.getSize(), currentDate, MESSAGE_FOOD_CONSUMED);
             separateDifferentTimePeriodFoodList(foodListInString, subList);
             convertTotalCaloriesToString(
                     foodListInString,
                     this.getTotalCaloriesWithDate(currentDate),
-                    MESSAGE_TOTAL_CALORIE_CONSUMED);
-            if (index < internalItems.size()) {
-                foodListInString.append(ItemList.LS); //prevents last line spacing
-            }
+                    MESSAGE_TOTAL_CALORIE_CONSUMED_PER_DAY);
             index--; //prevents double adding of index
         }
+        foodListInString.append(ITEM_LIST_DIVIDER).append(LS);
+        foodListInString.append(String.format(MESSAGE_TOTAL_FOOD_CONSUMED_PER_WEEK, getSize())).append(LS);
+        foodListInString.append(String.format(MESSAGE_TOTAL_CALORIE_CONSUMED_PER_WEEK, getTotalCalories()));
+        foodListInString.append(LS);
         return foodListInString;
     }
 
@@ -346,7 +340,7 @@ public class FoodList extends ItemList {
         convertTotalCaloriesToString(
                 foodListInString,
                 this.getTotalCaloriesWithDate(date),
-                MESSAGE_TOTAL_CALORIE_CONSUMED);
+                MESSAGE_TOTAL_CALORIE_CONSUMED_PER_DAY);
         return foodListInString;
     }
 }
