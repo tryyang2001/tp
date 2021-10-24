@@ -23,7 +23,9 @@ public class ProfileDecoder {
         Scanner in = new Scanner(file);
 
         try {
-            return decodeProfileDataFromString(in.nextLine());
+            if (in.hasNext()) {
+                return decodeProfileDataFromString(in.nextLine());
+            }
         } catch (InvalidDataException e) {
             System.out.println(e.getMessage());
         }
