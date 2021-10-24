@@ -1,4 +1,4 @@
-package seedu.duke.storage.data.food;
+package seedu.duke.storage.data.food.foodbank;
 
 import seedu.duke.data.item.ItemBank;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
@@ -7,7 +7,7 @@ import seedu.duke.storage.exceptions.UnableToWriteFileException;
 /**
  * Interface that ensures the storage device has a load and save food bank method.
  */
-public interface FoodBankInterface {
+public interface FoodBankStorageInterface {
 
     /**
      * Loads the food bank file from data storage.

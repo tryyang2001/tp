@@ -2,16 +2,14 @@ package seedu.duke.storage.data.profile;
 
 import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
-import seedu.duke.storage.Decoder;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.logging.Level;
 
-public class ProfileDecoder extends Decoder {
+public class ProfileDecoder {
 
     /**
      * Retrieves profile data from profile.txt
@@ -20,12 +18,11 @@ public class ProfileDecoder extends Decoder {
      * @throws FileNotFoundException          If the file is misplaced/missing
      * @throws InvalidCharacteristicException When the data is corrupted in the file.
      */
-    public static Profile getProfileFromData(String path) throws FileNotFoundException {
-        File file = new File(path);
+    public static Profile retrieveProfileFromData(String filePath) throws FileNotFoundException {
+        File file = new File(filePath);
         Scanner in = new Scanner(file);
 
         try {
-            logger.log(Level.FINE, "Retrieving profile file.");
             return decodeProfileDataFromString(in.nextLine());
         } catch (InvalidDataException e) {
             System.out.println(e.getMessage());
@@ -37,7 +34,7 @@ public class ProfileDecoder extends Decoder {
     private static Profile decodeProfileDataFromString(String input) throws InvalidDataException {
         try {
             Profile profile = new Profile();
-            final String[] profileDetails = input.split(FILE_TEXT_DELIMITER);
+            final String[] profileDetails = input.split(StorageManager.FILE_TEXT_DELIMITER);
             final String name = profileDetails[0];
             final double height = Double.parseDouble(profileDetails[1]);
             final double weight = Double.parseDouble(profileDetails[2]);

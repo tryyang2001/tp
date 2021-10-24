@@ -33,7 +33,7 @@ public class ProfileStorage extends Storage implements ProfileStorageInterface {
 
     private Profile readFromProfileFile() throws UnableToReadFileException {
         try {
-            return ProfileDecoder.getProfileFromData(filePath);
+            return ProfileDecoder.retrieveProfileFromData(filePath);
         } catch (FileNotFoundException e) {
             throw new UnableToReadFileException(fileName);
         }

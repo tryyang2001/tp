@@ -1,8 +1,8 @@
-package seedu.duke.storage.data.food;
+package seedu.duke.storage.data.food.foodbank;
 
 import seedu.duke.data.item.ItemBank;
 import seedu.duke.storage.Storage;
-import seedu.duke.storage.data.ItemBankEncoder;
+import seedu.duke.storage.data.ItemEncoder;
 import seedu.duke.storage.data.ItemBankDecoder;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
@@ -16,7 +16,7 @@ import java.util.logging.Level;
 /**
  * A Storage class that handles the saving and loading of the FoodBank.
  */
-public class FoodBankStorage extends Storage implements FoodBankInterface {
+public class FoodBankStorage extends Storage implements FoodBankStorageInterface {
 
     public static final String TYPE = "Food";
 
@@ -47,6 +47,6 @@ public class FoodBankStorage extends Storage implements FoodBankInterface {
 
     @Override
     public void saveFoodBank(ItemBank foodBank) throws UnableToWriteFileException {
-        FileSaver.saveToFile(filePath, ItemBankEncoder.encode(foodBank));
+        FileSaver.saveToFile(filePath, ItemEncoder.encode(foodBank));
     }
 }

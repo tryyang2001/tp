@@ -1,11 +1,10 @@
 package seedu.duke.storage.data;
 
 import seedu.duke.data.item.ItemBank;
-import seedu.duke.storage.Encoder;
 
 import java.util.ArrayList;
 
-public class ItemBankEncoder {
+public class ItemEncoder {
     /**
      * Encodes the list of items in the item bank in preparation for storage.
      *

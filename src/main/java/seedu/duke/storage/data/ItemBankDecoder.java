@@ -5,8 +5,8 @@ import seedu.duke.data.item.exceptions.DuplicateItemInBankException;
 import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.data.item.food.Food;
 import seedu.duke.storage.StorageManager;
-import seedu.duke.storage.data.exercise.ExerciseBankStorage;
-import seedu.duke.storage.data.food.FoodBankStorage;
+import seedu.duke.storage.data.exercise.exercisebank.ExerciseBankStorage;
+import seedu.duke.storage.data.food.foodbank.FoodBankStorage;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
@@ -29,8 +29,13 @@ public class ItemBankDecoder {
     public static ItemBank retrieveDataFromItemBank(String filePath,
                                                     String type) throws FileNotFoundException {
         ItemBank items = new ItemBank();
-        File file = new File(StorageManager.FILEPATH_BANK_FOOD);
+        File file = new File(filePath);
         Scanner in = new Scanner(file);
+        decodeItems(type, items, in);
+        return items;
+    }
+
+    private static void decodeItems(String type, ItemBank items, Scanner in) {
         while (in.hasNext()) {
             try {
                 decodeFoodBankDataFromString(items, in.nextLine(), type);
@@ -38,7 +43,6 @@ public class ItemBankDecoder {
                 System.out.println(e.getMessage());
             }
         }
-        return items;
     }
 
     private static void decodeFoodBankDataFromString(ItemBank items, String line,
