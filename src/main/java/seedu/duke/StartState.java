@@ -18,7 +18,8 @@ public class StartState {
     private Profile profile;
     private StorageManager storageManager;
     private Ui ui;
-    StartState (Profile profile,StorageManager storageManager,Ui ui){
+
+    public StartState(Profile profile, StorageManager storageManager, Ui ui) {
         this.profile = profile;
         this.storageManager = storageManager;
         this.ui = ui;
@@ -34,8 +35,7 @@ public class StartState {
     public static final String MESSAGE_INTRO_AGE = "Please input your age.";
     public static final String MESSAGE_INTRO_GENDER = "Please input your gender below. M for male, F for female.";
     public static final String MESSAGE_INTRO_WEIGHT = "Please input your weight(in kg) below.";
-    public static final String MESSAGE_INTRO_NAME = "What's your name?"
-            + "Note that '/' and '|' inside name are invalid.";
+    public static final String MESSAGE_INTRO_NAME = "What's your name?";
     public static final String MESSAGE_INTRO_HEIGHT = "Please input your height(in cm).";
     public static final String MESSAGE_CREATE_PROFILE_SUCCESSFUL = "Profile created successfully";
     public static final String MESSAGE_INTRO_ACTIVITY_FACTOR = "Please input your activity factor based on "
@@ -285,7 +285,7 @@ public class StartState {
                     ? printMessage("name") : profile.ERROR_NAME;
             ui.formatMessageFramedWithDivider(messageValidAttribute);
         }
-        assert newProfile.getProfileName().isValid(): " name is valid";
+        assert newProfile.getProfileName().isValid() : " name is valid";
     }
 
     /**

@@ -30,8 +30,8 @@ public class Ui {
             + LS
             + " |_|    |_|\\__|_.__/ \\___/ \\__|";
     public static final String QUOTATION = "\"";
-    public static final String MESSAGE_WELCOME = "Welcome to Fitbot!" +
-            " Fitbot is here to help you to keep track of your calories.";
+    public static final String MESSAGE_WELCOME = "Welcome to Fitbot!"
+            + " Fitbot is here to help you to keep track of your calories.";
     public static final String MESSAGE_DIRECT_HELP = "You can start by typing a command or view the list of "
             + "available commands by typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + ".";
     public static final String MESSAGE_FIX_PROFILE = "Fitbot realised that some of your profile "

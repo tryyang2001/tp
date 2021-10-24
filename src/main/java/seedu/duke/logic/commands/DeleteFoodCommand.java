@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  */
 public class DeleteFoodCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_DELETE
-            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "INDEX " +COMMAND_PREFIX_DATE
+            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "INDEX " + COMMAND_PREFIX_DATE
             + COMMAND_PREFIX_DELIMITER + "DATE_IN_DD-MM-YYYY " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_DELIMITER
             + "TIME_IN_HHmm" + QUOTATION + ", where INDEX is the item number in the food list";
     public static final String MESSAGE_SUCCESS = "A food item has been deleted:"
