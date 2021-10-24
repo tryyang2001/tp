@@ -30,10 +30,18 @@
 4. Go to command prompt and change the directory to the file's location.
 5. Type `java -jar FitBot_v1.0.jar` into the command prompt and press enter to start the program.
 
-If successfully loaded, you will see this screen:
+If successfully loaded, you will see this logo:
 
-![Untitled](https://user-images.githubusercontent.com/69421979/137489537-ef18d425-95ae-4e41-b5d6-752e665728b9.png)
+![Untitled](./images/StartupLogo.png)
 
+## **Create Profile**
+
+Fitbot will detect if there is a profile present in the application. If you have not set up a profile,
+Fitbot will ask you for your particulars.
+
+Particulars required includes name, height, weight, age, gender, calorie goal and activity factor.
+
+After setting up the profile, you can start recording your food and exercises with the commands below.
 
 ## **Features**
 
@@ -58,29 +66,6 @@ Shows a list of commands and their usage.
 
 Format: `help`
 
-Example:
-
-```text
-help
-__________________________________________________________________________________________________________
-These are the available commands:
-Welcome to the help page.
-Below are the commands to get you started.
-More details could be found on: 
-https://tinyurl.com/fitbotUG
-
-help -- Shows a list of commands and their usage with some examples.
-
-profile -- Inputs height of user in centimetres, weight of user in kg
-	      and name of user in test.
-goal -- Inputs net calorie goal of user in calorie.
-bmi -- Calculates the BMI value based on the user's input height and weight.
-add -- Adds food or exercise record to the current list.
-view -- Views all the food and/or exercises added.
-delete -- Deletes entry of food or exercise added.
-bye -- Exits the program and save results from food and exercise items.
-__________________________________________________________________________________________________________
-```
 
 ### **Update name: `name`**
 
@@ -353,18 +338,51 @@ ________________________________________________________________________________
 
 ### **Calculate net calories**: `overview`
 
-Views the difference between the calories consumed and the calories lost (in cal).
+Views the summary of the calories gained from food, calories burnt from exercises as well as
+net calories after including BMR.
 
 Format: `overview`
 
 ```text
 overview
 __________________________________________________________________________________________
-Your calorie gained from food is: 2415
-Your calorie lost from exercise is: 790
-Your net calorie intake is: 1625
-Your calorie goal is: 2000
-You are 375 cal away from your goal
+-*OVERVIEW*-
+Hi 0.001, this is your calorie summary for the week.
+
+Food:
+You have consumed 0 cal this week from 18-Oct to 24-Oct.
+Calorie gained from food (Daily)
+18-Oct       0
+19-Oct       0
+20-Oct       0
+21-Oct       0
+22-Oct       0
+23-Oct       0
+24-Oct       0
+You have lost 0 cal from exercising for the last 7 days.
+Calorie burnt from exercise (Daily)
+18-Oct       0
+19-Oct       0
+20-Oct       0
+21-Oct       0
+22-Oct       0
+23-Oct       0
+24-Oct       0
+
+Daily net calories**:
+18-Oct :   927
+19-Oct :   927
+20-Oct :   927
+21-Oct :   927
+22-Oct :   927
+23-Oct :   927
+24-Oct :   927
+
+
+Number of supper meals this week: 0
+
+ ** The net calorie calculation includes calories gained from food, calories burnt from exercises
+  and daily normal activities (using BMR). All calculations used the latest values from updated in profile.
 __________________________________________________________________________________________
 ```
 
