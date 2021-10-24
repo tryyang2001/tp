@@ -1,7 +1,7 @@
 package seedu.duke.storage.profile;
 
-import seedu.duke.profile.Profile;
-import seedu.duke.profile.exceptions.InvalidCharacteristicException;
+import seedu.duke.data.profile.Profile;
+import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;

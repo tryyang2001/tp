@@ -1,9 +1,9 @@
 package seedu.duke.food;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.item.food.Food;
-import seedu.duke.item.food.FoodList;
-import seedu.duke.item.food.TimePeriod;
+import seedu.duke.data.item.food.Food;
+import seedu.duke.data.item.food.FoodList;
+import seedu.duke.data.item.food.TimePeriod;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
