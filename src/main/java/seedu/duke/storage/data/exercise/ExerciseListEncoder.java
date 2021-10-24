@@ -1,11 +1,9 @@
-package seedu.duke.storage.lists.exerciselist;
+package seedu.duke.storage.data.exercise;
 
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.storage.Encoder;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ExerciseListEncoder extends Encoder {
 

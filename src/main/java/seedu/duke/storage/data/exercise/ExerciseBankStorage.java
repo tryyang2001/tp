@@ -1,7 +1,8 @@
-package seedu.duke.storage.banks;
+package seedu.duke.storage.data.exercise;
 
 import seedu.duke.data.item.ItemBank;
-import seedu.duke.storage.Storage;
+import seedu.duke.storage.StorageOld;
+import seedu.duke.storage.data.ItemBankEncoder;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
@@ -9,13 +10,15 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-public class ExerciseBankStorage extends Storage {
+public class ExerciseBankStorage extends StorageOld {
+
+    public static final String TYPE = "Exercise";
 
     public static final String FILENAME_BANK_EXERCISE = "exercise_bank.txt";
     public static final String FILEPATH_BANK_EXERCISE = FILEPATH + FILENAME_BANK_EXERCISE;
 
     private ExerciseBankDecoder decoder = new ExerciseBankDecoder();
-    private BankEncoder encoder = new BankEncoder();
+    private ItemBankEncoder encoder = new ItemBankEncoder();
 
     public ItemBank loadExerciseBankFile() throws UnableToReadFileException {
         checkForFile(FILEPATH_BANK_EXERCISE);
@@ -32,7 +35,7 @@ public class ExerciseBankStorage extends Storage {
     }
 
     public void saveExerciseBank(ItemBank exerciseBank) throws UnableToWriteFileException {
-        ArrayList<String> exerciseBankList = new BankEncoder().encodeItemBank(exerciseBank);
+        ArrayList<String> exerciseBankList = ItemBankEncoder.encode(exerciseBank);
         writeToFile(exerciseBankList, FILEPATH_BANK_EXERCISE);
     }
 }

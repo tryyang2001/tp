@@ -1,10 +1,12 @@
-package seedu.duke.storage.profile;
+package seedu.duke.storage.data.profile;
 
 import seedu.duke.data.profile.Profile;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
-
+/**
+ * Interface that ensures the storage device has a load and save profile method.
+ */
 public interface ProfileStorageInterface {
     /**
      * Loads the profile file from data storage.

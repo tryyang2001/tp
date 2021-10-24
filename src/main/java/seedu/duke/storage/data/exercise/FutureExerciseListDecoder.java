@@ -1,4 +1,4 @@
-package seedu.duke.storage.lists.exerciselist;
+package seedu.duke.storage.data.exercise;
 
 import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.data.item.exercise.FutureExerciseList;

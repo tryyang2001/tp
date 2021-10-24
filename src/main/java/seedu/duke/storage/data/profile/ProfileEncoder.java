@@ -1,4 +1,4 @@
-package seedu.duke.storage.profile;
+package seedu.duke.storage.data.profile;
 
 import seedu.duke.data.profile.Profile;
 

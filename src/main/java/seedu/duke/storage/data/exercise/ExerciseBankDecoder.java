@@ -1,4 +1,4 @@
-package seedu.duke.storage.banks;
+package seedu.duke.storage.data.exercise;
 
 import seedu.duke.data.item.ItemBank;
 import seedu.duke.data.item.exceptions.DuplicateItemInBankException;
@@ -11,16 +11,16 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-public class FoodBankDecoder extends Decoder {
+public class ExerciseBankDecoder extends Decoder {
 
-    public ItemBank getFoodBankFromData() throws FileNotFoundException {
+    public ItemBank getExerciseBankFromData() throws FileNotFoundException {
         ItemBank items = new ItemBank();
-        File file = new File(FoodBankStorage.FILEPATH_BANK_FOOD);
+        File file = new File(ExerciseBankStorage.FILEPATH_BANK_EXERCISE);
         Scanner in = new Scanner(file);
         logger.log(Level.FINE, "Decoding item bank data from file...");
         while (in.hasNext()) {
             try {
-                decodeFoodBankDataFromString(items, in.nextLine());
+                decodeExerciseBankDataFromString(items, in.nextLine());
             } catch (InvalidDataException e) {
                 System.out.println(e.getMessage());
             }
@@ -29,7 +29,7 @@ public class FoodBankDecoder extends Decoder {
         return items;
     }
 
-    private void decodeFoodBankDataFromString(ItemBank items, String line) throws InvalidDataException {
+    private void decodeExerciseBankDataFromString(ItemBank items, String line) throws InvalidDataException {
         try {
             final String[] itemDetails = line.split(FILE_TEXT_DELIMITER);
             final String name = itemDetails[1];
@@ -38,7 +38,7 @@ public class FoodBankDecoder extends Decoder {
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException
                 | DuplicateItemInBankException e) {
             logger.log(Level.WARNING, "A line in item bank is not valid.", line);
-            throw new InvalidDataException(FoodBankStorage.FILENAME_BANK_FOOD, line);
+            throw new InvalidDataException(ExerciseBankStorage.FILENAME_BANK_EXERCISE, line);
         }
     }
 }
