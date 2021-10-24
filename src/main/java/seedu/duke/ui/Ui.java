@@ -1,6 +1,6 @@
 package seedu.duke.ui;
 
-import seedu.duke.commands.HelpCommand;
+import seedu.duke.logic.commands.HelpCommand;
 
 import java.util.Scanner;
 import java.util.logging.Level;

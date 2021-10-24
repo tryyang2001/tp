@@ -1,8 +1,8 @@
 package seedu.duke.storage.banks;
 
-import seedu.duke.item.bank.ItemBank;
-import seedu.duke.item.bank.exceptions.DuplicateItemInBankException;
-import seedu.duke.item.food.Food;
+import seedu.duke.data.item.ItemBank;
+import seedu.duke.data.item.exceptions.DuplicateItemInBankException;
+import seedu.duke.data.item.food.Food;
 import seedu.duke.storage.Decoder;
 import seedu.duke.storage.exceptions.InvalidDataException;
 

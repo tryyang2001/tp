@@ -1,7 +1,7 @@
 package seedu.duke.storage.lists.exerciselist;
 
-import seedu.duke.item.exercise.Exercise;
-import seedu.duke.item.exercise.FutureExerciseList;
+import seedu.duke.data.item.exercise.Exercise;
+import seedu.duke.data.item.exercise.FutureExerciseList;
 import seedu.duke.storage.Decoder;
 import seedu.duke.storage.exceptions.InvalidDataException;
 

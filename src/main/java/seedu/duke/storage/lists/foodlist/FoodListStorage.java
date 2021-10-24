@@ -1,6 +1,6 @@
 package seedu.duke.storage.lists.foodlist;
 
-import seedu.duke.item.food.FoodList;
+import seedu.duke.data.item.food.FoodList;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;

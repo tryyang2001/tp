@@ -1,7 +1,7 @@
 package seedu.duke.storage.lists.exerciselist;
 
-import seedu.duke.item.exercise.Exercise;
-import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.data.item.exercise.Exercise;
+import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.storage.Decoder;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
@@ -41,11 +41,19 @@ public class ExerciseListDecoder extends Decoder {
             final String name = exerciseDetails[1];
             final int calories = Integer.parseInt(exerciseDetails[2]);
             final LocalDate dateOfExercise = parseDate(exerciseDetails[3]);
-            exercises.addItem(new Exercise(name, calories, dateOfExercise));
+            if (isWithinPastSevenDays(LocalDate.now(), dateOfExercise)) {
+                exercises.addItem(new Exercise(name, calories, dateOfExercise));
+            }
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             logger.log(Level.WARNING, "A line in exercise list is not valid.", line);
             throw new InvalidDataException(ExerciseListStorage.FILENAME_LIST_EXERCISE, line);
         }
+    }
+
+    private boolean isWithinPastSevenDays(LocalDate currentDate, LocalDate dateOfExercise) {
+        boolean isEqualOrBeforeTodayDate = dateOfExercise.isEqual(currentDate) || dateOfExercise.isBefore(currentDate);
+        boolean isAfterSevenDaysAgo = dateOfExercise.isAfter(currentDate.minusDays(8));
+        return isEqualOrBeforeTodayDate && isAfterSevenDaysAgo;
     }
 
 }

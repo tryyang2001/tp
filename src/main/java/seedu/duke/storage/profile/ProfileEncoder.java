@@ -1,6 +1,6 @@
 package seedu.duke.storage.profile;
 
-import seedu.duke.profile.Profile;
+import seedu.duke.data.profile.Profile;
 import seedu.duke.storage.Encoder;
 
 import java.util.ArrayList;
