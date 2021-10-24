@@ -6,6 +6,7 @@ import seedu.duke.data.item.exercise.FutureExerciseList;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
 import seedu.duke.storage.data.exercise.ExerciseBankStorage;
+import seedu.duke.storage.data.food.FoodBankInterface;
 import seedu.duke.storage.data.food.FoodBankStorage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
@@ -15,7 +16,7 @@ import seedu.duke.storage.data.food.FoodListStorage;
 import seedu.duke.storage.data.profile.ProfileStorage;
 import seedu.duke.storage.data.profile.ProfileStorageInterface;
 
-public class StorageManager implements ProfileStorageInterface {
+public class StorageManager implements ProfileStorageInterface, FoodBankInterface {
 
     public static final String FILE_TEXT_DELIMITER = "\\|";
 
@@ -50,8 +51,9 @@ public class StorageManager implements ProfileStorageInterface {
         return futureExerciseListStorage.loadFutureExerciseListFile();
     }
 
+    @Override
     public ItemBank loadFoodBank() throws UnableToReadFileException {
-        return foodBankStorage.loadFoodBankFile();
+        return foodBankStorage.loadFoodBank();
     }
 
     public ItemBank loadExerciseBank() throws UnableToReadFileException {
@@ -86,6 +88,7 @@ public class StorageManager implements ProfileStorageInterface {
         futureExerciseListStorage.saveFutureList(futureExerciseList);
     }
 
+    @Override
     public void saveFoodBank(ItemBank foodBank) throws UnableToWriteFileException {
         foodBankStorage.saveFoodBank(foodBank);
     }

@@ -31,7 +31,7 @@ public class FoodBankStorage extends Storage implements FoodBankInterface {
     }
 
     @Override
-    public ItemBank loadFoodBankFile() throws UnableToReadFileException {
+    public ItemBank loadFoodBank() throws UnableToReadFileException {
         FileChecker.createFileIfMissing(filePath);
         return readFromFoodBankFile();
     }

@@ -15,7 +15,7 @@ public interface FoodBankInterface {
      * @return FoodBank object from data storage
      * @throws UnableToReadFileException if the filepath given is inaccessible or I/O was interrupted
      */
-    ItemBank loadFoodBankFile() throws UnableToReadFileException;
+    ItemBank loadFoodBank() throws UnableToReadFileException;
 
     /**
      * Saves the Food Bank into storage.
