@@ -1,6 +1,6 @@
 package seedu.duke.storage.lists.exerciselist;
 
-import seedu.duke.item.exercise.FutureExerciseList;
+import seedu.duke.data.item.exercise.FutureExerciseList;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;

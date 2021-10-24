@@ -18,4 +18,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 #User data file
 /data/
-docs/classdiagram.puml
+/text-ui-test/data/
+

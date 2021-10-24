@@ -1,12 +1,14 @@
 package seedu.duke.storage.lists.foodlist;
 
-import seedu.duke.item.food.Food;
-import seedu.duke.item.food.FoodList;
+import seedu.duke.data.item.food.Food;
+import seedu.duke.data.item.food.FoodList;
 import seedu.duke.storage.Decoder;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -42,10 +44,20 @@ public class FoodListDecoder extends Decoder {
             final String name = foodDetails[1];
             final int calories = Integer.parseInt(foodDetails[2]);
             final LocalDateTime dateTimeOfFood = parseDateTime(foodDetails[3]);
-            foodItems.addItem(new Food(name, calories, dateTimeOfFood));
-        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
+            final LocalDate currentDate = LocalDate.now();
+            final LocalDate dateOfFood = dateTimeOfFood.toLocalDate();
+            if (isWithinPastSevenDays(currentDate, dateOfFood)) {
+                foodItems.addItem(new Food(name, calories, dateTimeOfFood));
+            }
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException | DateTimeException e) {
             logger.log(Level.WARNING, "A line in food list is not valid.", line);
             throw new InvalidDataException(FoodListStorage.FILENAME_LIST_FOOD, line);
         }
+    }
+
+    private boolean isWithinPastSevenDays(LocalDate currentDate, LocalDate dateOfFood) {
+        boolean isEqualOrBeforeTodayDate = dateOfFood.isEqual(currentDate) || dateOfFood.isBefore(currentDate);
+        boolean isAfterSevenDaysAgo = dateOfFood.isAfter(currentDate.minusDays(8));
+        return isEqualOrBeforeTodayDate && isAfterSevenDaysAgo;
     }
 }

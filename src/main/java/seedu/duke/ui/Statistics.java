@@ -1,16 +1,16 @@
 package seedu.duke.ui;
 
-import seedu.duke.item.exercise.ExerciseList;
-import seedu.duke.item.food.FoodList;
-import seedu.duke.profile.Profile;
+import seedu.duke.data.item.exercise.ExerciseList;
+import seedu.duke.data.item.food.FoodList;
+import seedu.duke.data.profile.Profile;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.time.format.DateTimeFormatter;
 
 /* A class that manage the statistics of the calories*/
 public class Statistics {

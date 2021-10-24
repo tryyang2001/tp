@@ -1,10 +1,10 @@
 package seedu.duke.storage;
 
-import seedu.duke.item.bank.ItemBank;
-import seedu.duke.item.exercise.ExerciseList;
-import seedu.duke.item.exercise.FutureExerciseList;
-import seedu.duke.item.food.FoodList;
-import seedu.duke.profile.Profile;
+import seedu.duke.data.item.ItemBank;
+import seedu.duke.data.item.exercise.ExerciseList;
+import seedu.duke.data.item.exercise.FutureExerciseList;
+import seedu.duke.data.item.food.FoodList;
+import seedu.duke.data.profile.Profile;
 import seedu.duke.storage.banks.ExerciseBankStorage;
 import seedu.duke.storage.banks.FoodBankStorage;
 import seedu.duke.storage.exceptions.UnableToReadFileException;

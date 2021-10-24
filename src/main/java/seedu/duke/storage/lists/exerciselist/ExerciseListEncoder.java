@@ -1,6 +1,6 @@
 package seedu.duke.storage.lists.exerciselist;
 
-import seedu.duke.item.exercise.ExerciseList;
+import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.storage.Encoder;
 
 import java.util.ArrayList;

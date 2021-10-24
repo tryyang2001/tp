@@ -1,26 +1,29 @@
 package seedu.duke;
 
-import seedu.duke.commands.ByeCommand;
-import seedu.duke.commands.Command;
-import seedu.duke.commands.CommandResult;
-import seedu.duke.item.bank.ItemBank;
-import seedu.duke.item.exercise.ExerciseList;
-import seedu.duke.item.exercise.FutureExerciseList;
-import seedu.duke.item.food.FoodList;
-import seedu.duke.parser.ParserManager;
-import seedu.duke.parser.exceptions.ParamMissingException;
-import seedu.duke.profile.Profile;
-import seedu.duke.profile.attributes.ActivityFactor;
-import seedu.duke.profile.attributes.Age;
-import seedu.duke.profile.attributes.CalorieGoal;
-import seedu.duke.profile.attributes.Gender;
-import seedu.duke.profile.attributes.Height;
-import seedu.duke.profile.attributes.Name;
-import seedu.duke.profile.attributes.Weight;
+import seedu.duke.data.item.ItemBank;
+import seedu.duke.data.item.exercise.Exercise;
+import seedu.duke.data.item.exercise.ExerciseList;
+import seedu.duke.data.item.exercise.FutureExerciseList;
+import seedu.duke.data.item.food.FoodList;
+import seedu.duke.data.profile.Profile;
+import seedu.duke.data.profile.attributes.ActivityFactor;
+import seedu.duke.data.profile.attributes.Age;
+import seedu.duke.data.profile.attributes.CalorieGoal;
+import seedu.duke.data.profile.attributes.Gender;
+import seedu.duke.data.profile.attributes.Height;
+import seedu.duke.data.profile.attributes.Name;
+import seedu.duke.data.profile.attributes.Weight;
+import seedu.duke.logic.commands.ByeCommand;
+import seedu.duke.logic.commands.Command;
+import seedu.duke.logic.commands.CommandResult;
+import seedu.duke.logic.parser.ParserManager;
+import seedu.duke.logic.parser.exceptions.ParamMissingException;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Ui;
+
+import java.time.LocalDate;
 
 
 /**
@@ -57,16 +60,17 @@ public class Main {
     /**
      * Entry point of the application.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnableToWriteFileException {
         new Main().run(args);
     }
 
     /**
      * Runs the application until command is given to exit it.
      **/
-    private void run(String[] args) {
+    private void run(String[] args) throws UnableToWriteFileException {
         start();
         checkAndCreateProfile();
+        loadsFutureExercisesToList();
         enterTaskModeUntilByeCommand();
         exit();
     }
@@ -199,7 +203,7 @@ public class Main {
     }
 
     public static final String MESSAGE_INTRO_ACTIVITY_FACTOR = "Please input your activity factor based on "
-            + " the value shown on the left.\n"
+            + "the value shown on the left.\n"
             + "Below are the activity factor values and the corresponding description you can consider:\n"
             + "1 -> Sedentary - Little or no exercise\n"
             + "2 -> Lightly Active - Light exercise or sports, around 1-3 days a week\n"
@@ -372,6 +376,27 @@ public class Main {
     }
 
     /**
+     * Check whether the dates of the exercises in the future exercise list have passed.
+     * If the dates have passed, move the exercises in the exercise list.
+     */
+    private void loadsFutureExercisesToList() throws UnableToWriteFileException {
+        int index = 0;
+        LocalDate today = LocalDate.now();
+        while (futureExerciseItems.getSize() != 0 && (futureExerciseItems.getItem(index).getDate().isBefore(today)
+                || futureExerciseItems.getItem(index).getDate().isEqual(today))) {
+            System.out.println(today);
+            String name = futureExerciseItems.getItem(index).getName();
+            int calories = futureExerciseItems.getItem(index).getCalories();
+            LocalDate date = futureExerciseItems.getItem(index).getDate();
+            exerciseItems.addItem(new Exercise(name, calories, date));
+            futureExerciseItems.deleteItem(index);
+            storageManager.saveExerciseList(exerciseItems);
+            storageManager.saveFutureExerciseList(futureExerciseItems);
+        }
+    }
+
+
+    /**
      * Executes the given Command and (to be implemented) calls for storage operation if required.
      *
      * @param command Command to be executed
@@ -399,14 +424,12 @@ public class Main {
             if (Command.requiresFutureExerciseListStorageRewrite(command)) {
                 storageManager.saveFutureExerciseList(this.futureExerciseItems);
             }
-            /*if (Command.requiresFoodBankStorageRewrite(command)) {
-                //TODO Update with the new additions
+            if (Command.requiresFoodBankStorageRewrite(command)) {
                 storageManager.saveFoodBank(this.foodBank);
             }
-            if (Command.requiresExerciseBankListStorageRewrite(command)) {
-                //TODO Update with the new additions
+            if (Command.requiresExerciseBankStorageRewrite(command)) {
                 storageManager.saveExerciseBank(this.exerciseBank);
-            }*/
+            }
         } catch (UnableToWriteFileException e) {
             ui.formatMessageFramedWithDivider(e.getMessage());
         }
