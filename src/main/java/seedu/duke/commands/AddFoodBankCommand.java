@@ -44,7 +44,7 @@ public class AddFoodBankCommand extends Command {
         try {
             super.foodBank.addItem(this.food);
             logger.log(Level.FINE, "Food is successfully added to food bank");
-            return new CommandResult(String.format(MESSAGE_SUCCESS, this.food));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, this.food.toStringWithoutTime()));
         } catch (DuplicateItemInBankException e) {
             return new CommandResult(String.format(MESSAGE_FOOD_ALREADY_EXISTS, this.food.getName()));
         }

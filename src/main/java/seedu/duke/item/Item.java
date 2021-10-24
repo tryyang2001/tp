@@ -74,6 +74,11 @@ public abstract class Item {
         return this.getName() + " (" + this.getCalories() + " cal)";
     }
 
+
+    public String toStringWithoutTime() {
+        return this.getName() + " (" + this.getCalories() + " cal)";
+    }
+
     /**
      * Converts the item to external file string format.
      *
