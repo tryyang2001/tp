@@ -33,7 +33,7 @@ public class FutureExerciseListStorage extends Storage {
 
     public void saveFutureList(FutureExerciseList futureExercises) throws UnableToWriteFileException {
         ArrayList<String> futureExerciseList = new ExerciseListEncoder().encodeExerciseList(futureExercises);
-        writeToFile(futureExerciseList, FILENAME_LIST_FUTURE);
+        writeToFile(futureExerciseList, FILEPATH_LIST_FUTURE);
     }
 
 }
