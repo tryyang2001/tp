@@ -95,13 +95,13 @@ profile
 __________________________________________________________________________________________________________ 
 Hello hi! This is your profile: 
 *====================================== 
-	Name 				Lisa 
-	Height 				159cm 
-	Weight 				50.0kg 
-	Gender 				F 
-	Age 				21 
-	Calories goal 		1500 cal 
-	Activity factor 	2 
+	Name                Lisa 
+	Height              159cm 
+	Weight              50.0kg 
+	Gender              F 
+	Age                 21 
+	Calories goal       1500 cal 
+	Activity factor     2 
 ======================================* 
 __________________________________________________________________________________________________________ 
 ```  
@@ -152,7 +152,7 @@ Change your activity factor with `profile x/ACTIVITY_FACTOR`
 
 💡 **Tip:** Use `profile n/NAME h/HEIGHT w/WEIGHT s/GENDER a/AGE g/CALORIE_GOAL x/ACTIVITY_FACTOR` to set all the attributes at once. You need at least one parameter and you can type it in _any_ order you'd like.
 
-_Format:_
+Format:
 - `profile {n/NAME} {h/HEIGHT} {w/WEIGHT} {s/GENDER} {a/AGE} {g/CALORIE_GOAL} {x/ACTIVITY_FACTOR}`
 
 
@@ -203,7 +203,8 @@ Examples:
 add f/chicken rice c/607  
 __________________________________________________________________________________________  
 A food item has been added:  
- chicken rice (607 cal)__________________________________________________________________________________________  
+ chicken rice (607 cal)
+__________________________________________________________________________________________  
 ```  
 
 - `add e/hiit c/290` adds record of exercise done: hiit with 290 calories burnt.
@@ -212,7 +213,8 @@ A food item has been added:
 add e/hiit c/290  
 __________________________________________________________________________________________  
 An exercise has been added:  
- hiit (290 cal)__________________________________________________________________________________________  
+ hiit (290 cal)
+__________________________________________________________________________________________  
 ```  
 
 ### **View** **Exercise and Food Items:** `view`
@@ -274,7 +276,8 @@ Format:
 delete f/2  
 __________________________________________________________________________________________  
 A food item has been deleted:  
- yong tau foo (536 cal) Number of food item(s) left: 3__________________________________________________________________________________________  
+ yong tau foo (536 cal) Number of food item(s) left: 3
+__________________________________________________________________________________________  
 delete e/1  
 __________________________________________________________________________________________  
 You have removed the exercise:  
