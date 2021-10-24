@@ -3,6 +3,7 @@ package seedu.duke.storage.profile;
 import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.storage.Decoder;
+import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
@@ -19,21 +20,21 @@ public class ProfileDecoder extends Decoder {
      * @throws FileNotFoundException          If the file is misplaced/missing
      * @throws InvalidCharacteristicException When the data is corrupted in the file.
      */
-    public Profile getProfileFromData() throws FileNotFoundException, InvalidCharacteristicException {
-        File file = new File(ProfileStorage.FILEPATH_PROFILE);
+    public static Profile getProfileFromData(String path) throws FileNotFoundException {
+        File file = new File(path);
         Scanner in = new Scanner(file);
+
         try {
-            if (in.hasNext()) {
-                logger.log(Level.FINE, "Retrieving profile file.");
-                return decodeProfileDataFromString(in.nextLine());
-            }
+            logger.log(Level.FINE, "Retrieving profile file.");
+            return decodeProfileDataFromString(in.nextLine());
         } catch (InvalidDataException e) {
             System.out.println(e.getMessage());
         }
+
         return new Profile();
     }
 
-    private Profile decodeProfileDataFromString(String input) throws InvalidDataException {
+    private static Profile decodeProfileDataFromString(String input) throws InvalidDataException {
         try {
             Profile profile = new Profile();
             final String[] profileDetails = input.split(FILE_TEXT_DELIMITER);
@@ -47,7 +48,7 @@ public class ProfileDecoder extends Decoder {
             profile.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
             return profile;
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new InvalidDataException(ProfileStorage.FILENAME_PROFILE, input);
+            throw new InvalidDataException(StorageManager.FILENAME_PROFILE, input);
         }
     }
 

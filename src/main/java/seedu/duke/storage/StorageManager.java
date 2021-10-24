@@ -13,18 +13,24 @@ import seedu.duke.storage.lists.exerciselist.ExerciseListStorage;
 import seedu.duke.storage.lists.exerciselist.FutureExerciseListStorage;
 import seedu.duke.storage.lists.foodlist.FoodListStorage;
 import seedu.duke.storage.profile.ProfileStorage;
+import seedu.duke.storage.profile.ProfileStorageInterface;
 
-public class StorageManager {
+public class StorageManager implements ProfileStorageInterface {
 
-    private ProfileStorage profileStorage = new ProfileStorage();
-    private ExerciseListStorage exerciseListStorage = new ExerciseListStorage();
-    private FoodListStorage foodListStorage = new FoodListStorage();
-    private FutureExerciseListStorage futureExerciseListStorage = new FutureExerciseListStorage();
-    private FoodBankStorage foodBankStorage = new FoodBankStorage();
-    private ExerciseBankStorage exerciseBankStorage = new ExerciseBankStorage();
+    public static final String FILEPATH = "./data/";
+    public static final String FILENAME_PROFILE = "profile.txt";
+    public static final String FILEPATH_PROFILE = FILEPATH + FILENAME_PROFILE;
 
+    private final ProfileStorage profileStorage = new ProfileStorage(FILEPATH_PROFILE);
+    private final ExerciseListStorage exerciseListStorage = new ExerciseListStorage();
+    private final FoodListStorage foodListStorage = new FoodListStorage();
+    private final FutureExerciseListStorage futureExerciseListStorage = new FutureExerciseListStorage();
+    private final FoodBankStorage foodBankStorage = new FoodBankStorage();
+    private final ExerciseBankStorage exerciseBankStorage = new ExerciseBankStorage();
+
+    @Override
     public Profile loadProfile() throws UnableToReadFileException {
-        return profileStorage.loadProfileFile();
+        return profileStorage.loadProfile();
     }
 
     public ExerciseList loadExerciseList() throws UnableToReadFileException {
@@ -58,6 +64,7 @@ public class StorageManager {
         saveExerciseBank(exerciseBank);
     }
 
+    @Override
     public void saveProfile(Profile profile) throws UnableToWriteFileException {
         profileStorage.saveProfile(profile);
     }

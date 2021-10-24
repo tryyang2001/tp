@@ -9,5 +9,5 @@ interface Verifiable {
      *
      * @return True if valid, false if invalid as specified by each attribute
      */
-    public boolean isValid();
+    boolean isValid();
 }
