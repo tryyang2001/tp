@@ -41,7 +41,7 @@ Throughout this guide, we will be using some special formatting and symbols to b
   - [4.2.1. View profile](#421-view-profile)
   - [4.2.2. Updating your attributes](#422-updating-your-profile-attributes)
 - [4.3. Calculate BMI: `bmi`](#43-calculate-bmi-bmi)
-- [4.4 Add Items: `add`](#44-add-items-add)
+- [4.4. Add Items: `add`](#44-add-items-add)
   - [4.4.1. Add a Food Item to Food List](#441-add-a-food-item-to-food-list)
   - [4.4.2. Add an Exercise Item to Exercise List](#442-add-an-exercise-item-to-exercise-list)
   - [4.4.3. Add a Recurring Exercise to the Upcoming Exercise List](#443-add-a-recurring-exercise-to-the-upcoming-exercise-list)
@@ -57,18 +57,18 @@ Throughout this guide, we will be using some special formatting and symbols to b
   - [4.6.3. Delete an Upcoming Exercise from Upcoming Exercise List](#463-delete-an-upcoming-exercise-item-from-upcoming-exercise-list)
   - [4.6.4. Delete a Food Item from Food Bank](#464-delete-a-food-item-from-food-bank)
   - [4.6.5. Delete a Exercise Item from Exercise Bank](#465-delete-an-exercise-item-from-exercise-bank)
-- [4.7: Edit Items: `edit`](#47-edit-items-edit)
+- [4.7. Edit Items: `edit`](#47-edit-items-edit)
   - [4.7.1. Edit Upcoming Exercise List](#471-edit-upcoming-exercise-list)
   - [4.7.2. Edit Food Bank](#472-edit-food-bank)
   - [4.7.3. Edit Exercise Bank](#473-edit-exercise-bank)
-- [4.8 Calculate net calories: `overview`](#48-calculate-net-calories-overview)
-- [4.9 Exit the program: `bye`](#49-exit-the-program-bye)
-- [4.10 Saving the data](#410-saving-the-data)
-- [4.11 Editing the data file](#411-editing-the-data-file)
+- [4.8. Calculate net calories: `overview`](#48-calculate-net-calories-overview)
+- [4.9. Exit the program: `bye`](#49-exit-the-program-bye)
+- [4.10. Saving the data](#410-saving-the-data)
+- [4.11. Editing the data file](#411-editing-the-data-file)
 
 [5. FAQ](#5-faq)
 
-[6.Command Summary](#6-command-summary)
+[6. Command Summary](#6-command-summary)
 
 
 ## 1. Quick Start
