@@ -1,7 +1,7 @@
 
 # Fitbot User Guide
 
-##Introducing _Fitbot_
+## Introducing _Fitbot_
 _Fitbot_ is a **desktop app** that helps university students who are looking to
 **keep track of their calorie consumption and calorie output** with the speed and convenience of
 **command-line based** tools, especially in times of online school.
@@ -10,7 +10,7 @@ _Fitbot_ can be used across all operating systems such as Windows, Mac OS X, Lin
 
 If you need an easy and fast way to record your calories, _Fitbot_ is the app for you! 💪💯
 
-##About This User Guide
+## About This User Guide
 Welcome to the _Fitbot_ User Guide! \
 This guide explains how you can use all the features available on _Fitbot_ and
 maximise your user experience.
@@ -27,47 +27,48 @@ Throughout this guide, we will be using some special formatting and symbols to b
 
 
 
-##Content Page
-[1. Quick Start](#quick-start)
+## Content Page
 
-[2. Create Profile](#create-profile)
+[1. Quick Start](#1-quick-start)
 
-[3. Terminology](#terminology)
+[2. Create Profile](#2-create-profile)
 
-[4. Features](#features)
-- [4.1. View help: `help`](#view-help-help)
-- [4.2. View and edit your profile details: `profile`](#view-and-edit-your-profile-details-profile)
-  - [4.2.1. View profile](#view-profile)
-  - [4.2.2. Updating your attributes](#updating-your-profile-attributes)
-- [4.3. Calculate BMI: `bmi`](#calculate-bmi-bmi)
-- [4.4 Add Items: `add`](#add-items-add)
-  - [4.4.1. Add a Food Item to Food List](#add-a-food-item-to-food-list)
-  - [4.4.2. Add an Exercise Item to Exercise List](#add-an-exercise-item-to-exercise-list)
-  - [4.4.3. Add a Recurring Exercise to the Upcoming Exercise List](#add-a-recurring-exercise-to-the-upcoming-exercise-list)
-  - [4.4.4. Add a Food Item to Food Bank](#add-a-food-item-to-foodbank)
-  - [4.4.5. Add an Exercise Item to Exercise Bank](#add-an-exercise-item-to-exercise-bank)
-- [4.5. View Items: `view`](#view-items-view)
-  - [4.5.1 View Food List](#view-food-list)
-  - [4.5.2 View Exercise List](#view-exercise-list)
-  - [4.5.1 View Upcoming Exercise List](#view-upcoming-exercise-list)
-- [4.6. Delete Items: `delete`](#delete-items-delete)
-  - [4.6.1. Delete a Food Item from Food List](#delete-a-food-item-from-food-list)
-  - [4.6.2. Delete an Exercise Item from Exercise List](#delete-an-exercise-item-from-exercise-list)
-  - [4.6.3. Delete an Upcoming Exercise from Upcoming Exercise List](#delete-an-upcoming-exercise-item-from-upcoming-exercise-list)
-  - [4.6.4. Delete a Food Item from Food Bank](#delete-a-food-item-from-food-bank)
-  - [4.6.5. Delete a Exercise Item from Exercise Bank](#delete-an-exercise-item-from-exercise-bank)
-- [4.7: Edit Items: `edit`](#edit-items-edit)
-  - [4.7.1. Edit Upcoming Exercise List](#edit-upcoming-exercise-list)
-  - [4.7.2. Edit Food Bank](#edit-food-bank)
-  - [4.7.3. Edit Exercise Bank](#edit-exercise-bank)
-- [4.8 Calculate net calories: `overview`](#calculate-net-calories-overview)
-- [4.9 Exit the program: `bye`](#exit-the-program-bye)
-- [4.10 Saving the data](#saving-the-data)
-- [4.11 Editing the data file](#editing-the-data-file)
+[3. Terminology](#3-terminology)
 
-[5. FAQ](#faq)
+[4. Features](#4-features)
+- [4.1. View help: `help`](#41-view-help-help)
+- [4.2. View and edit your profile details: `profile`](#42-view-and-edit-your-profile-details-profile)
+  - [4.2.1. View profile](#421-view-profile)
+  - [4.2.2. Updating your attributes](#422-updating-your-profile-attributes)
+- [4.3. Calculate BMI: `bmi`](#43-calculate-bmi-bmi)
+- [4.4 Add Items: `add`](#44-add-items-add)
+  - [4.4.1. Add a Food Item to Food List](#441-add-a-food-item-to-food-list)
+  - [4.4.2. Add an Exercise Item to Exercise List](#442-add-an-exercise-item-to-exercise-list)
+  - [4.4.3. Add a Recurring Exercise to the Upcoming Exercise List](#443-add-a-recurring-exercise-to-the-upcoming-exercise-list)
+  - [4.4.4. Add a Food Item to Food Bank](#444-add-a-food-item-to-foodbank)
+  - [4.4.5. Add an Exercise Item to Exercise Bank](#445-add-an-exercise-item-to-exercise-bank)
+- [4.5. View Items: `view`](#45-view-items-view)
+  - [4.5.1 View Food List](#451-view-food-list)
+  - [4.5.2 View Exercise List](#452-view-exercise-list)
+  - [4.5.3 View Upcoming Exercise List](#453-view-upcoming-exercise-list)
+- [4.6. Delete Items: `delete`](#46-delete-items-delete)
+  - [4.6.1. Delete a Food Item from Food List](#461-delete-a-food-item-from-food-list)
+  - [4.6.2. Delete an Exercise Item from Exercise List](#462-delete-an-exercise-item-from-exercise-list)
+  - [4.6.3. Delete an Upcoming Exercise from Upcoming Exercise List](#463-delete-an-upcoming-exercise-item-from-upcoming-exercise-list)
+  - [4.6.4. Delete a Food Item from Food Bank](#464-delete-a-food-item-from-food-bank)
+  - [4.6.5. Delete a Exercise Item from Exercise Bank](#465-delete-an-exercise-item-from-exercise-bank)
+- [4.7: Edit Items: `edit`](#47-edit-items-edit)
+  - [4.7.1. Edit Upcoming Exercise List](#471-edit-upcoming-exercise-list)
+  - [4.7.2. Edit Food Bank](#472-edit-food-bank)
+  - [4.7.3. Edit Exercise Bank](#473-edit-exercise-bank)
+- [4.8 Calculate net calories: `overview`](#48-calculate-net-calories-overview)
+- [4.9 Exit the program: `bye`](#49-exit-the-program-bye)
+- [4.10 Saving the data](#410-saving-the-data)
+- [4.11 Editing the data file](#411-editing-the-data-file)
 
-[6.Command Summary](#command-summary)
+[5. FAQ](#5-faq)
+
+[6.Command Summary](#6-command-summary)
 
 
 ## 1. Quick Start
@@ -245,13 +246,14 @@ This command adds an Item to a list.
 
 #### 4.4.1. Add a Food Item to Food List
 
-This command is used to add a Food Item consumed within the past 7 days to the Food List
+This command is used to add a Food Item consumed within the past 7 days to the Food List.
 
 Format: `add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}` adds a Food Item consumed with its respective calories on the given
 date (`DD-MM-YYYY`) and time (`HHMM`).
 
 Example:
 - `add f/chicken rice c/607 d/21-10-2021 t/1400` adds record of food consumed: chicken rice with 607 calories gained on 21 Oct 2021 1400 to the food list.
+
 ```text
 add f/chicken rice c/607 d/21-10-2021 t/1400
 __________________________________________________________________________________________
@@ -277,6 +279,7 @@ An exercise has been added:
     hiit (290 cal) @ 21 Oct 2021
 __________________________________________________________________________________________
 ```
+
 - `add e/hiit c/290 d/01-01-2041` adds record of exercise done: hiit with 290 calories burnt to the upcoming exercise list.
 ```text
 add e/hiit c/290 d/01-01-2041
@@ -284,6 +287,8 @@ ________________________________________________________________________________
 An exercise item for the future has been added:
     hiit (290 cal)
 ```
+
+
 💡  **Tip:** Similarly, if the date of the exercise is not provided, the date is assumed to be today.
 
 #### 4.4.3.  Add a Recurring Exercise to the Upcoming Exercise List
@@ -614,16 +619,18 @@ There is no need to save manually. Any updates made to the data will be automati
 
 _Fitbot_ data files are saved as .text files `<JAR file location>/data/<text file name>.txt`. \
 Advanced users are welcome to update data directly by editing the data files. \
-❗ If your changes to the data files format are invalid, _Fitbot_ will skip the wrongly formatted line when it loads in the data.\
-❗Also, ensure that you quit _Fitbot_ if you would like to edit the files. Edits made directly to files when _Fitbot_ is running will not be saved.
+
+❗ If your changes to the data files format are invalid, _Fitbot_ will skip the wrongly formatted line when it loads in the data.
+
+❗ Also, ensure that you quit _Fitbot_ if you would like to edit the files. Edits made directly to files when _Fitbot_ is running will not be saved.
 
 ### 5. FAQ
 
 **Q:** How do I transfer my data to another computer?\
-**A:** Zip the folder with _Fitbot_ and its data files, and transfer to the new computer. Extract the zipped folder onto your new computer and follow steps 1, 4 and 5 in [Quick Start](#quick-start) to get your _Fitbot_ running on your new computer.
+**A:** Zip the folder with _Fitbot_ and its data files, and transfer to the new computer. Extract the zipped folder onto your new computer and follow steps 1, 4 and 5 in [Quick Start](#1-quick-start) to get your _Fitbot_ running on your new computer.
 
 **Q:** How many profiles can I create?\
-**A:** _Fitbot_ only supports 1 profile. If you need to make any changes to your current profile, you can refer to [Updating your profile attributes](#updateview-the-profile-details-profile).
+**A:** _Fitbot_ only supports 1 profile. If you need to make any changes to your current profile, you can refer to [Updating your profile attributes](#422-updating-your-profile-attributes).
 
 ### 6. Command Summary
 
