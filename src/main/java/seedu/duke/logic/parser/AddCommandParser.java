@@ -83,6 +83,8 @@ public class AddCommandParser implements Parser {
                 logger.log(Level.INFO, String.format("dateTime detected is: %s", dateTime));
                 if (ParserUtils.hasExtraDelimiters(params, AddFoodCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                } else if (dateTime.toLocalDate().isBefore(LocalDate.now().minusDays(8))) {
+                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD);
                 }
                 return new AddFoodCommand(description, calories, dateTime, isCaloriesFromBank);
             case Command.COMMAND_PREFIX_RECURRING:
