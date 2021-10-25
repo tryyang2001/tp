@@ -108,18 +108,6 @@ public class FoodList extends ItemList {
         return (int) internalItems.stream().filter(f -> f.getTimePeriod().equals(TimePeriod.Night)).count();
     }
 
-    public void addAll(FoodList filteredFoodList) {
-        LocalDate today = LocalDate.now();
-        ArrayList<Item> listToRemove = (ArrayList<Item>) internalItems
-                        .stream()
-                        .filter(f -> f.getDate().isAfter(today.minusDays(8)))
-                        .collect(Collectors.toList());
-        internalItems.removeAll(listToRemove);
-        for (int i = 0; i < filteredFoodList.getSize(); i++) {
-            internalItems.add(filteredFoodList.getItem(i));
-        }
-    }
-
     /**
      * Helper method used in deleteItem for food to get the
      * actual index from the entire food list of the food item to delete.

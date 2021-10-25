@@ -165,11 +165,11 @@ public class Main {
                 storageManager.saveProfile(this.profile);
             }
             if (Command.requiresExerciseListStorageRewrite(command)) {
-
+                exerciseItems.addAll(filteredExerciseItems);
                 storageManager.saveExerciseList(this.exerciseItems);
             }
             if (Command.requiresFoodListStorageRewrite(command)) {
-
+                foodItems.addAll(filteredFoodItems);
                 storageManager.saveFoodList(this.foodItems);
             }
             if (Command.requiresFutureExerciseListStorageRewrite(command)) {
