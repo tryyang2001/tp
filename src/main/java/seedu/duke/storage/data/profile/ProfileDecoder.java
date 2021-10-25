@@ -1,16 +1,18 @@
-package seedu.duke.storage.profile;
+package seedu.duke.storage.data.profile;
 
 import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
-import seedu.duke.storage.Decoder;
+import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.logging.Level;
 
-public class ProfileDecoder extends Decoder {
+/**
+ * Decodes the profile from storage data.
+ */
+public class ProfileDecoder {
 
     /**
      * Retrieves profile data from profile.txt
@@ -19,12 +21,15 @@ public class ProfileDecoder extends Decoder {
      * @throws FileNotFoundException          If the file is misplaced/missing
      * @throws InvalidCharacteristicException When the data is corrupted in the file.
      */
-    public Profile getProfileFromData() throws FileNotFoundException, InvalidCharacteristicException {
-        File file = new File(ProfileStorage.FILEPATH_PROFILE);
+    public static Profile retrieveProfileFromData(String filePath) throws FileNotFoundException {
+        File file = new File(filePath);
         Scanner in = new Scanner(file);
+        return decodeProfile(in);
+    }
+
+    private static Profile decodeProfile(Scanner in) {
         try {
             if (in.hasNext()) {
-                logger.log(Level.FINE, "Retrieving profile file.");
                 return decodeProfileDataFromString(in.nextLine());
             }
         } catch (InvalidDataException e) {
@@ -33,10 +38,10 @@ public class ProfileDecoder extends Decoder {
         return new Profile();
     }
 
-    private Profile decodeProfileDataFromString(String input) throws InvalidDataException {
+    private static Profile decodeProfileDataFromString(String input) throws InvalidDataException {
         try {
             Profile profile = new Profile();
-            final String[] profileDetails = input.split(FILE_TEXT_DELIMITER);
+            final String[] profileDetails = input.split(StorageManager.FILE_TEXT_DELIMITER);
             final String name = profileDetails[0];
             final double height = Double.parseDouble(profileDetails[1]);
             final double weight = Double.parseDouble(profileDetails[2]);
@@ -47,7 +52,7 @@ public class ProfileDecoder extends Decoder {
             profile.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
             return profile;
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new InvalidDataException(ProfileStorage.FILENAME_PROFILE, input);
+            throw new InvalidDataException(StorageManager.FILENAME_PROFILE, input);
         }
     }
 

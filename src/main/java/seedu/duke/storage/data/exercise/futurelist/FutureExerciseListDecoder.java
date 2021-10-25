@@ -1,17 +1,20 @@
-package seedu.duke.storage.lists.exerciselist;
+package seedu.duke.storage.data.exercise.futurelist;
 
 import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.data.item.exercise.FutureExerciseList;
-import seedu.duke.storage.Decoder;
+import seedu.duke.storage.StorageManager;
+import seedu.duke.storage.data.ListDecoder;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.logging.Level;
 
-public class FutureExerciseListDecoder extends Decoder {
+/**
+ * Decodes the upcoming exercises from future exercise list data file.
+ */
+public class FutureExerciseListDecoder extends ListDecoder {
 
     /**
      * Retrieves future exercise list from future_list.txt.
@@ -19,33 +22,34 @@ public class FutureExerciseListDecoder extends Decoder {
      * @return The exercise list with data loaded from file
      * @throws FileNotFoundException If file is misplaced/missing
      */
-    public FutureExerciseList getFutureListFromData() throws FileNotFoundException {
+    public static FutureExerciseList retrieveUpcomingListFromData(String filePath) throws FileNotFoundException {
         FutureExerciseList exercises = new FutureExerciseList();
-        File file = new File(FutureExerciseListStorage.FILEPATH_LIST_FUTURE);
+        File file = new File(filePath);
         Scanner in = new Scanner(file);
-        logger.log(Level.FINE, "Decoding exercise data from file...");
+        decodeUpcomingExercises(exercises, in);
+        return exercises;
+    }
+
+    private static void decodeUpcomingExercises(FutureExerciseList exercises, Scanner in) {
         while (in.hasNext()) {
             try {
-                decodeFutureExerciseDataFromString(exercises, in.nextLine());
+                decodeUpcomingExerciseDataFromString(exercises, in.nextLine());
             } catch (InvalidDataException e) {
                 System.out.println(e.getMessage());
             }
         }
-        logger.log(Level.FINE, "Retrieved exercise data from file.");
-        return exercises;
     }
 
-    private void decodeFutureExerciseDataFromString(FutureExerciseList exercises,
+    private static void decodeUpcomingExerciseDataFromString(FutureExerciseList exercises,
                                                     String line) throws InvalidDataException {
         try {
-            final String[] exerciseDetails = line.split(FILE_TEXT_DELIMITER);
+            final String[] exerciseDetails = line.split(StorageManager.FILE_TEXT_DELIMITER);
             final String name = exerciseDetails[1];
             final int calories = Integer.parseInt(exerciseDetails[2]);
             final LocalDate dateOfExercise = parseDate(exerciseDetails[3]);
             exercises.addItem(new Exercise(name, calories, dateOfExercise));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
-            logger.log(Level.WARNING, "A line in exercise list is not valid.", line);
-            throw new InvalidDataException(FutureExerciseListStorage.FILENAME_LIST_FUTURE, line);
+            throw new InvalidDataException(StorageManager.FILENAME_LIST_FUTURE, line);
         }
     }
 }

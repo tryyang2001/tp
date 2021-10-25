@@ -1,19 +1,21 @@
-package seedu.duke.storage.lists.foodlist;
+package seedu.duke.storage.data.food.foodlist;
 
 import seedu.duke.data.item.food.Food;
 import seedu.duke.data.item.food.FoodList;
-import seedu.duke.storage.Decoder;
+import seedu.duke.storage.StorageManager;
+import seedu.duke.storage.data.ListDecoder;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.util.logging.Level;
 
-public class FoodListDecoder extends Decoder {
+/**
+ * Decodes the food list from the storage file.
+ */
+public class FoodListDecoder extends ListDecoder {
 
     /**
      * Retrieves food list from food_list.txt.
@@ -21,12 +23,15 @@ public class FoodListDecoder extends Decoder {
      * @return The food list with data loaded from file
      * @throws FileNotFoundException If file is misplaced/missing
      */
-
-    public FoodList getFoodListFromData() throws FileNotFoundException {
+    public static FoodList retrieveFoodListFromData(String filePath) throws FileNotFoundException {
         FoodList foodItems = new FoodList();
-        File file = new File(FoodListStorage.FILEPATH_LIST_FOOD);
+        File file = new File(filePath);
         Scanner in = new Scanner(file);
-        logger.log(Level.FINE, "Decoding food list data from file...");
+        decodeFoodItems(foodItems, in);
+        return foodItems;
+    }
+
+    private static void decodeFoodItems(FoodList foodItems, Scanner in) {
         while (in.hasNext()) {
             try {
                 decodeFoodDataFromString(foodItems, in.nextLine());
@@ -34,22 +39,17 @@ public class FoodListDecoder extends Decoder {
                 System.out.println(e.getMessage());
             }
         }
-        logger.log(Level.FINE, "Retrieved food list data from file.");
-        return foodItems;
     }
 
-    private void decodeFoodDataFromString(FoodList foodItems, String line) throws InvalidDataException {
+    private static void decodeFoodDataFromString(FoodList foodItems, String line) throws InvalidDataException {
         try {
-            final String[] foodDetails = line.split(FILE_TEXT_DELIMITER);
+            final String[] foodDetails = line.split(StorageManager.FILE_TEXT_DELIMITER);
             final String name = foodDetails[1];
             final int calories = Integer.parseInt(foodDetails[2]);
             final LocalDateTime dateTimeOfFood = parseDateTime(foodDetails[3]);
-            final LocalDate currentDate = LocalDate.now();
-            final LocalDate dateOfFood = dateTimeOfFood.toLocalDate();
             foodItems.addItem(new Food(name, calories, dateTimeOfFood));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException | DateTimeException e) {
-            logger.log(Level.WARNING, "A line in food list is not valid.", line);
-            throw new InvalidDataException(FoodListStorage.FILENAME_LIST_FOOD, line);
+            throw new InvalidDataException(StorageManager.FILENAME_LIST_FOOD, line);
         }
     }
 }
