@@ -46,18 +46,10 @@ public class FoodListDecoder extends Decoder {
             final LocalDateTime dateTimeOfFood = parseDateTime(foodDetails[3]);
             final LocalDate currentDate = LocalDate.now();
             final LocalDate dateOfFood = dateTimeOfFood.toLocalDate();
-            if (isWithinPastSevenDays(currentDate, dateOfFood)) {
-                foodItems.addItem(new Food(name, calories, dateTimeOfFood));
-            }
+            foodItems.addItem(new Food(name, calories, dateTimeOfFood));
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException | DateTimeException e) {
             logger.log(Level.WARNING, "A line in food list is not valid.", line);
             throw new InvalidDataException(FoodListStorage.FILENAME_LIST_FOOD, line);
         }
-    }
-
-    private boolean isWithinPastSevenDays(LocalDate currentDate, LocalDate dateOfFood) {
-        boolean isEqualOrBeforeTodayDate = dateOfFood.isEqual(currentDate) || dateOfFood.isBefore(currentDate);
-        boolean isAfterSevenDaysAgo = dateOfFood.isAfter(currentDate.minusDays(8));
-        return isEqualOrBeforeTodayDate && isAfterSevenDaysAgo;
     }
 }
