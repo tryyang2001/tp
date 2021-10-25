@@ -8,7 +8,7 @@ import java.util.logging.Logger;
  */
 public class ViewExerciseListCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_VIEW
-            + " " + COMMAND_PREFIX_UPCOMING_EXERCISE + COMMAND_PREFIX_DELIMITER + QUOTATION;
+            + " " + COMMAND_PREFIX_EXERCISE + COMMAND_PREFIX_DELIMITER + QUOTATION;
     public static final String MESSAGE_SUCCESS = " Here is a summary of all the exercises you have done "
             + "in the past week:" + LS + "%1$s";
 
