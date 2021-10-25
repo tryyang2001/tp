@@ -5,6 +5,11 @@
 
 [Quick Start](#quick-start)
 
+
+[Create Profile](#create-profile)
+
+[Terminology](#terminology)
+
 [Features](#features)
 
 - [View help: `help`](#view-help-help)
@@ -34,9 +39,51 @@
 4. Go to command prompt and change the directory to the file's location.
 5. Type `java -jar FitBot_v1.0.jar` into the command prompt and press enter to start the program.
 
-If successfully loaded, you will see this screen:
+If successfully loaded, you will see this logo:
 
-![Untitled](https://user-images.githubusercontent.com/69421979/137489537-ef18d425-95ae-4e41-b5d6-752e665728b9.png)
+![Untitled](./images/StartupLogo.png)
+
+## Create Profile
+
+Fitbot will detect if there is a profile present in the application. If you have not set up a profile,
+Fitbot will ask you for your particulars.
+
+
+Particulars required includes name, height, weight, age, gender, calorie goal and activity factor.
+
+After setting up the profile, you can start recording your food and exercises with the commands below.
+
+
+## **Terminology**
+
+**_Calorie_** - A unit used to measure the energy of an item. One calorie is the amount of energy required to raise the
+temperature of one gram of water by one degree Celsius. On average, a male will require approximately 2500 cal while a
+female will require around 2000 cal per day.\
+\
+***Calorie goal*** - The amount of calorie you wish to consume per day. In our application, calorie goal is defined as the
+total calorie intake from all the food consumed per day. In addition, net calorie will mean the difference between calorie 
+goal and the total calorie burnt from exercising and [body metabolism](https://www.news-medical.net/life-sciences/What-is-Metabolism.aspx). 
+For your information, we use [basal metabolic rate (BMR)](https://en.wikipedia.org/wiki/Basal_metabolic_rate) to compute 
+the rate of calorie consumed by body metabolic activity.\
+\
+***Activity factor*** - A coefficient or value used in the calculation of BMR to measure the level of activity. In our 
+application, we use an integer ranged from 1 to 5 to measure the activity factor, with 1 being sedentary (little or
+no exercise) and 5 being very active in playing sports and exercising. \
+\
+***Body Mass Index (BMI)*** - A measure to evaluate if the body weight is healthy. BMI is computed by using the body 
+weight(in kg) divided by the square of the body height(in m). \
+\
+***Item*** - We use the term **item** to represent the item that can be stored in our application. The available item 
+include **food** and **exercise** only.\
+\
+***Upcoming exercise*** - We define the exercise with date after today's date as an upcoming exercise. This kind of exercise 
+will be handled specifically. It will not be added to the exercise list but will be saved internally in the storage file. More 
+details of the process can be found at [here](linkToAddFutureExerciseOrDG).\
+\
+***Item Bank*** - An item storage that is capable to store the food or exercise item with its respective calorie. This is 
+to help the user to memorize the calorie intake of a specific food or the calorie burnt of a specific exercise. More details 
+of the item bank can be found at [here](linkToAddBank).
+
 
 
 ## **Features**
@@ -62,27 +109,6 @@ Shows a list of commands and their usage.
 
 Format: `help`
 
-Example:
-
-```text  
-help  
-__________________________________________________________________________________________________________  
-These are the available commands:  
-Welcome to the help page.  
-Below are the commands to get you started.  
-More details could be found on: https://tinyurl.com/fitbotUG  
-  
-help -- Shows a list of commands and their usage with some examples.  
-  
-profile -- Inputs height of user in centimetres, weight of user in kg  
- and name of user in test.goal -- Inputs net calorie goal of user in calorie.  
-bmi -- Calculates the BMI value based on the user's input height and weight.  
-add -- Adds food or exercise record to the current list.  
-view -- Views all the food and/or exercises added.  
-delete -- Deletes entry of food or exercise added.  
-bye -- Exits the program and save results from food and exercise items.  
-__________________________________________________________________________________________________________  
-```  
 
 ### View the profile details: `profile`
 
@@ -111,13 +137,11 @@ ________________________________________________________________________________
 Change your name with `profile n/NAME`
 
 
-
 #### **Update height:**
 
 Change your height with `profile h/HEIGHT_IN_CM`.
 
 ❗ `HEIGHT_IN_CM` must be a positive number.
-
 
 
 
@@ -192,30 +216,44 @@ Adds food or exercise record to the current list.
 
 Format:
 
-- `add f/ITEM c/CALORIES` adds a food item consumed with its respective calories.
-- `add e/ITEM c/CALORIES` adds an exercise with its respective calories burnt.
+- `add f/ITEM {c/CALORIES} {d/dd-mm-yyyy} {t/hhmm}` adds a food item consumed with its respective calories on the given 
+date (`dd-mm-yyyy`) and time (`hhmm`}. 
+
 
 Examples:
 
-- `add f/chicken rice c/607` adds record of food consumed: chicken rice with 607 calories gained.
+- `add f/chicken rice c/607 d/21-10-2021 t/1400` adds record of food consumed: chicken rice with 607 calories gained.
 
-```text  
-add f/chicken rice c/607  
-__________________________________________________________________________________________  
-A food item has been added:  
- chicken rice (607 cal)
-__________________________________________________________________________________________  
-```  
 
-- `add e/hiit c/290` adds record of exercise done: hiit with 290 calories burnt.
+```text
+add f/chicken rice c/607 d/21-10-2021 t/1400
+__________________________________________________________________________________________
+A food item has been added:
+    chicken rice (607 cal) @ 14:00, 21 Oct 2021
+__________________________________________________________________________________________
 
-```text  
-add e/hiit c/290  
-__________________________________________________________________________________________  
-An exercise has been added:  
- hiit (290 cal)
-__________________________________________________________________________________________  
-```  
+```
+- `add e/ITEM {c/CALORIES} {d/dd-mm-yyyy}` adds an exercise with its respective calories burnt on the given date (`dd-mm-yyyy`}.
+
+```text
+add e/hiit c/290 d/ d/21-10-2021
+__________________________________________________________________________________________
+An exercise has been added:
+    hiit (290 cal) @ 21-10-2021
+__________________________________________________________________________________________
+```
+💡  **Tip:** If you do not specify the date and time of the food item, it is assumed that the date is today and the time
+is when you add this food. Similarly, if the date of the exercise is not provided, the date is assumed to be today.\
+💡  **Tip:** If you do not provide the calorie of the food/exercise item, Fitbot will search and retrieve the calorie value 
+from the corresponding item bank if the item is found. 
+```
+add f/chicken rice d/22-10-2021 t/1345
+__________________________________________________________________________________________
+A food item has been added:
+    chicken rice (607 cal) @ 13:45, 22 Oct 2021
+__________________________________________________________________________________________
+```
+
 
 ### **View** **Exercise and Food Items:** `view`
 
@@ -223,38 +261,59 @@ Views all the food or exercises added.
 
 Format:
 
-- `view f/` views all the food and the calories added to the list.
+- `view f/` views all the food items and their calories added within 7 days (include today) to the list.
 
-```text  
-view f/  
-__________________________________________________________________________________________  
-You have consumed 4 food item(s):  
- 1. chicken rice (607 cal) 2. yong tau foo (536 cal) 3. mcspicy alacarte (528 cal) 4. char kway teow (744 cal)Total calories consumed: 2415  
-__________________________________________________________________________________________  
-```  
 
-- `view e/` views all the exercises and the calories added to list.
+```text
+view f/
+__________________________________________________________________________________________________________
+Here is a summary of all the food items you have consumed in the past week:
+..........................................................................................................
+You have consumed 3 food item(s) on Friday (22 Oct 2021):
+In the morning:
+	1. donut x2 (607 cal) @ 10:00
+In the afternoon:
+	1. chicken rice (607 cal) @ 14:00
+In the evening:
+	1. yong tau foo (560 cal) @ 19:20
+Total calories consumed in the day: 1774 cal
+..........................................................................................................
+You have consumed 4 food item(s) on Saturday (23 Oct 2021):
+In the morning:
+	1. butter bread x2 (418 cal) @ 08:30
+In the afternoon:
+	1. penang laksa (377 cal) @ 13:00
+In the evening:
+	1. sliced fish bee hoon (349 cal) @ 18:40
+At night:
+	1. roti prata x3 (507 cal) @ 23:50
+Total calories consumed in the day: 1651 cal
+..........................................................................................................
+Total number of food consumed in this week: 7
+Total calories consumed in this week: 3425 cal
+__________________________________________________________________________________________________________
+```
 
-```text  
-view e/  
-__________________________________________________________________________________________  
-You have done 2 exercise(s):  
- 1. hiit (290 cal) 2. biking (500 cal)Total calories burnt: 790  
-__________________________________________________________________________________________  
-```  
+- `view e/` views all the exercises taken and the calories that are added within past 7 days (include today) to list.
 
-- `view` views all food and exercises in the list and their respective calories.
+```text
+view e/
+__________________________________________________________________________________________________________
+ Here is a summary of all the exercises you have done in the past week:
+..........................................................................................................
+You have done 1 exercise(s) on Friday (22 Oct 2021):
+	1. biking (500 cal)
+Total calories burnt in the day: 500 cal
+..........................................................................................................
+You have done 1 exercise(s) on Sunday (24 Oct 2021):
+	1. hiit (290 cal)
+Total calories burnt in the day: 290 cal
+..........................................................................................................
+Total exercises done in this week: 2
+Total calorie burnt in the week: 790
+__________________________________________________________________________________________________________
+```
 
-```text  
-view  
-__________________________________________________________________________________________  
-You have consumed 4 food item(s):  
- 1. chicken rice (607 cal) 2. yong tau foo (536 cal) 3. mcspicy alacarte (528 cal) 4. char kway teow (744 cal)Total calories consumed: 2415  
-  
-You have done 2 exercise(s):  
- 1. hiit (290 cal) 2. biking (500 cal)Total calories burnt: 790  
-__________________________________________________________________________________________  
-```  
 
 ### **Delete** **Exercise and Food Items:** `delete`
 
@@ -262,9 +321,11 @@ Deletes entry of food or exercise added.
 
 Format:
 
-`delete f/LIST_NO.` deletes the n<sup>th</sup> item in the food list.
+`delete f/LIST_NO. d/dd-mm-yyyy t/hhmm` deletes the *n<sup>th</sup>* food item in the food list which has the date (`dd-mm-yyyy`) 
+and time (`hhmm`), where *n* is the index of the food to delete.
 
-`delete e/LIST_NO.` deletes the n<sup>th</sup> item in the exercise list.
+`delete e/LIST_NO. d/dd-mm-yyyy` deletes the *n<sup>th</sup>* exercise in the exercise list which contains the date (`dd-mm-yyyy`),
+ where *n* is the index of the exercise to delete
 
 `delete f/all` deletes all the food items in the food list.
 
@@ -272,43 +333,82 @@ Format:
 
 ❗ `LIST_NO.` must be a positive integer within the range of the number of items in the list.
 
-```text  
-delete f/2  
-__________________________________________________________________________________________  
-A food item has been deleted:  
- yong tau foo (536 cal) Number of food item(s) left: 3
-__________________________________________________________________________________________  
-delete e/1  
-__________________________________________________________________________________________  
-You have removed the exercise:  
- hiit (290 cal)Number of exercise item(s) left: 1  
-__________________________________________________________________________________________  
-delete f/all  
-__________________________________________________________________________________________________________  
-All food items have been removed.  
-__________________________________________________________________________________________________________  
-delete e/all  
-__________________________________________________________________________________________________________  
-All exercise items have been removed.  
-__________________________________________________________________________________________________________  
-```  
+
+Example:
+
+```text
+delete f/1 d/22-10-2021 t/1000
+__________________________________________________________________________________________________________
+A food item has been deleted:
+	donut x2 (607 cal) @ 10:00, 22 Oct 2021
+Number of food item(s) left: 6
+__________________________________________________________________________________________________________
+delete e/1 d/24-10-2021
+__________________________________________________________________________________________________________
+You have removed the exercise:
+    hiit (290 cal) @ 24 Oct 2021
+Number of exercise item(s) left: 1
+__________________________________________________________________________________________________________
+delete f/all
+__________________________________________________________________________________________________________
+All food items have been removed.
+__________________________________________________________________________________________________________
+delete e/all
+__________________________________________________________________________________________________________
+All exercise items have been removed.
+__________________________________________________________________________________________________________
+```
 
 ### **Calculate net calories**: `overview`
 
-Views the difference between the calories consumed and the calories lost (in cal).
+Views the summary of the calories gained from food, calories burnt from exercises as well as
+net calories after including BMR.
 
 Format: `overview`
 
-```text  
-overview  
-__________________________________________________________________________________________  
-Your calorie gained from food is: 2415  
-Your calorie lost from exercise is: 790  
-Your net calorie intake is: 1625  
-Your calorie goal is: 2000  
-You are 375 cal away from your goal  
-__________________________________________________________________________________________  
-```  
+```text
+overview
+__________________________________________________________________________________________
+-*OVERVIEW*-
+Hi 0.001, this is your calorie summary for the week.
+
+Food:
+You have consumed 0 cal this week from 18-Oct to 24-Oct.
+Calorie gained from food (Daily)
+18-Oct       0
+19-Oct       0
+20-Oct       0
+21-Oct       0
+22-Oct       0
+23-Oct       0
+24-Oct       0
+You have lost 0 cal from exercising for the last 7 days.
+Calorie burnt from exercise (Daily)
+18-Oct       0
+19-Oct       0
+20-Oct       0
+21-Oct       0
+22-Oct       0
+23-Oct       0
+24-Oct       0
+
+Daily net calories**:
+18-Oct :   927
+19-Oct :   927
+20-Oct :   927
+21-Oct :   927
+22-Oct :   927
+23-Oct :   927
+24-Oct :   927
+
+
+Number of supper meals this week: 0
+
+ ** The net calorie calculation includes calories gained from food, calories burnt from exercises
+  and daily normal activities (using BMR). All calculations used the latest values from updated in profile.
+__________________________________________________________________________________________
+```
+
 
 ### Exit the program: `bye`
 
@@ -330,17 +430,16 @@ There is no need to save manually. Any updates made to the data will be automati
 
 ### Command Summary
 
-| Action | Format | Examples |  
-|---------|----------|-------|  
-add|`add f/ITEM c/CALORIE`  `add e/ITEM c/CALORIES` | `add f/chicken rice c/607`, `add e/hiit c/290`
+
+| Action | Format | Examples |
+|---------|----------|-------|
+add|`add f/ITEM {c/CALORIE} {d/dd-mm-yyyy} {t/hhmm}` <br>`add e/ITEM {c/CALORIES} {d/dd-mm-yyyy}` | `add f/chicken rice c/607 d/20-10-2021`, <br>`add e/hiit c/290 d/23-10-2021`
 bmi|`bmi h/HEIGHT_IN_CM w/WEIGHT_IN_KG` `bmi`|`bmi h/170 w/65` , `bmi`
 bye|`bye`|
-delete|`delete f/LIST_NO.`  `delete e/LIST_NO.`  `delete f/all`  `delete e/all` |`delete f/1`, `delete e/2`, `delete f/all`,  `delete e/all`
-goal |`goal CALORIE_IN_CAL` | `goal 2000`
-height|`height HEIGHT_IN_CM` | `height 170`
+delete|`delete f/LIST_NO. d/dd-mm-yyyy t/hhmm` <br> `delete e/LIST_NO. d/dd-mm-yyyy` <br> `delete f/all` <br> `delete e/all` |`delete f/1`, <br> `delete e/2`, <br> `delete f/all`, <br>  `delete e/all`
 help | `help`|
 name|`name NAME`|`height 170`
 overview|`overview`|
 profile|`profile h/HEIGHT_IN_CM w/WEIGHT_IN_KG n/NAME g/CALORIE_IN_CAL` `profile`|`profile h/170 w/65 n/John g/2000`, `profile`
-view|`view`|`view e/`,  `view f/`, `view`
-weight|`weight WEIGHT_IN_KG`|`weight 65`
+view|`view`|`view e/`,  `view f/`
+
