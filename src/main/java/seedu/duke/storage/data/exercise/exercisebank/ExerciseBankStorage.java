@@ -12,15 +12,24 @@ import seedu.duke.storage.utilities.FileSaver;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 
+/**
+ * This storage handles the loading and saving of exercise bank items.
+ */
 public class ExerciseBankStorage extends Storage implements ExerciseBankStorageInterface {
 
     public static final String TYPE = "Exercise";
 
+    /**
+     * Constructor for the exercise bank storage.
+     *
+     * @param filePath of the exercise bank data file
+     */
     public ExerciseBankStorage(String filePath) {
         this.filePath = filePath;
         fileName = getFileName(filePath);
     }
 
+    @Override
     public ItemBank loadExerciseBank() throws UnableToReadFileException {
         FileChecker.createFileIfMissing(filePath);
         return readFromExerciseBankFile();
@@ -35,7 +44,8 @@ public class ExerciseBankStorage extends Storage implements ExerciseBankStorageI
         }
     }
 
+    @Override
     public void saveExerciseBank(ItemBank exerciseBank) throws UnableToWriteFileException {
-        FileSaver.saveToFile(filePath, ItemEncoder.encode(exerciseBank));
+        FileSaver.saveTo(filePath, ItemEncoder.encode(exerciseBank));
     }
 }

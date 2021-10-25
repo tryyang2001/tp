@@ -9,6 +9,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Decodes the profile from storage data.
+ */
 public class ProfileDecoder {
 
     /**
@@ -21,7 +24,10 @@ public class ProfileDecoder {
     public static Profile retrieveProfileFromData(String filePath) throws FileNotFoundException {
         File file = new File(filePath);
         Scanner in = new Scanner(file);
+        return decodeProfile(in);
+    }
 
+    private static Profile decodeProfile(Scanner in) {
         try {
             if (in.hasNext()) {
                 return decodeProfileDataFromString(in.nextLine());
@@ -29,7 +35,6 @@ public class ProfileDecoder {
         } catch (InvalidDataException e) {
             System.out.println(e.getMessage());
         }
-
         return new Profile();
     }
 

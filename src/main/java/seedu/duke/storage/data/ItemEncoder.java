@@ -4,6 +4,9 @@ import seedu.duke.data.item.ItemBank;
 
 import java.util.ArrayList;
 
+/**
+ * Encodes all the items available for FitBot (Other than Profile).
+ */
 public class ItemEncoder {
     /**
      * Encodes the list of items in the item bank in preparation for storage.

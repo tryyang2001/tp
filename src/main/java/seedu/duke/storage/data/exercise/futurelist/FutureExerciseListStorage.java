@@ -11,8 +11,16 @@ import seedu.duke.storage.utilities.FileSaver;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 
+/**
+ * Storage that handles the saving and loading of data files of upcoming exercises in future exercise storage.
+ */
 public class FutureExerciseListStorage extends Storage implements UpcomingStorageInterface {
 
+    /**
+     * Constructor for future exercise list storage.
+     *
+     * @param filePath of where the future exercise list should be stored
+     */
     public FutureExerciseListStorage(String filePath) {
         this.filePath = filePath;
         this.fileName = getFileName(filePath);
@@ -35,7 +43,7 @@ public class FutureExerciseListStorage extends Storage implements UpcomingStorag
 
     @Override
     public void saveFutureExerciseList(FutureExerciseList futureExercises) throws UnableToWriteFileException {
-        FileSaver.saveToFile(filePath, ItemEncoder.encode(futureExercises));
+        FileSaver.saveTo(filePath, ItemEncoder.encode(futureExercises));
     }
 
 }

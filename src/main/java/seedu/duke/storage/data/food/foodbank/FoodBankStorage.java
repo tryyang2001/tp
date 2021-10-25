@@ -47,6 +47,6 @@ public class FoodBankStorage extends Storage implements FoodBankStorageInterface
 
     @Override
     public void saveFoodBank(ItemBank foodBank) throws UnableToWriteFileException {
-        FileSaver.saveToFile(filePath, ItemEncoder.encode(foodBank));
+        FileSaver.saveTo(filePath, ItemEncoder.encode(foodBank));
     }
 }

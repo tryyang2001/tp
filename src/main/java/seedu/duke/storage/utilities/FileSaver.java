@@ -17,17 +17,17 @@ public class FileSaver {
      * @param path filepath of the ArrayList to be stored
      * @throws UnableToWriteFileException If the saving is interrupted by an environment variable
      */
-    public static void saveToFile(String path, ArrayList<String> toSave) throws UnableToWriteFileException {
+    public static void saveTo(String path, ArrayList<String> toSave) throws UnableToWriteFileException {
         try {
             FileWriter fw = new FileWriter(path);
-            writeToFile(fw, toSave);
+            writeTo(fw, toSave);
             closeFile(fw);
         } catch (IOException e) {
             throw new UnableToWriteFileException();
         }
     }
 
-    private static void writeToFile(FileWriter fw, ArrayList<String> toSave) throws IOException {
+    private static void writeTo(FileWriter fw, ArrayList<String> toSave) throws IOException {
         for (String item : toSave) {
             fw.write(item + System.lineSeparator());
         }

@@ -4,6 +4,10 @@ import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
+/**
+ * Interface that ensures both the storage and storage manager has the
+ * required functions to load and save from exercise list storage.
+ */
 public interface ExerciseStorageInterface {
 
     /**
@@ -20,6 +24,7 @@ public interface ExerciseStorageInterface {
      * Used when there is an update to the list.
      *
      * @param exercises ExerciseList to be saved
+     * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
     void saveExerciseList(ExerciseList exercises) throws UnableToWriteFileException;
 

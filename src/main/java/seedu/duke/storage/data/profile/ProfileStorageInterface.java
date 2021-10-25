@@ -21,6 +21,7 @@ public interface ProfileStorageInterface {
      * Used when there is an update to any profile attribute.
      *
      * @param profile Profile of the current user
+     * @throws UnableToWriteFileException if the filepath given is inaccessible or I/O was interrupted
      */
     void saveProfile(Profile profile) throws UnableToWriteFileException;
 }

@@ -11,8 +11,16 @@ import seedu.duke.storage.utilities.FileSaver;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 
+/**
+ * Storage that handles the saving and loading of data files of upcoming exercises in future exercise storage.
+ */
 public class FoodListStorage extends Storage implements FoodStorageInterface {
 
+    /**
+     * Constructor for food list storage object.
+     *
+     * @param filePath of where the food list should be saved
+     */
     public FoodListStorage(String filePath) {
         this.filePath = filePath;
         this.fileName = getFileName(filePath);
@@ -35,6 +43,6 @@ public class FoodListStorage extends Storage implements FoodStorageInterface {
 
     @Override
     public void saveFoodList(FoodList foodItems) throws UnableToWriteFileException {
-        FileSaver.saveToFile(filePath, ItemEncoder.encode(foodItems));
+        FileSaver.saveTo(filePath, ItemEncoder.encode(foodItems));
     }
 }

@@ -12,6 +12,9 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+/**
+ * Decodes the food list from the storage file.
+ */
 public class FoodListDecoder extends ListDecoder {
 
     /**

@@ -11,6 +11,9 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Decodes the upcoming exercises from future exercise list data file.
+ */
 public class FutureExerciseListDecoder extends ListDecoder {
 
     /**

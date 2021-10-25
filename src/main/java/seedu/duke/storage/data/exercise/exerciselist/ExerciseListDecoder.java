@@ -11,6 +11,9 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Decodes the exercise list from storage.
+ */
 public class ExerciseListDecoder extends ListDecoder {
 
     /**

@@ -4,6 +4,10 @@ import seedu.duke.data.item.food.FoodList;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
+/**
+ * Interface that ensures both the storage and storage manager has the
+ * required functions to load and save from food list.
+ */
 public interface FoodStorageInterface {
 
     /**
