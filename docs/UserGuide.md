@@ -1,3 +1,4 @@
+
 # Fitbot User Guide
 
 *Fitbot* is a **desktop app** that helps university students who are looking to **keep track of their calorie consumption and calorie output** with the speed and convenience of **command-line based** tools, especially in times of online school.
@@ -12,11 +13,14 @@
 [Features](#features)
 
 - [View help: `help`](#view-help-help)
-- [Update name: `name`](#update-name-name)
-- [Update height: `height`](#update-height-height)
-- [Update weight: `weight`](#update-weight-weight)
-- [Update net calorie goal: `goal`](#update-net-calorie-goal-goal)
-- [Update/View the profile details: `profile`](#updateview-the-profile-details-profile)
+- [View your profile details: `profile`](#view-the-profile-details-profile)
+  - [Updating your name](#update-name)
+  - [Updating your height](#update-height)
+  - [Updating your weight](#update-weight)
+  - [Updating your gender](#update-gender)
+  - [Updating your age](#update-age)
+  - [Updating your calorie goal](#update-calorie-goal)
+  - [Updating your activity level](#update-activity-factor)
 - [BMI calculator: `bmi`](#bmi-calculator-bmi)
 - [Add Exercise and Food Items: `add`](#add-exercise-and-food-items-add)
 - [View Exercise and Food Items: `view`](#view-exercise-and-food-items-view)
@@ -84,13 +88,13 @@ of the item bank can be found at [here](linkToAddBank).
 
 ## **Features**
 
-ℹ️  ***Command Format***
+ℹ️ ***Command Format***
 
 - Commands are not case sensitive (e.g. `help`, `HELP`,`hElP` are all able to execute the `help` command)
 - Words in upper case (e.g. `UPPER_CASE`) are known as parameters; values to be provided by users
 - Parameters in square brackets are optional.
 
-  e.g. `bmi [h/HEIGHT_IN_CM w/WEIGHT_IN_KG]`  can be `bmi` or `bmi h/150 w/70`
+  e.g. `bmi [h/HEIGHT_IN_CM w/WEIGHT_IN_KG]` can be `bmi` or `bmi h/150 w/70`
 
 - The order of the parameters do not matter.
 
@@ -106,129 +110,75 @@ Shows a list of commands and their usage.
 Format: `help`
 
 
-### **Update name: `name`**
+### View the profile details: `profile`
 
-Updates name of user.
-
-Format: `name NAME`
+Typing `profile` lets you view your name, height, weight, gender, age, calorie goal and activity factor.
 
 Example:
 
-- `name John`
-
 ```text
-name John
-__________________________________________________________________________________________
-Your name has been updated!
-Hello John!
-__________________________________________________________________________________________
-```
+profile 
+__________________________________________________________________________________________________________ 
+Hello hi! This is your profile: 
+*====================================== 
+	Name                Lisa 
+	Height              159cm 
+	Weight              50.0kg 
+	Gender              F 
+	Age                 21 
+	Calories goal       1500 cal 
+	Activity factor     2 
+======================================* 
+__________________________________________________________________________________________________________ 
+```  
 
-### **Update height:** `height`
+#### **Update name**
 
-Updates height of user in centimetres.
+Change your name with `profile n/NAME`
 
-Format: `height HEIGHT_IN_CM`
 
-- Records height of user.
+#### **Update height:**
+
+Change your height with `profile h/HEIGHT_IN_CM`.
 
 ❗ `HEIGHT_IN_CM` must be a positive number.
 
-Example:
 
-- `height 170`
 
-```text
-height 170
-__________________________________________________________________________________________
-Your height has been updated.
-Your height is 170.0cm.
-__________________________________________________________________________________________
-```
+#### **Update weight:**
 
-### **Update weight:** `weight`
-
-Updates weight of user in kilograms.
-
-Format: `weight WEIGHT_IN_KG`
-
-- Records weight of user.
+Change your weight with `profile w/WEIGHT_IN_KG`.
 
 ❗ `WEIGHT_IN_KG` must be a positive number.
 
-Example:
+#### Update gender:
 
-- `weight 65`
+Change your age with `profile s/GENDER`
 
-```text
-weight 65
-__________________________________________________________________________________________
-Your weight has been updated.
-Your weight is 65.0kg.
-__________________________________________________________________________________________
-```
+❗ `GENDER` must be either `M` or `F` (case insensitive).
 
-### Update net calorie goal: `goal`
+#### Update age:
 
-Updates net calorie goal of user.
+Change your age with `profile a/AGE`
 
-Format: `goal CALORIE_IN_CAL`
+❗ `AGE` must be a positive number.
 
-- Records net calorie goal of user.
+#### Update calorie goal
 
-❗`CALORIE_IN_CAL` must be an integer.
+Change your calorie goal with `profile g/GOAL_IN_CAL`
 
-Example:
+#### Update activity factor
 
-- `goal 2000`
+Change your activity factor with `profile x/ACTIVITY_FACTOR`
 
-```text
-goal 2000
-__________________________________________________________________________________________
-Your goal has been set!
-Current net calorie goal per day: 2000
-__________________________________________________________________________________________
-```
+❗ `ACTIVITY_FACTOR` must be a number between 1 and 5.
 
-💡  **Tip:** Use `profile` to add name, height, weight and calorie goal at the same time.
 
-### Update/View the profile details: `profile`
-
-Updates/Views the name, height, weight and the calorie goal values.
+💡 **Tip:** Use `profile n/NAME h/HEIGHT w/WEIGHT s/GENDER a/AGE g/CALORIE_GOAL x/ACTIVITY_FACTOR` to set all the attributes at once. You need at least one parameter and you can type it in _any_ order you'd like.
 
 Format:
+- `profile {n/NAME} {h/HEIGHT} {w/WEIGHT} {s/GENDER} {a/AGE} {g/CALORIE_GOAL} {x/ACTIVITY_FACTOR}`
 
-`profile h/HEIGHT_IN_CM w/WEIGHT_IN_KG n/NAME g/CALORIE_IN_CAL`
-
-`profile`
-
-❗ `HEIGHT_IN_CM` and `WEIGHT_IN_KG` must be positive numbers.
-
-❗`CALORIE_IN_CAL` must be an integer.
-
-Example:
-
-- `profile n/John Doe w/65 /h170 g/2000` creates a profile with name John Doe of height 170cm and 65kg with a calorie goal of 2000 calories.
-- `profile` displays your profile details.
-
-```text
-profile n/John Doe w/65 h/170 g/2000
-
-__________________________________________________________________________________________________________
-Hello John Doe! Your profile has been created!
-    Your height is 170.0cm.
-    Your weight is 65.0kg.
-    Your calories goal is 2000 cal.
-__________________________________________________________________________________________________________
-profile
-__________________________________________________________________________________________________________
-Hello! This is your current profile:
-    Your name is John.
-    Your height is 170.0cm.
-    Your weight is 65.0kg.
-    Your calorie goal is 2000 cal.
-__________________________________________________________________________________________________________
-```
 
 ### **BMI calculator:** `bmi`
 
@@ -247,12 +197,18 @@ Example:
 - `bmi` calculates the BMI value based on the user's height and weight in his or her profile.
 - `bmi h/170 w/65` calculates the BMI value based on height 170cm and weight 65cm.
 
-```text
-bmi h/170 w/65
-__________________________________________________________________________________________
-Your BMI value is 22.5 (Healthy)
-__________________________________________________________________________________________
-```
+```text  
+bmi
+__________________________________________________________________________________________________________
+Your BMI value according to your current profile is:
+	15.5 (Underweight)
+__________________________________________________________________________________________________________
+
+bmi h/170 w/65  
+__________________________________________________________________________________________  
+The calculated BMI value is 20.1 (Healthy)
+__________________________________________________________________________________________  
+```  
 
 ### **Add** **Exercise and Food Items:** `add`
 
@@ -262,11 +218,12 @@ Format:
 
 - `add f/ITEM {c/CALORIES} {d/dd-mm-yyyy} {t/hhmm}` adds a food item consumed with its respective calories on the given 
 date (`dd-mm-yyyy`) and time (`hhmm`}. 
-- `add e/ITEM {c/CALORIES} {d/dd-mm-yyyy}` adds an exercise with its respective calories burnt on the given date (`dd-mm-yyyy`}.
+
 
 Examples:
 
 - `add f/chicken rice c/607 d/21-10-2021 t/1400` adds record of food consumed: chicken rice with 607 calories gained.
+
 
 ```text
 add f/chicken rice c/607 d/21-10-2021 t/1400
@@ -274,9 +231,9 @@ ________________________________________________________________________________
 A food item has been added:
     chicken rice (607 cal) @ 14:00, 21 Oct 2021
 __________________________________________________________________________________________
-```
 
-- `add e/hiit c/290 ` adds record of exercise done: hiit with 290 calories burnt.
+```
+- `add e/ITEM {c/CALORIES} {d/dd-mm-yyyy}` adds an exercise with its respective calories burnt on the given date (`dd-mm-yyyy`}.
 
 ```text
 add e/hiit c/290 d/ d/21-10-2021
@@ -297,6 +254,7 @@ A food item has been added:
 __________________________________________________________________________________________
 ```
 
+
 ### **View** **Exercise and Food Items:** `view`
 
 Views all the food or exercises added.
@@ -304,6 +262,7 @@ Views all the food or exercises added.
 Format:
 
 - `view f/` views all the food items and their calories added within 7 days (include today) to the list.
+
 
 ```text
 view f/
@@ -355,6 +314,7 @@ Total calorie burnt in the week: 790
 __________________________________________________________________________________________________________
 ```
 
+
 ### **Delete** **Exercise and Food Items:** `delete`
 
 Deletes entry of food or exercise added.
@@ -372,6 +332,7 @@ and time (`hhmm`), where *n* is the index of the food to delete.
 `delete e/all` deletes all the exercise items in the exercise list.
 
 ❗ `LIST_NO.` must be a positive integer within the range of the number of items in the list.
+
 
 Example:
 
@@ -448,19 +409,20 @@ Number of supper meals this week: 0
 __________________________________________________________________________________________
 ```
 
+
 ### Exit the program: `bye`
 
 Exits the program.
 
 Format: `bye`
 
-```text
-bye
-__________________________________________________________________________________________
-Exiting Fitbot....
-Bye! Hope to see you again soon!!
-__________________________________________________________________________________________
-```
+```text  
+bye  
+__________________________________________________________________________________________  
+Exiting Fitbot....  
+Bye! Hope to see you again soon!!  
+__________________________________________________________________________________________  
+```  
 
 ### Saving the data
 
@@ -468,17 +430,16 @@ There is no need to save manually. Any updates made to the data will be automati
 
 ### Command Summary
 
+
 | Action | Format | Examples |
 |---------|----------|-------|
 add|`add f/ITEM {c/CALORIE} {d/dd-mm-yyyy} {t/hhmm}` <br>`add e/ITEM {c/CALORIES} {d/dd-mm-yyyy}` | `add f/chicken rice c/607 d/20-10-2021`, <br>`add e/hiit c/290 d/23-10-2021`
 bmi|`bmi h/HEIGHT_IN_CM w/WEIGHT_IN_KG` `bmi`|`bmi h/170 w/65` , `bmi`
 bye|`bye`|
 delete|`delete f/LIST_NO. d/dd-mm-yyyy t/hhmm` <br> `delete e/LIST_NO. d/dd-mm-yyyy` <br> `delete f/all` <br> `delete e/all` |`delete f/1`, <br> `delete e/2`, <br> `delete f/all`, <br>  `delete e/all`
-goal |`goal CALORIE_IN_CAL` | `goal 2000`
-height|`height HEIGHT_IN_CM` | `height 170`
 help | `help`|
 name|`name NAME`|`height 170`
 overview|`overview`|
 profile|`profile h/HEIGHT_IN_CM w/WEIGHT_IN_KG n/NAME g/CALORIE_IN_CAL` `profile`|`profile h/170 w/65 n/John g/2000`, `profile`
 view|`view`|`view e/`,  `view f/`
-weight|`weight WEIGHT_IN_KG`|`weight 65`
+
