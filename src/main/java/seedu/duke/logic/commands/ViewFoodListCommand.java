@@ -6,8 +6,8 @@ package seedu.duke.logic.commands;
 public class ViewFoodListCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_VIEW
             + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + QUOTATION;
-    public static final String MESSAGE_SUCCESS = "You have consumed %1$d food item(s):"
-            + LS + "%2$s";
+    public static final String MESSAGE_SUCCESS = "Here is a summary of all the food items you have consumed "
+            + "in the past week:" + LS + "%1$s";
 
 
     @Override
@@ -15,7 +15,6 @@ public class ViewFoodListCommand extends Command {
         if (super.foodItems.getSize() == 0) {
             return new CommandResult(MESSAGE_EMPTY_FOOD_LIST);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, super.foodItems.getSize(),
-                super.foodItems.convertToString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, super.foodItems.convertToString()));
     }
 }

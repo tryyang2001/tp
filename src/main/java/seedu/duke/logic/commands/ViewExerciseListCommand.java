@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 public class ViewExerciseListCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_VIEW
             + " " + COMMAND_PREFIX_UPCOMING_EXERCISE + COMMAND_PREFIX_DELIMITER + QUOTATION;
-    public static final String MESSAGE_SUCCESS = "You have done %1$d exercise(s):"
-            + LS + "%2$s";
+    public static final String MESSAGE_SUCCESS = " Here is a summary of all the exercises you have done "
+            + "in the past week:" + LS + "%1$s";
 
 
     private static Logger logger = Logger.getLogger("ViewExerciseCommand");
@@ -22,7 +22,6 @@ public class ViewExerciseListCommand extends Command {
             return new CommandResult(MESSAGE_EMPTY_EXERCISE_LIST);
         }
         assert exerciseItems.getSize() > 0 : "Exercise list is not empty";
-        return new CommandResult(String.format(MESSAGE_SUCCESS, super.exerciseItems.getSize(),
-                super.exerciseItems.convertToString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, super.exerciseItems.convertToString()));
     }
 }

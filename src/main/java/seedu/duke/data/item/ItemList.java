@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
  */
 public abstract class ItemList extends ItemBank {
     public static final String MESSAGE_ITEM = "%d. %s";
+    public static final String ITEM_LIST_DIVIDER = "..............................................."
+            + "...........................................................";
     protected static final String DATE_FORMAT = "dd MMM yyyy";
     protected static final String LS = System.lineSeparator();
     protected static final String TAB = "\t";
