@@ -266,7 +266,7 @@ ________________________________________________________________________________
 
 #### 4.4.2. Add an Exercise Item to Exercise List
 
-Format: `add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Exercise Item with its respective calories burnt on the given date (`DD-MM-YYYY`}. 
+Format: `add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Exercise Item with its respective calories burnt on the given date (`DD-MM-YYYY`). 
 
 ℹ️ If `DD-MM-YYYY` is in the future, the Upcoming Exercise Item will be added to the Upcoming Exercise List instead.
 
@@ -298,7 +298,7 @@ This command is used to schedule exercises that you do on a regular basis. This 
 Format: `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK` adds recurring exercise with its respective calories burnt to the upcoming list.\
 ❗ `START_DATE` and `END_DATE` must be in the future.\
 ❗ `START_DATE` must be before `END_DATE`.\
-❗ `START_DATE` and `END_DATE` must follow *dd-mm-yyyy* format.
+❗ `START_DATE` and `END_DATE` must follow `DD-MM-YYYY` format.
 
 
 
@@ -480,8 +480,6 @@ ________________________________________________________________________________
 💡   **Tip:** If you wish to remove all the Exercise Items from the Upcoming Exercise List, there is a shortcut command: `delete u/all`.
 
 ```
-__________________________________________________________________________________________________________
-
 delete u/all
 __________________________________________________________________________________________________________
 All future exercise items have been removed.
@@ -507,6 +505,8 @@ This command deletes an Exercise Item from the Exercise Bank.
 Format: `delete ebank/LIST_NO.` deletes the n<sup>th</sup> Exercise Item in the Exercise Bank, where *n* is the index of the Exercise to delete.
 
 ❗ `LIST_NO.` must be a positive integer within the range of the number of Items in the list. 
+
+
 
 ### 4.7. **Edit Items**: `edit`
 
