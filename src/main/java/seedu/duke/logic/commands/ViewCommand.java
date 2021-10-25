@@ -7,7 +7,7 @@ public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD + QUOTATION;
     public static final String MESSAGE_SUCCESS = "This is what you have recorded so far!";
-    public static final String MESSAGE_FOOD = "You have consumed %1$d food item(s):"
+    public static final String MESSAGE_FOOD = "You have consumed %1$d food item(s) in the past week:"
             + LS + "%2$s";
     public static final String MESSAGE_EXERCISE = "You have done %1$d exercise(s):"
             + LS + "%2$s";
