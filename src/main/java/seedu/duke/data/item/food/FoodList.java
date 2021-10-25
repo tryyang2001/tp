@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class FoodList extends ItemList {
@@ -105,6 +106,18 @@ public class FoodList extends ItemList {
      */
     public int getSupperCount() {
         return (int) internalItems.stream().filter(f -> f.getTimePeriod().equals(TimePeriod.Night)).count();
+    }
+
+    public void addAll(FoodList filteredFoodList) {
+        LocalDate today = LocalDate.now();
+        ArrayList<Item> listToRemove = (ArrayList<Item>) internalItems
+                        .stream()
+                        .filter(f -> f.getDate().isAfter(today.minusDays(8)))
+                        .collect(Collectors.toList());
+        internalItems.removeAll(listToRemove);
+        for (int i = 0; i < filteredFoodList.getSize(); i++) {
+            internalItems.add(filteredFoodList.getItem(i));
+        }
     }
 
     /**

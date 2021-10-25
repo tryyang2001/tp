@@ -1,23 +1,17 @@
 package seedu.duke;
 
+import seedu.duke.data.item.Item;
 import seedu.duke.data.item.ItemBank;
 import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.data.item.exercise.FutureExerciseList;
+import seedu.duke.data.item.food.Food;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
-import seedu.duke.data.profile.attributes.ActivityFactor;
-import seedu.duke.data.profile.attributes.Age;
-import seedu.duke.data.profile.attributes.CalorieGoal;
-import seedu.duke.data.profile.attributes.Gender;
-import seedu.duke.data.profile.attributes.Height;
-import seedu.duke.data.profile.attributes.Name;
-import seedu.duke.data.profile.attributes.Weight;
 import seedu.duke.logic.commands.ByeCommand;
 import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.commands.CommandResult;
 import seedu.duke.logic.parser.ParserManager;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
@@ -33,9 +27,10 @@ import java.time.LocalDate;
 public class Main {
 
 
-
+    private ExerciseList filteredExerciseItems;
     private ExerciseList exerciseItems;
     private FutureExerciseList futureExerciseItems;
+    private FoodList filteredFoodItems;
     private FoodList foodItems;
     private ItemBank exerciseBank;
     private ItemBank foodBank;
@@ -56,7 +51,7 @@ public class Main {
      **/
     private void run(String[] args) throws UnableToWriteFileException {
         start();
-        new StartState(profile,storageManager,ui).checkAndCreateProfile();
+        new StartState(profile, storageManager, ui).checkAndCreateProfile();
         loadsFutureExercisesToList();
         enterTaskModeUntilByeCommand();
         exit();
@@ -70,10 +65,14 @@ public class Main {
         //TODO Update with yi zhi's implementatiothis.foodBank = new ItemBank();
         this.storageManager = new StorageManager();
         this.ui = new Ui();
+        this.foodItems = new FoodList();
+        this.exerciseItems = new ExerciseList();
         try {
             profile = storageManager.loadProfile();
             exerciseItems = storageManager.loadExerciseList();
+            filterExerciseListWithPastSevenDaysRecordOnly();
             foodItems = storageManager.loadFoodList();
+            filterFoodListWithPastSevenDaysRecordOnly();
             futureExerciseItems = storageManager.loadFutureExerciseList();
             foodBank = storageManager.loadFoodBank();
             exerciseBank = storageManager.loadExerciseBank();
@@ -82,6 +81,32 @@ public class Main {
         }
         ui.printStartMessage(profile.checkProfileComplete(), profile.checkProfilePresent());
 
+    }
+
+    private void filterFoodListWithPastSevenDaysRecordOnly() {
+        for (int i = foodItems.getSize() - 1; i >= 0; i--) {
+            Food food = (Food) foodItems.getItem(i);
+            LocalDate today = LocalDate.now();
+            if (isWithinPastSevenDays(food, today)) {
+                filteredFoodItems.addItem(food);
+            }
+        }
+    }
+
+    private boolean isWithinPastSevenDays(Item item, LocalDate today) {
+        boolean isBeforeOrEqualToday = item.getDate().isEqual(today) || item.getDate().isBefore(today);
+        boolean isWithinOneWeek = item.getDate().isAfter(today.minusDays(8));
+        return isBeforeOrEqualToday && isWithinOneWeek;
+    }
+
+    private void filterExerciseListWithPastSevenDaysRecordOnly() {
+        for (int i = exerciseItems.getSize() - 1; i >= 0; i--) {
+            Exercise exercise = (Exercise) exerciseItems.getItem(i);
+            LocalDate today = LocalDate.now();
+            if (isWithinPastSevenDays(exercise, today)) {
+                filteredExerciseItems.addItem(exercise);
+            }
+        }
     }
 
 
@@ -112,9 +137,9 @@ public class Main {
             String name = futureExerciseItems.getItem(index).getName();
             int calories = futureExerciseItems.getItem(index).getCalories();
             LocalDate date = futureExerciseItems.getItem(index).getDate();
-            exerciseItems.addItem(new Exercise(name, calories, date));
+            filteredExerciseItems.addItem(new Exercise(name, calories, date));
             futureExerciseItems.deleteItem(index);
-            storageManager.saveExerciseList(exerciseItems);
+            storageManager.saveExerciseList(filteredExerciseItems);
             storageManager.saveFutureExerciseList(futureExerciseItems);
         }
     }
@@ -128,8 +153,8 @@ public class Main {
      */
     private CommandResult executeCommand(Command command) {
 
-        command.setData(this.profile, this.exerciseItems, this.futureExerciseItems,
-                this.foodItems, this.exerciseBank, this.foodBank);
+        command.setData(this.profile, this.filteredExerciseItems, this.futureExerciseItems,
+                this.filteredFoodItems, this.exerciseBank, this.foodBank);
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {
@@ -140,9 +165,11 @@ public class Main {
                 storageManager.saveProfile(this.profile);
             }
             if (Command.requiresExerciseListStorageRewrite(command)) {
+
                 storageManager.saveExerciseList(this.exerciseItems);
             }
             if (Command.requiresFoodListStorageRewrite(command)) {
+
                 storageManager.saveFoodList(this.foodItems);
             }
             if (Command.requiresFutureExerciseListStorageRewrite(command)) {
