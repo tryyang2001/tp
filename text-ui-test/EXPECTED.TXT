@@ -4,11 +4,9 @@
  |  __| | | __| '_ \ / _ \| __|
  | |    | | |_| |_) | (_) | |_
  |_|    |_|\__|_.__/ \___/ \__|
-Welcome to Fitbot, a desktop app that helps university students who are looking to keep track of their calories.
-Hi user, before you proceed with the application, we would like you to complete the profile.
-Follow the instructions and key in the necessary information when prompted.
-Note please complete your profile before exiting so that we can store your profile data.
+Welcome to Fitbot! Fitbot is here to help you to keep track of your calories.
+Fitbot realised that your profile has not been created.Let's start creating profile below!
 __________________________________________________________________________________________________________
-Please input your name.
-Note that '/' and '|' inside name are invalid.
+What's your name?
 __________________________________________________________________________________________________________
+

@@ -16,7 +16,7 @@ public class Food extends Item {
     private static final int LATEST_AFTERNOON_HOUR = 16;
     private static final int EARLIEST_MORNING_HOUR = 5;
     private static final int LATEST_MORNING_HOUR = 11;
-    public static final String MESSAGE_FOOD = "[%s] %s";
+    public static final String MESSAGE_FOOD = "%s @ %s";
     protected LocalDateTime dateTime;
     protected TimePeriod timePeriod;
 
@@ -114,10 +114,8 @@ public class Food extends Item {
 
     @Override
     public String toString() {
-        return String.format(MESSAGE_FOOD, this.getTime().format(TIME_FORMATTER), super.toString());
+        return String.format(MESSAGE_FOOD, super.toString(), this.getTime().format(TIME_FORMATTER));
     }
-
-
 
     /**
      * Converts the food to external file string format.

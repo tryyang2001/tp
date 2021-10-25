@@ -11,8 +11,9 @@ import java.util.logging.Logger;
  */
 public class DeleteExerciseCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_DELETE
-            + " " + COMMAND_PREFIX_EXERCISE + COMMAND_PREFIX_DELIMITER + "X" + QUOTATION
-            + ", where X is the item number in the exercise list";
+            + " " + COMMAND_PREFIX_EXERCISE + COMMAND_PREFIX_DELIMITER + "INDEX " + COMMAND_PREFIX_DATE
+            + COMMAND_PREFIX_DELIMITER + "DATE_IN_DD-MM-YYYY" + QUOTATION
+            + ", where INDEX is the item number in the exercise list";
     public static final String MESSAGE_SUCCESS = "An exercise item has been deleted:"
             + INDENTED_LS + "%s"
             + LS + "Number of exercise item(s) left: %2$d";

@@ -9,8 +9,10 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class ExerciseList extends ItemList {
-    public static final String MESSAGE_EXERCISE_DONE = "You have done %d exercise(s) on %s (%s):";
-    public static final String MESSAGE_TOTAL_CALORIE_BURNT = "Total calories burnt: %d cal";
+    public static final String MESSAGE_EXERCISE_DONE_PER_DAY = "You have done %d exercise(s) on %s (%s):";
+    public static final String MESSAGE_TOTAL_CALORIE_BURNT_PER_DAY = "Total calories burnt in the day: %d cal";
+    public static final String MESSAGE_TOTAL_CALORIE_BURNT_PER_WEEK = "Total calorie burnt in the week: %d";
+    public static final String MESSAGE_TOTAL_EXERCISE_DONE_PER_WEEK = "Total exercises done in this week: %d";
 
     /**
      * Default constructor for exercise list.
@@ -119,19 +121,24 @@ public class ExerciseList extends ItemList {
             while (index < internalItems.size() && currentDate.isEqual(internalItems.get(index).getDate())) {
                 subList.addItem(internalItems.get(index++));
             }
-            convertItemCountToString(exerciseListInString, subList.getSize(), currentDate, MESSAGE_EXERCISE_DONE);
+            exerciseListInString.append(ITEM_LIST_DIVIDER).append(LS);
+            convertItemCountToString(exerciseListInString,
+                    subList.getSize(),
+                    currentDate,
+                    MESSAGE_EXERCISE_DONE_PER_DAY);
             for (int i = 1; i <= subList.getSize(); i++) {
                 convertItemToString(exerciseListInString, i, subList.getItem(i - 1));
             }
             convertTotalCaloriesToString(
                     exerciseListInString,
                     this.getTotalCaloriesWithDate(currentDate),
-                    MESSAGE_TOTAL_CALORIE_BURNT);
-            if (index < internalItems.size()) {
-                exerciseListInString.append(ItemList.LS); //prevents last line spacing
-            }
+                    MESSAGE_TOTAL_CALORIE_BURNT_PER_DAY);
             index--;
         }
+        exerciseListInString.append(ITEM_LIST_DIVIDER).append(LS);
+        exerciseListInString.append(String.format(MESSAGE_TOTAL_EXERCISE_DONE_PER_WEEK, getSize())).append(LS);
+        exerciseListInString.append(String.format(MESSAGE_TOTAL_CALORIE_BURNT_PER_WEEK, getTotalCalories()));
+        exerciseListInString.append(LS);
         return exerciseListInString;
     }
 
@@ -147,14 +154,14 @@ public class ExerciseList extends ItemList {
         ArrayList<Item> subList = (ArrayList<Item>) this.internalItems.stream()
                 .filter(e -> e.getDate().isEqual(date))
                 .collect(Collectors.toList());
-        convertItemCountToString(exerciseListInString, subList.size(), date, MESSAGE_EXERCISE_DONE);
+        convertItemCountToString(exerciseListInString, subList.size(), date, MESSAGE_EXERCISE_DONE_PER_DAY);
         for (int i = 1; i <= subList.size(); i++) {
             convertItemToString(exerciseListInString, i, subList.get(i - 1));
         }
         convertTotalCaloriesToString(
                 exerciseListInString,
                 this.getTotalCaloriesWithDate(date),
-                MESSAGE_TOTAL_CALORIE_BURNT);
+                MESSAGE_TOTAL_CALORIE_BURNT_PER_DAY);
         return exerciseListInString;
     }
 }

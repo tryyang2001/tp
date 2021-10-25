@@ -12,8 +12,9 @@ import java.util.logging.Logger;
  */
 public class DeleteFoodCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_DELETE
-            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "X" + QUOTATION
-            + ", where X is the item number in the food list";
+            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "INDEX " + COMMAND_PREFIX_DATE
+            + COMMAND_PREFIX_DELIMITER + "DATE_IN_DD-MM-YYYY " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_DELIMITER
+            + "TIME_IN_HHmm" + QUOTATION + ", where INDEX is the item number in the food list";
     public static final String MESSAGE_SUCCESS = "A food item has been deleted:"
             + INDENTED_LS + "%1$s"
             + INDENTED_LS + "Number of food item(s) left: %2$d";
@@ -60,9 +61,8 @@ public class DeleteFoodCommand extends Command {
         }
         logger.log(Level.FINE, "Trying to delete item now");
         try {
-            //TODO: Implement delete by date and index
             Food deletedFood;
-            deletedFood = super.foodItems.deleteItem(this.itemIndex);
+            deletedFood = super.foodItems.deleteItem(this.itemIndex, this.date, this.time);
             return new CommandResult(String.format(MESSAGE_SUCCESS, deletedFood, super.foodItems.getSize()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.FINE, "Detected invalid food item index.");
