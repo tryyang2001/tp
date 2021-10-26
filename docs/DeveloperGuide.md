@@ -69,7 +69,9 @@ based on the command the parser detects.
 
 ### Data Component (Profile)
 
-![ProfileClassDiagram](./images/ProfileClassDiagram.png)
+<p align="center" width="100%">
+  <img width="90%" src="images/ProfileClassDiagram.png" alt="Architecture Sequence Diagram"/>
+</p>
 
 A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Gender`, `Age`, `CalorieGoal` and `ActivityFactor`
 
@@ -159,7 +161,9 @@ which then returns the same `XYZCommand` to `Main`.
 
 ### Storage component
 
-![ProfileStorageClassDiagram](images/StorageManagerClassDiagram.png)
+<p align="center" width="100%">
+  <img width="90%" src="images/StorageManagerClassDiagram.png" alt="Architecture Sequence Diagram"/>
+</p>
 
 `StorageManager` initializes all `Storage` subclasses with their respective paths. 
 Acting as a medium, it then interacts with each of the respective `Storage` subclasses. 
@@ -176,7 +180,9 @@ The `StorageManager` component loads and saves:
 
 Each `Storage` subclass is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
 
-![ProfileStorageClassDiagram](images/ProfileStorageClassDiagram.png)
+<p align="center" width="100%">
+  <img width="50%" src="images/ProfileStorageClassDiagram.png" alt="Architecture Sequence Diagram"/>
+</p>
 
 The `ProfileStorage` inherits an abstract class of `Storage` which contains protected attributes of `fileName` and `filePath`.
 After inheritance, it then implements loading and saving methods interfaced by `ProfileStorageInterface` to ensure reading and writing operations.
