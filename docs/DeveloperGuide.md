@@ -33,7 +33,7 @@ Upon exiting of application:
 Class diagram of Main
 
 <p align="center" width="100%">
-  <img width="60%" src="images/MainClass.png" alt="Main Class Diagram"/>
+  <img width="100%" src="images/MainClass.png" alt="Main Class Diagram"/>
 </p>
 
 When _Fitbot_ is being started, the above instances are being created in the main class. 
@@ -55,7 +55,7 @@ and run the `exit()` command to exit the application.
 Interaction between the classes could be shown by the uml sequence diagram below.
 
 <p align="center" width="100%">
-  <img width="60%" src="images/Architecture.png" alt="Architecture Sequence Diagram"/>
+  <img width="100%" src="images/Architecture.png" alt="Architecture Sequence Diagram"/>
 </p>
 
 
@@ -145,7 +145,7 @@ Below is a high level class diagram of the `Logic` component, which shows how it
 like `Main` and `Data`.
 
 <p align="center" width="100%">
-  <img width="80%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
+  <img width="60%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
 </p>
 
 The general workflow of the `Logic` component is as follows:
