@@ -3,6 +3,7 @@ package seedu.duke.ui;
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
+import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,27 +20,27 @@ public class Statistics {
     public static final String MESSAGE_CALORIE_LOST = "Your calorie lost from exercise is: %d";
     public static final String MESSAGE_CALORIE_NET = "Your net calorie intake is: %d";
     public static final String MESSAGE_CALORIE_GOAL = "Your calorie goal is: %d";
-    public static final int REVERSE_APPEND = 1;
-    public static final String EMPTY = "";
     public static final String MESSAGE_CALORIE_EXACT = "You have reached your calorie goal exactly. Good job!";
     public static final String MESSAGE_CALORIE_LESS_THAN = "You are %s cal away from your goal";
     public static final String MESSAGE_CALORIE_MORE_THAN = "You have exceeded your calorie goal by %s cal ";
-    public static final String OVERVIEW_HEADER = "-*OVERVIEW*-\n"
+    public static final String OVERVIEW_HEADER = "-*WEEKLY OVERVIEW*-\n"
             + "Hi %s, this is your calorie summary for the week.\n";
     public static final String FOOD_HEADER = "Food:\n"
             + "You have consumed %1$s cal this week from %2$s to %3$s.";
     public static final String FOOD_GRAPH_HEADER = "Calorie gained from food (Daily)\n%s";
-    public static final String FOOD_MAX_CALORIE_HEADER = "Food consumed that has the highest calories this week:";
     public static final String EXERCISE_HEADER = "You have lost %s cal from exercising for the last 7 days.";
     public static final String EXERCISE_GRAPH_HEADER = "Calorie burnt from exercise (Daily)\n%s";
-    public static final String EXERCISE_MAX_CALORIE_HEADER = "Exercises that burnt the most calories this week:";
-    public static final String MESSAGE_NET_CALORIES = "Net calories for the week: %s";
     public static final String MESSAGE_CAUTION = "\n ** The net calorie calculation includes calories gained from food,"
             + " calories burnt from exercises\n  "
             + "and daily normal activities. All calculations used the "
             + "latest values from updated in profile.";
     public static final String GRAPH_BUILDER = "%1$s   %2$s    %3$s";
     public static final int MAX_DATE_OFFSET = 6;
+    public static final String MESSAGE_NET_CALORIES_INTRO = "Daily net calories**:\n";
+    public static final String MESSAGE_SUPPER_COUNT_INTRO = "Number of supper meals this week: %s";
+    public static final int MAX_BAR_LENGTH = 30;
+    public static final int EMPTY_CALORIES = 0;
+    public static final String MESSAGE_DAILY_OVERVIEW = "This is your calorie overview for today:\n";
 
 
     private FoodList foodItems;
@@ -53,7 +54,7 @@ public class Statistics {
     }
 
     private static Logger logger = Logger.getLogger(Statistics.class.getName());
-    private LocalDate date;// = LocalDateTime.now();
+    private LocalDate date;
 
     /**
      * Calculate netCalories and format exerciseCalories, foodCalories, calorieGoal
@@ -66,8 +67,8 @@ public class Statistics {
      */
     public String[] getCaloriesReport(int exerciseCalories, int foodCalories, int calorieGoal) {
 
-        int netCalories = foodCalories - exerciseCalories;
-        int remainingCalories = calorieGoal - netCalories;
+        //TODO:move this 4 lines to getToday overview
+        int netCalories = calculateNetCalories(foodCalories, exerciseCalories);
         return new String[]{String.format(MESSAGE_CALORIE_GAIN, foodCalories),
                 String.format(MESSAGE_CALORIE_LOST, exerciseCalories),
                 String.format(MESSAGE_CALORIE_NET, netCalories),
@@ -75,13 +76,25 @@ public class Statistics {
                 printCaloriesMessage(netCalories, calorieGoal)};
     }
 
-    public String formatMessage(String... messages) {
-        StringBuilder content = new StringBuilder(EMPTY);
-        for (String message : messages) {
-            content.append(message).append(Ui.LS);
+    private int calculateNetCalories(int foodCalories, int exerciseCalories) {
+        try {
+            return this.profile.calculateNetCalories(foodCalories, exerciseCalories);
+        } catch (InvalidCharacteristicException e) {
+            return 0;
         }
-        content.setLength(content.length() - REVERSE_APPEND);
-        return content.toString().stripTrailing();
+    }
+
+    public String getCurrentDayOverview() {
+        int foodCalories = foodItems.getTotalCaloriesWithDate(date);
+        int exerciseCalories = exerciseItems.getTotalCaloriesWithDate(date);
+        int calorieGoal = profile.getProfileCalorieGoal().getCalorieGoal();
+        logger.log(Level.FINE, String.valueOf(calorieGoal));
+        String[] messages = getCaloriesReport(foodCalories, exerciseCalories, calorieGoal);
+        StringBuilder currentDayOverview = new StringBuilder(MESSAGE_DAILY_OVERVIEW);
+        for (String message : messages) {
+            currentDayOverview.append(message).append(Ui.LS);
+        }
+        return currentDayOverview.toString().trim();
     }
 
     public String printCaloriesMessage(int netCalories, int calorieGoal) {
@@ -100,9 +113,6 @@ public class Statistics {
         return message;
     }
 
-    // extract the calories for food for the past 7 days
-    // extract the calories for exercises for the past 7 days
-
     /**
      * Set the date to current date.
      * Date to be updated upon calling the overview command.
@@ -113,13 +123,6 @@ public class Statistics {
 
     private LocalDate dateOffset(int offset) {
         return date.minusDays(offset);
-    }
-
-
-    private void getDailyFoodCalorieForWeek() {
-        ArrayList<Integer> dailyFoodCalories = getDailyFoodCalories();
-        int maxCalories = Collections.max(dailyFoodCalories);
-        // need to get them to print out all the items
     }
 
     private ArrayList<Integer> getDailyFoodCalories() {
@@ -136,15 +139,14 @@ public class Statistics {
 
     private String getGraph(ArrayList<Integer> dailyCalories) {
         int maxCalories = Collections.max(dailyCalories);
-        // need to get them to print out all the items
         StringBuilder graph = new StringBuilder();
         int dateOffset = MAX_DATE_OFFSET;
 
         for (int calories : dailyCalories) {
             String progressBar = "";
-            int numberOfBars = 0;
-            numberOfBars = (int)Math.round(((double) calories / maxCalories) * 30);
-            assert numberOfBars <= 30 : "30 is the max progress bar limit";
+            int numberOfBars;
+            numberOfBars = (int) Math.round(((double) calories / maxCalories) * MAX_BAR_LENGTH);
+            assert numberOfBars <= MAX_BAR_LENGTH : "30 is the max progress bar limit";
             for (int i = 0; i < numberOfBars; i++) {
                 progressBar = progressBar + FULL_BLOCK;
             }
@@ -152,7 +154,7 @@ public class Statistics {
             graph.append(String.format(GRAPH_BUILDER, formattedDate, progressBar, calories)).append(Ui.LS);
             dateOffset--;
         }
-        return graph.toString(); // progress bar of exercises.
+        return graph.toString();
     }
 
     private String getFormatDate(int dateOffset) {
@@ -176,6 +178,33 @@ public class Statistics {
         return getCalories.stream().mapToInt(i -> i).sum();
     }
 
+    private String getSupperCountMessage() {
+        int supperCount = foodItems.getSupperCount();
+        return String.format(MESSAGE_SUPPER_COUNT_INTRO, supperCount);
+    }
+
+    private String getNetCaloriesMessage() {
+        ArrayList<Integer> dailyExerciseCalories = getDailyExerciseCalories();
+        ArrayList<Integer> dailyFoodCalories = getDailyFoodCalories();
+        StringBuilder netCaloriesMessage = new StringBuilder(MESSAGE_NET_CALORIES_INTRO);
+        for (int i = 0; i <= MAX_DATE_OFFSET; i++) {
+            int exerciseCalories = dailyExerciseCalories.get(i) == null ? 0 : dailyExerciseCalories.get(i);
+            int foodCalories = dailyFoodCalories.get(i) == null ? 0 : dailyFoodCalories.get(i);
+            int netCalories = getNetCalories(foodCalories, exerciseCalories);
+            String formattedDate = getFormatDate(MAX_DATE_OFFSET - i);
+            netCaloriesMessage.append(formattedDate + " :   " + netCalories).append(Ui.LS);
+        }
+        return netCaloriesMessage.toString();
+    }
+
+    private int getNetCalories(int foodCalories, int exerciseCalories) {
+        try {
+            return profile.calculateNetCalories(foodCalories, exerciseCalories);
+        } catch (InvalidCharacteristicException e) {
+            return EMPTY_CALORIES;
+        }
+    }
+
     /**
      * An overview on user calorie intake and calorie burnt.
      *
@@ -188,15 +217,15 @@ public class Statistics {
                 .append(String.format(FOOD_HEADER, getTotalWeeklyCalories(getDailyFoodCalories()),
                         getFormatDate(6), getFormatDate(0))).append(Ui.LS)
                 .append(String.format(FOOD_GRAPH_HEADER, getGraph(getDailyFoodCalories())))
-                //TODO: get food that has the most calories.
                 .append(String.format(EXERCISE_HEADER, getTotalWeeklyCalories(getDailyExerciseCalories())))
                 .append(Ui.LS)
                 .append(String.format(EXERCISE_GRAPH_HEADER, getGraph(getDailyExerciseCalories())))
-                //TODO: get exercise that has the most calories.
-                //TODO: get total net calories for the week.
-                //.append(MESSAGE_NET_CALORIES).append(Ui.LS)
-                .append(MESSAGE_CAUTION);
-        return overviewSummary.toString();
+                .append(getNetCaloriesMessage()).append(Ui.LS).append(Ui.LS)
+                .append(getSupperCountMessage()).append(Ui.LS)
+                .append(MESSAGE_CAUTION).append(Ui.LS)
+                .append(Ui.DIVIDER).append(Ui.LS)
+                .append(getCurrentDayOverview());
+        return overviewSummary.toString().trim();
     }
 
 

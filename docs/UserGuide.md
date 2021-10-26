@@ -168,85 +168,107 @@ This command shows a list of commands recognised by _Fitbot_ and their usage.
 Format: `help`
 
 
-### 4.2 View and edit your profile details: `profile`
+### 4.2 Recording your food consumption
 
-#### 4.2.1 View Profile
-Typing `profile` lets you view your name, height, weight, gender, age, calorie goal and activity factor.
+You can record all the food items consumed within a week into the food list. This allows you
+to keep track of your food calorie consumption and gain a better understanding of your diet habit. 
+
+#### 4.2.1 Adding Food Items `add f/`
+
+This command allows you to add a new Food Item to the Food List.
+
+Format: `add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}` adds a Food Item consumed with its respective calories on the given
+date (`DD-MM-YYYY`) and time (`HHMM`).
+
+Example: 
+- `add f/chicken rice c/607 d/21-10-2021 t/1400` adds record of food consumed: chicken rice with 607 calories gained on 21 Oct 2021 1400 to the food list.
+
+```text
+add f/chicken rice c/607 d/21-10-2021 t/1400
+__________________________________________________________________________________________
+A food item has been added:
+    chicken rice (607 cal) @ 14:00, 21 Oct 2021
+__________________________________________________________________________________________
+```
+💡  **Tip:** If you do not specify the date and time of the Food Item, it is assumed that the date and time is based on the date and time of input.
+
+💡 **Tip:** It is possible to add Food Item without providing the calorie of it. You can do this by saving the corresponding Food Item into the Food Bank. More details can be found at [Section 4.5](#45-building-your-food-bank).
+
+#### 4.2.2 Viewing Food List `view f/`
+
+You may want to view how many calories you have taken in this week. This command will show a list of Food Items and 
+their calories added within 7 days (including today) from the list.
+
+Format: `view f/`
+
+Example: 
+
+```text
+view f/
+__________________________________________________________________________________________________________
+Here is a summary of all the food items you have consumed in the past week:
+..........................................................................................................
+You have consumed 3 food item(s) on Friday (22 Oct 2021):
+In the morning:
+	1. donut x2 (607 cal) @ 10:00
+In the afternoon:
+	1. chicken rice (607 cal) @ 14:00
+In the evening:
+	1. yong tau foo (560 cal) @ 19:20
+Total calories consumed in the day: 1774 cal
+..........................................................................................................
+You have consumed 4 food item(s) on Saturday (23 Oct 2021):
+In the morning:
+	1. butter bread x2 (418 cal) @ 08:30
+In the afternoon:
+	1. penang laksa (377 cal) @ 13:00
+In the evening:
+	1. sliced fish bee hoon (349 cal) @ 18:40
+At night:
+	1. roti prata x3 (507 cal) @ 23:50
+Total calories consumed in the day: 1651 cal
+..........................................................................................................
+Total number of food consumed in this week: 7
+Total calories consumed in this week: 3425 cal
+__________________________________________________________________________________________________________
+```
+
+#### 4.2.3 Deleting Food Items `delete f/`
+
+When you mistakenly add a wrong Food Item inside your Food List, there is no need to worry! The command allows you to 
+remove a specific Food Item in the Food List.
+
+Format: `delete f/LIST_NO. d/DD-MM-YYYY t/HHMM` deletes the *n<sup>th</sup>* Food Item in the Food List which has the date (`DD-MM-YYYY`)
+and time (`HHMM`), where *n* is the index of the Food to delete.
+
+❗ `LIST_NO.` must be a positive integer within the range of the number of Items in the list.
 
 Example:
 
 ```text
-profile 
-__________________________________________________________________________________________________________ 
-Hello Lisa! This is your profile: 
-*====================================== 
-	Name                Lisa 
-	Height              159cm 
-	Weight              50.0kg 
-	Gender              F 
-	Age                 21 
-	Calories goal       1500 cal 
-	Activity factor     2 
-======================================* 
-__________________________________________________________________________________________________________ 
-```  
-
-#### 4.2.2 Updating your profile attributes:
-
-Changing your attributes require at least one of these input parameters:
-\
-`profile {n/NAME} {h/HEIGHT} {w/WEIGHT} {s/GENDER} {a/AGE} {g/CALORIE_GOAL} {x/ACTIVITY_FACTOR}`
-\
-where:
-\
-`n/`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name
-\
-`h/`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; height (cm)
-\
-`w/`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; weight (kg)
-\
-`a/`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; age
-\
-`g/`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; calorie goal
-\
-`s/`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gender (M/F)
-\
-`x/`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; activity factor (1: Sedentary - 5: Extra Active)
-
-
-
-### 4.3. Calculate BMI: `bmi`
-
-This command calculates your BMI value based on the height and weight values you provide.
-
-It also displays the weight status *(underweight, healthy, overweight, obese)* based on calculated BMI.
-
-
-Format: `bmi h/HEIGHT_IN_CM w/WEIGHT_IN_KG`
-
-❗ `HEIGHT_IN_CM` and `WEIGHT_IN_KG` must be positive numbers.
-\
-💡 **Tip:** If you do not provide the values, the BMI will be computed based on your current height and weight as indicated in your profile.
-
-
-
-Example:
-
-- `bmi` calculates the BMI value based on your height and weight in your profile.
-- `bmi h/170 w/65` calculates the BMI value based on height 170cm and weight 65cm.
-
-```text  
-bmi
+delete f/1 d/22-10-2021 t/1000
 __________________________________________________________________________________________________________
-Your BMI value according to your current profile is:
-	15.5 (Underweight)
+A food item has been deleted:
+	donut x2 (607 cal) @ 10:00, 22 Oct 2021
+Number of food item(s) left: 6
 __________________________________________________________________________________________________________
+```
+💡  **Tip:** If you wish to remove all the Food Items from the list, there is a shortcut command: `delete f/all`.
+```
+delete f/all
+__________________________________________________________________________________________________________
+All food items have been removed.
+__________________________________________________________________________________________________________
+```
 
-bmi h/170 w/65  
-__________________________________________________________________________________________  
-The calculated BMI value is 20.1 (Healthy)
-__________________________________________________________________________________________  
-```  
+### 4.3 Recording your exercises
+
+
+#### 4.3.1 Adding Exercise Items `add e/`(Tip: exercise bank, upcoming exercise)
+#### 4.3.2 Viewing Exercise Items `view e/` `view u/`
+#### 4.3.3 Deleting Exercises `delete e/`
+
+
 
 
 ### 4.4. Add Items: `add`
@@ -345,41 +367,6 @@ This command is used to view the Items in your lists.
 
 #### 4.5.1. View Food List
 
-This command is used to view all the Food Items and their calories added within 7 days (including today) from the list.
-
-Format: `view f/`
-
-
-
-```text
-view f/
-__________________________________________________________________________________________________________
-Here is a summary of all the food items you have consumed in the past week:
-..........................................................................................................
-You have consumed 3 food item(s) on Friday (22 Oct 2021):
-In the morning:
-	1. donut x2 (607 cal) @ 10:00
-In the afternoon:
-	1. chicken rice (607 cal) @ 14:00
-In the evening:
-	1. yong tau foo (560 cal) @ 19:20
-Total calories consumed in the day: 1774 cal
-..........................................................................................................
-You have consumed 4 food item(s) on Saturday (23 Oct 2021):
-In the morning:
-	1. butter bread x2 (418 cal) @ 08:30
-In the afternoon:
-	1. penang laksa (377 cal) @ 13:00
-In the evening:
-	1. sliced fish bee hoon (349 cal) @ 18:40
-At night:
-	1. roti prata x3 (507 cal) @ 23:50
-Total calories consumed in the day: 1651 cal
-..........................................................................................................
-Total number of food consumed in this week: 7
-Total calories consumed in this week: 3425 cal
-__________________________________________________________________________________________________________
-```
 #### 4.5.2. View Exercise List: 
 
 This command is used to view all the exercises taken and the calories that are added within the past 7 days (including today) from the list.
@@ -422,31 +409,6 @@ ________________________________________________________________________________
 
 ### 4.6. Delete Items: `delete`
 
-This command deletes an Item from a list.
-
-#### 4.6.1 Delete a Food Item from Food List
-
-Format: `delete f/LIST_NO. d/DD-MM-YYYY t/HHMM` deletes the *n<sup>th</sup>* Food Item in the Food List which has the date (`DD-MM-YYYY`)
-and time (`HHMM`), where *n* is the index of the Food to delete.
-
-❗ `LIST_NO.` must be a positive integer within the range of the number of Items in the list.
-
-Example:
-```text
-delete f/1 d/22-10-2021 t/1000
-__________________________________________________________________________________________________________
-A food item has been deleted:
-	donut x2 (607 cal) @ 10:00, 22 Oct 2021
-Number of food item(s) left: 6
-__________________________________________________________________________________________________________
-```
-💡  **Tip:** If you wish to remove all the Food Items from the list, there is a shortcut command: `delete f/all`.
-```
-delete f/all
-__________________________________________________________________________________________________________
-All food items have been removed.
-__________________________________________________________________________________________________________
-```
 
 #### 4.6.2 Delete an Exercise Item from Exercise List
 

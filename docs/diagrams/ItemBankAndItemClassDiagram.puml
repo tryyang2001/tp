@@ -2,6 +2,7 @@
 'https://plantuml.com/class-diagram
 !include Style.puml
 hide circle
+hide methods
 
 class ItemBank DATA_COLOUR
 class "{abstract}\nItemList" as ItemList DATA_COLOUR
@@ -35,12 +36,12 @@ Evening, Night
 Item <|-down- Food
 Item <|-down- Exercise
 Item "*" <-left- ItemBank: internalItems
-TimePeriod "1" <-- Food : timePeriod
+TimePeriod "1" <-- Food : timePeriod\n\n
 Item <.. ItemList
 Item <.. FoodList
 Item <.. ExerciseList
 Food <.. FoodList
 Exercise <.. ExerciseList
 Exercise <.. FutureExerciseList
-
+note "Class methods are not shown for simplicity" as N1 DATA_COLOUR
 @enduml
