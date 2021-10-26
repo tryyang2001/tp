@@ -40,7 +40,7 @@ public class Statistics {
     public static final String MESSAGE_SUPPER_COUNT_INTRO = "Number of supper meals this week: %s";
     public static final int MAX_BAR_LENGTH = 30;
     public static final int EMPTY_CALORIES = 0;
-    public static final String MESSAGE_DAILY_OVERVIEW = "This is your overview for today:";
+    public static final String MESSAGE_DAILY_OVERVIEW = "This is your calorie overview for today:\n";
 
 
     private FoodList foodItems;
@@ -88,6 +88,7 @@ public class Statistics {
         int foodCalories = foodItems.getTotalCaloriesWithDate(date);
         int exerciseCalories = exerciseItems.getTotalCaloriesWithDate(date);
         int calorieGoal = profile.getProfileCalorieGoal().getCalorieGoal();
+        logger.log(Level.FINE, String.valueOf(calorieGoal));
         String[] messages = getCaloriesReport(foodCalories, exerciseCalories, calorieGoal);
         StringBuilder currentDayOverview = new StringBuilder(MESSAGE_DAILY_OVERVIEW);
         for (String message : messages) {
@@ -221,8 +222,9 @@ public class Statistics {
                 .append(String.format(EXERCISE_GRAPH_HEADER, getGraph(getDailyExerciseCalories())))
                 .append(getNetCaloriesMessage()).append(Ui.LS).append(Ui.LS)
                 .append(getSupperCountMessage()).append(Ui.LS)
-                .append(MESSAGE_CAUTION).append(Ui.LS);
-        //          .append(getCurrentDayOverview());
+                .append(MESSAGE_CAUTION).append(Ui.LS)
+                .append(Ui.DIVIDER).append(Ui.LS)
+                .append(getCurrentDayOverview());
         return overviewSummary.toString().trim();
     }
 

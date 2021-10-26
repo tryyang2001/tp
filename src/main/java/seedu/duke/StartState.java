@@ -23,7 +23,7 @@ public class StartState {
     public static final String MESSAGE_WEIGHT = "Your weight is %skg.";
     public static final String MESSAGE_AGE = "You are %s years old.";
     public static final String MESSAGE_CALORIE_GOAL = "You calorie goal is %s cal.";
-    public static final String MESSAGE_ACTIVITY_FACTOR = "You activity factor is %s.";
+    public static final String MESSAGE_ACTIVITY_FACTOR = "Your activity factor is %s.";
     private Profile profile;
     private StorageManager storageManager;
     private Ui ui;
@@ -34,7 +34,6 @@ public class StartState {
         this.ui = ui;
     }
 
-    public static final String MESSAGE_INPUT_IS_SUCCESSFUL = "Input %s is successful.";
     public static final String MESSAGE_INVALID_POSITIVE_INT_INPUT = "Invalid input, "
             + "please input a valid positive whole number";
     public static final String MESSAGE_INVALID_POSITIVE_DOUBLE_INPUT = "Invalid input,"
@@ -43,7 +42,7 @@ public class StartState {
     public static final String MESSAGE_INTRO_CALORIE_GOAL = "Please input your net calorie goal.";
     public static final String MESSAGE_INTRO_AGE = "How old are you?";
     public static final String MESSAGE_INTRO_GENDER = "What is your gender?(If you are a male, type 'm'"
-            + ", if you are a female , type 'f'.";
+            + ", if you are a female , type 'f')";
     public static final String MESSAGE_INTRO_WEIGHT = "What's your weight? (in kg)";
     public static final String MESSAGE_INTRO_NAME = "What's your name?";
     public static final String MESSAGE_INTRO_HEIGHT = "What's your height? (in cm)";
@@ -63,9 +62,9 @@ public class StartState {
      * If all parameters of profile is incorrect or a new user, user is required to complete
      * all the particulars before saving their profile data.
      */
-    public void checkAndCreateProfile() {
+    public Profile checkAndCreateProfile() {
         if (profile.checkProfileComplete()) {
-            return;
+            return profile;//check how to edit this
         }
         if (profile.checkProfilePresent()) {
             assert !profile.checkProfileComplete() : "profile is incomplete";
@@ -75,6 +74,7 @@ public class StartState {
         }
         ui.formatMessageFramedWithDivider(MESSAGE_CREATE_PROFILE_SUCCESSFUL,
                 ui.MESSAGE_DIRECT_HELP);
+        return profile;
     }
 
     /**
@@ -133,6 +133,7 @@ public class StartState {
             }
         }
         this.profile = newProfile;
+        System.out.println(profile);
         try {
             storageManager.saveProfile(this.profile);
         } catch (UnableToWriteFileException e) {
@@ -155,7 +156,6 @@ public class StartState {
                 checkEmptyUserInput(userInput);
                 int activityFactorInput = Integer.parseInt(userInput);
                 newProfile.setProfileActivityFactor(new ActivityFactor(activityFactorInput));
-                //TODO: add a print statement to tell user input is incorrect
                 if (newProfile.getProfileActivityFactor().isValid()) {
                     ui.formatMessageWithTopDivider(
                         String.format(MESSAGE_ACTIVITY_FACTOR,
@@ -185,6 +185,7 @@ public class StartState {
                 checkEmptyUserInput(userInput);
                 int calorieGoalInput = Integer.parseInt(userInput);
                 newProfile.setProfileCalorieGoal(new CalorieGoal(calorieGoalInput));
+                //calorie input is responding
                 //TODO: add a print statement to tell user input is incorrect
                 if (newProfile.getProfileCalorieGoal().isValid()) {
                     ui.formatMessageWithTopDivider(
@@ -193,7 +194,6 @@ public class StartState {
                 } else {
                     ui.formatMessageFramedWithDivider(String.format(profile.ERROR_CALORIE_GOAL, calorieGoalInput));
                 }
-                ;
                 checkInput = true;
             } catch (NumberFormatException e) {
                 ui.formatMessageFramedWithDivider(MESSAGE_INVALID_POSITIVE_INT_INPUT);
