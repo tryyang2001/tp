@@ -33,7 +33,8 @@ public class StartState {
     public static final String MESSAGE_EMPTY_INPUT = "Input cannot be empty";
     public static final String MESSAGE_INTRO_CALORIE_GOAL = "Please input your net calorie goal.";
     public static final String MESSAGE_INTRO_AGE = "How old are you?";
-    public static final String MESSAGE_INTRO_GENDER = "What is your gender?(If you are a male, type 'm', if you are a female , type 'f'.";
+    public static final String MESSAGE_INTRO_GENDER = "What is your gender?(If you are a male, type 'm'"
+            + ", if you are a female , type 'f'.";
     public static final String MESSAGE_INTRO_WEIGHT = "What's your weight? (in kg)";
     public static final String MESSAGE_INTRO_NAME = "What's your name?";
     public static final String MESSAGE_INTRO_HEIGHT = "What's your height? (in cm)";
@@ -98,6 +99,7 @@ public class StartState {
                 ui.formatMessageFramedWithDivider(e.getMessage());
             }
         }
+        ui.formatMessageWithBottomDivider();
     }
 
     /**
@@ -128,6 +130,7 @@ public class StartState {
         } catch (UnableToWriteFileException e) {
             ui.formatMessageFramedWithDivider(e.getMessage());
         }
+        ui.formatMessageWithBottomDivider();
     }
 
     /**
@@ -137,7 +140,7 @@ public class StartState {
      * @throws ParamMissingException if user input a string of 0 characters.
      */
     private void createNewProfileActivityFactor(Profile newProfile) throws ParamMissingException {
-                ui.formatMessageWithBottomDivider(MESSAGE_INTRO_ACTIVITY_FACTOR);
+        ui.formatMessageWithBottomDivider(MESSAGE_INTRO_ACTIVITY_FACTOR);
         while (!newProfile.getProfileActivityFactor().isValid()) {
             try {
                 String userInput = ui.getUserInput();
@@ -145,11 +148,14 @@ public class StartState {
                 int activityFactorInput = Integer.parseInt(userInput);
                 newProfile.setProfileActivityFactor(new ActivityFactor(activityFactorInput));
                 //TODO: add a print statement to tell user input is incorrect
-                if(newProfile.getProfileActivityFactor().isValid()){
-                    ui.formatMessageWithTopDivider(String.format("You activity factor is %s.",newProfile.getProfileActivityFactor().getActivityFactor()));
+                if (newProfile.getProfileActivityFactor().isValid()) {
+                    ui.formatMessageWithTopDivider(
+                        String.format("You activity factor is %s.",
+                            newProfile.getProfileActivityFactor().getActivityFactor()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_ACTIVITY_FACTOR);
-                };
+                }
+                ;
             } catch (NumberFormatException e) {
                 ui.formatMessageFramedWithDivider(MESSAGE_INVALID_POSITIVE_DOUBLE_INPUT);
             }
@@ -164,7 +170,7 @@ public class StartState {
      */
     private void createNewProfileCalorieGoal(Profile newProfile) throws ParamMissingException {
         boolean checkInput = false;// check whether calorie goal has the correct input
-                ui.formatMessageWithBottomDivider(MESSAGE_INTRO_CALORIE_GOAL);
+        ui.formatMessageWithBottomDivider(MESSAGE_INTRO_CALORIE_GOAL);
         do {
             try {
                 String userInput = ui.getUserInput();
@@ -172,11 +178,14 @@ public class StartState {
                 int calorieGoalInput = Integer.parseInt(userInput);
                 newProfile.setProfileCalorieGoal(new CalorieGoal(calorieGoalInput));
                 //TODO: add a print statement to tell user input is incorrect
-                if(newProfile.getProfileCalorieGoal().isValid()){
-                    ui.formatMessageWithTopDivider(String.format("You calorie goal is %s.",newProfile.getProfileCalorieGoal().getCalorieGoal()));
+                if (newProfile.getProfileCalorieGoal().isValid()) {
+                    ui.formatMessageWithTopDivider(
+                        String.format("You calorie goal is %s.",
+                            newProfile.getProfileCalorieGoal().getCalorieGoal()));
                 } else {
-                    ui.formatMessageFramedWithDivider(String.format(profile.ERROR_CALORIE_GOAL,calorieGoalInput));
-                };
+                    ui.formatMessageFramedWithDivider(String.format(profile.ERROR_CALORIE_GOAL, calorieGoalInput));
+                }
+                ;
                 checkInput = true;
             } catch (NumberFormatException e) {
                 ui.formatMessageFramedWithDivider(MESSAGE_INVALID_POSITIVE_INT_INPUT);
@@ -191,18 +200,21 @@ public class StartState {
      * @throws ParamMissingException if user input a string of 0 characters.
      */
     private void createNewProfileAge(Profile newProfile) throws ParamMissingException {
-                ui.formatMessageWithBottomDivider(MESSAGE_INTRO_AGE);
+        ui.formatMessageWithBottomDivider(MESSAGE_INTRO_AGE);
         while (!newProfile.getProfileAge().isValid()) {
             try {
                 String userInput = ui.getUserInput();
                 checkEmptyUserInput(userInput);
                 int ageInput = Integer.parseInt(userInput);
                 newProfile.setProfileAge(new Age(ageInput));
-                if(newProfile.getProfileAge().isValid()){
-                    ui.formatMessageWithTopDivider(String.format("You are a %s old.",newProfile.getProfileAge().getAge()));
+                if (newProfile.getProfileAge().isValid()) {
+                    ui.formatMessageWithTopDivider(
+                        String.format("You are a %s old.",
+                            newProfile.getProfileAge().getAge()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_AGE);
-                };
+                }
+                ;
             } catch (NumberFormatException e) {
                 ui.formatMessageFramedWithDivider(MESSAGE_INVALID_POSITIVE_INT_INPUT);
             }
@@ -216,16 +228,18 @@ public class StartState {
      * @throws ParamMissingException if user input a string of 0 characters.
      */
     private void createNewProfileGender(Profile newProfile) {
-            ui.formatMessageWithBottomDivider(MESSAGE_INTRO_GENDER);
+        ui.formatMessageWithBottomDivider(MESSAGE_INTRO_GENDER);
         while (!newProfile.getProfileGender().isValid()) {
             String userInput = ui.getUserInput();
             if (userInput.length() == 1) {
                 char genderInput = userInput.charAt(0);
                 newProfile.setProfileGender(new Gender(genderInput));
             }
-            if(newProfile.getProfileGender().isValid()){
+            if (newProfile.getProfileGender().isValid()) {
                 //TODO: check if input is male or female and then output the message.
-                ui.formatMessageWithTopDivider(String.format("You are a %s.",newProfile.getProfileGender().getGender()));
+                ui.formatMessageWithTopDivider(
+                    String.format("You are a %s.",
+                        newProfile.getProfileGender().getGender()));
             } else {
                 ui.formatMessageFramedWithDivider(profile.ERROR_GENDER);
             }
@@ -239,15 +253,17 @@ public class StartState {
      * @throws ParamMissingException if user input a string of 0 characters.
      */
     private void createNewProfileWeight(Profile newProfile) throws ParamMissingException {
-                ui.formatMessageWithBottomDivider(MESSAGE_INTRO_WEIGHT);
+        ui.formatMessageWithBottomDivider(MESSAGE_INTRO_WEIGHT);
         while (!newProfile.getProfileWeight().isValid()) {
             try {
                 String userInput = ui.getUserInput();
                 checkEmptyUserInput(userInput);
                 double weightInput = Double.parseDouble(userInput);
                 newProfile.setProfileWeight(new Weight(weightInput));
-                if(newProfile.getProfileWeight().isValid()){
-                    ui.formatMessageWithTopDivider(String.format("Your weight is %s.",newProfile.getProfileName().getName()));
+                if (newProfile.getProfileWeight().isValid()) {
+                    ui.formatMessageWithTopDivider(
+                        String.format("Your weight is %s.",
+                            newProfile.getProfileName().getName()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_WEIGHT);
                 }
@@ -264,15 +280,17 @@ public class StartState {
      * @throws ParamMissingException if user input a string of 0 characters.
      */
     private void createNewProfileHeight(Profile newProfile) throws ParamMissingException {
-                ui.formatMessageWithBottomDivider(MESSAGE_INTRO_HEIGHT);
+        ui.formatMessageWithBottomDivider(MESSAGE_INTRO_HEIGHT);
         while (!newProfile.getProfileHeight().isValid()) {
             try {
                 String userInput = ui.getUserInput();
                 checkEmptyUserInput(userInput);
                 double heightInput = Double.parseDouble(userInput);
                 newProfile.setProfileHeight(new Height(heightInput));
-                if(newProfile.getProfileHeight().isValid()){
-                    ui.formatMessageWithTopDivider(String.format("Your height is %s.",newProfile.getProfileHeight().getHeight()));
+                if (newProfile.getProfileHeight().isValid()) {
+                    ui.formatMessageWithTopDivider(
+                        String.format("Your height is %s.",
+                            newProfile.getProfileHeight().getHeight()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_HEIGHT);
                 }
@@ -289,13 +307,15 @@ public class StartState {
      * @throws ParamMissingException if user input a string of 0 characters.
      */
     private void createNewProfileName(Profile newProfile) throws ParamMissingException {
-            ui.formatMessageWithBottomDivider(MESSAGE_INTRO_NAME);
+        ui.formatMessageWithBottomDivider(MESSAGE_INTRO_NAME);
         while (!newProfile.getProfileName().isValid()) {
             String userInput = ui.getUserInput();
             checkEmptyUserInput(userInput);
             newProfile.setProfileName(new Name(userInput));
-            if(newProfile.getProfileName().isValid()){
-                ui.formatMessageWithTopDivider(String.format("Nice name you have there! Hello %s",newProfile.getProfileName().getName()));
+            if (newProfile.getProfileName().isValid()) {
+                ui.formatMessageWithTopDivider(
+                        String.format("Nice name you have there! Hello %s",
+                                newProfile.getProfileName().getName()));
             } else {
                 ui.formatMessageFramedWithDivider(profile.ERROR_NAME);
             }
@@ -314,9 +334,4 @@ public class StartState {
             throw new ParamMissingException(MESSAGE_EMPTY_INPUT);
         }
     }
-
-    private String printMessage(String attribute) {
-        return String.format(MESSAGE_INPUT_IS_SUCCESSFUL, attribute);
-    }
-
 }

@@ -72,12 +72,14 @@ public class Ui {
             System.out.println(message);
         }
     }
+
     public void formatMessageWithBottomDivider(String... messages) {
         for (String message : messages) {
             System.out.println(message);
         }
         System.out.println(DIVIDER);
     }
+
     public void printStartApplicationPage() {
         logger.log(Level.FINE, "start of application");
         System.out.println(FITBOT_V0 + LS + MESSAGE_WELCOME);
