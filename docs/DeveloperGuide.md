@@ -166,35 +166,40 @@ they are able to parse user inputs. They also make use of utility methods stored
 all the parameters relevant to the command. After parsing the input, `XYZCommandParser` returns `XYZCommand` to `ParserManager`,
 which then returns the same `XYZCommand` to `Main`.
 
-The sequence diagram below models the interactions between the different classes within the `Logic` component.
-This particular case illustrates how a user input `add f/potato c/20` is parsed and process to execute the appropriate actions.
-
-<p align="center" width="100%">
-  <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
-</p>
-
 ### Storage component
 
 <p align="center" width="100%">
-  <img width="60%" src="images/StorageClassDiagram.png" alt="Storage Class Diagram"/>
+  <img width="60%" src="images/StorageManagerClassDiagram.png" alt="Storage Class Diagram"/>
 </p>
-The `StorageManager` component loads and saves:
-- your profile - including name, height, weight, gender, age, calorie goal and activity factor
-- list of exercises done - including date performed
-- list of food consumed - including date and time of consumption
-- scheduled exercises - recurring exercises that are scheduled in the future
-- food and exercise banks - names and calories of relevant item
 
-Each storage is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
+`StorageManager` initializes all `Storage` subclasses with their respective paths. 
+Acting as a medium, it then interacts with each of the respective `Storage` subclasses. 
+This design declutters the code in Main and provides a platform to ensure each of the subclasses were utilized. 
+It is also implemented with all of the `StorageInterface` interfaces to enforce methods of loading and saving to be fully implemented into the code.
+
+The `StorageManager` component loads and saves:
+
+- your profile: name, height, weight, gender, age, calorie goal and activity factor
+- list of exercises done: including date performed
+- list of food consumed: including date and time of consumption
+- upcoming exercises: recurring exercises that are scheduled in the future
+- food and exercise banks: names and calories of relevant item
+
+Each `Storage` subclass is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
 
 <p align="center" width="100%">
   <img width="60%" src="images/ProfileStorageClassDiagram.png" alt="Profile Storage"/>
 </p>
 
+The `ProfileStorage` inherits an abstract class of `Storage` which contains protected attributes of `fileName` and `filePath`.
+After inheritance, it then implements loading and saving methods interfaced by `ProfileStorageInterface` to ensure reading and writing operations.
+
 where:
 - ProfileEncoder encodes the list to the profile.txt file.
 - ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
-- ProfileStorage initializes the encoder and decoder and utilizes them for reading or writing operations.
+- ProfileStorage utilizes the static methods in encoder and decoder for loading or saving operations.
+
+This way ensures that each class has a _single responsibility_ with little coupling between each other.
 
 ## Implementation
 

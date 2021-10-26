@@ -14,7 +14,7 @@ class Age DATA_COLOUR
 class Gender DATA_COLOUR
 class CalorieGoal DATA_COLOUR
 class ActivityFactor DATA_COLOUR
-interface Verifiable DATA_COLOUR
+interface "<<Interface>>\nVerifiable" DATA_COLOUR
 
 Profile *-- "1" Name
 Profile *-- "1" Height
@@ -24,12 +24,12 @@ Profile *-- "1" Gender
 Profile *-- "1" CalorieGoal
 Profile *-- "1" ActivityFactor
 
-Verifiable <|.up. Name
-Verifiable <|.up. Height
-Verifiable <|.up. Weight
-Verifiable <|.up. Age
-Verifiable <|.up. Gender
-Verifiable <|.up. CalorieGoal
-Verifiable <|.up. ActivityFactor
+"<<Interface>>\nVerifiable" <|.up. Name
+"<<Interface>>\nVerifiable" <|.up. Height
+"<<Interface>>\nVerifiable" <|.up. Weight
+"<<Interface>>\nVerifiable" <|.up. Age
+"<<Interface>>\nVerifiable" <|.up. Gender
+"<<Interface>>\nVerifiable" <|.up. CalorieGoal
+"<<Interface>>\nVerifiable" <|.up. ActivityFactor
 
 @enduml
