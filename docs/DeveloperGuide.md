@@ -76,22 +76,17 @@ Classes such as `ItemList` and `Item` are _**abstract class**_, because they do 
 
 ### Data Component (Profile)
 
+![ProfileClassDiagram](./images/ProfileClassDiagram.png)
+
 <p align="center" width="100%">
   <img width="60%" src="images/ProfileClassDiagram.png" alt="Profile"/>
 </p>
 
-A Profile class has various attributes such as Name, Height, Weight, Gender, Age, Calorie Goal and Activity Factor
+A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Gender`, `Age`, `CalorieGoal` and `ActivityFactor`
 
-Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you a more accurate calculation.
+- Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you an estimated calculation of your net calorie.
 
-TODO\
-future exercise list\
-foodbank\
-exercisebank\
-will include some diagrams later\
-to complete tp dashboard
-
-
+- All the attributes inherit a `Verifiable` interface to enable us to check if the attributes are valid. This is important for the setting up of profile or the loading of profile from storage to ensure data integrity of the user's attributes.
 
 
 
