@@ -9,6 +9,7 @@ class ParserMessages LOGIC_COLOUR
 class ParserManager LOGIC_COLOUR
 class ParserUtils LOGIC_COLOUR
 class XYZCommandParser LOGIC_COLOUR
+class XYZCommand LOGIC_COLOUR
 abstract class "{abstract}\nCommand" AS Command LOGIC_COLOUR
 interface Parser <<interface>> LOGIC_COLOUR
 

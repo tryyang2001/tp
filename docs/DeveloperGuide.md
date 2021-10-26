@@ -145,26 +145,37 @@ Below is a high level class diagram of the `Logic` component, which shows how it
 like `Main` and `Data`.
 
 <p align="center" width="100%">
-  <img width="60%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
+  <img width="80%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
 </p>
+
+The general workflow of the `Logic` component is as follows:
+1. After `Main`  receives user input, it feeds this user input to the `ParserManager`.
+2. The `ParserManager` parses the user input and creates an `Command` object.
+   - More specifically, it creates a `XYZCommand` object, where `XYZ` is a placeholder for the 
+      specific command type, e.g `AddFoodCommand`, `UpdateProfileCommand`, etc.
+   - `XYZCommand` class inherits from the abstract class `Command`, which is used to represent all executable commands in the application.
+3. `ParserManager` returns the `Command` object to `Main`, which then executes the `Command`.
+4. After execution, all `Command` objects stores the result of the execution in a `CommandResult` object. 
+This `CommandResult` object is then returned to `Main`.
 
 Here is a more detailed class diagram of the `Logic` component.
 
 <p align="center" width="100%">
-  <img width="60%" src="images/ParserClassDiagram.png" alt="Parser Class Diagram">
+  <img width="80%" src="images/ParserClassDiagram.png" alt="Parser Class Diagram">
 </p>
 
 Taking a closer look into the parsing process, the `ParserManager` actually does not do most of the parsing itself.
-It creates a `XYZCommandParser` object (`XYZ` is a placeholder for a specific `Command` type), which is then responsible 
-for actually creating the `XYZCommand` object. All `XYZCommandParser` implements the interface `Parser`, which dictates that 
-they are able to parse user inputs.
-
+Instead, `ParserManager` creates `XYZCommandParser`,  which is then responsible 
+for creating the specific `XYZCommand`. All `XYZCommandParser` classes implement the interface `Parser`, which dictates that 
+they are able to parse user inputs. They also make use of utility methods stored in `ParserUtils` to extract 
+all the parameters relevant to the command. After parsing the input, `XYZCommandParser` returns `XYZCommand` to `ParserManager`,
+which then returns the same `XYZCommand` to `Main`.
 
 The sequence diagram below models the interactions between the different classes within the `Logic` component.
 This particular case illustrates how a user input `add f/potato c/20` is parsed and process to execute the appropriate actions.
 
 <p align="center" width="100%">
-  <img width="90%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
+  <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
 </p>
 
 ### Storage component
@@ -232,7 +243,9 @@ implementation. In the future increment, to increase the code efficiency, the da
 The same reasoning for the class `ItemBank`, which is the superclass of `FoodList` and `ExerciseList`, the data structure
 used is also a [singly Linked List](#_singly-linked-list_). In the future increment, since the `ItemBank` need to perform query operation in an efficient
 way, the data structure of the attribute will be changed to HashMap to achieve O(1) query time.  
-![img.png](images/ItemBankCodeSnippet.png)
+<p align="center" width="100%">
+  <img width="60%" src="images/ItemBankCodeSnippet.png" alt="Item Bank Code Snippet"/>
+</p>
 
 ## Product scope
 ### Target user profile
