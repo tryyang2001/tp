@@ -15,6 +15,15 @@ import seedu.duke.ui.Ui;
 
 public class StartState {
 
+    public static final char MALE_CHAR = 'M';
+    public static final String MESSAGE_MALE = "You are a male.";
+    public static final String MESSAGE_FEMALE = "You are a female.";
+    public static final String MESSAGE_NAME = "Nice name you have there! Hello %s";
+    public static final String MESSAGE_HEIGHT = "Your height is %s.";
+    public static final String MESSAGE_WEIGHT = "Your weight is %s.";
+    public static final String MESSAGE_AGE = "You are a %s old.";
+    public static final String MESSAGE_CALORIE_GOAL = "You calorie goal is %s.";
+    public static final String MESSAGE_ACTIVITY_FACTOR = "You activity factor is %s.";
     private Profile profile;
     private StorageManager storageManager;
     private Ui ui;
@@ -108,7 +117,6 @@ public class StartState {
      * Upon completing profile, the profile instance in Main will be replaced and stored in storage.
      */
     private void createNewProfile() {
-        // Let this method return profile
         Profile newProfile = new Profile();
         ui.formatMessageWithTopDivider();
         while (!newProfile.checkProfileComplete()) {
@@ -150,7 +158,7 @@ public class StartState {
                 //TODO: add a print statement to tell user input is incorrect
                 if (newProfile.getProfileActivityFactor().isValid()) {
                     ui.formatMessageWithTopDivider(
-                        String.format("You activity factor is %s.",
+                        String.format(MESSAGE_ACTIVITY_FACTOR,
                             newProfile.getProfileActivityFactor().getActivityFactor()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_ACTIVITY_FACTOR);
@@ -180,7 +188,7 @@ public class StartState {
                 //TODO: add a print statement to tell user input is incorrect
                 if (newProfile.getProfileCalorieGoal().isValid()) {
                     ui.formatMessageWithTopDivider(
-                        String.format("You calorie goal is %s.",
+                        String.format(MESSAGE_CALORIE_GOAL,
                             newProfile.getProfileCalorieGoal().getCalorieGoal()));
                 } else {
                     ui.formatMessageFramedWithDivider(String.format(profile.ERROR_CALORIE_GOAL, calorieGoalInput));
@@ -209,7 +217,7 @@ public class StartState {
                 newProfile.setProfileAge(new Age(ageInput));
                 if (newProfile.getProfileAge().isValid()) {
                     ui.formatMessageWithTopDivider(
-                        String.format("You are a %s old.",
+                        String.format(MESSAGE_AGE,
                             newProfile.getProfileAge().getAge()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_AGE);
@@ -238,12 +246,15 @@ public class StartState {
             if (newProfile.getProfileGender().isValid()) {
                 //TODO: check if input is male or female and then output the message.
                 ui.formatMessageWithTopDivider(
-                    String.format("You are a %s.",
-                        newProfile.getProfileGender().getGender()));
+                        getGenderMessage(newProfile.getProfileGender().getGender()));
             } else {
                 ui.formatMessageFramedWithDivider(profile.ERROR_GENDER);
             }
         }
+    }
+
+    private String getGenderMessage(char gender) {
+        return gender == MALE_CHAR ? MESSAGE_MALE : MESSAGE_FEMALE;
     }
 
     /**
@@ -262,7 +273,7 @@ public class StartState {
                 newProfile.setProfileWeight(new Weight(weightInput));
                 if (newProfile.getProfileWeight().isValid()) {
                     ui.formatMessageWithTopDivider(
-                        String.format("Your weight is %s.",
+                        String.format(MESSAGE_WEIGHT,
                             newProfile.getProfileName().getName()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_WEIGHT);
@@ -289,7 +300,7 @@ public class StartState {
                 newProfile.setProfileHeight(new Height(heightInput));
                 if (newProfile.getProfileHeight().isValid()) {
                     ui.formatMessageWithTopDivider(
-                        String.format("Your height is %s.",
+                        String.format(MESSAGE_HEIGHT,
                             newProfile.getProfileHeight().getHeight()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_HEIGHT);
@@ -314,7 +325,7 @@ public class StartState {
             newProfile.setProfileName(new Name(userInput));
             if (newProfile.getProfileName().isValid()) {
                 ui.formatMessageWithTopDivider(
-                        String.format("Nice name you have there! Hello %s",
+                        String.format(MESSAGE_NAME,
                                 newProfile.getProfileName().getName()));
             } else {
                 ui.formatMessageFramedWithDivider(profile.ERROR_NAME);
