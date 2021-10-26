@@ -56,10 +56,14 @@ public class Main {
      **/
     private void run(String[] args) throws UnableToWriteFileException {
         start();
-        new StartState(profile,storageManager,ui).checkAndCreateProfile();
+        checkAndCreateProfile();
         loadsFutureExercisesToList();
         enterTaskModeUntilByeCommand();
         exit();
+    }
+
+    private void checkAndCreateProfile() {
+        this.profile = new StartState(profile,storageManager,ui).checkAndCreateProfile();
     }
 
     /**
@@ -130,6 +134,7 @@ public class Main {
 
         command.setData(this.profile, this.exerciseItems, this.futureExerciseItems,
                 this.foodItems, this.exerciseBank, this.foodBank);
+        System.out.println(profile.getProfileCalorieGoal().getCalorieGoal());
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {

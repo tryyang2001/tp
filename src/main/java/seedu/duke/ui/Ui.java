@@ -63,7 +63,21 @@ public class Ui {
         for (String message : messages) {
             System.out.println(message);
         }
-        System.out.println(DIVIDER + '\n');
+        System.out.println(DIVIDER);
+    }
+
+    public void formatMessageWithTopDivider(String... messages) {
+        System.out.println(DIVIDER);
+        for (String message : messages) {
+            System.out.println(message);
+        }
+    }
+
+    public void formatMessageWithBottomDivider(String... messages) {
+        for (String message : messages) {
+            System.out.println(message);
+        }
+        System.out.println(DIVIDER);
     }
 
     public void printStartApplicationPage() {
