@@ -5,7 +5,7 @@
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-## Design & implementation
+## Design 
 
 ### Architecture
 
@@ -30,23 +30,49 @@ Upon launching of application:
 Upon exiting of application:
 - The application will save all data into the files created. All instance of components will be cleared automatically.
 
+Class diagram of Main
+
+<p align="center" width="100%">
+  <img width="60%" src="images/MainClass.png" alt="Main Class Diagram"/>
+</p>
+
+When _Fitbot_ is being started, the above instances are being created in the main class. 
+All the classes are marked as 1 as the main class require these instance to perform successful operations.
+ItemBank contains 2 instances as 1 is required for foodBank while the other is for exerciseBank.
+
+- Main class start of by running the `start()` function which loads all information using StorageManager class to the 
+Profile, FoodList, ExerciseList,ItemBank(foodBank, exerciseBank).
+-Next main class will check if user contains the profile using the `checkAndCreateProfile()`. If user does not have
+a profile, the application will assist user to create a profile by prompting questions.
+- `loadsFutureExercisesToList()` loads future exercises to FutureExerciseList.
+- After loading and creating profile, the main program will enter `enterTaskModeUntlByeCommand()` for user
+to interact with the application
+- Once user has keyed in the command `bye`, the main program will exit out of the `enterTaskModeUntlByeCommand()`
+and run the `exit()` command to exit the application.
+
+
 
 Interaction between the classes could be shown by the uml sequence diagram below.
 
 <p align="center" width="100%">
-  <img width="60%" src="images/architecture.png" alt="Architecture Sequence Diagram"/>
+  <img width="60%" src="images/Architecture.png" alt="Architecture Sequence Diagram"/>
 </p>
 
 
-When there is an input, the Ui class will retrieve the information from the user.
-The information will be parsed by the `Logic` and then upon checking its validity,
+-When there is an input, the Ui class will retrieve the information from the user.
+-Once the Main class receives the input, it creates a new Parser class to parse the commands.
+-Depends on the method, in this case add food command, main class will execute the command class(not shown)
+based on the command the parser detects.
+- The command class will add the food item into the `Data` and updates the `storage` instance accordingly.
+- when all the operations above are completed, the Main class will pass a message to Ui class.
+- Ui class wll then format the message and print it to console for the user.
 
-it will be saved into the `Data` and `Storage` class.
+
 
 ### Data Component (ItemBank and Item)
 
 <p align="center" width="100%">
-  <img width="90%" src="images/DataClassDiagram.png" alt="Data Class Diagram"/>
+  <img width="90%" src="images/ItemBankAndItemClassDiagram.png" alt="ItemBank And Item Class Diagram"/>
 </p>
 
 The `Data` component is responsible to perform operations such as data modification and query in the code. It receives the commands from the `Logic` component, execute the 
@@ -57,9 +83,9 @@ in `Data` component, they form **_dependencies_** with those classes.
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.\
 
 #### ItemBank class
-`ItemBank` is the **_highest superclass_** that contains one attribute called `internalItems` which is an _array list_ of `item`.\
-`ItemList` being the **_subclass_** of `ItemBank` and **_superclass_** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.\
-`FoodList` and `ExerciseList` are **_subclasses_** that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
+`ItemBank` is the **_highest [superclass](#_superclass_)_** that contains one attribute called `internalItems` which is an _array list_ of `item`.\
+`ItemList` being the **[_subclass_](#_subclass_)** of `ItemBank` and **_[superclass](#_superclass_)_** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a [dependency](#_dependency_) on `Item` class.\
+`FoodList` and `ExerciseList` are **[_subclass_](#_subclass_)** that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a [dependency](#_dependency_)
 on `Food` class and `Exercise` class respectively.
 
 #### Item class
@@ -70,7 +96,8 @@ An `Item` class contains two attributes, `name` which represents the name of the
 value must present when a `Food` object is created.\
 `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
 \
-Classes such as `ItemList` and `Item` are _**abstract class**_, because they do not add meaningful value to the user if one tries to create them.
+Classes such as `ItemList` and `Item` are _**[abstract class](#_abstract-class_)**_, because they do not add meaningful value to the user if one tries to create them.
+
 
 
 
@@ -105,6 +132,8 @@ Below shows a class diagram of how `Ui` component interacts with the rest of the
 <p align="center" width="100%">
   <img width="50%" src="images/Ui.png" alt="Ui Class Diagram"/>
 </p>
+
+
 
 
 
@@ -161,6 +190,50 @@ where:
 - ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
 - ProfileStorage initializes the encoder and decoder and utilizes them for reading or writing operations.
 
+## Implementation
+
+This section describes some noteworthy details on how certain features are implemented
+and some design considerations.
+
+#### [Proposed] Add a Food Item Feature
+
+![Add Food Item Sequence Diagram](images/AddFoodItemSequenceDiagram.png)
+
+The purpose of this feature is to allow the user to add food item to the food list. The above diagram shown is the 
+sequence diagram of the adding food item process. 
+
+When the user gives an input, the `parser` from the `Logic` component will try to read the input, and then call the correct
+command. In this case we assume that the correct format of **Add Food** input is given and the AddFoodCommand has already been
+called and created.
+
+Step 1: When the `execute` method in the `AddFoodCommand` is being called, it will first check that if the `isCalorieFromBank`
+condition is `true`, meaning that the description of the input food item can be found in the `FoodBank` object, 
+as shown in the `alt` frames of the sequence diagram. In each alternative paths, a new `Food` class object will be created
+by using the `Food` constructor.
+
+Step 2: When the `Food` constructor is called, it will perform a [self-invocation](#_self-invocation_)`setTimePeriod` to set the enum value `timePeriod`
+of the Food. After that, it returns the Food object to the `AddFoodCommand`.
+
+Step 3: The `AddFoodCommand` then calls the method `addItem` from the `FoodList` object, which performs the add food operation in the
+`Food List`. After the new `Food` Item is added, it will perform a [self-invocation](#_self-invocation_) `sortList` to sort the `FoodList`. Since the 
+`addItem` method is void type, nothing is returned to `AddFoodCommand`.
+
+Step 4: After the `addItem` method is executed without giving any error, the `AddFoodCommand` then calls a `CommandResult` object.
+This object will return and output the message indicates that the `AddFoodCommand` is executed without any error. At this
+stage, the `AddFoodCommand` is successfully ended.
+
+#### Design considerations:
+
+The current data structure used in `FoodList` is [singly Linked List](#_singly-linked-list_), which required O(n<sup>2</sup>) to ensure that
+the list is sorted according to date and time. The rationale of choosing linked list is because it allows sizable array
+implementation. In the future increment, to increase the code efficiency, the data structure is considered to change to 
+[Priority Queue](#_priority-queue_) to achieve O(nlogn) addition.
+
+The same reasoning for the class `ItemBank`, which is the superclass of `FoodList` and `ExerciseList`, the data structure
+used is also a [singly Linked List](#_singly-linked-list_). In the future increment, since the `ItemBank` need to perform query operation in an efficient
+way, the data structure of the attribute will be changed to HashMap to achieve O(1) query time.  
+![img.png](images/ItemBankCodeSnippet.png)
+
 ## Product scope
 ### Target user profile
 
@@ -195,10 +268,27 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 2. Should be able to hold up to at least a year of data without a slowdown of performance in daily use.
 3. Any user that is comfortable with typing of speeds >55 words per minute would be able to accomplish these tasks faster than if they used a mouse to navigate.
 ## Glossary
-**_dependency_** : In UML diagram, dependency is a directed relationship which is used to show that some elements or a set of elements requires, needs or depends on other model elements for specification or implementation.\
-**_superclass_** : A class from which other classes inherit its code. The class that inherits its code will be able to access some/all functionalities from the superclass.\
-**_subclass_**   : A class that inherits code from the other classes. Such class will be able to access some/all functionalities from its superclass, but not vice versa.\
-**_abstract class_** : A class that cannot be created using constructor. Usually such class is a superclass, and it does not give meaningful value if one tries to construct it.\
+#### **_dependency_**  
+In UML diagram, dependency is a directed relationship which is used to show that some elements or a set of elements requires, 
+needs or depends on other model elements for specification or implementation.
+#### **_superclass_**  
+A class from which other classes inherit its code. The class that inherits its code will be able to access some/all 
+functionalities from the superclass.
+#### **_subclass_**   
+A class that inherits code from the other classes. Such class will be able to access some/all functionalities from its superclass, 
+but not vice versa.
+#### **_abstract class_** 
+A class that cannot be created using constructor. Usually such class is a superclass, and it does not give meaningful 
+value if one tries to construct it.
+#### **_self invocation_**
+In UML sequence diagram, a method that does a calling to another of its own methods is called self-invocation. 
+#### **_singly linked list_**
+A linear data structure that behaves like an array except that the elements inside linked list is not store at a contiguous 
+location. In Java, linked list can be implemented using `ArrayList` in `Collection`.
+#### **_priority queue_**
+An abstract data type similar to a regular queue or stack data structure in which elements in priority queue are ordered
+and have "priority" associated with each element. The priority can be defined by the coder. In the case of `FoodList`, the
+priority will be defined as earlier date and time will have higher priority.
 (more coming in the future...)
 ## Instructions for manual testing
 
@@ -228,4 +318,4 @@ Its overview shows your progress over the weeks, indicating whether or not you h
    1. After exiting the application, change the values saved in the file.
    2. Upon start-up, all valid values will be changed in the application.
    3. Replace one of the text file generated by the application with lorem ipsum.
-   4. The application will be able to pick it up and ignore invalid data in relevant files.
+   Expected: The application will be able to pick it up and ignore invalid data in relevant files.

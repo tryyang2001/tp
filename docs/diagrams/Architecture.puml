@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":Ui" as ui
+-> ui ++ : addFoodItem
+participant ":Main" as main
+ui -> main ++
+create ":Parser" as parser
+main -> parser ++  : parseAddFoodItem()
+participant ":Data" as itemlist
+parser -> itemlist ++ : addFoodItem()
+itemlist --> parser -- :
+parser --> main --
+main --> ui : add food item\n success
+destroy parser
+<--- ui -- : show add food item\n success message
+participant ":Storage" as storage
+main -> storage ++ : saveFoodList()
+storage -> storage ++ : save to file
+storage --> storage --
+storage --> main --
+main --
+
+@enduml

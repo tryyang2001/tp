@@ -32,7 +32,7 @@ skinparam sequence {
     LifeLineBackgroundColor WHITE
     LifeLineBorderColor BLACK
 }
-
+hide enum methods
 
 
 
