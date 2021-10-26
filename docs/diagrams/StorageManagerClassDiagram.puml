@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+!include Style.puml
+hide class fields
+hide class methods
+hide interface fields
+hide interface methods
+
+class StorageManager STORAGE_COLOUR
+class ProfileStorage STORAGE_COLOUR
+class FoodBankStorage STORAGE_COLOUR
+class FoodListStorage STORAGE_COLOUR
+class ExerciseListStorage STORAGE_COLOUR
+class FutureExerciseListStorage STORAGE_COLOUR
+class ExerciseBankStorage STORAGE_COLOUR
+
+
+StorageManager --> "1" ProfileStorage
+StorageManager --> "1" FoodBankStorage
+StorageManager --> "1" ExerciseBankStorage
+StorageManager --> "1" FoodListStorage
+StorageManager --> "1" ExerciseListStorage
+StorageManager --> "1" FutureExerciseListStorage
+
+
+
+@enduml

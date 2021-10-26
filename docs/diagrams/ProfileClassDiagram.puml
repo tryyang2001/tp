@@ -16,13 +16,13 @@ class CalorieGoal DATA_COLOUR
 class ActivityFactor DATA_COLOUR
 interface Verifiable DATA_COLOUR
 
-Profile *--> "1" Name
-Profile *--> "1" Height
-Profile *--> "1" Weight
-Profile *--> "1" Age
-Profile *--> "1" Gender
-Profile *--> "1" CalorieGoal
-Profile *--> "1" ActivityFactor
+Profile *-- "1" Name
+Profile *-- "1" Height
+Profile *-- "1" Weight
+Profile *-- "1" Age
+Profile *-- "1" Gender
+Profile *-- "1" CalorieGoal
+Profile *-- "1" ActivityFactor
 
 Verifiable <|.up. Name
 Verifiable <|.up. Height
