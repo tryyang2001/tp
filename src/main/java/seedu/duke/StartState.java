@@ -19,10 +19,10 @@ public class StartState {
     public static final String MESSAGE_MALE = "You are a male.";
     public static final String MESSAGE_FEMALE = "You are a female.";
     public static final String MESSAGE_NAME = "Nice name you have there! Hello %s";
-    public static final String MESSAGE_HEIGHT = "Your height is %s.";
-    public static final String MESSAGE_WEIGHT = "Your weight is %s.";
-    public static final String MESSAGE_AGE = "You are a %s old.";
-    public static final String MESSAGE_CALORIE_GOAL = "You calorie goal is %s.";
+    public static final String MESSAGE_HEIGHT = "Your height is %scm.";
+    public static final String MESSAGE_WEIGHT = "Your weight is %skg.";
+    public static final String MESSAGE_AGE = "You are %s years old.";
+    public static final String MESSAGE_CALORIE_GOAL = "You calorie goal is %s cal.";
     public static final String MESSAGE_ACTIVITY_FACTOR = "You activity factor is %s.";
     private Profile profile;
     private StorageManager storageManager;
@@ -274,7 +274,7 @@ public class StartState {
                 if (newProfile.getProfileWeight().isValid()) {
                     ui.formatMessageWithTopDivider(
                         String.format(MESSAGE_WEIGHT,
-                            newProfile.getProfileName().getName()));
+                            newProfile.getProfileWeight().getWeight()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_WEIGHT);
                 }

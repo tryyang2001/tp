@@ -23,7 +23,7 @@ public class Statistics {
     public static final String MESSAGE_CALORIE_EXACT = "You have reached your calorie goal exactly. Good job!";
     public static final String MESSAGE_CALORIE_LESS_THAN = "You are %s cal away from your goal";
     public static final String MESSAGE_CALORIE_MORE_THAN = "You have exceeded your calorie goal by %s cal ";
-    public static final String OVERVIEW_HEADER = "-*OVERVIEW*-\n"
+    public static final String OVERVIEW_HEADER = "-*WEEKLY OVERVIEW*-\n"
             + "Hi %s, this is your calorie summary for the week.\n";
     public static final String FOOD_HEADER = "Food:\n"
             + "You have consumed %1$s cal this week from %2$s to %3$s.";
@@ -39,6 +39,8 @@ public class Statistics {
     public static final String MESSAGE_NET_CALORIES_INTRO = "Daily net calories**:\n";
     public static final String MESSAGE_SUPPER_COUNT_INTRO = "Number of supper meals this week: %s";
     public static final int MAX_BAR_LENGTH = 30;
+    public static final int EMPTY_CALORIES = 0;
+    public static final String MESSAGE_DAILY_OVERVIEW = "This is your overview for today:";
 
 
     private FoodList foodItems;
@@ -65,7 +67,8 @@ public class Statistics {
      */
     public String[] getCaloriesReport(int exerciseCalories, int foodCalories, int calorieGoal) {
 
-        int netCalories = foodCalories - exerciseCalories;
+        //TODO:move this 4 lines to getToday overview
+        int netCalories = calculateNetCalories(foodCalories, exerciseCalories);
         return new String[]{String.format(MESSAGE_CALORIE_GAIN, foodCalories),
                 String.format(MESSAGE_CALORIE_LOST, exerciseCalories),
                 String.format(MESSAGE_CALORIE_NET, netCalories),
@@ -73,6 +76,25 @@ public class Statistics {
                 printCaloriesMessage(netCalories, calorieGoal)};
     }
 
+    private int calculateNetCalories(int foodCalories, int exerciseCalories) {
+        try {
+            return this.profile.calculateNetCalories(foodCalories, exerciseCalories);
+        } catch (InvalidCharacteristicException e) {
+            return 0;
+        }
+    }
+
+    public String getCurrentDayOverview() {
+        int foodCalories = foodItems.getTotalCaloriesWithDate(date);
+        int exerciseCalories = exerciseItems.getTotalCaloriesWithDate(date);
+        int calorieGoal = profile.getProfileCalorieGoal().getCalorieGoal();
+        String[] messages = getCaloriesReport(foodCalories, exerciseCalories, calorieGoal);
+        StringBuilder currentDayOverview = new StringBuilder(MESSAGE_DAILY_OVERVIEW);
+        for (String message : messages) {
+            currentDayOverview.append(message).append(Ui.LS);
+        }
+        return currentDayOverview.toString().trim();
+    }
 
     public String printCaloriesMessage(int netCalories, int calorieGoal) {
         logger.log(Level.FINE, "preparing calories message");
@@ -89,9 +111,6 @@ public class Statistics {
         }
         return message;
     }
-
-    // extract the calories for food for the past 7 days
-    // extract the calories for exercises for the past 7 days
 
     /**
      * Set the date to current date.
@@ -124,7 +143,7 @@ public class Statistics {
 
         for (int calories : dailyCalories) {
             String progressBar = "";
-            int numberOfBars = 0;
+            int numberOfBars;
             numberOfBars = (int) Math.round(((double) calories / maxCalories) * MAX_BAR_LENGTH);
             assert numberOfBars <= MAX_BAR_LENGTH : "30 is the max progress bar limit";
             for (int i = 0; i < numberOfBars; i++) {
@@ -181,7 +200,7 @@ public class Statistics {
         try {
             return profile.calculateNetCalories(foodCalories, exerciseCalories);
         } catch (InvalidCharacteristicException e) {
-            return 0;
+            return EMPTY_CALORIES;
         }
     }
 
@@ -202,8 +221,9 @@ public class Statistics {
                 .append(String.format(EXERCISE_GRAPH_HEADER, getGraph(getDailyExerciseCalories())))
                 .append(getNetCaloriesMessage()).append(Ui.LS).append(Ui.LS)
                 .append(getSupperCountMessage()).append(Ui.LS)
-                .append(MESSAGE_CAUTION);
-        return overviewSummary.toString();
+                .append(MESSAGE_CAUTION).append(Ui.LS);
+        //          .append(getCurrentDayOverview());
+        return overviewSummary.toString().trim();
     }
 
 
