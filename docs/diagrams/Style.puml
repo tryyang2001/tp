@@ -16,6 +16,7 @@ skinparam Shadowing false
 skinparam class {
     BorderColor BLACK
     BorderThickness 1
+    AttributeIconSize 0
 }
 skinparam participant {
     BorderColor BLACK
