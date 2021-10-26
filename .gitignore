@@ -18,3 +18,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 #User data file
 /data/
+/text-ui-test/data/
+

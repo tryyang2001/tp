@@ -1,9 +1,9 @@
 package seedu.duke.ui;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.item.exercise.ExerciseList;
-import seedu.duke.item.food.FoodList;
-import seedu.duke.profile.Profile;
+import seedu.duke.data.item.exercise.ExerciseList;
+import seedu.duke.data.item.food.FoodList;
+import seedu.duke.data.profile.Profile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

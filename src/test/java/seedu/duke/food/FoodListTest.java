@@ -1,9 +1,9 @@
 package seedu.duke.food;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.item.food.Food;
-import seedu.duke.item.food.FoodList;
-import seedu.duke.item.food.TimePeriod;
+import seedu.duke.data.item.food.Food;
+import seedu.duke.data.item.food.FoodList;
+import seedu.duke.data.item.food.TimePeriod;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,7 +19,7 @@ class FoodListTest {
         FoodList foodList = new FoodList();
         foodList.addItem(new Food("chicken rice", 607,
                 LocalDateTime.parse("2021-10-16 1020", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
-        assertEquals("[10:20] chicken rice (607 cal)",
+        assertEquals("chicken rice (607 cal) @ 10:20",
                 foodList.getItem(foodList.getSize() - 1).toString());
     }
     
