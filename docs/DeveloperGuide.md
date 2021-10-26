@@ -67,6 +67,15 @@ based on the command the parser detects.
 - when all the operations above are completed, the Main class will pass a message to Ui class.
 - Ui class wll then format the message and print it to console for the user.
 
+### Data Component (Profile)
+
+![ProfileClassDiagram](./images/ProfileClassDiagram.png)
+
+A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Gender`, `Age`, `CalorieGoal` and `ActivityFactor`
+
+- Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you an estimated calculation of your net calorie.
+
+- All the attributes inherit a `Verifiable` interface to enable us to check if the attributes are valid. This is important for the setting up of profile or the loading of profile from storage to ensure data integrity of the user's attributes.
 
 
 ### Data Component (ItemBank and Item)
@@ -97,24 +106,6 @@ value must present when a `Food` object is created.\
 `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
 \
 Classes such as `ItemList` and `Item` are _**[abstract class](#_abstract-class_)**_, because they do not add meaningful value to the user if one tries to create them.
-
-
-
-
-### Data Component (Profile)
-
-![ProfileClassDiagram](./images/ProfileClassDiagram.png)
-
-<p align="center" width="100%">
-  <img width="60%" src="images/ProfileClassDiagram.png" alt="Profile"/>
-</p>
-
-A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Gender`, `Age`, `CalorieGoal` and `ActivityFactor`
-
-- Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you an estimated calculation of your net calorie.
-
-- All the attributes inherit a `Verifiable` interface to enable us to check if the attributes are valid. This is important for the setting up of profile or the loading of profile from storage to ensure data integrity of the user's attributes.
-
 
 
 
@@ -168,9 +159,7 @@ which then returns the same `XYZCommand` to `Main`.
 
 ### Storage component
 
-<p align="center" width="100%">
-  <img width="60%" src="images/StorageManagerClassDiagram.png" alt="Storage Class Diagram"/>
-</p>
+![ProfileStorageClassDiagram](images/StorageManagerClassDiagram.png)
 
 `StorageManager` initializes all `Storage` subclasses with their respective paths. 
 Acting as a medium, it then interacts with each of the respective `Storage` subclasses. 
@@ -187,9 +176,7 @@ The `StorageManager` component loads and saves:
 
 Each `Storage` subclass is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
 
-<p align="center" width="100%">
-  <img width="60%" src="images/ProfileStorageClassDiagram.png" alt="Profile Storage"/>
-</p>
+![ProfileStorageClassDiagram](images/ProfileStorageClassDiagram.png)
 
 The `ProfileStorage` inherits an abstract class of `Storage` which contains protected attributes of `fileName` and `filePath`.
 After inheritance, it then implements loading and saving methods interfaced by `ProfileStorageInterface` to ensure reading and writing operations.
