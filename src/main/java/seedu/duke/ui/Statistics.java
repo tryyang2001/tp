@@ -75,14 +75,6 @@ public class Statistics {
                 printCaloriesMessage(netCalories, calorieGoal)};
     }
 
-    public String formatMessage(String... messages) {
-        StringBuilder content = new StringBuilder(EMPTY);
-        for (String message : messages) {
-            content.append(message).append(Ui.LS);
-        }
-        content.setLength(content.length() - REVERSE_APPEND);
-        return content.toString().stripTrailing();
-    }
 
     public String printCaloriesMessage(int netCalories, int calorieGoal) {
         logger.log(Level.FINE, "preparing calories message");
@@ -100,9 +92,6 @@ public class Statistics {
         return message;
     }
 
-    // extract the calories for food for the past 7 days
-    // extract the calories for exercises for the past 7 days
-
     /**
      * Set the date to current date.
      * Date to be updated upon calling the overview command.
@@ -115,12 +104,6 @@ public class Statistics {
         return date.minusDays(offset);
     }
 
-
-    private void getDailyFoodCalorieForWeek() {
-        ArrayList<Integer> dailyFoodCalories = getDailyFoodCalories();
-        int maxCalories = Collections.max(dailyFoodCalories);
-        // need to get them to print out all the items
-    }
 
     private ArrayList<Integer> getDailyFoodCalories() {
         ArrayList<Integer> dailyFoodCalories = new ArrayList<>();
@@ -143,7 +126,7 @@ public class Statistics {
         for (int calories : dailyCalories) {
             String progressBar = "";
             int numberOfBars = 0;
-            numberOfBars = (int)Math.round(((double) calories / maxCalories) * 30);
+            numberOfBars = (int)(((double) calories / maxCalories) * 30);
             assert numberOfBars <= 30 : "30 is the max progress bar limit";
             for (int i = 0; i < numberOfBars; i++) {
                 progressBar = progressBar + FULL_BLOCK;
@@ -198,6 +181,7 @@ public class Statistics {
                 .append(MESSAGE_CAUTION);
         return overviewSummary.toString();
     }
+
 
 
 }

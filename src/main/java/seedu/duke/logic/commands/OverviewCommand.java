@@ -16,8 +16,11 @@ public class OverviewCommand extends Command {
   
     protected Statistics statistics;
 
+    
+
     @Override
     public CommandResult execute() {
+
         statistics = new Statistics(super.foodItems,super.exerciseItems, super.profile);
         return new CommandResult(this.statistics.overviewSummary());
     }
