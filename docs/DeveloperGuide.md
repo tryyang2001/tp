@@ -161,6 +161,17 @@ they are able to parse user inputs. They also make use of utility methods stored
 all the parameters relevant to the command. After parsing the input, `XYZCommandParser` returns `XYZCommand` to `ParserManager`,
 which then returns the same `XYZCommand` to `Main`.
 
+[comment]: <> (@@author @tlyi)
+
+The sequence diagram below models the interactions between the different classes within the Logic component.
+This particular case illustrates how a user input add f/potato c/20 is parsed and process to execute the appropriate actions.
+
+<p align="center" width="100%">
+  <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
+</p>
+
+[comment]: <> (@@author)
+
 ### Storage component
 
 <p align="center" width="100%">

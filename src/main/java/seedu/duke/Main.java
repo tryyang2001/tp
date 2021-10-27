@@ -1,13 +1,9 @@
 package seedu.duke;
 
-import seedu.duke.data.item.Item;
-import seedu.duke.data.item.ItemBank;
-import seedu.duke.data.item.exercise.Exercise;
+
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.data.item.exercise.FutureExerciseList;
-import seedu.duke.data.item.food.Food;
-import seedu.duke.data.item.food.FoodList;
-import seedu.duke.data.profile.Profile;
+import seedu.duke.data.DataManager;
 import seedu.duke.logic.LogicManager;
 import seedu.duke.logic.commands.ByeCommand;
 import seedu.duke.logic.commands.Command;
@@ -25,14 +21,9 @@ import java.time.LocalDate;
  * Initialises the application and starts interaction with user.
  */
 public class Main {
+
     private ExerciseList filteredExerciseItems;
-    private ExerciseList exerciseItems;
-    private FutureExerciseList futureExerciseItems;
-    private FoodList filteredFoodItems;
-    private FoodList foodItems;
-    private ItemBank exerciseBank;
-    private ItemBank foodBank;
-    private Profile profile;
+    private DataManager dataManager;
     private Ui ui;
     private StorageManager storageManager;
     private LogicManager logicManager;
@@ -57,36 +48,33 @@ public class Main {
         exit();
     }
 
+    //@@author tttyyzzz
     private void checkAndCreateProfile() {
-        this.profile = new StartState(profile, storageManager, ui).checkAndCreateProfile();
+        dataManager.setProfile(new StartState(dataManager.getProfile(), storageManager, ui).checkAndCreateProfile());
     }
+    //@@author
 
     /**
      * Initialises the application by creating the required objects and loading data from the
      * storage file, then showing the welcome message.
      */
     private void start() {
-        //TODO Update with yi zhi's implementatiothis.foodBank = new ItemBank();
         this.storageManager = new StorageManager();
         this.ui = new Ui();
         this.filteredFoodItems = new FoodList();
         this.filteredExerciseItems = new ExerciseList();
         try {
-            profile = storageManager.loadProfile();
-            exerciseItems = storageManager.loadExerciseList();
-            filterExerciseListWithPastSevenDaysRecordOnly();
-            foodItems = storageManager.loadFoodList();
-            filterFoodListWithPastSevenDaysRecordOnly();
-            futureExerciseItems = storageManager.loadFutureExerciseList();
-            foodBank = storageManager.loadFoodBank();
-            exerciseBank = storageManager.loadExerciseBank();
+            dataManager = storageManager.loadAll();
+         //     filterExerciseListWithPastSevenDaysRecordOnly();  
+          //  filterFoodListWithPastSevenDaysRecordOnly();
         } catch (UnableToReadFileException e) {
+            dataManager = new DataManager();
             ui.formatMessageFramedWithDivider(e.getMessage());
         }
-        this.logicManager = new LogicManager(storageManager, profile, exerciseItems, foodItems,
-                exerciseBank, foodBank, futureExerciseItems);
-        ui.printStartMessage(profile.checkProfileComplete(), profile.checkProfilePresent());
-
+        this.logicManager = new LogicManager(storageManager, dataManager);
+        ui.printStartMessage(
+                dataManager.getProfile().checkProfileComplete(),
+                dataManager.getProfile().checkProfilePresent());
     }
 
     /**
@@ -146,6 +134,7 @@ public class Main {
         } while (!result.isBye());
     }
 
+    //@@author xingjie99
     /**
      * Check whether the dates of the exercises in the future exercise list have passed.
      * If the dates have passed, move the exercises in the exercise list.
@@ -153,6 +142,7 @@ public class Main {
     private void loadsFutureExercisesToList() throws UnableToWriteFileException {
         int index = 0;
         LocalDate today = LocalDate.now();
+/*
         while (futureExerciseItems.getSize() != 0 && (futureExerciseItems.getItem(index).getDate().isBefore(today)
                 || futureExerciseItems.getItem(index).getDate().isEqual(today))) {
             System.out.println(today);
@@ -163,8 +153,20 @@ public class Main {
             futureExerciseItems.deleteItem(index);
             storageManager.saveExerciseList(filteredExerciseItems);
             storageManager.saveFutureExerciseList(futureExerciseItems);
+*/
+        while (dataManager.getFutureExerciseItems().getSize() != 0
+                && (dataManager.getFutureExerciseItems().getItem(index).getDate().isBefore(today)
+                || dataManager.getFutureExerciseItems().getItem(index).getDate().isEqual(today))) {
+            String name = dataManager.getFutureExerciseItems().getItem(index).getName();
+            int calories = dataManager.getFutureExerciseItems().getItem(index).getCalories();
+            LocalDate date = dataManager.getFutureExerciseItems().getItem(index).getDate();
+            dataManager.getExerciseItems().addItem(new Exercise(name, calories, date));
+            dataManager.getFutureExerciseItems().deleteItem(index);
+            storageManager.saveExerciseList(dataManager.getExerciseItems());
+            storageManager.saveFutureExerciseList(dataManager.getFutureExerciseItems());
         }
     }
+    //@@author
 
     /**
      * Executes the given Command and (to be implemented) calls for storage operation if required.
