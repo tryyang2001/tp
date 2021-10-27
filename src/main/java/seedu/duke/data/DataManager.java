@@ -107,6 +107,14 @@ public class DataManager {
 
     //=====================Profile method================================
 
+    /**
+     * Replaces profile with data in {@code profile}.
+     *
+     * @param profile profile to be set
+     */
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
 
     /**
      * Returns profile.
