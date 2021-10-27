@@ -121,7 +121,7 @@ public class Main {
      * @param command Command to be executed
      * @return CommandResult representing result of execution of the command
      */
-  /*
+    /*
     private CommandResult executeCommand(Command command) {
 
         command.setData(this.profile, this.exerciseItems, this.futureExerciseItems,
