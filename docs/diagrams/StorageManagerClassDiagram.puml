@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+!include Style.puml
+hide class fields
+hide class methods
+hide interface fields
+hide interface methods
+
+class StorageManager STORAGE_COLOUR
+class ProfileStorage STORAGE_COLOUR
+class FoodBankStorage STORAGE_COLOUR
+class FoodListStorage STORAGE_COLOUR
+class ExerciseListStorage STORAGE_COLOUR
+class FutureExerciseListStorage STORAGE_COLOUR
+class ExerciseBankStorage STORAGE_COLOUR
+interface "<<interface>>\nProfileStorageInterface" STORAGE_COLOUR
+interface "<<interface>>\nFoodBankStorageInterface" STORAGE_COLOUR
+interface "<<interface>>\nExerciseBankStorageInterface" STORAGE_COLOUR
+interface "<<interface>>\nFoodListStorageInterface" STORAGE_COLOUR
+interface "<<interface>>\nExerciseListStorageInterface" STORAGE_COLOUR
+interface "<<interface>>\nUpcomingStorageInterface" STORAGE_COLOUR
+
+"<<interface>>\nProfileStorageInterface" <|.. StorageManager
+"<<interface>>\nFoodBankStorageInterface" <|.. StorageManager
+"<<interface>>\nExerciseBankStorageInterface" <|.. StorageManager
+"<<interface>>\nFoodListStorageInterface" <|.. StorageManager
+"<<interface>>\nExerciseListStorageInterface" <|.. StorageManager
+"<<interface>>\nUpcomingStorageInterface" <|.. StorageManager
+
+"<<interface>>\nProfileStorageInterface" <|.. ProfileStorage
+"<<interface>>\nFoodBankStorageInterface" <|.. FoodBankStorage
+"<<interface>>\nExerciseBankStorageInterface" <|.. ExerciseBankStorage
+"<<interface>>\nFoodListStorageInterface" <|.. FoodListStorage
+"<<interface>>\nExerciseListStorageInterface" <|.. ExerciseListStorage
+"<<interface>>\nUpcomingStorageInterface" <|.. FutureExerciseListStorage
+
+StorageManager --> "1" ProfileStorage
+StorageManager --> "1" FoodBankStorage
+StorageManager --> "1" ExerciseBankStorage
+StorageManager --> "1" FoodListStorage
+StorageManager --> "1" ExerciseListStorage
+StorageManager --> "1" FutureExerciseListStorage
+
+@enduml
