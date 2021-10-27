@@ -80,8 +80,8 @@ public class DataManager {
      */
     private void filterFoodListWithPastSevenDaysRecordOnly() {
         LocalDate today = LocalDate.now();
-        for (int i = filteredFoodItems.getSize() - 1; i >= 0; i--) {
-            Food food = (Food) filteredFoodItems.getItem(i);
+        for (int i = foodItems.getSize() - 1; i >= 0; i--) {
+            Food food = (Food) foodItems.getItem(i);
             if (food.getDate().isBefore(today.minusDays(7))) {
                 break;
             }
@@ -108,8 +108,8 @@ public class DataManager {
      */
     private void filterExerciseListWithPastSevenDaysRecordOnly() {
         LocalDate today = LocalDate.now();
-        for (int i = filteredExerciseItems.getSize() - 1; i >= 0; i--) {
-            Exercise exercise = (Exercise) filteredExerciseItems.getItem(i);
+        for (int i = exerciseItems.getSize() - 1; i >= 0; i--) {
+            Exercise exercise = (Exercise) exerciseItems.getItem(i);
             if (exercise.getDate().isBefore(today.minusDays(7))) {
                 break;
             }
@@ -128,7 +128,7 @@ public class DataManager {
      * @return exercise list in DataManager object
      */
     public ExerciseList getExerciseItems() {
-        return this.filteredExerciseItems;
+        return this.exerciseItems;
     }
 
     //====================FutureExerciseList methods===================
@@ -151,7 +151,7 @@ public class DataManager {
      * @return food items in DataManager object
      */
     public FoodList getFoodItems() {
-        return this.filteredFoodItems;
+        return this.foodItems;
     }
 
     //=====================FoodBank methods============================
