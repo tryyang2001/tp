@@ -90,7 +90,7 @@ Throughout this guide, we will be using some special formatting and symbols to b
 
 If successfully loaded, you will see this logo:
 
-![Untitled](./images/StartupLogo.png)
+![Start Up Screen](./images/StartupLogo.png)
 
 ## 2. Create Profile
 
@@ -190,9 +190,13 @@ A food item has been added:
     chicken rice (607 cal) @ 14:00, 21 Oct 2021
 __________________________________________________________________________________________
 ```
-💡  **Tip:** If you do not specify the date and time of the Food Item, it is assumed that the date and time is based on the date and time of input.
+💡 **Tip:** If you do not specify the date and time of the Food Item, it is assumed that the date and time is based on the date and time of input.
 
-💡 **Tip:** It is possible to add Food Item without providing the calorie of it. You can do this by saving the corresponding Food Item into the Food Bank. More details can be found at [Section 4.5](#45-building-your-food-bank).
+💡 **Tip:** It is possible to add Food Item without providing the calorie of it. You can do this by saving the corresponding 
+Food Item into the Food Bank. More details can be found at [Section 4.5](#45-building-your-food-bank).
+
+❗ The input date `DD-MM-YYYY` must within 7 days before today. For example, if today date is `20-10-2021`, then the input
+date must be within `13-10-2021` to `20-10-2021`.
 
 #### 4.2.2 Viewing Food List `view f/`
 
@@ -263,46 +267,31 @@ ________________________________________________________________________________
 
 ### 4.3 Recording your exercises
 
+Besides Food Items, you may also record Exercises that you have taken into the Exercise List. This will allow you to keep
+track of total calories burnt and check whether you have done sufficient exercises. 
 
 #### 4.3.1 Adding Exercise Items `add e/`(Tip: exercise bank, upcoming exercise)
-#### 4.3.2 Viewing Exercise Items `view e/` `view u/`
-#### 4.3.3 Deleting Exercises `delete e/`
 
+By using this command, you can add any Exercise Items done into the Exercise List.
 
+Format: `add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Exercise Item with its respective calories burnt on the given date
+(`DD-MM-YYYY`).
 
+ℹ️ If the date `DD-MM-YYYY` provided is in the future, this exercise will be treated as an Upcoming Exercise Item, 
+and it will be added to the [Upcoming Exercise List](#441-adding-upcoming-exercise-items-add-e) instead.
 
-### 4.4. Add Items: `add`
+💡 **Tip:** Similar to [Food Item](#421-adding-food-items-add-f), if you do not specify the date and time of the Exercise Item, 
+it is assumed that the date and time is based on the date and time of input.
 
-This command adds an Item to a list.
+💡 **Tip:** It is possible to add Exercise Item without providing the calorie burnt on it. You can do this by saving the corresponding
+Exercise Item into the Exercise Bank. More details can be found at [here](#46-building-your-exercise-bank).
 
-#### 4.4.1. Add a Food Item to Food List
-
-This command is used to add a Food Item consumed within the past 7 days to the Food List.
-
-Format: `add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}` adds a Food Item consumed with its respective calories on the given
-date (`DD-MM-YYYY`) and time (`HHMM`).
-
-Example:
-- `add f/chicken rice c/607 d/21-10-2021 t/1400` adds record of food consumed: chicken rice with 607 calories gained on 21 Oct 2021 1400 to the food list.
-
-```text
-add f/chicken rice c/607 d/21-10-2021 t/1400
-__________________________________________________________________________________________
-A food item has been added:
-    chicken rice (607 cal) @ 14:00, 21 Oct 2021
-__________________________________________________________________________________________
-```
-💡  **Tip:** If you do not specify the date and time of the Food Item, it is assumed that the date and time is based on the date and time of input.
-
-
-#### 4.4.2. Add an Exercise Item to Exercise List
-
-Format: `add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Exercise Item with its respective calories burnt on the given date (`DD-MM-YYYY`). 
-
-ℹ️ If `DD-MM-YYYY` is in the future, the Upcoming Exercise Item will be added to the Upcoming Exercise List instead.
+❗ The input date `DD-MM-YYYY` must within 7 days before today. For example, if today date is `20-10-2021`, then the input
+date must be within `13-10-2021` to `20-10-2021`.
 
 Example:
 - `add e/hiit c/290 d/21-10-2021` adds record of exercise done: hiit with 290 calories burnt on 21 Oct 2021 to the exercise list.
+
 ```text
 add e/hiit c/290 d/ d/21-10-2021
 __________________________________________________________________________________________
@@ -311,16 +300,62 @@ An exercise has been added:
 __________________________________________________________________________________________
 ```
 
-- `add e/hiit c/290 d/01-01-2041` adds record of exercise done: hiit with 290 calories burnt to the upcoming exercise list.
+#### 4.3.2 Viewing Exercise Items `view e/` `view u/`
+
+It is possible to view and check all the exercises you have added. This command is for you to view all the exercises taken 
+and the calories that are added within the past 7 days (including today) from the list.
+
+Format: `view e/`
+
+Example: 
+
 ```text
-add e/hiit c/290 d/01-01-2041
-__________________________________________________________________________________________
-An exercise item for the future has been added:
-    hiit (290 cal)
+view e/
+__________________________________________________________________________________________________________
+ Here is a summary of all the exercises you have done in the past week:
+..........................................................................................................
+You have done 1 exercise(s) on Friday (22 Oct 2021):
+	1. biking (500 cal)
+Total calories burnt in the day: 500 cal
+..........................................................................................................
+You have done 1 exercise(s) on Sunday (24 Oct 2021):
+	1. hiit (290 cal)
+Total calories burnt in the day: 290 cal
+..........................................................................................................
+Total exercises done in this week: 2
+Total calorie burnt in the week: 790
+__________________________________________________________________________________________________________
+```
+ℹ️It is also possible to view all the Upcoming Exercises from the Upcoming Exercise List that you have added before. More
+details can be found [here](#443-viewing-upcoming-exercise-list-view-u).
+
+#### 4.3.3 Deleting Exercises `delete e/`
+
+This command allows you to remove any Exercise from the Exercise List just in case you add the wrong Exercise. 
+
+Format: `delete e/LIST_NO. d/DD-MM-YYYY` deletes the *n<sup>th</sup>* exercise Item in the exercise list which contains the date (`DD-MM-YYYY`),
+where *n* is the index of the exercise to delete.
+
+Example:
+```
+delete e/1 d/24-10-2021
+__________________________________________________________________________________________________________
+You have removed the exercise:
+    hiit (290 cal) @ 24 Oct 2021
+Number of exercise item(s) left: 1
+
+__________________________________________________________________________________________________________
 ```
 
+💡   **Tip:** If you wish to remove all the Exercise Items from the Exercise List, there is a shortcut command: `delete e/all`.
 
-💡  **Tip:** Similarly, if the date of the exercise is not provided, the date is assumed to be today.
+```
+delete e/all
+__________________________________________________________________________________________________________
+All exercise items have been removed.
+__________________________________________________________________________________________________________
+```
+
 
 #### 4.4.3. Add a Recurring Exercise to the Upcoming Exercise List
 
@@ -367,29 +402,7 @@ This command is used to view the Items in your lists.
 
 #### 4.5.1. View Food List
 
-#### 4.5.2. View Exercise List: 
-
-This command is used to view all the exercises taken and the calories that are added within the past 7 days (including today) from the list.
-
-Format: `view e/`
-
-```text
-view e/
-__________________________________________________________________________________________________________
- Here is a summary of all the exercises you have done in the past week:
-..........................................................................................................
-You have done 1 exercise(s) on Friday (22 Oct 2021):
-	1. biking (500 cal)
-Total calories burnt in the day: 500 cal
-..........................................................................................................
-You have done 1 exercise(s) on Sunday (24 Oct 2021):
-	1. hiit (290 cal)
-Total calories burnt in the day: 290 cal
-..........................................................................................................
-Total exercises done in this week: 2
-Total calorie burnt in the week: 790
-__________________________________________________________________________________________________________
-```
+#### 4.5.2. View Exercise List:
 
 #### 4.5.3. View Upcoming Exercise List
 This command is used to view all the exercises and the calories added that are scheduled to happen in a future date.
@@ -412,28 +425,6 @@ ________________________________________________________________________________
 
 #### 4.6.2 Delete an Exercise Item from Exercise List
 
-Format: `delete e/LIST_NO. d/DD-MM-YYYY` deletes the *n<sup>th</sup>* exercise Item in the exercise list which contains the date (`DD-MM-YYYY`),
-where *n* is the index of the exercise to delete.
-
-
-Example:
-```
-delete e/1 d/24-10-2021
-__________________________________________________________________________________________________________
-You have removed the exercise:
-    hiit (290 cal) @ 24 Oct 2021
-Number of exercise item(s) left: 1
-
-__________________________________________________________________________________________
-```
-
-💡   **Tip:** If you wish to remove all the Exercise Items from the Exercise List, there is a shortcut command: `delete e/all`.
-```
-delete e/all
-__________________________________________________________________________________________________________
-All exercise items have been removed.
-__________________________________________________________________________________________________________
-```
 
 #### 4.6.3 Delete an Upcoming Exercise Item from Upcoming Exercise List
 
