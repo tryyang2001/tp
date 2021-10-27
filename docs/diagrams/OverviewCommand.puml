@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!include Style.puml
+
+hide footbox
+participant Ui UI_COLOUR
+-> Ui ++ UI_COLOUR: overview
+participant Main MAIN_COLOUR
+Ui -> Main ++ MAIN_COLOUR: getInput()
+create Parser LOGIC_COLOUR
+participant Parser LOGIC_COLOUR
+Main -> Parser ++ LOGIC_COLOUR : parseInput()
+create OverviewCommand LOGIC_COLOUR
+participant OverviewCommand LOGIC_COLOUR
+Parser -> OverviewCommand ++ LOGIC_COLOUR
+OverviewCommand --> Parser -- LOGIC_COLOUR
+Parser --> Main -- LOGIC_COLOUR
+Main -> OverviewCommand ++ LOGIC_COLOUR: execute()
+create Statistics
+participant Statistics UI_COLOUR
+OverviewCommand -> Statistics ++ UI_COLOUR
+destroy Parser
+Statistics -> Data ++ DATA_COLOUR
+Data --> Statistics -- : data
+Statistics --> OverviewCommand --
+create CommandResult
+participant CommandResult LOGIC_COLOUR
+OverviewCommand -> CommandResult ++ LOGIC_COLOUR
+CommandResult -> OverviewCommand --
+OverviewCommand --> Main --
+destroy Statistics
+Main -> CommandResult ++ LOGIC_COLOUR
+CommandResult -> Main -- : overviewMessage
+Main -> Ui -- : formatMessage()
+destroy OverviewCommand
+<--Ui --
+destroy CommandResult
+@enduml
