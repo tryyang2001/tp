@@ -60,7 +60,6 @@ public class FutureExerciseList extends ExerciseList {
             while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
                 if (dayOfReoccurrence == day) {
                     super.addItem(new Exercise(description, calories, currentDate));
-                    super.sortList();
                     currentDate = currentDate.plusDays(ONE_WEEK);
                     dayOfReoccurrence = currentDate.getDayOfWeek().getValue();
                 } else {
@@ -68,6 +67,7 @@ public class FutureExerciseList extends ExerciseList {
                     dayOfReoccurrence = currentDate.getDayOfWeek().getValue();
                 }
             }
+            super.sortList();
         }
     }
 }
