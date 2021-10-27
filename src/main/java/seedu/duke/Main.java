@@ -8,10 +8,8 @@ import seedu.duke.data.item.exercise.FutureExerciseList;
 import seedu.duke.data.item.food.Food;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
-import seedu.duke.logic.commands.ByeCommand;
-import seedu.duke.logic.commands.Command;
+import seedu.duke.logic.LogicManager;
 import seedu.duke.logic.commands.CommandResult;
-import seedu.duke.logic.parser.ParserManager;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
@@ -27,6 +25,7 @@ import java.time.LocalDate;
 public class Main {
 
 
+
     private ExerciseList filteredExerciseItems;
     private ExerciseList exerciseItems;
     private FutureExerciseList futureExerciseItems;
@@ -37,6 +36,7 @@ public class Main {
     private Profile profile;
     private Ui ui;
     private StorageManager storageManager;
+    private LogicManager logicManager;
 
 
     /**
@@ -84,6 +84,8 @@ public class Main {
         } catch (UnableToReadFileException e) {
             ui.formatMessageFramedWithDivider(e.getMessage());
         }
+        this.logicManager = new LogicManager(storageManager, profile, exerciseItems, foodItems,
+                exerciseBank, foodBank, futureExerciseItems);
         ui.printStartMessage(profile.checkProfileComplete(), profile.checkProfilePresent());
 
     }
@@ -137,13 +139,12 @@ public class Main {
      * Runs indefinitely until user inputs the Bye command.
      */
     private void enterTaskModeUntilByeCommand() {
-        Command command;
+        CommandResult result;
         do {
             String userInput = ui.getUserInput();
-            command = new ParserManager().parseCommand(userInput);
-            CommandResult result = executeCommand(command);
+            result = logicManager.execute(userInput);
             ui.formatMessageFramedWithDivider(result.toString());
-        } while (!ByeCommand.isBye(command));
+        } while (!result.isBye());
     }
 
     /**
@@ -166,13 +167,14 @@ public class Main {
         }
     }
 
-
     /**
      * Executes the given Command and (to be implemented) calls for storage operation if required.
      *
      * @param command Command to be executed
      * @return CommandResult representing result of execution of the command
      */
+  
+/*
     private CommandResult executeCommand(Command command) {
         command.setData(this.profile, this.filteredExerciseItems, this.futureExerciseItems,
                 this.filteredFoodItems, this.exerciseBank, this.foodBank);
@@ -209,6 +211,7 @@ public class Main {
         return result;
     }
 
+*/
     /**
      * Exits the application.
      */

@@ -158,8 +158,8 @@ public class StartState {
                 newProfile.setProfileActivityFactor(new ActivityFactor(activityFactorInput));
                 if (newProfile.getProfileActivityFactor().isValid()) {
                     ui.formatMessageWithTopDivider(
-                        String.format(MESSAGE_ACTIVITY_FACTOR,
-                            newProfile.getProfileActivityFactor().getActivityFactor()));
+                            String.format(MESSAGE_ACTIVITY_FACTOR,
+                                    newProfile.getProfileActivityFactor().getActivityFactor()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_ACTIVITY_FACTOR);
                 }
@@ -189,8 +189,8 @@ public class StartState {
                 //TODO: add a print statement to tell user input is incorrect
                 if (newProfile.getProfileCalorieGoal().isValid()) {
                     ui.formatMessageWithTopDivider(
-                        String.format(MESSAGE_CALORIE_GOAL,
-                            newProfile.getProfileCalorieGoal().getCalorieGoal()));
+                            String.format(MESSAGE_CALORIE_GOAL,
+                                    newProfile.getProfileCalorieGoal().getCalorieGoal()));
                 } else {
                     ui.formatMessageFramedWithDivider(String.format(profile.ERROR_CALORIE_GOAL, calorieGoalInput));
                 }
@@ -217,8 +217,8 @@ public class StartState {
                 newProfile.setProfileAge(new Age(ageInput));
                 if (newProfile.getProfileAge().isValid()) {
                     ui.formatMessageWithTopDivider(
-                        String.format(MESSAGE_AGE,
-                            newProfile.getProfileAge().getAge()));
+                            String.format(MESSAGE_AGE,
+                                    newProfile.getProfileAge().getAge()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_AGE);
                 }
@@ -273,8 +273,8 @@ public class StartState {
                 newProfile.setProfileWeight(new Weight(weightInput));
                 if (newProfile.getProfileWeight().isValid()) {
                     ui.formatMessageWithTopDivider(
-                        String.format(MESSAGE_WEIGHT,
-                            newProfile.getProfileWeight().getWeight()));
+                            String.format(MESSAGE_WEIGHT,
+                                    newProfile.getProfileWeight().getWeight()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_WEIGHT);
                 }
@@ -300,8 +300,8 @@ public class StartState {
                 newProfile.setProfileHeight(new Height(heightInput));
                 if (newProfile.getProfileHeight().isValid()) {
                     ui.formatMessageWithTopDivider(
-                        String.format(MESSAGE_HEIGHT,
-                            newProfile.getProfileHeight().getHeight()));
+                            String.format(MESSAGE_HEIGHT,
+                                    newProfile.getProfileHeight().getHeight()));
                 } else {
                     ui.formatMessageFramedWithDivider(profile.ERROR_HEIGHT);
                 }
