@@ -199,6 +199,15 @@ This way ensures that each class has a _single responsibility_ with little coupl
 This section describes some noteworthy details on how certain features are implemented
 and some design considerations.
 
+
+#### Parsing of Commands
+The sequence diagram below models the interactions between the different classes within the Logic component.
+This particular case illustrates how a user input add f/potato c/20 is parsed and process to execute the appropriate actions.
+
+<p align="center" width="100%">
+  <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
+</p>
+
 #### [Proposed] Add a Food Item Feature
 
 ![Add Food Item Sequence Diagram](images/AddFoodItemSequenceDiagram.png)
