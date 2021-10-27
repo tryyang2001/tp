@@ -18,13 +18,13 @@ import java.time.LocalDate;
  */
 public class Main {
 
-
-//    private ExerciseList exerciseItems;
-//    private FutureExerciseList futureExerciseItems;
-//    private FoodList foodItems;
-//    private ItemBank exerciseBank;
-//    private ItemBank foodBank;
-//    private Profile profile;
+    /*
+    private ExerciseList exerciseItems;
+    private FutureExerciseList futureExerciseItems;
+    private FoodList foodItems;
+    private ItemBank exerciseBank;
+    private ItemBank foodBank;
+    private Profile profile;*/
     private DataManager dataManager;
     private Ui ui;
     private StorageManager storageManager;
@@ -64,19 +64,22 @@ public class Main {
         this.ui = new Ui();
         try {
             dataManager = storageManager.loadAll();
-//            profile = storageManager.loadProfile();
-//            exerciseItems = storageManager.loadExerciseList();
-//            foodItems = storageManager.loadFoodList();
-//            futureExerciseItems = storageManager.loadFutureExerciseList();
-//            foodBank = storageManager.loadFoodBank();
-//            exerciseBank = storageManager.loadExerciseBank();
+            /*
+            profile = storageManager.loadProfile();
+            exerciseItems = storageManager.loadExerciseList();
+            foodItems = storageManager.loadFoodList();
+            futureExerciseItems = storageManager.loadFutureExerciseList();
+            foodBank = storageManager.loadFoodBank();
+            exerciseBank = storageManager.loadExerciseBank();
+             */
         } catch (UnableToReadFileException e) {
             dataManager = new DataManager();
             ui.formatMessageFramedWithDivider(e.getMessage());
         }
         this.logicManager = new LogicManager(storageManager, dataManager);
-        ui.printStartMessage(dataManager.getProfile().checkProfileComplete(), dataManager.getProfile().checkProfilePresent());
-
+        ui.printStartMessage(
+                dataManager.getProfile().checkProfileComplete(),
+                dataManager.getProfile().checkProfilePresent());
     }
 
 

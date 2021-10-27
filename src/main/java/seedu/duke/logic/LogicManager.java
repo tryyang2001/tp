@@ -24,12 +24,14 @@ public class LogicManager {
     final StorageManager storageManager;
     final DataManager dataManager;
     //TODO: replace all this with data class
-//    final Profile profile;
-//    final ExerciseList exerciseList;
-//    final FoodList foodList;
-//    final ItemBank exerciseBank;
-//    final ItemBank foodBank;
-//    final FutureExerciseList futureExerciseList;
+    /*
+    final Profile profile;
+    final ExerciseList exerciseList;
+    final FoodList foodList;
+    final ItemBank exerciseBank;
+    final ItemBank foodBank;
+    final FutureExerciseList futureExerciseList;
+     */
 
     public LogicManager(StorageManager storageManager, DataManager dataManager) {
         this.parserManager = new ParserManager();
@@ -37,18 +39,21 @@ public class LogicManager {
         this.dataManager = dataManager;
     }
 
-//    public LogicManager(StorageManager storageManager,
-//                        Profile profile, ExerciseList exerciseList, FoodList foodList, ItemBank exerciseBank,
-//                        ItemBank foodBank, FutureExerciseList futureExerciseList) {
-//        this.parserManager = new ParserManager();
-//        this.storageManager = storageManager;
-//        this.profile = profile;
-//        this.exerciseList = exerciseList;
-//        this.foodList = foodList;
-//        this.exerciseBank = exerciseBank;
-//        this.foodBank = foodBank;
-//        this.futureExerciseList = futureExerciseList;
-//    }
+    /*
+    public LogicManager(StorageManager storageManager,
+                        Profile profile, ExerciseList exerciseList, FoodList foodList, ItemBank exerciseBank,
+                        ItemBank foodBank, FutureExerciseList futureExerciseList) {
+        this.parserManager = new ParserManager();
+        this.storageManager = storageManager;
+        this.profile = profile;
+        this.exerciseList = exerciseList;
+        this.foodList = foodList;
+        this.exerciseBank = exerciseBank;
+        this.foodBank = foodBank;
+        this.futureExerciseList = futureExerciseList;
+    }
+    */
+
 
     /**
      * Executes the given Command and (to be implemented) calls for storage operation if required.
