@@ -54,6 +54,5 @@ public class ParserMessages {
     protected static final int SUNDAY = 7;
     protected static final String MESSAGE_ERROR_EDIT_NO_PARAMETERS = "Please input at least one detail to change "
             + "about this item!";
-    protected static final String MESSAGE_ERROR_ITEM_DATE_TOO_OLD = "Please input date that is not "
-            + "7 days before today!";
+    protected static final String MESSAGE_ERROR_ITEM_DATE_TOO_OLD = "Please input a date that is within %s to %s!";
 }

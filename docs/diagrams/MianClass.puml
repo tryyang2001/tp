@@ -1,0 +1,68 @@
+@startuml
+!include Style.puml
+'https://plantuml.com/class-diagram
+hide circle
+class Main #line.bold
+class FoodList DATA_COLOUR
+class ItemBank DATA_COLOUR
+class Profile DATA_COLOUR
+class  "        Ui        " as Ui
+class StorageManager STORAGE_COLOUR
+
+
+
+ExerciseList "1" <-- Main :stores <
+FutureExerciseList "1" <-- Main: stores <
+FoodList "1" <-- Main : stores <
+ItemBank "2" <-- Main :stores  <
+Profile "1" <-- Main: contains <
+Ui "1" <-- Main : formats output <
+StorageManager "1" <-- Main : retrieves <
+
+class Main MAIN_COLOUR {
+start()
+checkAndCreateProfile()
+loadsFutureExercisesToList()
+enterTaskModeUntilByeCommand()
+exit()
+}
+
+class FoodList DATA_COLOUR{
+'internalItems:ArrayList<Food>
+}
+
+
+class ExerciseList DATA_COLOUR{
+'internalItems:ArrayList<Exercise>
+}
+class FutureExerciseList DATA_COLOUR{
+'internalItems:ArrayList<Exercise>
+}
+
+class Profile DATA_COLOUR{
+'name:Name
+'height:Height
+'weight:Weight
+'gender:Gender
+'age:Age
+'calorieGoal:CalorieGoal
+'activityFactor:ActivityFactor
+}
+
+class ItemBank DATA_COLOUR{
+'internalItems:ArrayList<Item>
+}
+
+class StorageManager STORAGE_COLOUR{
+'profileStorage:ProfileStorage
+'exerciseListStorage:ExerciseListStorage
+'foodListStorage:FoodListStorage
+'futureExerciseListStorage:FutureExerciseListStorage
+'foodBankStorage:FoodBankStorage
+'exerciseBankStorage:ExerciseBankStorage
+}
+
+class Ui UI_COLOUR
+
+
+@enduml

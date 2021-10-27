@@ -64,14 +64,15 @@ public class Profile {
     public static final double GENDER_F_AGE_FACTOR = 4.330;
     public static final double GENDER_F_CONSTANT = 447.593;
 
-    public static final String MESSAGE_PROFILE = "Hello %1$s! This is your profile:"
-            + INDENTED_LS + "Your height is %2$scm."
-            + INDENTED_LS + "Your weight is %3$skg."
-            + INDENTED_LS + "Your gender is %4$s."
-            + INDENTED_LS + "Your age is %5$s."
-            + INDENTED_LS + "Your calories goal is %6$s cal."
-            + INDENTED_LS + "Your activity factor is %7$s.";
-
+    public static final String MESSAGE_PROFILE = "Hello %1$s! This is your profile:" + LS
+            + "*==========================================================="
+            + INDENTED_LS + "Height                 %2$scm"
+            + INDENTED_LS + "Weight                 %3$skg"
+            + INDENTED_LS + "Gender                 %4$s"
+            + INDENTED_LS + "Age                    %5$s"
+            + INDENTED_LS + "Calorie Goal           %6$s cal"
+            + INDENTED_LS + "Activity Factor        %7$s"
+            + LS + "===========================================================*";
 
     protected Name name = new Name();
     protected Height height = new Height();

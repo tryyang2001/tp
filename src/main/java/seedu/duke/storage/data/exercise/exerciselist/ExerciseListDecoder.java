@@ -2,8 +2,8 @@ package seedu.duke.storage.data.exercise.exerciselist;
 
 import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.data.item.exercise.ExerciseList;
-import seedu.duke.storage.data.ListDecoder;
 import seedu.duke.storage.StorageManager;
+import seedu.duke.storage.data.ListDecoder;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;

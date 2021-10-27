@@ -14,6 +14,7 @@ import seedu.duke.logic.parser.exceptions.ParamMissingException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +24,7 @@ import java.util.logging.Logger;
  */
 public class AddCommandParser implements Parser {
 
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy");
     protected static final Logger logger = Logger.getLogger(AddCommandParser.class.getName());
 
     @Override
@@ -72,6 +74,10 @@ public class AddCommandParser implements Parser {
                 logger.log(Level.INFO, String.format("date detected is: %s", date));
                 if (ParserUtils.hasExtraDelimiters(params, AddExerciseCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                } else if (ParserUtils.isSevenDaysBeforeToday(date)) {
+                    return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
+                            LocalDate.now().minusDays(7).format(DATE_FORMAT),
+                            LocalDate.now().format(DATE_FORMAT)));
                 }
                 if (ParserUtils.isFutureDate(date)) {
                     logger.log(Level.INFO, String.format("adding to future list"));
@@ -83,8 +89,10 @@ public class AddCommandParser implements Parser {
                 logger.log(Level.INFO, String.format("dateTime detected is: %s", dateTime));
                 if (ParserUtils.hasExtraDelimiters(params, AddFoodCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                } else if (dateTime.toLocalDate().isBefore(LocalDate.now().minusDays(8))) {
-                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD);
+                } else if (ParserUtils.isSevenDaysBeforeToday(dateTime.toLocalDate())) {
+                    return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
+                            LocalDate.now().minusDays(7).format(DATE_FORMAT),
+                            LocalDate.now().format(DATE_FORMAT)));
                 }
                 return new AddFoodCommand(description, calories, dateTime, isCaloriesFromBank);
             case Command.COMMAND_PREFIX_RECURRING:

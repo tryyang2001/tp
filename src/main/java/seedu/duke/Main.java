@@ -52,9 +52,14 @@ public class Main {
     private void run(String[] args) throws UnableToWriteFileException {
         start();
         new StartState(profile, storageManager, ui).checkAndCreateProfile();
+        checkAndCreateProfile();
         loadsFutureExercisesToList();
         enterTaskModeUntilByeCommand();
         exit();
+    }
+
+    private void checkAndCreateProfile() {
+        this.profile = new StartState(profile, storageManager, ui).checkAndCreateProfile();
     }
 
     /**
@@ -65,8 +70,8 @@ public class Main {
         //TODO Update with yi zhi's implementatiothis.foodBank = new ItemBank();
         this.storageManager = new StorageManager();
         this.ui = new Ui();
-        this.foodItems = new FoodList();
-        this.exerciseItems = new ExerciseList();
+        this.filteredFoodItems = new FoodList();
+        this.filteredExerciseItems = new ExerciseList();
         try {
             profile = storageManager.loadProfile();
             exerciseItems = storageManager.loadExerciseList();
@@ -83,32 +88,49 @@ public class Main {
 
     }
 
+    /**
+     * Filters food list and add food items that are within 7 days before today.
+     */
     private void filterFoodListWithPastSevenDaysRecordOnly() {
+        LocalDate today = LocalDate.now();
         for (int i = foodItems.getSize() - 1; i >= 0; i--) {
             Food food = (Food) foodItems.getItem(i);
-            LocalDate today = LocalDate.now();
+            if (food.getDate().isBefore(today.minusDays(7))) {
+                break;
+            }
             if (isWithinPastSevenDays(food, today)) {
                 filteredFoodItems.addItem(food);
             }
         }
     }
 
+    /**
+     * Checks if the item is within 7 days of today.
+     *
+     * @param item The item from the item list
+     * @return True if the item date is not before 7 days from today, and is not after today
+     */
     private boolean isWithinPastSevenDays(Item item, LocalDate today) {
         boolean isBeforeOrEqualToday = item.getDate().isEqual(today) || item.getDate().isBefore(today);
         boolean isWithinOneWeek = item.getDate().isAfter(today.minusDays(8));
         return isBeforeOrEqualToday && isWithinOneWeek;
     }
 
+    /**
+     * Filters exercise list and add exercises that are within 7 days before today.
+     */
     private void filterExerciseListWithPastSevenDaysRecordOnly() {
+        LocalDate today = LocalDate.now();
         for (int i = exerciseItems.getSize() - 1; i >= 0; i--) {
             Exercise exercise = (Exercise) exerciseItems.getItem(i);
-            LocalDate today = LocalDate.now();
+            if (exercise.getDate().isBefore(today.minusDays(7))) {
+                break;
+            }
             if (isWithinPastSevenDays(exercise, today)) {
                 filteredExerciseItems.addItem(exercise);
             }
         }
     }
-
 
     /**
      * Reads the user input and executes appropriate command.
@@ -152,9 +174,9 @@ public class Main {
      * @return CommandResult representing result of execution of the command
      */
     private CommandResult executeCommand(Command command) {
-
         command.setData(this.profile, this.filteredExerciseItems, this.futureExerciseItems,
                 this.filteredFoodItems, this.exerciseBank, this.foodBank);
+        System.out.println(profile.getProfileCalorieGoal().getCalorieGoal());
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {

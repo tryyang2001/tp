@@ -7,18 +7,18 @@ import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
 import seedu.duke.storage.data.exercise.exercisebank.ExerciseBankStorage;
 import seedu.duke.storage.data.exercise.exercisebank.ExerciseBankStorageInterface;
-import seedu.duke.storage.data.exercise.exerciselist.ExerciseStorageInterface;
-import seedu.duke.storage.data.exercise.futurelist.UpcomingStorageInterface;
-import seedu.duke.storage.data.food.foodbank.FoodBankStorageInterface;
-import seedu.duke.storage.data.food.foodbank.FoodBankStorage;
-import seedu.duke.storage.data.food.foodlist.FoodStorageInterface;
-import seedu.duke.storage.exceptions.UnableToReadFileException;
-import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.storage.data.exercise.exerciselist.ExerciseListStorage;
+import seedu.duke.storage.data.exercise.exerciselist.ExerciseStorageInterface;
 import seedu.duke.storage.data.exercise.futurelist.FutureExerciseListStorage;
+import seedu.duke.storage.data.exercise.futurelist.UpcomingStorageInterface;
+import seedu.duke.storage.data.food.foodbank.FoodBankStorage;
+import seedu.duke.storage.data.food.foodbank.FoodBankStorageInterface;
 import seedu.duke.storage.data.food.foodlist.FoodListStorage;
+import seedu.duke.storage.data.food.foodlist.FoodStorageInterface;
 import seedu.duke.storage.data.profile.ProfileStorage;
 import seedu.duke.storage.data.profile.ProfileStorageInterface;
+import seedu.duke.storage.exceptions.UnableToReadFileException;
+import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
 public class StorageManager implements ProfileStorageInterface, FoodBankStorageInterface,
         ExerciseBankStorageInterface, ExerciseStorageInterface, UpcomingStorageInterface, FoodStorageInterface {
