@@ -73,23 +73,23 @@ public class AddRecurringExerciseCommand extends Command {
                 return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
             }
         }
-            assert this.endDate.isAfter(this.startDate) : "End date is after start date";
-            if (!this.startDate.isAfter(LocalDate.now())) {
-                logger.log(Level.WARNING, "Recurring exercises are for future only");
-                return new CommandResult(String.format(MESSAGE_INVALID_FUTURE_DATES, this.startDate, this.endDate));
-            }
-            assert this.startDate.isAfter(LocalDate.now()) : "Start and end dates are in the future";
-            if (this.calories <= 0) {
-                logger.log(Level.WARNING, "Exercise calorie is invalid");
-                return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
-            }
-            assert this.calories > 0 : "Exercise calorie is valid";
-            int numberOfFutureExercises = futureExerciseItems.getSize();
-            futureExerciseItems.addRecurringExercises(this.description, this.calories,
-                    this.startDate, this.endDate, this.dayOfTheWeek);
-            if (futureExerciseItems.getSize() == numberOfFutureExercises) {
-                return new CommandResult(String.format(MESSAGE_NO_EXERCISE_ADDED, this.startDate, this.endDate));
-            }
+        assert this.endDate.isAfter(this.startDate) : "End date is after start date";
+        if (!this.startDate.isAfter(LocalDate.now())) {
+            logger.log(Level.WARNING, "Recurring exercises are for future only");
+            return new CommandResult(String.format(MESSAGE_INVALID_FUTURE_DATES, this.startDate, this.endDate));
+        }
+        assert this.startDate.isAfter(LocalDate.now()) : "Start and end dates are in the future";
+        if (this.calories <= 0) {
+            logger.log(Level.WARNING, "Exercise calorie is invalid");
+            return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
+        }
+        assert this.calories > 0 : "Exercise calorie is valid";
+        int numberOfFutureExercises = futureExerciseItems.getSize();
+        futureExerciseItems.addRecurringExercises(this.description, this.calories,
+                this.startDate, this.endDate, this.dayOfTheWeek);
+        if (futureExerciseItems.getSize() == numberOfFutureExercises) {
+            return new CommandResult(String.format(MESSAGE_NO_EXERCISE_ADDED, this.startDate, this.endDate));
+        }
 
         logger.log(Level.FINE, "Recurring exercise is successfully added");
         return new CommandResult(MESSAGE_SUCCESS);
