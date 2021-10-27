@@ -17,7 +17,7 @@ opt isCalorieFromFoodBank
     deactivate FoodBank
 end
 
-create "food" As Food DATA_COLOUR
+create "food:Food" As Food DATA_COLOUR
 AddFoodCommand -> Food ** : new Food(description,calories,dateTime)
 activate Food DATA_COLOUR
 Food -> Food ++ DATA_COLOUR : setTimePeriod (dateTime)
