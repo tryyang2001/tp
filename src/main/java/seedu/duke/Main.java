@@ -7,10 +7,7 @@ import seedu.duke.data.item.exercise.FutureExerciseList;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
 import seedu.duke.logic.LogicManager;
-import seedu.duke.logic.commands.ByeCommand;
-import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.commands.CommandResult;
-import seedu.duke.logic.parser.ParserManager;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
@@ -117,49 +114,6 @@ public class Main {
             storageManager.saveFutureExerciseList(futureExerciseItems);
         }
     }
-
-
-    /**
-     * Executes the given Command and (to be implemented) calls for storage operation if required.
-     *
-     * @param command Command to be executed
-     * @return CommandResult representing result of execution of the command
-     */
-    /*
-    private CommandResult executeCommand(Command command) {
-
-        command.setData(this.profile, this.exerciseItems, this.futureExerciseItems,
-                this.foodItems, this.exerciseBank, this.foodBank);
-        CommandResult result = command.execute();
-        try {
-            if (ByeCommand.isBye(command)) {
-                storageManager.saveAll(this.profile, this.exerciseItems, this.foodItems,
-                        this.futureExerciseItems, this.foodBank, this.exerciseBank);
-            }
-            if (Command.requiresProfileStorageRewrite(command)) {
-                storageManager.saveProfile(this.profile);
-            }
-            if (Command.requiresExerciseListStorageRewrite(command)) {
-                storageManager.saveExerciseList(this.exerciseItems);
-            }
-            if (Command.requiresFoodListStorageRewrite(command)) {
-                storageManager.saveFoodList(this.foodItems);
-            }
-            if (Command.requiresFutureExerciseListStorageRewrite(command)) {
-                storageManager.saveFutureExerciseList(this.futureExerciseItems);
-            }
-            if (Command.requiresFoodBankStorageRewrite(command)) {
-                storageManager.saveFoodBank(this.foodBank);
-            }
-            if (Command.requiresExerciseBankStorageRewrite(command)) {
-                storageManager.saveExerciseBank(this.exerciseBank);
-            }
-        } catch (UnableToWriteFileException e) {
-            ui.formatMessageFramedWithDivider(e.getMessage());
-        }
-        return result;
-    }
-    */
 
     /**
      * Exits the application.
