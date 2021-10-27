@@ -352,8 +352,9 @@ public class ParserUtils {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_DAY_OF_THE_WEEK
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            for (int i = 0; i < stringAfterPrefix.length(); i++) {
-                int day = Integer.parseInt(String.valueOf(stringAfterPrefix.charAt(i)));
+            String dateString = extractRelevantParameter(stringAfterPrefix);
+            for (int i = 0; i < dateString.length(); i++) {
+                int day = Integer.parseInt(String.valueOf(dateString.charAt(i)));
                 logger.log(Level.INFO, String.format("day detected: %s", day));
                 if (day >= ParserMessages.MONDAY && day <= ParserMessages.SUNDAY) { //between monday and sunday
                     if (dayOfTheWeek.contains(day)) {
