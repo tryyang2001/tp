@@ -7,8 +7,6 @@ import java.util.logging.Logger;
  * Represents the command that when executed, lists all the items in the FoodBank.
  */
 public class ViewFoodBankCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_VIEW
-            + " " + COMMAND_PREFIX_FOOD_BANK + COMMAND_PREFIX_DELIMITER + CommandMessages.QUOTATION;
     public static final String MESSAGE_SUCCESS = "You have %1$d food(s) in your food bank:"
             + CommandMessages.LS + "%2$s";
 

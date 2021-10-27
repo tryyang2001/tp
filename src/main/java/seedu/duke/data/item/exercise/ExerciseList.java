@@ -2,7 +2,6 @@ package seedu.duke.data.item.exercise;
 
 import seedu.duke.data.item.Item;
 import seedu.duke.data.item.ItemList;
-import seedu.duke.data.item.food.FoodList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -13,6 +13,7 @@ import seedu.duke.logic.parser.exceptions.ParamMissingException;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
+//@@author xingjie99
 /**
  * Parses input arguments for Edit commands.
  */
@@ -78,7 +79,7 @@ public class EditCommandParser implements Parser {
                 return new InvalidCommand(CommandMessages.MESSAGE_EDIT_UPCOMING_EXERCISE_LIST_NEED_DETAILS);
             }
 
-            final String description = ParserUtils.extractItemDescription(params, Command.COMMAND_PREFIX_NAME);
+            final String description = ParserUtils.extractName(params);
             final int calories = ParserUtils.extractItemCalories(params, false);
             final LocalDate date = ParserUtils.hasRequiredParams(params, Command.COMMAND_PREFIX_DATE)
                     ? ParserUtils.extractDate(params, false)

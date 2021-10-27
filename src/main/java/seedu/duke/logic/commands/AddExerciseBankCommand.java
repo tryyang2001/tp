@@ -10,17 +10,8 @@ import java.util.logging.Logger;
  * Represents the command that when executed, adds an Exercise item to the ExerciseBank.
  */
 public class AddExerciseBankCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_ADD
-            + " " + COMMAND_PREFIX_EXERCISE_BANK + COMMAND_PREFIX_DELIMITER + "exercise name"
-            + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories" + CommandMessages.QUOTATION;
     public static final String MESSAGE_SUCCESS = "An exercise item has been added to the exercise bank:"
             + CommandMessages.INDENTED_LS + "%s";
-    public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
-            + CommandMessages.LS + "Try a positive value instead";
-    public static final String MESSAGE_EXERCISE_ALREADY_EXISTS = "The exercise with name "
-            + CommandMessages.QUOTATION + "%s" + CommandMessages.QUOTATION
-            + " already exists in the exercise bank! (Names are case insensitive)"
-            + CommandMessages.LS + "Try using another name, or delete/edit the existing item first!";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_EXERCISE_BANK,
             COMMAND_PREFIX_CALORIES
@@ -38,7 +29,7 @@ public class AddExerciseBankCommand extends Command {
     public CommandResult execute() {
         if (exercise.getCalories() <= 0) {
             logger.log(Level.WARNING, "Exercise calorie is invalid");
-            return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
+            return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
         }
         assert exercise.getCalories() > 0 : "Exercise calorie is valid";
         try {
@@ -46,7 +37,8 @@ public class AddExerciseBankCommand extends Command {
             logger.log(Level.FINE, "Exercise is successfully added to exercise bank");
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.exercise));
         } catch (DuplicateItemInBankException e) {
-            return new CommandResult(String.format(MESSAGE_EXERCISE_ALREADY_EXISTS, this.exercise.getName()));
+            return new CommandResult(String.format(
+                    CommandMessages.MESSAGE_EXERCISE_ALREADY_EXISTS_IN_BANK, this.exercise.getName()));
         }
     }
 }

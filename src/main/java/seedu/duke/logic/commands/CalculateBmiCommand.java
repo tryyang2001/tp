@@ -9,7 +9,7 @@ public class CalculateBmiCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_BMI
             + " " + COMMAND_PREFIX_HEIGHT + COMMAND_PREFIX_DELIMITER + "Y "
             + COMMAND_PREFIX_WEIGHT + COMMAND_PREFIX_DELIMITER + "Z"
-            + CommandMessages.QUOTATION + " where X is the height in CM and Y is the weight in KG";
+            + CommandMessages.QUOTATION + " where X is the height in CM and Y is the weight in KG.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid format! "
             + "Trying to calculate BMI for a certain height and weight? Use this format:"
             + CommandMessages.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
