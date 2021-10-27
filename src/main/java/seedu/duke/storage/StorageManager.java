@@ -72,15 +72,13 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
                 loadProfile());
     }
 
-    public void saveAll(Profile profile, ExerciseList exerciseList, FoodList foodList,
-                        FutureExerciseList futureExerciseList, ItemBank foodBank,
-                        ItemBank exerciseBank) throws UnableToWriteFileException {
-        saveProfile(profile);
-        saveExerciseList(exerciseList);
-        saveFoodList(foodList);
-        saveFutureExerciseList(futureExerciseList);
-        saveFoodBank(foodBank);
-        saveExerciseBank(exerciseBank);
+    public void saveAll(DataManager dataManager) throws UnableToWriteFileException {
+        saveProfile(dataManager.getProfile());
+        saveExerciseList(dataManager.getExerciseItems());
+        saveFoodList(dataManager.getFoodItems());
+        saveFutureExerciseList(dataManager.getFutureExerciseItems());
+        saveFoodBank(dataManager.getFoodBank());
+        saveExerciseBank(dataManager.getExerciseBank());
     }
 
 

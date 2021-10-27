@@ -1,15 +1,22 @@
 package seedu.duke.data;
 
+import seedu.duke.data.item.Item;
 import seedu.duke.data.item.ItemBank;
+import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.data.item.exercise.FutureExerciseList;
+import seedu.duke.data.item.food.Food;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
 
+import java.time.LocalDate;
+
 public class DataManager {
 
+    private ExerciseList filteredExerciseItems;
     private ExerciseList exerciseItems;
     private FutureExerciseList futureExerciseItems;
+    private FoodList filteredFoodItems;
     private FoodList foodItems;
     private ItemBank exerciseBank;
     private ItemBank foodBank;
@@ -34,30 +41,86 @@ public class DataManager {
         this.exerciseBank = exerciseBank;
         this.foodBank = foodBank;
         this.profile = profile;
+        filterExerciseListAndFoodList();
+    }
+
+    private void filterExerciseListAndFoodList() {
+        this.filteredExerciseItems = new ExerciseList();
+        filterExerciseListWithPastSevenDaysRecordOnly();
+        this.filteredFoodItems = new FoodList();
+        filterFoodListWithPastSevenDaysRecordOnly();
     }
 
     /**
      * For initialization at the start of the application.
      */
     public DataManager() {
-        this.exerciseItems = new ExerciseList();
+        this.filteredExerciseItems = new ExerciseList();
+        this.filteredExerciseItems = new ExerciseList();
         this.futureExerciseItems = new FutureExerciseList();
-        this.foodItems = new FoodList();
+        this.filteredFoodItems = new FoodList();
+        this.filteredFoodItems = new FoodList();
         this.exerciseBank = new ItemBank();
         this.foodBank = new ItemBank();
         this.profile = new Profile();
     }
 
-    //====================ExerciseList methods=========================
+    //====================Filtered Lists methods=========================
+
+    public ExerciseList getFilteredExerciseItems() {
+        return filteredExerciseItems;
+    }
+
+    public FoodList getFilteredFoodItems() {
+        return filteredFoodItems;
+    }
 
     /**
-     * Replaces exercise list with data in {@code exerciseItems}.
-     *
-     * @param exercisesItems Exercise list to be set
+     * Filters food list and add food items that are within 7 days before today.
      */
-    public void setExerciseItems(ExerciseList exercisesItems) {
-        this.exerciseItems = exercisesItems;
+    private void filterFoodListWithPastSevenDaysRecordOnly() {
+        LocalDate today = LocalDate.now();
+        for (int i = filteredFoodItems.getSize() - 1; i >= 0; i--) {
+            Food food = (Food) filteredFoodItems.getItem(i);
+            if (food.getDate().isBefore(today.minusDays(7))) {
+                break;
+            }
+            if (isWithinPastSevenDays(food, today)) {
+                filteredFoodItems.addItem(food);
+            }
+        }
     }
+
+    /**
+     * Checks if the item is within 7 days of today.
+     *
+     * @param item The item from the item list
+     * @return True if the item date is not before 7 days from today, and is not after today
+     */
+    private boolean isWithinPastSevenDays(Item item, LocalDate today) {
+        boolean isBeforeOrEqualToday = item.getDate().isEqual(today) || item.getDate().isBefore(today);
+        boolean isWithinOneWeek = item.getDate().isAfter(today.minusDays(8));
+        return isBeforeOrEqualToday && isWithinOneWeek;
+    }
+
+    /**
+     * Filters exercise list and add exercises that are within 7 days before today.
+     */
+    private void filterExerciseListWithPastSevenDaysRecordOnly() {
+        LocalDate today = LocalDate.now();
+        for (int i = filteredExerciseItems.getSize() - 1; i >= 0; i--) {
+            Exercise exercise = (Exercise) filteredExerciseItems.getItem(i);
+            if (exercise.getDate().isBefore(today.minusDays(7))) {
+                break;
+            }
+            if (isWithinPastSevenDays(exercise, today)) {
+                filteredExerciseItems.addItem(exercise);
+            }
+        }
+    }
+
+    //====================ExerciseList methods=========================
+
 
     /**
      * Returns the exercise list.
@@ -65,19 +128,11 @@ public class DataManager {
      * @return exercise list in DataManager object
      */
     public ExerciseList getExerciseItems() {
-        return this.exerciseItems;
+        return this.filteredExerciseItems;
     }
 
     //====================FutureExerciseList methods===================
 
-    /**
-     * Replaces upcoming exercises with data in {@code futureExerciseItems}.
-     *
-     * @param futureExerciseItems Future exercise items to be set
-     */
-    public void setFutureExerciseItems(FutureExerciseList futureExerciseItems) {
-        this.futureExerciseItems = futureExerciseItems;
-    }
 
     /**
      * Returns the future exercise items.
@@ -91,33 +146,15 @@ public class DataManager {
     //========================FoodList methods=============================
 
     /**
-     * Replaces food items with data in {@code foodItems}.
-     *
-     * @param foodItems Food list to be set
-     */
-    public void setFoodItems(FoodList foodItems) {
-        this.foodItems = foodItems;
-    }
-
-    /**
      * Returns the food items.
      *
      * @return food items in DataManager object
      */
     public FoodList getFoodItems() {
-        return this.foodItems;
+        return this.filteredFoodItems;
     }
 
     //=====================FoodBank methods============================
-
-    /**
-     * Replaces food bank with data in {@code foodBank}.
-     *
-     * @param foodBank Food bank to be set
-     */
-    public void setFoodBank(ItemBank foodBank) {
-        this.foodBank = foodBank;
-    }
 
     /**
      * Returns food bank items.
@@ -129,15 +166,6 @@ public class DataManager {
     }
 
     //=====================ExerciseBank methods==========================
-
-    /**
-     * Replaces exercise bank with data in {@code exerciseBank}.
-     *
-     * @param exerciseBank Exercise bank to be set
-     */
-    public void setExerciseBank(ItemBank exerciseBank) {
-        this.exerciseBank = exerciseBank;
-    }
 
     /**
      * Returns exercise bank items.
