@@ -20,6 +20,10 @@ import java.util.logging.Logger;
 public class ParserUtils {
     protected static final Logger logger = Logger.getLogger(ParserUtils.class.getName());
 
+    protected static boolean isSevenDaysBeforeToday(LocalDate date) {
+        return date.isBefore(LocalDate.now().minusDays(7));
+    }
+
     protected static boolean hasRequiredParams(String params, String... prefixes) {
         for (String prefix : prefixes) {
             if (!params.toLowerCase().contains(prefix + Command.COMMAND_PREFIX_DELIMITER)) {
