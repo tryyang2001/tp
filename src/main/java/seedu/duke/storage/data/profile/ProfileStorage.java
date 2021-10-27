@@ -42,7 +42,7 @@ public class ProfileStorage extends Storage implements ProfileStorageInterface {
     @Override
     public void saveProfile(Profile profile) throws UnableToWriteFileException {
         FileSaver.saveTo(filePath, ProfileEncoder.encode(profile));
-        logger.log(Level.INFO, "Saved profile.");
+        logger.log(Level.FINE, "Saved profile.");
     }
 
 }
