@@ -25,7 +25,6 @@ import java.time.LocalDate;
  * Initialises the application and starts interaction with user.
  */
 public class Main {
-
     private ExerciseList filteredExerciseItems;
     private ExerciseList exerciseItems;
     private FutureExerciseList futureExerciseItems;
@@ -167,7 +166,6 @@ public class Main {
         }
     }
 
-
     /**
      * Executes the given Command and (to be implemented) calls for storage operation if required.
      *
@@ -209,7 +207,6 @@ public class Main {
         }
         return result;
     }
-
 
     /**
      * Exits the application.
