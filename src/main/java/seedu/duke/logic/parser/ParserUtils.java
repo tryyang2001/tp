@@ -155,7 +155,7 @@ public class ParserUtils {
             String name = extractRelevantParameter(stringAfterPrefix).trim();
             if (name.equals(ParserMessages.EMPTY)) {
                 logger.log(Level.WARNING, "Detected empty name input.");
-                throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_NO_NAME);
+                throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_NAME_EMPTY_STRING);
             }
             return name;
         } catch (IndexOutOfBoundsException e) {
@@ -269,7 +269,7 @@ public class ParserUtils {
             return LocalDate.parse(dateString, formatter);
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected empty start date input after prefix but date is required!");
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_DATE);
+            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_START_DATE);
         } catch (DateTimeParseException e) {
             throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
         }
@@ -287,7 +287,7 @@ public class ParserUtils {
             return LocalDate.parse(dateString, formatter);
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected empty end date input after prefix but date is required!");
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_DATE);
+            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_END_DATE);
         } catch (DateTimeParseException e) {
             throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
         }
@@ -432,16 +432,7 @@ public class ParserUtils {
                 numOfDelimiters++;
             }
         }
+        logger.log(Level.INFO, String.format("no. of delimiters detected: %s", numOfDelimiters));
         return numOfDelimiters > expectedNum;
-    }
-
-    protected static String correctCommandFormatSuggestions(String... suggestions) {
-        String formattedSuggestions = ParserMessages.MESSAGE_ERROR_INVALID_FORMAT + ParserMessages.LS;
-        int i = 1;
-        for (String suggestion : suggestions) {
-            formattedSuggestions += i + ". " + suggestion + ParserMessages.LS;
-            i += 1;
-        }
-        return formattedSuggestions.stripTrailing();
     }
 }

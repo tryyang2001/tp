@@ -11,13 +11,13 @@ import java.util.logging.Logger;
  * Represents the command that when executed, deletes a Food item from the FoodList.
  */
 public class DeleteFoodCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_DELETE
+    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_DELETE
             + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "INDEX " + COMMAND_PREFIX_DATE
             + COMMAND_PREFIX_DELIMITER + "DATE_IN_DD-MM-YYYY " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_DELIMITER
-            + "TIME_IN_HHmm" + QUOTATION + ", where INDEX is the item number in the food list";
+            + "TIME_IN_HHmm" + CommandMessages.QUOTATION + ", where INDEX is the item number in the food list";
     public static final String MESSAGE_SUCCESS = "A food item has been deleted:"
-            + INDENTED_LS + "%1$s"
-            + INDENTED_LS + "Number of food item(s) left: %2$d";
+            + CommandMessages.INDENTED_LS + "%1$s"
+            + CommandMessages.INDENTED_LS + "Number of food item(s) left: %2$d";
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD,
@@ -57,7 +57,7 @@ public class DeleteFoodCommand extends Command {
         assert this.itemIndex > 0 : "Deleting an object only";
         if (super.foodItems.getSize() == 0) {
             logger.log(Level.WARNING, "Food list is empty.");
-            return new CommandResult(MESSAGE_EMPTY_FOOD_LIST);
+            return new CommandResult(CommandMessages.MESSAGE_EMPTY_FOOD_LIST);
         }
         logger.log(Level.FINE, "Trying to delete item now");
         try {
@@ -67,9 +67,10 @@ public class DeleteFoodCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.FINE, "Detected invalid food item index.");
             if (super.foodItems.getSize() == 1) {
-                return new CommandResult(MESSAGE_ONLY_ONE_IN_LIST);
+                return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
-            return new CommandResult(String.format(MESSAGE_LIST_OUT_OF_BOUNDS, super.foodItems.getSize()));
+            return new CommandResult(String.format(
+                    CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS, super.foodItems.getSize()));
         }
     }
 }
