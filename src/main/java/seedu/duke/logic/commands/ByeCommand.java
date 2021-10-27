@@ -1,18 +1,21 @@
 package seedu.duke.logic.commands;
 
 /**
- * Represents the command that when executed, signals to the application to exit.
+ * Represents the command that when executed, signaCommandMessages.LS to the application to exit.
  */
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
-    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD + QUOTATION;
-    private static final String MESSAGE_SUCCESS = "Exiting Fitbot...." + LS
+    public static final String MESSAGE_COMMAND_FORMAT =
+            CommandMessages.QUOTATION + COMMAND_WORD + CommandMessages.QUOTATION;
+    private static final String MESSAGE_SUCCESS = "Exiting Fitbot...." + CommandMessages.LS
             + "Bye! Hope to see you again soon!!";
 
 
     @Override
     public CommandResult execute() {
-        return new CommandResult(MESSAGE_SUCCESS);
+        CommandResult result = new CommandResult(MESSAGE_SUCCESS);
+        result.setBye(true);
+        return result;
     }
 
     /**

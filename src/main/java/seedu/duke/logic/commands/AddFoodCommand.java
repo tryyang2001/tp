@@ -11,15 +11,16 @@ import java.util.logging.Logger;
  * Represents the command that when executed, adds a Food item to the FoodList.
  */
 public class AddFoodCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_ADD
+    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_ADD
             + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "food name"
             + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories"
             + " " + COMMAND_PREFIX_DATE + COMMAND_PREFIX_DELIMITER + "date"
-            + " " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_DELIMITER + "time" + QUOTATION;
+            + " " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_DELIMITER + "time" + CommandMessages.QUOTATION;
     public static final String MESSAGE_SUCCESS = "A food item has been added:"
-            + INDENTED_LS + "%s";
-    public static final String MESSAGE_INVALID_FOOD_CALORIES = "Food calories cannot be less than 0" + LS
-            + "Try a positive value instead";
+            + CommandMessages.INDENTED_LS + "%s";
+    public static final String MESSAGE_INVALID_FOOD_CALORIES =
+            "Food calories cannot be less than 0" + CommandMessages.LS
+                    + "Try a positive value instead";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD,
             COMMAND_PREFIX_CALORIES,
@@ -48,17 +49,18 @@ public class AddFoodCommand extends Command {
         if (isCaloriesFromBank) {
             try {
                 this.calories = super.foodBank.getCaloriesOfItemWithMatchingName(this.description);
-                food = new Food(this.description, this.calories, this.dateTime);
             } catch (ItemNotFoundInBankException e) {
-                return new CommandResult(String.format(MESSAGE_INVALID_FOOD_NOT_IN_BANK, this.description));
+                return new CommandResult(String.format(
+                        CommandMessages.MESSAGE_INVALID_FOOD_NOT_IN_BANK, this.description));
             }
         } else {
             if (this.calories < 0) {
                 logger.log(Level.WARNING, "Detected negative food calorie");
                 return new CommandResult(MESSAGE_INVALID_FOOD_CALORIES);
             }
-            food = new Food(this.description, this.calories, this.dateTime);
         }
+
+        food = new Food(this.description, this.calories, this.dateTime);
         super.foodItems.addItem(food);
         assert foodItems.getSize() > 0 : "The size of the food list should at least larger than 0";
         logger.log(Level.FINE, "New food item has been added to the food list");

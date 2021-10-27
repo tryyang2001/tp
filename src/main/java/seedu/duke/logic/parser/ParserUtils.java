@@ -20,6 +20,10 @@ import java.util.logging.Logger;
 public class ParserUtils {
     protected static final Logger logger = Logger.getLogger(ParserUtils.class.getName());
 
+    protected static boolean isSevenDaysBeforeToday(LocalDate date) {
+        return date.isBefore(LocalDate.now().minusDays(7));
+    }
+
     protected static boolean hasRequiredParams(String params, String... prefixes) {
         for (String prefix : prefixes) {
             if (!params.toLowerCase().contains(prefix + Command.COMMAND_PREFIX_DELIMITER)) {
@@ -136,7 +140,7 @@ public class ParserUtils {
                     logger.log(Level.WARNING, "Detected missing calories prefix");
                     throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_CALORIES_INFO);
                 } else {
-                    logger.log(Level.INFO, "Detected missing calories prefix but calories not required, "
+                    logger.log(Level.FINE, "Detected missing calories prefix but calories not required, "
                             + "returning null calorie value");
                     return Command.NULL_CALORIES;
                 }
@@ -155,7 +159,7 @@ public class ParserUtils {
             String name = extractRelevantParameter(stringAfterPrefix).trim();
             if (name.equals(ParserMessages.EMPTY)) {
                 logger.log(Level.WARNING, "Detected empty name input.");
-                throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_NO_NAME);
+                throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_NAME_EMPTY_STRING);
             }
             return name;
         } catch (IndexOutOfBoundsException e) {
@@ -264,12 +268,12 @@ public class ParserUtils {
                     params.split(Command.COMMAND_PREFIX_START_DATE
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String dateString = extractRelevantParameter(stringAfterPrefix);
-            logger.log(Level.INFO, String.format("date string detected is: %s", dateString));
+            logger.log(Level.FINE, String.format("date string detected is: %s", dateString));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.DATE_FORMAT);
             return LocalDate.parse(dateString, formatter);
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected empty start date input after prefix but date is required!");
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_DATE);
+            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_START_DATE);
         } catch (DateTimeParseException e) {
             throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
         }
@@ -282,12 +286,12 @@ public class ParserUtils {
                     params.split(Command.COMMAND_PREFIX_END_DATE
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String dateString = extractRelevantParameter(stringAfterPrefix);
-            logger.log(Level.INFO, String.format("date string detected is: %s", dateString));
+            logger.log(Level.FINE, String.format("date string detected is: %s", dateString));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.DATE_FORMAT);
             return LocalDate.parse(dateString, formatter);
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected empty end date input after prefix but date is required!");
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_DATE);
+            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_END_DATE);
         } catch (DateTimeParseException e) {
             throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
         }
@@ -300,7 +304,7 @@ public class ParserUtils {
                     params.split(Command.COMMAND_PREFIX_DATE
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String dateString = extractRelevantParameter(stringAfterPrefix);
-            logger.log(Level.INFO, String.format("date string detected is: %s", dateString));
+            logger.log(Level.FINE, String.format("date string detected is: %s", dateString));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.DATE_FORMAT);
             return LocalDate.parse(dateString, formatter);
         } catch (IndexOutOfBoundsException e) {
@@ -308,7 +312,7 @@ public class ParserUtils {
                 logger.log(Level.WARNING, "Detected empty date input after prefix but date is required!");
                 throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_DATE);
             } else {
-                logger.log(Level.INFO, "Detected empty date input after prefix, assuming date to be now");
+                logger.log(Level.FINE, "Detected empty date input after prefix, assuming date to be now");
                 return LocalDate.now();
             }
         } catch (DateTimeParseException e) {
@@ -323,7 +327,7 @@ public class ParserUtils {
                     params.split(Command.COMMAND_PREFIX_TIME
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
             String timeString = extractRelevantParameter(stringAfterPrefix);
-            logger.log(Level.INFO, String.format("time string detected is: %s", timeString));
+            logger.log(Level.FINE, String.format("time string detected is: %s", timeString));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.TIME_FORMAT);
             return LocalTime.parse(timeString, formatter);
         } catch (IndexOutOfBoundsException e) {
@@ -331,7 +335,7 @@ public class ParserUtils {
                 logger.log(Level.WARNING, "Detected empty time input after prefix but time is required!");
                 throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_TIME);
             } else {
-                logger.log(Level.INFO, "Detected empty time input after prefix, assuming time to be now");
+                logger.log(Level.FINE, "Detected empty time input after prefix, assuming time to be now");
                 return LocalTime.now();
             }
         } catch (DateTimeParseException e) {
@@ -352,9 +356,10 @@ public class ParserUtils {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_DAY_OF_THE_WEEK
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            for (int i = 0; i < stringAfterPrefix.length(); i++) {
-                int day = Integer.parseInt(String.valueOf(stringAfterPrefix.charAt(i)));
-                logger.log(Level.INFO, String.format("day detected: %s", day));
+            String dateString = extractRelevantParameter(stringAfterPrefix);
+            for (int i = 0; i < dateString.length(); i++) {
+                int day = Integer.parseInt(String.valueOf(dateString.charAt(i)));
+                logger.log(Level.FINE, String.format("day detected: %s", day));
                 if (day >= ParserMessages.MONDAY && day <= ParserMessages.SUNDAY) { //between monday and sunday
                     if (dayOfTheWeek.contains(day)) {
                         throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_REPEATED_DAY_OF_THE_WEEK);
@@ -414,7 +419,7 @@ public class ParserUtils {
                 count++;
             }
         }
-        logger.log(Level.INFO, String.format("no. of corrected params detected: %s", count));
+        logger.log(Level.FINE, String.format("no. of corrected params detected: %s", count));
         return count;
     }
 
@@ -432,16 +437,7 @@ public class ParserUtils {
                 numOfDelimiters++;
             }
         }
+        logger.log(Level.INFO, String.format("no. of delimiters detected: %s", numOfDelimiters));
         return numOfDelimiters > expectedNum;
-    }
-
-    protected static String correctCommandFormatSuggestions(String... suggestions) {
-        String formattedSuggestions = ParserMessages.MESSAGE_ERROR_INVALID_FORMAT + ParserMessages.LS;
-        int i = 1;
-        for (String suggestion : suggestions) {
-            formattedSuggestions += i + ". " + suggestion + ParserMessages.LS;
-            i += 1;
-        }
-        return formattedSuggestions.stripTrailing();
     }
 }
