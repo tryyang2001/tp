@@ -50,14 +50,6 @@ public class DataManager {
 
     //====================ExerciseList methods=========================
 
-    /**
-     * Replaces exercise list with data in {@code exerciseItems}.
-     *
-     * @param exercisesItems Exercise list to be set
-     */
-    public void setExerciseItems(ExerciseList exercisesItems) {
-        this.exerciseItems = exercisesItems;
-    }
 
     /**
      * Returns the exercise list.
@@ -70,14 +62,6 @@ public class DataManager {
 
     //====================FutureExerciseList methods===================
 
-    /**
-     * Replaces upcoming exercises with data in {@code futureExerciseItems}.
-     *
-     * @param futureExerciseItems Future exercise items to be set
-     */
-    public void setFutureExerciseItems(FutureExerciseList futureExerciseItems) {
-        this.futureExerciseItems = futureExerciseItems;
-    }
 
     /**
      * Returns the future exercise items.
@@ -91,15 +75,6 @@ public class DataManager {
     //========================FoodList methods=============================
 
     /**
-     * Replaces food items with data in {@code foodItems}.
-     *
-     * @param foodItems Food list to be set
-     */
-    public void setFoodItems(FoodList foodItems) {
-        this.foodItems = foodItems;
-    }
-
-    /**
      * Returns the food items.
      *
      * @return food items in DataManager object
@@ -109,15 +84,6 @@ public class DataManager {
     }
 
     //=====================FoodBank methods============================
-
-    /**
-     * Replaces food bank with data in {@code foodBank}.
-     *
-     * @param foodBank Food bank to be set
-     */
-    public void setFoodBank(ItemBank foodBank) {
-        this.foodBank = foodBank;
-    }
 
     /**
      * Returns food bank items.
@@ -131,15 +97,6 @@ public class DataManager {
     //=====================ExerciseBank methods==========================
 
     /**
-     * Replaces exercise bank with data in {@code exerciseBank}.
-     *
-     * @param exerciseBank Exercise bank to be set
-     */
-    public void setExerciseBank(ItemBank exerciseBank) {
-        this.exerciseBank = exerciseBank;
-    }
-
-    /**
      * Returns exercise bank items.
      *
      * @return exercise bank items in DataManager object
@@ -150,14 +107,6 @@ public class DataManager {
 
     //=====================Profile method================================
 
-    /**
-     * Replaces profile with data in {@code profile}.
-     *
-     * @param profile profile to be set
-     */
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
 
     /**
      * Returns profile.
