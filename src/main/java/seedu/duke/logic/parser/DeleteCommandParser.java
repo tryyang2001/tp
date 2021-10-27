@@ -1,6 +1,7 @@
 package seedu.duke.logic.parser;
 
 import seedu.duke.logic.commands.Command;
+import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.DeleteExerciseBankCommand;
 import seedu.duke.logic.commands.DeleteExerciseCommand;
 import seedu.duke.logic.commands.DeleteFoodBankCommand;
@@ -50,13 +51,7 @@ public class DeleteCommandParser implements Parser {
                 throw new ItemNotSpecifiedException();
             }
         } catch (ItemNotSpecifiedException e) {
-            return new InvalidCommand(
-                    ParserUtils.correctCommandFormatSuggestions(
-                            DeleteExerciseCommand.MESSAGE_COMMAND_FORMAT,
-                            DeleteFoodCommand.MESSAGE_COMMAND_FORMAT,
-                            DeleteExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
-                            DeleteFoodBankCommand.MESSAGE_COMMAND_FORMAT,
-                            DeleteFutureExerciseCommand.MESSAGE_COMMAND_FORMAT));
+            return new InvalidCommand(CommandMessages.MESSAGE_DELETE_COMMAND_INVALID_FORMAT);
         } catch (ParamInvalidException | ParamMissingException e) {
             return new InvalidCommand(e.getMessage());
         }

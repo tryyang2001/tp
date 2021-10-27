@@ -1,6 +1,7 @@
 package seedu.duke.logic.parser;
 
 import seedu.duke.logic.commands.Command;
+import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.EditExerciseBankCommand;
 import seedu.duke.logic.commands.EditFoodBankCommand;
 import seedu.duke.logic.commands.EditFutureExerciseCommand;
@@ -35,10 +36,7 @@ public class EditCommandParser implements Parser {
             }
         } catch (ItemNotSpecifiedException e) {
             return new InvalidCommand(
-                    ParserUtils.correctCommandFormatSuggestions(
-                            EditExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
-                            EditFoodBankCommand.MESSAGE_COMMAND_FORMAT,
-                            EditFutureExerciseCommand.MESSAGE_COMMAND_FORMAT));
+                    CommandMessages.MESSAGE_EDIT_COMMAND_INVALID_FORMAT);
         }
     }
 
@@ -48,7 +46,7 @@ public class EditCommandParser implements Parser {
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
             if (ParserUtils.getNumberOfCorrectParamsDetected(params,
                     Command.COMMAND_PREFIX_NAME, Command.COMMAND_PREFIX_CALORIES) == 0) {
-                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_EDIT_NO_PARAMETERS);
+                return new InvalidCommand(CommandMessages.MESSAGE_EDIT_BANK_NEED_DETAILS);
             }
             final String description = ParserUtils.extractName(params);
             final int calories = ParserUtils.extractItemCalories(params, false);
@@ -77,7 +75,7 @@ public class EditCommandParser implements Parser {
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
             if (ParserUtils.getNumberOfCorrectParamsDetected(params,
                     Command.COMMAND_PREFIX_NAME, Command.COMMAND_PREFIX_CALORIES, Command.COMMAND_PREFIX_DATE) == 0) {
-                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_EDIT_NO_PARAMETERS);
+                return new InvalidCommand(CommandMessages.MESSAGE_EDIT_UPCOMING_EXERCISE_LIST_NEED_DETAILS);
             }
 
             final String description = ParserUtils.extractItemDescription(params, Command.COMMAND_PREFIX_NAME);

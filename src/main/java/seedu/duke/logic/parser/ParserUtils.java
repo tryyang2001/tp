@@ -155,7 +155,7 @@ public class ParserUtils {
             String name = extractRelevantParameter(stringAfterPrefix).trim();
             if (name.equals(ParserMessages.EMPTY)) {
                 logger.log(Level.WARNING, "Detected empty name input.");
-                throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_NO_NAME);
+                throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_NAME_EMPTY_STRING);
             }
             return name;
         } catch (IndexOutOfBoundsException e) {
@@ -269,7 +269,7 @@ public class ParserUtils {
             return LocalDate.parse(dateString, formatter);
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected empty start date input after prefix but date is required!");
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_DATE);
+            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_START_DATE);
         } catch (DateTimeParseException e) {
             throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
         }
@@ -287,7 +287,7 @@ public class ParserUtils {
             return LocalDate.parse(dateString, formatter);
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected empty end date input after prefix but date is required!");
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_DATE);
+            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_END_DATE);
         } catch (DateTimeParseException e) {
             throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
         }
@@ -352,8 +352,9 @@ public class ParserUtils {
             String stringAfterPrefix =
                     params.split(Command.COMMAND_PREFIX_DAY_OF_THE_WEEK
                             + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            for (int i = 0; i < stringAfterPrefix.length(); i++) {
-                int day = Integer.parseInt(String.valueOf(stringAfterPrefix.charAt(i)));
+            String dateString = extractRelevantParameter(stringAfterPrefix);
+            for (int i = 0; i < dateString.length(); i++) {
+                int day = Integer.parseInt(String.valueOf(dateString.charAt(i)));
                 logger.log(Level.FINE, String.format("day detected: %s", day));
                 if (day >= ParserMessages.MONDAY && day <= ParserMessages.SUNDAY) { //between monday and sunday
                     if (dayOfTheWeek.contains(day)) {
@@ -432,16 +433,7 @@ public class ParserUtils {
                 numOfDelimiters++;
             }
         }
+        logger.log(Level.INFO, String.format("no. of delimiters detected: %s", numOfDelimiters));
         return numOfDelimiters > expectedNum;
-    }
-
-    protected static String correctCommandFormatSuggestions(String... suggestions) {
-        String formattedSuggestions = ParserMessages.MESSAGE_ERROR_INVALID_FORMAT + ParserMessages.LS;
-        int i = 1;
-        for (String suggestion : suggestions) {
-            formattedSuggestions += i + ". " + suggestion + ParserMessages.LS;
-            i += 1;
-        }
-        return formattedSuggestions.stripTrailing();
     }
 }
