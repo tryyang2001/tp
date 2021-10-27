@@ -36,7 +36,7 @@ public class Name implements Verifiable {
      * @param name name input by the user
      */
     public void setName(String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 
     @Override

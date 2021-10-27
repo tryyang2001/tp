@@ -100,6 +100,97 @@ _Fitbot_ will ask you for your particulars.
 
 Particulars required include name, height, weight, age, gender, calorie goal and activity factor. The application will prompt for your particulars again if your input is incorrect.
 
+Below are the questions that you will encounter.
+
+**Name Input**
+
+
+```text
+Fitbot realised that your profile has not been created.Let's start creating profile below!
+__________________________________________________________________________________________________________
+What's your name?
+__________________________________________________________________________________________________________
+```
+You will need to input your name without special characters of '/' and '|' as your name.
+
+**Height Input**
+```
+__________________________________________________________________________________________________________
+Nice name you have there! Hello user.
+What's your height? (in cm)
+__________________________________________________________________________________________________________
+```
+You will need to input your height as positive numbers in centimetres . Decimals are accepted(e.g. 170.1) and 
+you do not need to input units. 
+
+```text
+__________________________________________________________________________________________________________
+Nice name you have there! Hello user.
+What's your height? (in cm)
+__________________________________________________________________________________________________________
+```
+
+**Weight Input**
+```text
+__________________________________________________________________________________________________________
+Your height is 170.1cm.
+What's your weight? (in kg)
+__________________________________________________________________________________________________________
+```
+Similar to height, the weight input accepts positive numbers including decimals in kilograms(e.g. 65.0) 
+
+**Gender Input**
+```text
+__________________________________________________________________________________________________________
+Your weight is 65.0kg.
+What is your gender?(If you are a male, type 'm', if you are a female , type 'f')
+__________________________________________________________________________________________________________
+```
+You can input the letter 'm' if you are a male and 'f' if you are a female (e.g m).
+
+**Age Input**
+
+```text
+__________________________________________________________________________________________________________
+You are a male.
+How old are you?
+__________________________________________________________________________________________________________
+```
+You can input your age with the nearest positive whole number.(e.g. 22)
+
+**Calorie Goal**
+```text
+__________________________________________________________________________________________________________
+You are 22 years old.
+Please input your net calorie goal.
+__________________________________________________________________________________________________________
+```
+You can input your calorie goal with whole number range from -2500 to 2500 (e.g 500). The net calories is calculated 
+based on total calories gained from food subtracting the calories burnt from exercise and BMR.
+
+**Activity Factor**
+```text
+__________________________________________________________________________________________________________
+You calorie goal is 500 cal.
+In terms of activity level, how active are you?
+Based on the rubics below, please key in 1 to 5 based on how active you are.
+1 -> Sedentary - Little or no exercise
+2 -> Lightly Active - Light exercise or sports, around 1-3 days a week
+3 -> Moderately Active - Regular exercise or sports, around 3-5 days a week
+4 -> Very Active - Frequent exercise or sports, around 6-7 days a week
+5 -> If you are extra active - Sports or exercising is your passion and a physical jobscope.
+__________________________________________________________________________________________________________
+```
+You can input 1 to 5 based on the activity level description as shown above.
+
+Once you are done with the particulars above, you could see the following message below:
+```text
+__________________________________________________________________________________________________________
+Profile created successfully
+You can start by typing a command or view the list of available commands by typing "help".
+__________________________________________________________________________________________________________
+```
+
 After setting up the profile, you can start recording your food and exercises with the commands below.
 
 
@@ -161,12 +252,51 @@ of the item bank can be found at [here](#add-a-food-item-to-foodbank).\
 
 ❗ Please do not use the characters `/` and `|` in your input other than to specify parameters!
 
-### 4.1 **View help:** `help`
+### 4.1 Customizing your profile:
 
-This command shows a list of commands recognised by _Fitbot_ and their usage.
+You can customize your profile with the following steps.
 
-Format: `help`
+#### 4.1.1 Setting up your profile
 
+Refer to [2. Set Up Profile](#2-set-up-profile) to set up your profile.
+
+#### 4.1.2 Viewing profile: `profile`
+
+Typing `profile` lets you view your name, height, weight, gender, age, calorie goal and activity factor.
+
+Example:
+
+```text
+profile 
+__________________________________________________________________________________________________________ 
+Hello hi! This is your profile: 
+*====================================== 
+	Name 				Lisa 
+	Height 				159cm 
+	Weight 				50.0kg 
+	Gender 				F 
+	Age 				21 
+	Calories goal 		1500 cal 
+	Activity factor 	2 
+======================================* 
+__________________________________________________________________________________________________________ 
+```
+#### 4.1.3 Updating profile attributes 
+
+Change your profile attributes with the following command: \
+`profile {n/NAME} {h/HEIGHT} {w/WEIGHT} {s/GENDER} {a/AGE} {g/CALORIE_GOAL} {x/ACTIVITY_FACTOR}` \
+\
+where : \
+\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; h/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; height in cm \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; w/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weight in kg \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; age \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; g/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; calorie goal \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gender (M or F) \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; activity factor (1: Sedentary - 5: Extremely Active)
+
+where you will require at least 1 of the optional parameters (in no particular order) to change your attribute!
 
 ### 4.2 Recording your food consumption
 
@@ -515,57 +645,215 @@ Food bank item number 1 has been changed to:
 __________________________________________________________________________________________________________
 ````
 
-
-
-### 4.8. **Calculate net calories**: `overview`
-
+###4.7 **Viewing your Calorie Summary** `overview`
 This command is used to view the summary of the calories gained from food, calories burnt from exercises as well as
 net calories after including BMR.
 
 Format: `overview`
 
+Example:
 ```text
 overview
-__________________________________________________________________________________________
--*OVERVIEW*-
-Hi user, this is your calorie summary for the week.
+-*WEEKLY OVERVIEW*-
+Hi qwe, this is your calorie summary for the week.
 
 Food:
-You have consumed 0 cal this week from 18-Oct to 24-Oct.
+You have consumed 20040 cal this week from 21-Oct to 27-Oct.
 Calorie gained from food (Daily)
-18-Oct       0
-19-Oct       0
-20-Oct       0
-21-Oct       0
-22-Oct       0
-23-Oct       0
-24-Oct       0
-You have lost 0 cal from exercising for the last 7 days.
+21-Oct   ████████████    1800
+22-Oct   ████████████████████████    3640
+23-Oct   █████████████████    2600
+24-Oct   █████████████    1900
+25-Oct   ██████████████████████████████    4500
+26-Oct   ████████████████    2400
+27-Oct   █████████████████████    3200
+You have lost 4310 cal from exercising for the last 7 days.
 Calorie burnt from exercise (Daily)
-18-Oct       0
-19-Oct       0
-20-Oct       0
-21-Oct       0
-22-Oct       0
-23-Oct       0
-24-Oct       0
-
+21-Oct   ████████████████████████████    1100
+22-Oct   ███    120
+23-Oct   ██████    230
+24-Oct   ██████████████████████████████    1200
+25-Oct   ████████████████████    780
+26-Oct   ██████████████    540
+27-Oct   █████████    340
 Daily net calories**:
-18-Oct :   -927
-19-Oct :   -927
-20-Oct :   -927
-21-Oct :   -927
-22-Oct :   -927
-23-Oct :   -927
-24-Oct :   -927
+21-Oct :   -2245
+22-Oct :   575
+23-Oct :   -575
+24-Oct :   -2245
+25-Oct :   775
+26-Oct :   -1085
+27-Oct :   -85
 
 
-Number of supper meals this week: 0
+Number of supper meals this week: 2
 
  ** The net calorie calculation includes calories gained from food, calories burnt from exercises
-  and daily normal activities (using BMR). All calculations uses the latest values updated in profile.
-__________________________________________________________________________________________
+  and daily normal activities. All calculations used the latest values from updated in profile.
+__________________________________________________________________________________________________________
+This is your calorie overview for today:
+Your calorie gained from food is: 3200
+Your calorie lost from exercise is: 340
+Your net calorie intake is: -85
+Your calorie goal is: 500
+You are 585 cal away from your goal
+__________________________________________________________________________________________________________
 ```
+
+### 4.1 **View help:** `help`
+
+This command shows a list of commands recognised by _Fitbot_ and their usage.
+
+Format: `help`
+
+Example:
+
+```text
+help
+__________________________________________________________________________________________________________
+Welcome to the help page.
+Below are the commands to get you started.
+More details could be found on: 
+https://tinyurl.com/fitbotUG
+
+In the formats of the command, identifiers wrapped in curly brackets{} means that they are optional.
+
+add -- Add food or exercise record to the current list.
+      Adding food items
+      Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}
+      Identifier         Input
+           f/           Description of the food item
+           c/           Calories of the food
+           d/           Date of food in DD-MM-YYYY
+           t/           Time of food in HHMM
+
+      Add Exercise Items
+      Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}
+      Identifier        Input
+          e/            Description of exercise
+          c/            Calories burnt from exercise
+          d/            Date of exercise in DD-MM-YYYY
+
+      Add Recurring Exercise to Upcoming Exercise List
+      Format: add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK
+      Format: delete e/LIST_NO. d/DD-MM-YYYY
+      Identifier        Input
+          r/            Description of upcoming exercise
+          c/            Calories burnt from exercise
+          :/            Start date of exercise in DD-MM-YYYY
+          -/            End date of exercise in DD-MM-YYYY
+          @/            Workout days of the week
+
+      Add food Item in FoodBank
+      Format: add fbank/ITEM c/CALORIES
+      Identifier        Input
+          fbank/        Description of food
+          c/            Calories burnt from exercise
+
+      Add exercise Item in ExerciseBank
+      Format: add fbank/ITEM c/CALORIES
+      Identifier        Input
+          fbank/        Description of food
+          c/            Calories burnt from exercise
+
+bmi -- Calculate the Body-Mass-Index of user
+      Format: bmi {h/HEIGHT_IN_CM w/WEIGHT_IN_KG}
+      Identifier         Input 
+	   h/           Height of user in cm
+	   w/           Weight of user in kg
+      If no identifiers are given, bmi will be calculated using the height and weight in the profile.
+
+bye -- Exit the program.
+      Format: bye
+
+delete -- Delete entry of food or exercise added from a list.
+      Deleting food items
+      Format: delete f/LIST_NO. d/DD-MM-YYYY t/HHMM
+      Identifier         Input
+           f/           Index of food in food list within the given date
+           d/           Date of food in DD-MM-YYYY
+           t/           Time of food in HHMM
+
+      Delete exercise items
+      Format: delete e/LIST_NO. d/DD-MM-YYYY
+      Identifier        Input
+          e/            Description of exercise
+          d/            Date of exercise in DD-MM-YYYY
+	
+      Delete Upcoming Exercise Item from Upcoming Exercise List
+      Format: delete u/LIST_NO.
+      Identifier        Input
+          u/        The index of the item with in the upcoming exercise list
+
+      Delete food items from food bank
+      Format: delete fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
+      Identifier        Input
+          fbank/        The index of the item with in the food bank
+
+      Delete exercise items from exercise bank
+      Format: delete ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
+      Identifier        Input
+          ebank/        The index of the item with in the exercise bank
+
+edit -- Edit entry of food or exercise added from a list.
+      Edit FoodBank
+      Format: edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
+      Identifier        Input
+          fbank/        The index of the item with in the food bank
+          n/            New description of food name
+          c/            Calories of food
+	 
+      Edit ExerciseBank
+      Format: edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
+      Identifier        Input
+          ebank/        The index of the item with in the exercise bank
+          n/            New description of exercise name
+          c/            Calories burnt from exercise
+
+     Edit Upcoming Exercise List
+     Format: edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
+     Identifier        Input
+          u/        The index of the item with in the upcoming exercise list
+          n/            New description of exercise name
+          c/            Calories burnt from exercise   
+
+help -- View help for commands
+      Format: help
+
+profile -- View or modify profile details
+      Format: profile n/NAME h/HEIGHT(CM) w/WEIGHT(KG) a/AGE g/CALORIEGOAL s/GENDER(M/F) x/ACTIVITYFACTOR(1-5)
+      Identifier         Input 
+	   n/           Name of user
+	   h/           Height of user in cm
+	   w/           Weight of user in kg
+	   s/           Gender of user, m for male, f for female
+	   a/           Age of user
+	   g/           Net calorie goal of user. (Net calorie is based on calorie of food consumed - calories burnt from exercise and bmr
+	   x/           Activity factor of user, range 1 to 5
+      If no identifiers are given, user can view the profile particulars.
+
+overview -- View weekly and daily summary of calories
+      Format: overview
+
+view -- View all the food and/or exercises added.
+
+      Viewing Food List
+      Format: view f/
+
+      View exercise List
+      Format: view e/
+
+      View Upcoming Exercise List
+      Format: view u/
+
+      View exercise bank
+      Format: view e/
+
+      View food bank
+      Format: view f/
+__________________________________________________________________________________________________________
+```
+
 
 
 ### 4.9. Exit the program: `bye`
@@ -589,7 +877,7 @@ There is no need to save manually. Any updates made to the data will be automati
 ### 4.11. Editing the data file
 
 _Fitbot_ data files are saved as .text files `<JAR file location>/data/<text file name>.txt`. \
-Advanced users are welcome to update data directly by editing the data files. \
+Advanced users are welcome to update data directly by editing the data files. 
 
 ❗ If your changes to the data files format are invalid, _Fitbot_ will skip the wrongly formatted line when it loads in the data.
 

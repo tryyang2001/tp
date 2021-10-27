@@ -69,8 +69,8 @@ public abstract class Command {
      */
     public void setData(DataManager dataManager) {
         this.profile = dataManager.getProfile();
-        this.exerciseItems = dataManager.getExerciseItems();
-        this.foodItems = dataManager.getFoodItems();
+        this.exerciseItems = dataManager.getFilteredExerciseItems();
+        this.foodItems = dataManager.getFilteredFoodItems();
         this.futureExerciseItems = dataManager.getFutureExerciseItems();
         this.exerciseBank = dataManager.getExerciseBank();
         this.foodBank = dataManager.getFoodBank();
