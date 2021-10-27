@@ -1,5 +1,6 @@
 package seedu.duke.logic.commands;
 
+import seedu.duke.data.DataManager;
 import seedu.duke.data.item.ItemBank;
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.data.item.exercise.FutureExerciseList;
@@ -66,15 +67,13 @@ public abstract class Command {
     /**
      * Provides the necessary data structures for the command to operate on.
      */
-    public void setData(Profile profile, ExerciseList exerciseItems,
-                        FutureExerciseList futureExerciseItems, FoodList foodItems,
-                        ItemBank exerciseBank, ItemBank foodBank) {
-        this.profile = profile;
-        this.exerciseItems = exerciseItems;
-        this.foodItems = foodItems;
-        this.futureExerciseItems = futureExerciseItems;
-        this.exerciseBank = exerciseBank;
-        this.foodBank = foodBank;
+    public void setData(DataManager dataManager) {
+        this.profile = dataManager.getProfile();
+        this.exerciseItems = dataManager.getExerciseItems();
+        this.foodItems = dataManager.getFoodItems();
+        this.futureExerciseItems = dataManager.getFutureExerciseItems();
+        this.exerciseBank = dataManager.getExerciseBank();
+        this.foodBank = dataManager.getFoodBank();
         assert profile != null : "Profile supplied to command should not be null";
         assert exerciseItems != null : "Exercise items supplied to command should not be null";
         assert foodItems != null : "Food items supplied to command should not be null";
