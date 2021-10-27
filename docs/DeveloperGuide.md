@@ -33,7 +33,7 @@ Upon exiting of application:
 Class diagram of Main
 
 <p align="center" width="100%">
-  <img width="60%" src="images/MainClass.png" alt="Main Class Diagram"/>
+  <img width="100%" src="images/MainClass.png" alt="Main Class Diagram"/>
 </p>
 
 When _Fitbot_ is being started, the above instances are being created in the main class. 
@@ -55,7 +55,7 @@ and run the `exit()` command to exit the application.
 Interaction between the classes could be shown by the uml sequence diagram below.
 
 <p align="center" width="100%">
-  <img width="60%" src="images/Architecture.png" alt="Architecture Sequence Diagram"/>
+  <img width="100%" src="images/Architecture.png" alt="Architecture Sequence Diagram"/>
 </p>
 
 
@@ -67,6 +67,17 @@ based on the command the parser detects.
 - when all the operations above are completed, the Main class will pass a message to Ui class.
 - Ui class wll then format the message and print it to console for the user.
 
+### Data Component (Profile)
+
+<p align="center" width="100%">
+  <img width="90%" src="images/ProfileClassDiagram.png" alt="Architecture Sequence Diagram"/>
+</p>
+
+A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Gender`, `Age`, `CalorieGoal` and `ActivityFactor`
+
+- Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you an estimated calculation of your net calorie.
+
+- All the attributes inherit a `Verifiable` interface to enable us to check if the attributes are valid. This is important for the setting up of profile or the loading of profile from storage to ensure data integrity of the user's attributes.
 
 
 ### Data Component (ItemBank and Item)
@@ -100,29 +111,6 @@ Classes such as `ItemList` and `Item` are _**[abstract class](#_abstract-class_)
 
 
 
-
-### Data Component (Profile)
-
-<p align="center" width="100%">
-  <img width="60%" src="images/ProfileClassDiagram.png" alt="Profile"/>
-</p>
-
-A Profile class has various attributes such as Name, Height, Weight, Gender, Age, Calorie Goal and Activity Factor
-
-Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you a more accurate calculation.
-
-TODO\
-future exercise list\
-foodbank\
-exercisebank\
-will include some diagrams later\
-to complete tp dashboard
-
-
-
-
-
-
 ### Ui Component
 
 The `Ui` component interacts with the user. It reads in input from the user and prints messages on the console.
@@ -145,7 +133,7 @@ Below is a high level class diagram of the `Logic` component, which shows how it
 like `Main` and `Data`.
 
 <p align="center" width="100%">
-  <img width="80%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
+  <img width="60%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
 </p>
 
 The general workflow of the `Logic` component is as follows:
@@ -171,35 +159,40 @@ they are able to parse user inputs. They also make use of utility methods stored
 all the parameters relevant to the command. After parsing the input, `XYZCommandParser` returns `XYZCommand` to `ParserManager`,
 which then returns the same `XYZCommand` to `Main`.
 
-The sequence diagram below models the interactions between the different classes within the `Logic` component.
-This particular case illustrates how a user input `add f/potato c/20` is parsed and process to execute the appropriate actions.
-
-<p align="center" width="100%">
-  <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
-</p>
-
 ### Storage component
 
 <p align="center" width="100%">
-  <img width="60%" src="images/StorageClassDiagram.png" alt="Storage Class Diagram"/>
+  <img width="90%" src="images/StorageManagerClassDiagram.png" alt="Architecture Sequence Diagram"/>
 </p>
-The `StorageManager` component loads and saves:
-- your profile - including name, height, weight, gender, age, calorie goal and activity factor
-- list of exercises done - including date performed
-- list of food consumed - including date and time of consumption
-- scheduled exercises - recurring exercises that are scheduled in the future
-- food and exercise banks - names and calories of relevant item
 
-Each storage is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
+`StorageManager` initializes all `Storage` subclasses with their respective paths. 
+Acting as a medium, it then interacts with each of the respective `Storage` subclasses. 
+This design declutters the code in Main and provides a platform to ensure each of the subclasses were utilized. 
+It is also implemented with all of the `StorageInterface` interfaces to enforce methods of loading and saving to be fully implemented into the code.
+
+The `StorageManager` component loads and saves:
+
+- your profile: name, height, weight, gender, age, calorie goal and activity factor
+- list of exercises done: including date performed
+- list of food consumed: including date and time of consumption
+- upcoming exercises: recurring exercises that are scheduled in the future
+- food and exercise banks: names and calories of relevant item
+
+Each `Storage` subclass is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
 
 <p align="center" width="100%">
-  <img width="60%" src="images/ProfileStorageClassDiagram.png" alt="Profile Storage"/>
+  <img width="50%" src="images/ProfileStorageClassDiagram.png" alt="Architecture Sequence Diagram"/>
 </p>
+
+The `ProfileStorage` inherits an abstract class of `Storage` which contains protected attributes of `fileName` and `filePath`.
+After inheritance, it then implements loading and saving methods interfaced by `ProfileStorageInterface` to ensure reading and writing operations.
 
 where:
 - ProfileEncoder encodes the list to the profile.txt file.
 - ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
-- ProfileStorage initializes the encoder and decoder and utilizes them for reading or writing operations.
+- ProfileStorage utilizes the static methods in encoder and decoder for loading or saving operations.
+
+This way ensures that each class has a _single responsibility_ with little coupling between each other.
 
 ## Implementation
 
