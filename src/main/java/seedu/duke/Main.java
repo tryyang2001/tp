@@ -1,6 +1,7 @@
 package seedu.duke;
 
 
+<<<<<<< HEAD
 import seedu.duke.data.item.Item;
 import seedu.duke.data.item.ItemBank;
 import seedu.duke.data.item.exercise.Exercise;
@@ -13,6 +14,11 @@ import seedu.duke.data.profile.Profile;
 import seedu.duke.data.DataManager;
 import seedu.duke.data.item.exercise.Exercise;
 
+=======
+import seedu.duke.data.item.exercise.ExerciseList;
+import seedu.duke.data.item.exercise.FutureExerciseList;
+import seedu.duke.data.DataManager;
+>>>>>>> c1dd15e993dd4ac4489537a365abeedb82b7e92e
 import seedu.duke.logic.LogicManager;
 import seedu.duke.logic.commands.ByeCommand;
 import seedu.duke.logic.commands.Command;
@@ -31,6 +37,7 @@ import java.time.LocalDate;
  */
 public class Main {
 <<<<<<< HEAD
+<<<<<<< HEAD
     private ExerciseList filteredExerciseItems;
 =======
 
@@ -43,6 +50,10 @@ public class Main {
     private ItemBank exerciseBank;
     private ItemBank foodBank;
     private Profile profile;*/
+=======
+
+    private ExerciseList filteredExerciseItems;
+>>>>>>> c1dd15e993dd4ac4489537a365abeedb82b7e92e
     private DataManager dataManager;
     private Ui ui;
     private StorageManager storageManager;
@@ -85,16 +96,8 @@ public class Main {
         this.filteredExerciseItems = new ExerciseList();
         try {
             dataManager = storageManager.loadAll();
-            /*
-            profile = storageManager.loadProfile();
-            exerciseItems = storageManager.loadExerciseList();
-            filterExerciseListWithPastSevenDaysRecordOnly();
-            foodItems = storageManager.loadFoodList();
-            filterFoodListWithPastSevenDaysRecordOnly();
-            futureExerciseItems = storageManager.loadFutureExerciseList();
-            foodBank = storageManager.loadFoodBank();
-            exerciseBank = storageManager.loadExerciseBank();
-             */
+         //     filterExerciseListWithPastSevenDaysRecordOnly();  
+          //  filterFoodListWithPastSevenDaysRecordOnly();
         } catch (UnableToReadFileException e) {
             dataManager = new DataManager();
             ui.formatMessageFramedWithDivider(e.getMessage());
@@ -171,6 +174,10 @@ public class Main {
         int index = 0;
         LocalDate today = LocalDate.now();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+/*
+>>>>>>> c1dd15e993dd4ac4489537a365abeedb82b7e92e
         while (futureExerciseItems.getSize() != 0 && (futureExerciseItems.getItem(index).getDate().isBefore(today)
                 || futureExerciseItems.getItem(index).getDate().isEqual(today))) {
             System.out.println(today);
@@ -181,7 +188,11 @@ public class Main {
             futureExerciseItems.deleteItem(index);
             storageManager.saveExerciseList(filteredExerciseItems);
             storageManager.saveFutureExerciseList(futureExerciseItems);
+<<<<<<< HEAD
 =======
+=======
+*/
+>>>>>>> c1dd15e993dd4ac4489537a365abeedb82b7e92e
         while (dataManager.getFutureExerciseItems().getSize() != 0
                 && (dataManager.getFutureExerciseItems().getItem(index).getDate().isBefore(today)
                 || dataManager.getFutureExerciseItems().getItem(index).getDate().isEqual(today))) {
@@ -192,7 +203,10 @@ public class Main {
             dataManager.getFutureExerciseItems().deleteItem(index);
             storageManager.saveExerciseList(dataManager.getExerciseItems());
             storageManager.saveFutureExerciseList(dataManager.getFutureExerciseItems());
+<<<<<<< HEAD
 >>>>>>> 45c3afa0b6c68e68d34192efc20910d59b67c688
+=======
+>>>>>>> c1dd15e993dd4ac4489537a365abeedb82b7e92e
         }
     }
     //@@author
