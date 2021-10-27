@@ -11,19 +11,19 @@ import java.util.logging.Logger;
  * Represent the command that when executed, adds all recurring Exercise items to the FutureExerciseList.
  */
 public class AddRecurringExerciseCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_ADD
+    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_ADD
             + " " + COMMAND_PREFIX_RECURRING + COMMAND_PREFIX_DELIMITER + "exercise name"
             + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories"
             + " " + COMMAND_PREFIX_START_DATE + COMMAND_PREFIX_DELIMITER + "start date"
             + " " + COMMAND_PREFIX_END_DATE + COMMAND_PREFIX_DELIMITER + "end date"
             + " " + COMMAND_PREFIX_DAY_OF_THE_WEEK + COMMAND_PREFIX_DELIMITER + "days of the week (Mon:1 - Sun:7)"
-            + QUOTATION;
+            + CommandMessages.QUOTATION;
     public static final String MESSAGE_INVALID_DATES = "Your start date %s is later than your end date %s";
     public static final String MESSAGE_INVALID_FUTURE_DATES = "Make sure that your start date (%s) "
             + "and end date (%s) are in the future";
     public static final String MESSAGE_NO_EXERCISE_ADDED = "Day(s) not present between %s and %s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
-            + LS + "Try a positive value instead";
+            + CommandMessages.LS + "Try a positive value instead";
     public static final String MESSAGE_SUCCESS = "Recurring exercise item for the future has been added";
     private static final int ONE_WEEK = 7;
     private static final int ONE_DAY = 1;
@@ -65,7 +65,8 @@ public class AddRecurringExerciseCommand extends Command {
             try {
                 this.calories = super.exerciseBank.getCaloriesOfItemWithMatchingName(this.description);
             } catch (ItemNotFoundInBankException e) {
-                return new CommandResult(String.format(MESSAGE_INVALID_EXERCISE_NOT_IN_BANK, this.description));
+                return new CommandResult(String.format(
+                        CommandMessages.MESSAGE_INVALID_EXERCISE_NOT_IN_BANK, this.description));
             }
         } else {
             if (this.calories <= 0) {

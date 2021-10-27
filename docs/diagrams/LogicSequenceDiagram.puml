@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!include Style.puml
+hide footbox
+autoactivate on
+
+participant ":Main" AS Main MAIN_COLOUR
+participant ":ParserManager" AS ParserManager LOGIC_COLOUR
+participant ":AddCommandParser" AS AddCommandParser LOGIC_COLOUR
+participant "c:AddFoodCommand" AS AddFoodCommand LOGIC_COLOUR
+participant "r:CommandResult" AS CommandResult LOGIC_COLOUR
+participant "f:Food" AS Food DATA_COLOUR
+participant ":FoodList" AS FoodList DATA_COLOUR
+activate Main MAIN_COLOUR
+create ParserManager
+Main -> ParserManager LOGIC_COLOUR
+return
+Main -> ParserManager LOGIC_COLOUR : parseCommand ("add f/potato c/30")
+ref over ParserManager
+    determine type
+    of command
+end ref
+
+create AddCommandParser
+ParserManager -> AddCommandParser LOGIC_COLOUR
+return
+ParserManager -> AddCommandParser LOGIC_COLOUR : parse("f/...")
+
+ref over AddCommandParser
+    parse required
+    parameters
+    for the command
+end ref
+
+
+create AddFoodCommand
+AddCommandParser -> AddFoodCommand LOGIC_COLOUR : new AddFoodCommand("potato", ...)
+return c
+return c
+return c
+destroy AddCommandParser
+
+Main -> AddFoodCommand LOGIC_COLOUR : setData(profile, exerciseItems, ...)
+destroy ParserManager
+return
+Main -> AddFoodCommand LOGIC_COLOUR : execute()
+create Food
+AddFoodCommand -> Food DATA_COLOUR : new Food("potato", ...)
+return f
+AddFoodCommand -> FoodList DATA_COLOUR : add(f)
+return
+destroy Food
+create CommandResult
+AddFoodCommand -> CommandResult LOGIC_COLOUR
+return r
+return r
+destroy CommandResult
+@enduml

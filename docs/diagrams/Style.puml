@@ -11,6 +11,8 @@
 !define DATA_FADED_COLOUR #DAE8FC
 !define STORAGE_COLOUR #D5E8D4
 !define STORAGE_FADED_COLOUR #E1F7E7
+hide circle
+hide footbox
 
 skinparam Shadowing false
 skinparam class {
@@ -30,8 +32,9 @@ skinparam sequence {
     LifeLineBackgroundColor WHITE
     LifeLineBorderColor BLACK
 }
-hide enum methods
 
+hide circle
+hide enum methods
 
 
 @enduml
