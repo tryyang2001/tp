@@ -100,6 +100,97 @@ _Fitbot_ will ask you for your particulars.
 
 Particulars required include name, height, weight, age, gender, calorie goal and activity factor. The application will prompt for your particulars again if your input is incorrect.
 
+Below are the questions that you will encounter.
+
+**Name Input**\
+
+
+```text
+Fitbot realised that your profile has not been created.Let's start creating profile below!
+__________________________________________________________________________________________________________
+What's your name?
+__________________________________________________________________________________________________________
+```
+You will need to input your name without special characters of '/' and '|' as your name.
+
+**Height Input**
+```
+__________________________________________________________________________________________________________
+Nice name you have there! Hello user.
+What's your height? (in cm)
+__________________________________________________________________________________________________________
+```
+You will need to input your height as positive numbers in centimetres . Decimals are accepted(e.g. 170.1) and 
+you do not need to input units. 
+
+```text
+__________________________________________________________________________________________________________
+Nice name you have there! Hello user.
+What's your height? (in cm)
+__________________________________________________________________________________________________________
+```
+
+**Weight Input**
+```text
+__________________________________________________________________________________________________________
+Your height is 170.1cm.
+What's your weight? (in kg)
+__________________________________________________________________________________________________________
+```
+Similar to height, the weight input accepts positive numbers including decimals in kilograms(e.g. 65.0) 
+
+**Gender Input**
+```text
+__________________________________________________________________________________________________________
+Your weight is 65.0kg.
+What is your gender?(If you are a male, type 'm', if you are a female , type 'f')
+__________________________________________________________________________________________________________
+```
+You can input the letter 'm' if you are a male and 'f' if you are a female (e.g m).
+
+**Age Input**
+
+```text
+__________________________________________________________________________________________________________
+You are a male.
+How old are you?
+__________________________________________________________________________________________________________
+```
+You can input your age with the nearest positive whole number.(e.g. 22)
+
+**Calorie Goal**
+```text
+__________________________________________________________________________________________________________
+You are 22 years old.
+Please input your net calorie goal.
+__________________________________________________________________________________________________________
+```
+You can input your calorie goal with whole number range from -2500 to 2500 (e.g 500). The net calories is calculated 
+based on total calories gained from food subtracting the calories burnt from exercise and BMR.
+
+**Activity Factor**
+```text
+__________________________________________________________________________________________________________
+You calorie goal is 500 cal.
+In terms of activity level, how active are you?
+Based on the rubics below, please key in 1 to 5 based on how active you are.
+1 -> Sedentary - Little or no exercise
+2 -> Lightly Active - Light exercise or sports, around 1-3 days a week
+3 -> Moderately Active - Regular exercise or sports, around 3-5 days a week
+4 -> Very Active - Frequent exercise or sports, around 6-7 days a week
+5 -> If you are extra active - Sports or exercising is your passion and a physical jobscope.
+__________________________________________________________________________________________________________
+```
+You can input 1 to 5 based on the activity level description as shown above.
+
+Once you are done with the particulars above, you could see the following message below:
+```text
+__________________________________________________________________________________________________________
+Profile created successfully
+You can start by typing a command or view the list of available commands by typing "help".
+__________________________________________________________________________________________________________
+```
+
 After setting up the profile, you can start recording your food and exercises with the commands below.
 
 
