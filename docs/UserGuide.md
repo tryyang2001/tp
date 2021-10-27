@@ -252,6 +252,10 @@ of the item bank can be found at [here](#add-a-food-item-to-foodbank).\
 
 ❗ Please do not use the characters `/` and `|` in your input other than to specify parameters!
 
+###4.1.1 Setting up your profile
+
+Have you set up your profile? If you are a new user or deleted your profile, _Fitbot_ will check if there is a profile created.
+If _Fitbot_ realised that there is no profile created, _Fitbot_ will [guide](#2-create-profile) you through creating your profile.
 
 ### 4.2 Recording your food consumption
 
