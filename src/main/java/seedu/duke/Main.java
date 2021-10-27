@@ -134,7 +134,6 @@ public class Main {
 
         command.setData(this.profile, this.exerciseItems, this.futureExerciseItems,
                 this.foodItems, this.exerciseBank, this.foodBank);
-        System.out.println(profile.getProfileCalorieGoal().getCalorieGoal());
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {

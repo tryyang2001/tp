@@ -72,9 +72,10 @@ public class AddRecurringExerciseCommand extends Command {
                 logger.log(Level.WARNING, "Exercise calorie is invalid");
                 return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
             }
+        }
             assert this.endDate.isAfter(this.startDate) : "End date is after start date";
             if (!this.startDate.isAfter(LocalDate.now())) {
-                logger.log(Level.WARNING, "Reoccurring exercises are for future only");
+                logger.log(Level.WARNING, "Recurring exercises are for future only");
                 return new CommandResult(String.format(MESSAGE_INVALID_FUTURE_DATES, this.startDate, this.endDate));
             }
             assert this.startDate.isAfter(LocalDate.now()) : "Start and end dates are in the future";
@@ -89,9 +90,8 @@ public class AddRecurringExerciseCommand extends Command {
             if (futureExerciseItems.getSize() == numberOfFutureExercises) {
                 return new CommandResult(String.format(MESSAGE_NO_EXERCISE_ADDED, this.startDate, this.endDate));
             }
-        }
 
-        logger.log(Level.FINE, "Recurring Exercise is successfully added");
+        logger.log(Level.FINE, "Recurring exercise is successfully added");
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
