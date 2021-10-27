@@ -27,13 +27,13 @@ deactivate Food
 
 participant "filteredFoodList:FoodList" As FoodList DATA_COLOUR
 participant "commandResult:CommandResult" As CommandResult LOGIC_COLOUR
-AddFoodCommand -> FoodList : \t\t\t\t\t\t\t\t\taddItem(food)
+AddFoodCommand -> FoodList : \t\t\t\t\t\t\t\t\t\taddItem(food)
 activate FoodList DATA_COLOUR
 FoodList -> FoodList ++  DATA_COLOUR: sortList()
 FoodList --> FoodList --
 FoodList --> AddFoodCommand
 deactivate FoodList
-AddFoodCommand -> CommandResult **: \tnew CommandResult(String.format(MESSAGE_SUCCESS,food))
+AddFoodCommand -> CommandResult **: \t\t\t\t\tnew CommandResult(String.format(MESSAGE_SUCCESS,food))
 activate CommandResult LOGIC_COLOUR
 CommandResult --> AddFoodCommand
 deactivate CommandResult
