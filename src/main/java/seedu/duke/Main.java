@@ -23,9 +23,6 @@ import java.time.LocalDate;
  * Initialises the application and starts interaction with user.
  */
 public class Main {
-
-
-
     private ExerciseList exerciseItems;
     private FutureExerciseList futureExerciseItems;
     private FoodList foodItems;
