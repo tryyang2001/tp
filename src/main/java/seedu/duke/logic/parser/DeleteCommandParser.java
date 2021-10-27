@@ -66,21 +66,21 @@ public class DeleteCommandParser implements Parser {
         try {
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
             final LocalDate date = ParserUtils.extractDate(params, true);
-            logger.log(Level.INFO, String.format("date detected is: %s", date));
+            logger.log(Level.FINE, String.format("date detected is: %s", date));
 
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_EXERCISE:
                 if (ParserUtils.hasExtraDelimiters(params, DeleteExerciseCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
-                logger.log(Level.INFO, String.format("deleting exercise item %s from %s", itemIndex, date));
+                logger.log(Level.FINE, String.format("deleting exercise item %s from %s", itemIndex, date));
                 return new DeleteExerciseCommand(itemIndex, date);
             case Command.COMMAND_PREFIX_FOOD:
                 if (ParserUtils.hasExtraDelimiters(params, DeleteFoodCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
                 final LocalTime time = ParserUtils.extractTime(params, true);
-                logger.log(Level.INFO, String.format("deleting food item %s from %s %s", itemIndex, date, time));
+                logger.log(Level.FINE, String.format("deleting food item %s from %s %s", itemIndex, date, time));
                 return new DeleteFoodCommand(itemIndex, date, time);
             default:
                 throw new ItemNotSpecifiedException();

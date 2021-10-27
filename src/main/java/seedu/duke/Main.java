@@ -104,7 +104,6 @@ public class Main {
         LocalDate today = LocalDate.now();
         while (futureExerciseItems.getSize() != 0 && (futureExerciseItems.getItem(index).getDate().isBefore(today)
                 || futureExerciseItems.getItem(index).getDate().isEqual(today))) {
-            System.out.println(today);
             String name = futureExerciseItems.getItem(index).getName();
             int calories = futureExerciseItems.getItem(index).getCalories();
             LocalDate date = futureExerciseItems.getItem(index).getDate();
@@ -126,7 +125,6 @@ public class Main {
 
         command.setData(this.profile, this.exerciseItems, this.futureExerciseItems,
                 this.foodItems, this.exerciseBank, this.foodBank);
-        System.out.println(profile.getProfileCalorieGoal().getCalorieGoal());
         CommandResult result = command.execute();
         try {
             if (ByeCommand.isBye(command)) {
