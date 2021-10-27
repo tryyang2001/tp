@@ -120,7 +120,7 @@ public class Profile {
      * @param activityFactor Activity level of user
      */
     public void setProfile(Name name, Height height, Weight weight, Gender gender,
-                   Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
+                           Age age, CalorieGoal calorieGoal, ActivityFactor activityFactor) {
         this.name = name;
         this.height = height;
         this.weight = weight;

@@ -41,7 +41,7 @@ public class FutureExerciseListDecoder extends ListDecoder {
     }
 
     private static void decodeUpcomingExerciseDataFromString(FutureExerciseList exercises,
-                                                    String line) throws InvalidDataException {
+                                                             String line) throws InvalidDataException {
         try {
             final String[] exerciseDetails = line.split(StorageManager.FILE_TEXT_DELIMITER);
             final String name = exerciseDetails[1];
