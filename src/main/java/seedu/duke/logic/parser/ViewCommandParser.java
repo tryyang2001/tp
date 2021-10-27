@@ -1,6 +1,7 @@
 package seedu.duke.logic.parser;
 
 import seedu.duke.logic.commands.Command;
+import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.InvalidCommand;
 import seedu.duke.logic.commands.ViewExerciseBankCommand;
 import seedu.duke.logic.commands.ViewExerciseListCommand;
@@ -33,13 +34,7 @@ public class ViewCommandParser implements Parser {
                 throw new ItemNotSpecifiedException();
             }
         } catch (ItemNotSpecifiedException e) {
-            return new InvalidCommand(
-                    ParserUtils.correctCommandFormatSuggestions(
-                            ViewExerciseListCommand.MESSAGE_COMMAND_FORMAT,
-                            ViewFoodListCommand.MESSAGE_COMMAND_FORMAT,
-                            ViewExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
-                            ViewFoodBankCommand.MESSAGE_COMMAND_FORMAT,
-                            ViewFutureExerciseListCommand.MESSAGE_COMMAND_FORMAT));
+            return new InvalidCommand(CommandMessages.MESSAGE_VIEW_COMMAND_INVALID_FORMAT);
         }
     }
 }

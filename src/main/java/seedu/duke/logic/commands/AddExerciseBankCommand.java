@@ -10,16 +10,16 @@ import java.util.logging.Logger;
  * Represents the command that when executed, adds an Exercise item to the ExerciseBank.
  */
 public class AddExerciseBankCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_ADD
+    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_ADD
             + " " + COMMAND_PREFIX_EXERCISE_BANK + COMMAND_PREFIX_DELIMITER + "exercise name"
-            + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories" + QUOTATION;
+            + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories" + CommandMessages.QUOTATION;
     public static final String MESSAGE_SUCCESS = "An exercise item has been added to the exercise bank:"
-            + INDENTED_LS + "%s";
+            + CommandMessages.INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
-            + LS + "Try a positive value instead";
+            + CommandMessages.LS + "Try a positive value instead";
     public static final String MESSAGE_EXERCISE_ALREADY_EXISTS = "The exercise with name "
-            + QUOTATION + "%s" + QUOTATION + " already exists in the exercise bank! (Names are case insensitive)"
-            + LS + "Try using another name, or delete the existing item first!";
+            + CommandMessages.QUOTATION + "%s" + CommandMessages.QUOTATION + " already exists in the exercise bank! (Names are case insensitive)"
+            + CommandMessages.LS + "Try using another name, or delete/edit the existing item first!";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_EXERCISE_BANK,
             COMMAND_PREFIX_CALORIES

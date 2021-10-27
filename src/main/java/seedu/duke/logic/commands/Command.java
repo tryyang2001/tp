@@ -13,11 +13,6 @@ import java.time.LocalDate;
  * All Commands can be executed to return a CommandResult.
  */
 public abstract class Command {
-
-    public static final String LS = System.lineSeparator();
-    public static final String TAB = "\t";
-    public static final String INDENTED_LS = LS + TAB;
-    public static final String QUOTATION = "\"";
     public static final String COMMAND_PREFIX_DELIMITER = "/";
     public static final String COMMAND_PREFIX_EXERCISE = "e";
     public static final String COMMAND_PREFIX_UPCOMING_EXERCISE = "u";
@@ -45,23 +40,16 @@ public abstract class Command {
     public static final String COMMAND_WORD_BMI = "bmi";
     public static final String COMMAND_WORD_PROFILE = "profile";
     public static final String COMMAND_WORD_DELETE_ALL = "all";
-    public static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise items yet in the past 7 days!";
-    public static final String MESSAGE_EMPTY_FUTURE_EXERCISE_LIST = "No future exercise items yet!";
-    public static final String MESSAGE_EMPTY_FOOD_LIST = "No food items yet in the past 7 days!";
-    public static final String MESSAGE_EMPTY_EXERCISE_BANK = "No exercise items yet in the exercise bank!";
-    public static final String MESSAGE_EMPTY_FOOD_BANK = "No food items yet in the food bank!";
-    public static final String MESSAGE_ONLY_ONE_IN_LIST = "You have only 1 item in the list!";
-    public static final String MESSAGE_LIST_OUT_OF_BOUNDS = "Please input a valid item number from 1 to %s";
-    public static final String MESSAGE_INVALID_EXERCISE_NOT_IN_BANK = "%s was not found in the exercise bank! "
-            + "Please specify the calories for this item.";
-    public static final String MESSAGE_INVALID_FOOD_NOT_IN_BANK = "%s was not found in the food bank! "
-            + "Please specify the calories for this item.";
     public static final double NULL_DOUBLE = 0;
     public static final int NULL_INT = 0;
     public static final char NULL_CHAR = Character.MIN_VALUE;
     public static final int NULL_CALORIES = -1;
     public static final String NULL_STRING = "";
     public static final LocalDate NULL_DATE = LocalDate.MIN;
+
+
+
+
 
     protected Profile profile;
     protected ExerciseList exerciseItems;
@@ -94,6 +82,8 @@ public abstract class Command {
         assert exerciseItems != null : "Exercise items supplied to command should not be null";
         assert foodItems != null : "Food items supplied to command should not be null";
         assert futureExerciseItems != null : "Future exercise items supplied to command should not be null";
+        assert exerciseBank != null : "Exercise bank supplied to command should not be null";
+        assert foodBank != null : "Food bank supplied to command should not be null";
     }
 
 
@@ -164,6 +154,8 @@ public abstract class Command {
                 || command instanceof DeleteExerciseBankCommand
                 || command instanceof EditExerciseBankCommand;
     }
+
+
 
 
 
