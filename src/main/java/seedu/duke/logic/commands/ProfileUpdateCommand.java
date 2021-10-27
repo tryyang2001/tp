@@ -14,7 +14,7 @@ import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
  * Represents the command that when executed, changes the value of attributes in the Profile.
  */
 public class ProfileUpdateCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = QUOTATION + COMMAND_WORD_PROFILE
+    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_PROFILE
             + " " + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "NAME "
             + COMMAND_PREFIX_HEIGHT + COMMAND_PREFIX_DELIMITER + "HEIGHT(CM) "
             + COMMAND_PREFIX_WEIGHT + COMMAND_PREFIX_DELIMITER + "WEIGHT(KG) "
@@ -22,9 +22,9 @@ public class ProfileUpdateCommand extends Command {
             + COMMAND_PREFIX_GOAL + COMMAND_PREFIX_DELIMITER + "CALORIEGOAL "
             + COMMAND_PREFIX_GENDER + COMMAND_PREFIX_DELIMITER + "GENDER(M/F) "
             + COMMAND_PREFIX_ACTIVITY_FACTOR + COMMAND_PREFIX_DELIMITER + "ACTIVITYFACTOR(1-5)"
-            + QUOTATION;
+            + CommandMessages.QUOTATION;
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Trying to update your profile? "
-            + "Use the following format:" + INDENTED_LS + MESSAGE_COMMAND_FORMAT;
+            + "Use the following format:" + CommandMessages.INDENTED_LS + MESSAGE_COMMAND_FORMAT;
 
 
     public static final String[] EXPECTED_PREFIXES = {
@@ -37,7 +37,7 @@ public class ProfileUpdateCommand extends Command {
             COMMAND_PREFIX_GENDER
     };
 
-    public static final String MESSAGE_SUCCESS = "Your profile has been updated!" + LS + "%s";
+    public static final String MESSAGE_SUCCESS = "Your profile has been updated!" + CommandMessages.LS + "%s";
 
     private Name name;
     private Weight weight;

@@ -91,13 +91,15 @@ correct operations, and finally return the command result back to `Logic` compon
 \
 Above is a high-level **_class diagram_** for the `ItemBank` and `Item` classes in `Data` component. Note that since `Main` and `Logic` components have accessed to some classes
 in `Data` component, they form **_dependencies_** with those classes.
-The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.\
+The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.
 
 #### ItemBank class
 `ItemBank` is the **_highest [superclass](#_superclass_)_** that contains one attribute called `internalItems` which is an _array list_ of `item`.\
 `ItemList` being the **[_subclass_](#_subclass_)** of `ItemBank` and **_[superclass](#_superclass_)_** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a [dependency](#_dependency_) on `Item` class.\
 `FoodList` and `ExerciseList` are **[_subclass_](#_subclass_)** that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a [dependency](#_dependency_)
-on `Food` class and `Exercise` class respectively.
+on `Food` class and `Exercise` class respectively.\
+`FutureExerciseList` is a **[_subclass_](#_subclass_)** that inherit all the methods available from `ExerciseList` and contains other methods that form a [dependency](#_dependency_)
+on `Exercise` class.
 
 #### Item class
 An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.\
@@ -204,7 +206,7 @@ and some design considerations.
 ![Add Food Item Sequence Diagram](images/AddFoodItemSequenceDiagram.png)
 
 The purpose of this feature is to allow the user to add food item to the food list. The above diagram shown is the 
-sequence diagram of the adding food item process. 
+sequence diagram of the process of adding the food item. 
 
 When the user gives an input, the `parser` from the `Logic` component will try to read the input, and then call the correct
 command. In this case we assume that the correct format of **Add Food** input is given and the AddFoodCommand has already been
@@ -239,6 +241,26 @@ way, the data structure of the attribute will be changed to HashMap to achieve O
 <p align="center" width="100%">
   <img width="60%" src="images/ItemBankCodeSnippet.png" alt="Item Bank Code Snippet"/>
 </p>
+
+#### [Proposed] Add a Recurring Exercise Feature
+
+![Add Recurring Exercise Sequence Diagram](images/AddRecurringExerciseSequenceDiagram.png)
+
+The purpose of this feature is to allow the user to add recurring exercises to the future exercise list. The above diagram 
+is the sequence diagram of adding recurring exercises to the future exercise list.
+
+Step 1: The `parser` from the `Logic` component parses the input given by the user and calls the `execute` method in
+`AddRecurringExerciseCommand`. The condition `isCalorieFromBank` is checked to see if the user input any calories for
+the recurring exercise. If it is `true`, it means that no calories input is detected and the method 
+`getCaloriesOfItemWithMatchingName` in class `ItemBank` is called, and it will return an int value of `calories`.
+
+Step 2: Within `execute` method, `addRecurringItem` method in `FutureExerciseList` is also called. This method will 
+iteratively call the constructor for `Exercise` class and add the exercises into `FutureExerciseList` via the self-invocation
+`addItem` method. This iteration will end when all exercises on `dayOfTheWeek` between `startDate` and `endDate` are added.
+
+Step 3: After `addRecurringExercises` method is executed, `AddRecurringExerciseCommand` calls a `CommandResult` object.
+This object outputs a message and `AddRecurringExerciseCommand` will return `commandResult`, indicating that
+`AddRecurringExerciseCommand` is successfully executed and ended.
 
 ## Product scope
 ### Target user profile

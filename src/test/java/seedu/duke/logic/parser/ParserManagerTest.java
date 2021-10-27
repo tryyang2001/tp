@@ -14,11 +14,11 @@ import seedu.duke.logic.commands.HelpCommand;
 import seedu.duke.logic.commands.InvalidCommand;
 import seedu.duke.logic.commands.OverviewCommand;
 import seedu.duke.logic.commands.ProfileUpdateCommand;
-import seedu.duke.logic.commands.ViewCommand;
 import seedu.duke.logic.commands.ViewExerciseBankCommand;
 import seedu.duke.logic.commands.ViewExerciseListCommand;
 import seedu.duke.logic.commands.ViewFoodBankCommand;
 import seedu.duke.logic.commands.ViewFoodListCommand;
+import seedu.duke.logic.commands.ViewFutureExerciseListCommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -162,11 +162,11 @@ class ParserManagerTest {
 
     @Test
     void parseViewCommand_correctInput_viewCommand() {
-        parseAndAssertCommandType("view", ViewCommand.class);
         parseAndAssertCommandType("view e/", ViewExerciseListCommand.class);
         parseAndAssertCommandType("view f/", ViewFoodListCommand.class);
         parseAndAssertCommandType("view fbank/", ViewFoodBankCommand.class);
         parseAndAssertCommandType("view ebank/", ViewExerciseBankCommand.class);
+        parseAndAssertCommandType("view u/", ViewFutureExerciseListCommand.class);
     }
 
     @Test

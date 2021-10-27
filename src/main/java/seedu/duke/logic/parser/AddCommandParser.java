@@ -7,6 +7,7 @@ import seedu.duke.logic.commands.AddFoodCommand;
 import seedu.duke.logic.commands.AddFutureExerciseCommand;
 import seedu.duke.logic.commands.AddRecurringExerciseCommand;
 import seedu.duke.logic.commands.Command;
+import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.InvalidCommand;
 import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.logic.parser.exceptions.ParamInvalidException;
@@ -46,13 +47,7 @@ public class AddCommandParser implements Parser {
                 throw new ItemNotSpecifiedException();
             }
         } catch (ItemNotSpecifiedException e) {
-            return new InvalidCommand(
-                    ParserUtils.correctCommandFormatSuggestions(
-                            AddExerciseCommand.MESSAGE_COMMAND_FORMAT,
-                            AddFoodCommand.MESSAGE_COMMAND_FORMAT,
-                            AddExerciseBankCommand.MESSAGE_COMMAND_FORMAT,
-                            AddFoodBankCommand.MESSAGE_COMMAND_FORMAT,
-                            AddRecurringExerciseCommand.MESSAGE_COMMAND_FORMAT));
+            return new InvalidCommand(CommandMessages.MESSAGE_ADD_COMMAND_INVALID_FORMAT);
         }
     }
 
