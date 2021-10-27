@@ -1,6 +1,36 @@
 
 # Developer Guide
 
+The aim of this guide is to help the reader to understand how the system and components of Fitbot is
+designed, implemented and tested. In the same time, this developer guide also serves to help developers who are interested in understanding the architecture
+of Fitbot and some design considerations.
+[Don't know about Fitbot? Click here to find more.](#https://ay2122s1-cs2113t-f14-2.github.io/tp/UserGuide.html)
+
+## Content page
+[Acknowledgements](#acknowledgements)
+
+[Design](#design)
+- [Architecture](#architecture)
+- [Data Component (Profile)](#data-component-profile)
+- [Data Component (ItemBank and Item)](#data-component-itembank-and-item)
+  - [ItemBank](#itembank-class)
+  - [Item](#item-class)
+- [Logic Component](#logic-component)
+- [Storage Component](#storage-component)
+- [Implementation](#implementation)
+   - [Add Food Item Feature](#proposed-add-a-food-item-feature)
+   - [Design Considerations](#design-considerations)
+- [Product Scope](#product-scope)
+   - [Target User Profile](#target-user-profile)
+   - [Value Proposition](#value-proposition)
+- [User Stories](#user-stories)
+- [Non-functional Requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Instruction for Manual Testing](#instructions-for-manual-testing)
+  - [Launch and Shut Down](#launch-and-shut-down)
+  - [Manipulating Data](#manipulating-data)
+  - [Saving Data](#saving-data)
+
 ## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
@@ -228,14 +258,17 @@ stage, the `AddFoodCommand` is successfully ended.
 
 #### Design considerations:
 
-The current data structure used in `FoodList` is [singly Linked List](#_singly-linked-list_), which required O(n<sup>2</sup>) to ensure that
-the list is sorted according to date and time. The rationale of choosing linked list is because it allows sizable array
-implementation. In the future increment, to increase the code efficiency, the data structure is considered to change to 
-[Priority Queue](#_priority-queue_) to achieve O(nlogn) addition.
+The current data structure used in `FoodList` is [Array List](#_array-list_). The rationale of choosing an array list implementation is because
+it supports resizability and random accessibility. However, the drawback of such an array list is that sorting requires 
+O(n<sup>2</sup>), which slows down the code efficiency. In the future increment, alternative data structures such as
+[Priority Queue](#_priority-queue_) and [Min Heap](#min-heap) can be implemented to achieve O(logn) addition and they are
+naturally sorted and thus no additional sorting required.
 
-The same reasoning for the class `ItemBank`, which is the superclass of `FoodList` and `ExerciseList`, the data structure
-used is also a [singly Linked List](#_singly-linked-list_). In the future increment, since the `ItemBank` need to perform query operation in an efficient
-way, the data structure of the attribute will be changed to HashMap to achieve O(1) query time.  
+The same reasoning for the class `ItemBank`, which is the superclass of `FoodList` and `ExerciseList`,the current implementation
+data structure is also an [Array List](#_array-list_). In the future increment, since the `ItemBank` need to perform query 
+operation frequently and the items inside need to be sorted alphabetically, the data structure of the attribute will be changed 
+to [TreeMap](#tree-map) to achieve O(1) query time.
+
 <p align="center" width="100%">
   <img width="60%" src="images/ItemBankCodeSnippet.png" alt="Item Bank Code Snippet"/>
 </p>
@@ -288,13 +321,23 @@ A class that cannot be created using constructor. Usually such class is a superc
 value if one tries to construct it.
 #### **_self invocation_**
 In UML sequence diagram, a method that does a calling to another of its own methods is called self-invocation. 
-#### **_singly linked list_**
-A linear data structure that behaves like an array except that the elements inside linked list is not store at a contiguous 
-location. In Java, linked list can be implemented using `ArrayList` in `Collection`.
+#### **_array list_**
+A linear data structure that inherits Java `List` implementation and `Array` implementation. It behaves like a normal array,
+except that it is resizable. Moreover, the amount of time taken for reallocation the elements when capacity grows is a constant
+time. In Java, array list can be implemented using `ArrayList` in `Collection`.
 #### **_priority queue_**
 An abstract data type similar to a regular queue or stack data structure in which elements in priority queue are ordered
 and have "priority" associated with each element. The priority can be defined by the coder. In the case of `FoodList`, the
 priority will be defined as earlier date and time will have higher priority.
+#### **_min heap_**
+The implementation of min heap is almost the same as priority queue, in which it is sorted according to some "priority" 
+constraint. In addition, a min heap can be modelled as a [binary tree](#https://en.wikipedia.org/wiki/Binary_tree) structure
+having all the parent nodes smaller or equal to its children nodes. 
+#### **_tree map_**
+A tree map is a combination of tree structure and hash map structure. In Java, tree map is implemented using a self-balancing
+[Red-Black tree](https://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/) structure and it is sorted according
+to the natural order of its keys. In the case of `ItemBank`, the key should be the String type of the `Item` description, 
+which will be sorted lexicographically. \
 (more coming in the future...)
 ## Instructions for manual testing
 
