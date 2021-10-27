@@ -20,7 +20,7 @@ public class AddFoodCommand extends Command {
             + CommandMessages.INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_FOOD_CALORIES =
             "Food calories cannot be less than 0" + CommandMessages.LS
-            + "Try a positive value instead";
+                    + "Try a positive value instead";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD,
             COMMAND_PREFIX_CALORIES,
