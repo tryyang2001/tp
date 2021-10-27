@@ -7,20 +7,14 @@ import seedu.duke.ui.Statistics;
  */
 public class OverviewCommand extends Command {
     public static final String COMMAND_WORD = "overview";
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD + CommandMessages.QUOTATION;
-    public static final String MESSAGE_SUCCESS = "This is an overview of your day:"
-            + CommandMessages.INDENTED_LS + "Calories consumed: %1$d calories"
-            + CommandMessages.INDENTED_LS + "Calories burnt: %2$d calories"
-            + CommandMessages.INDENTED_LS + "Net calories: %3$d calories"
-            + CommandMessages.LS + "%4$s";
-  
+    public static final String MESSAGE_COMMAND_FORMAT =
+            CommandMessages.QUOTATION + COMMAND_WORD + CommandMessages.QUOTATION;
     protected Statistics statistics;
 
-    
 
     @Override
     public CommandResult execute() {
-        statistics = new Statistics(super.foodItems,super.exerciseItems, super.profile);
+        statistics = new Statistics(super.foodItems, super.exerciseItems, super.profile);
         return new CommandResult(this.statistics.overviewSummary());
     }
 }

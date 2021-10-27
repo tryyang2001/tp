@@ -55,7 +55,8 @@ public class DeleteExerciseBankCommand extends Command {
             if (super.exerciseBank.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
-            return new CommandResult(String.format(CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS, super.exerciseBank.getSize()));
+            return new CommandResult(String.format(
+                    CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS, super.exerciseBank.getSize()));
         }
     }
 }

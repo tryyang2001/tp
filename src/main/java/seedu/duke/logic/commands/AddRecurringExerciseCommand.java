@@ -91,8 +91,8 @@ public class AddRecurringExerciseCommand extends Command {
                 return new CommandResult(String.format(MESSAGE_NO_EXERCISE_ADDED, this.startDate, this.endDate));
             }
         }
-            logger.log(Level.FINE, "Recurring Exercise is successfully added");
-            return new CommandResult(MESSAGE_SUCCESS);
+        logger.log(Level.FINE, "Recurring Exercise is successfully added");
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }
 

@@ -18,7 +18,8 @@ public class AddFoodCommand extends Command {
             + " " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_DELIMITER + "time" + CommandMessages.QUOTATION;
     public static final String MESSAGE_SUCCESS = "A food item has been added:"
             + CommandMessages.INDENTED_LS + "%s";
-    public static final String MESSAGE_INVALID_FOOD_CALORIES = "Food calories cannot be less than 0" + CommandMessages.LS
+    public static final String MESSAGE_INVALID_FOOD_CALORIES =
+            "Food calories cannot be less than 0" + CommandMessages.LS
             + "Try a positive value instead";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD,

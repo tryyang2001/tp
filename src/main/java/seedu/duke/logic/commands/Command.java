@@ -48,9 +48,6 @@ public abstract class Command {
     public static final LocalDate NULL_DATE = LocalDate.MIN;
 
 
-
-
-
     protected Profile profile;
     protected ExerciseList exerciseItems;
     protected FoodList foodItems;
@@ -154,9 +151,6 @@ public abstract class Command {
                 || command instanceof DeleteExerciseBankCommand
                 || command instanceof EditExerciseBankCommand;
     }
-
-
-
 
 
 }

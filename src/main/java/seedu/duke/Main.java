@@ -23,7 +23,6 @@ import java.time.LocalDate;
 public class Main {
 
 
-
     private ExerciseList exerciseItems;
     private FutureExerciseList futureExerciseItems;
     private FoodList foodItems;
@@ -54,7 +53,7 @@ public class Main {
     }
 
     private void checkAndCreateProfile() {
-        this.profile = new StartState(profile,storageManager,ui).checkAndCreateProfile();
+        this.profile = new StartState(profile, storageManager, ui).checkAndCreateProfile();
     }
 
     /**

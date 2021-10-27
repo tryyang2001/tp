@@ -18,7 +18,8 @@ public class AddExerciseBankCommand extends Command {
     public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
             + CommandMessages.LS + "Try a positive value instead";
     public static final String MESSAGE_EXERCISE_ALREADY_EXISTS = "The exercise with name "
-            + CommandMessages.QUOTATION + "%s" + CommandMessages.QUOTATION + " already exists in the exercise bank! (Names are case insensitive)"
+            + CommandMessages.QUOTATION + "%s" + CommandMessages.QUOTATION
+            + " already exists in the exercise bank! (Names are case insensitive)"
             + CommandMessages.LS + "Try using another name, or delete/edit the existing item first!";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_EXERCISE_BANK,

@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 public class EditFutureExerciseCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_EDIT
             + " " + COMMAND_PREFIX_UPCOMING_EXERCISE + COMMAND_PREFIX_DELIMITER + "W "
-            + COMMAND_PREFIX_NAME  + COMMAND_PREFIX_DELIMITER + "X "
+            + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "X "
             + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "Y "
             + COMMAND_PREFIX_DATE + COMMAND_PREFIX_DELIMITER + "Z" + CommandMessages.QUOTATION
             + ", where W is the item number in the future exercise list, X is the new name,"

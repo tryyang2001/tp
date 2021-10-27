@@ -36,15 +36,15 @@ public class CommandMessages {
             Command.COMMAND_PREFIX_RECURRING + Command.COMMAND_PREFIX_DELIMITER + LONG_SPACE + "recurring exercise";
     public static final String MESSAGE_ADD_COMMAND_INVALID_FORMAT =
             "Oops! Invalid format! Trying to add to your lists?" + LS
-            + "Type " + QUOTATION + Command.COMMAND_WORD_ADD + QUOTATION
-            + " followed by one of the following prefixes:" + LS + INDENTED_LS
-            + MESSAGE_EXERCISE_LIST_FORMAT + INDENTED_LS
-            + MESSAGE_FOOD_LIST_FORMAT + INDENTED_LS
-            + MESSAGE_EXERCISE_BANK_FORMAT + INDENTED_LS
-            + MESSAGE_FOOD_BANK_FORMAT + INDENTED_LS
-            + MESSAGE_RECURRING_EXERCISE_FORMAT + LS + LS
-            + "Type " + QUOTATION + HelpCommand.COMMAND_WORD + QUOTATION
-            + " if you need more details on how to add to each list!";
+                    + "Type " + QUOTATION + Command.COMMAND_WORD_ADD + QUOTATION
+                    + " followed by one of the following prefixes:" + LS + INDENTED_LS
+                    + MESSAGE_EXERCISE_LIST_FORMAT + INDENTED_LS
+                    + MESSAGE_FOOD_LIST_FORMAT + INDENTED_LS
+                    + MESSAGE_EXERCISE_BANK_FORMAT + INDENTED_LS
+                    + MESSAGE_FOOD_BANK_FORMAT + INDENTED_LS
+                    + MESSAGE_RECURRING_EXERCISE_FORMAT + LS + LS
+                    + "Type " + QUOTATION + HelpCommand.COMMAND_WORD + QUOTATION
+                    + " if you need more details on how to add to each list!";
     public static final String MESSAGE_DELETE_COMMAND_INVALID_FORMAT =
             "Oops! Invalid format! Trying to delete from your lists?" + LS
                     + "Type " + QUOTATION + Command.COMMAND_WORD_DELETE + QUOTATION
@@ -58,14 +58,14 @@ public class CommandMessages {
                     + " if you need more details on how to delete from each list!";
     public static final String MESSAGE_VIEW_COMMAND_INVALID_FORMAT =
             "Oops! Invalid format! Trying to view your lists?" + LS
-            + "Type " + QUOTATION + Command.COMMAND_WORD_VIEW + QUOTATION
-            + " followed by one of the following prefixes:" + LS + INDENTED_LS
-            + MESSAGE_EXERCISE_LIST_FORMAT + INDENTED_LS
-            + MESSAGE_FOOD_LIST_FORMAT + INDENTED_LS
-            + MESSAGE_EXERCISE_BANK_FORMAT + INDENTED_LS
-            + MESSAGE_FOOD_BANK_FORMAT + INDENTED_LS
-            + MESSAGE_UPCOMING_EXERCISE_LIST_FORMAT + LS + LS
-            + "E.G: view e/";
+                    + "Type " + QUOTATION + Command.COMMAND_WORD_VIEW + QUOTATION
+                    + " followed by one of the following prefixes:" + LS + INDENTED_LS
+                    + MESSAGE_EXERCISE_LIST_FORMAT + INDENTED_LS
+                    + MESSAGE_FOOD_LIST_FORMAT + INDENTED_LS
+                    + MESSAGE_EXERCISE_BANK_FORMAT + INDENTED_LS
+                    + MESSAGE_FOOD_BANK_FORMAT + INDENTED_LS
+                    + MESSAGE_UPCOMING_EXERCISE_LIST_FORMAT + LS + LS
+                    + "E.G: view e/";
     public static final String MESSAGE_EDIT_COMMAND_INVALID_FORMAT =
             "Oops! Invalid format! Trying to edit your lists?" + LS
                     + "Type " + QUOTATION + Command.COMMAND_WORD_EDIT + QUOTATION
@@ -76,15 +76,15 @@ public class CommandMessages {
                     + "Type " + QUOTATION + HelpCommand.COMMAND_WORD + QUOTATION
                     + " if you need more details on how to edit each list!";
     public static final String MESSAGE_ITEM_NAME_FORMAT =
-            Command.COMMAND_PREFIX_NAME + Command.COMMAND_PREFIX_DELIMITER + LONG_SPACE  + "name";
+            Command.COMMAND_PREFIX_NAME + Command.COMMAND_PREFIX_DELIMITER + LONG_SPACE + "name";
     public static final String MESSAGE_ITEM_CALORIES_FORMAT =
-            Command.COMMAND_PREFIX_CALORIES + Command.COMMAND_PREFIX_DELIMITER + LONG_SPACE  + "calories";
+            Command.COMMAND_PREFIX_CALORIES + Command.COMMAND_PREFIX_DELIMITER + LONG_SPACE + "calories";
     public static final String MESSAGE_ITEM_DATE_FORMAT =
-            Command.COMMAND_PREFIX_DATE + Command.COMMAND_PREFIX_DELIMITER + LONG_SPACE  + "date (DD-MM-YYYY)";
+            Command.COMMAND_PREFIX_DATE + Command.COMMAND_PREFIX_DELIMITER + LONG_SPACE + "date (DD-MM-YYYY)";
     public static final String MESSAGE_EDIT_BANK_NEED_DETAILS =
             "Please specify what you wish to change about this item using the following prefixes:" + INDENTED_LS
-            + MESSAGE_ITEM_NAME_FORMAT + INDENTED_LS
-            + MESSAGE_ITEM_CALORIES_FORMAT;
+                    + MESSAGE_ITEM_NAME_FORMAT + INDENTED_LS
+                    + MESSAGE_ITEM_CALORIES_FORMAT;
     public static final String MESSAGE_EDIT_UPCOMING_EXERCISE_LIST_NEED_DETAILS =
             "Please specify what you wish to change about this item using the following prefixes:" + INDENTED_LS
                     + MESSAGE_ITEM_NAME_FORMAT + INDENTED_LS

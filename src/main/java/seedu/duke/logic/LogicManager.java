@@ -27,7 +27,8 @@ public class LogicManager {
     final FutureExerciseList futureExerciseList;
 
 
-    public LogicManager(StorageManager storageManager, Profile profile, ExerciseList exerciseList, FoodList foodList, ItemBank exerciseBank,
+    public LogicManager(StorageManager storageManager,
+                        Profile profile, ExerciseList exerciseList, FoodList foodList, ItemBank exerciseBank,
                         ItemBank foodBank, FutureExerciseList futureExerciseList) {
         this.parserManager = new ParserManager();
         this.storageManager = storageManager;
