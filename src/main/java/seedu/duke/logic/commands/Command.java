@@ -78,7 +78,6 @@ public abstract class Command {
      */
     public abstract CommandResult execute();
 
-
     /**
      * Provides the necessary data structures for the command to operate on.
      */

@@ -43,7 +43,7 @@ public class HelpCommand extends Command {
             + "profile is used to view the current profile attributes" + LS
             + FORMAT_HEADER + ProfileUpdateCommand.MESSAGE_COMMAND_FORMAT + LS;
     private static final String MESSAGE_HELP_VIEW = "view -- Views all the food and/or exercises added." + LS
-            + FORMAT_HEADER + ViewCommand.MESSAGE_COMMAND_FORMAT + LS
+            + FORMAT_HEADER
             + FORMAT_PLACEHOLDER + ViewExerciseBankCommand.MESSAGE_COMMAND_FORMAT + LS
             + FORMAT_PLACEHOLDER + ViewExerciseListCommand.MESSAGE_COMMAND_FORMAT + LS
             + FORMAT_PLACEHOLDER + ViewFoodBankCommand.MESSAGE_COMMAND_FORMAT + LS

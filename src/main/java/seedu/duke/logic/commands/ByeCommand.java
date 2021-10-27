@@ -12,7 +12,9 @@ public class ByeCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new CommandResult(MESSAGE_SUCCESS);
+        CommandResult result = new CommandResult(MESSAGE_SUCCESS);
+        result.setBye(true);
+        return result;
     }
 
     /**
