@@ -2,11 +2,11 @@
 !include Style.puml
 'https://plantuml.com/class-diagram
 hide circle
-class Main MAIN_COLOUR
+class Main #line.bold
 class FoodList DATA_COLOUR
 class ItemBank DATA_COLOUR
 class Profile DATA_COLOUR
-class  "        Ui        "  as Ui
+class  "        Ui        " as Ui
 class StorageManager STORAGE_COLOUR
 
 
@@ -19,7 +19,7 @@ Profile "1" <-- Main: contains <
 Ui "1" <-- Main : formats output <
 StorageManager "1" <-- Main : retrieves <
 
-class Main {
+class Main MAIN_COLOUR {
 start()
 checkAndCreateProfile()
 loadsFutureExercisesToList()
@@ -27,19 +27,19 @@ enterTaskModeUntilByeCommand()
 exit()
 }
 
-class FoodList {
+class FoodList DATA_COLOUR{
 'internalItems:ArrayList<Food>
 }
 
 
-class ExerciseList{
+class ExerciseList DATA_COLOUR{
 'internalItems:ArrayList<Exercise>
 }
-class FutureExerciseList{
+class FutureExerciseList DATA_COLOUR{
 'internalItems:ArrayList<Exercise>
 }
 
-class Profile{
+class Profile DATA_COLOUR{
 'name:Name
 'height:Height
 'weight:Weight
@@ -49,11 +49,11 @@ class Profile{
 'activityFactor:ActivityFactor
 }
 
-class ItemBank{
+class ItemBank DATA_COLOUR{
 'internalItems:ArrayList<Item>
 }
 
-class StorageManager {
+class StorageManager STORAGE_COLOUR{
 'profileStorage:ProfileStorage
 'exerciseListStorage:ExerciseListStorage
 'foodListStorage:FoodListStorage
@@ -61,6 +61,8 @@ class StorageManager {
 'foodBankStorage:FoodBankStorage
 'exerciseBankStorage:ExerciseBankStorage
 }
+
+class Ui UI_COLOUR
 
 
 @enduml
