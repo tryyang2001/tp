@@ -1,5 +1,6 @@
 package seedu.duke.storage;
 
+import seedu.duke.data.DataManager;
 import seedu.duke.data.item.ItemBank;
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.data.item.exercise.FutureExerciseList;
@@ -39,13 +40,37 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
     public static final String FILENAME_LIST_FUTURE = "future_list.txt";
     public static final String FILEPATH_LIST_FUTURE = FILEPATH + FILENAME_LIST_FUTURE;
 
-    private final ProfileStorage profileStorage = new ProfileStorage(FILEPATH_PROFILE);
-    private final ExerciseListStorage exerciseListStorage = new ExerciseListStorage(FILEPATH_LIST_EXERCISE);
-    private final FoodListStorage foodListStorage = new FoodListStorage(FILEPATH_LIST_FOOD);
-    private final FutureExerciseListStorage futureExerciseListStorage =
-            new FutureExerciseListStorage(FILEPATH_LIST_FUTURE);
-    private final FoodBankStorage foodBankStorage = new FoodBankStorage(FILEPATH_BANK_FOOD);
-    private final ExerciseBankStorage exerciseBankStorage = new ExerciseBankStorage(FILEPATH_BANK_EXERCISE);
+    private ProfileStorage profileStorage;
+    private ExerciseListStorage exerciseListStorage;
+    private FoodListStorage foodListStorage;
+    private FutureExerciseListStorage futureExerciseListStorage;
+    private FoodBankStorage foodBankStorage;
+    private ExerciseBankStorage exerciseBankStorage;
+
+    public StorageManager() {
+        this.profileStorage = new ProfileStorage(FILEPATH_PROFILE);
+        this.exerciseListStorage = new ExerciseListStorage(FILEPATH_LIST_EXERCISE);
+        this.foodListStorage = new FoodListStorage(FILEPATH_LIST_FOOD);
+        this.futureExerciseListStorage = new FutureExerciseListStorage(FILEPATH_LIST_FUTURE);
+        this.foodBankStorage = new FoodBankStorage(FILEPATH_BANK_FOOD);
+        this.exerciseBankStorage = new ExerciseBankStorage(FILEPATH_BANK_EXERCISE);
+    }
+
+    /**
+     * Loads all the data into a DataManager object.
+     *
+     * @return DataManager containing items loaded from storage
+     * @throws UnableToReadFileException if loading of any files are unsuccessful
+     */
+    public DataManager loadAll() throws UnableToReadFileException {
+        return new DataManager(
+                loadExerciseList(),
+                loadFutureExerciseList(),
+                loadFoodList(),
+                loadExerciseBank(),
+                loadFoodBank(),
+                loadProfile());
+    }
 
     public void saveAll(Profile profile, ExerciseList exerciseList, FoodList foodList,
                         FutureExerciseList futureExerciseList, ItemBank foodBank,
@@ -58,7 +83,9 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
         saveExerciseBank(exerciseBank);
     }
 
-    // =================== Profile Methods =======================
+
+    //=================== Profile Methods =======================
+
     @Override
     public Profile loadProfile() throws UnableToReadFileException {
         return profileStorage.loadProfile();
@@ -69,7 +96,8 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
         profileStorage.saveProfile(profile);
     }
 
-    // =================== ExerciseList Methods ==================
+    //=================== ExerciseList Methods ==================
+
     @Override
     public ExerciseList loadExerciseList() throws UnableToReadFileException {
         return exerciseListStorage.loadExerciseList();
@@ -80,7 +108,8 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
         exerciseListStorage.saveExerciseList(exerciseList);
     }
 
-    // ================= FutureExerciseList Methods ==============
+    //================= FutureExerciseList Methods ==============
+
     @Override
     public FutureExerciseList loadFutureExerciseList() throws UnableToReadFileException {
         return futureExerciseListStorage.loadFutureExerciseList();
@@ -91,7 +120,8 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
         futureExerciseListStorage.saveFutureExerciseList(futureExerciseList);
     }
 
-    // ===================== FoodList Methods ====================
+    //===================== FoodList Methods ====================
+
     @Override
     public FoodList loadFoodList() throws UnableToReadFileException {
         return foodListStorage.loadFoodList();
@@ -102,16 +132,20 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
         foodListStorage.saveFoodList(foodList);
     }
 
-    // ================= ExerciseBank Methods ====================
+    //================= ExerciseBank Methods ====================
+
+    @Override
     public ItemBank loadExerciseBank() throws UnableToReadFileException {
         return exerciseBankStorage.loadExerciseBank();
     }
 
+    @Override
     public void saveExerciseBank(ItemBank exerciseBank) throws UnableToWriteFileException {
         exerciseBankStorage.saveExerciseBank(exerciseBank);
     }
 
-    // ===================== FoodBank Methods ====================
+    //===================== FoodBank Methods ====================
+
     @Override
     public ItemBank loadFoodBank() throws UnableToReadFileException {
         return foodBankStorage.loadFoodBank();
