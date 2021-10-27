@@ -161,11 +161,52 @@ of the item bank can be found at [here](#add-a-food-item-to-foodbank).\
 
 ❗ Please do not use the characters `/` and `|` in your input other than to specify parameters!
 
-### 4.1 **View help:** `help`
+### 4.1 Customizing your profile:
 
-This command shows a list of commands recognised by _Fitbot_ and their usage.
+You can customize your profile with the following steps.
 
-Format: `help`
+#### 4.1.1 Setting up your profile
+
+Refer to [2. Set Up Profile](#2-set-up-profile) to set up your profile.
+
+#### 4.1.2 Viewing profile: `profile`
+
+Typing `profile` lets you view your name, height, weight, gender, age, calorie goal and activity factor.
+
+Example:
+
+```text
+profile 
+__________________________________________________________________________________________________________ 
+Hello hi! This is your profile: 
+*====================================== 
+	Name 				Lisa 
+	Height 				159cm 
+	Weight 				50.0kg 
+	Gender 				F 
+	Age 				21 
+	Calories goal 		1500 cal 
+	Activity factor 	2 
+======================================* 
+__________________________________________________________________________________________________________ 
+```
+#### 4.1.3 Updating profile attributes 
+
+Change your profile attributes with the following command: \
+`profile {n/NAME} {h/HEIGHT} {w/WEIGHT} {s/GENDER} {a/AGE} {g/CALORIE_GOAL} {x/ACTIVITY_FACTOR}` \
+\
+where : \
+\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; h/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; height in cm \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; w/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weight in kg \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; age \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; g/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; calorie goal \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gender (M or F) \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; activity factor (1: Sedentary - 5: Extremely Active)
+
+where you will require at least 1 of the optional parameters (in no particular order) to change your attribute!
+
 
 
 ### 4.2 Recording your food consumption
