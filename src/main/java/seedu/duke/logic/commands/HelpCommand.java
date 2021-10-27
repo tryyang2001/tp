@@ -8,6 +8,7 @@ import static seedu.duke.logic.commands.CommandMessages.LS;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
+    public static final String MESSAGE_ADD_HELP = "add -- Add food or exercise record to the current list.";
     private static final String MESSAGE_HELP_INTRO = "Welcome to the help page." + LS
             + "Below are the commands to get you started." + LS
             + "More details could be found on: " + LS
@@ -17,6 +18,9 @@ public class HelpCommand extends Command {
     private static final String EMPTY = "";
     public static final String MESSAGE_COMMAND_FORMAT =
             CommandMessages.QUOTATION + COMMAND_WORD + CommandMessages.QUOTATION;
+    public static final String MESSAGE_DELETE_HELP = "delete -- Delete entry of food or exercise added from a list.";
+    public static final String MESSAGE_EDIT_HELP = "edit -- Edit entry of food or exercise added from a list.";
+    public static final String MESSAGE_VIEW_HELP = "view -- View all the food and/or exercises added.";
     //TODO: --------------------------------------------deprecated---------------------------------------.
 
     //    public static final String FORMAT_HEADER = "Format: ";
@@ -214,27 +218,18 @@ public class HelpCommand extends Command {
         StringBuilder helpMessage = new StringBuilder(EMPTY);// need to include the format later
         helpMessage.append(MESSAGE_HELP_INTRO).append(LS).append(LS)
                 .append(MESSAGE_COMMON_NOTATIONS).append(LS).append(LS)
-                //TODO append the completed add messages format.
-                .append("add -- Add food or exercise record to the current list.").append(LS)
+                .append(MESSAGE_ADD_HELP).append(LS)
                 .append(add).append(LS).append(LS)
-                //TODO: append bmi
                 .append(bmi).append(LS)
-                //TODO: append bye
                 .append(bye).append(LS).append(LS)
-                //TODO append delete
-                .append("delete -- Delete entry of food or exercise added from a list.").append(LS)
+                .append(MESSAGE_DELETE_HELP).append(LS)
                 .append(delete).append(LS).append(LS)
-                //TODO append edit
-                .append("edit -- Edit entry of food or exercise added from a list.").append(LS)
+                .append(MESSAGE_EDIT_HELP).append(LS)
                 .append(edit).append(LS)
-                //TODO append help
                 .append(help).append(LS)
-                //TODO append profile
                 .append(profile).append(LS)
-                //TODO append overview
                 .append(overview).append(LS).append(LS)
-                //TODO append view
-                .append("view -- View all the food and/or exercises added.").append(LS)
+                .append(MESSAGE_VIEW_HELP).append(LS)
                 .append(view).append(LS);
 
         return helpMessage.toString().trim();
