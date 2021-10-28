@@ -51,7 +51,7 @@ public class DeleteFoodCommand extends Command {
         }
         assert this.itemIndex > 0 : "Deleting an object only";
         if (super.foodItems.getSize() == 0) {
-            logger.log(Level.WARNING, "Food list is empty.");
+            logger.log(Level.FINE, "Food list is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_FOOD_LIST);
         }
         logger.log(Level.FINE, "Trying to delete item now");
@@ -62,9 +62,6 @@ public class DeleteFoodCommand extends Command {
                     deletedFood.toStringWithDate()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.FINE, "Detected invalid food item index.");
-            if (super.foodItems.getSize() == 1) {
-                return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
-            }
             return new CommandResult(String.format(CommandMessages.MESSAGE_FOOD_NOT_FOUND,
                     this.itemIndex + 1,
                     this.date.format(CommandMessages.DATE_FORMATTER),

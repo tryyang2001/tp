@@ -47,7 +47,7 @@ public class AddFoodCommand extends Command {
             }
         } else {
             if (this.calories < 0) {
-                logger.log(Level.WARNING, "Detected negative food calorie");
+                logger.log(Level.FINE, "Detected negative food calorie");
                 return new CommandResult(CommandMessages.MESSAGE_INVALID_FOOD_CALORIES);
             }
         }
