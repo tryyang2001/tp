@@ -1,6 +1,7 @@
 package seedu.duke.logic.parser;
 
 import seedu.duke.logic.commands.Command;
+import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.InvalidCommand;
 import seedu.duke.logic.commands.ProfileCommand;
 import seedu.duke.logic.commands.ProfileUpdateCommand;
@@ -16,10 +17,8 @@ public class UpdateProfileParser implements Parser {
             return new ProfileCommand();
         }
 
-        //TODO: Test profile again after storage has been updated
-
         if (ParserUtils.getNumberOfCorrectParamsDetected(params, ProfileUpdateCommand.EXPECTED_PREFIXES) == 0) {
-            return new InvalidCommand(ProfileUpdateCommand.MESSAGE_INVALID_COMMAND_FORMAT);
+            return new InvalidCommand(CommandMessages.MESSAGE_PROFILE_COMMAND_INVALID_FORMAT);
         }
 
         if (ParserUtils.hasExtraDelimiters(

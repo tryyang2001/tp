@@ -7,8 +7,6 @@ import seedu.duke.ui.Statistics;
  */
 public class OverviewCommand extends Command {
     public static final String COMMAND_WORD = "overview";
-    public static final String MESSAGE_COMMAND_FORMAT =
-            CommandMessages.QUOTATION + COMMAND_WORD + CommandMessages.QUOTATION;
     protected Statistics statistics;
 
 

@@ -89,7 +89,7 @@ public class Statistics {
         int exerciseCalories = exerciseItems.getTotalCaloriesWithDate(date);
         int calorieGoal = profile.getProfileCalorieGoal().getCalorieGoal();
         logger.log(Level.FINE, String.valueOf(calorieGoal));
-        String[] messages = getCaloriesReport(foodCalories, exerciseCalories, calorieGoal);
+        String[] messages = getCaloriesReport(exerciseCalories, foodCalories, calorieGoal);
         StringBuilder currentDayOverview = new StringBuilder(MESSAGE_DAILY_OVERVIEW);
         for (String message : messages) {
             currentDayOverview.append(message).append(Ui.LS);

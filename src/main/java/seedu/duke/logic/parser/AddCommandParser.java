@@ -15,6 +15,7 @@ import seedu.duke.logic.parser.exceptions.ParamMissingException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
  */
 public class AddCommandParser implements Parser {
 
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMM yyyy");
     protected static final Logger logger = Logger.getLogger(AddCommandParser.class.getName());
 
     @Override
@@ -58,28 +60,34 @@ public class AddCommandParser implements Parser {
                 calories = ParserUtils.extractItemCalories(params, true);
             } catch (ParamMissingException e) {
                 isCaloriesFromBank = true; //signals to Command class to check for calories from the item bank
-                logger.log(Level.INFO, "No calories detected, to try checking from item bank");
+                logger.log(Level.FINE, "No calories detected, to try checking from item bank");
             }
 
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_EXERCISE:
                 final LocalDate date = ParserUtils.extractDate(params, false);
-                logger.log(Level.INFO, String.format("date detected is: %s", date));
+                logger.log(Level.FINE, String.format("date detected is: %s", date));
                 if (ParserUtils.hasExtraDelimiters(params, AddExerciseCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+                } else if (ParserUtils.isSevenDaysBeforeToday(date)) {
+                    return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
+                            LocalDate.now().minusDays(7).format(DATE_FORMAT),
+                            LocalDate.now().format(DATE_FORMAT)));
                 }
                 if (ParserUtils.isFutureDate(date)) {
-                    logger.log(Level.INFO, String.format("adding to future list"));
+                    logger.log(Level.FINE, String.format("adding to future list"));
                     return new AddFutureExerciseCommand(description, calories, date, isCaloriesFromBank);
                 }
                 return new AddExerciseCommand(description, calories, date, isCaloriesFromBank);
             case Command.COMMAND_PREFIX_FOOD:
                 final LocalDateTime dateTime = ParserUtils.extractDateTime(params);
-                logger.log(Level.INFO, String.format("dateTime detected is: %s", dateTime));
+                logger.log(Level.FINE, String.format("dateTime detected is: %s", dateTime));
                 if (ParserUtils.hasExtraDelimiters(params, AddFoodCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                } else if (dateTime.toLocalDate().isBefore(LocalDate.now().minusDays(8))) {
-                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD);
+                } else if (ParserUtils.isSevenDaysBeforeToday(dateTime.toLocalDate())) {
+                    return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
+                            LocalDate.now().minusDays(7).format(DATE_FORMAT),
+                            LocalDate.now().format(DATE_FORMAT)));
                 }
                 return new AddFoodCommand(description, calories, dateTime, isCaloriesFromBank);
             case Command.COMMAND_PREFIX_RECURRING:

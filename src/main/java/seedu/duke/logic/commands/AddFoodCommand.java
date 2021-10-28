@@ -11,16 +11,8 @@ import java.util.logging.Logger;
  * Represents the command that when executed, adds a Food item to the FoodList.
  */
 public class AddFoodCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_ADD
-            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "food name"
-            + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories"
-            + " " + COMMAND_PREFIX_DATE + COMMAND_PREFIX_DELIMITER + "date"
-            + " " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_DELIMITER + "time" + CommandMessages.QUOTATION;
     public static final String MESSAGE_SUCCESS = "A food item has been added:"
             + CommandMessages.INDENTED_LS + "%s";
-    public static final String MESSAGE_INVALID_FOOD_CALORIES =
-            "Food calories cannot be less than 0" + CommandMessages.LS
-            + "Try a positive value instead";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD,
             COMMAND_PREFIX_CALORIES,
@@ -56,7 +48,7 @@ public class AddFoodCommand extends Command {
         } else {
             if (this.calories < 0) {
                 logger.log(Level.WARNING, "Detected negative food calorie");
-                return new CommandResult(MESSAGE_INVALID_FOOD_CALORIES);
+                return new CommandResult(CommandMessages.MESSAGE_INVALID_FOOD_CALORIES);
             }
         }
 

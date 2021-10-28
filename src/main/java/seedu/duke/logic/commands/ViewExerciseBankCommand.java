@@ -7,8 +7,6 @@ import java.util.logging.Logger;
  * Represents the command that when executed, lists all the items in the ExerciseBank.
  */
 public class ViewExerciseBankCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_VIEW
-            + " " + COMMAND_PREFIX_EXERCISE_BANK + COMMAND_PREFIX_DELIMITER + CommandMessages.QUOTATION;
     public static final String MESSAGE_SUCCESS = "You have %1$d exercise(s) in your exercise bank:"
             + CommandMessages.LS + "%2$s";
 

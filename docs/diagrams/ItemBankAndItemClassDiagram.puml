@@ -2,7 +2,11 @@
 'https://plantuml.com/class-diagram
 !include Style.puml
 hide circle
+<<<<<<< HEAD
+skinparam classAttributeIconSize 0
+=======
 hide methods
+>>>>>>> 83092670751ea3ce3345837c07acdf21a2d26a5a
 
 class ItemBank DATA_COLOUR
 class "{abstract}\nItemList" as ItemList DATA_COLOUR
@@ -29,14 +33,20 @@ class Exercise DATA_COLOUR {
 }
 
 enum "<<enumeration>>\nTimePeriod" as TimePeriod DATA_COLOUR {
-Morning, Afternoon,
-Evening, Night
+Morning,
+Afternoon,
+Evening,
+Night
 }
 
 Item <|-down- Food
 Item <|-down- Exercise
 Item "*" <-left- ItemBank: internalItems
+<<<<<<< HEAD
+TimePeriod "1" <-- Food : timePeriod\n\n\n
+=======
 TimePeriod "1" <-- Food : timePeriod\n\n
+>>>>>>> 83092670751ea3ce3345837c07acdf21a2d26a5a
 Item <.. ItemList
 Item <.. FoodList
 Item <.. ExerciseList

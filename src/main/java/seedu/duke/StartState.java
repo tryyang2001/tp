@@ -64,7 +64,7 @@ public class StartState {
      */
     public Profile checkAndCreateProfile() {
         if (profile.checkProfileComplete()) {
-            return profile;//check how to edit this
+            return profile;
         }
         if (profile.checkProfilePresent()) {
             assert !profile.checkProfileComplete() : "profile is incomplete";
@@ -133,7 +133,6 @@ public class StartState {
             }
         }
         this.profile = newProfile;
-        System.out.println(profile);
         try {
             storageManager.saveProfile(this.profile);
         } catch (UnableToWriteFileException e) {
