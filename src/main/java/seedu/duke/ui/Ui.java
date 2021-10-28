@@ -38,7 +38,7 @@ public class Ui {
             + "attributes are missing.\n"
             + "Please follow the guide below so that your profile can be complete.";
     public static final String MESSAGE_NEW_PROFILE = "Fitbot realised that your profile has not been created."
-            + " Let's start creating your profile now!";
+            + " Let's start creating a profile below!";
 
     private Scanner scanner;
 
