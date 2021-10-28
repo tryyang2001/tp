@@ -53,7 +53,7 @@ public class EditExerciseBankCommand extends Command {
                 item.setCalories(this.newCalories);
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
-                    super.exerciseBank.getItem(this.itemIndex).toStringWithoutTime()));
+                    super.exerciseBank.getItem(this.itemIndex).toStringWithoutDateAndTime()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid exercise bank item index.");
             if (super.exerciseBank.getSize() == 1) {
