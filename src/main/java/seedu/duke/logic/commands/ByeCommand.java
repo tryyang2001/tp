@@ -5,8 +5,6 @@ package seedu.duke.logic.commands;
  */
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
-    public static final String MESSAGE_COMMAND_FORMAT =
-            CommandMessages.QUOTATION + COMMAND_WORD + CommandMessages.QUOTATION;
     private static final String MESSAGE_SUCCESS = "Exiting Fitbot...." + CommandMessages.LS
             + "Bye! Hope to see you again soon!!";
 

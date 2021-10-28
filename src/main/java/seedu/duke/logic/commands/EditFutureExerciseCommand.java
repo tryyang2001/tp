@@ -1,23 +1,22 @@
 package seedu.duke.logic.commands;
 
 
+import seedu.duke.data.item.Item;
+
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//@@author xingjie99
+/**
+ * Represents the command that when executed, edits an item in the Future Exercise List.
+ */
 public class EditFutureExerciseCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_EDIT
-            + " " + COMMAND_PREFIX_UPCOMING_EXERCISE + COMMAND_PREFIX_DELIMITER + "W "
-            + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "X "
-            + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "Y "
-            + COMMAND_PREFIX_DATE + COMMAND_PREFIX_DELIMITER + "Z" + CommandMessages.QUOTATION
-            + ", where W is the item number in the future exercise list, X is the new name,"
-            + "Y is the new calories, Z is the new date";
-    public static final String MESSAGE_SUCCESS = "Exercise item number %d has been changed to:"
+    public static final String MESSAGE_SUCCESS = "Upcoming exercise item number %d has been changed to:"
             + CommandMessages.INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_DATE = "The new date must be after today's date!";
     public static final String[] EXPECTED_PREFIXES = {
-            COMMAND_PREFIX_EXERCISE_BANK,
+            COMMAND_PREFIX_UPCOMING_EXERCISE,
             COMMAND_PREFIX_NAME,
             COMMAND_PREFIX_CALORIES,
             COMMAND_PREFIX_DATE,
@@ -39,26 +38,30 @@ public class EditFutureExerciseCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (!this.newDate.isAfter(LocalDate.now())) {
-            return new CommandResult(MESSAGE_INVALID_DATE);
-        }
-
         if (super.futureExerciseItems.getSize() == 0) {
             logger.log(Level.WARNING, "Future exercise list is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_FUTURE_EXERCISE_LIST);
         }
         try {
+            Item item = super.futureExerciseItems.getItem(this.itemIndex);
             if (!this.newName.equals(NULL_STRING)) {
-                super.futureExerciseItems.getItem(this.itemIndex).setName(this.newName);
+                item.setName(this.newName);
             }
             if (this.newCalories != NULL_CALORIES) {
-                super.futureExerciseItems.getItem(this.itemIndex).setCalories(this.newCalories);
+                if (this.newCalories <= 0) {
+                    logger.log(Level.WARNING, "Exercise calorie is invalid");
+                    return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
+                }
+                item.setCalories(this.newCalories);
             }
-            if (!this.newName.equals(NULL_DATE)) {
-                super.futureExerciseItems.getItem(this.itemIndex).setDate(this.newDate);
+            if (!this.newDate.equals(NULL_DATE)) {
+                if (!this.newDate.isAfter(LocalDate.now())) {
+                    return new CommandResult(MESSAGE_INVALID_DATE);
+                }
+                item.setDate(this.newDate);
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
-                    super.futureExerciseItems.getItem(this.itemIndex).toString()));
+                    item.toString()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid exercise item index.");
             if (super.futureExerciseItems.getSize() == 1) {

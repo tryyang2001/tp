@@ -62,7 +62,7 @@ public class DeleteExerciseCommand extends Command {
             if (super.exerciseItems.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
-            return new CommandResult(String.format("Exercise item with index %d and date %s is not found in the exercise list!",
+            return new CommandResult(String.format(CommandMessages.MESSAGE_EXERCISE_NOT_FOUND,
                     this.itemIndex,
                     this.date));
         }

@@ -24,7 +24,7 @@ public class ParserMessages {
             + "greater than 0! E.g 1";
     protected static final String MESSAGE_ERROR_TOO_MANY_DELIMITERS = "Please do not use the character "
             + QUOTATION + Command.COMMAND_PREFIX_DELIMITER + QUOTATION
-            + " in your input other than to specify parameters!";
+            + " in your input other than to specify parameters relevant to this command!";
     protected static final String FILE_TEXT_DELIMITER = "|";
     protected static final String MESSAGE_ERROR_ILLEGAL_CHARACTER = "Please do not use the character "
             + QUOTATION + FILE_TEXT_DELIMITER + QUOTATION
@@ -61,7 +61,5 @@ public class ParserMessages {
             + "of reoccurrence and make sure that there is no repeated day!";
     protected static final int MONDAY = 1;
     protected static final int SUNDAY = 7;
-    protected static final String MESSAGE_ERROR_EDIT_NO_PARAMETERS = "Please input at least one detail to change "
-            + "about this item!";
     protected static final String MESSAGE_ERROR_ITEM_DATE_TOO_OLD = "Please input a date that is within %s to %s!";
 }

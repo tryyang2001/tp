@@ -261,6 +261,7 @@ public class ParserUtils {
         }
     }
 
+    //@@author xingjie99
     protected static LocalDate extractStartDate(String params)
             throws ParamInvalidException, ParamMissingException {
         try {
@@ -279,6 +280,7 @@ public class ParserUtils {
         }
     }
 
+    //@@author xingjie99
     protected static LocalDate extractEndDate(String params)
             throws ParamInvalidException, ParamMissingException {
         try {
@@ -296,6 +298,7 @@ public class ParserUtils {
             throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
         }
     }
+    //@@author
 
     protected static LocalDate extractDate(String params, boolean isRequired)
             throws ParamInvalidException, ParamMissingException {
@@ -349,6 +352,7 @@ public class ParserUtils {
         return date.atTime(time);
     }
 
+    //@@author xingjie99
     protected static ArrayList<Integer> extractDayOfTheWeek(String params)
             throws ParamMissingException, ParamInvalidException {
         ArrayList<Integer> dayOfTheWeek = new ArrayList<>();
@@ -378,6 +382,7 @@ public class ParserUtils {
         }
         return dayOfTheWeek;
     }
+    //@author
 
     protected static boolean isFutureDate(LocalDate date) {
         return date.isAfter(LocalDate.now());

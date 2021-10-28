@@ -21,13 +21,10 @@ public class ItemBank {
      * @throws DuplicateItemInBankException Throws this error when duplicate items are found
      */
     public void addItem(Item item) throws DuplicateItemInBankException {
-        try {
-            getCaloriesOfItemWithMatchingName(item.getName());
-            throw new DuplicateItemInBankException();
-        } catch (ItemNotFoundInBankException e) {
-            internalItems.add(item);
-        }
+        checkNoDuplicateItemName(item.getName());
+        internalItems.add(item);
     }
+
 
     /**
      * Returns item with the given index in the item bank.
@@ -97,5 +94,23 @@ public class ItemBank {
             throw new ItemNotFoundInBankException();
         }
         return matchingItem.getCalories();
+    }
+
+    /**
+     * Checks if there already exists an item in the bank with the same name as the input.
+     * Used before adding/editing items to/from the bank.
+     *
+     * @param inputName String to check against
+     * @throws DuplicateItemInBankException Throws this exception if there already exists an item in the bank with
+     *                                      the same name (case-insensitive).
+     */
+    public void checkNoDuplicateItemName(String inputName) throws DuplicateItemInBankException {
+        long numOfMatchingItems = internalItems
+                .stream()
+                .filter(item -> item.getName().equalsIgnoreCase(inputName))
+                .count();
+        if (numOfMatchingItems > 0) {
+            throw new DuplicateItemInBankException();
+        }
     }
 }

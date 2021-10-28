@@ -69,7 +69,7 @@ public class DeleteFoodCommand extends Command {
             if (super.foodItems.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
-            return new CommandResult(String.format(,
+            return new CommandResult(String.format(CommandMessages.MESSAGE_FOOD_NOT_FOUND,
                     this.itemIndex,
                     this.date,
                     this.time));
