@@ -46,7 +46,7 @@ Throughout this guide, we will be using some special formatting and symbols to b
   - [4.1.3 Updating Profile Attributes](#414-updating-profile-attributes)
   - [4.1.4 Calculating BMI `bmi`](414-calculating-bmi-bmi)
 - [4.2 Recording your food consumption](#42-recording-your-food-consumption)
-  - [4.2.1 Adding Food Items `add f/`](#421-adding-food-items) 
+  - [4.2.1 Adding Food Items `add f/`](#421-adding-food-items-add-f) 
   - [4.2.2 Viewing Food List `view f/`](#422-viewing-food-list-view-f)
   - [4.2.3 Deleting Food Items `delete f/`](#423-deleting-food-items-delete-f)
 - [4.3 Recording your exercises](#43-recording-your-exercises)
@@ -392,7 +392,6 @@ delete f/1 d/22-10-2021 t/1000
 __________________________________________________________________________________________________________
 A food item has been deleted:
 	donut x2 (607 cal) @ 10:00, 22 Oct 2021
-Number of food item(s) left: 6
 __________________________________________________________________________________________________________
 ```
 💡  **Tip:** If you wish to remove all the Food Items from the list, there is a shortcut command: `delete f/all`.
@@ -450,7 +449,7 @@ Example:
 ```text
 view e/
 __________________________________________________________________________________________________________
- Here is a summary of all the exercises you have done in the past week:
+Here is a summary of all the exercises you have done in the past week:
 ..........................................................................................................
 You have done 1 exercise(s) on Friday (22 Oct 2021):
 	1. biking (500 cal)
@@ -461,10 +460,10 @@ You have done 1 exercise(s) on Sunday (24 Oct 2021):
 Total calories burnt in the day: 290 cal
 ..........................................................................................................
 Total exercises done in this week: 2
-Total calorie burnt in the week: 790
+Total calorie burnt in the week: 790 cal
 __________________________________________________________________________________________________________
 ```
-ℹ️It is also possible to view all the Upcoming Exercises from the Upcoming Exercise List that you have added before. More
+ℹ️ It is also possible to view all the Upcoming Exercises from the Upcoming Exercise List that you have added before. More
 details can be found [here](#443-viewing-upcoming-exercise-list-view-u).
 
 #### 4.3.3 Deleting Exercises `delete e/`
@@ -480,8 +479,6 @@ delete e/1 d/24-10-2021
 __________________________________________________________________________________________________________
 You have removed the exercise:
     hiit (290 cal) @ 24 Oct 2021
-Number of exercise item(s) left: 1
-
 __________________________________________________________________________________________________________
 ```
 
@@ -794,12 +791,12 @@ _Fitbot_ needs to know your name to address you.
 
 
 | Action | Format | Examples |
-|---------|----------|-------|
+|--------|-------|----------|
 add|`add f/ITEM {c/CALORIE} {d/DD-MM-YYYY} {t/HHMM}` <br>`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` <br> `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK` <br>  `add fbank/ITEM c/CALORIES` <br>  `add ebank/ITEM c/CALORIES`| `add f/chicken rice c/607 d/20-10-2021`, <br>`add e/hiit c/290 d/23-10-2021` <br> `add r/handball training c/432 :/24-10-2021 -/11-11-2021 @/13` <br>  `add fbank/chicken rice c/667`<br> `add ebank/5km run c/478`
 bmi|`bmi h/HEIGHT_IN_CM w/WEIGHT_IN_KG` <br> `bmi`|`bmi h/170 w/65` , <br> `bmi`
 bye|`bye`|
 delete|`delete f/LIST_NO. d/DD-MM-YYYY t/HHMM` <br> `delete e/LIST_NO. d/DD-MM-YYYY` <br> `delete f/all` <br> `delete e/all` |`delete f/1`, <br> `delete e/2`, <br> `delete f/all`, <br>  `delete e/all`
-edit| `edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` <br> `edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` <br> `edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}`| `edit u/1 n/volleyball training c/560 d/24-10-2021` <br> `edit fbank/1 n/2.4km run c/267` <br> `edit ebank/1 n/chicken rice c/800`
+edit| `edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` <br> `edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` <br> `edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}`| `edit u/1 n/volleyball training c/560 d/24-10-2021`, <br> `edit fbank/1 n/2.4km run c/267`, <br> `edit ebank/1 n/chicken rice c/800`
 help | `help`|
 overview|`overview`|
 profile|`profile {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG} {n/NAME} {s/GENDER} {a/AGE} {g/CALORIE_IN_CAL} {x/ACTIVITY_FACTOR}` <br> `profile`|`profile h/170 w/65 n/John a/22 s/M g/500 x/2`, <br> `profile`

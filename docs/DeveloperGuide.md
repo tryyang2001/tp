@@ -391,20 +391,19 @@ Given below are some instructions that can be used to test the application manua
 
 ### Recording Food Items:
 
-#### Adding a new Food Item
-
 1. Adding a new Food Item when the Food List is empty:
-   - Prerequisite: Checks if the food list is empty using `view f/`. An output message showing that
+   1. Prerequisite: Checks if the food list is empty using `view f/`. An output message showing that
    the current food list is empty is expected.
-   - Test case: `add f/chicken rice c/607` \
+   2. Test case: `add f/chicken rice c/607` \
    Expected: New Food Item is added to the Food List. A message telling the user that a new food item has been added will show up. 
    The date and time are the date and time when the user call this command.
-   - Test case: `add f/chicken rice c/607 d/10-10-2021 t/1200` \
+   3. Test case: `add f/chicken rice c/607 d/10-10-2021 t/1200` \
    Expected: No Food Item is added to the Food List. A message will show up and tell the user that 
    the date must be within 7 days of today.
-   - (more test cases )
+   4. (more test cases )
+   
 2. Viewing a new Food Item:
-   - Test case: `view f/` when the Food List is empty\
+   1. Test case: `view f/` when the Food List is empty\
    Expected: No food item shown. 
 
 ### Launch and shut down
