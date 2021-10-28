@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class EditFutureExerciseCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Item number %d in upcoming exercises has been changed to:"
-            + CommandMessages.INDENTED_LS + "(%s %s)";
+            + CommandMessages.INDENTED_LS + "%s";
     public static final String MESSAGE_INVALID_DATE = "The new date must be after today's date!";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_UPCOMING_EXERCISE,
@@ -62,7 +62,7 @@ public class EditFutureExerciseCommand extends Command {
             }
             super.futureExerciseItems.sortList();
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
-                    item.toString()));
+                    item.toStringWithDate()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid exercise item index.");
             if (super.futureExerciseItems.getSize() == 1) {
