@@ -12,8 +12,8 @@ import java.util.logging.Logger;
  * Represents the command that when executed, edits an item in the Future Exercise List.
  */
 public class EditFutureExerciseCommand extends Command {
-    public static final String MESSAGE_SUCCESS = "Upcoming exercise item number %d has been changed to:"
-            + CommandMessages.INDENTED_LS + "%s";
+    public static final String MESSAGE_SUCCESS = "Item number %d in upcoming exercises has been changed to:"
+            + CommandMessages.INDENTED_LS + "(%s %s)";
     public static final String MESSAGE_INVALID_DATE = "The new date must be after today's date!";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_UPCOMING_EXERCISE,
@@ -60,6 +60,7 @@ public class EditFutureExerciseCommand extends Command {
                 }
                 item.setDate(this.newDate);
             }
+            super.futureExerciseItems.sortList();
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
                     item.toString()));
         } catch (IndexOutOfBoundsException e) {
