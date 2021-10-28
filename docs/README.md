@@ -1,7 +1,3 @@
----
-layout: page
-title: Fitbot
----
 
 ![Start Up Screen](./images/StartupLogo.png)
 
