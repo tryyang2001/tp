@@ -46,7 +46,7 @@ Throughout this guide, we will be using some special formatting and symbols to b
   - [4.1.3 Updating Profile Attributes](#414-updating-profile-attributes)
   - [4.1.4 Calculating BMI `bmi`](414-calculating-bmi-bmi)
 - [4.2 Recording your food consumption](#42-recording-your-food-consumption)
-  - [4.2.1 Adding Food Items `add f/`](#421-adding-food-items) 
+  - [4.2.1 Adding Food Items `add f/`](#421-adding-food-items-add-f) 
   - [4.2.2 Viewing Food List `view f/`](#422-viewing-food-list-view-f)
   - [4.2.3 Deleting Food Items `delete f/`](#423-deleting-food-items-delete-f)
 - [4.3 Recording your exercises](#43-recording-your-exercises)
@@ -391,7 +391,6 @@ delete f/1 d/22-10-2021 t/1000
 __________________________________________________________________________________________________________
 A food item has been deleted:
 	donut x2 (607 cal) @ 10:00, 22 Oct 2021
-Number of food item(s) left: 6
 __________________________________________________________________________________________________________
 ```
 💡  **Tip:** If you wish to remove all the Food Items from the list, there is a shortcut command: `delete f/all`.
@@ -449,7 +448,7 @@ Example:
 ```text
 view e/
 __________________________________________________________________________________________________________
- Here is a summary of all the exercises you have done in the past week:
+Here is a summary of all the exercises you have done in the past week:
 ..........................................................................................................
 You have done 1 exercise(s) on Friday (22 Oct 2021):
 	1. biking (500 cal)
@@ -460,10 +459,10 @@ You have done 1 exercise(s) on Sunday (24 Oct 2021):
 Total calories burnt in the day: 290 cal
 ..........................................................................................................
 Total exercises done in this week: 2
-Total calorie burnt in the week: 790
+Total calorie burnt in the week: 790 cal
 __________________________________________________________________________________________________________
 ```
-ℹ️It is also possible to view all the Upcoming Exercises from the Upcoming Exercise List that you have added before. More
+ℹ️ It is also possible to view all the Upcoming Exercises from the Upcoming Exercise List that you have added before. More
 details can be found [here](#443-viewing-upcoming-exercise-list-view-u).
 
 #### 4.3.3 Deleting Exercises `delete e/`
@@ -479,8 +478,6 @@ delete e/1 d/24-10-2021
 __________________________________________________________________________________________________________
 You have removed the exercise:
     hiit (290 cal) @ 24 Oct 2021
-Number of exercise item(s) left: 1
-
 __________________________________________________________________________________________________________
 ```
 
