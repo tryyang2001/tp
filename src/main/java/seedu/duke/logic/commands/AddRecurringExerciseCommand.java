@@ -50,7 +50,7 @@ public class AddRecurringExerciseCommand extends Command {
     @Override
     public CommandResult execute() {
         if (this.startDate.isAfter(this.endDate)) {
-            logger.log(Level.WARNING, "Start date is after end date");
+            logger.log(Level.FINE, "Start date is after end date");
             return new CommandResult(String.format(MESSAGE_INVALID_DATES, this.startDate, this.endDate));
         }
         if (isCaloriesFromBank) {
@@ -62,18 +62,18 @@ public class AddRecurringExerciseCommand extends Command {
             }
         } else {
             if (this.calories <= 0) {
-                logger.log(Level.WARNING, "Exercise calorie is invalid");
+                logger.log(Level.FINE, "Exercise calorie is invalid");
                 return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
             }
         }
         assert this.endDate.isAfter(this.startDate) : "End date is after start date";
         if (!this.startDate.isAfter(LocalDate.now())) {
-            logger.log(Level.WARNING, "Recurring exercises are for future only");
+            logger.log(Level.FINE, "Recurring exercises are for future only");
             return new CommandResult(String.format(MESSAGE_INVALID_FUTURE_DATES, this.startDate, this.endDate));
         }
         assert this.startDate.isAfter(LocalDate.now()) : "Start and end dates are in the future";
         if (this.calories <= 0) {
-            logger.log(Level.WARNING, "Exercise calorie is invalid");
+            logger.log(Level.FINE, "Exercise calorie is invalid");
             return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
         }
         assert this.calories > 0 : "Exercise calorie is valid";
