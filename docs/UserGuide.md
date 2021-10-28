@@ -1,5 +1,7 @@
-
-# Fitbot User Guide
+---
+layout: page
+title: User Guide
+---
 
 ## Introducing _Fitbot_
 _Fitbot_ is a **desktop app** that helps university students who are looking to
@@ -17,6 +19,7 @@ maximise your user experience.
 
 
 Throughout this guide, we will be using some special formatting and symbols to bring your attention to certain aspects:
+<div markdown="block" class="alert alert-info">
 
 **abc**: Text that has been **bolded** indicates that it is important. \
 `abc`: Text with a grey highlight indicates that it is a code that can be typed by you into the command line or shown from _Fitbot_.\
@@ -24,6 +27,7 @@ Throughout this guide, we will be using some special formatting and symbols to b
 ❗: This symbol indicates **important** rules to follow. Make sure you pay extra attention to the information, else _Fitbot_ will fail to execute certain functions! \
 💡: This symbol indicates tips and tricks that you can use to make your _Fitbot_ experience even smoother.
 
+</div>
 
 
 
