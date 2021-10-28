@@ -51,7 +51,9 @@ public class AddRecurringExerciseCommand extends Command {
     public CommandResult execute() {
         if (this.startDate.isAfter(this.endDate)) {
             logger.log(Level.FINE, "Start date is after end date");
-            return new CommandResult(String.format(MESSAGE_INVALID_DATES, this.startDate, this.endDate));
+            return new CommandResult(String.format(MESSAGE_INVALID_DATES,
+                    this.startDate.format(CommandMessages.DATE_FORMATTER),
+                    this.endDate.format(CommandMessages.DATE_FORMATTER)));
         }
         if (isCaloriesFromBank) {
             try {
@@ -69,7 +71,9 @@ public class AddRecurringExerciseCommand extends Command {
         assert this.endDate.isAfter(this.startDate) : "End date is after start date";
         if (!this.startDate.isAfter(LocalDate.now())) {
             logger.log(Level.FINE, "Recurring exercises are for future only");
-            return new CommandResult(String.format(MESSAGE_INVALID_FUTURE_DATES, this.startDate, this.endDate));
+            return new CommandResult(String.format(MESSAGE_INVALID_FUTURE_DATES,
+                    this.startDate.format(CommandMessages.DATE_FORMATTER),
+                    this.endDate.format(CommandMessages.DATE_FORMATTER)));
         }
         assert this.startDate.isAfter(LocalDate.now()) : "Start and end dates are in the future";
         if (this.calories <= 0) {
@@ -81,7 +85,9 @@ public class AddRecurringExerciseCommand extends Command {
         futureExerciseItems.addRecurringExercises(this.description, this.calories,
                 this.startDate, this.endDate, this.dayOfTheWeek);
         if (futureExerciseItems.getSize() == numberOfFutureExercises) {
-            return new CommandResult(String.format(MESSAGE_NO_EXERCISE_ADDED, this.startDate, this.endDate));
+            return new CommandResult(String.format(MESSAGE_NO_EXERCISE_ADDED,
+                    this.startDate.format(CommandMessages.DATE_FORMATTER),
+                    this.endDate.format(CommandMessages.DATE_FORMATTER)));
         }
 
         logger.log(Level.FINE, "Recurring exercise is successfully added");

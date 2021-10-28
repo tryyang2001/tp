@@ -14,7 +14,7 @@ public class DeleteFutureExerciseCommand extends Command {
             + ", where X is the item number in the future exercise list";
     public static final String MESSAGE_SUCCESS = "An exercise item for the future has been deleted:"
             + CommandMessages.INDENTED_LS + "%s"
-            + CommandMessages.LS + "Number of exercise item(s) left: %2$d";
+            + CommandMessages.LS + "Number of upcoming exercise(s) left: %2$d";
     private static final String MESSAGE_FUTURE_EXERCISE_CLEAR = "All future exercise items have been removed.";
     public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_UPCOMING_EXERCISE};
 
@@ -49,7 +49,7 @@ public class DeleteFutureExerciseCommand extends Command {
         try {
             Exercise deletedExercise;
             deletedExercise = super.futureExerciseItems.deleteItem(this.itemIndex);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, deletedExercise,
+            return new CommandResult(String.format(MESSAGE_SUCCESS, deletedExercise.toStringWithDate(),
                     super.futureExerciseItems.getSize()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.FINE, "Detected invalid exercise item index.");

@@ -55,9 +55,6 @@ public class DeleteExerciseCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS,
                     deletedExercise.toStringWithDate()));
         } catch (IndexOutOfBoundsException e) {
-            if (super.exerciseItems.getSize() == 1) {
-                return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
-            }
             return new CommandResult(String.format(CommandMessages.MESSAGE_EXERCISE_NOT_FOUND,
                     this.itemIndex + 1,
                     this.date.format(CommandMessages.DATE_FORMATTER)));
