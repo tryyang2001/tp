@@ -1,14 +1,16 @@
 package seedu.duke.logic.commands;
 
+import seedu.duke.data.item.Item;
+import seedu.duke.data.item.exceptions.DuplicateItemInBankException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//@@author xingjie99
+/**
+ * Represents the command that when executed, edits an item in the Food Bank.
+ */
 public class EditFoodBankCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_EDIT
-            + " " + COMMAND_PREFIX_FOOD_BANK + COMMAND_PREFIX_DELIMITER + "X "
-            + COMMAND_PREFIX_NAME + COMMAND_PREFIX_DELIMITER + "Y "
-            + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "Z " + CommandMessages.QUOTATION
-            + ", where X is the item number in the food bank, Y is the new name, Z is the new calories";
     public static final String MESSAGE_SUCCESS = "Food bank item number %d has been changed to:"
             + CommandMessages.INDENTED_LS + "%s";
     public static final String[] EXPECTED_PREFIXES = {
@@ -36,14 +38,20 @@ public class EditFoodBankCommand extends Command {
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_FOOD_BANK);
         }
         try {
+            Item item = super.foodBank.getItem(this.itemIndex);
             if (!this.newName.equals(NULL_STRING)) {
-                super.foodBank.getItem(this.itemIndex).setName(this.newName);
+                super.foodBank.checkNoDuplicateItemName(this.newName);
+                item.setName(this.newName);
             }
             if (this.newCalories != NULL_CALORIES) {
-                super.foodBank.getItem(this.itemIndex).setCalories(this.newCalories);
+                if (this.newCalories < 0) {
+                    logger.log(Level.WARNING, "Detected negative food calorie");
+                    return new CommandResult(CommandMessages.MESSAGE_INVALID_FOOD_CALORIES);
+                }
+                item.setCalories(this.newCalories);
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
-                    super.foodBank.getItem(this.itemIndex).toString()));
+                    item.toStringWithoutTime()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid food bank item index.");
             if (super.foodBank.getSize() == 1) {
@@ -51,6 +59,9 @@ public class EditFoodBankCommand extends Command {
             }
             return new CommandResult(String.format(
                     CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS, super.foodBank.getSize()));
+        } catch (DuplicateItemInBankException e) {
+            return new CommandResult(String.format(
+                    CommandMessages.MESSAGE_FOOD_ALREADY_EXISTS_IN_BANK, this.newName));
         }
     }
 }

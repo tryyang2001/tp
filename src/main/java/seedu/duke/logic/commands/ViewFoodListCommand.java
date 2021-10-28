@@ -4,8 +4,6 @@ package seedu.duke.logic.commands;
  * Represents the command that when executed, lists all the items in the FoodList.
  */
 public class ViewFoodListCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_VIEW
-            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + CommandMessages.QUOTATION;
     public static final String MESSAGE_SUCCESS = "Here is a summary of all the food items you have consumed "
             + "in the past week:" + CommandMessages.LS + "%1$s";
 

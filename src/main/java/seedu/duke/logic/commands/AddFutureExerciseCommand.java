@@ -7,18 +7,14 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//@@author xingjie99
 /**
  * Represents the command that when executed, adds an Exercise item to the FutureExerciseList.
  */
 public class AddFutureExerciseCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_ADD
-            + " " + COMMAND_PREFIX_EXERCISE + COMMAND_PREFIX_DELIMITER + "exercise name"
-            + " " + COMMAND_PREFIX_CALORIES + COMMAND_PREFIX_DELIMITER + "calories"
-            + " " + COMMAND_PREFIX_DATE + COMMAND_PREFIX_DELIMITER + "date" + CommandMessages.QUOTATION;
     public static final String MESSAGE_SUCCESS = "An exercise item for the future has been added:"
             + CommandMessages.INDENTED_LS + "%s";
-    public static final String MESSAGE_INVALID_EXERCISE_CALORIES = "Exercise calories cannot be less than or equal to 0"
-            + CommandMessages.LS + "Try a positive value instead";
+
 
     private static Logger logger = Logger.getLogger(AddFutureExerciseCommand.class.getName());
 
@@ -50,7 +46,7 @@ public class AddFutureExerciseCommand extends Command {
         } else {
             if (this.calories <= 0) {
                 logger.log(Level.WARNING, "Exercise calorie is invalid");
-                return new CommandResult(MESSAGE_INVALID_EXERCISE_CALORIES);
+                return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
             }
         }
 

@@ -17,7 +17,7 @@ public class DeleteFoodCommand extends Command {
             + "TIME_IN_HHmm" + CommandMessages.QUOTATION + ", where INDEX is the item number in the food list";
     public static final String MESSAGE_SUCCESS = "A food item has been deleted:"
             + CommandMessages.INDENTED_LS + "%1$s"
-            + CommandMessages.INDENTED_LS + "Number of food item(s) left: %2$d";
+            + CommandMessages.LS + "Number of food item(s) left: %2$d";
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD,
