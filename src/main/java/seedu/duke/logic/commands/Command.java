@@ -124,7 +124,8 @@ public abstract class Command {
     public static boolean requiresFutureExerciseListStorageRewrite(Command command) {
         return command instanceof AddFutureExerciseCommand
                 || command instanceof DeleteFutureExerciseCommand
-                || command instanceof AddRecurringExerciseCommand;
+                || command instanceof AddRecurringExerciseCommand
+                || command instanceof EditFutureExerciseCommand;
     }
 
     /**
