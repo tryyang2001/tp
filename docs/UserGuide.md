@@ -46,7 +46,7 @@ Throughout this guide, we will be using some special formatting and symbols to b
   - [4.1.3 Updating Profile Attributes](#414-updating-profile-attributes)
   - [4.1.4 Calculating BMI `bmi`](414-calculating-bmi-bmi)
 - [4.2 Recording your food consumption](#42-recording-your-food-consumption)
-  - [4.2.1 Adding Food Items `add f/`](#421-adding-food-items) 
+  - [4.2.1 Adding Food Items `add f/`](#421-adding-food-items-add-f) 
   - [4.2.2 Viewing Food List `view f/`](#422-viewing-food-list-view-f)
   - [4.2.3 Deleting Food Items `delete f/`](#423-deleting-food-items-delete-f)
 - [4.3 Recording your exercises](#43-recording-your-exercises)
@@ -170,7 +170,7 @@ Please input your net calorie goal.
 __________________________________________________________________________________________________________
 ```
 You can input your calorie goal with whole number range from -2500 to 2500 (e.g 500). The net calories is calculated 
-based on total calories gained from food subtracting the calories burnt from exercise and BMR.
+based on total calories gained from food subtracting the calories burnt from exercise and basal metabolic rate(BMR).
 
 **Activity Factor**
 ```text
@@ -194,6 +194,7 @@ Profile created successfully
 You can start by typing a command or view the list of available commands by typing "help".
 __________________________________________________________________________________________________________
 ```
+
 
 After setting up the profile, you can start recording your food and exercises with the commands below.
 
@@ -391,7 +392,6 @@ delete f/1 d/22-10-2021 t/1000
 __________________________________________________________________________________________________________
 A food item has been deleted:
 	donut x2 (607 cal) @ 10:00, 22 Oct 2021
-Number of food item(s) left: 6
 __________________________________________________________________________________________________________
 ```
 💡  **Tip:** If you wish to remove all the Food Items from the list, there is a shortcut command: `delete f/all`.
@@ -449,7 +449,7 @@ Example:
 ```text
 view e/
 __________________________________________________________________________________________________________
- Here is a summary of all the exercises you have done in the past week:
+Here is a summary of all the exercises you have done in the past week:
 ..........................................................................................................
 You have done 1 exercise(s) on Friday (22 Oct 2021):
 	1. biking (500 cal)
@@ -460,10 +460,10 @@ You have done 1 exercise(s) on Sunday (24 Oct 2021):
 Total calories burnt in the day: 290 cal
 ..........................................................................................................
 Total exercises done in this week: 2
-Total calorie burnt in the week: 790
+Total calorie burnt in the week: 790 cal
 __________________________________________________________________________________________________________
 ```
-ℹ️It is also possible to view all the Upcoming Exercises from the Upcoming Exercise List that you have added before. More
+ℹ️ It is also possible to view all the Upcoming Exercises from the Upcoming Exercise List that you have added before. More
 details can be found [here](#443-viewing-upcoming-exercise-list-view-u).
 
 #### 4.3.3 Deleting Exercises `delete e/`
@@ -479,8 +479,6 @@ delete e/1 d/24-10-2021
 __________________________________________________________________________________________________________
 You have removed the exercise:
     hiit (290 cal) @ 24 Oct 2021
-Number of exercise item(s) left: 1
-
 __________________________________________________________________________________________________________
 ```
 
@@ -546,45 +544,48 @@ overview
 Hi qwe, this is your calorie summary for the week.
 
 Food:
-You have consumed 20040 cal this week from 21-Oct to 27-Oct.
+You have consumed 14600 cal this week from 23-Oct to 29-Oct.
 Calorie gained from food (Daily)
-21-Oct   ████████████    1800
-22-Oct   ████████████████████████    3640
 23-Oct   █████████████████    2600
 24-Oct   █████████████    1900
 25-Oct   ██████████████████████████████    4500
 26-Oct   ████████████████    2400
 27-Oct   █████████████████████    3200
-You have lost 4310 cal from exercising for the last 7 days.
+28-Oct       0
+29-Oct       0
+
+Exercise:
+You have burnt 3090 cal this week from 23-Oct to 29-Oct.
 Calorie burnt from exercise (Daily)
-21-Oct   ████████████████████████████    1100
-22-Oct   ███    120
 23-Oct   ██████    230
 24-Oct   ██████████████████████████████    1200
 25-Oct   ████████████████████    780
 26-Oct   ██████████████    540
 27-Oct   █████████    340
+28-Oct       0
+29-Oct       0
+
 Daily net calories**:
-21-Oct :   -2245
-22-Oct :   575
-23-Oct :   -575
-24-Oct :   -2245
-25-Oct :   775
-26-Oct :   -1085
-27-Oct :   -85
+23-Oct :   -1130
+24-Oct :   -2800
+25-Oct :   220
+26-Oct :   -1640
+27-Oct :   -640
+28-Oct :   -3500
+29-Oct :   -3500
 
+Number of supper meals this week: 1
 
-Number of supper meals this week: 2
-
- ** The net calorie calculation includes calories gained from food, calories burnt from exercises
-  and daily normal activities. All calculations used the latest values from updated in profile.
+** Net calories = Food consumed - Exercise output - your basal metabolic rate, where 
+your basal metabolic rate is a factor of your age, gender, height and weight retrieved from your profile.
+All calculations are done in calories.
 __________________________________________________________________________________________________________
 This is your calorie overview for today:
-Your calorie gained from food is: 3200
-Your calorie lost from exercise is: 340
-Your net calorie intake is: -85
-Your calorie goal is: 500
-You are 585 cal away from your goal
+Your calorie gained from food is: 0
+Your calorie lost from exercise is: 0
+Your net calorie intake is: -3500
+Your calorie goal is: 123
+You are 3623 cal away from your goal
 __________________________________________________________________________________________________________
 ```
 
@@ -602,122 +603,123 @@ ________________________________________________________________________________
 Welcome to the help page.
 Below are the commands to get you started.
 More details could be found on: 
-https://tinyurl.com/fitbotUG
+https://tinyurl.com/fitbot-user-guide
 
-In the formats of the command, identifiers wrapped in curly brackets{} means that they are optional.
+In the formats of the command, prefixes wrapped in curly brackets{} means that they are optional.
 
 add -- Add food or exercise record to the current list.
-      Adding food items
+      Add Food Item
       Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}
-      Identifier         Input
-           f/           Description of the food item
-           c/           Calories of the food
-           d/           Date of food in DD-MM-YYYY
-           t/           Time of food in HHMM
+        Prefix               Input
+          f/             Description of the food item
+          c/             Calories of the food
+          d/             Date of food in DD-MM-YYYY
+          t/             Time of food in HHMM
 
-      Add Exercise Items
+      Add Exercise Item
       Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}
-      Identifier        Input
-          e/            Description of exercise
-          c/            Calories burnt from exercise
-          d/            Date of exercise in DD-MM-YYYY
+        Prefix               Input
+          e/             Description of exercise
+          c/             Calories burnt from exercise
+          d/             Date of exercise in DD-MM-YYYY
 
       Add Recurring Exercise to Upcoming Exercise List
       Format: add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK
       Format: delete e/LIST_NO. d/DD-MM-YYYY
-      Identifier        Input
-          r/            Description of upcoming exercise
-          c/            Calories burnt from exercise
-          :/            Start date of exercise in DD-MM-YYYY
-          -/            End date of exercise in DD-MM-YYYY
-          @/            Workout days of the week
+        Prefix               Input
+          r/             Description of upcoming exercise
+          c/             Calories burnt from exercise
+          :/             Start date of exercise in DD-MM-YYYY
+          -/             End date of exercise in DD-MM-YYYY
+          @/             Workout days of the week
 
-      Add food Item in FoodBank
+      Add Food Item in Food Bank
       Format: add fbank/ITEM c/CALORIES
-      Identifier        Input
-          fbank/        Description of food
-          c/            Calories burnt from exercise
+        Prefix               Input
+          fbank/         Description of food
+          c/             Calories burnt from exercise
 
-      Add exercise Item in ExerciseBank
+      Add Exercise Item in ExerciseBank
       Format: add fbank/ITEM c/CALORIES
-      Identifier        Input
-          fbank/        Description of food
-          c/            Calories burnt from exercise
+        Prefix               Input
+          fbank/         Description of food
+          c/             Calories burnt from exercise
 
 bmi -- Calculate the Body-Mass-Index of user
       Format: bmi {h/HEIGHT_IN_CM w/WEIGHT_IN_KG}
-      Identifier         Input 
-	   h/           Height of user in cm
-	   w/           Weight of user in kg
+        Prefix          Input 
+	      h/             Height of user in cm
+	      w/             Weight of user in kg
       If no identifiers are given, bmi will be calculated using the height and weight in the profile.
 
 bye -- Exit the program.
       Format: bye
 
 delete -- Delete entry of food or exercise added from a list.
-      Deleting food items
+      Deleting Food Item
       Format: delete f/LIST_NO. d/DD-MM-YYYY t/HHMM
-      Identifier         Input
-           f/           Index of food in food list within the given date
-           d/           Date of food in DD-MM-YYYY
-           t/           Time of food in HHMM
+        Prefix               Input
+          f/             Index of food in food list within the given date
+          d/             Date of food in DD-MM-YYYY
+          t/             Time of food in HHMM
 
-      Delete exercise items
+      Delete Exercise Item
       Format: delete e/LIST_NO. d/DD-MM-YYYY
-      Identifier        Input
-          e/            Description of exercise
-          d/            Date of exercise in DD-MM-YYYY
+        Prefix               Input
+          e/             Description of exercise
+          d/             Date of exercise in DD-MM-YYYY
 	
-      Delete Upcoming Exercise Item from Upcoming Exercise List
+      Delete Upcoming Exercise Items from Upcoming Exercise List
       Format: delete u/LIST_NO.
-      Identifier        Input
-          u/        The index of the item with in the upcoming exercise list
+        Prefix               Input
+          u/             The index of the item with in the upcoming exercise list
 
-      Delete food items from food bank
+      Delete Food Item from Food Bank
       Format: delete fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          fbank/        The index of the item with in the food bank
+        Prefix               Input
+          fbank/         The index of the item with in the food bank
 
-      Delete exercise items from exercise bank
+      Delete Exercise Item from Exercise Bank
       Format: delete ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          ebank/        The index of the item with in the exercise bank
+        Prefix               Input
+          ebank/         The index of the item with in the exercise bank
 
 edit -- Edit entry of food or exercise added from a list.
-      Edit FoodBank
+      Edit Food Bank
       Format: edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          fbank/        The index of the item with in the food bank
-          n/            New description of food name
-          c/            Calories of food
+        Prefix               Input
+          fbank/         The index of the item with in the food bank
+          n/             New description of food name
+          c/             Calories of food
 	 
-      Edit ExerciseBank
+      Edit Exercise Bank
       Format: edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          ebank/        The index of the item with in the exercise bank
-          n/            New description of exercise name
-          c/            Calories burnt from exercise
+        Prefix               Input
+          ebank/         The index of the item with in the exercise bank
+          n/             New description of exercise name
+          c/             Calories burnt from exercise
 
      Edit Upcoming Exercise List
      Format: edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
-     Identifier        Input
-          u/        The index of the item with in the upcoming exercise list
+       Prefix               Input
+          u/            The index of the item with in the upcoming exercise list
           n/            New description of exercise name
-          c/            Calories burnt from exercise   
+          c/            Calories burnt from exercise
 
 help -- View help for commands
       Format: help
 
 profile -- View or modify profile details
       Format: profile n/NAME h/HEIGHT(CM) w/WEIGHT(KG) a/AGE g/CALORIEGOAL s/GENDER(M/F) x/ACTIVITYFACTOR(1-5)
-      Identifier         Input 
-	   n/           Name of user
-	   h/           Height of user in cm
-	   w/           Weight of user in kg
-	   s/           Gender of user, m for male, f for female
-	   a/           Age of user
-	   g/           Net calorie goal of user. (Net calorie is based on calorie of food consumed - calories burnt from exercise and bmr
-	   x/           Activity factor of user, range 1 to 5
+        Prefix                Input 
+	      n/             Name of user
+	      h/             Height of user in cm
+	      w/             Weight of user in kg
+	      s/             Gender of user, m for male, f for female
+	      a/             Age of user
+	      g/             Net calorie goal of user. (Net calorie is based on calorie of food consumed
+	                       - calories burnt from exercise and bmr
+	      x/             Activity factor of user, range 1 to 5
       If no identifiers are given, user can view the profile particulars.
 
 overview -- View weekly and daily summary of calories
@@ -728,16 +730,16 @@ view -- View all the food and/or exercises added.
       Viewing Food List
       Format: view f/
 
-      View exercise List
+      View Exercise List
       Format: view e/
 
       View Upcoming Exercise List
       Format: view u/
 
-      View exercise bank
+      View Exercise Bank
       Format: view e/
 
-      View food bank
+      View Food Bank
       Format: view f/
 __________________________________________________________________________________________________________
 ```
@@ -779,16 +781,22 @@ Advanced users are welcome to update data directly by editing the data files.
 **Q:** How many profiles can I create?\
 **A:** _Fitbot_ only supports 1 profile. If you need to make any changes to your current profile, you can refer to [Updating your profile attributes](#422-updating-your-profile-attributes).
 
+**Q:**  Why does _Fitbot_ need so many personal particulars?
+
+**A:** _Fitbot_ needs your height, weight, age, gender and activity factor so that we can calculate your BMR.
+Calorie goal is required to help you check how close or how far you are away from your calorie goal.
+_Fitbot_ needs to know your name to address you.
+
 ### 6. Command Summary
 
 
 | Action | Format | Examples |
-|---------|----------|-------|
+|--------|-------|----------|
 add|`add f/ITEM {c/CALORIE} {d/DD-MM-YYYY} {t/HHMM}` <br>`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` <br> `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK` <br>  `add fbank/ITEM c/CALORIES` <br>  `add ebank/ITEM c/CALORIES`| `add f/chicken rice c/607 d/20-10-2021`, <br>`add e/hiit c/290 d/23-10-2021` <br> `add r/handball training c/432 :/24-10-2021 -/11-11-2021 @/13` <br>  `add fbank/chicken rice c/667`<br> `add ebank/5km run c/478`
 bmi|`bmi h/HEIGHT_IN_CM w/WEIGHT_IN_KG` <br> `bmi`|`bmi h/170 w/65` , <br> `bmi`
 bye|`bye`|
 delete|`delete f/LIST_NO. d/DD-MM-YYYY t/HHMM` <br> `delete e/LIST_NO. d/DD-MM-YYYY` <br> `delete f/all` <br> `delete e/all` |`delete f/1`, <br> `delete e/2`, <br> `delete f/all`, <br>  `delete e/all`
-edit| `edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` <br> `edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` <br> `edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}`| `edit u/1 n/volleyball training c/560 d/24-10-2021` <br> `edit fbank/1 n/2.4km run c/267` <br> `edit ebank/1 n/chicken rice c/800`
+edit| `edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` <br> `edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` <br> `edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}`| `edit u/1 n/volleyball training c/560 d/24-10-2021`, <br> `edit fbank/1 n/2.4km run c/267`, <br> `edit ebank/1 n/chicken rice c/800`
 help | `help`|
 overview|`overview`|
 profile|`profile {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG} {n/NAME} {s/GENDER} {a/AGE} {g/CALORIE_IN_CAL} {x/ACTIVITY_FACTOR}` <br> `profile`|`profile h/170 w/65 n/John a/22 s/M g/500 x/2`, <br> `profile`
