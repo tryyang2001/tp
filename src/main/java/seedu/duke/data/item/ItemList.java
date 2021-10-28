@@ -1,7 +1,11 @@
 package seedu.duke.data.item;
 
+import seedu.duke.data.item.food.FoodList;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * ItemList is an abstract class that contains all the common methods for food list and exercise list.
@@ -64,6 +68,24 @@ public abstract class ItemList extends ItemBank {
      * @return The string of the item list of a specific date
      */
     public abstract String convertToStringBySpecificDate(LocalDate date);
+
+    /**
+     * Adds all items in the filtered list to the list, also prevents adding duplicate items.
+     *
+     * @param filteredItemList The other item list
+     */
+    public void addAll(ItemList filteredItemList) {
+        LocalDate today = LocalDate.now();
+        ArrayList<Item> listToRemove = (ArrayList<Item>) internalItems
+                .stream()
+                .filter(f -> f.getDate().isAfter(today.minusDays(8)))
+                .collect(Collectors.toList());
+        internalItems.removeAll(listToRemove);
+        for (int i = 0; i < filteredItemList.getSize(); i++) {
+            internalItems.add(filteredItemList.getItem(i));
+        }
+        this.sortList();
+    }
 
     /**
      * Gets the day of the week of the given date.

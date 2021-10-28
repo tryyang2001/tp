@@ -112,9 +112,23 @@ public class Food extends Item {
         return timePeriod;
     }
 
+    /**
+     * Converts the Food item to string for printing in the Food List.
+     *
+     * @return String pattern of Food item with time but no date
+     */
     @Override
     public String toString() {
         return String.format(MESSAGE_FOOD, super.toString(), this.getTime().format(TIME_FORMATTER));
+    }
+
+    /**
+     * Converts the Food item to string for printing after adding or deleting food.
+     *
+     * @return String pattern of Food item with time and date
+     */
+    public String toStringWithDate() {
+        return this + ", " + this.getDate().format(DATE_FORMAT_FOR_PRINTING);
     }
 
     /**

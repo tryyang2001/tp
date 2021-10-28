@@ -877,7 +877,7 @@ There is no need to save manually. Any updates made to the data will be automati
 ### 4.11. Editing the data file
 
 _Fitbot_ data files are saved as .text files `<JAR file location>/data/<text file name>.txt`. \
-Advanced users are welcome to update data directly by editing the data files. \
+Advanced users are welcome to update data directly by editing the data files. 
 
 ❗ If your changes to the data files format are invalid, _Fitbot_ will skip the wrongly formatted line when it loads in the data.
 

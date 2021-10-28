@@ -42,9 +42,11 @@ public class LogicManager {
                 storageManager.saveProfile(dataManager.getProfile());
             }
             if (Command.requiresExerciseListStorageRewrite(command)) {
+                dataManager.getExerciseItems().addAll(dataManager.getFilteredExerciseItems());
                 storageManager.saveExerciseList(dataManager.getExerciseItems());
             }
             if (Command.requiresFoodListStorageRewrite(command)) {
+                dataManager.getFoodItems().addAll(dataManager.getFilteredFoodItems());
                 storageManager.saveFoodList(dataManager.getFoodItems());
             }
             if (Command.requiresFutureExerciseListStorageRewrite(command)) {

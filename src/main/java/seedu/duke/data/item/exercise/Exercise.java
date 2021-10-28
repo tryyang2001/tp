@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 public class Exercise extends Item {
     public static final String EXERCISE_TYPE = "E";
+    public static final String AT = " @ ";
     protected LocalDate date;
 
     /**
@@ -61,6 +62,15 @@ public class Exercise extends Item {
         return EXERCISE_TYPE
                 + super.toFileTextString()
                 + FILE_TEXT_DELIMITER
-                + this.getDate().format(DATE_FORMATTER);
+                + this.getDate().format(DATE_FORMATTER_FOR_STORAGE);
+    }
+
+    /**
+     * Converts the Exercise item to string for printing after adding or deleting Exercise.
+     *
+     * @return String pattern of Food item with time and date
+     */
+    public String toStringWithDate() {
+        return super.toString() + AT + this.getDate().format(DATE_FORMAT_FOR_PRINTING);
     }
 }
