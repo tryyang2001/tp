@@ -7,8 +7,6 @@ import java.util.logging.Logger;
  * Represents the command that when executed, lists all the items in the ExerciseList.
  */
 public class ViewExerciseListCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_VIEW
-            + " " + COMMAND_PREFIX_EXERCISE + COMMAND_PREFIX_DELIMITER + CommandMessages.QUOTATION;
     public static final String MESSAGE_SUCCESS = " Here is a summary of all the exercises you have done "
             + "in the past week:" + CommandMessages.LS + "%1$s";
 

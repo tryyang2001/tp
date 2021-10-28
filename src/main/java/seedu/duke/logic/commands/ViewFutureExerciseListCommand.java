@@ -7,8 +7,6 @@ import java.util.logging.Logger;
  * Represents the command that when executed, lists all the items in the FutureExerciseList.
  */
 public class ViewFutureExerciseListCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_VIEW
-            + " " + COMMAND_PREFIX_UPCOMING_EXERCISE + COMMAND_PREFIX_DELIMITER + CommandMessages.QUOTATION;
     public static final String MESSAGE_FUTURE_EXERCISE = "You have %d upcoming exercise(s):"
             + CommandMessages.LS + "%2$s";
 

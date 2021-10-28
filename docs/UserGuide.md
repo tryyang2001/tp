@@ -452,6 +452,7 @@ An exercise item for the future has been added:
 
 💡  **Tip:** Similarly, if the date of the exercise is not provided, the date is assumed to be today.
 
+
 #### 4.4.3. Add a Recurring Exercise to the Upcoming Exercise List
 
 This command is used to schedule exercises that you do on a regular basis. This can be particularly useful if you have weekly trainings to record!
