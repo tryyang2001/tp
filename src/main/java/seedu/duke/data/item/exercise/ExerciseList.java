@@ -64,6 +64,9 @@ public class ExerciseList extends ItemList {
         this.internalItems.sort(Comparator.comparing(Item::getDate));
     }
 
+
+    //====================Private methods=========================
+
     /**
      * Helper method used in deleteItem for exercise to get the
      * actual index from the entire exercise list of the exercise to delete.

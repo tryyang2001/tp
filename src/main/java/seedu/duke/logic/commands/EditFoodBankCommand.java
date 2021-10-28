@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * Represents the command that when executed, edits an item in the Food Bank.
  */
 public class EditFoodBankCommand extends Command {
-    public static final String MESSAGE_SUCCESS = "Food bank item number %d has been changed to:"
+    public static final String MESSAGE_SUCCESS = "Item number %d in the food bank has been changed to:"
             + CommandMessages.INDENTED_LS + "%s";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD_BANK,
@@ -51,7 +51,7 @@ public class EditFoodBankCommand extends Command {
                 item.setCalories(this.newCalories);
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
-                    item.toStringWithoutTime()));
+                    item.toString()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid food bank item index.");
             if (super.foodBank.getSize() == 1) {

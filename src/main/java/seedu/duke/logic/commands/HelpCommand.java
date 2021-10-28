@@ -148,7 +148,7 @@ public class HelpCommand extends Command {
             + "     Identifier        Input\n"
             + "          u/        The index of the item with in the upcoming exercise list\n"
             + "          n/            New description of exercise name\n"
-            + "          c/            Calories burnt from exercise   ";
+            + "          c/            Calories burnt from exercise";
 
     private String buildHelpString2() {
         StringBuilder helpMessage = new StringBuilder(EMPTY);
