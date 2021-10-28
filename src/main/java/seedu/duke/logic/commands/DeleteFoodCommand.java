@@ -16,8 +16,7 @@ public class DeleteFoodCommand extends Command {
             + COMMAND_PREFIX_DELIMITER + "DATE_IN_DD-MM-YYYY " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_DELIMITER
             + "TIME_IN_HHmm" + CommandMessages.QUOTATION + ", where INDEX is the item number in the food list";
     public static final String MESSAGE_SUCCESS = "A food item has been deleted:"
-            + CommandMessages.INDENTED_LS + "%1$s"
-            + CommandMessages.INDENTED_LS + "Number of food item(s) left: %2$d";
+            + CommandMessages.INDENTED_LS + "%1$s";
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_FOOD,
@@ -63,14 +62,17 @@ public class DeleteFoodCommand extends Command {
         try {
             Food deletedFood;
             deletedFood = super.foodItems.deleteItem(this.itemIndex, this.date, this.time);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, deletedFood, super.foodItems.getSize()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                    deletedFood.toStringWithDate()));
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.FINE, "Detected invalid food item index.");
             if (super.foodItems.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
-            return new CommandResult(String.format(
-                    CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS, super.foodItems.getSize()));
+            return new CommandResult(String.format(,
+                    this.itemIndex,
+                    this.date,
+                    this.time));
         }
     }
 }

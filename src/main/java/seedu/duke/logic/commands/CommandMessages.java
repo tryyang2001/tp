@@ -90,7 +90,8 @@ public class CommandMessages {
                     + MESSAGE_ITEM_NAME_FORMAT + INDENTED_LS
                     + MESSAGE_ITEM_CALORIES_FORMAT + INDENTED_LS
                     + MESSAGE_ITEM_DATE_FORMAT;
-
+    public static final String MESSAGE_FOOD_NOT_FOUND = "Food item with index %d, date %s and time %s "
+            + "is not found in the food list!";
 }
 
 

@@ -15,8 +15,7 @@ public class DeleteExerciseCommand extends Command {
             + COMMAND_PREFIX_DELIMITER + "DATE_IN_DD-MM-YYYY" + CommandMessages.QUOTATION
             + ", where INDEX is the item number in the exercise list";
     public static final String MESSAGE_SUCCESS = "An exercise item has been deleted:"
-            + CommandMessages.INDENTED_LS + "%s"
-            + CommandMessages.LS + "Number of exercise item(s) left: %2$d";
+            + CommandMessages.INDENTED_LS + "%s";
     private static final String MESSAGE_EXERCISE_CLEAR = "All exercise items have been removed.";
 
     private static Logger logger = Logger.getLogger(DeleteExerciseCommand.class.getName());
@@ -56,15 +55,16 @@ public class DeleteExerciseCommand extends Command {
         logger.log(Level.FINE, "Trying to delete item now");
         try {
             Exercise deletedExercise;
-            deletedExercise = super.exerciseItems.deleteItem(this.itemIndex, this.date); //edit by RY
-            return new CommandResult(String.format(MESSAGE_SUCCESS, deletedExercise, super.exerciseItems.getSize()));
+            deletedExercise = super.exerciseItems.deleteItem(this.itemIndex, this.date);
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                    deletedExercise.toStringWithDate()));
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected invalid exercise item index.");
             if (super.exerciseItems.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
-            return new CommandResult(String.format(CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS,
-                    super.exerciseItems.getSize()));
+            return new CommandResult(String.format("Exercise item with index %d and date %s is not found in the exercise list!",
+                    this.itemIndex,
+                    this.date));
         }
     }
 }

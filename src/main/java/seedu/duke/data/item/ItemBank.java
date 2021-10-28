@@ -74,7 +74,7 @@ public class ItemBank {
         StringBuilder listToString = new StringBuilder();
         for (int i = 0; i < internalItems.size(); i++) {
             listToString.append(TAB).append(i + 1).append(". ")
-                    .append(internalItems.get(i).toStringWithoutTime()).append(LS);
+                    .append(internalItems.get(i).toStringWithoutDateAndTime()).append(LS);
         }
         return listToString.toString().stripTrailing();
     }
