@@ -40,7 +40,7 @@ public class AddFoodCommand extends Command {
 
         if (isCaloriesFromBank) {
             try {
-                this.calories = super.foodBank.getCaloriesOfItemWithMatchingName(this.description);
+                this.calories = super.foodBank.findCalorie(this.description);
             } catch (ItemNotFoundInBankException e) {
                 return new CommandResult(String.format(
                         CommandMessages.MESSAGE_INVALID_FOOD_NOT_IN_BANK, this.description));

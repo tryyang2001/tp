@@ -55,7 +55,7 @@ public class AddRecurringExerciseCommand extends Command {
         }
         if (isCaloriesFromBank) {
             try {
-                this.calories = super.exerciseBank.getCaloriesOfItemWithMatchingName(this.description);
+                this.calories = super.exerciseBank.findCalorie(this.description);
             } catch (ItemNotFoundInBankException e) {
                 return new CommandResult(String.format(
                         CommandMessages.MESSAGE_INVALID_EXERCISE_NOT_IN_BANK, this.description));

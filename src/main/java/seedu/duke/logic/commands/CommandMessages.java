@@ -1,5 +1,7 @@
 package seedu.duke.logic.commands;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Contains all the general error messages that can be returned from Command classes.
  */
@@ -11,7 +13,8 @@ public class CommandMessages {
     public static final String QUOTATION = "\"";
     public static final String LONG_SPACE = "              ";
     public static final String BANK_SPACE = "          ";
-
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
     //================ item type prefixes ================
     public static final String MESSAGE_EXERCISE_LIST_FORMAT =

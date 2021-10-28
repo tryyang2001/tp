@@ -11,10 +11,6 @@ import java.util.logging.Logger;
  * Represents the command that when executed, deletes a Food item from the FoodList.
  */
 public class DeleteFoodCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_DELETE
-            + " " + COMMAND_PREFIX_FOOD + COMMAND_PREFIX_DELIMITER + "INDEX " + COMMAND_PREFIX_DATE
-            + COMMAND_PREFIX_DELIMITER + "DATE_IN_DD-MM-YYYY " + COMMAND_PREFIX_TIME + COMMAND_PREFIX_DELIMITER
-            + "TIME_IN_HHmm" + CommandMessages.QUOTATION + ", where INDEX is the item number in the food list";
     public static final String MESSAGE_SUCCESS = "A food item has been deleted:"
             + CommandMessages.INDENTED_LS + "%1$s";
     public static final String MESSAGE_FOOD_CLEAR = "All food items have been removed.";
@@ -70,9 +66,9 @@ public class DeleteFoodCommand extends Command {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
             return new CommandResult(String.format(CommandMessages.MESSAGE_FOOD_NOT_FOUND,
-                    this.itemIndex,
-                    this.date,
-                    this.time));
+                    this.itemIndex + 1,
+                    this.date.format(CommandMessages.DATE_FORMATTER),
+                    this.time.format(CommandMessages.TIME_FORMATTER)));
         }
     }
 }

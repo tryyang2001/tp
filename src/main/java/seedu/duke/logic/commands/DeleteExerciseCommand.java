@@ -10,10 +10,6 @@ import java.util.logging.Logger;
  * Represents the command that when executed, deletes an Exercise item from the ExerciseList.
  */
 public class DeleteExerciseCommand extends Command {
-    public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_DELETE
-            + " " + COMMAND_PREFIX_EXERCISE + COMMAND_PREFIX_DELIMITER + "INDEX " + COMMAND_PREFIX_DATE
-            + COMMAND_PREFIX_DELIMITER + "DATE_IN_DD-MM-YYYY" + CommandMessages.QUOTATION
-            + ", where INDEX is the item number in the exercise list";
     public static final String MESSAGE_SUCCESS = "An exercise item has been deleted:"
             + CommandMessages.INDENTED_LS + "%s";
     private static final String MESSAGE_EXERCISE_CLEAR = "All exercise items have been removed.";
@@ -63,8 +59,8 @@ public class DeleteExerciseCommand extends Command {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
             return new CommandResult(String.format(CommandMessages.MESSAGE_EXERCISE_NOT_FOUND,
-                    this.itemIndex,
-                    this.date));
+                    this.itemIndex + 1,
+                    this.date.format(CommandMessages.DATE_FORMATTER)));
         }
     }
 }

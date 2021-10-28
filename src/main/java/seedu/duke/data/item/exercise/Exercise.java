@@ -32,6 +32,7 @@ public class Exercise extends Item {
         this.date = date;
     }
 
+
     //====================Getter and Setter methods=========================
 
     /**
@@ -53,6 +54,7 @@ public class Exercise extends Item {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
 
     //====================To String methods=========================
 

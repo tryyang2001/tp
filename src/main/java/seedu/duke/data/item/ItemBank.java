@@ -25,7 +25,6 @@ public class ItemBank {
         internalItems.add(item);
     }
 
-
     /**
      * Returns item with the given index in the item bank.
      *
@@ -84,7 +83,7 @@ public class ItemBank {
      * @throws ItemNotFoundInBankException Throws this exception when there is no item which has the same name
      *                                     as the input item
      */
-    public int getCaloriesOfItemWithMatchingName(String inputName) throws ItemNotFoundInBankException {
+    public int findCalorie(String inputName) throws ItemNotFoundInBankException {
         Item matchingItem = internalItems
                 .stream()
                 .filter(item -> item.getName().equalsIgnoreCase(inputName))
