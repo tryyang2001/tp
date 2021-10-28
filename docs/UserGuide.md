@@ -3,35 +3,44 @@ layout: page
 title: User Guide
 ---
 
-## Introducing _Fitbot_
+## **Introducing _Fitbot_**
 _Fitbot_ is a **desktop app** that helps university students who are looking to
 **keep track of their calorie consumption and calorie output** with the speed and convenience of
 **command-line based** tools, especially in times of online school.
 
-_Fitbot_ can be used across all operating systems such as Windows, Mac OS X, Linux and Unix.
+_Fitbot_ can be used across all operating systems such as Windows, Mac OS X, Linux and Unix. It is optimised for use via 
+a [Command-Line Interface (CLI)](https://en.wikipedia.org/wiki/Command-line_interface), so it would be especially beneficial for fast
+typers and people who enjoy a clean and simple app interface.
 
-If you need an easy and fast way to record your calories, _Fitbot_ is the app for you! 💪💯
 
-## About This User Guide
-Welcome to the _Fitbot_ User Guide! \
+If you type fast, and you need an easy and quick way to record your calories, _Fitbot_ is the app for you! 💪💯
+
+## **About This User Guide**
 This guide explains how you can use all the features available on _Fitbot_ and
 maximise your user experience.
+
+To preface, _Fitbot_ was developed with modern-day university students in mind as our target audience. As a result, we do expect users to have a basic level 
+of comfort with using computers, and it would be even better if you are familiar with CLI. However, if you do not, do not worry as we
+have provided a comprehensive set of instructions to [get started](#1-quick-start)!
 
 
 Throughout this guide, we will be using some special formatting and symbols to bring your attention to certain aspects:
 
 
-**abc**: Text that has been **bolded** indicates that it is important. \
-`abc`: Text with a grey highlight indicates that it is a code that can be typed by you into the command line or shown from _Fitbot_.\
-ℹ️: This symbol indicates important information. \
-❗: This symbol indicates **important** rules to follow. Make sure you pay extra attention to the information, else _Fitbot_ will fail to execute certain functions! \
-💡: This symbol indicates tips and tricks that you can use to make your _Fitbot_ experience even smoother.
+| Formatting | Meaning |
+|--------|-------|
+_italics_ | Text that has been _italicised_ indicates that it is a term specific to _Fitbot_.
+**bold** | Text that has been **bolded** indicates that it is important. 
+`abc` | Text with a `highlight` indicates that it is code that can be typed by you into the command line or displayed by _Fitbot_.
+ℹ️ |This symbol indicates important information. 
+❗| This symbol indicates important rules to follow. Make sure you **pay extra attention** to the information, else _Fitbot_ will fail to execute certain functions! 
+💡|This symbol indicates tips and tricks that you can use to make your _Fitbot_ experience even smoother.
 
 
 
 
 
-## Content Page
+## **Content Page**
 
 [1. Quick Start](#1-quick-start)
 
@@ -84,19 +93,21 @@ Throughout this guide, we will be using some special formatting and symbols to b
 
 
 
-## 1. Quick Start
+## **1. Quick Start**
 
 1. Ensure you have Java 11 or above installed in your computer.  If not, install Java 11 [here](https://www.oracle.com/java/technologies/downloads/).
 2. Download the latest version of [Fitbot.jar](https://github.com/AY2122S1-CS2113T-F14-2/tp/releases/tag/v1.0) from the cloud.
 3. Copy the file to the folder you want to use as the home folder for your _Fitbot_.
 4. Go to command prompt and change the directory to the file's location. [Not sure how to do this?](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)
-5. Type `java -jar FitBot.jar` into the command prompt and press enter to start the program.
+5. Type `java -jar Fitbot.jar` into the command prompt and press enter to start the program.
 
 If successfully loaded, you will see this logo:
 
 ![Start Up Screen](./images/StartupLogo.png)
 
-## 2. Create Profile
+You are now all good to start using _Fitbot_! 
+
+## **2. Create Profile**
 
 _Fitbot_ will detect if there is a profile present in the application. If you have not set up a profile,
 _Fitbot_ will ask you for your particulars.
@@ -110,7 +121,7 @@ Below are the questions that you will encounter.
 
 
 ```text
-Fitbot realised that your profile has not been created.Let's start creating profile below!
+Fitbot realised that your profile has not been created. Let's start creating a profile below!
 __________________________________________________________________________________________________________
 What's your name?
 __________________________________________________________________________________________________________
@@ -160,7 +171,7 @@ You are a male.
 How old are you?
 __________________________________________________________________________________________________________
 ```
-You can input your age with the nearest positive whole number.(e.g. 22)
+You can input your age with the nearest positive whole number. (e.g. 22)
 
 **Calorie Goal**
 ```text
@@ -199,7 +210,7 @@ ________________________________________________________________________________
 After setting up the profile, you can start recording your food and exercises with the commands below.
 
 
-## 3. Terminology
+## **3. Terminology**
 
 ***Calorie*** - A unit used to measure the energy of an item. One calorie is the amount of energy required to raise the
 temperature of one gram of water by one degree Celsius. On average, a male will require approximately 2500 cal consumed
@@ -215,7 +226,7 @@ you are going to increase or maintain your body weight.
 For your information, we use [basal metabolic rate (BMR)](https://en.wikipedia.org/wiki/Basal_metabolic_rate) to compute
 the rate of calorie consumed by body metabolic activity.\
 \
-***Activity factor*** - A coefficient or value used in the calculation of BMR to measure the level of activity. In our application, 
+***Activity factor*** - A measure of the level of activity. The value is used in the calculation of BMR. In our application, 
 we use an integer ranged from 1 to 5 to measure the activity factor:
 - Integer 1: Little to no exercise (0-1 day of exercises a week)
 - Integer 2: Lightly active (1-3 days of exercises a week)
@@ -226,23 +237,24 @@ we use an integer ranged from 1 to 5 to measure the activity factor:
 ***Body Mass Index (BMI)*** - A measure to evaluate if the body weight is healthy. BMI is computed by using the body
 weight(in kg) divided by the square of the body height(in m). \
 \
-***Item*** - We use the term **item** to represent the item that can be stored in our application. The available item
-include **Food** and **exercise** only.\
+***Item*** - We use the term _Item_ to represent the items that can be stored in _Fitbot_. The available items
+are _Food Item_ and _Exercise Item_.\
 \
 ***Upcoming exercise*** - We define the exercise with date after today's date as an upcoming exercise. This kind of exercise
 will be handled specifically. It will not be added to the exercise list but will be saved internally in the storage file. More
 details of the process can be found at [here](#add-a-recurring-exercise-to-the-upcoming-exercise-list).\
 \
-***Item Bank*** - An item storage that is capable to store the Food or exercise Item with its respective calorie. This is
-to help you to store the calorie intake of a specific Food or the calorie burnt from a specific exercise for future use. More details
+***Item Bank*** - An item storage that is capable of storing the Food or Exercise Item with its respective calorie. This is
+to help you to store the calorie intake of a specific Food or the calorie burnt from a specific Exercise for future use. More details
 of the item bank can be found at [here](#add-a-food-item-to-foodbank).\
 \
 ***Parameters*** - Parameters are values in the command format that _Fitbot_ expects you to provide.
 
 
-## 4. Features
+## **4. Features**
 
 ℹ️ ***Command Format***
+<blockquote>
 
 - Commands are not case-sensitive (e.g. `help`, `HELP`,`hElP` are all able to execute the `help` command)
 
@@ -258,8 +270,9 @@ of the item bank can be found at [here](#add-a-food-item-to-foodbank).\
 
 
 ❗ Please do not use the characters `/` and `|` in your input other than to specify parameters!
+</blockquote>
 
-### 4.1 Customizing your profile:
+### **4.1 Customizing your profile**
 
 You can customize your profile with the following steps.
 
@@ -305,7 +318,7 @@ where :
 
 where you will require at least 1 of the optional parameters (in no particular order) to change your attribute!
 
-### 4.2 Recording your food consumption
+### **4.2 Recording your food consumption**
 
 You can record all the food items consumed within a week into the food list. This allows you
 to keep track of your food calorie consumption and gain a better understanding of your diet habit. 
@@ -377,13 +390,12 @@ ________________________________________________________________________________
 
 #### 4.2.3 Deleting Food Items `delete f/`
 
-When you mistakenly add a wrong Food Item inside your Food List, there is no need to worry! The command allows you to 
+When you mistakenly add a wrong Food Item inside your Food List, there is no need to worry! This command allows you to 
 remove a specific Food Item in the Food List.
 
 Format: `delete f/LIST_NO. d/DD-MM-YYYY t/HHMM` deletes the *n<sup>th</sup>* Food Item in the Food List which has the date (`DD-MM-YYYY`)
 and time (`HHMM`), where *n* is the index of the Food to delete.
 
-❗ `LIST_NO.` must be a positive integer within the range of the number of Items in the list.
 
 Example:
 
@@ -402,7 +414,7 @@ All food items have been removed.
 __________________________________________________________________________________________________________
 ```
 
-### 4.3 Recording your exercises
+### **4.3 Recording your exercises**
 
 Besides Food Items, you may also record Exercises that you have taken into the Exercise List. This will allow you to keep
 track of total calories burnt and check whether you have done sufficient exercises. 
@@ -492,46 +504,171 @@ ________________________________________________________________________________
 ```
 
 
+### **4.5. Building your Food Bank**
+Do you have certain dishes or snacks that you frequently consume? Instead of having to key in their calories everytime you want to
+record them into the Food List, you can add it into the Food Bank once so that the next time you want to record this item in the Food List,
+you would only have to provide the name of the item!
 
+#### 4.5.1 Adding Food Bank Items `add fbank/`
+You can add a Food Item into the Food Bank using this command.
 
+Format: `add fbank/ITEM c/CALORIES`
+```
+add fbank/McSpicy Meal c/1081 
+__________________________________________________________________________________________________________
+A food item has been added to the food bank:
+	McSpicy Meal (1081 cal)
+__________________________________________________________________________________________________________
+```
 
-### 4.7. **Edit Items**: `edit`
+❗️ The Food Bank cannot have duplicate item names as _Fitbot_ needs to be able to uniquely identify the item calories. Note that
+the match for item name is **case-insensitive**. For example, if an item named `potato` already exists in the Food Bank, an item named `POTATO` also cannot be added in.
 
-This command is used to edit any record of Items that you have previously entered into the Food bank, exercise bank or upcoming exercise list.
-
-
-#### 4.7.1. Edit Upcoming Exercise List
-
-This command is used to edit Exercise Items in the Upcoming Exercise List.
-
-
-Format: `edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` edits the n<sup>th</sup> item in the Upcoming Exercise List, where *n* is the index of the Exercise to edit.
-
-
-#### 4.7.2. Edit Food Bank
-
-Format:  `edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` edits the n<sup>th</sup> item in the Food Bank, where *n* is the index of the Food to edit.
-
-
-#### 4.7.3. Edit Exercise Bank
-
-Format: `edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` edits the n<sup>th</sup> item in the Exercise Bank, where *n* is the index of the Exercise to edit.
-
-❗ `NEW_DATE` must be a date after today.
-
-❗ `LIST_NO.` must be a positive integer within the range of the number of Items in the list. 
-
-❗ While all the parameters are optional, please specify **at least one** parameter so that _Fitbot_ knows which attribute you would like to update.
+After adding the item to the Food Bank, you can now add the item into the Food List whenever you want without specifying the calories. 
+Simply provide the name of the item and _Fitbot_ will search up the corresponding calorie value for the item with the same name for you from the Food Bank! As before, note that the matching of names is 
+**case-insensitive**.
 
 ```
-edit fbank/1 c/50
+add f/mcspicy meal
 __________________________________________________________________________________________________________
-Food bank item number 1 has been changed to:
-  potato (50 cal)
+A food item has been added:
+mcspicy meal (1081 cal) @ 02:32, 29 Oct 2021
 __________________________________________________________________________________________________________
-````
+```
 
-###4.7 **Viewing your Calorie Summary** `overview`
+#### 4.5.2 Viewing Food Bank `view fbank/`
+You can view all the Items in the Food Bank using this command.
+
+Format: `view fbank/`
+
+```
+view fbank/
+__________________________________________________________________________________________________________
+You have 2 food(s) in your food bank:
+	1. Baked Potato (300 cal)
+	2. McSpicy Meal (1081 cal)
+__________________________________________________________________________________________________________
+```
+
+#### 4.5.3 Editing Food Bank Items `edit fbank/`
+If you have entered any wrong information or wish to update existing Items in the Food Bank, you can use this command to do so.
+
+Format:  `edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` edits the n<sup>th</sup> Item in the Food Bank, where *n* is the index of the Food Item to edit.
+
+Example:
+```
+edit fbank/1 c/350
+__________________________________________________________________________________________________________
+Item number 1 in the food bank has been changed to:
+	Baked Potato (350 cal) @ 02:24
+__________________________________________________________________________________________________________
+
+```
+
+❗️ Though the parameters are optional, do provide at least one of them so that _Fitbot_ knows what you want to update about the Item! 
+
+#### 4.5.4 Deleting Food Bank Items `delete fbank/`
+You can delete an Item from the Food Bank using this command.
+
+Format: `edit fbank/LIST_NO.` deletes the n<sup>th</sup> Item in the Food Bank, where *n* is the index of the Food Item to edit.
+
+Example:
+```
+delete fbank/2
+__________________________________________________________________________________________________________
+An food item has been deleted from the food bank:
+	McSpicy Meal (1081 cal) @ 02:25
+Number of food item(s) left in the food bank: 1
+__________________________________________________________________________________________________________
+```
+
+💡   **Tip:** If you wish to remove all the Food Items from the Food Bank, there is a shortcut command: `delete fbank/all`.
+
+
+### **4.6. Building your Exercise Bank**
+Have a standard workout routine that you use? You can add it into the Exercise Bank for _Fitbot_ to remember the amount of calories you 
+burn from it!
+
+
+#### 4.6.1 Adding Exercise Bank Items `add ebank/`
+You can add an Exercise Item into the Exercise Bank using this command.
+
+Format: `add ebank/ITEM c/CALORIES`
+```
+add ebank/30 min jog c/450
+__________________________________________________________________________________________________________
+An exercise item has been added to the exercise bank:
+	30 min jog (450 cal)
+__________________________________________________________________________________________________________
+```
+
+❗️ The Exercise Bank cannot have duplicate item names as _Fitbot_ needs to be able to uniquely identify the item calories. Note that
+the match for item name is **case-insensitive**. For example, if an item named `jogging` already exists in the Exercise Bank, an item named `Jogging` also cannot be added in.
+
+Similar to the Food Bank, after adding the item to the Exercise Bank, the next time you want to add this item to your Exercise List, you can just provide its name
+and _Fitbot_ will search up the corresponding calorie value for the item with the same name for you from the Exercise Bank! As before, note that the matching of names is
+**case-insensitive**.
+
+```
+add e/30 min jog
+__________________________________________________________________________________________________________
+An exercise item has been added:
+	30 min jog (450 cal) @ 29 Oct 2021
+__________________________________________________________________________________________________________
+```
+
+
+#### 4.6.2 Viewing Exercise Bank `view ebank/`
+You can view all the Items in the Exercise Bank using this command.
+
+Format: `view ebank/`
+
+```
+view ebank/
+__________________________________________________________________________________________________________
+You have 1 exercise(s) in your exercise bank:
+	1. 30 min jog (450 cal)
+__________________________________________________________________________________________________________
+
+```
+
+#### 4.6.3 Editing Exercise Bank Items `edit ebank/`
+If you have entered any wrong information or wish to update existing Items in the Exercise Bank, you can use this command to do so.
+
+Format:  `edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` edits the n<sup>th</sup> Item in the Exercise Bank, where *n* is the index of the Exercise Item to edit.
+
+Example:
+
+``` 
+edit ebank/1 n/35 min jog
+__________________________________________________________________________________________________________
+Item number 1 in the exercise bank has been changed to:
+	35 min jog (450 cal)
+__________________________________________________________________________________________________________
+
+```
+❗️ Though the parameters are optional, do provide at least one of them so that _Fitbot_ knows what you want to update about the Item!
+
+
+#### 4.6.4 Deleting Exercise Bank Items `delete ebank/`
+You can delete an Item from the Exercise Bank using this command.
+
+Format: `edit ebank/LIST_NO.` deletes the n<sup>th</sup> Item in the Exercise Bank, where *n* is the index of the Exercise Item to edit.
+
+Example:
+```
+delete ebank/1
+__________________________________________________________________________________________________________
+An exercise item has been deleted from the exercise bank:
+	35 min jog (450 cal)
+Number of exercise item(s) left in the exercise bank: 0
+__________________________________________________________________________________________________________
+```
+
+💡   **Tip:** If you wish to remove all the Exercise Items from the Exercise Bank, there is a shortcut command: `delete ebank/all`.
+
+
+### **4.7 Viewing your Calorie Summary** `overview`
 This command is used to view the summary of the calories gained from food, calories burnt from exercises as well as
 net calories after including BMR.
 
@@ -589,7 +726,7 @@ You are 3623 cal away from your goal
 __________________________________________________________________________________________________________
 ```
 
-### 4.1 **View help:** `help`
+### **4.8 View help** `help`
 
 This command shows a list of commands recognised by _Fitbot_ and their usage.
 
@@ -746,7 +883,7 @@ ________________________________________________________________________________
 
 
 
-### 4.9. Exit the program: `bye`
+### **4.9. Exiting the Program** `bye`
 
 This command is used to exit _Fitbot_.
 
@@ -760,7 +897,7 @@ Bye! Hope to see you again soon!!
 _________________________________________________________________________________________________________  
 ```  
 
-### 4.10. Saving the data
+### **4.10. Saving the data
 
 There is no need to save manually. Any updates made to the data will be automatically stored into the local drive and reloaded when _Fitbot_ is restarted.
 
@@ -773,21 +910,20 @@ Advanced users are welcome to update data directly by editing the data files.
 
 ❗ Ensure that you quit _Fitbot_ if you would like to edit the files. Edits made directly to files when _Fitbot_ is running will not be saved.
 
-### 5. FAQ
+### **5. FAQ**
 
 **Q:** How do I transfer my data to another computer?\
 **A:** Zip the folder with _Fitbot_ and its data files, and transfer to the new computer. Extract the zipped folder onto your new computer and follow steps 1, 4 and 5 in [Quick Start](#1-quick-start) to get your _Fitbot_ running on your new computer.
 
 **Q:** How many profiles can I create?\
-**A:** _Fitbot_ only supports 1 profile. If you need to make any changes to your current profile, you can refer to [Updating your profile attributes](#422-updating-your-profile-attributes).
+**A:** _Fitbot_ only supports 1 profile. If you need to make any changes to your current profile, you can refer to [Updating Profile Attributes](#412-updating-profile-attributes).
 
-**Q:**  Why does _Fitbot_ need so many personal particulars?
-
-**A:** _Fitbot_ needs your height, weight, age, gender and activity factor so that we can calculate your BMR.
+**Q:**  Why does _Fitbot_ need so many personal particulars?\
+**A:** _Fitbot_ needs your height, weight, age, gender and activity factor so that we can calculate your [BMR](https://en.wikipedia.org/wiki/Basal_metabolic_rate).
 Calorie goal is required to help you check how close or how far you are away from your calorie goal.
 _Fitbot_ needs to know your name to address you.
 
-### 6. Command Summary
+### **6. Command Summary**
 
 
 | Action | Format | Examples |
