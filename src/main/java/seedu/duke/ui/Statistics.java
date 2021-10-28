@@ -32,11 +32,11 @@ public class Statistics {
             + "You have burnt %1$s cal this week from %2$s to %3$s.";
     public static final String FOOD_GRAPH_HEADER = "Calorie gained from food (Daily)\n%s";
     public static final String EXERCISE_GRAPH_HEADER = "Calorie burnt from exercise (Daily)\n%s";
-    public static final String MESSAGE_CAUTION = "\n** Net calories = Food consumed - Exercise output - " +
-            "your basal metabolic rate, where \n" +
-            "your basal metabolic rate is a factor of your age, gender, " +
-            "height and weight retrieved from your profile.\n" +
-            "All calculations are done in calories.";
+    public static final String MESSAGE_CAUTION = "\n** Net calories = Food consumed - Exercise output - "
+            + "your basal metabolic rate, where \n"
+            + "your basal metabolic rate is a factor of your age, gender, "
+            + "height and weight retrieved from your profile.\n"
+            + "All calculations are done in calories.";
 
     public static final String GRAPH_BUILDER = "%1$s   %2$s    %3$s";
     public static final int MAX_DATE_OFFSET = 6;
