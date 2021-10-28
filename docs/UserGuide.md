@@ -254,7 +254,7 @@ of the item bank can be found at [here](#add-a-food-item-to-foodbank).\
 ## **4. Features**
 
 ℹ️ ***Command Format***
-<blockquote>
+
 
 - Commands are not case-sensitive (e.g. `help`, `HELP`,`hElP` are all able to execute the `help` command)
 
@@ -270,7 +270,7 @@ of the item bank can be found at [here](#add-a-food-item-to-foodbank).\
 
 
 ❗ Please do not use the characters `/` and `|` in your input other than to specify parameters!
-</blockquote>
+
 
 ### **4.1 Customizing your profile**
 
