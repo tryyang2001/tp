@@ -379,10 +379,10 @@ ________________________________________________________________________________
 When you mistakenly add a wrong Food Item inside your Food List, there is no need to worry! The command allows you to 
 remove a specific Food Item in the Food List.
 
-Format: `delete f/LIST_NO. d/DD-MM-YYYY t/HHMM` deletes the *n<sup>th</sup>* Food Item in the Food List which has the date (`DD-MM-YYYY`)
+Format: `delete f/LIST_NO d/DD-MM-YYYY t/HHMM` deletes the *n<sup>th</sup>* Food Item in the Food List which has the date (`DD-MM-YYYY`)
 and time (`HHMM`), where *n* is the index of the Food to delete.
 
-❗ `LIST_NO.` must be a positive integer within the range of the number of Items in the list.
+❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.
 
 Example:
 
@@ -470,7 +470,7 @@ details can be found [here](#443-viewing-upcoming-exercise-list-view-u).
 
 This command allows you to remove any Exercise from the Exercise List just in case you add the wrong Exercise. 
 
-Format: `delete e/LIST_NO. d/DD-MM-YYYY` deletes the *n<sup>th</sup>* exercise Item in the exercise list which contains the date (`DD-MM-YYYY`),
+Format: `delete e/LIST_NO d/DD-MM-YYYY` deletes the *n<sup>th</sup>* exercise Item in the exercise list which contains the date (`DD-MM-YYYY`),
 where *n* is the index of the exercise to delete.
 
 Example:
@@ -493,8 +493,73 @@ All exercise items have been removed.
 __________________________________________________________________________________________________________
 ```
 
+### 4.4 Scheduling your exercises
+
+This feature allows you to record all your upcoming exercises into the upcoming exercise list.
+
+#### 4.4.1 Adding Upcoming Exercise Items `add e/`
+
+This command adds an upcoming exercise into the upcoming exercise list.
+
+Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an upcoming exercise with its respective calories burnt on the given date (`DD-MM-YYYY`}.
 
 
+❗️ The date `DD-MM-YYYY` provided must be in the future. Otherwise, if it is within 7 days before today, it will be
+  added to the [Exercise List](#431-adding-exercise-items-add-e) instead.
+
+/TODO OUTPUT
+
+#### 4.4.2 Adding Recurring Exercise Items `add r/`
+
+This command is used to schedule exercises that you do on a regular basis. This can be particularly useful if you have weekly trainings to record!
+
+Format: `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK` adds recurring exercise with its respective calories burnt to the upcoming list.\
+❗ `START_DATE` and `END_DATE` must be in the future.\
+❗ `START_DATE` must be before `END_DATE`.\
+❗ `START_DATE` and `END_DATE` must follow `DD-MM-YYYY` format.
+
+/TODO OUTPUT
+
+#### 4.4.3 Viewing Upcoming Exercise Items `view u/`
+
+This command is used to view all exercises and the calories added that are scheduled to happen on a future date.
+Format: `view u/`
+```text
+view u/
+__________________________________________________________________________________________
+You have 2 upcoming exercise(s):
+    1. hiit (200 cal) (Saturday 01 Jan 2022)
+    2. running (300 cal) (Sunday 02 Jan 2022)
+__________________________________________________________________________________________
+```
+
+#### 4.4.4 Editing Upcoming Exercise Items `edit u/`
+
+This command is used to edit the exercises that are schedule to happen on a future date.
+Format: `edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` edits the n<sup>th</sup> item in the Upcoming Exercise List, where *n* is the index of the Exercise to edit.
+
+/todo output
+
+#### 4.4.5 Deleting Upcoming Exercise Items `delete u/`
+
+This command is used to delete an exercise that is scheduled to happen on a future date.
+Format: `delete u/LIST_NO` deletes the n<sup>th</sup> upcoming exercise Item in the upcoming exercise list, where *n* is the index of the exercise to delete.
+Example:
+```
+delete u/1
+__________________________________________________________________________________________
+An exercise item for the future has been deleted:
+    running (300 cal)
+Number of exercise item(s) left: 1
+__________________________________________________________________________________________
+```
+💡   **Tip:** If you wish to remove all the Exercise Items from the Upcoming Exercise List, there is a shortcut command: `delete u/all`.
+```
+delete u/all
+__________________________________________________________________________________________________________
+All future exercise items have been removed.
+__________________________________________________________________________________________________________
+```
 
 
 ### 4.7. **Edit Items**: `edit`
@@ -507,21 +572,21 @@ This command is used to edit any record of Items that you have previously entere
 This command is used to edit Exercise Items in the Upcoming Exercise List.
 
 
-Format: `edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` edits the n<sup>th</sup> item in the Upcoming Exercise List, where *n* is the index of the Exercise to edit.
+Format: `edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` edits the n<sup>th</sup> item in the Upcoming Exercise List, where *n* is the index of the Exercise to edit.
 
 
 #### 4.7.2. Edit Food Bank
 
-Format:  `edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` edits the n<sup>th</sup> item in the Food Bank, where *n* is the index of the Food to edit.
+Format:  `edit fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}` edits the n<sup>th</sup> item in the Food Bank, where *n* is the index of the Food to edit.
 
 
 #### 4.7.3. Edit Exercise Bank
 
-Format: `edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` edits the n<sup>th</sup> item in the Exercise Bank, where *n* is the index of the Exercise to edit.
+Format: `edit ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}` edits the n<sup>th</sup> item in the Exercise Bank, where *n* is the index of the Exercise to edit.
 
 ❗ `NEW_DATE` must be a date after today.
 
-❗ `LIST_NO.` must be a positive integer within the range of the number of Items in the list. 
+❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list. 
 
 ❗ While all the parameters are optional, please specify **at least one** parameter so that _Fitbot_ knows which attribute you would like to update.
 
@@ -624,7 +689,7 @@ add -- Add food or exercise record to the current list.
 
       Add Recurring Exercise to Upcoming Exercise List
       Format: add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK
-      Format: delete e/LIST_NO. d/DD-MM-YYYY
+      Format: delete e/LIST_NO d/DD-MM-YYYY
       Identifier        Input
           r/            Description of upcoming exercise
           c/            Calories burnt from exercise
@@ -656,50 +721,50 @@ bye -- Exit the program.
 
 delete -- Delete entry of food or exercise added from a list.
       Deleting food items
-      Format: delete f/LIST_NO. d/DD-MM-YYYY t/HHMM
+      Format: delete f/LIST_NO d/DD-MM-YYYY t/HHMM
       Identifier         Input
            f/           Index of food in food list within the given date
            d/           Date of food in DD-MM-YYYY
            t/           Time of food in HHMM
 
       Delete exercise items
-      Format: delete e/LIST_NO. d/DD-MM-YYYY
+      Format: delete e/LIST_NO d/DD-MM-YYYY
       Identifier        Input
           e/            Description of exercise
           d/            Date of exercise in DD-MM-YYYY
 	
       Delete Upcoming Exercise Item from Upcoming Exercise List
-      Format: delete u/LIST_NO.
+      Format: delete u/LIST_NO
       Identifier        Input
           u/        The index of the item with in the upcoming exercise list
 
       Delete food items from food bank
-      Format: delete fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
+      Format: delete fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
       Identifier        Input
           fbank/        The index of the item with in the food bank
 
       Delete exercise items from exercise bank
-      Format: delete ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
+      Format: delete ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
       Identifier        Input
           ebank/        The index of the item with in the exercise bank
 
 edit -- Edit entry of food or exercise added from a list.
       Edit FoodBank
-      Format: edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
+      Format: edit fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
       Identifier        Input
           fbank/        The index of the item with in the food bank
           n/            New description of food name
           c/            Calories of food
 	 
       Edit ExerciseBank
-      Format: edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
+      Format: edit ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
       Identifier        Input
           ebank/        The index of the item with in the exercise bank
           n/            New description of exercise name
           c/            Calories burnt from exercise
 
      Edit Upcoming Exercise List
-     Format: edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
+     Format: edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
      Identifier        Input
           u/        The index of the item with in the upcoming exercise list
           n/            New description of exercise name
@@ -787,8 +852,8 @@ Advanced users are welcome to update data directly by editing the data files.
 add|`add f/ITEM {c/CALORIE} {d/DD-MM-YYYY} {t/HHMM}` <br>`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` <br> `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK` <br>  `add fbank/ITEM c/CALORIES` <br>  `add ebank/ITEM c/CALORIES`| `add f/chicken rice c/607 d/20-10-2021`, <br>`add e/hiit c/290 d/23-10-2021` <br> `add r/handball training c/432 :/24-10-2021 -/11-11-2021 @/13` <br>  `add fbank/chicken rice c/667`<br> `add ebank/5km run c/478`
 bmi|`bmi h/HEIGHT_IN_CM w/WEIGHT_IN_KG` <br> `bmi`|`bmi h/170 w/65` , <br> `bmi`
 bye|`bye`|
-delete|`delete f/LIST_NO. d/DD-MM-YYYY t/HHMM` <br> `delete e/LIST_NO. d/DD-MM-YYYY` <br> `delete f/all` <br> `delete e/all` |`delete f/1`, <br> `delete e/2`, <br> `delete f/all`, <br>  `delete e/all`
-edit| `edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` <br> `edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}` <br> `edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}`| `edit u/1 n/volleyball training c/560 d/24-10-2021` <br> `edit fbank/1 n/2.4km run c/267` <br> `edit ebank/1 n/chicken rice c/800`
+delete|`delete f/LIST_NO d/DD-MM-YYYY t/HHMM` <br> `delete e/LIST_NO d/DD-MM-YYYY` <br> `delete f/all` <br> `delete e/all` |`delete f/1`, <br> `delete e/2`, <br> `delete f/all`, <br>  `delete e/all`
+edit| `edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` <br> `edit fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}` <br> `edit ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}`| `edit u/1 n/volleyball training c/560 d/24-10-2021` <br> `edit fbank/1 n/2.4km run c/267` <br> `edit ebank/1 n/chicken rice c/800`
 help | `help`|
 overview|`overview`|
 profile|`profile {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG} {n/NAME} {s/GENDER} {a/AGE} {g/CALORIE_IN_CAL} {x/ACTIVITY_FACTOR}` <br> `profile`|`profile h/170 w/65 n/John a/22 s/M g/500 x/2`, <br> `profile`
