@@ -53,7 +53,7 @@ _italics_ | Text that has been _italicised_ indicates that it is a term specific
   - [4.1.1 Setting Up Your Profile](#411-setting-up-your-profile)
   - [4.1.2 Viewing Profile `profile`](#412-viewing-profile-profile)
   - [4.1.3 Updating Profile Attributes](#413-updating-profile-attributes)
-  - [4.1.4 Calculating BMI `bmi`](414-calculating-bmi-bmi)
+  - [4.1.4 Calculating BMI `bmi`](#414-calculating-bmi-bmi)
 - [4.2 Recording Your Food Consumption](#42-recording-your-food-consumption)
   - [4.2.1 Adding Food Items `add f/`](#421-adding-food-items-add-f) 
   - [4.2.2 Viewing Food List `view f/`](#422-viewing-food-list-view-f)
@@ -83,8 +83,8 @@ _italics_ | Text that has been _italicised_ indicates that it is a term specific
 - [4.9 Exiting Program `bye`](#49-exiting-program-bye)
 
 [5. Data Management](#5-data-management)
-- [5.1 Saving Data](#51-saving-data)
-- [5.2 Editing Data](#52-editing-data)
+- [5.1 Saving Data](#51-saving-the-data)
+- [5.2 Editing Data](#52-editing-the-data-file)
 
 [6. FAQ](#6-faq)
 
@@ -242,11 +242,11 @@ are _Food Item_ and _Exercise Item_.\
 \
 ***Upcoming exercise*** - We define the exercise with date after today's date as an Upcoming Exercise. This kind of exercise
 will be handled specifically. It will not be added to the Exercise List but will be saved internally in the storage file. More
-details of the process can be found at [here](#add-a-recurring-exercise-to-the-upcoming-exercise-list).\
+details of the process can be found at [here](#442-adding-recurring-exercise-items-add-r).\
 \
 ***Item Bank*** - An item storage that is capable of storing the Food or Exercise Item with its respective calorie. This is
 to help you to store the calorie intake of a specific Food or the calorie burnt from a specific Exercise for future use. More details
-of the item bank can be found at [here](#add-a-food-item-to-foodbank).\
+of the item bank can be found at [here](#451-adding-food-bank-items-add-fbank).\
 \
 ***Parameters*** - Parameters are values in the command format that _Fitbot_ expects you to provide.
 
@@ -318,7 +318,7 @@ where :
 
 where you will require at least 1 of the optional parameters (in no particular order) to change your attribute!
 
-#### 4.1.4 Calculating BMI
+#### 4.1.4 Calculating BMI `bmi`
 
 You can calculate your Body Mass Index (BMI) using the command `bmi {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG}`
 
@@ -500,7 +500,7 @@ Total calorie burnt in the week: 790 cal
 __________________________________________________________________________________________________________
 ```
 ℹ️ It is also possible to view all the Upcoming Exercises from the Upcoming Exercise List that you have added before. More
-details can be found [here](#443-viewing-upcoming-exercise-list-view-u).
+details can be found [here](#443-viewing-upcoming-exercise-items-view-u).
 
 #### 4.3.3 Deleting Exercises `delete e/`
 
@@ -1096,7 +1096,7 @@ Advanced users are welcome to update data directly by editing the data files.
 **A:** Zip the folder with _Fitbot_ and its data files, and transfer to the new computer. Extract the zipped folder onto your new computer and follow steps 1, 4 and 5 in [Quick Start](#1-quick-start) to get your _Fitbot_ running on your new computer.
 
 **Q:** How many profiles can I create?\
-**A:** _Fitbot_ only supports 1 profile. If you need to make any changes to your current profile, you can refer to [Updating Profile Attributes](#412-updating-profile-attributes).
+**A:** _Fitbot_ only supports 1 profile. If you need to make any changes to your current profile, you can refer to [Updating Profile Attributes](#413-updating-profile-attributes).
 
 **Q:**  Why does _Fitbot_ need so many personal particulars?\
 **A:** _Fitbot_ needs your height, weight, age, gender and activity factor so that we can calculate your [BMR](https://en.wikipedia.org/wiki/Basal_metabolic_rate).
