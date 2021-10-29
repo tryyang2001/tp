@@ -45,7 +45,7 @@ public class DeleteExerciseCommand extends Command {
         }
         assert this.itemIndex > 0 : "Deleting an item only";
         if (super.exerciseItems.getSize() == 0) {
-            logger.log(Level.WARNING, "Exercise list is empty.");
+            logger.log(Level.FINE, "Exercise list is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_EXERCISE_LIST);
         }
         logger.log(Level.FINE, "Trying to delete item now");
@@ -55,9 +55,6 @@ public class DeleteExerciseCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS,
                     deletedExercise.toStringWithDate()));
         } catch (IndexOutOfBoundsException e) {
-            if (super.exerciseItems.getSize() == 1) {
-                return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
-            }
             return new CommandResult(String.format(CommandMessages.MESSAGE_EXERCISE_NOT_FOUND,
                     this.itemIndex + 1,
                     this.date.format(CommandMessages.DATE_FORMATTER)));
