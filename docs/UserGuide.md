@@ -318,7 +318,29 @@ where :
 
 where you will require at least 1 of the optional parameters (in no particular order) to change your attribute!
 
-### **4.2 Recording Your Food Consumption**
+#### 4.1.4 Calculating BMI
+
+You can calculate your Body Mass Index (BMI) using the command `bmi {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG}`
+
+If you do not provide the two optional parameters of height and weight, the BMI will be computed based on the user's current height and weight in the profile. It also outputs the status of your BMI *(underweight, healthy, overweight, obese)* based on the calculated BMI.
+
+Example:
+- `bmi` calculates the BMI value based on the user's height and weight in his or her profile.
+- `bmi h/170 w/65` calculates the BMI value based on height 170cm and weight 65cm.
+
+```text  
+bmi
+__________________________________________________________________________________________________________
+Your BMI value according to your current profile is:
+	15.5 (Underweight)
+__________________________________________________________________________________________________________
+bmi h/170 w/65  
+__________________________________________________________________________________________  
+The calculated BMI value is 20.1 (Healthy)
+__________________________________________________________________________________________  
+```  
+
+### 4.2 Recording your food consumption
 
 You can record all the food items consumed within a week into the Food List. This allows you
 to keep track of your food calorie consumption and gain a better understanding of your diet habit. 
