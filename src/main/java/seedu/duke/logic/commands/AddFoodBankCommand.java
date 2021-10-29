@@ -29,7 +29,7 @@ public class AddFoodBankCommand extends Command {
     @Override
     public CommandResult execute() {
         if (food.getCalories() < 0) {
-            logger.log(Level.WARNING, "Food calorie is invalid");
+            logger.log(Level.FINE, "Food calorie is invalid");
             return new CommandResult(CommandMessages.MESSAGE_INVALID_FOOD_CALORIES);
         }
         assert food.getCalories() >= 0 : "Food calorie is valid";
