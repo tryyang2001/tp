@@ -340,7 +340,7 @@ The calculated BMI value is 20.1 (Healthy)
 __________________________________________________________________________________________  
 ```  
 
-### 4.2 Recording your food consumption
+### **4.2 Recording your food consumption**
 
 You can record all the food items consumed within a week into the Food List. This allows you
 to keep track of your food calorie consumption and gain a better understanding of your diet habit. 
@@ -675,7 +675,7 @@ Example:
 edit fbank/1 c/350
 __________________________________________________________________________________________________________
 Item number 1 in the food bank has been changed to:
-	Baked Potato (350 cal) @ 02:24
+	Baked Potato (350 cal)
 __________________________________________________________________________________________________________
 
 ```
@@ -693,7 +693,7 @@ Example:
 ```
 delete fbank/2
 __________________________________________________________________________________________________________
-An food item has been deleted from the food bank:
+A food item has been deleted from the food bank:
 	McSpicy Meal (1081 cal) @ 02:25
 Number of food item(s) left in the food bank: 1
 __________________________________________________________________________________________________________
@@ -1074,7 +1074,7 @@ Exiting Fitbot....
 Bye! Hope to see you again soon!!  
 _________________________________________________________________________________________________________  
 ```  
-### 5. Data Management
+### **5. Data Management**
 
 
 #### 5.1. Saving The Data
