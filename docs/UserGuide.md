@@ -96,7 +96,7 @@ _italics_ | Text that has been _italicised_ indicates that it is a term specific
 ## **1. Quick Start**
 
 1. Ensure you have Java 11 or above installed in your computer.  If not, install Java 11 [here](https://www.oracle.com/java/technologies/downloads/).
-2. Download the latest version of [Fitbot.jar](https://github.com/AY2122S1-CS2113T-F14-2/tp/releases/tag/v1.0) from the cloud.
+2. Download the latest version of [Fitbot.jar](https://github.com/AY2122S1-CS2113T-F14-2/tp/releases) from the cloud.
 3. Copy the file to the folder you want to use as the home folder for your _Fitbot_.
 4. Go to command prompt and change the directory to the file's location. [Not sure how to do this?](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)
 5. Type `java -jar Fitbot.jar` into the command prompt and press enter to start the program.
