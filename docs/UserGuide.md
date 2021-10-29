@@ -878,7 +878,7 @@ add -- Add food or exercise record to the current list.
       Add Food Item
       Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}
         Prefix               Input
-          f/             Description of the food item
+          f/             Description of the Food Item
           c/             Calories of the food
           d/             Date of food in DD-MM-YYYY
           t/             Time of food in HHMM
@@ -907,7 +907,7 @@ add -- Add food or exercise record to the current list.
           c/             Calories burnt from exercise
 
       Add Exercise Item in ExerciseBank
-      Format: add ebank/ITEM c/CALORIES
+      Format: add fbank/ITEM c/CALORIES
         Prefix               Input
           fbank/         Description of food
           c/             Calories burnt from exercise
@@ -923,58 +923,10 @@ bye -- Exit the program.
       Format: bye
 
 delete -- Delete entry of food or exercise added from a list.
-      Deleting food items
-      Format: delete f/LIST_NO d/DD-MM-YYYY t/HHMM
-      Identifier         Input
-           f/           Index of food in food list within the given date
-           d/           Date of food in DD-MM-YYYY
-           t/           Time of food in HHMM
-
-      Delete exercise items
-      Format: delete e/LIST_NO d/DD-MM-YYYY
-      Identifier        Input
-          e/            Description of exercise
-          d/            Date of exercise in DD-MM-YYYY
-	
-      Delete Upcoming Exercise Item from Upcoming Exercise List
-      Format: delete u/LIST_NO
-      Identifier        Input
-          u/        The index of the item with in the upcoming exercise list
-
-      Delete food items from food bank
-      Format: delete fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          fbank/        The index of the item with in the food bank
-
-      Delete exercise items from exercise bank
-      Format: delete ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          ebank/        The index of the item with in the exercise bank
-
-edit -- Edit entry of food or exercise added from a list.
-      Edit FoodBank
-      Format: edit fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          fbank/        The index of the item with in the food bank
-          n/            New description of food name
-          c/            Calories of food
-	 
-      Edit ExerciseBank
-      Format: edit ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          ebank/        The index of the item with in the exercise bank
-          n/            New description of exercise name
-          c/            Calories burnt from exercise
-
-     Edit Upcoming Exercise List
-     Format: edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
-     Identifier        Input
-          u/        The index of the item with in the upcoming exercise list
-
       Deleting Food Item
       Format: delete f/LIST_NO. d/DD-MM-YYYY t/HHMM
         Prefix               Input
-          f/             Index of food in food list within the given date
+          f/             Index of food in Food List within the given date
           d/             Date of food in DD-MM-YYYY
           t/             Time of food in HHMM
 
@@ -987,7 +939,7 @@ edit -- Edit entry of food or exercise added from a list.
       Delete Upcoming Exercise Items from Upcoming Exercise List
       Format: delete u/LIST_NO.
         Prefix               Input
-          u/             The index of the item with in the upcoming exercise list
+          u/             The index of the item with in the upcoming Exercise List
 
       Delete Food Item from Food Bank
       Format: delete fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
@@ -1017,7 +969,7 @@ edit -- Edit entry of food or exercise added from a list.
      Edit Upcoming Exercise List
      Format: edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
        Prefix               Input
-          u/            The index of the item with in the upcoming exercise list
+          u/            The index of the item with in the upcoming Exercise List
           n/            New description of exercise name
           c/            Calories burnt from exercise
 
@@ -1057,6 +1009,7 @@ view -- View all the food and/or exercises added.
       View Food Bank
       Format: view f/
 __________________________________________________________________________________________________________
+
 ```
 
 
