@@ -34,15 +34,18 @@ public class ProfileUpdateCommand extends Command {
     private ActivityFactor activityFactor;
     private Gender gender;
 
-    public ProfileUpdateCommand(String name, double height, double weight, int calorieGoal, int age,
-                                int activityFactor, char gender) {
-        this.name = new Name(name);
-        this.height = new Height(height);
-        this.weight = new Weight(weight);
-        this.calorieGoal = new CalorieGoal(calorieGoal);
-        this.gender = new Gender(gender);
-        this.age = new Age(age);
-        this.activityFactor = new ActivityFactor(activityFactor);
+
+
+    public ProfileUpdateCommand(String name, Double height, Double weight, Integer calorieGoal, Integer age,
+                                Integer activityFactor, Character gender) {
+        this.name = name == null ? null : new Name(name);
+        this.height = height == null ? null: new Height(height);
+        this.weight = weight == null ? null : new Weight(weight);
+        this.calorieGoal = calorieGoal == null ? null : new CalorieGoal(calorieGoal);
+        this.gender = gender == NULL_CHAR ? null : new Gender(gender);
+        this.age = age == null ? null : new Age(age);
+        this.activityFactor = activityFactor == null ? null : new ActivityFactor(activityFactor);
+
     }
 
     private void checkIfCommandShouldExecute() throws InvalidCharacteristicException {
@@ -69,15 +72,15 @@ public class ProfileUpdateCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            this.name = name.getName().equals(NULL_STRING) ? super.profile.getProfileName() : name;
-            this.height = height.getHeight() == NULL_DOUBLE ? super.profile.getProfileHeight() : height;
-            this.weight = weight.getWeight() == NULL_DOUBLE ? super.profile.getProfileWeight() : weight;
-            this.gender = gender.getGender() == NULL_CHAR ? super.profile.getProfileGender() : gender;
-            this.age = age.getAge() == NULL_INT ? super.profile.getProfileAge() : age;
-            this.calorieGoal = calorieGoal.getCalorieGoal() == NULL_INT
+            this.name = name == null  ? super.profile.getProfileName() : name;
+            this.height = height == null ? super.profile.getProfileHeight() : height;
+            this.weight = weight == null ? super.profile.getProfileWeight() : weight;
+            this.gender = gender == null ? super.profile.getProfileGender() : gender;
+            this.age = age == null ? super.profile.getProfileAge() : age;
+            this.calorieGoal = calorieGoal == null
                     ? super.profile.getProfileCalorieGoal()
                     : calorieGoal;
-            this.activityFactor = activityFactor.getActivityFactor() == NULL_INT
+            this.activityFactor = activityFactor == null
                     ? super.profile.getProfileActivityFactor()
                     : activityFactor;
 

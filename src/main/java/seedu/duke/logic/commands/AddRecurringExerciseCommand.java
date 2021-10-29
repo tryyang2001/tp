@@ -28,34 +28,31 @@ public class AddRecurringExerciseCommand extends Command {
     };
 
     private final String description;
-    private int calories;
-    private boolean isCaloriesFromBank;
+    private Integer calories;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final ArrayList<Integer> dayOfTheWeek;
 
     private static Logger logger = Logger.getLogger(AddRecurringExerciseCommand.class.getName());
 
-    public AddRecurringExerciseCommand(String description, int calories, LocalDate startDate,
-                                       LocalDate endDate, ArrayList<Integer> dayOfTheWeek,
-                                       boolean isCaloriesFromBank) {
+    public AddRecurringExerciseCommand(String description, Integer calories, LocalDate startDate,
+                                       LocalDate endDate, ArrayList<Integer> dayOfTheWeek) {
         this.description = description;
         this.calories = calories;
         this.startDate = startDate;
         this.endDate = endDate;
         this.dayOfTheWeek = dayOfTheWeek;
-        this.isCaloriesFromBank = isCaloriesFromBank;
     }
 
     @Override
     public CommandResult execute() {
         if (this.startDate.isAfter(this.endDate)) {
-            logger.log(Level.FINE, "Start date is after end date");
+            logger.log(Level.WARNING, "Start date is after end date");
             return new CommandResult(String.format(MESSAGE_INVALID_DATES,
                     this.startDate.format(CommandMessages.DATE_FORMATTER),
                     this.endDate.format(CommandMessages.DATE_FORMATTER)));
         }
-        if (isCaloriesFromBank) {
+        if (calories == null) {
             try {
                 this.calories = super.exerciseBank.findCalorie(this.description);
             } catch (ItemNotFoundInBankException e) {
@@ -64,20 +61,20 @@ public class AddRecurringExerciseCommand extends Command {
             }
         } else {
             if (this.calories <= 0) {
-                logger.log(Level.FINE, "Exercise calorie is invalid");
+                logger.log(Level.WARNING, "Exercise calorie is invalid");
                 return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
             }
         }
         assert this.endDate.isAfter(this.startDate) : "End date is after start date";
         if (!this.startDate.isAfter(LocalDate.now())) {
-            logger.log(Level.FINE, "Recurring exercises are for future only");
+            logger.log(Level.WARNING, "Recurring exercises are for future only");
             return new CommandResult(String.format(MESSAGE_INVALID_FUTURE_DATES,
                     this.startDate.format(CommandMessages.DATE_FORMATTER),
                     this.endDate.format(CommandMessages.DATE_FORMATTER)));
         }
         assert this.startDate.isAfter(LocalDate.now()) : "Start and end dates are in the future";
         if (this.calories <= 0) {
-            logger.log(Level.FINE, "Exercise calorie is invalid");
+            logger.log(Level.WARNING, "Exercise calorie is invalid");
             return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
         }
         assert this.calories > 0 : "Exercise calorie is valid";
@@ -90,7 +87,7 @@ public class AddRecurringExerciseCommand extends Command {
                     this.endDate.format(CommandMessages.DATE_FORMATTER)));
         }
 
-        logger.log(Level.FINE, "Recurring exercise is successfully added");
+        logger.log(Level.WARNING, "Recurring exercise is successfully added");
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

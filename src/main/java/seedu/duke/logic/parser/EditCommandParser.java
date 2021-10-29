@@ -50,7 +50,7 @@ public class EditCommandParser implements Parser {
                 return new InvalidCommand(CommandMessages.MESSAGE_EDIT_BANK_NEED_DETAILS);
             }
             final String description = ParserUtils.extractName(params);
-            final int calories = ParserUtils.extractItemCalories(params, false);
+            final Integer calories = ParserUtils.extractItemCalories(params, false);
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_EXERCISE_BANK:
                 if (ParserUtils.hasExtraDelimiters(params, EditExerciseBankCommand.EXPECTED_PREFIXES)) {
@@ -80,10 +80,10 @@ public class EditCommandParser implements Parser {
             }
 
             final String description = ParserUtils.extractName(params);
-            final int calories = ParserUtils.extractItemCalories(params, false);
+            final Integer calories = ParserUtils.extractItemCalories(params, false);
             final LocalDate date = ParserUtils.hasRequiredParams(params, Command.COMMAND_PREFIX_DATE)
                     ? ParserUtils.extractDate(params, false)
-                    : Command.NULL_DATE;
+                    : null;
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
                 if (ParserUtils.hasExtraDelimiters(params, EditFutureExerciseCommand.EXPECTED_PREFIXES)) {
