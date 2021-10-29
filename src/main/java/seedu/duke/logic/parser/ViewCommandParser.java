@@ -18,17 +18,16 @@ public class ViewCommandParser implements Parser {
     @Override
     public Command parse(String params) {
         try {
-            final String itemTypePrefix = ParserUtils.extractItemTypePrefix(params);
-            switch (itemTypePrefix) {
-            case Command.COMMAND_PREFIX_EXERCISE:
+            switch (params) {
+            case Command.COMMAND_PREFIX_EXERCISE + Command.COMMAND_PREFIX_DELIMITER:
                 return new ViewExerciseListCommand();
-            case Command.COMMAND_PREFIX_FOOD:
+            case Command.COMMAND_PREFIX_FOOD + Command.COMMAND_PREFIX_DELIMITER:
                 return new ViewFoodListCommand();
-            case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
+            case Command.COMMAND_PREFIX_UPCOMING_EXERCISE + Command.COMMAND_PREFIX_DELIMITER:
                 return new ViewFutureExerciseListCommand();
-            case Command.COMMAND_PREFIX_EXERCISE_BANK:
+            case Command.COMMAND_PREFIX_EXERCISE_BANK + Command.COMMAND_PREFIX_DELIMITER:
                 return new ViewExerciseBankCommand();
-            case Command.COMMAND_PREFIX_FOOD_BANK:
+            case Command.COMMAND_PREFIX_FOOD_BANK + Command.COMMAND_PREFIX_DELIMITER:
                 return new ViewFoodBankCommand();
             default:
                 throw new ItemNotSpecifiedException();

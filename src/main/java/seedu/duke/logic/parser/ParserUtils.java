@@ -35,6 +35,7 @@ public class ParserUtils {
 
     /**
      * Extracts the item type prefix for command words that are common across item types (add, delete, view).
+     * //TODO: Item type must be the first word after the command word. E.g "add f/" is valid, "add potato f/" is not
      *
      * @param params String containing all parameters
      * @return String that is one of the item type prefixes
@@ -82,7 +83,6 @@ public class ParserUtils {
             return Command.COMMAND_PREFIX_FOOD_BANK;
         }
     }
-
 
     protected static boolean checkIsItemSpecified(boolean... paramBool) {
         int numberOfParams = 0;
