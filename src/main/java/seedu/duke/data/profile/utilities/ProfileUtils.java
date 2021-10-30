@@ -85,13 +85,13 @@ public class ProfileUtils {
         return Math.round((weight / (Math.pow(heightInM, 2))) * 10) / 10.0;
     }
 
-    public static void checkWeightValidity(double weight) throws InvalidCharacteristicException {
+    private static void checkWeightValidity(double weight) throws InvalidCharacteristicException {
         if (weight <= NON_POSITIVE_LIMIT) {
             throw new InvalidCharacteristicException(ERROR_WEIGHT);
         }
     }
 
-    public static void checkHeightValidity(double height) throws InvalidCharacteristicException {
+    private static void checkHeightValidity(double height) throws InvalidCharacteristicException {
         if (height <= NON_POSITIVE_LIMIT) {
             throw new InvalidCharacteristicException(ERROR_HEIGHT);
         }
