@@ -163,13 +163,13 @@ public abstract class ItemList extends ItemBank {
     }
 
     /**
-     * Helper method used in getActualIndex to check if the current index has the same date
+     * Helper method used in getActualIndex to check if the current index has the same date,
      * (and time period for food) as the user input, will be implemented in FoodList and ExerciseList.
      *
      * @param deletedItem  The item to delete
      * @param currentIndex The current index of the entire item list
      * @return True if the current index points to the item that has the same date (and time for food)
-     * as the item to delete, false otherwise
+     *         as the item to delete, false otherwise
      */
     protected abstract boolean isListToQuery(Item deletedItem, int currentIndex);
 
