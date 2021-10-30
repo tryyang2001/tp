@@ -46,6 +46,7 @@ public class Food extends Item {
     }
 
     //====================Getter and Setter methods=========================
+
     /**
      * Gets the date and time of the food consumed.
      *
@@ -144,6 +145,9 @@ public class Food extends Item {
         return this + ", " + this.getDate().format(DATE_FORMAT_FOR_PRINTING);
     }
 
+
+    //====================Storage methods=========================
+
     /**
      * Converts the food to external file string format.
      *
@@ -155,6 +159,16 @@ public class Food extends Item {
                 + super.toFileTextString()
                 + FILE_TEXT_DELIMITER
                 + this.getDateTime().format(DATE_TIME_FORMATTER);
+    }
+
+    /**
+     * Checks if the name and the calorie of the food item is valid.
+     *
+     * @return True if the name and the calorie of the food is valid, false otherwise
+     */
+    @Override
+    public boolean isValid() {
+        return super.isValid() && calories >= 0;
     }
 
     //====================Private methods=========================

@@ -77,6 +77,9 @@ public class Exercise extends Item {
         return super.toString() + AT + this.getDate().format(DATE_FORMAT_FOR_PRINTING);
     }
 
+
+    //====================Storage methods=========================
+
     /**
      * Converts the exercise to external file string format.
      *
@@ -88,5 +91,15 @@ public class Exercise extends Item {
                 + super.toFileTextString()
                 + FILE_TEXT_DELIMITER
                 + this.getDate().format(DATE_FORMATTER_FOR_STORAGE);
+    }
+
+    /**
+     * Checks if the current exercise item is valid.
+     *
+     * @return True if the exercise name and calories are valid, false otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return super.isValid() && calories > 0;
     }
 }
