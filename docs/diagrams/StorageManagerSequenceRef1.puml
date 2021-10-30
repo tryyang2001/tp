@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!include style.puml
+hide footbox
+
+participant "profileStorage:ProfileStorage" As ProfileStorage STORAGE_COLOUR
+participant ":FileChecker" As FileChecker STORAGE_COLOUR
+participant "file:File" As File STORAGE_COLOUR
+
+ProfileStorage -> FileChecker: createFileIfMissing(filePath)
+activate FileChecker STORAGE_COLOUR
+    FileChecker -> File **: new File(filePath)
+    activate File STORAGE_COLOUR
+        File --> FileChecker: file
+    deactivate
+    FileChecker -> FileChecker ++ STORAGE_COLOUR: createDirectory()
+    FileChecker --> FileChecker --
+    opt !fileToCheck.exist
+        FileChecker -> File : createNewFile()
+        activate File STORAGE_COLOUR
+            File --> FileChecker
+        deactivate
+    end
+    destroy File
+    FileChecker --> ProfileStorage
+deactivate
+
+@enduml
