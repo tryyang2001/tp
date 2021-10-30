@@ -28,12 +28,12 @@ public class UpdateProfileParser implements Parser {
 
         try {
             final String name = ParserUtils.extractName(params);
-            final double height = ParserUtils.extractHeight(params);
-            final double weight = ParserUtils.extractWeight(params);
-            final int calorieGoal = ParserUtils.extractCalorieGoal(params);
-            final int age = ParserUtils.extractAge(params);
-            final int activityFactor = ParserUtils.extractActivityFactor(params);
-            final char gender = ParserUtils.extractGender(params);
+            final Double height = ParserUtils.extractHeight(params);
+            final Double weight = ParserUtils.extractWeight(params);
+            final Integer calorieGoal = ParserUtils.extractCalorieGoal(params);
+            final Integer age = ParserUtils.extractAge(params);
+            final Integer activityFactor = ParserUtils.extractActivityFactor(params);
+            final Character gender = ParserUtils.extractGender(params);
             return new ProfileUpdateCommand(name, height, weight, calorieGoal, age, activityFactor, gender);
         } catch (ParamInvalidException e) {
             return new InvalidCommand(e.getMessage());

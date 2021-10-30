@@ -21,31 +21,30 @@ public class DeleteExerciseBankCommand extends Command {
 
     private static Logger logger = Logger.getLogger(DeleteExerciseBankCommand.class.getName());
 
-    private final int itemIndex;
+    private int itemIndex;
     private boolean isClear = false;
 
     public DeleteExerciseBankCommand(int itemIndex) {
-        this.itemIndex = itemIndex; //-2
+        this.itemIndex = itemIndex;
     }
 
     public DeleteExerciseBankCommand(boolean isClear) {
-        this.itemIndex = -1;
         this.isClear = isClear;
     }
 
     @Override
     public CommandResult execute() {
         if (this.isClear) {
-            logger.log(Level.FINE, "Clearing exercise bank");
+            logger.log(Level.WARNING, "Clearing exercise bank");
             super.exerciseBank.clearList();
             return new CommandResult(MESSAGE_EXERCISE_CLEAR);
         }
         assert this.itemIndex > 0 : "Deleting an item only";
         if (super.exerciseBank.getSize() == 0) {
-            logger.log(Level.FINE, "Exercise bank is empty.");
+            logger.log(Level.WARNING, "Exercise bank is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_EXERCISE_BANK);
         }
-        logger.log(Level.FINE, "Trying to delete item now");
+        logger.log(Level.WARNING, "Trying to delete item now");
         try {
             Exercise deletedExercise;
             deletedExercise = (Exercise) super.exerciseBank.deleteItem(this.itemIndex);
@@ -53,7 +52,7 @@ public class DeleteExerciseBankCommand extends Command {
                     deletedExercise.toStringWithoutDateAndTime(),
                     super.exerciseBank.getSize()));
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.FINE, "Detected invalid exercise item index.");
+            logger.log(Level.WARNING, "Detected invalid exercise item index.");
             if (super.exerciseBank.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }

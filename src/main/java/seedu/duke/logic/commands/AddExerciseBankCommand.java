@@ -28,13 +28,13 @@ public class AddExerciseBankCommand extends Command {
     @Override
     public CommandResult execute() {
         if (exercise.getCalories() <= 0) {
-            logger.log(Level.FINE, "Exercise calorie is invalid");
+            logger.log(Level.WARNING, "Exercise calorie is invalid");
             return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
         }
         assert exercise.getCalories() > 0 : "Exercise calorie is valid";
         try {
             super.exerciseBank.addItem(this.exercise);
-            logger.log(Level.FINE, "Exercise is successfully added to exercise bank");
+            logger.log(Level.WARNING, "Exercise is successfully added to exercise bank");
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.exercise));
         } catch (DuplicateItemInBankException e) {
             return new CommandResult(String.format(

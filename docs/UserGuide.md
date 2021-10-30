@@ -96,7 +96,7 @@ _italics_ | Text that has been _italicised_ indicates that it is a term specific
 ## **1. Quick Start**
 
 1. Ensure you have Java 11 or above installed in your computer.  If not, install Java 11 [here](https://www.oracle.com/java/technologies/downloads/).
-2. Download the latest version of [Fitbot.jar](https://github.com/AY2122S1-CS2113T-F14-2/tp/releases/tag/v1.0) from the cloud.
+2. Download the latest version of [Fitbot.jar](https://github.com/AY2122S1-CS2113T-F14-2/tp/releases) from the cloud.
 3. Copy the file to the folder you want to use as the home folder for your _Fitbot_.
 4. Go to command prompt and change the directory to the file's location. [Not sure how to do this?](https://www.groovypost.com/howto/open-command-window-terminal-window-specific-folder-windows-mac-linux/)
 5. Type `java -jar Fitbot.jar` into the command prompt and press enter to start the program.
@@ -340,7 +340,7 @@ The calculated BMI value is 20.1 (Healthy)
 __________________________________________________________________________________________  
 ```  
 
-### 4.2 Recording your food consumption
+### **4.2 Recording your food consumption**
 
 You can record all the food items consumed within a week into the Food List. This allows you
 to keep track of your food calorie consumption and gain a better understanding of your diet habit. 
@@ -675,7 +675,7 @@ Example:
 edit fbank/1 c/350
 __________________________________________________________________________________________________________
 Item number 1 in the food bank has been changed to:
-	Baked Potato (350 cal) @ 02:24
+	Baked Potato (350 cal)
 __________________________________________________________________________________________________________
 
 ```
@@ -693,7 +693,7 @@ Example:
 ```
 delete fbank/2
 __________________________________________________________________________________________________________
-An food item has been deleted from the food bank:
+A food item has been deleted from the food bank:
 	McSpicy Meal (1081 cal) @ 02:25
 Number of food item(s) left in the food bank: 1
 __________________________________________________________________________________________________________
@@ -878,7 +878,7 @@ add -- Add food or exercise record to the current list.
       Add Food Item
       Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}
         Prefix               Input
-          f/             Description of the food item
+          f/             Description of the Food Item
           c/             Calories of the food
           d/             Date of food in DD-MM-YYYY
           t/             Time of food in HHMM
@@ -907,7 +907,7 @@ add -- Add food or exercise record to the current list.
           c/             Calories burnt from exercise
 
       Add Exercise Item in ExerciseBank
-      Format: add ebank/ITEM c/CALORIES
+      Format: add fbank/ITEM c/CALORIES
         Prefix               Input
           fbank/         Description of food
           c/             Calories burnt from exercise
@@ -923,58 +923,10 @@ bye -- Exit the program.
       Format: bye
 
 delete -- Delete entry of food or exercise added from a list.
-      Deleting food items
-      Format: delete f/LIST_NO d/DD-MM-YYYY t/HHMM
-      Identifier         Input
-           f/           Index of food in food list within the given date
-           d/           Date of food in DD-MM-YYYY
-           t/           Time of food in HHMM
-
-      Delete exercise items
-      Format: delete e/LIST_NO d/DD-MM-YYYY
-      Identifier        Input
-          e/            Description of exercise
-          d/            Date of exercise in DD-MM-YYYY
-	
-      Delete Upcoming Exercise Item from Upcoming Exercise List
-      Format: delete u/LIST_NO
-      Identifier        Input
-          u/        The index of the item with in the upcoming exercise list
-
-      Delete food items from food bank
-      Format: delete fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          fbank/        The index of the item with in the food bank
-
-      Delete exercise items from exercise bank
-      Format: delete ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          ebank/        The index of the item with in the exercise bank
-
-edit -- Edit entry of food or exercise added from a list.
-      Edit FoodBank
-      Format: edit fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          fbank/        The index of the item with in the food bank
-          n/            New description of food name
-          c/            Calories of food
-	 
-      Edit ExerciseBank
-      Format: edit ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
-      Identifier        Input
-          ebank/        The index of the item with in the exercise bank
-          n/            New description of exercise name
-          c/            Calories burnt from exercise
-
-     Edit Upcoming Exercise List
-     Format: edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}
-     Identifier        Input
-          u/        The index of the item with in the upcoming exercise list
-
       Deleting Food Item
       Format: delete f/LIST_NO. d/DD-MM-YYYY t/HHMM
         Prefix               Input
-          f/             Index of food in food list within the given date
+          f/             Index of food in Food List within the given date
           d/             Date of food in DD-MM-YYYY
           t/             Time of food in HHMM
 
@@ -987,7 +939,7 @@ edit -- Edit entry of food or exercise added from a list.
       Delete Upcoming Exercise Items from Upcoming Exercise List
       Format: delete u/LIST_NO.
         Prefix               Input
-          u/             The index of the item with in the upcoming exercise list
+          u/             The index of the item with in the upcoming Exercise List
 
       Delete Food Item from Food Bank
       Format: delete fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
@@ -1017,7 +969,7 @@ edit -- Edit entry of food or exercise added from a list.
      Edit Upcoming Exercise List
      Format: edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
        Prefix               Input
-          u/            The index of the item with in the upcoming exercise list
+          u/            The index of the item with in the upcoming Exercise List
           n/            New description of exercise name
           c/            Calories burnt from exercise
 
@@ -1057,6 +1009,7 @@ view -- View all the food and/or exercises added.
       View Food Bank
       Format: view f/
 __________________________________________________________________________________________________________
+
 ```
 
 
@@ -1074,7 +1027,7 @@ Exiting Fitbot....
 Bye! Hope to see you again soon!!  
 _________________________________________________________________________________________________________  
 ```  
-### 5. Data Management
+### **5. Data Management**
 
 
 #### 5.1. Saving The Data

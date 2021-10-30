@@ -7,7 +7,6 @@ import seedu.duke.data.item.exercise.FutureExerciseList;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
 
-import java.time.LocalDate;
 
 /**
  * Abstract class used to represent executable Commands.
@@ -41,13 +40,7 @@ public abstract class Command {
     public static final String COMMAND_WORD_BMI = "bmi";
     public static final String COMMAND_WORD_PROFILE = "profile";
     public static final String COMMAND_WORD_DELETE_ALL = "all";
-    public static final double NULL_DOUBLE = Double.MIN_VALUE;
-    public static final int NULL_INT = Integer.MIN_VALUE;
     public static final char NULL_CHAR = '|';
-    public static final int NULL_CALORIES = -1;
-    public static final String NULL_STRING = "";
-    public static final LocalDate NULL_DATE = LocalDate.MIN;
-
 
     protected Profile profile;
     protected ExerciseList exerciseItems;

@@ -9,8 +9,8 @@ class HeightTest {
 
     @Test
     void createHeight_validHeightInputs_expectTrue() {
-        final Height h1 = new Height(190);
-        final Height h2 = new Height(165);
+        final Height h1 = new Height(190.0);
+        final Height h2 = new Height(165.0);
         assertTrue(h1.isValid());
         assertTrue(h2.isValid());
     }
