@@ -2,6 +2,7 @@ package seedu.duke.data.profile;
 
 import org.junit.jupiter.api.Test;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13,7 +14,7 @@ class ProfileTest {
     void calculateBmi_twoDoubleInputs_expectDoubleReturned() throws InvalidCharacteristicException {
         final double height = 171.2;
         final double weight = 59.8;
-        assertEquals(20.4, Profile.calculateBmi(height, weight));
+        assertEquals(20.4, ProfileUtils.calculateBmi(height, weight));
     }
 
     @Test
@@ -21,7 +22,7 @@ class ProfileTest {
         final double height = -171.2;
         final double weight = 59.8;
         assertThrows(InvalidCharacteristicException.class,
-            () -> Profile.calculateBmi(height, weight));
+            () -> ProfileUtils.calculateBmi(height, weight));
     }
 
     @Test
@@ -29,7 +30,7 @@ class ProfileTest {
         final double height = 171.2;
         final double weight = -59.8;
         assertThrows(InvalidCharacteristicException.class,
-            () -> Profile.calculateBmi(height, weight));
+            () -> ProfileUtils.calculateBmi(height, weight));
     }
 
     @Test
@@ -43,10 +44,10 @@ class ProfileTest {
         final double bmiOverweight = 25.5;
         final double bmiObese = 30.0;
 
-        assertEquals(expectedStatusUnderweight, Profile.retrieveBmiStatus(bmiUnderweight));
-        assertEquals(expectedStatusHealthy, Profile.retrieveBmiStatus(bmiHealthy));
-        assertEquals(expectedStatusOverweight, Profile.retrieveBmiStatus(bmiOverweight));
-        assertEquals(expectedStatusObese, Profile.retrieveBmiStatus(bmiObese));
+        assertEquals(expectedStatusUnderweight, ProfileUtils.retrieveBmiStatus(bmiUnderweight));
+        assertEquals(expectedStatusHealthy, ProfileUtils.retrieveBmiStatus(bmiHealthy));
+        assertEquals(expectedStatusOverweight, ProfileUtils.retrieveBmiStatus(bmiOverweight));
+        assertEquals(expectedStatusObese, ProfileUtils.retrieveBmiStatus(bmiObese));
     }
 
     @Test
@@ -67,15 +68,15 @@ class ProfileTest {
         final int bmrExtreme = (int) Math.round(baseBmr * 1.9);
 
         p.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
-        assertEquals(bmrSedentary, p.getBmr());
-        p.getProfileActivityFactor().setActivityFactor(2);
-        assertEquals(bmrLight, p.getBmr());
-        p.getProfileActivityFactor().setActivityFactor(3);
-        assertEquals(bmrModerate, p.getBmr());
-        p.getProfileActivityFactor().setActivityFactor(4);
-        assertEquals(bmrIntense, p.getBmr());
-        p.getProfileActivityFactor().setActivityFactor(5);
-        assertEquals(bmrExtreme, p.getBmr());
+        assertEquals(bmrSedentary, ProfileUtils.getBmr(p));
+        p.getProfileActivityFactor().setUserInput(2);
+        assertEquals(bmrLight, ProfileUtils.getBmr(p));
+        p.getProfileActivityFactor().setUserInput(3);
+        assertEquals(bmrModerate, ProfileUtils.getBmr(p));
+        p.getProfileActivityFactor().setUserInput(4);
+        assertEquals(bmrIntense, ProfileUtils.getBmr(p));
+        p.getProfileActivityFactor().setUserInput(5);
+        assertEquals(bmrExtreme, ProfileUtils.getBmr(p));
     }
 
     @Test
@@ -96,15 +97,15 @@ class ProfileTest {
         final int bmrExtreme = (int) Math.round(baseBmr * 1.9);
 
         p.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
-        assertEquals(bmrSedentary, p.getBmr());
-        p.getProfileActivityFactor().setActivityFactor(2);
-        assertEquals(bmrLight, p.getBmr());
-        p.getProfileActivityFactor().setActivityFactor(3);
-        assertEquals(bmrModerate, p.getBmr());
-        p.getProfileActivityFactor().setActivityFactor(4);
-        assertEquals(bmrIntense, p.getBmr());
-        p.getProfileActivityFactor().setActivityFactor(5);
-        assertEquals(bmrExtreme, p.getBmr());
+        assertEquals(bmrSedentary, ProfileUtils.getBmr(p));
+        p.getProfileActivityFactor().setUserInput(2);
+        assertEquals(bmrLight, ProfileUtils.getBmr(p));
+        p.getProfileActivityFactor().setUserInput(3);
+        assertEquals(bmrModerate, ProfileUtils.getBmr(p));
+        p.getProfileActivityFactor().setUserInput(4);
+        assertEquals(bmrIntense, ProfileUtils.getBmr(p));
+        p.getProfileActivityFactor().setUserInput(5);
+        assertEquals(bmrExtreme, ProfileUtils.getBmr(p));
     }
 
     @Test

@@ -3,6 +3,7 @@ package seedu.duke.ui;
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 
 import java.time.LocalDate;
@@ -82,7 +83,7 @@ public class Statistics {
 
     private int calculateNetCalories(int foodCalories, int exerciseCalories) {
         try {
-            return this.profile.calculateNetCalories(foodCalories, exerciseCalories);
+            return ProfileUtils.calculateNetCalories(foodCalories, exerciseCalories, this.profile);
         } catch (InvalidCharacteristicException e) {
             return 0;
         }
@@ -203,7 +204,7 @@ public class Statistics {
 
     private int getNetCalories(int foodCalories, int exerciseCalories) {
         try {
-            return profile.calculateNetCalories(foodCalories, exerciseCalories);
+            return ProfileUtils.calculateNetCalories(foodCalories, exerciseCalories, profile);
         } catch (InvalidCharacteristicException e) {
             return EMPTY_CALORIES;
         }

@@ -1,5 +1,6 @@
 package seedu.duke.data.item;
 
+import seedu.duke.data.Verifiable;
 import seedu.duke.data.item.food.TimePeriod;
 
 import java.time.LocalDate;

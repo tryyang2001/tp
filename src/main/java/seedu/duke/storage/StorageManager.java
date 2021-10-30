@@ -21,6 +21,9 @@ import seedu.duke.storage.data.profile.ProfileStorageInterface;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
+/**
+ * Manages the loading and saving from various storage subclasses.
+ */
 public class StorageManager implements ProfileStorageInterface, FoodBankStorageInterface,
         ExerciseBankStorageInterface, ExerciseStorageInterface, UpcomingStorageInterface, FoodStorageInterface {
 

@@ -1,6 +1,7 @@
 package seedu.duke.data.profile.attributes;
 
-import seedu.duke.data.item.Verifiable;
+import seedu.duke.data.Verifiable;
+import seedu.duke.data.profile.utilities.ActivityLevel;
 
 /**
  * Activity Factor attribute of profile.
@@ -8,9 +9,10 @@ import seedu.duke.data.item.Verifiable;
 public class ActivityFactor implements Verifiable {
 
     public static final int LIMIT_LOWER_ACTIVITY_FACTOR = 1;
-    public static final int LIMIT_UPPER_ACTIVITY_LEVEL = 5;
+    public static final int LIMIT_UPPER_ACTIVITY_FACTOR = 5;
 
-    protected int activityFactor;
+    protected int userInput;
+    protected double activityFactor;
 
     public ActivityFactor() {
 
@@ -22,33 +24,51 @@ public class ActivityFactor implements Verifiable {
      * @param activityFactor activity factor input by user
      */
     public ActivityFactor(int activityFactor) {
-        setActivityFactor(activityFactor);
+        setUserInput(activityFactor);
     }
 
     /**
-     * Retrieves the activity factor of ActivityFactor object.
+     * Obtains a ActivityLevel object depending on the activity factor.
+     *
+     * @return ActivityLevel along with its associated factor.
+     */
+    public ActivityLevel getActivityLevel() {
+        switch (userInput) {
+        case 1:
+            return ActivityLevel.SEDENTARY;
+        case 2:
+            return ActivityLevel.LIGHT;
+        case 3:
+            return ActivityLevel.MODERATE;
+        case 4:
+            return ActivityLevel.INTENSE;
+        case 5:
+            return ActivityLevel.EXTREME;
+        default:
+            return ActivityLevel.DEFAULT;
+        }
+    }
+
+    /**
+     * Retrieves the activity factor of ActivityFactorobject.
      *
      * @return the activity factor of ActivityFactor object
      */
-    public int getActivityFactor() {
-        return activityFactor;
+    public int getUserInput() {
+        return userInput;
     }
 
     /**
      * Sets the activity factor of ActivityFactor object.
      *
-     * @param activityFactor activity factor input by user
+     * @param userInput activity factor input by user
      */
-    public void setActivityFactor(int activityFactor) {
-        this.activityFactor = activityFactor;
+    public void setUserInput(int userInput) {
+        this.userInput = userInput;
     }
 
     @Override
     public boolean isValid() {
-        if (activityFactor < 1 || activityFactor > 5) {
-            return false;
-        }
-        return true;
+        return userInput >= LIMIT_LOWER_ACTIVITY_FACTOR && userInput <= LIMIT_UPPER_ACTIVITY_FACTOR;
     }
-
 }
