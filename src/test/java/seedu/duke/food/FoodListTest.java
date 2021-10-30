@@ -313,6 +313,6 @@ class FoodListTest {
                 LocalDateTime.parse("18-10-2021 0420", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"))));
         foodList.addAll(subList);
         System.out.println(foodList.convertToString());
-        assertEquals(5, foodList.getSize());
+        assertEquals(4, foodList.getSize());
     }
 }
