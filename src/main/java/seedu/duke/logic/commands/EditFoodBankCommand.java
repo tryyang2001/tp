@@ -23,9 +23,9 @@ public class EditFoodBankCommand extends Command {
 
     private final int itemIndex;
     private final String newName;
-    private final int newCalories;
+    private final Integer newCalories;
 
-    public EditFoodBankCommand(int itemIndex, String newName, int newCalories) {
+    public EditFoodBankCommand(int itemIndex, String newName, Integer newCalories) {
         this.itemIndex = itemIndex;
         this.newName = newName;
         this.newCalories = newCalories;
@@ -34,18 +34,18 @@ public class EditFoodBankCommand extends Command {
     @Override
     public CommandResult execute() {
         if (super.foodBank.getSize() == 0) {
-            logger.log(Level.FINE, "Food bank list is empty.");
+            logger.log(Level.WARNING, "Food bank list is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_FOOD_BANK);
         }
         try {
             Item item = super.foodBank.getItem(this.itemIndex);
-            if (!this.newName.equals(NULL_STRING)) {
+            if (this.newName != null) {
                 super.foodBank.checkNoDuplicateItemName(this.newName);
                 item.setName(this.newName);
             }
-            if (this.newCalories != NULL_CALORIES) {
+            if (this.newCalories != null) {
                 if (this.newCalories < 0) {
-                    logger.log(Level.FINE, "Detected negative food calorie");
+                    logger.log(Level.WARNING, "Detected negative food calorie");
                     return new CommandResult(CommandMessages.MESSAGE_INVALID_FOOD_CALORIES);
                 }
                 item.setCalories(this.newCalories);
@@ -53,7 +53,7 @@ public class EditFoodBankCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
                     item.toStringWithoutDateAndTime()));
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.FINE, "Detected invalid food bank item index.");
+            logger.log(Level.WARNING, "Detected invalid food bank item index.");
             if (super.foodBank.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }

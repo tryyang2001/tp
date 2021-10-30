@@ -20,23 +20,21 @@ public class AddFutureExerciseCommand extends Command {
 
 
     private final String description;
-    private int calories;
+    private Integer calories;
     private final LocalDate date;
-    private boolean isCaloriesFromBank;
 
 
-    public AddFutureExerciseCommand(String description, int calories, LocalDate date, boolean isCaloriesFromBank) {
+    public AddFutureExerciseCommand(String description, Integer calories, LocalDate date) {
         this.description = description;
         this.calories = calories;
         this.date = date;
-        this.isCaloriesFromBank = isCaloriesFromBank;
     }
 
     @Override
     public CommandResult execute() {
         final Exercise exercise;
 
-        if (isCaloriesFromBank) {
+        if (calories == null) {
             try {
                 this.calories = super.exerciseBank.findCalorie(this.description);
             } catch (ItemNotFoundInBankException e) {
@@ -45,7 +43,7 @@ public class AddFutureExerciseCommand extends Command {
             }
         } else {
             if (this.calories <= 0) {
-                logger.log(Level.FINE, "Exercise calorie is invalid");
+                logger.log(Level.WARNING, "Exercise calorie is invalid");
                 return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
             }
         }
@@ -53,7 +51,7 @@ public class AddFutureExerciseCommand extends Command {
         exercise = new Exercise(this.description, this.calories, this.date);
         assert exercise.getCalories() > 0 : "Exercise calorie is valid";
         super.futureExerciseItems.addItem(exercise);
-        logger.log(Level.FINE, "Exercise is successfully added");
+        logger.log(Level.WARNING, "Exercise is successfully added");
         return new CommandResult(String.format(MESSAGE_SUCCESS, exercise.toStringWithDate()));
     }
 }

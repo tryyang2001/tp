@@ -21,7 +21,7 @@ public class DeleteFoodBankCommand extends Command {
 
     private static Logger logger = Logger.getLogger(DeleteFoodBankCommand.class.getName());
 
-    private final int itemIndex;
+    private int itemIndex;
     private boolean isClear = false;
 
     public DeleteFoodBankCommand(int itemIndex) {
@@ -29,23 +29,22 @@ public class DeleteFoodBankCommand extends Command {
     }
 
     public DeleteFoodBankCommand(boolean isClear) {
-        this.itemIndex = -1;
         this.isClear = isClear;
     }
 
     @Override
     public CommandResult execute() {
         if (this.isClear) {
-            logger.log(Level.FINE, "Clearing food bank");
+            logger.log(Level.WARNING, "Clearing food bank");
             super.foodBank.clearList();
             return new CommandResult(MESSAGE_FOOD_CLEAR);
         }
         assert this.itemIndex > 0 : "Deleting an item only";
         if (super.foodBank.getSize() == 0) {
-            logger.log(Level.FINE, "food bank is empty.");
+            logger.log(Level.WARNING, "food bank is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_FOOD_BANK);
         }
-        logger.log(Level.FINE, "Trying to delete item now");
+        logger.log(Level.WARNING, "Trying to delete item now");
         try {
             Food deletedFood;
             deletedFood = (Food) super.foodBank.deleteItem(this.itemIndex);
@@ -53,7 +52,7 @@ public class DeleteFoodBankCommand extends Command {
                     deletedFood.toStringWithoutDateAndTime(),
                     super.foodBank.getSize()));
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.FINE, "Detected invalid food item index.");
+            logger.log(Level.WARNING, "Detected invalid food item index.");
             if (super.foodBank.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
