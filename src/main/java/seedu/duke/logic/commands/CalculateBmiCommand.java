@@ -1,5 +1,6 @@
 package seedu.duke.logic.commands;
 
+import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 
 /**
@@ -31,8 +32,8 @@ public class CalculateBmiCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            final double bmi = super.profile.calculateBmi(this.height, this.weight);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, bmi, super.profile.retrieveBmiStatus(bmi)));
+            final double bmi = ProfileUtils.calculateBmi(this.height, this.weight);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, bmi, ProfileUtils.retrieveBmiStatus(bmi)));
         } catch (InvalidCharacteristicException e) {
             return new CommandResult(e.getMessage());
         }

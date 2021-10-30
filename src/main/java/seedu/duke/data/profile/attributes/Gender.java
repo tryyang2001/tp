@@ -1,6 +1,6 @@
 package seedu.duke.data.profile.attributes;
 
-import seedu.duke.data.item.Verifiable;
+import seedu.duke.data.Verifiable;
 
 /**
  * Gender attribute of profile.

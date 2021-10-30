@@ -1,6 +1,6 @@
 package seedu.duke.logic.commands;
 
-import seedu.duke.data.profile.Profile;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.data.profile.attributes.ActivityFactor;
 import seedu.duke.data.profile.attributes.Age;
 import seedu.duke.data.profile.attributes.CalorieGoal;
@@ -14,6 +14,7 @@ import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
  * Represents the command that when executed, changes the value of attributes in the Profile.
  */
 public class ProfileUpdateCommand extends Command {
+
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_NAME,
             COMMAND_PREFIX_HEIGHT,
@@ -50,22 +51,22 @@ public class ProfileUpdateCommand extends Command {
 
     private void checkIfCommandShouldExecute() throws InvalidCharacteristicException {
         if (!height.isValid()) {
-            throw new InvalidCharacteristicException(Profile.ERROR_HEIGHT);
+            throw new InvalidCharacteristicException(ProfileUtils.ERROR_HEIGHT);
         }
         if (!weight.isValid()) {
-            throw new InvalidCharacteristicException(Profile.ERROR_WEIGHT);
+            throw new InvalidCharacteristicException(ProfileUtils.ERROR_WEIGHT);
         }
         if (!gender.isValid()) {
-            throw new InvalidCharacteristicException(Profile.ERROR_GENDER);
+            throw new InvalidCharacteristicException(ProfileUtils.ERROR_GENDER);
         }
         if (!age.isValid()) {
-            throw new InvalidCharacteristicException(Profile.ERROR_AGE);
+            throw new InvalidCharacteristicException(ProfileUtils.ERROR_AGE);
         }
         if (!calorieGoal.isValid()) {
-            throw new InvalidCharacteristicException(Profile.ERROR_CALORIE_GOAL);
+            throw new InvalidCharacteristicException(ProfileUtils.ERROR_CALORIE_GOAL);
         }
         if (!activityFactor.isValid()) {
-            throw new InvalidCharacteristicException(Profile.ERROR_ACTIVITY_FACTOR);
+            throw new InvalidCharacteristicException(ProfileUtils.ERROR_ACTIVITY_FACTOR);
         }
     }
 
