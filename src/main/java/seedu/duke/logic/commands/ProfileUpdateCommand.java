@@ -39,7 +39,7 @@ public class ProfileUpdateCommand extends Command {
     public ProfileUpdateCommand(String name, Double height, Double weight, Integer calorieGoal, Integer age,
                                 Integer activityFactor, Character gender) {
         this.name = name == null ? null : new Name(name);
-        this.height = height == null ? null: new Height(height);
+        this.height = height == null ? null : new Height(height);
         this.weight = weight == null ? null : new Weight(weight);
         this.calorieGoal = calorieGoal == null ? null : new CalorieGoal(calorieGoal);
         this.gender = gender == NULL_CHAR ? null : new Gender(gender);
