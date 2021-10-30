@@ -872,7 +872,7 @@ Below are the commands to get you started.
 More details could be found on: 
 https://tinyurl.com/fitbot-user-guide
 
-In the formats of the command, prefixes wrapped in curly brackets{} means that they are optional.
+In the formats of the command, prefixes wrapped in curly brackets {} means that they are optional.
 
 add -- Add food or exercise record to the current list.
       Add Food Item
@@ -914,9 +914,9 @@ add -- Add food or exercise record to the current list.
 
 bmi -- Calculate the Body-Mass-Index of user
       Format: bmi {h/HEIGHT_IN_CM w/WEIGHT_IN_KG}
-        Prefix          Input 
-	      h/             Height of user in cm
-	      w/             Weight of user in kg
+        Prefix               Input 
+          h/             Height of user in cm
+          w/             Weight of user in kg
       If no identifiers are given, bmi will be calculated using the height and weight in the profile.
 
 bye -- Exit the program.
@@ -935,7 +935,7 @@ delete -- Delete entry of food or exercise added from a list.
         Prefix               Input
           e/             Description of exercise
           d/             Date of exercise in DD-MM-YYYY
-	
+  
       Delete Upcoming Exercise Items from Upcoming Exercise List
       Format: delete u/LIST_NO.
         Prefix               Input
@@ -958,7 +958,7 @@ edit -- Edit entry of food or exercise added from a list.
           fbank/         The index of the item with in the food bank
           n/             New description of food name
           c/             Calories of food
-	 
+   
       Edit Exercise Bank
       Format: edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
         Prefix               Input
@@ -968,25 +968,25 @@ edit -- Edit entry of food or exercise added from a list.
 
      Edit Upcoming Exercise List
      Format: edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}
-       Prefix               Input
-          u/            The index of the item with in the upcoming Exercise List
-          n/            New description of exercise name
-          c/            Calories burnt from exercise
+       Prefix             Input
+         u/            The index of the item with in the upcoming Exercise List
+         n/            New description of exercise name
+         c/            Calories burnt from exercise
 
 help -- View help for commands
       Format: help
 
 profile -- View or modify profile details
       Format: profile n/NAME h/HEIGHT(CM) w/WEIGHT(KG) a/AGE g/CALORIEGOAL s/GENDER(M/F) x/ACTIVITYFACTOR(1-5)
-        Prefix                Input 
-	      n/             Name of user
-	      h/             Height of user in cm
-	      w/             Weight of user in kg
-	      s/             Gender of user, m for male, f for female
-	      a/             Age of user
-	      g/             Net calorie goal of user. (Net calorie is based on calorie of food consumed
-	                       - calories burnt from exercise and bmr
-	      x/             Activity factor of user, range 1 to 5
+        Prefix               Input 
+          n/             Name of user
+          h/             Height of user in cm
+          w/             Weight of user in kg
+          s/             Gender of user, m for male, f for female
+          a/             Age of user
+          g/             Net calorie goal of user. (Net calorie is based on calorie of food consumed
+                           - calories burnt from exercise and bmr
+          x/             Activity factor of user, range 1 to 5
       If no identifiers are given, user can view the profile particulars.
 
 overview -- View weekly and daily summary of calories
@@ -1004,10 +1004,10 @@ view -- View all the food and/or exercises added.
       Format: view u/
 
       View Exercise Bank
-      Format: view e/
+      Format: view ebank/
 
       View Food Bank
-      Format: view f/
+      Format: view fbank/
 __________________________________________________________________________________________________________
 
 ```

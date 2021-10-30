@@ -14,7 +14,7 @@ public class HelpCommand extends Command {
             + "More details could be found on: " + LS
             + "https://tinyurl.com/fitbot-user-guide";
     private static final String MESSAGE_COMMON_NOTATIONS = "In the formats of the command, prefixes wrapped in "
-            + "curly brackets{} means that they are optional.";
+            + "curly brackets {} means that they are optional.";
     private static final String EMPTY = "";
     public static final String MESSAGE_COMMAND_FORMAT =
             CommandMessages.QUOTATION + COMMAND_WORD + CommandMessages.QUOTATION;
@@ -22,133 +22,134 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_EDIT_HELP = "edit -- Edit entry of food or exercise added from a list.";
     public static final String MESSAGE_VIEW_HELP = "view -- View all the food and/or exercises added.";
 
-    private static String bmi = "bmi -- Calculate the Body-Mass-Index of user\n"
-            + "      Format: bmi {h/HEIGHT_IN_CM w/WEIGHT_IN_KG}\n"
-            + "        Prefix          Input \n"
-            + "\t      h/             Height of user in cm\n"
-            + "\t      w/             Weight of user in kg\n"
+    private static String bmi = "bmi -- Calculate the Body-Mass-Index of user" + LS
+            + "      Format: bmi {h/HEIGHT_IN_CM w/WEIGHT_IN_KG}" + LS
+            + "        Prefix               Input " + LS
+            + "          h/             Height of user in cm" + LS
+            + "          w/             Weight of user in kg" + LS
             + "      If no identifiers are given, bmi will be calculated using the height and weight in the profile.";
-    private static String help = "\n"
-            + "help -- View help for commands\n"
+    private static String help = LS
+            + "help -- View help for commands" + LS
             + "      Format: help";
-    private static String profile = "\n"
-            + "profile -- View or modify profile details\n"
+    private static String profile = LS
+            + "profile -- View or modify profile details" + LS
             + "      Format: profile n/NAME h/HEIGHT(CM) w/WEIGHT(KG) a/AGE g/CALORIEGOAL s/GENDER(M/F)"
-            + " x/ACTIVITYFACTOR(1-5)\n"
-            + "        Prefix                Input \n"
-            + "\t      n/             Name of user\n"
-            + "\t      h/             Height of user in cm\n"
-            + "\t      w/             Weight of user in kg\n"
-            + "\t      s/             Gender of user, m for male, f for female\n"
-            + "\t      a/             Age of user\n"
-            + "\t      g/             Net calorie goal of user. (Net calorie is based on calorie of food consumed\n"
-            + "\t                       - calories burnt from exercise and bmr\n"
-            + "\t      x/             Activity factor of user, range 1 to 5\n"
+            + " x/ACTIVITYFACTOR(1-5)" + LS
+            + "        Prefix               Input " + LS
+            + "          n/             Name of user" + LS
+            + "          h/             Height of user in cm" + LS
+            + "          w/             Weight of user in kg" + LS
+            + "          s/             Gender of user, m for male, f for female" + LS
+            + "          a/             Age of user" + LS
+            + "          g/             Net calorie goal of user. (Net calorie is based on calorie of food consumed"
+            + LS
+            + "                           - calories burnt from exercise and bmr" + LS
+            + "          x/             Activity factor of user, range 1 to 5" + LS
             + "      If no identifiers are given, user can view the profile particulars.";
-    private static String overview = "\n"
-            + "overview -- View weekly and daily summary of calories\n"
+    private static String overview = LS
+            + "overview -- View weekly and daily summary of calories" + LS
             + "      Format: overview";
-    private static String bye = "\n"
-            + "bye -- Exit the program.\n"
+    private static String bye = LS
+            + "bye -- Exit the program." + LS
             + "      Format: bye";
-    private static String add = "      Add Food Item\n"
-            + "      Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}\n"
-            + "        Prefix               Input\n"
-            + "          f/             Description of the Food Item\n"
-            + "          c/             Calories of the food\n"
-            + "          d/             Date of food in DD-MM-YYYY\n"
-            + "          t/             Time of food in HHMM\n"
-            + "\n"
-            + "      Add Exercise Item\n"
-            + "      Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}\n"
-            + "        Prefix               Input\n"
-            + "          e/             Description of exercise\n"
-            + "          c/             Calories burnt from exercise\n"
-            + "          d/             Date of exercise in DD-MM-YYYY\n"
-            + "\n"
-            + "      Add Recurring Exercise to Upcoming Exercise List\n"
-            + "      Format: add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK\n"
-            + "      Format: delete e/LIST_NO. d/DD-MM-YYYY\n"
-            + "        Prefix               Input\n"
-            + "          r/             Description of upcoming exercise\n"
-            + "          c/             Calories burnt from exercise\n"
-            + "          :/             Start date of exercise in DD-MM-YYYY\n"
-            + "          -/             End date of exercise in DD-MM-YYYY\n"
-            + "          @/             Workout days of the week\n"
-            + "\n"
-            + "      Add Food Item in Food Bank\n"
-            + "      Format: add fbank/ITEM c/CALORIES\n"
-            + "        Prefix               Input\n"
-            + "          fbank/         Description of food\n"
-            + "          c/             Calories burnt from exercise\n"
-            + "\n"
-            + "      Add Exercise Item in ExerciseBank\n"
-            + "      Format: add fbank/ITEM c/CALORIES\n"
-            + "        Prefix               Input\n"
-            + "          fbank/         Description of food\n"
+    private static String add = "      Add Food Item" + LS
+            + "      Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}" + LS
+            + "        Prefix               Input" + LS
+            + "          f/             Description of the Food Item" + LS
+            + "          c/             Calories of the food" + LS
+            + "          d/             Date of food in DD-MM-YYYY" + LS
+            + "          t/             Time of food in HHMM" + LS
+            + LS
+            + "      Add Exercise Item" + LS
+            + "      Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}" + LS
+            + "        Prefix               Input" + LS
+            + "          e/             Description of exercise" + LS
+            + "          c/             Calories burnt from exercise" + LS
+            + "          d/             Date of exercise in DD-MM-YYYY" + LS
+            + LS
+            + "      Add Recurring Exercise to Upcoming Exercise List" + LS
+            + "      Format: add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK" + LS
+            + "      Format: delete e/LIST_NO. d/DD-MM-YYYY" + LS
+            + "        Prefix               Input" + LS
+            + "          r/             Description of upcoming exercise" + LS
+            + "          c/             Calories burnt from exercise" + LS
+            + "          :/             Start date of exercise in DD-MM-YYYY" + LS
+            + "          -/             End date of exercise in DD-MM-YYYY" + LS
+            + "          @/             Workout days of the week" + LS
+            + LS
+            + "      Add Food Item in Food Bank" + LS
+            + "      Format: add fbank/ITEM c/CALORIES" + LS
+            + "        Prefix               Input" + LS
+            + "          fbank/         Description of food" + LS
+            + "          c/             Calories burnt from exercise" + LS
+            + LS
+            + "      Add Exercise Item in ExerciseBank" + LS
+            + "      Format: add fbank/ITEM c/CALORIES" + LS
+            + "        Prefix               Input" + LS
+            + "          fbank/         Description of food" + LS
             + "          c/             Calories burnt from exercise";
-    private static String view = "\n"
-            + "      Viewing Food List\n"
-            + "      Format: view f/\n"
-            + "\n"
-            + "      View Exercise List\n"
-            + "      Format: view e/\n"
-            + "\n"
-            + "      View Upcoming Exercise List\n"
-            + "      Format: view u/\n"
-            + "\n"
-            + "      View Exercise Bank\n"
-            + "      Format: view e/\n"
-            + "\n"
-            + "      View Food Bank\n"
-            + "      Format: view f/";
-    private static String delete = "      Deleting Food Item\n"
-            + "      Format: delete f/LIST_NO. d/DD-MM-YYYY t/HHMM\n"
-            + "        Prefix               Input\n"
-            + "          f/             Index of food in Food List within the given date\n"
-            + "          d/             Date of food in DD-MM-YYYY\n"
-            + "          t/             Time of food in HHMM\n"
-            + "\n"
-            + "      Delete Exercise Item\n"
-            + "      Format: delete e/LIST_NO. d/DD-MM-YYYY\n"
-            + "        Prefix               Input\n"
-            + "          e/             Description of exercise\n"
-            + "          d/             Date of exercise in DD-MM-YYYY\n"
-            + "\t\n"
-            + "      Delete Upcoming Exercise Items from Upcoming Exercise List\n"
-            + "      Format: delete u/LIST_NO.\n"
-            + "        Prefix               Input\n"
-            + "          u/             The index of the item with in the upcoming Exercise List\n"
-            + "\n"
-            + "      Delete Food Item from Food Bank\n"
-            + "      Format: delete fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}\n"
-            + "        Prefix               Input\n"
-            + "          fbank/         The index of the item with in the food bank\n"
-            + "\n"
-            + "      Delete Exercise Item from Exercise Bank\n"
-            + "      Format: delete ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}\n"
-            + "        Prefix               Input\n"
+    private static String view = LS
+            + "      Viewing Food List" + LS
+            + "      Format: view f/" + LS
+            + LS
+            + "      View Exercise List" + LS
+            + "      Format: view e/" + LS
+            + LS
+            + "      View Upcoming Exercise List" + LS
+            + "      Format: view u/" + LS
+            + LS
+            + "      View Exercise Bank" + LS
+            + "      Format: view ebank/" + LS
+            + LS
+            + "      View Food Bank" + LS
+            + "      Format: view fbank/";
+    private static String delete = "      Deleting Food Item" + LS
+            + "      Format: delete f/LIST_NO. d/DD-MM-YYYY t/HHMM" + LS
+            + "        Prefix               Input" + LS
+            + "          f/             Index of food in Food List within the given date" + LS
+            + "          d/             Date of food in DD-MM-YYYY" + LS
+            + "          t/             Time of food in HHMM" + LS
+            + LS
+            + "      Delete Exercise Item" + LS
+            + "      Format: delete e/LIST_NO. d/DD-MM-YYYY" + LS
+            + "        Prefix               Input" + LS
+            + "          e/             Description of exercise" + LS
+            + "          d/             Date of exercise in DD-MM-YYYY" + LS
+            + "  " + LS
+            + "      Delete Upcoming Exercise Items from Upcoming Exercise List" + LS
+            + "      Format: delete u/LIST_NO." + LS
+            + "        Prefix               Input" + LS
+            + "          u/             The index of the item with in the upcoming Exercise List" + LS
+            + LS
+            + "      Delete Food Item from Food Bank" + LS
+            + "      Format: delete fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
+            + "        Prefix               Input" + LS
+            + "          fbank/         The index of the item with in the food bank" + LS
+            + LS
+            + "      Delete Exercise Item from Exercise Bank" + LS
+            + "      Format: delete ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
+            + "        Prefix               Input" + LS
             + "          ebank/         The index of the item with in the exercise bank";
-    private static String edit = "      Edit Food Bank\n"
-            + "      Format: edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}\n"
-            + "        Prefix               Input\n"
-            + "          fbank/         The index of the item with in the food bank\n"
-            + "          n/             New description of food name\n"
-            + "          c/             Calories of food\n"
-            + "\t \n"
-            + "      Edit Exercise Bank\n"
-            + "      Format: edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}\n"
-            + "        Prefix               Input\n"
-            + "          ebank/         The index of the item with in the exercise bank\n"
-            + "          n/             New description of exercise name\n"
-            + "          c/             Calories burnt from exercise\n"
-            + "\n"
-            + "     Edit Upcoming Exercise List\n"
-            + "     Format: edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}\n"
-            + "       Prefix               Input\n"
-            + "          u/            The index of the item with in the upcoming Exercise List\n"
-            + "          n/            New description of exercise name\n"
-            + "          c/            Calories burnt from exercise";
+    private static String edit = "      Edit Food Bank" + LS
+            + "      Format: edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
+            + "        Prefix               Input" + LS
+            + "          fbank/         The index of the item with in the food bank" + LS
+            + "          n/             New description of food name" + LS
+            + "          c/             Calories of food" + LS
+            + "   " + LS
+            + "      Edit Exercise Bank" + LS
+            + "      Format: edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
+            + "        Prefix               Input" + LS
+            + "          ebank/         The index of the item with in the exercise bank" + LS
+            + "          n/             New description of exercise name" + LS
+            + "          c/             Calories burnt from exercise" + LS
+            + LS
+            + "     Edit Upcoming Exercise List" + LS
+            + "     Format: edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
+            + "       Prefix             Input" + LS
+            + "         u/            The index of the item with in the upcoming Exercise List" + LS
+            + "         n/            New description of exercise name" + LS
+            + "         c/            Calories burnt from exercise";
 
     private String buildHelpString2() {
         StringBuilder helpMessage = new StringBuilder(EMPTY);
