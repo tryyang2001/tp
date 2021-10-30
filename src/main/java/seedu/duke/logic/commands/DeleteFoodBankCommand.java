@@ -12,7 +12,7 @@ public class DeleteFoodBankCommand extends Command {
     public static final String MESSAGE_COMMAND_FORMAT = CommandMessages.QUOTATION + COMMAND_WORD_DELETE
             + " " + COMMAND_PREFIX_FOOD_BANK + COMMAND_PREFIX_DELIMITER + "X" + CommandMessages.QUOTATION
             + ", where X is the item number in the food bank list";
-    public static final String MESSAGE_SUCCESS = "An food item has been deleted from the food bank:"
+    public static final String MESSAGE_SUCCESS = "A food item has been deleted from the food bank:"
             + CommandMessages.INDENTED_LS + "%s"
             + CommandMessages.LS + "Number of food item(s) left in the food bank: %2$d";
     private static final String MESSAGE_FOOD_CLEAR = "All food items in the food bank have been removed.";
