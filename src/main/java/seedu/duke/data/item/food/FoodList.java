@@ -113,33 +113,13 @@ public class FoodList extends ItemList {
     //====================Private methods=========================
 
     /**
-     * Helper method used in deleteItem for food to get the
-     * actual index from the entire food list of the food item to delete.
-     *
-     * @param index       The index of the food item as shown in the view f/ command
-     * @param deletedFood The food item to delete
-     * @return The actual index of the food item in the entire food list
-     */
-    private int getActualIndex(int index, Item deletedFood) {
-        for (int i = 0; i < internalItems.size(); i++) {
-            if (isListToQuery(deletedFood, i)) {
-                if (isFoodToDelete(deletedFood, i, index)) {
-                    return i + index;
-                }
-                break;
-            }
-        }
-        return -1;
-    }
-
-    /**
      * Helper method used in getActualIndex to determine if the current index points to the correct food position.
      *
      * @param deletedFood  The food item to delete
      * @param currentIndex The current index of the entire food list
      * @return True if the current food item has the same date and time period as the deletedFood, false otherwise
      */
-    private boolean isListToQuery(Item deletedFood, int currentIndex) {
+    protected boolean isListToQuery(Item deletedFood, int currentIndex) {
         boolean isSameDate = internalItems.get(currentIndex).getDate().equals(deletedFood.getDate());
         boolean isSameTimePeriod = internalItems.get(currentIndex).getTimePeriod().equals(deletedFood.getTimePeriod());
         return isSameDate && isSameTimePeriod;
@@ -153,7 +133,7 @@ public class FoodList extends ItemList {
      * @param index        The food index to delete as shown in view f/
      * @return True if the current food item is the food to delete, false otherwise
      */
-    private boolean isFoodToDelete(Item deletedFood, int currentIndex, int index) {
+    protected boolean isItemToDelete(Item deletedFood, int currentIndex, int index) {
         return internalItems.get(currentIndex + index).getTimePeriod().equals(deletedFood.getTimePeriod());
     }
 

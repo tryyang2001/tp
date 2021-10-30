@@ -68,26 +68,6 @@ public class ExerciseList extends ItemList {
     //====================Private methods=========================
 
     /**
-     * Helper method used in deleteItem for exercise to get the
-     * actual index from the entire exercise list of the exercise to delete.
-     *
-     * @param index           The index of the exercise as shown in the view e/ command
-     * @param deletedExercise The exercise to delete
-     * @return The actual index of the exercise in the entire exercise list
-     */
-    private int getActualIndex(int index, Item deletedExercise) {
-        for (int i = 0; i < internalItems.size(); i++) {
-            if (isListToQuery(deletedExercise, i)) {
-                if (isExerciseToDelete(deletedExercise, i, index)) {
-                    return i + index;
-                }
-                break;
-            }
-        }
-        return -1;
-    }
-
-    /**
      * Helper boolean method used in getActualIndex to determine if the exercise is the exercise to delete.
      *
      * @param deletedExercise The exercise to delete
@@ -95,7 +75,7 @@ public class ExerciseList extends ItemList {
      * @param index           The exercise index to delete as shown in view e/
      * @return True if the current exercise is the exercise to delete, false otherwise
      */
-    private boolean isExerciseToDelete(Item deletedExercise, int currentIndex, int index) {
+    protected boolean isItemToDelete(Item deletedExercise, int currentIndex, int index) {
         return internalItems.get(currentIndex + index).getDate().equals(deletedExercise.getDate());
     }
 
@@ -106,7 +86,7 @@ public class ExerciseList extends ItemList {
      * @param currentIndex    The current index of the entire exerciselist
      * @return True if the current exercise has the same date and time period as the deletedItem, false otherwise
      */
-    private boolean isListToQuery(Item deletedExercise, int currentIndex) {
+    protected boolean isListToQuery(Item deletedExercise, int currentIndex) {
         return internalItems.get(currentIndex).getDate().equals(deletedExercise.getDate());
     }
 

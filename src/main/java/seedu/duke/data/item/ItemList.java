@@ -16,6 +16,7 @@ public abstract class ItemList extends ItemBank {
     protected static final String LS = System.lineSeparator();
     protected static final String TAB = "\t";
 
+
     //====================Override methods=========================
 
     /**
@@ -28,6 +29,9 @@ public abstract class ItemList extends ItemBank {
         this.internalItems.add(item);
         sortList();
     }
+
+
+    //====================Public methods=========================
 
     /**
      * Computes the sum of calorie of all items in the item list.
@@ -138,4 +142,45 @@ public abstract class ItemList extends ItemBank {
     protected void convertTotalCaloriesToString(StringBuilder itemListInString, int totalCalories, String message) {
         itemListInString.append(String.format(message, totalCalories)).append(ItemList.LS);
     }
+
+    /**
+     * Helper method used in deleteItem method in FoodList and ExerciseList to get the
+     * actual index from the entire list of the items to delete.
+     *
+     * @param index       The index of the item as shown in the view f/ or view e/ command
+     * @param deletedItem The item to delete
+     * @return The actual index of the item in the entire item list
+     */
+    protected int getActualIndex(int index, Item deletedItem) {
+        for (int i = 0; i < internalItems.size(); i++) {
+            if (isListToQuery(deletedItem, i) && isItemToDelete(deletedItem, i, index)) {
+                return i + index;
+            } else if (isListToQuery(deletedItem, i)) {
+                break;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Helper method used in getActualIndex to check if the current index has the same date,
+     * (and time period for food) as the user input, will be implemented in FoodList and ExerciseList.
+     *
+     * @param deletedItem  The item to delete
+     * @param currentIndex The current index of the entire item list
+     * @return True if the current index points to the item that has the same date (and time for food)
+     *         as the item to delete, false otherwise
+     */
+    protected abstract boolean isListToQuery(Item deletedItem, int currentIndex);
+
+    /**
+     * Helper method used in getActualIndex to check if the current index points to the item to delete,
+     * will be implemented in FoodList and ExerciseList accordingly.
+     *
+     * @param deletedItem   The item to delete
+     * @param currentIndex  The current index of the entire item list
+     * @param indexToDelete The index to delete as shown in view f/ or view e/ command
+     * @return true if the current index points to the item to delete, false otherwise
+     */
+    protected abstract boolean isItemToDelete(Item deletedItem, int currentIndex, int indexToDelete);
 }
