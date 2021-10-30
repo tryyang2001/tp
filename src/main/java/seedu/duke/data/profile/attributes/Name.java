@@ -1,5 +1,7 @@
 package seedu.duke.data.profile.attributes;
 
+import seedu.duke.data.item.Verifiable;
+
 /**
  * Name attribute of profile.
  */

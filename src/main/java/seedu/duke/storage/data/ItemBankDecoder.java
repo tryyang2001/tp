@@ -4,6 +4,7 @@ import seedu.duke.data.item.ItemBank;
 import seedu.duke.data.item.exceptions.DuplicateItemInBankException;
 import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.data.item.food.Food;
+import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.data.exercise.exercisebank.ExerciseBankStorage;
 import seedu.duke.storage.data.food.foodbank.FoodBankStorage;
@@ -53,18 +54,36 @@ public class ItemBankDecoder {
             final int calories = Integer.parseInt(itemDetails[2]);
             addToRespectiveBank(items, type, name, calories);
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException
-                | DuplicateItemInBankException e) {
+                | DuplicateItemInBankException | InvalidCharacteristicException e) {
             throw new InvalidDataException(StorageManager.FILENAME_BANK_FOOD, line);
         }
     }
 
-    private static void addToRespectiveBank(ItemBank items, String type,
-                                            String name, int calories) throws DuplicateItemInBankException {
+    private static void addToRespectiveBank(ItemBank items, String type, String name, int calories)
+            throws DuplicateItemInBankException, InvalidCharacteristicException {
         if (isFoodType(type)) {
-            items.addItem(new Food(name, calories));
+            checkFoodDataIntegrity(items, name, calories);
         } else if (isExerciseType(type)) {
-            items.addItem(new Exercise(name, calories));
+            checkExerciseDataIntegrity(items, name, calories);
         }
+    }
+
+    private static void checkExerciseDataIntegrity(ItemBank items, String name, int calories)
+            throws InvalidCharacteristicException, DuplicateItemInBankException {
+        final Exercise exercise = new Exercise(name, calories);
+        if (!exercise.isValid()) {
+            throw new InvalidCharacteristicException(exercise.toString());
+        }
+        items.addItem(exercise);
+    }
+
+    private static void checkFoodDataIntegrity(ItemBank items, String name, int calories)
+            throws InvalidCharacteristicException, DuplicateItemInBankException {
+        Food food = new Food(name, calories);
+        if (!food.isValid()) {
+            throw new InvalidCharacteristicException(food.toString());
+        }
+        items.addItem(food);
     }
 
     private static boolean isExerciseType(String type) {

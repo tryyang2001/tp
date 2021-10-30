@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Item is an abstract class that contains methods used in common in Food and Exercise classes.
  */
-public abstract class Item {
+public abstract class Item implements Verifiable {
     public static final String FILE_TEXT_DELIMITER = "|";
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter DATE_FORMATTER_FOR_STORAGE = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -138,4 +138,16 @@ public abstract class Item {
     public LocalDateTime getDateTime() {
         return null;
     }
+
+    @Override
+    public boolean isValid() {
+        if (name.contains("/") || name.contains("|")) {
+            return false;
+        }
+        if (calories <= 0) {
+            return false;
+        }
+        return true;
+    }
+
 }
