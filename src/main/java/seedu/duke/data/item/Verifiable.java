@@ -1,9 +1,9 @@
-package seedu.duke.data.profile.attributes;
+package seedu.duke.data.item;
 
 /**
  * Interface that implements verifiability to various objects.
  */
-interface Verifiable {
+public interface Verifiable {
     /**
      * Implements a simple check that verifies if the attribute tied to Verifiable is valid.
      *
