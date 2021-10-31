@@ -8,7 +8,6 @@ participant ":Main" As Main MAIN_COLOUR
 participant "storage:StorageManager" As StorageManager STORAGE_COLOUR
 participant "profileStorage:ProfileStorage" As ProfileStorage STORAGE_COLOUR
 
-
 create "storage:StorageManager" As StorageManager STORAGE_COLOUR
 Main -> StorageManager **: new StorageManager()
 activate StorageManager STORAGE_COLOUR

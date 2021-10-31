@@ -16,7 +16,7 @@ activate FileChecker STORAGE_COLOUR
     deactivate
     FileChecker -> FileChecker ++ STORAGE_COLOUR: createDirectory()
     FileChecker --> FileChecker --
-    opt !fileToCheck.exist
+    opt !file.exists()
         FileChecker -> File : createNewFile()
         activate File STORAGE_COLOUR
             File --> FileChecker

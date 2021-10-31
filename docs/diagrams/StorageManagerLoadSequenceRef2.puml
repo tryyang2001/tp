@@ -31,25 +31,25 @@ activate ProfileDecoder STORAGE_COLOUR
         ProfileDecoder -> ProfileDecoder ++ STORAGE_COLOUR: decodeProfileDataFromString(line)
         ProfileDecoder -> Profile ** : new Profile()
         activate Profile DATA_COLOUR
-            Profile --> ProfileDecoder :
+            Profile --> ProfileDecoder : profile
         deactivate
         ProfileDecoder -> Profile: setProfileWithRawInputs(name, ...)
         activate Profile DATA_COLOUR
             Profile --> ProfileDecoder :
         deactivate
-        ProfileDecoder --> ProfileDecoder --
+        ProfileDecoder --> ProfileDecoder -- : profile
         destroy Profile
     else else
         ProfileDecoder -> Profile2 ** : new Profile()
         activate Profile2 DATA_COLOUR
-            Profile2 --> ProfileDecoder
+            Profile2 --> ProfileDecoder : profile
         deactivate
         destroy Profile2
     end
-    ProfileDecoder --> ProfileDecoder --
+    ProfileDecoder --> ProfileDecoder -- : profile
     destroy Scanner
     destroy File
-    ProfileDecoder --> ProfileStorage
+    ProfileDecoder --> ProfileStorage : profile
 deactivate
 
 @enduml

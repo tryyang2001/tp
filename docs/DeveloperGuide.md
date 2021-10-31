@@ -22,6 +22,7 @@ of Fitbot and some design considerations.
 - [Implementation](#implementation)
    - [Add Food Item Feature](#proposed-add-a-food-item-feature)
    - [Design Considerations](#design-considerations)
+   - [Loading Of Data On Startup](#loading-of-data-on-startup)
 - [Product Scope](#product-scope)
    - [Target User Profile](#target-user-profile)
    - [Value Proposition](#value-proposition)
@@ -317,6 +318,42 @@ iteratively call the constructor for `Exercise` class and add the exercises into
 Step 3: After `addRecurringExercises` method is executed, `AddRecurringExerciseCommand` calls a `CommandResult` object.
 This object outputs a message and `AddRecurringExerciseCommand` will return `commandResult`, indicating that
 `AddRecurringExerciseCommand` is successfully executed and ended.
+
+#### Loading of Data On StartUp
+
+There are many files that are used for our current implementation. 
+Therefore, since they are similar in behaviour and function, we will only be looking at the loading of the Profile component on the starting up of _Fitbot_.
+
+<p align="center" width="100%">
+  <img width="100%" src="images/StorageManagerLoadSequenceDiagram.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
+
+![StorageManagerLoadSeqDiagram](images/StorageManagerLoadSequenceDiagram.png)
+
+Upon successful launch of the application, `Main` will call to initialize `StorageManager`. 
+This in turn initializes all the subclasses of `Storage`, including `ProfileStorage`, with their respective file paths. 
+Afterwhich, `Main` calls a loading function that in turns calls the `loadProfile()` method of `ProfileStorage`.
+
+`ProfileStorage` then does 2 things: 
+
+1. Checks and creates the file if it is missing.
+2. Retrieves the data from the file with the use of the ProfileDecoder to decode.
+
+##### Reference Diagram 1: Checks for the file and create directory if it does not exist
+
+<p align="center" width="100%">
+  <img width="70%" src="images/StorageManagerLoadSequenceRef1.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
+
+The diagram above explains how the application checks if a file exists.
+
+##### Reference Diagram 2: Retrieval of data from storage with the use of ProfileDecoder to decode
+
+<p align="center" width="100%">
+  <img width="70%" src="images/StorageManagerLoadSequenceRef2.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
+
+The diagram above explains the processes to decode the items from the file.
 
 ## Product scope
 ### Target user profile
