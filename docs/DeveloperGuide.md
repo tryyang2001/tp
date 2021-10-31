@@ -328,8 +328,6 @@ Therefore, since they are similar in behaviour and function, we will only be loo
   <img width="100%" src="images/StorageManagerLoadSequenceDiagram.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
 
-![StorageManagerLoadSeqDiagram](images/StorageManagerLoadSequenceDiagram.png)
-
 Upon successful launch of the application, `Main` will call to initialize `StorageManager`. 
 This in turn initializes all the subclasses of `Storage`, including `ProfileStorage`, with their respective file paths. 
 Afterwhich, `Main` calls a loading function that in turns calls the `loadProfile()` method of `ProfileStorage`.
