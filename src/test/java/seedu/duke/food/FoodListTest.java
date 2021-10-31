@@ -293,26 +293,4 @@ class FoodListTest {
                         LocalDate.parse("16-10-2021", DateTimeFormatter.ofPattern("dd-MM-yyyy")), TimePeriod.Morning));
     }
 
-    @Test
-    void addItemFromOtherNonEmptyFoodList_callAddAllMethod_expectSizeIncrease() {
-        FoodList foodList = new FoodList();
-        foodList.addItem(new Food("chicken rice", 607,
-                LocalDateTime.parse("25-10-2021 2359", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"))));
-        foodList.addItem(new Food("char kway teow", 744,
-                LocalDateTime.parse("2021-10-26 1900", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
-        foodList.addItem(new Food("yong tau foo", 536,
-                LocalDateTime.parse("2021-10-17 1450", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
-        foodList.addItem(new Food("chicken rice", 607,
-                LocalDateTime.parse("23-10-2021 2359", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"))));
-        foodList.addItem(new Food("char kway teow", 744,
-                LocalDateTime.parse("2021-10-18 1900", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))));
-        FoodList subList = new FoodList();
-        subList.addItem(new Food("nasi lemak", 430,
-                LocalDateTime.parse("16-10-2021 0120", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"))));
-        subList.addItem(new Food("cheese chicken burger", 430,
-                LocalDateTime.parse("18-10-2021 0420", DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"))));
-        foodList.addAll(subList);
-        System.out.println(foodList.convertToString());
-        assertEquals(4, foodList.getSize());
-    }
 }
