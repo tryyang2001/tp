@@ -6,6 +6,9 @@ import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.parser.exceptions.ParamMissingException;
 import seedu.duke.ui.Ui;
 
+/**
+ * Creates a Name Class and prompts user for valid name input.
+ */
 public class CreateName {
 
     private Ui ui;

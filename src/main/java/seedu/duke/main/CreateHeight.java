@@ -6,6 +6,9 @@ import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.parser.exceptions.ParamMissingException;
 import seedu.duke.ui.Ui;
 
+/**
+ * Creates a Height Class and prompts user for valid height input.
+ */
 public class CreateHeight {
 
     private Ui ui;

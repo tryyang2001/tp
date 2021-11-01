@@ -6,6 +6,9 @@ import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.parser.exceptions.ParamMissingException;
 import seedu.duke.ui.Ui;
 
+/**
+ * Creates a Gender Class and prompts user for valid gender input.
+ */
 public class CreateGender {
 
     private Gender gender = new Gender();

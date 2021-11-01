@@ -6,6 +6,9 @@ import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.parser.exceptions.ParamMissingException;
 import seedu.duke.ui.Ui;
 
+/**
+ * Creates a Weight Class and prompts user for valid weight input.
+ */
 public class CreateWeight {
 
     public static final String MESSAGE_INTRO_WEIGHT = "What's your weight? (in kg)";
