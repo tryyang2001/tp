@@ -1,6 +1,7 @@
 package seedu.duke;
 
 import seedu.duke.data.profile.Profile;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.data.profile.attributes.ActivityFactor;
 import seedu.duke.data.profile.attributes.Age;
 import seedu.duke.data.profile.attributes.CalorieGoal;
@@ -12,6 +13,8 @@ import seedu.duke.logic.parser.exceptions.ParamMissingException;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Ui;
+
+//@@author tttyyzzz
 
 public class StartState {
 
@@ -158,9 +161,9 @@ public class StartState {
                 if (newProfile.getProfileActivityFactor().isValid()) {
                     ui.formatMessageWithTopDivider(
                             String.format(MESSAGE_ACTIVITY_FACTOR,
-                                    newProfile.getProfileActivityFactor().getActivityFactor()));
+                                    newProfile.getProfileActivityFactor().getUserInput()));
                 } else {
-                    ui.formatMessageFramedWithDivider(profile.ERROR_ACTIVITY_FACTOR);
+                    ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_ACTIVITY_FACTOR);
                 }
                 ;
             } catch (NumberFormatException e) {
@@ -191,7 +194,7 @@ public class StartState {
                             String.format(MESSAGE_CALORIE_GOAL,
                                     newProfile.getProfileCalorieGoal().getCalorieGoal()));
                 } else {
-                    ui.formatMessageFramedWithDivider(String.format(profile.ERROR_CALORIE_GOAL, calorieGoalInput));
+                    ui.formatMessageFramedWithDivider(String.format(ProfileUtils.ERROR_CALORIE_GOAL, calorieGoalInput));
                 }
                 checkInput = true;
             } catch (NumberFormatException e) {
@@ -219,7 +222,7 @@ public class StartState {
                             String.format(MESSAGE_AGE,
                                     newProfile.getProfileAge().getAge()));
                 } else {
-                    ui.formatMessageFramedWithDivider(profile.ERROR_AGE);
+                    ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_AGE);
                 }
                 ;
             } catch (NumberFormatException e) {
@@ -247,7 +250,7 @@ public class StartState {
                 ui.formatMessageWithTopDivider(
                         getGenderMessage(newProfile.getProfileGender().getGender()));
             } else {
-                ui.formatMessageFramedWithDivider(profile.ERROR_GENDER);
+                ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_GENDER);
             }
         }
     }
@@ -275,7 +278,7 @@ public class StartState {
                             String.format(MESSAGE_WEIGHT,
                                     newProfile.getProfileWeight().getWeight()));
                 } else {
-                    ui.formatMessageFramedWithDivider(profile.ERROR_WEIGHT);
+                    ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_WEIGHT);
                 }
             } catch (NumberFormatException e) {
                 ui.formatMessageFramedWithDivider("Invalid input, please input a valid positive number");
@@ -302,7 +305,7 @@ public class StartState {
                             String.format(MESSAGE_HEIGHT,
                                     newProfile.getProfileHeight().getHeight()));
                 } else {
-                    ui.formatMessageFramedWithDivider(profile.ERROR_HEIGHT);
+                    ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_HEIGHT);
                 }
             } catch (NumberFormatException e) {
                 ui.formatMessageFramedWithDivider(MESSAGE_INVALID_POSITIVE_DOUBLE_INPUT);
@@ -327,7 +330,7 @@ public class StartState {
                         String.format(MESSAGE_NAME,
                                 newProfile.getProfileName().getName()));
             } else {
-                ui.formatMessageFramedWithDivider(profile.ERROR_NAME);
+                ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_NAME);
             }
         }
         assert newProfile.getProfileName().isValid() : " name is valid";

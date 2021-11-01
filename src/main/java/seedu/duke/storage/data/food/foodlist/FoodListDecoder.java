@@ -2,6 +2,7 @@ package seedu.duke.storage.data.food.foodlist;
 
 import seedu.duke.data.item.food.Food;
 import seedu.duke.data.item.food.FoodList;
+import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.data.ListDecoder;
 import seedu.duke.storage.exceptions.InvalidDataException;
@@ -47,8 +48,13 @@ public class FoodListDecoder extends ListDecoder {
             final String name = foodDetails[1];
             final int calories = Integer.parseInt(foodDetails[2]);
             final LocalDateTime dateTimeOfFood = parseDateTime(foodDetails[3]);
+            final Food food = new Food(name, calories, dateTimeOfFood);
+            if (!food.isValid()) {
+                throw new InvalidCharacteristicException(line);
+            }
             foodItems.addItem(new Food(name, calories, dateTimeOfFood));
-        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException | DateTimeException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException
+                | DateTimeException | InvalidCharacteristicException e) {
             throw new InvalidDataException(StorageManager.FILENAME_LIST_FOOD, line);
         }
     }

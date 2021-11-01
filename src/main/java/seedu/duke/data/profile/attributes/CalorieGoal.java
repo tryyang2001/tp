@@ -1,5 +1,7 @@
 package seedu.duke.data.profile.attributes;
 
+import seedu.duke.data.Verifiable;
+
 /**
  * Calorie Goal attribute of profile.
  */

@@ -1,5 +1,6 @@
 package seedu.duke.data.item;
 
+import seedu.duke.data.Verifiable;
 import seedu.duke.data.item.food.TimePeriod;
 
 import java.time.LocalDate;
@@ -9,12 +10,13 @@ import java.time.format.DateTimeFormatter;
 /**
  * Item is an abstract class that contains methods used in common in Food and Exercise classes.
  */
-public abstract class Item {
+public abstract class Item implements Verifiable {
     public static final String FILE_TEXT_DELIMITER = "|";
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter DATE_FORMATTER_FOR_STORAGE = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     public static final DateTimeFormatter DATE_FORMAT_FOR_PRINTING = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    public static final String PREFIX_DELIMITER = "/";
     protected String name;
     protected int calories;
 
@@ -88,6 +90,16 @@ public abstract class Item {
         return FILE_TEXT_DELIMITER + this.getName() + FILE_TEXT_DELIMITER + this.getCalories();
     }
 
+    /**
+     * Checks if the name of the item is valid.
+     *
+     * @return True if the item name is valid, false otherwise
+     */
+    @Override
+    public boolean isValid() {
+        return !name.contains(PREFIX_DELIMITER) && !name.contains(FILE_TEXT_DELIMITER);
+    }
+
     //====================Abstract methods=========================
 
     /**
@@ -100,6 +112,7 @@ public abstract class Item {
 
     /**
      * Converts the item in the string format same as toString method but with date.
+     *
      * @return The item name, calorie and date in string
      */
     public abstract String toStringWithDate();

@@ -1,6 +1,6 @@
 package seedu.duke.logic.commands;
 
-import seedu.duke.data.profile.Profile;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 
 /**
@@ -13,10 +13,10 @@ public class CalculateBmiWithProfileCommand extends Command {
 
     private void checkIfCommandShouldExecute() throws InvalidCharacteristicException {
         if (!super.profile.getProfileWeight().isValid()) {
-            throw new InvalidCharacteristicException(Profile.ERROR_WEIGHT);
+            throw new InvalidCharacteristicException(ProfileUtils.ERROR_WEIGHT);
         }
         if (!super.profile.getProfileHeight().isValid()) {
-            throw new InvalidCharacteristicException(Profile.ERROR_HEIGHT);
+            throw new InvalidCharacteristicException(ProfileUtils.ERROR_HEIGHT);
         }
     }
 
@@ -24,8 +24,10 @@ public class CalculateBmiWithProfileCommand extends Command {
     public CommandResult execute() {
         try {
             checkIfCommandShouldExecute();
-            final double bmi = super.profile.calculateBmi();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, bmi, super.profile.retrieveBmiStatus(bmi)));
+            final double height = super.profile.getProfileHeight().getHeight();
+            final double weight = super.profile.getProfileWeight().getWeight();
+            final double bmi = ProfileUtils.calculateBmi(height, weight);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, bmi, ProfileUtils.retrieveBmiStatus(bmi)));
         } catch (InvalidCharacteristicException e) {
             return new CommandResult(MESSAGE_UNINITIALIZED_PROFILE);
         }
