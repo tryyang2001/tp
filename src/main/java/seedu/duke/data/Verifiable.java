@@ -1,4 +1,4 @@
-package seedu.duke.data.item;
+package seedu.duke.data;
 
 /**
  * Interface that implements verifiability to various objects.

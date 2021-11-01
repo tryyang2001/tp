@@ -11,6 +11,9 @@ import seedu.duke.data.profile.Profile;
 
 import java.time.LocalDate;
 
+/**
+ * Manages the data that is processed by the application.
+ */
 public class DataManager {
 
     private ExerciseList filteredExerciseItems;
