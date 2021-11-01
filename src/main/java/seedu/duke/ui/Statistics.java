@@ -136,7 +136,7 @@ public class Statistics {
         dailyFoodCalories.add(foodItems.getTotalCaloriesWithDate(date.minusDays(5)));
         dailyFoodCalories.add(foodItems.getTotalCaloriesWithDate(date.minusDays(4)));
         dailyFoodCalories.add(foodItems.getTotalCaloriesWithDate(date.minusDays(3)));
-        dailyFoodCalories.add(foodItems.getTotalCaloriesWithDate(date.minusDays(2)));
+        dailyFoodCalories.add(foodItems.getTotalCaloriesWithDate(date.minusDays(2)));// convert to a for loop
         dailyFoodCalories.add(foodItems.getTotalCaloriesWithDate(date.minusDays(1)));// need to convert to stats chart
         dailyFoodCalories.add(foodItems.getTotalCaloriesWithDate(date));
         return dailyFoodCalories;
