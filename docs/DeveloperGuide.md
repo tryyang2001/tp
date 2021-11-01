@@ -281,6 +281,14 @@ Step 4: After the `addItem` method is executed without giving any error, the `Ad
 This object will return and output the message indicates that the `AddFoodCommand` is executed without any error. At this
 stage, the `AddFoodCommand` is successfully ended.
 
+After all the steps are done, the `command`, `food` and `commandResult` objects are no longer referenced and hence get removed
+by the `Garbage Collector` in Java. However ,the lifeline of `foodBank` and `foodList` objects are still continuing because they
+are created in `Main` class and have the potential to get referenced by other commands call such as `delete`, `view` and `edit`.
+
+One may also observe that the lifeline does not end even though the object is deleted and no longer be referenced. This problem
+is due to the flaw of the drawing tool, *PlantUml* used. For a more accurate sequence diagram, the lifeline should end immediately
+once the object is no longer referenced.
+
 #### Design considerations:
 
 The current data structure used in `FoodList` is [Array List](#_array-list_). The rationale of choosing an array list implementation is because
@@ -376,7 +384,7 @@ and have "priority" associated with each element. The priority can be defined by
 priority will be defined as earlier date and time will have higher priority.
 #### _min heap_
 The implementation of min heap is almost the same as priority queue, in which it is sorted according to some "priority" 
-constraint. In addition, a min heap can be modelled as a [binary tree](#https://en.wikipedia.org/wiki/Binary_tree) structure
+constraint. In addition, a min heap can be modelled as a [binary tree](https://en.wikipedia.org/wiki/Binary_tree) structure
 having all the parent nodes smaller or equal to its children nodes. 
 #### _tree map_
 A tree map is a combination of tree structure and hash map structure. In Java, tree map is implemented using a self-balancing
@@ -405,6 +413,22 @@ Given below are some instructions that can be used to test the application manua
 2. Viewing a new Food Item:
    1. Test case: `view f/` when the Food List is empty\
    Expected: No food item shown. 
+   2. Test case: `view f/` after calling `add f/chicken rice c/607`\
+   Expected: The output will show the food list with at least one food item chicken rice, with calorie 607 cal and the date and 
+   time is when the user called the `add` command.
+   3. (more test cases)
+3. Deleting Food Item:
+    1. Prerequisite: Simply replace the date to any date that is within 7 days of today date. The time field is also optional
+   and can be replaced with any valid timing.
+    2. Test case: `delete f/1 d/08-11-2021 t/1400` when the Food List is empty\
+   Expected: No food item is deleted. The output will show a message telling the user that the Food List is empty.
+    3. Test case: `delete f/1 d/09-11-2021 t/1400` after calling `add f/chicken rice c/607 d/09-11-2021 t/1400`\
+   Expected:  The food item with index 1 is removed. The output will show a message teling the user that the food item
+   is deleted. (Note that the food item will be `chicken rice` if there is only one food in the food list)
+    4. Test case: `delete f/-1 d/09-11-2021 t/1400`\
+   Expected: No food item is deleted. The output will show a message telling the user that the input index should be a
+   number that is greater than 0.
+    5. (more test cases)
 
 ### Launch and shut down
 1. Initial launch

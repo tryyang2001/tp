@@ -466,7 +466,7 @@ Example:
 - `add e/hiit c/290 d/21-10-2021` adds record of exercise done: hiit with 290 calories burnt on 21 Oct 2021 to the Exercise List.
 
 ```text
-add e/hiit c/290 d/ d/21-10-2021
+add e/hiit c/290 d/21-10-2021
 __________________________________________________________________________________________
 An exercise has been added:
     hiit (290 cal) @ 21 Oct 2021
