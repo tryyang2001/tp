@@ -3,7 +3,7 @@ package seedu.duke.main;
 
 import seedu.duke.data.profile.attributes.Weight;
 import seedu.duke.data.profile.utilities.ProfileUtils;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.ui.Ui;
 
 /**
@@ -23,9 +23,9 @@ public class CreateWeight {
     /**
      * Creates a valid profile weight for the profile instance.
      *
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
-    public Weight createNewWeight() throws ParamMissingException {
+    public Weight createNewWeight() throws MissingParamException {
         while (!weight.isValid()) {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_WEIGHT);
             try {

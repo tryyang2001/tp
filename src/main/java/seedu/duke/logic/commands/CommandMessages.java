@@ -84,7 +84,6 @@ public class CommandMessages {
             + " already exists in the exercise bank! (Names are case insensitive)"
             + LS + "Try using another name, or delete/edit the existing item first!";
 
-
     //================ command format suggestions ================
     //add command
     public static final String MESSAGE_ADD_COMMAND_INVALID_FORMAT =

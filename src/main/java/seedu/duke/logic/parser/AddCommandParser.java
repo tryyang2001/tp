@@ -9,9 +9,11 @@ import seedu.duke.logic.commands.AddRecurringExerciseCommand;
 import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.InvalidCommand;
+import seedu.duke.logic.parser.exceptions.ExtraParamException;
 import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
-import seedu.duke.logic.parser.exceptions.ParamInvalidException;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.InvalidParamException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
+import seedu.duke.logic.parser.exceptions.ParserException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -95,7 +97,7 @@ public class AddCommandParser implements Parser {
             default:
                 throw new ItemNotSpecifiedException();
             }
-        } catch (ParamInvalidException | ParamMissingException e) {
+        } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
@@ -119,7 +121,7 @@ public class AddCommandParser implements Parser {
             default:
                 throw new ItemNotSpecifiedException();
             }
-        } catch (ParamInvalidException | ParamMissingException e) {
+        } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
     }

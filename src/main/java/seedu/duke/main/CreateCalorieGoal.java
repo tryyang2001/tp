@@ -1,9 +1,8 @@
 package seedu.duke.main;
 
-import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.attributes.CalorieGoal;
 import seedu.duke.data.profile.utilities.ProfileUtils;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.ui.Ui;
 
 /**
@@ -26,9 +25,9 @@ public class CreateCalorieGoal {
     /**
      * Creates a valid profile calorie goal for the profile instance.
      *
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
-    public CalorieGoal createNewCalorieGoal() throws ParamMissingException {
+    public CalorieGoal createNewCalorieGoal() throws MissingParamException {
         boolean checkInput = false;// check whether calorie goal has the correct input
         do {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_CALORIE_GOAL);

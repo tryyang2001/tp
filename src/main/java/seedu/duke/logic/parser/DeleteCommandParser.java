@@ -8,9 +8,11 @@ import seedu.duke.logic.commands.DeleteFoodBankCommand;
 import seedu.duke.logic.commands.DeleteFoodCommand;
 import seedu.duke.logic.commands.DeleteFutureExerciseCommand;
 import seedu.duke.logic.commands.InvalidCommand;
+import seedu.duke.logic.parser.exceptions.ExtraParamException;
 import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
-import seedu.duke.logic.parser.exceptions.ParamInvalidException;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.InvalidParamException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
+import seedu.duke.logic.parser.exceptions.ParserException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -52,7 +54,7 @@ public class DeleteCommandParser implements Parser {
             }
         } catch (ItemNotSpecifiedException e) {
             return new InvalidCommand(CommandMessages.MESSAGE_DELETE_COMMAND_INVALID_FORMAT);
-        } catch (ParamInvalidException | ParamMissingException e) {
+        } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
@@ -80,7 +82,7 @@ public class DeleteCommandParser implements Parser {
             default:
                 throw new ItemNotSpecifiedException();
             }
-        } catch (ParamInvalidException | ParamMissingException e) {
+        } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
@@ -108,7 +110,7 @@ public class DeleteCommandParser implements Parser {
             default:
                 throw new ItemNotSpecifiedException();
             }
-        } catch (ParamInvalidException | ParamMissingException e) {
+        } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
     }

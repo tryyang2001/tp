@@ -5,7 +5,9 @@ import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.InvalidCommand;
 import seedu.duke.logic.commands.ProfileCommand;
 import seedu.duke.logic.commands.ProfileUpdateCommand;
-import seedu.duke.logic.parser.exceptions.ParamInvalidException;
+import seedu.duke.logic.parser.exceptions.ExtraParamException;
+import seedu.duke.logic.parser.exceptions.InvalidParamException;
+import seedu.duke.logic.parser.exceptions.ParserException;
 
 /**
  * Parses input arguments for Update Profile command.
@@ -35,7 +37,7 @@ public class UpdateProfileParser implements Parser {
             final Integer activityFactor = ParserUtils.extractActivityFactor(params);
             final Character gender = ParserUtils.extractGender(params);
             return new ProfileUpdateCommand(name, height, weight, calorieGoal, age, activityFactor, gender);
-        } catch (ParamInvalidException e) {
+        } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
     }

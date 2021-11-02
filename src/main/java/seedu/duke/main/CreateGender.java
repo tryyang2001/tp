@@ -1,9 +1,8 @@
 package seedu.duke.main;
 
-import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.attributes.Gender;
 import seedu.duke.data.profile.utilities.ProfileUtils;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.ui.Ui;
 
 /**
@@ -26,7 +25,7 @@ public class CreateGender {
     /**
      * Creates a valid profile gender for the profile instance.
      *
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
     public Gender createNewGender() {
         while (!gender.isValid()) {

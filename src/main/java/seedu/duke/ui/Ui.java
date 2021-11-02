@@ -1,7 +1,7 @@
 package seedu.duke.ui;
 
 import seedu.duke.logic.commands.HelpCommand;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
 
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -101,11 +101,11 @@ public class Ui {
      * Checks if user input is empty.
      *
      * @param userInput input from the user.
-     * @throws ParamMissingException if input length is 0 (missing).
+     * @throws MissingParamException if input length is 0 (missing).
      */
-    public void checkEmptyUserInput(String userInput) throws ParamMissingException {
+    public void checkEmptyUserInput(String userInput) throws MissingParamException {
         if (userInput.length() == 0) {
-            throw new ParamMissingException(MESSAGE_EMPTY_INPUT);
+            throw new MissingParamException(MESSAGE_EMPTY_INPUT);
         }
     }
 }

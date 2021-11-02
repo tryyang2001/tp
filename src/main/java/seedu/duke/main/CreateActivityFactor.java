@@ -1,9 +1,8 @@
 package seedu.duke.main;
 
-import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.attributes.ActivityFactor;
 import seedu.duke.data.profile.utilities.ProfileUtils;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.ui.Ui;
 
 /**
@@ -31,9 +30,9 @@ public class CreateActivityFactor {
     /**
      * Creates a valid profile activity factor for the profile instance.
      *
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
-    public ActivityFactor createActivityFactor() throws ParamMissingException {
+    public ActivityFactor createActivityFactor() throws MissingParamException {
         while (!activityFactor.isValid()) {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_ACTIVITY_FACTOR);
             try {
