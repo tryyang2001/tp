@@ -367,13 +367,13 @@ ________________________________________________________________________________
 💡 **Tip:** It is possible to add Food Item without providing the calorie of it. You can do this by saving the corresponding 
 Food Item into the Food Bank. More details can be found at [Section 4.5](#45-building-your-food-bank).
 
-❗ The input date `DD-MM-YYYY` must within 7 days before today. For example, if today date is `20-10-2021`, then the input
+❗ The input date `DD-MM-YYYY` must within the past 7 days (including today). For example, if today date is `20-10-2021`, then the input
 date must be within `13-10-2021` to `20-10-2021`.
 
 #### 4.2.2 Viewing Food List `view f/`
 
 You may want to view how many calories you have taken in this week. This command will show a list of Food Items and 
-their calories added within 7 days (including today) from the list.
+their calories added within the past 7 days (including today) from the list.
 
 Format: `view f/`
 
@@ -444,7 +444,7 @@ track of total calories burnt and check whether you have done sufficient exercis
 
 #### 4.3.1 Adding Exercise Items `add e/`
 
-By using this command, you can add any Exercise Items done into the Exercise List.
+By using this command, you can add any Exercise Items done into the Exercise List. Repeated exercises on the same day is supported too.
 
 Format: `add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Exercise Item with its respective calories burnt on the given date
 (`DD-MM-YYYY`).
@@ -458,7 +458,7 @@ it is assumed that the date and time is based on the date and time of input.
 💡 **Tip:** It is possible to add Exercise Item without providing the calorie burnt on it. You can do this by saving the corresponding
 Exercise Item into the Exercise Bank. More details can be found at [here](#46-building-your-exercise-bank).
 
-❗ The input date `DD-MM-YYYY` must within 7 days before today. For example, if today date is `20-10-2021`, then the input
+❗ The input date `DD-MM-YYYY` must within the past 7 days (including today). For example, if today date is `20-10-2021`, then the input
 date must be within `13-10-2021` to `20-10-2021`.
 
 Example:
@@ -539,7 +539,7 @@ This command adds an Upcoming Exercise into the Upcoming Exercise List.
 Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Upcoming Exercise with its respective calories burnt on the given date (`DD-MM-YYYY`}.
 
 
-❗️ The date `DD-MM-YYYY` provided must be in the future. Otherwise, if it is within 7 days before today, it will be
+❗️ The date `DD-MM-YYYY` provided must be in the future. Otherwise, if it is within the past 7 days (including today), it will be
   added to the [Exercise List](#431-adding-exercise-items-add-e) instead.
 
 `add e/hiit c/290` adds record of exercise done: hiit with 290 calories burnt to the upcoming exercise list.
@@ -1035,7 +1035,7 @@ There is no need to save manually. Any updates made to the data will be automati
 
 #### 5.2 Editing The Data File
 
-_Fitbot_ data files are saved as .text files `<JAR file location>/data/<text file name>.txt`. \
+_Fitbot_ data files are saved as .text files `<Fitbot.JAR file location>/data/<text file name>.txt`. \
 Advanced users are welcome to update data directly by editing the data files. 
 
 ❗ If your changes to the data files format are invalid, _Fitbot_ will skip the wrongly formatted line when it loads in the data.
@@ -1049,6 +1049,10 @@ Advanced users are welcome to update data directly by editing the data files.
 
 **Q:** How many profiles can I create?\
 **A:** _Fitbot_ only supports 1 profile. If you need to make any changes to your current profile, you can refer to [Updating Profile Attributes](#413-updating-profile-attributes).
+
+**Q:** How can I reset _Fitbot_ and its data?\
+**A:** You can reset _Fitbot_ by deleting the data folder in the same directory as the `Fitbot.JAR` file location. If you choose to remove
+only selected .text files, data from past records may be loaded and viewed in _Fitbot_.
 
 **Q:**  Why does _Fitbot_ need so many personal particulars?\
 **A:** _Fitbot_ needs your height, weight, age, gender and activity factor so that we can calculate your [BMR](https://en.wikipedia.org/wiki/Basal_metabolic_rate).
