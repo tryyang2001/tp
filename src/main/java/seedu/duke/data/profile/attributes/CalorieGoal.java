@@ -9,8 +9,8 @@ public class CalorieGoal implements Verifiable {
 
     private static final String LS = System.lineSeparator();
 
-    public static final int LIMIT_UPPER_CALORIES = 2500;
-    public static final int LIMIT_LOWER_CALORIES = -LIMIT_UPPER_CALORIES;
+    public static final int LIMIT_UPPER_CALORIES = 10000;
+    public static final int LIMIT_LOWER_CALORIES = -3000;
 
     protected int calorieGoal;
 

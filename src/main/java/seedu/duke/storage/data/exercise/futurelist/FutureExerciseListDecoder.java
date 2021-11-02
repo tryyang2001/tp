@@ -2,7 +2,6 @@ package seedu.duke.storage.data.exercise.futurelist;
 
 import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.data.item.exercise.FutureExerciseList;
-import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.data.ListDecoder;
 import seedu.duke.storage.exceptions.InvalidDataException;
@@ -49,12 +48,11 @@ public class FutureExerciseListDecoder extends ListDecoder {
             final int calories = Integer.parseInt(exerciseDetails[2]);
             final LocalDate dateOfExercise = parseDate(exerciseDetails[3]);
             final Exercise exercise = new Exercise(name, calories, dateOfExercise);
-            if (!exercise.isValid()) {
-                throw new InvalidCharacteristicException(line);
+            if (!exercise.isValid() || !isWithinNextYear(dateOfExercise)) {
+                throw new InvalidDataException(StorageManager.FILENAME_LIST_FUTURE, line);
             }
             exercises.addItem(new Exercise(name, calories, dateOfExercise));
-        } catch (IndexOutOfBoundsException | NumberFormatException
-                | NullPointerException | InvalidCharacteristicException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             throw new InvalidDataException(StorageManager.FILENAME_LIST_FUTURE, line);
         }
     }

@@ -2,7 +2,10 @@ package seedu.duke.data.profile.utilities;
 
 import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.attributes.ActivityFactor;
+import seedu.duke.data.profile.attributes.Age;
 import seedu.duke.data.profile.attributes.CalorieGoal;
+import seedu.duke.data.profile.attributes.Height;
+import seedu.duke.data.profile.attributes.Weight;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 
 /**
@@ -36,20 +39,23 @@ public class ProfileUtils {
 
     public static final String ERROR_NAME = "Try not to use / and | in your name as it can make our commands invalid.\n"
             + "Maybe you can replace them with \\ or - and try again:";
-    public static final String ERROR_HEIGHT = "Height cannot be less than or equal to 0." + LS
-            + "Try a positive value instead!";
-    public static final String ERROR_WEIGHT = "Weight cannot be less than or equal to 0." + LS
-            + "Try a positive value instead!";
+    public static final String ERROR_HEIGHT = "Your height cannot be of this value. :( " + LS
+            + "Maybe you can try a number from " + Height.LOWER_HEIGHT_LIMIT + " to " + Height.UPPER_HEIGHT_LIMIT + ".";
+    public static final String ERROR_WEIGHT = "Your weight cannot be of this value. :( " + LS
+            + "Maybe you can try a number from " + Weight.LOWER_WEIGHT_LIMIT + " to " + Weight.UPPER_WEIGHT_LIMIT + ".";
     public static final String ERROR_GENDER = "Please type in M or F only!";
-    public static final String ERROR_AGE = "Age cannot be less than or equal to 0." + LS
-            + "Try a positive value instead!";
-    public static final String ERROR_ACTIVITY_FACTOR = "Please key in a value from "
+    public static final String ERROR_AGE = "Your age cannot be this value. :( " + LS
+            + "Maybe you can try a whole number from " + Age.LOWER_AGE_LIMIT + " to " + Age.UPPER_AGE_LIMIT + ".";
+    public static final String ERROR_ACTIVITY_FACTOR = "Maybe you can try a whole number from "
             + ActivityFactor.LIMIT_LOWER_ACTIVITY_FACTOR
             + " to "
             + ActivityFactor.LIMIT_UPPER_ACTIVITY_FACTOR;
     public static final String ERROR_CALORIE_GOAL =
-            "I don't think you should be aiming to be setting such a extreme goal of %d" + LS
-                    + "Try a range of " + CalorieGoal.LIMIT_LOWER_CALORIES + " to " + CalorieGoal.LIMIT_UPPER_CALORIES;
+            "I don't think you should be aiming to be setting such a extreme goal of %s" + LS
+                    + "Maybe you can try a whole number from "
+                    + CalorieGoal.LIMIT_LOWER_CALORIES
+                    + " to "
+                    + CalorieGoal.LIMIT_UPPER_CALORIES;
 
     /**
      * Retrieves the Basal Metabolic Rate of the user based on their activity factor indicated on the profile.

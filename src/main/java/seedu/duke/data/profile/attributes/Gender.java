@@ -45,10 +45,7 @@ public class Gender implements Verifiable {
 
     @Override
     public boolean isValid() {
-        if (!(gender == GENDER_F || gender == GENDER_M)) {
-            return false;
-        }
-        return true;
+        return gender == GENDER_F || gender == GENDER_M;
     }
 
 
