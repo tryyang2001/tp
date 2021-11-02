@@ -4,10 +4,12 @@ import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.logic.parser.exceptions.ParamInvalidException;
 import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -319,7 +321,13 @@ public class ParserUtils {
             String dateString = extractRelevantParameter(stringAfterPrefix);
             logger.log(Level.WARNING, String.format("date string detected is: %s", dateString));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.DATE_FORMAT);
-            return LocalDate.parse(dateString, formatter);
+            LocalDate date = LocalDate.parse(dateString, formatter);
+            YearMonth currentMonth = YearMonth.of(date.getYear(), date.getMonth());
+            if (Integer.parseInt(dateString.substring(0, dateString.indexOf("-")))
+                    > currentMonth.atEndOfMonth().getDayOfMonth()) {
+                throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
+            }
+            return date;
         } catch (IndexOutOfBoundsException e) {
             if (isRequired) {
                 logger.log(Level.WARNING, "Detected empty date input after prefix but date is required!");

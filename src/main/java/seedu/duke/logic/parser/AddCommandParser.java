@@ -62,7 +62,8 @@ public class AddCommandParser implements Parser {
                 logger.log(Level.WARNING, String.format("date detected is: %s", date));
                 if (ParserUtils.hasExtraDelimiters(params, AddExerciseCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                } else if (ParserUtils.isSevenDaysBeforeToday(date)) {
+                }
+                if (ParserUtils.isSevenDaysBeforeToday(date)) {
                     return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
                             LocalDate.now().minusDays(7).format(DATE_FORMAT),
                             LocalDate.now().format(DATE_FORMAT)));
@@ -77,7 +78,8 @@ public class AddCommandParser implements Parser {
                 logger.log(Level.WARNING, String.format("dateTime detected is: %s", dateTime));
                 if (ParserUtils.hasExtraDelimiters(params, AddFoodCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                } else if (ParserUtils.isWithinSevenDaysFromToday(dateTime.toLocalDate())) {
+                }
+                if (ParserUtils.isWithinSevenDaysFromToday(dateTime.toLocalDate())) {
                     return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
                             LocalDate.now().minusDays(7).format(DATE_FORMAT),
                             LocalDate.now().format(DATE_FORMAT)));
