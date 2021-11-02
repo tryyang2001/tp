@@ -19,4 +19,20 @@ public abstract class ListDecoder {
     protected static LocalDateTime parseDateTime(String dateTime) {
         return LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
     }
+
+    protected static boolean isWithinPastTenYears(LocalDate date) {
+        //After 10 years ago from today
+        LocalDate lowerLimit = LocalDate.now().minusYears(10);
+        //Before tomorrow (today)
+        LocalDate upperLimit = LocalDate.now().plusDays(1);
+        return date.isAfter(lowerLimit) && date.isBefore(upperLimit);
+    }
+
+    protected static boolean isWithinNextYear(LocalDate date) {
+        //After yesterday (today)
+        LocalDate lowerLimit = LocalDate.now().minusDays(1);
+        //Before 1 year from today
+        LocalDate upperLimit = LocalDate.now().plusYears(1);
+        return date.isAfter(lowerLimit) && date.isBefore(upperLimit);
+    }
 }

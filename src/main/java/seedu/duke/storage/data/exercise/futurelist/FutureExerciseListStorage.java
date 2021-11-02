@@ -29,7 +29,12 @@ public class FutureExerciseListStorage extends Storage implements UpcomingStorag
     @Override
     public FutureExerciseList loadFutureExerciseList() throws UnableToReadFileException {
         FileChecker.createFileIfMissing(filePath);
-        return readFromFutureListFile();
+        try {
+            return FutureExerciseListDecoder.retrieveUpcomingListFromData(filePath);
+        } catch (FileNotFoundException e) {
+            logger.log(Level.FINE, "The path is missing ", filePath);
+            throw new UnableToReadFileException(fileName);
+        }
     }
 
     private FutureExerciseList readFromFutureListFile() throws UnableToReadFileException {
