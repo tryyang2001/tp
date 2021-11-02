@@ -8,11 +8,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //@@author xingjie99
+
 /**
  * Represent the command that when executed, adds all recurring Exercise items to the FutureExerciseList.
  */
 public class AddRecurringExerciseCommand extends Command {
-    public static final String MESSAGE_INVALID_DATES = "Your start date %s is later than your end date %s";
+    public static final String MESSAGE_INVALID_DATES = "Your start date %s should not be later than your end date %s";
     public static final String MESSAGE_INVALID_FUTURE_DATES = "Make sure that your start date (%s) "
             + "and end date (%s) are in the future";
     public static final String MESSAGE_NO_EXERCISE_ADDED = "Day(s) not present between %s and %s";
@@ -51,7 +52,10 @@ public class AddRecurringExerciseCommand extends Command {
             return new CommandResult(String.format(MESSAGE_INVALID_DATES,
                     this.startDate.format(CommandMessages.DATE_FORMATTER),
                     this.endDate.format(CommandMessages.DATE_FORMATTER)));
+        } else if (endDate.isAfter(LocalDate.now().plusYears(CommandMessages.ONE_YEAR))) {
+            return new CommandResult(CommandMessages.MESSAGE_RECURRING_EXERCISE_NOT_WITHIN_ONE_YEAR);
         }
+
         if (calories == null) {
             try {
                 this.calories = super.exerciseBank.findCalorie(this.description);
@@ -59,11 +63,9 @@ public class AddRecurringExerciseCommand extends Command {
                 return new CommandResult(String.format(
                         CommandMessages.MESSAGE_INVALID_EXERCISE_NOT_IN_BANK, this.description));
             }
-        } else {
-            if (this.calories <= 0) {
-                logger.log(Level.WARNING, "Exercise calorie is invalid");
-                return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
-            }
+        } else if (this.calories <= 0) {
+            logger.log(Level.WARNING, "Exercise calorie is invalid");
+            return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
         }
         assert this.endDate.isAfter(this.startDate) : "End date is after start date";
         if (!this.startDate.isAfter(LocalDate.now())) {

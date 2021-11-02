@@ -7,7 +7,8 @@ import seedu.duke.data.Verifiable;
  */
 public class Weight implements Verifiable {
 
-    public static final int NON_POSITIVE_LIMIT = 0;
+    public static final int LOWER_WEIGHT_LIMIT = 1;
+    public static final int UPPER_WEIGHT_LIMIT = 300;
 
     protected double weight;
 
@@ -44,9 +45,6 @@ public class Weight implements Verifiable {
 
     @Override
     public boolean isValid() {
-        if (weight <= NON_POSITIVE_LIMIT) {
-            return false;
-        }
-        return true;
+        return weight >= LOWER_WEIGHT_LIMIT && weight <= UPPER_WEIGHT_LIMIT;
     }
 }

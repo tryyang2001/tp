@@ -48,12 +48,11 @@ public class ExerciseListDecoder extends ListDecoder {
             final int calories = Integer.parseInt(exerciseDetails[2]);
             final LocalDate dateOfExercise = parseDate(exerciseDetails[3]);
             final Exercise exercise = new Exercise(name, calories, dateOfExercise);
-            if (!exercise.isValid()) {
-                throw new InvalidCharacteristicException(line);
+            if (!exercise.isValid() || !isWithinPastTenYears(dateOfExercise)) {
+                throw new InvalidDataException(StorageManager.FILENAME_LIST_EXERCISE, line);
             }
             exercises.addItem(exercise);
-        } catch (IndexOutOfBoundsException | NumberFormatException
-                | NullPointerException | InvalidCharacteristicException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             throw new InvalidDataException(StorageManager.FILENAME_LIST_EXERCISE, line);
         }
     }

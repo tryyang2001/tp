@@ -28,10 +28,6 @@ public class ProfileStorage extends Storage implements ProfileStorageInterface {
     @Override
     public Profile loadProfile() throws UnableToReadFileException {
         FileChecker.createFileIfMissing(filePath);
-        return readFromProfileFile();
-    }
-
-    private Profile readFromProfileFile() throws UnableToReadFileException {
         try {
             return ProfileDecoder.retrieveProfileFromData(filePath);
         } catch (FileNotFoundException e) {

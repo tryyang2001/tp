@@ -15,6 +15,7 @@ public class CommandMessages {
     public static final String BANK_SPACE = "          ";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+    public static final int ONE_YEAR = 1;
 
     //================ item type prefixes ================
     public static final String MESSAGE_EXERCISE_LIST_FORMAT =
@@ -83,6 +84,12 @@ public class CommandMessages {
             + QUOTATION + "%s" + QUOTATION
             + " already exists in the exercise bank! (Names are case insensitive)"
             + LS + "Try using another name, or delete/edit the existing item first!";
+    public static final String MESSAGE_EXERCISE_NOT_WITHIN_ONE_YEAR = "Fitbot is only able to help you keep a record "
+            + "of one year's worth of upcoming exercises."
+            + LS + "Please ensure that the input date is within a year from today.";
+    public static final String MESSAGE_RECURRING_EXERCISE_NOT_WITHIN_ONE_YEAR = "Fitbot is only able to help you keep "
+            + "a record of one year's worth of upcoming exercises."
+            + LS + "Please ensure that both your input start date and end date is within a year from today.";
 
     //================ command format suggestions ================
     //add command
