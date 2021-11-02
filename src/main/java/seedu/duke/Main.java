@@ -4,6 +4,7 @@ import seedu.duke.data.DataManager;
 import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.logic.LogicManager;
 import seedu.duke.logic.commands.CommandResult;
+import seedu.duke.main.StartState;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;

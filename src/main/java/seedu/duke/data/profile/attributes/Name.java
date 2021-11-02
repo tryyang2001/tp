@@ -20,7 +20,7 @@ public class Name implements Verifiable {
      * @param name name input of user
      */
     public Name(String name) {
-        setName(name);
+        setName(name.trim());
     }
 
     /**
@@ -43,7 +43,7 @@ public class Name implements Verifiable {
 
     @Override
     public boolean isValid() {
-        if (name == null || name.equals(EMPTY_STRING)) {
+        if (name == null || name.trim().equals(EMPTY_STRING)) {
             return false;
         }
         for (int i = 0; i < name.length(); i++) {
