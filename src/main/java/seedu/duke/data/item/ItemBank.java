@@ -114,7 +114,7 @@ public class ItemBank {
         }
     }
 
-    public void deleteMultipleItems(ArrayList<Integer> itemIndexArray){
+    public void deleteMultipleItems(ArrayList<Integer> itemIndexArray) {
         itemIndexArray.sort(Collections.reverseOrder());
         for (Integer i : itemIndexArray) {
             deleteItem(i);
