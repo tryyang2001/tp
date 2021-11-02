@@ -63,8 +63,7 @@ public class DeleteFoodBankCommand extends Command {
                 super.foodBank.deleteMultipleItems(this.itemIndexArray);
                 return new CommandResult(MESSAGE_REMOVED_MULTIPLE_FOOD_BANK_ITEM);
             }
-        } catch (
-                IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid food item index.");
             if (super.foodBank.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
