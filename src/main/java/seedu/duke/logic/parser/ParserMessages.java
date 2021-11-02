@@ -31,9 +31,9 @@ public class ParserMessages {
             + " in your input!";
     protected static final String DATE_FORMAT = "dd-MM-yyyy";
     protected static final String TIME_FORMAT = "HHmm";
-    protected static final String MESSAGE_ERROR_INVALID_DATE_FORMAT = "Invalid date format! Please input date as "
+    protected static final String MESSAGE_ERROR_INVALID_DATE_FORMAT = "Invalid date! Please input a valid date as "
             + "DD-MM-YYYY";
-    protected static final String MESSAGE_ERROR_INVALID_TIME_FORMAT = "Invalid time format! Please input time as "
+    protected static final String MESSAGE_ERROR_INVALID_TIME_FORMAT = "Invalid time! Please input a valid time as "
             + "HHMM";
     protected static final String MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK = "Invalid day format! Please input day(s) "
             + "between 1 and 7."

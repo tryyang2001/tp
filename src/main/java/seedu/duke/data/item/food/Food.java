@@ -168,7 +168,9 @@ public class Food extends Item {
      */
     @Override
     public boolean isValid() {
-        return super.isValid() && calories >= 0;
+        boolean isValidName = super.isValid();
+        boolean isValidCalorie = this.calories > 0;
+        return isValidName && isValidCalorie;
     }
 
     //====================Private methods=========================
