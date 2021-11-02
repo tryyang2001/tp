@@ -24,6 +24,16 @@ public class ParserUtils {
         return date.isBefore(LocalDate.now().minusDays(7));
     }
 
+    /**
+     * Ensures that the input date is within past 7 days from today (inclusive).
+     *
+     * @param date The user input date
+     * @return True if the date is within past 7 days from today, false otherwise
+     */
+    protected static boolean isWithinSevenDaysFromToday(LocalDate date) {
+        return isSevenDaysBeforeToday(date) && !date.isAfter(LocalDate.now());
+    }
+
     protected static boolean hasRequiredParams(String params, String... prefixes) {
         for (String prefix : prefixes) {
             if (!params.toLowerCase().contains(prefix + Command.COMMAND_PREFIX_DELIMITER)) {
@@ -91,7 +101,7 @@ public class ParserUtils {
                 numberOfParams += 1;
             }
         }
-        return numberOfParams == 1 ? true : false; // item must be exactly 1
+        return numberOfParams == 1; // item must be exactly 1
     }
 
     /**
