@@ -29,10 +29,6 @@ public class ExerciseListStorage extends Storage implements ExerciseStorageInter
     @Override
     public ExerciseList loadExerciseList() throws UnableToReadFileException {
         FileChecker.createFileIfMissing(filePath);
-        return readFromExerciseListFile();
-    }
-
-    private ExerciseList readFromExerciseListFile() throws UnableToReadFileException {
         try {
             return ExerciseListDecoder.retrieveExerciseListFromData(filePath);
         } catch (FileNotFoundException e) {

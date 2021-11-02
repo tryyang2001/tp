@@ -8,6 +8,7 @@ import seedu.duke.data.item.exercise.FutureExerciseList;
 import seedu.duke.data.item.food.Food;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
+import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
 import java.time.LocalDate;
 
@@ -44,6 +45,7 @@ public class DataManager {
         this.exerciseBank = exerciseBank;
         this.foodBank = foodBank;
         this.profile = profile;
+        loadsFutureExercisesToList();
         filterExerciseListAndFoodList();
     }
 
@@ -60,6 +62,27 @@ public class DataManager {
         this.foodBank = new ItemBank();
         this.profile = new Profile();
     }
+
+    //@@author xingjie99
+
+    /**
+     * Check whether the dates of the exercises in the future exercise list have passed.
+     * If the dates have passed, move the exercises in the exercise list.
+     */
+    private void loadsFutureExercisesToList() {
+        int index = 0;
+        LocalDate today = LocalDate.now();
+        while (futureExerciseItems.getSize() != 0
+                && (futureExerciseItems.getItem(index).getDate().isBefore(today)
+                || futureExerciseItems.getItem(index).getDate().isEqual(today))) {
+            String name = futureExerciseItems.getItem(index).getName();
+            int calories = futureExerciseItems.getItem(index).getCalories();
+            LocalDate date = futureExerciseItems.getItem(index).getDate();
+            exerciseItems.addItem(new Exercise(name, calories, date));
+            futureExerciseItems.deleteItem(index);
+        }
+    }
+    //@@author
 
     //====================Filtered Lists methods=========================
 

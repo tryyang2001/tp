@@ -21,10 +21,10 @@ public class FileChecker {
      * @throws UnableToReadFileException If it is unable to find the path specified
      */
     public static void createFileIfMissing(String path) throws UnableToReadFileException {
-        final File fileToCheck = new File(path);
+        final File file = new File(path);
         try {
             createDirectory();
-            checkFileExists(fileToCheck);
+            checkFileExists(file);
         } catch (IOException e) {
             throw new UnableToReadFileException(getFileName(path));
         }

@@ -7,7 +7,8 @@ import seedu.duke.data.Verifiable;
  */
 public class Age implements Verifiable {
 
-    public static final int NON_POSITIVE_LIMIT = 0;
+    public static final int LOWER_AGE_LIMIT = 10;
+    public static final int UPPER_AGE_LIMIT = 150;
 
     protected int age;
 
@@ -44,9 +45,6 @@ public class Age implements Verifiable {
 
     @Override
     public boolean isValid() {
-        if (age <= NON_POSITIVE_LIMIT) {
-            return false;
-        }
-        return true;
+        return age >= LOWER_AGE_LIMIT && age <= UPPER_AGE_LIMIT;
     }
 }

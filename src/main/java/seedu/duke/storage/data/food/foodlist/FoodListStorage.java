@@ -29,10 +29,6 @@ public class FoodListStorage extends Storage implements FoodStorageInterface {
     @Override
     public FoodList loadFoodList() throws UnableToReadFileException {
         FileChecker.createFileIfMissing(filePath);
-        return readFromFoodListFile();
-    }
-
-    private FoodList readFromFoodListFile() throws UnableToReadFileException {
         try {
             return FoodListDecoder.retrieveFoodListFromData(filePath);
         } catch (FileNotFoundException e) {

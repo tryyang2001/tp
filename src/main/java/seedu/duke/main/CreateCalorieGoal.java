@@ -1,10 +1,11 @@
 package seedu.duke.main;
 
-import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.attributes.CalorieGoal;
 import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.parser.exceptions.ParamMissingException;
 import seedu.duke.ui.Ui;
+
+//@@author tttyyzzz
 
 /**
  * Creates a CalorieGoal Class and prompts user for valid calorie goal input.
@@ -17,7 +18,9 @@ public class CreateCalorieGoal {
     private static final String MESSAGE_CALORIE_GOAL = "You calorie goal is %s cal.";
     private static final String MESSAGE_INTRO_CALORIE_GOAL = "Please input your net calorie goal.";
     private static final String MESSAGE_INVALID_POSITIVE_INT_INPUT = "Invalid input, "
-            + "please input a valid positive whole number";
+            + "please input a valid whole number from "
+            + CalorieGoal.LIMIT_LOWER_CALORIES + " to "
+            + CalorieGoal.LIMIT_UPPER_CALORIES;
 
     public CreateCalorieGoal(Ui ui) {
         this.ui = ui;
@@ -36,7 +39,7 @@ public class CreateCalorieGoal {
                 String userInput = ui.getUserInput();
                 ui.checkEmptyUserInput(userInput);
                 int calorieGoalInput = Integer.parseInt(userInput);
-                calorieGoal.setCalorieGoal(calorieGoalInput);
+                calorieGoal = new CalorieGoal(calorieGoalInput);
                 if (calorieGoal.isValid()) {
                     ui.formatMessageWithTopDivider(
                             String.format(MESSAGE_CALORIE_GOAL,

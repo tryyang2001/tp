@@ -289,9 +289,8 @@ Example:
 ```text
 profile 
 __________________________________________________________________________________________________________ 
-Hello hi! This is your profile: 
+Hello Lisa! This is your profile: 
 *====================================== 
-	Name 			Lisa 
 	Height 			159cm 
 	Weight 			50.0kg 
 	Gender 			F 

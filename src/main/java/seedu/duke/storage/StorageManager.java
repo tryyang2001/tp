@@ -43,12 +43,12 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
     public static final String FILENAME_LIST_FUTURE = "future_list.txt";
     public static final String FILEPATH_LIST_FUTURE = FILEPATH + FILENAME_LIST_FUTURE;
 
-    private ProfileStorage profileStorage;
-    private ExerciseListStorage exerciseListStorage;
-    private FoodListStorage foodListStorage;
-    private FutureExerciseListStorage futureExerciseListStorage;
-    private FoodBankStorage foodBankStorage;
-    private ExerciseBankStorage exerciseBankStorage;
+    private final ProfileStorage profileStorage;
+    private final ExerciseListStorage exerciseListStorage;
+    private final FoodListStorage foodListStorage;
+    private final FutureExerciseListStorage futureExerciseListStorage;
+    private final FoodBankStorage foodBankStorage;
+    private final ExerciseBankStorage exerciseBankStorage;
 
     public StorageManager() {
         this.profileStorage = new ProfileStorage(FILEPATH_PROFILE);
@@ -63,9 +63,8 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
      * Loads all the data into a DataManager object.
      *
      * @return DataManager containing items loaded from storage
-     * @throws UnableToReadFileException if loading of any files are unsuccessful
      */
-    public DataManager loadAll() throws UnableToReadFileException {
+    public DataManager loadAll() {
         return new DataManager(
                 loadExerciseList(),
                 loadFutureExerciseList(),
@@ -88,8 +87,12 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
     //=================== Profile Methods =======================
 
     @Override
-    public Profile loadProfile() throws UnableToReadFileException {
-        return profileStorage.loadProfile();
+    public Profile loadProfile() {
+        try {
+            return profileStorage.loadProfile();
+        } catch (UnableToReadFileException e) {
+            return new Profile();
+        }
     }
 
     @Override
@@ -100,8 +103,12 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
     //=================== ExerciseList Methods ==================
 
     @Override
-    public ExerciseList loadExerciseList() throws UnableToReadFileException {
-        return exerciseListStorage.loadExerciseList();
+    public ExerciseList loadExerciseList() {
+        try {
+            return exerciseListStorage.loadExerciseList();
+        } catch (UnableToReadFileException e) {
+            return new ExerciseList();
+        }
     }
 
     @Override
@@ -112,8 +119,12 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
     //================= FutureExerciseList Methods ==============
 
     @Override
-    public FutureExerciseList loadFutureExerciseList() throws UnableToReadFileException {
-        return futureExerciseListStorage.loadFutureExerciseList();
+    public FutureExerciseList loadFutureExerciseList() {
+        try {
+            return futureExerciseListStorage.loadFutureExerciseList();
+        } catch (UnableToReadFileException e) {
+            return new FutureExerciseList();
+        }
     }
 
     @Override
@@ -124,8 +135,12 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
     //===================== FoodList Methods ====================
 
     @Override
-    public FoodList loadFoodList() throws UnableToReadFileException {
-        return foodListStorage.loadFoodList();
+    public FoodList loadFoodList() {
+        try {
+            return foodListStorage.loadFoodList();
+        } catch (UnableToReadFileException e) {
+            return new FoodList();
+        }
     }
 
     @Override
@@ -136,8 +151,12 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
     //================= ExerciseBank Methods ====================
 
     @Override
-    public ItemBank loadExerciseBank() throws UnableToReadFileException {
-        return exerciseBankStorage.loadExerciseBank();
+    public ItemBank loadExerciseBank() {
+        try {
+            return exerciseBankStorage.loadExerciseBank();
+        } catch (UnableToReadFileException e) {
+            return new ItemBank();
+        }
     }
 
     @Override
@@ -148,8 +167,12 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
     //===================== FoodBank Methods ====================
 
     @Override
-    public ItemBank loadFoodBank() throws UnableToReadFileException {
-        return foodBankStorage.loadFoodBank();
+    public ItemBank loadFoodBank() {
+        try {
+            return foodBankStorage.loadFoodBank();
+        } catch (UnableToReadFileException e) {
+            return new ItemBank();
+        }
     }
 
     @Override
