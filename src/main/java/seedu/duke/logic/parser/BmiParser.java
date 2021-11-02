@@ -20,7 +20,8 @@ public class BmiParser implements Parser {
 
     @Override
     public Command parse(String params) {
-        if (params.trim().equals(ParserMessages.EMPTY)) { //no additional parameters, assumed to be bmi from current profile
+        if (params.trim().equals(ParserMessages.EMPTY)) {
+            //no additional parameters, assumed to be bmi from current profile
             return new CalculateBmiWithProfileCommand();
         }
         if (ParserUtils.hasRequiredParams(params, CalculateBmiCommand.EXPECTED_PREFIXES)) {

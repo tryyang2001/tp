@@ -7,12 +7,13 @@ public class ExtraParamException extends Exception {
     private static String errorMessage;
 
     /**
-     * General constructor without error message
+     * General constructor without error message.
      */
-    public ExtraParamException() { }
+    public ExtraParamException() {
+    }
 
     /**
-     * Constructor with specific error message
+     * Constructor with specific error message.
      * @param errorMessage Error message to be shown when exception is caught and printed
      */
     public ExtraParamException(String errorMessage) {

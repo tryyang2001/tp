@@ -65,8 +65,8 @@ public class ParserMessages {
     protected static final String MESSAGE_ERROR_ITEM_DATE_TOO_OLD = "Please input a date that is within %s to %s!";
     protected static final String MESSAGE_ERROR_INVALID_GENDER = "Please input your gender as M or F!";
     protected static final String MESSAGE_ERROR_EXTRA_PARAMETERS =
-            "Error! There were unnecessary parameters detected: " + QUOTATION + "%s" + QUOTATION + LS +
-            "Please follow the command format and try again!";
+            "Error! There were unnecessary parameters detected: " + QUOTATION + "%s" + QUOTATION + LS
+            + "Please follow the command format and try again!";
     public static final String MESSAGE_ERROR_DUPLICATE_NUMBERS =
             "Duplicate numbers found! Please input a list of unique numbers.";
 

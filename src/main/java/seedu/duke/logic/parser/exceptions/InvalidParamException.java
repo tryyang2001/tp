@@ -7,7 +7,7 @@ public class InvalidParamException extends Exception {
     private static String errorMessage;
 
     /**
-     * General constructor without error message
+     * General constructor without error message.
      */
     public InvalidParamException() {
     }

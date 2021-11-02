@@ -7,9 +7,10 @@ public class ParserException extends Exception {
     private static String errorMessage;
 
     /**
-     * General constructor without error message
+     * General constructor without error message.
      */
-    public ParserException() { }
+    public ParserException() {
+    }
 
     public ParserException(String errorMessage) {
         super(errorMessage);

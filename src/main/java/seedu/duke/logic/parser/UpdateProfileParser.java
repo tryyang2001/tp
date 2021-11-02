@@ -72,8 +72,8 @@ public class UpdateProfileParser implements Parser {
 
     protected static Character extractGender(String params) throws ParserException {
         try {
-            String stringAfterPrefix = ParserUtils.extractRelevantParameterWithoutWhitespace
-                    (params, Command.COMMAND_PREFIX_GENDER);
+            String stringAfterPrefix = ParserUtils.extractRelevantParameterWithoutWhitespace(
+                    params, Command.COMMAND_PREFIX_GENDER);
             if (stringAfterPrefix.length() > 1) {
                 throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_GENDER);
             }
