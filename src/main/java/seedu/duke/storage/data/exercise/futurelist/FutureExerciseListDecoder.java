@@ -9,6 +9,7 @@ import seedu.duke.storage.exceptions.InvalidDataException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -52,7 +53,8 @@ public class FutureExerciseListDecoder extends ListDecoder {
                 throw new InvalidDataException(StorageManager.FILENAME_LIST_FUTURE, line);
             }
             exercises.addItem(new Exercise(name, calories, dateOfExercise));
-        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException
+                | DateTimeParseException e) {
             throw new InvalidDataException(StorageManager.FILENAME_LIST_FUTURE, line);
         }
     }

@@ -1,5 +1,6 @@
 package seedu.duke.storage.data;
 
+import seedu.duke.data.item.Item;
 import seedu.duke.data.item.ItemBank;
 import seedu.duke.data.item.exceptions.DuplicateItemInBankException;
 import seedu.duke.data.item.exercise.Exercise;
@@ -62,27 +63,29 @@ public class ItemBankDecoder {
     private static void addToRespectiveBank(ItemBank items, String type, String name, int calories)
             throws DuplicateItemInBankException, InvalidCharacteristicException {
         if (isFoodType(type)) {
-            checkFoodDataIntegrity(items, name, calories);
+            addFood(items, name, calories);
         } else if (isExerciseType(type)) {
-            checkExerciseDataIntegrity(items, name, calories);
+            addExercise(items, name, calories);
         }
     }
 
-    private static void checkExerciseDataIntegrity(ItemBank items, String name, int calories)
+    private static void addExercise(ItemBank items, String name, int calories)
             throws InvalidCharacteristicException, DuplicateItemInBankException {
         final Exercise exercise = new Exercise(name, calories);
-        if (!exercise.isValid()) {
-            throw new InvalidCharacteristicException(exercise.toString());
-        }
+        checkItemValidity(exercise);
         items.addItem(exercise);
     }
 
-    private static void checkFoodDataIntegrity(ItemBank items, String name, int calories)
+    private static void checkItemValidity(Item item) throws InvalidCharacteristicException {
+        if (!item.isValid()) {
+            throw new InvalidCharacteristicException(item.toString());
+        }
+    }
+
+    private static void addFood(ItemBank items, String name, int calories)
             throws InvalidCharacteristicException, DuplicateItemInBankException {
         Food food = new Food(name, calories);
-        if (!food.isValid()) {
-            throw new InvalidCharacteristicException(food.toString());
-        }
+        checkItemValidity(food);
         items.addItem(food);
     }
 

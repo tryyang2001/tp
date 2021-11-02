@@ -32,10 +32,6 @@ public class ExerciseBankStorage extends Storage implements ExerciseBankStorageI
     @Override
     public ItemBank loadExerciseBank() throws UnableToReadFileException {
         FileChecker.createFileIfMissing(filePath);
-        return readFromExerciseBankFile();
-    }
-
-    private ItemBank readFromExerciseBankFile() throws UnableToReadFileException {
         try {
             return ItemBankDecoder.retrieveDataFromItemBank(filePath, TYPE);
         } catch (FileNotFoundException e) {
