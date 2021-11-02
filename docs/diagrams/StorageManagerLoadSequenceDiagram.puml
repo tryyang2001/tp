@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!include style.puml
+hide footbox
+
+participant ":Main" As Main MAIN_COLOUR
+participant "storage:StorageManager" As StorageManager STORAGE_COLOUR
+participant "profileStorage:ProfileStorage" As ProfileStorage STORAGE_COLOUR
+
+create "storage:StorageManager" As StorageManager STORAGE_COLOUR
+Main -> StorageManager **: new StorageManager()
+activate StorageManager STORAGE_COLOUR
+    create "profileStorage:ProfileStorage" As ProfileStorage STORAGE_COLOUR
+    StorageManager -> ProfileStorage ** : new ProfileStorage(filePath)
+        activate ProfileStorage STORAGE_COLOUR
+        ProfileStorage --> StorageManager : profileStorage
+        deactivate
+    StorageManager --> Main : storage
+deactivate
+
+
+Main -> StorageManager: loadAll()
+activate StorageManager STORAGE_COLOUR
+    StorageManager -> ProfileStorage : loadProfile()
+    activate ProfileStorage STORAGE_COLOUR
+        participant ":FileChecker" As FileChecker STORAGE_COLOUR
+        participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
+        ref over ProfileStorage, FileChecker
+            Checks for the file and create directory if it does not exist
+        end ref
+        ref over ProfileStorage, ProfileDecoder
+            Retrieval of data from storage with the use of ProfileDecoder to decode
+        end ref
+        ProfileStorage --> StorageManager:profile
+    deactivate
+    StorageManager --> Main: data
+deactivate
+
+@enduml

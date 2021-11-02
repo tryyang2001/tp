@@ -11,11 +11,15 @@ class ProfileDecoder STORAGE_COLOUR
 class ProfileStorage STORAGE_COLOUR
 class "{abstract}\nStorage" STORAGE_COLOUR
 class ProfileEncoder STORAGE_COLOUR
+class FileChecker STORAGE_COLOUR
+class FileSaver STORAGE_COLOUR
 interface "<<interface>>\nProfileStorageInterface" STORAGE_COLOUR
 
 "{abstract}\nStorage" <|-down- ProfileStorage
 "<<interface>>\nProfileStorageInterface" <|.left. ProfileStorage
-ProfileDecoder .up.> ProfileStorage
-ProfileEncoder .up.> ProfileStorage
+ProfileDecoder <.up. ProfileStorage
+ProfileEncoder <.up. ProfileStorage
+ProfileStorage .down.> FileChecker
+ProfileStorage .left.> FileSaver
 
 @enduml
