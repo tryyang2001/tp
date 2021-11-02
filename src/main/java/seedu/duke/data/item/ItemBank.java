@@ -4,6 +4,7 @@ import seedu.duke.data.item.exceptions.DuplicateItemInBankException;
 import seedu.duke.data.item.exceptions.ItemNotFoundInBankException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Represents a list of Items, meant to store a repository of user-defined Exercise items or Food items.
@@ -110,6 +111,13 @@ public class ItemBank {
                 .count();
         if (numOfMatchingItems > 0) {
             throw new DuplicateItemInBankException();
+        }
+    }
+
+    public void deleteMultipleItems(ArrayList<Integer> itemIndexArray){
+        itemIndexArray.sort(Collections.reverseOrder());
+        for (Integer i : itemIndexArray) {
+            deleteItem(i);
         }
     }
 }

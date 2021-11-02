@@ -2,12 +2,14 @@ package seedu.duke.logic.commands;
 
 import seedu.duke.data.item.exceptions.ItemNotFoundInBankException;
 import seedu.duke.data.item.exercise.Exercise;
+import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //@@author xingjie99
+
 /**
  * Represents the command that when executed, adds an Exercise item to the FutureExerciseList.
  */
@@ -33,7 +35,9 @@ public class AddFutureExerciseCommand extends Command {
     @Override
     public CommandResult execute() {
         final Exercise exercise;
-
+        if (date.isAfter(LocalDate.now().plusYears(CommandMessages.ONE_YEAR))) {
+            return new CommandResult(CommandMessages.MESSAGE_EXERCISE_NOT_WITHIN_ONE_YEAR);
+        }
         if (calories == null) {
             try {
                 this.calories = super.exerciseBank.findCalorie(this.description);
@@ -41,11 +45,9 @@ public class AddFutureExerciseCommand extends Command {
                 return new CommandResult(String.format(
                         CommandMessages.MESSAGE_INVALID_EXERCISE_NOT_IN_BANK, this.description));
             }
-        } else {
-            if (this.calories <= 0) {
-                logger.log(Level.WARNING, "Exercise calorie is invalid");
-                return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
-            }
+        } else if (this.calories <= 0) {
+            logger.log(Level.WARNING, "Exercise calorie is invalid");
+            return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
         }
 
         exercise = new Exercise(this.description, this.calories, this.date);
