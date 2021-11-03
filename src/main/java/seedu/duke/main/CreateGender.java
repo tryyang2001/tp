@@ -26,7 +26,7 @@ public class CreateGender extends AttributeCreator {
      *
      * @throws MissingParamException if user input a string of 0 characters.
      */
-    public Gender createNewGender() throws ParamMissingException {
+    public Gender createNewGender() throws MissingParamException {
         while (!gender.isValid()) {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_GENDER);
             String userInput = ui.getUserInput();

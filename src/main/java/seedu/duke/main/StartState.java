@@ -142,7 +142,7 @@ public class StartState {
      *
      * @param newProfile instance of a profile class.
      */
-    private void createNewProfileGender(Profile newProfile) throws ParamMissingException {
+    private void createNewProfileGender(Profile newProfile) throws MissingParamException {
         newProfile.setProfileGender(new CreateGender(ui).createNewGender());
     }
 
