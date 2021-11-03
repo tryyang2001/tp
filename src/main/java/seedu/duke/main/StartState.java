@@ -62,10 +62,9 @@ public class StartState {
                     createNewProfileGender(profile);
                 } else if (!profile.getProfileAge().isValid()) {
                     createNewProfileAge(profile);
-
                 } else if (!profile.getProfileActivityFactor().isValid()) {
                     createNewProfileActivityFactor(profile);
-                } else if (profile.getProfileCalorieGoal().isValid()) {
+                } else if (!profile.getProfileCalorieGoal().isValid()) {
                     createNewProfileCalorieGoal(profile);
                 }
                 storageManager.saveProfile(this.profile);
@@ -143,7 +142,7 @@ public class StartState {
      *
      * @param newProfile instance of a profile class.
      */
-    private void createNewProfileGender(Profile newProfile) {
+    private void createNewProfileGender(Profile newProfile) throws ParamMissingException {
         newProfile.setProfileGender(new CreateGender(ui).createNewGender());
     }
 

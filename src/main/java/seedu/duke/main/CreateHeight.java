@@ -9,9 +9,8 @@ import seedu.duke.ui.Ui;
 /**
  * Creates a Height Class and prompts user for valid height input.
  */
-public class CreateHeight {
+public class CreateHeight extends AttributeCreator {
 
-    private Ui ui;
     private static final String MESSAGE_HEIGHT = "Your height is %scm.";
     private static final String MESSAGE_INTRO_HEIGHT = "What's your height? (in cm)";
     private static final String MESSAGE_INVALID_POSITIVE_DOUBLE_INPUT = "Invalid input,"
@@ -19,7 +18,7 @@ public class CreateHeight {
     private Height height = new Height();
 
     public CreateHeight(Ui ui) {
-        this.ui = ui;
+        super(ui);
     }
 
     /**
@@ -33,6 +32,7 @@ public class CreateHeight {
             try {
                 String userInput = ui.getUserInput();
                 ui.checkEmptyUserInput(userInput);
+                confirmInputBye(userInput);
                 double heightInput = Double.parseDouble(userInput);
                 height.setHeight(heightInput);
                 if (height.isValid()) {
