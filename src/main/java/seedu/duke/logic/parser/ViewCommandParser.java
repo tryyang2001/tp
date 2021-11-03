@@ -18,7 +18,7 @@ public class ViewCommandParser implements Parser {
     @Override
     public Command parse(String params) {
         try {
-            switch (params) {
+            switch (params.trim()) {
             case Command.COMMAND_PREFIX_EXERCISE + Command.COMMAND_PREFIX_DELIMITER:
                 return new ViewExerciseListCommand();
             case Command.COMMAND_PREFIX_FOOD + Command.COMMAND_PREFIX_DELIMITER:

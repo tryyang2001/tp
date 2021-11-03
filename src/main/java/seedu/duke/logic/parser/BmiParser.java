@@ -4,7 +4,9 @@ import seedu.duke.logic.commands.CalculateBmiCommand;
 import seedu.duke.logic.commands.CalculateBmiWithProfileCommand;
 import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.commands.InvalidCommand;
-import seedu.duke.logic.parser.exceptions.ParamInvalidException;
+import seedu.duke.logic.parser.exceptions.ExtraParamException;
+import seedu.duke.logic.parser.exceptions.InvalidParamException;
+import seedu.duke.logic.parser.exceptions.ParserException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +20,8 @@ public class BmiParser implements Parser {
 
     @Override
     public Command parse(String params) {
-        if (params.equals(ParserMessages.EMPTY)) { //no additional parameters, assumed to be bmi from current profile
+        if (params.trim().equals(ParserMessages.EMPTY)) {
+            //no additional parameters, assumed to be bmi from current profile
             return new CalculateBmiWithProfileCommand();
         }
         if (ParserUtils.hasRequiredParams(params, CalculateBmiCommand.EXPECTED_PREFIXES)) {
@@ -29,7 +32,7 @@ public class BmiParser implements Parser {
                 final double height = ParserUtils.extractHeight(params);
                 final double weight = ParserUtils.extractWeight(params);
                 return new CalculateBmiCommand(height, weight);
-            } catch (ParamInvalidException e) {
+            } catch (ParserException e) {
                 return new InvalidCommand(e.getMessage());
             }
         } else {

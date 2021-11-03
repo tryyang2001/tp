@@ -1,6 +1,5 @@
 package seedu.duke.logic.commands;
 
-import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.data.profile.attributes.ActivityFactor;
 import seedu.duke.data.profile.attributes.Age;
 import seedu.duke.data.profile.attributes.CalorieGoal;
@@ -9,6 +8,7 @@ import seedu.duke.data.profile.attributes.Height;
 import seedu.duke.data.profile.attributes.Name;
 import seedu.duke.data.profile.attributes.Weight;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 
 /**
  * Represents the command that when executed, changes the value of attributes in the Profile.
@@ -34,7 +34,6 @@ public class ProfileUpdateCommand extends Command {
     private Age age;
     private ActivityFactor activityFactor;
     private Gender gender;
-
 
 
     public ProfileUpdateCommand(String name, Double height, Double weight, Integer calorieGoal, Integer age,
@@ -73,7 +72,7 @@ public class ProfileUpdateCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            this.name = name == null  ? super.profile.getProfileName() : name;
+            this.name = name == null ? super.profile.getProfileName() : name;
             this.height = height == null ? super.profile.getProfileHeight() : height;
             this.weight = weight == null ? super.profile.getProfileWeight() : weight;
             this.gender = gender == null ? super.profile.getProfileGender() : gender;

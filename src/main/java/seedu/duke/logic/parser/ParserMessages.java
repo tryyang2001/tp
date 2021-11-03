@@ -14,13 +14,14 @@ public class ParserMessages {
             + LS + "Lost? Try typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + " to see the list of commands!";
     protected static final String MESSAGE_ERROR_NO_DESCRIPTION = "Please input a description for this item!";
     protected static final String MESSAGE_ERROR_NAME_EMPTY_STRING = "Please do not use an empty string as your name!";
-    protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input %s as a number!";
+    protected static final String MESSAGE_ERROR_NOT_A_NUMBER = "Please input %s as a whole number!";
     protected static final String MESSAGE_ERROR_NO_CALORIES_INFO = "Please input the number of calories using "
             + "the prefix "
             + QUOTATION + Command.COMMAND_PREFIX_CALORIES + Command.COMMAND_PREFIX_DELIMITER + QUOTATION + "!";
-    protected static final String MESSAGE_ERROR_INVALID_CALORIES_INFO = "Please input calories as a number! E.g 123";
+    protected static final String MESSAGE_ERROR_INVALID_CALORIES_INFO =
+            "Please input calories as a whole number! E.g 123";
     protected static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
-    protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a number "
+    protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a whole number "
             + "greater than 0! E.g 1";
     protected static final String MESSAGE_ERROR_TOO_MANY_DELIMITERS = "Please do not use the character "
             + QUOTATION + Command.COMMAND_PREFIX_DELIMITER + QUOTATION
@@ -62,4 +63,11 @@ public class ParserMessages {
     protected static final int MONDAY = 1;
     protected static final int SUNDAY = 7;
     protected static final String MESSAGE_ERROR_ITEM_DATE_TOO_OLD = "Please input a date that is within %s to %s!";
+    protected static final String MESSAGE_ERROR_INVALID_GENDER = "Please input your gender as M or F!";
+    protected static final String MESSAGE_ERROR_EXTRA_PARAMETERS =
+            "Error! There were unnecessary parameters detected: " + QUOTATION + "%s" + QUOTATION + LS
+            + "Please follow the command format and try again!";
+    public static final String MESSAGE_ERROR_DUPLICATE_NUMBERS =
+            "Duplicate numbers found! Please input a list of unique numbers.";
+
 }

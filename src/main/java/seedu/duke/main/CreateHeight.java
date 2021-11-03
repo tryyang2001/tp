@@ -1,9 +1,8 @@
 package seedu.duke.main;
 
-import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.attributes.Height;
 import seedu.duke.data.profile.utilities.ProfileUtils;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.ui.Ui;
 
 /**
@@ -24,9 +23,9 @@ public class CreateHeight extends AttributeCreator {
     /**
      * Creates a valid profile height for the profile instance.
      *
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
-    public Height createNewHeight() throws ParamMissingException {
+    public Height createNewHeight() throws MissingParamException {
         while (!height.isValid()) {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_HEIGHT);
             try {

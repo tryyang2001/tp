@@ -1,10 +1,10 @@
 package seedu.duke.logic.parser;
 
 import seedu.duke.logic.commands.Command;
-import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
-import seedu.duke.logic.parser.exceptions.ParamInvalidException;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
-import seedu.duke.storage.exceptions.InvalidDataException;
+import seedu.duke.logic.parser.exceptions.ExtraParamException;
+import seedu.duke.logic.parser.exceptions.InvalidParamException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
+import seedu.duke.logic.parser.exceptions.ParserException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +12,6 @@ import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,403 +21,249 @@ import java.util.logging.Logger;
 public class ParserUtils {
     protected static final Logger logger = Logger.getLogger(ParserUtils.class.getName());
 
-    protected static boolean isSevenDaysBeforeToday(LocalDate date) {
-        return date.isBefore(LocalDate.now().minusDays(7));
-    }
-
-    /**
-     * Ensures that the input date is within past 7 days from today (inclusive).
-     *
-     * @param date The user input date
-     * @return True if the date is within past 7 days from today, false otherwise
-     */
-    protected static boolean isWithinSevenDaysFromToday(LocalDate date) {
-        return isSevenDaysBeforeToday(date) && !date.isAfter(LocalDate.now());
-    }
-
-    protected static boolean hasRequiredParams(String params, String... prefixes) {
-        for (String prefix : prefixes) {
-            if (!params.toLowerCase().contains(prefix + Command.COMMAND_PREFIX_DELIMITER)) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     /**
      * Extracts the item type prefix for command words that are common across item types (add, delete, view).
-     * //TODO: Item type must be the first word after the command word. E.g "add f/" is valid, "add potato f/" is not
+     * Item type must be the first word after the command word. E.g "add f/pot" is valid, "add c/20 f/pot" is not
      *
      * @param params String containing all parameters
-     * @return String that is one of the item type prefixes
-     * @throws ItemNotSpecifiedException If parameter does not contain any of the expected prefixes,
-     *                                   or contains more than one.
+     * @return String that is supposed to be the item prefix
      */
-    protected static String extractItemTypePrefix(String params) throws ItemNotSpecifiedException {
-        boolean isExercise =
-                params.toLowerCase().contains(Command.COMMAND_PREFIX_EXERCISE
-                        + Command.COMMAND_PREFIX_DELIMITER);
-        boolean isFood =
-                params.toLowerCase().contains(Command.COMMAND_PREFIX_FOOD
-                        + Command.COMMAND_PREFIX_DELIMITER);
-        boolean isUpcomingExercise =
-                params.toLowerCase().contains(Command.COMMAND_PREFIX_UPCOMING_EXERCISE
-                        + Command.COMMAND_PREFIX_DELIMITER);
-        boolean isExerciseBank =
-                params.toLowerCase().contains(Command.COMMAND_PREFIX_EXERCISE_BANK
-                        + Command.COMMAND_PREFIX_DELIMITER);
-        boolean isFoodBank =
-                params.toLowerCase().contains(Command.COMMAND_PREFIX_FOOD_BANK
-                        + Command.COMMAND_PREFIX_DELIMITER);
-        boolean isRecurringExercise =
-                params.toLowerCase().contains(Command.COMMAND_PREFIX_RECURRING
-                        + Command.COMMAND_PREFIX_DELIMITER);
+    protected static String extractItemTypePrefix(String params) {
+        return params.trim().split("/", 2)[0];
 
-        boolean isItemSpecified = ParserUtils.checkIsItemSpecified(isExercise, isFood, isUpcomingExercise,
-                isExerciseBank, isFoodBank, isRecurringExercise);
-
-        if (!isItemSpecified) {
-            logger.log(Level.WARNING, "Detected none or more than one item");
-            throw new ItemNotSpecifiedException();
-        } else if (isExercise) {
-            return Command.COMMAND_PREFIX_EXERCISE;
-        } else if (isFood) {
-            return Command.COMMAND_PREFIX_FOOD;
-        } else if (isUpcomingExercise) {
-            return Command.COMMAND_PREFIX_UPCOMING_EXERCISE;
-        } else if (isExerciseBank) {
-            return Command.COMMAND_PREFIX_EXERCISE_BANK;
-        } else if (isRecurringExercise) {
-            return Command.COMMAND_PREFIX_RECURRING;
-        } else {
-            assert isFoodBank : "Must be food bank if all above conditions are not satisfied";
-            return Command.COMMAND_PREFIX_FOOD_BANK;
-        }
     }
 
-    protected static boolean checkIsItemSpecified(boolean... paramBool) {
-        int numberOfParams = 0;
-        for (boolean isParam : paramBool) {
-            if (isParam) {
-                numberOfParams += 1;
-            }
-        }
-        return numberOfParams == 1; // item must be exactly 1
-    }
+
+    /*================== General methods to extract different data types ==================*/
 
     /**
-     * Extracts only the parameter required so that any additional parameter
+     * Extracts only the parameter that is specified by the prefix so that any additional parameter
      * specified behind this string (if any) is removed.
      * E.g. "John Doe w/20" is returned as "John Doe".
      * NOTE: This is why users are not allowed to include the character "/" in their inputs
      * other than to specify a parameter.
+     *
+     * @throws MissingParamException When expected parameter is missing
      */
-    protected static String extractRelevantParameter(String params) {
-        if (params.contains(Command.COMMAND_PREFIX_DELIMITER)) {
-            return params.substring(0, params.indexOf(Command.COMMAND_PREFIX_DELIMITER) - 1).trim();
-        } else {
-            return params;
-        }
-    }
-
-    protected static String extractItemDescription(String params, String prefix)
-            throws ParamInvalidException, ParamMissingException {
+    protected static String extractRelevantParameter(String params, String prefix)
+            throws MissingParamException {
         try {
-            String stringAfterPrefix = params.split(prefix + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String description = extractRelevantParameter(stringAfterPrefix);
-            if (description.equals(ParserMessages.EMPTY)) {
-                logger.log(Level.WARNING, "Detected empty description");
-                throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_NO_DESCRIPTION);
+            String stringAfterPrefix = params.split(" " + prefix + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
+            if (stringAfterPrefix.contains(Command.COMMAND_PREFIX_DELIMITER)) {
+                return stringAfterPrefix.substring(0,
+                        stringAfterPrefix.indexOf(Command.COMMAND_PREFIX_DELIMITER) - 1).trim();
             }
-            return description;
+            return stringAfterPrefix.trim();
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, String.format("Detected missing command prefix (%s)", prefix));
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_DESCRIPTION);
+            throw new MissingParamException();
         }
     }
 
 
-    protected static Integer extractItemCalories(String params, boolean isRequired)
-            throws ParamInvalidException, ParamMissingException {
-        try {
-            if (params.contains(Command.COMMAND_PREFIX_CALORIES + Command.COMMAND_PREFIX_DELIMITER)) {
-                String stringAfterPrefix =
-                        params.split(Command.COMMAND_PREFIX_CALORIES
-                                + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-                String caloriesString = stringAfterPrefix.split(" ", 2)[0];
-                return Integer.parseInt(caloriesString);
-            } else {
-                if (isRequired) {
-                    logger.log(Level.WARNING, "Detected missing calories prefix");
-                    throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_CALORIES_INFO);
-                } else {
-                    logger.log(Level.WARNING, "Detected missing calories prefix but calories not required, "
-                            + "returning null calorie value");
-                    return null;
-                }
-            }
-        } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Detected non-digit calories input");
-            throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_CALORIES_INFO);
+    /**
+     * Extracts only the parameter required so that any additional parameter
+     * specified behind this string (if any) is removed.
+     * Specific to parameters where only one word is expected, and any word separated by a whitespace in this
+     * string is considered to be extra (and unnecessary).
+     * E.g. "f/1" returns "1", and "f/1 hello" throws ExtraParamException
+     *
+     * @throws MissingParamException When expected parameter is missing
+     * @throws ExtraParamException   When extra words are detected for the parameter
+     */
+    protected static String extractRelevantParameterWithoutWhitespace(String params, String prefix)
+            throws MissingParamException, ExtraParamException {
+        String[] paramsSplitByWhitespace = extractRelevantParameter(params, prefix).split(" ", 2);
+        if (paramsSplitByWhitespace.length == 2) {
+            throw new ExtraParamException(
+                    String.format(ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS, paramsSplitByWhitespace[1]));
         }
+        return paramsSplitByWhitespace[0];
+
     }
 
-    protected static String extractName(String params) throws ParamInvalidException {
+    protected static LocalDate extractGeneralDate(String params, String prefix)
+            throws ParserException {
         try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_NAME
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String name = extractRelevantParameter(stringAfterPrefix).trim();
-            if (name.equals(ParserMessages.EMPTY)) {
-                logger.log(Level.WARNING, "Detected empty name input.");
-                throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_NAME_EMPTY_STRING);
-            }
-            return name;
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected missing name prefix, returning null string.");
-            return null;
-        }
-    }
-
-    protected static Double extractHeight(String params) throws ParamInvalidException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_HEIGHT
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String doubleString = stringAfterPrefix.split(" ", 2)[0];
-            return Double.parseDouble(doubleString);
-        } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Detected non-digit height input.");
-            throw new ParamInvalidException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "height"));
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected missing height prefix, return null height");
-            return null;
-        }
-    }
-
-    protected static Double extractWeight(String params) throws ParamInvalidException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_WEIGHT
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String doubleString = stringAfterPrefix.split(" ", 2)[0];
-            return Double.parseDouble(doubleString);
-        } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Detected non-digit weight input.");
-            throw new ParamInvalidException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "weight"));
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected missing weight prefix, return null weight");
-            return null;
-        }
-    }
-
-    protected static Integer extractCalorieGoal(String params) throws ParamInvalidException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_GOAL
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String intString = stringAfterPrefix.split(" ", 2)[0];
-            return Integer.parseInt(intString);
-        } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Detected non-digit goal input.");
-            throw new ParamInvalidException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "goal"));
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected missing goal prefix, return 0 goal");
-            return null;
-        }
-    }
-
-    protected static Integer extractAge(String params) throws ParamInvalidException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_AGE
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String intString = stringAfterPrefix.split(" ", 2)[0];
-            return Integer.parseInt(intString);
-        } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Detected non-digit age input.");
-            throw new ParamInvalidException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "age"));
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected missing age prefix, return 0 age");
-            return null;
-        }
-    }
-
-    protected static Integer extractActivityFactor(String params) throws ParamInvalidException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_ACTIVITY_FACTOR
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String intString = stringAfterPrefix.split(" ", 2)[0];
-            return Integer.parseInt(intString);
-        } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Detected non-digit activity factor input.");
-            throw new ParamInvalidException(String.format(
-                    ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "activity factor"));
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected missing activity factor prefix, return null activity factor");
-            return null;
-        }
-    }
-
-    protected static Character extractGender(String params) throws ParamInvalidException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_GENDER
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            return stringAfterPrefix.charAt(0);
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected missing gender prefix, return null eqv gender");
-            return Command.NULL_CHAR;
-        }
-    }
-
-    //@@author xingjie99
-    protected static LocalDate extractStartDate(String params)
-            throws ParamInvalidException, ParamMissingException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_START_DATE
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String dateString = extractRelevantParameter(stringAfterPrefix);
-            logger.log(Level.WARNING, String.format("date string detected is: %s", dateString));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.DATE_FORMAT);
-            return LocalDate.parse(dateString, formatter);
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected empty start date input after prefix but date is required!");
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_START_DATE);
-        } catch (DateTimeParseException e) {
-            throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
-        }
-    }
-
-    //@@author xingjie99
-    protected static LocalDate extractEndDate(String params)
-            throws ParamInvalidException, ParamMissingException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_END_DATE
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String dateString = extractRelevantParameter(stringAfterPrefix);
-            logger.log(Level.WARNING, String.format("date string detected is: %s", dateString));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.DATE_FORMAT);
-            return LocalDate.parse(dateString, formatter);
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected empty end date input after prefix but date is required!");
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_END_DATE);
-        } catch (DateTimeParseException e) {
-            throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
-        }
-    }
-    //@@author
-
-    protected static LocalDate extractDate(String params, boolean isRequired)
-            throws ParamInvalidException, ParamMissingException {
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_DATE
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String dateString = extractRelevantParameter(stringAfterPrefix);
+            String dateString = extractRelevantParameterWithoutWhitespace(params, prefix);
             logger.log(Level.WARNING, String.format("date string detected is: %s", dateString));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.DATE_FORMAT);
             LocalDate date = LocalDate.parse(dateString, formatter);
             YearMonth currentMonth = YearMonth.of(date.getYear(), date.getMonth());
             if (Integer.parseInt(dateString.substring(0, dateString.indexOf("-")))
                     > currentMonth.atEndOfMonth().getDayOfMonth()) {
-                throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
+                throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
             }
             return date;
-        } catch (IndexOutOfBoundsException e) {
-            if (isRequired) {
-                logger.log(Level.WARNING, "Detected empty date input after prefix but date is required!");
-                throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_DATE);
-            } else {
-                logger.log(Level.WARNING, "Detected empty date input after prefix, assuming date to be now");
-                return LocalDate.now();
-            }
         } catch (DateTimeParseException e) {
-            throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_DATE_FORMAT);
+        } catch (MissingParamException e) {
+            return null;
+        } catch (ExtraParamException e) {
+            throw new ParserException(e.getMessage());
         }
     }
 
-    protected static LocalTime extractTime(String params, boolean isRequired)
-            throws ParamMissingException, ParamInvalidException {
+    protected static LocalTime extractGeneralTime(String params, String prefix)
+            throws ParserException {
         try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_TIME
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String timeString = extractRelevantParameter(stringAfterPrefix);
+            String timeString = extractRelevantParameterWithoutWhitespace(params, Command.COMMAND_PREFIX_TIME);
             logger.log(Level.WARNING, String.format("time string detected is: %s", timeString));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.TIME_FORMAT);
             return LocalTime.parse(timeString, formatter);
-        } catch (IndexOutOfBoundsException e) {
-            if (isRequired) {
-                logger.log(Level.WARNING, "Detected empty time input after prefix but time is required!");
-                throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_TIME);
-            } else {
-                logger.log(Level.WARNING, "Detected empty time input after prefix, assuming time to be now");
-                return LocalTime.now();
-            }
         } catch (DateTimeParseException e) {
-            throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_TIME_FORMAT);
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_TIME_FORMAT);
+        } catch (MissingParamException e) {
+            return null;
+        } catch (ExtraParamException e) {
+            throw new ParserException(e.getMessage());
         }
     }
 
-    protected static LocalDateTime extractDateTime(String params) throws ParamInvalidException, ParamMissingException {
+
+    protected static Integer extractGeneralInteger(String params, String prefix)
+            throws InvalidParamException, ParserException {
+        try {
+            String intString = extractRelevantParameterWithoutWhitespace(params, prefix);
+            return Integer.parseInt(intString);
+        } catch (NumberFormatException e) {
+            throw new InvalidParamException();
+        } catch (MissingParamException e) {
+            logger.log(Level.WARNING, "No integer given, return null");
+            return null;
+        } catch (ExtraParamException e) {
+            throw new ParserException(e.getMessage());
+        }
+    }
+
+    protected static Double extractGeneralDouble(String params, String prefix)
+            throws InvalidParamException, ParserException {
+        try {
+            String doubleString = extractRelevantParameterWithoutWhitespace(params, prefix);
+            return Double.parseDouble(doubleString);
+        } catch (NumberFormatException e) {
+            throw new InvalidParamException();
+        } catch (MissingParamException e) {
+            logger.log(Level.WARNING, "No double given but not required, return null");
+            return null;
+        } catch (ExtraParamException e) {
+            throw new ParserException(e.getMessage());
+        }
+    }
+
+
+    /*===== Methods to extract specific parameters that is needed across all Parser classes ========*/
+    /*===== All methods here should throw general ParserException, with specific error messages ====*/
+    /*Methods which are specific to the type of Command are found in their respective Parser classes*/
+
+    protected static String extractItemDescription(String params, String prefix)
+            throws ParserException {
+        try {
+            String description = extractRelevantParameter(params, prefix);
+            logger.log(Level.WARNING, String.format("Item name:%s", description));
+            if (description.equals(ParserMessages.EMPTY)) {
+                logger.log(Level.WARNING, "Detected empty description");
+                throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_DESCRIPTION);
+            }
+            return description;
+        } catch (MissingParamException e) {
+            logger.log(Level.WARNING, String.format("Detected missing command prefix (%s)", prefix));
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_DESCRIPTION);
+        }
+    }
+
+
+    protected static Integer extractItemCalories(String params)
+            throws ParserException {
+        try {
+            Integer calories = extractGeneralInteger(params, Command.COMMAND_PREFIX_CALORIES);
+            return calories;
+        } catch (InvalidParamException e) {
+            logger.log(Level.WARNING, "Detected non-digit calories input");
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_CALORIES_INFO);
+        }
+    }
+
+    protected static String extractName(String params) throws ParserException {
+        try {
+            String name = extractRelevantParameter(params, Command.COMMAND_PREFIX_NAME);
+            if (name.equals(ParserMessages.EMPTY)) {
+                logger.log(Level.WARNING, "Detected empty name input.");
+                throw new ParserException(ParserMessages.MESSAGE_ERROR_NAME_EMPTY_STRING);
+            }
+            return name;
+        } catch (MissingParamException e) {
+            logger.log(Level.WARNING, "Detected missing name prefix, returning null string.");
+            return null;
+        }
+    }
+
+    protected static Double extractHeight(String params) throws ParserException {
+        try {
+            return extractGeneralDouble(params, Command.COMMAND_PREFIX_HEIGHT);
+        } catch (InvalidParamException e) {
+            logger.log(Level.WARNING, "Detected non-digit height input.");
+            throw new ParserException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "height"));
+        }
+    }
+
+    protected static Double extractWeight(String params) throws ParserException {
+        try {
+            return extractGeneralDouble(params, Command.COMMAND_PREFIX_WEIGHT);
+        } catch (InvalidParamException e) {
+            logger.log(Level.WARNING, "Detected non-digit weight input.");
+            throw new ParserException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "weight"));
+        }
+    }
+
+    protected static LocalDate extractDate(String params, boolean isRequired)
+            throws ParserException {
+        LocalDate localDate = extractGeneralDate(params, Command.COMMAND_PREFIX_DATE);
+        if (localDate == null && isRequired) {
+            logger.log(Level.WARNING, "Detected empty date input after prefix but date is required!");
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_DATE);
+        }
+        if (localDate == null && !isRequired) {
+            logger.log(Level.WARNING, "Detected empty date input after prefix, assuming date to be now");
+            return LocalDate.now();
+        }
+        return localDate;
+    }
+
+    protected static LocalTime extractTime(String params, boolean isRequired)
+            throws ParserException {
+        LocalTime localTime = extractGeneralTime(params, Command.COMMAND_PREFIX_TIME);
+        if (localTime == null && isRequired) {
+            logger.log(Level.WARNING, "Detected empty time input after prefix but time is required!");
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_TIME);
+        }
+        if (localTime == null && !isRequired) {
+            logger.log(Level.WARNING, "Detected empty time input after prefix, assuming time to be now");
+            return LocalTime.now();
+        }
+        return localTime;
+    }
+
+    protected static LocalDateTime extractDateTime(String params) throws ParserException {
         final LocalTime time = extractTime(params, false);
         final LocalDate date = extractDate(params, false);
         return date.atTime(time);
     }
 
-    //@@author xingjie99
-    protected static ArrayList<Integer> extractDayOfTheWeek(String params)
-            throws ParamMissingException, ParamInvalidException {
-        ArrayList<Integer> dayOfTheWeek = new ArrayList<>();
-        try {
-            String stringAfterPrefix =
-                    params.split(Command.COMMAND_PREFIX_DAY_OF_THE_WEEK
-                            + Command.COMMAND_PREFIX_DELIMITER, 2)[1];
-            String dateString = extractRelevantParameter(stringAfterPrefix);
-            for (int i = 0; i < dateString.length(); i++) {
-                int day = Integer.parseInt(String.valueOf(dateString.charAt(i)));
-                logger.log(Level.WARNING, String.format("day detected: %s", day));
-                if (day >= ParserMessages.MONDAY && day <= ParserMessages.SUNDAY) { //between monday and sunday
-                    if (dayOfTheWeek.contains(day)) {
-                        throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_REPEATED_DAY_OF_THE_WEEK);
-                    }
-                    dayOfTheWeek.add(day);
-                } else {
-                    throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK);
-                }
-            }
-        } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected empty day input after prefix but day is required!");
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_DAY_OF_THE_WEEK);
-        } catch (NumberFormatException e) {
-            logger.log(Level.WARNING, "Detected non-digit calories input");
-            throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK);
-        }
-        return dayOfTheWeek;
-    }
-    //@author
-
-    protected static boolean isFutureDate(LocalDate date) {
-        return date.isAfter(LocalDate.now());
-    }
-
     protected static int extractItemIndex(String params, String prefix)
-            throws ParamInvalidException, ParamMissingException {
+            throws ParserException {
         try {
-            final String itemNumString = ParserUtils.extractItemDescription(params, prefix).split(" ")[0].trim();
-            final int itemIndex = convertItemNumToItemIndex(Integer.parseInt(itemNumString));
+            final Integer itemNum = extractGeneralInteger(params, prefix);
+            if (itemNum == null) {
+                throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_ITEM_NUM);
+            }
+            final int itemIndex = convertItemNumToItemIndex(itemNum);
             if (itemIndex < 0) {
-                throw new NumberFormatException();
+                throw new InvalidParamException();
             }
             return itemIndex;
-        } catch (ParamInvalidException | ParamMissingException e) {
-            throw new ParamMissingException(ParserMessages.MESSAGE_ERROR_NO_ITEM_NUM);
-        } catch (NumberFormatException e) {
-            throw new ParamInvalidException(ParserMessages.MESSAGE_ERROR_INVALID_ITEM_NUM);
+        } catch (InvalidParamException e) {
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_ITEM_NUM);
         }
     }
 
@@ -426,6 +271,28 @@ public class ParserUtils {
         return itemNum - 1;
     }
 
+    /*======================== Methods to check data validity ============================*/
+
+    protected static boolean isSevenDaysBeforeToday(LocalDate date) {
+        return date.isBefore(LocalDate.now().minusDays(7));
+    }
+
+    protected static boolean isWithinSevenDaysFromToday(LocalDate date) {
+        return isSevenDaysBeforeToday(date) && !date.isAfter(LocalDate.now());
+    }
+
+    protected static boolean isFutureDate(LocalDate date) {
+        return date.isAfter(LocalDate.now());
+    }
+
+    protected static boolean hasRequiredParams(String params, String... prefixes) {
+        for (String prefix : prefixes) {
+            if (!params.toLowerCase().contains(" " + prefix + Command.COMMAND_PREFIX_DELIMITER)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Returns the number of parameters detected that is valid for the specific command.
@@ -438,7 +305,7 @@ public class ParserUtils {
     protected static int getNumberOfCorrectParamsDetected(String params, String... prefixes) {
         int count = 0;
         for (String prefix : prefixes) {
-            if (params.toLowerCase().contains(prefix + Command.COMMAND_PREFIX_DELIMITER)) {
+            if (params.toLowerCase().contains(" " + prefix + Command.COMMAND_PREFIX_DELIMITER)) {
                 count++;
             }
         }

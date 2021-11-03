@@ -8,12 +8,15 @@ import seedu.duke.logic.commands.DeleteFoodBankCommand;
 import seedu.duke.logic.commands.DeleteFoodCommand;
 import seedu.duke.logic.commands.DeleteFutureExerciseCommand;
 import seedu.duke.logic.commands.InvalidCommand;
+import seedu.duke.logic.parser.exceptions.ExtraParamException;
 import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
-import seedu.duke.logic.parser.exceptions.ParamInvalidException;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.InvalidParamException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
+import seedu.duke.logic.parser.exceptions.ParserException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +31,9 @@ public class DeleteCommandParser implements Parser {
     public Command parse(String params) {
         try {
             final String itemTypePrefix = ParserUtils.extractItemTypePrefix(params);
-            final String description = ParserUtils.extractItemDescription(params, itemTypePrefix).split(" ")[0].trim();
+            final String description = ParserUtils
+                    .extractItemDescription(params, itemTypePrefix)
+                    .split(" ")[0].trim();
             boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
 
             switch (itemTypePrefix) {
@@ -52,8 +57,8 @@ public class DeleteCommandParser implements Parser {
             }
         } catch (ItemNotSpecifiedException e) {
             return new InvalidCommand(CommandMessages.MESSAGE_DELETE_COMMAND_INVALID_FORMAT);
-        } catch (ParamInvalidException | ParamMissingException e) {
-            return new InvalidCommand(e.getMessage());
+        } catch (ParserException e) {
+            return new InvalidCommand(ParserMessages.MESSAGE_ERROR_NO_ITEM_NUM);
         }
     }
 
@@ -80,7 +85,7 @@ public class DeleteCommandParser implements Parser {
             default:
                 throw new ItemNotSpecifiedException();
             }
-        } catch (ParamInvalidException | ParamMissingException e) {
+        } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
@@ -88,29 +93,62 @@ public class DeleteCommandParser implements Parser {
     protected Command parseDeleteFromFutureOrBank(String params, String itemTypePrefix)
             throws ItemNotSpecifiedException {
         try {
-            final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
+            final ArrayList<Integer> itemIndexes = extractItemIndexes(params, itemTypePrefix);
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_EXERCISE_BANK:
                 if (ParserUtils.hasExtraDelimiters(params, DeleteExerciseBankCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
-                return new DeleteExerciseBankCommand(itemIndex);
+                return new DeleteExerciseBankCommand(itemIndexes);
             case Command.COMMAND_PREFIX_FOOD_BANK:
                 if (ParserUtils.hasExtraDelimiters(params, DeleteFoodBankCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
-                return new DeleteFoodBankCommand(itemIndex);
+                return new DeleteFoodBankCommand(itemIndexes);
             case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
                 if (ParserUtils.hasExtraDelimiters(params, DeleteFutureExerciseCommand.EXPECTED_PREFIXES)) {
                     return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
                 }
-                return new DeleteFutureExerciseCommand(itemIndex);
+                return new DeleteFutureExerciseCommand(itemIndexes);
             default:
                 throw new ItemNotSpecifiedException();
             }
-        } catch (ParamInvalidException | ParamMissingException e) {
+        } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
+
+    protected static ArrayList<Integer> extractItemIndexes(String params, String prefix)
+            throws ParserException {
+        try {
+            String numberString = ParserUtils.extractRelevantParameter(params, prefix);
+            String[] numberStringArray = numberString.split(Command.COMMAND_INDEX_DELIMITER);
+            ArrayList<Integer> indexes = new ArrayList<>();
+            for (int i = 0; i < numberStringArray.length; i++) {
+                String indexString = numberStringArray[i].trim();
+                if (indexString.split(" ").length > 1) {
+                    throw new ParserException(String.format(
+                            ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS, indexString.split(" ")[1]));
+                }
+                Integer index = ParserUtils.convertItemNumToItemIndex(Integer.parseInt(indexString));
+                if (indexes.contains(index)) {
+                    throw new ParserException(ParserMessages.MESSAGE_ERROR_DUPLICATE_NUMBERS);
+                }
+                if (index < 0) {
+                    throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_ITEM_NUM);
+                }
+                indexes.add(index);
+            }
+            logger.log(Level.WARNING, String.format("Indexes are %s", indexes.toString()));
+            return indexes;
+        } catch (NumberFormatException e) {
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_ITEM_NUM);
+        } catch (MissingParamException e) {
+            logger.log(Level.WARNING, "Detected empty item num input after prefix but item num is required!");
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_ITEM_NUM);
+        }
+
+    }
+
 }
 
