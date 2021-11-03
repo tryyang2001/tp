@@ -1,7 +1,7 @@
 package seedu.duke.main;
 
 import seedu.duke.data.profile.Profile;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Ui;
@@ -69,7 +69,7 @@ public class StartState {
                     createNewProfileCalorieGoal(profile);
                 }
                 storageManager.saveProfile(this.profile);
-            } catch (ParamMissingException e) {
+            } catch (MissingParamException e) {
                 System.out.println(e.getMessage());
             } catch (UnableToWriteFileException e) {
                 ui.formatMessageFramedWithDivider(e.getMessage());
@@ -95,7 +95,7 @@ public class StartState {
                 createNewProfileAge(newProfile);
                 createNewProfileCalorieGoal(newProfile);
                 createNewProfileActivityFactor(newProfile);
-            } catch (ParamMissingException e) {
+            } catch (MissingParamException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -112,9 +112,9 @@ public class StartState {
      * Creates a valid profile activity factor for the profile instance.
      *
      * @param newProfile instance of a profile class.
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
-    private void createNewProfileActivityFactor(Profile newProfile) throws ParamMissingException {
+    private void createNewProfileActivityFactor(Profile newProfile) throws MissingParamException {
         newProfile.setProfileActivityFactor(new CreateActivityFactor(ui).createActivityFactor());
     }
 
@@ -122,9 +122,9 @@ public class StartState {
      * Creates a valid profile calorie goal for the profile instance.
      *
      * @param newProfile instance of a profile class.
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
-    private void createNewProfileCalorieGoal(Profile newProfile) throws ParamMissingException {
+    private void createNewProfileCalorieGoal(Profile newProfile) throws MissingParamException {
         newProfile.setProfileCalorieGoal(new CreateCalorieGoal(ui).createNewCalorieGoal());
     }
 
@@ -132,9 +132,9 @@ public class StartState {
      * Creates a valid profile age for the profile instance.
      *
      * @param newProfile instance of a profile class.
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
-    private void createNewProfileAge(Profile newProfile) throws ParamMissingException {
+    private void createNewProfileAge(Profile newProfile) throws MissingParamException {
         newProfile.setProfileAge(new CreateAge(ui).createNewAge());
     }
 
@@ -151,9 +151,9 @@ public class StartState {
      * Creates a valid profile weight for the profile instance.
      *
      * @param newProfile instance of a profile class.
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
-    private void createNewProfileWeight(Profile newProfile) throws ParamMissingException {
+    private void createNewProfileWeight(Profile newProfile) throws MissingParamException {
         newProfile.setProfileWeight(new CreateWeight(ui).createNewWeight());
     }
 
@@ -161,9 +161,9 @@ public class StartState {
      * Creates a valid profile height for the profile instance.
      *
      * @param newProfile instance of a profile class.
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
-    private void createNewProfileHeight(Profile newProfile) throws ParamMissingException {
+    private void createNewProfileHeight(Profile newProfile) throws MissingParamException {
         newProfile.setProfileHeight(new CreateHeight(ui).createNewHeight());
     }
 
@@ -171,9 +171,9 @@ public class StartState {
      * Creates a valid profile name for the profile instance.
      *
      * @param newProfile instance of a profile class.
-     * @throws ParamMissingException if user input a string of 0 characters.
+     * @throws MissingParamException if user input a string of 0 characters.
      */
-    private void createNewProfileName(Profile newProfile) throws ParamMissingException {
+    private void createNewProfileName(Profile newProfile) throws MissingParamException {
         newProfile.setProfileName(new CreateName(ui).createNewName());
     }
 }

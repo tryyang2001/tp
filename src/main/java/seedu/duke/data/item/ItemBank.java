@@ -114,6 +114,12 @@ public class ItemBank {
         }
     }
 
+    /**
+     * Deletes multiple items in the list.
+     *
+     * @param itemIndexArray Array of indexes to delete from
+     * @throws IndexOutOfBoundsException Throws this exception if any of the index in the provided array does not exist
+     */
     public void deleteMultipleItems(ArrayList<Integer> itemIndexArray) {
         itemIndexArray.sort(Collections.reverseOrder());
         for (Integer i : itemIndexArray) {

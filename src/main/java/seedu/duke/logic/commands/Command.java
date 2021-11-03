@@ -14,6 +14,7 @@ import seedu.duke.data.profile.Profile;
  */
 public abstract class Command {
     public static final String COMMAND_PREFIX_DELIMITER = "/";
+    public static final String COMMAND_INDEX_DELIMITER = ",";
     public static final String COMMAND_PREFIX_EXERCISE = "e";
     public static final String COMMAND_PREFIX_UPCOMING_EXERCISE = "u";
     public static final String COMMAND_PREFIX_RECURRING = "r";

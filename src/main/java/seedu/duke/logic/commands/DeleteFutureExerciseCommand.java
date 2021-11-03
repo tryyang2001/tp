@@ -1,8 +1,5 @@
 package seedu.duke.logic.commands;
 
-import seedu.duke.data.item.exercise.Exercise;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,18 +16,15 @@ public class DeleteFutureExerciseCommand extends Command {
             + CommandMessages.LS + "Number of upcoming exercise(s) left: %2$d";
     private static final String MESSAGE_FUTURE_EXERCISE_CLEAR = "All future exercise items have been removed.";
     public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_UPCOMING_EXERCISE};
-    public static final String MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES = "Requested upcoming exercises are deleted";
+    public static final String MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES = "Requested upcoming exercises have been "
+            + "deleted";
 
 
     private static Logger logger = Logger.getLogger(DeleteFutureExerciseCommand.class.getName());
 
-    private int itemIndex;
     private boolean isClear = false;
     private ArrayList<Integer> itemIndexArray;
 
-    public DeleteFutureExerciseCommand(int itemIndex) {
-        this.itemIndex = itemIndex;
-    }
 
     public DeleteFutureExerciseCommand(boolean isClear) {
         this.isClear = isClear;
@@ -51,18 +45,12 @@ public class DeleteFutureExerciseCommand extends Command {
             super.futureExerciseItems.clearList();
             return new CommandResult(MESSAGE_FUTURE_EXERCISE_CLEAR);
         }
-        assert this.itemIndex > 0 : "Deleting an item only";
+
         logger.log(Level.WARNING, "Trying to delete item now");
         try {
-            if (!this.itemIndexArray.isEmpty()) {
-                Exercise deletedExercise;
-                deletedExercise = super.futureExerciseItems.deleteItem(this.itemIndex);
-                return new CommandResult(String.format(MESSAGE_SUCCESS, deletedExercise.toStringWithDate(),
-                        super.futureExerciseItems.getSize()));
-            } else {
-                super.futureExerciseItems.deleteMultipleItems(this.itemIndexArray);
-                return new CommandResult(MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES);
-            }
+            super.futureExerciseItems.deleteMultipleItems(this.itemIndexArray);
+            return new CommandResult(MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES);
+
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid exercise item index.");
             if (super.futureExerciseItems.getSize() == 1) {

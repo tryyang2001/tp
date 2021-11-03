@@ -48,13 +48,9 @@ class ParserManagerTest {
     @Test
     void parseAddCommand_correctInput_addCommand() {
         parseAndAssertCommandType("add f/potato c/20", AddFoodCommand.class);
-        parseAndAssertCommandType("aDD c/20 f/potato", AddFoodCommand.class);
         parseAndAssertCommandType("add e/potato c/20", AddExerciseCommand.class);
-        parseAndAssertCommandType("aDD c/20 e/potato", AddExerciseCommand.class);
         parseAndAssertCommandType("add fbank/potato c/20", AddFoodBankCommand.class);
         parseAndAssertCommandType("add ebank/potato c/20", AddExerciseBankCommand.class);
-        parseAndAssertCommandType("add c/20 fbank/potato", AddFoodBankCommand.class);
-        parseAndAssertCommandType("add c/20 ebank/potato", AddExerciseBankCommand.class);
     }
 
     @Test

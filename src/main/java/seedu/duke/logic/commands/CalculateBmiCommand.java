@@ -1,7 +1,7 @@
 package seedu.duke.logic.commands;
 
-import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 
 /**
  * Represents the command that when executed, calculates the BMI with the given height and weight data.

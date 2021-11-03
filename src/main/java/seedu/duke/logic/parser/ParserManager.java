@@ -31,7 +31,7 @@ public class ParserManager {
 
         final String[] commandAndParams = splitInputIntoCommandAndParams(input);
         final String commandWord = commandAndParams[0].toLowerCase(); //case-insensitive (all lower case)
-        final String params = commandAndParams[1];
+        final String params = " " + commandAndParams[1];
 
         switch (commandWord) {
         case Command.COMMAND_WORD_ADD:

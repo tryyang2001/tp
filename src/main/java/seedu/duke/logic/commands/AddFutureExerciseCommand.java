@@ -2,7 +2,6 @@ package seedu.duke.logic.commands;
 
 import seedu.duke.data.item.exceptions.ItemNotFoundInBankException;
 import seedu.duke.data.item.exercise.Exercise;
-import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 
 import java.time.LocalDate;
 import java.util.logging.Level;

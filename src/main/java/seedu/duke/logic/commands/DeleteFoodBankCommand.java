@@ -1,7 +1,5 @@
 package seedu.duke.logic.commands;
 
-import seedu.duke.data.item.food.Food;
-
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,18 +16,16 @@ public class DeleteFoodBankCommand extends Command {
             + CommandMessages.LS + "Number of food item(s) left in the food bank: %2$d";
     private static final String MESSAGE_FOOD_CLEAR = "All food items in the food bank have been removed.";
     public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_FOOD_BANK};
-    private static final String MESSAGE_REMOVED_MULTIPLE_FOOD_BANK_ITEM = "Requested food bank items are removed.";
+    private static final String MESSAGE_REMOVED_MULTIPLE_FOOD_BANK_ITEM =
+            "Requested food bank items have been removed.";
 
 
     private static Logger logger = Logger.getLogger(DeleteFoodBankCommand.class.getName());
 
-    private int itemIndex;
+
     private boolean isClear = false;
     private ArrayList<Integer> itemIndexArray;
 
-    public DeleteFoodBankCommand(int itemIndex) {
-        this.itemIndex = itemIndex;
-    }
 
     public DeleteFoodBankCommand(boolean isClear) {
         this.isClear = isClear;
@@ -50,19 +46,11 @@ public class DeleteFoodBankCommand extends Command {
             super.foodBank.clearList();
             return new CommandResult(MESSAGE_FOOD_CLEAR);
         }
-        assert this.itemIndex > 0 : "Deleting an item only";
+
         logger.log(Level.WARNING, "Trying to delete item now");
         try {
-            if (!itemIndexArray.isEmpty()) {
-                Food deletedFood;
-                deletedFood = (Food) super.foodBank.deleteItem(this.itemIndex);
-                return new CommandResult(String.format(MESSAGE_SUCCESS,
-                        deletedFood.toStringWithoutDateAndTime(),
-                        super.foodBank.getSize()));
-            } else {
-                super.foodBank.deleteMultipleItems(this.itemIndexArray);
-                return new CommandResult(MESSAGE_REMOVED_MULTIPLE_FOOD_BANK_ITEM);
-            }
+            super.foodBank.deleteMultipleItems(this.itemIndexArray);
+            return new CommandResult(MESSAGE_REMOVED_MULTIPLE_FOOD_BANK_ITEM);
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid food item index.");
             if (super.foodBank.getSize() == 1) {

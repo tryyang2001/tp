@@ -9,9 +9,11 @@ import seedu.duke.logic.commands.AddRecurringExerciseCommand;
 import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.InvalidCommand;
+import seedu.duke.logic.parser.exceptions.ExtraParamException;
 import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
-import seedu.duke.logic.parser.exceptions.ParamInvalidException;
-import seedu.duke.logic.parser.exceptions.ParamMissingException;
+import seedu.duke.logic.parser.exceptions.InvalidParamException;
+import seedu.duke.logic.parser.exceptions.MissingParamException;
+import seedu.duke.logic.parser.exceptions.ParserException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,11 +36,11 @@ public class AddCommandParser implements Parser {
             final String itemTypePrefix = ParserUtils.extractItemTypePrefix(params);
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_EXERCISE:
-                //Fallthrough
+                return parseAddToExercise(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_FOOD:
-                //Fallthrough
+                return parseAddToFood(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_RECURRING:
-                return parseAddToItems(params, itemTypePrefix);
+                return parseAddRecurring(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_EXERCISE_BANK:
                 //Fallthrough
             case Command.COMMAND_PREFIX_FOOD_BANK:
@@ -51,62 +53,76 @@ public class AddCommandParser implements Parser {
         }
     }
 
-    protected Command parseAddToItems(String params, String itemTypePrefix) throws ItemNotSpecifiedException {
+    protected Command parseAddToExercise(String params, String itemTypePrefix) {
         try {
             final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
-            Integer calories = null;
-            calories = ParserUtils.extractItemCalories(params, false);
-            switch (itemTypePrefix) {
-            case Command.COMMAND_PREFIX_EXERCISE:
-                final LocalDate date = ParserUtils.extractDate(params, false);
-                logger.log(Level.WARNING, String.format("date detected is: %s", date));
-                if (ParserUtils.hasExtraDelimiters(params, AddExerciseCommand.EXPECTED_PREFIXES)) {
-                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                }
-                if (ParserUtils.isSevenDaysBeforeToday(date)) {
-                    return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
-                            LocalDate.now().minusDays(7).format(DATE_FORMAT),
-                            LocalDate.now().format(DATE_FORMAT)));
-                }
-                if (ParserUtils.isFutureDate(date)) {
-                    logger.log(Level.WARNING, String.format("adding to future list"));
-                    return new AddFutureExerciseCommand(description, calories, date);
-                }
-                return new AddExerciseCommand(description, calories, date);
-            case Command.COMMAND_PREFIX_FOOD:
-                final LocalDateTime dateTime = ParserUtils.extractDateTime(params);
-                logger.log(Level.WARNING, String.format("dateTime detected is: %s", dateTime));
-                if (ParserUtils.hasExtraDelimiters(params, AddFoodCommand.EXPECTED_PREFIXES)) {
-                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                }
-                if (ParserUtils.isWithinSevenDaysFromToday(dateTime.toLocalDate())) {
-                    return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
-                            LocalDate.now().minusDays(7).format(DATE_FORMAT),
-                            LocalDate.now().format(DATE_FORMAT)));
-                }
-                return new AddFoodCommand(description, calories, dateTime);
-            case Command.COMMAND_PREFIX_RECURRING:
-                final LocalDate startDate = ParserUtils.extractStartDate(params);
-                final LocalDate endDate = ParserUtils.extractEndDate(params);
-                final ArrayList<Integer> dayOfTheWeek = ParserUtils.extractDayOfTheWeek(params);
-                if (ParserUtils.hasExtraDelimiters(params, AddRecurringExerciseCommand.EXPECTED_PREFIXES)) {
-                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                }
-                return new AddRecurringExerciseCommand(description, calories,
-                        startDate, endDate, dayOfTheWeek);
-            default:
-                throw new ItemNotSpecifiedException();
+            final Integer calories = ParserUtils.extractItemCalories(params);
+            final LocalDate date = ParserUtils.extractDate(params, false);
+            logger.log(Level.WARNING, String.format("date detected is: %s", date));
+            if (ParserUtils.hasExtraDelimiters(params, AddExerciseCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
-        } catch (ParamInvalidException | ParamMissingException e) {
+            if (ParserUtils.isSevenDaysBeforeToday(date)) {
+                return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
+                        LocalDate.now().minusDays(7).format(DATE_FORMAT),
+                        LocalDate.now().format(DATE_FORMAT)));
+            }
+            if (ParserUtils.isFutureDate(date)) {
+                logger.log(Level.WARNING, String.format("adding to future list"));
+                return new AddFutureExerciseCommand(description, calories, date);
+            }
+            return new AddExerciseCommand(description, calories, date);
+        } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
 
+
+    protected Command parseAddToFood(String params, String itemTypePrefix) {
+        try {
+            final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
+            final Integer calories = ParserUtils.extractItemCalories(params);
+            final LocalDateTime dateTime = ParserUtils.extractDateTime(params);
+            logger.log(Level.WARNING, String.format("dateTime detected is: %s", dateTime));
+            if (ParserUtils.hasExtraDelimiters(params, AddFoodCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
+            if (ParserUtils.isWithinSevenDaysFromToday(dateTime.toLocalDate())) {
+                return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
+                        LocalDate.now().minusDays(7).format(DATE_FORMAT),
+                        LocalDate.now().format(DATE_FORMAT)));
+            }
+            return new AddFoodCommand(description, calories, dateTime);
+        } catch (ParserException e) {
+            return new InvalidCommand(e.getMessage());
+        }
+    }
+
+    protected Command parseAddRecurring(String params, String itemTypePrefix) {
+        try {
+            final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
+            final Integer calories = ParserUtils.extractItemCalories(params);
+            final LocalDate startDate = extractStartDate(params);
+            final LocalDate endDate = extractEndDate(params);
+            final ArrayList<Integer> dayOfTheWeek = extractDayOfTheWeek(params);
+            if (ParserUtils.hasExtraDelimiters(params, AddRecurringExerciseCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
+            return new AddRecurringExerciseCommand(description, calories,
+                    startDate, endDate, dayOfTheWeek);
+        } catch (ParserException e) {
+            return new InvalidCommand(e.getMessage());
+        }
+    }
+
+
     protected Command parseAddToBank(String params, String itemTypePrefix) throws ItemNotSpecifiedException {
         try {
             final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
-            final int calories = ParserUtils.extractItemCalories(params, true);
-
+            final Integer calories = ParserUtils.extractItemCalories(params);
+            if (calories == null) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_NO_CALORIES_INFO);
+            }
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_EXERCISE_BANK:
                 if (ParserUtils.hasExtraDelimiters(params, AddExerciseBankCommand.EXPECTED_PREFIXES)) {
@@ -121,10 +137,66 @@ public class AddCommandParser implements Parser {
             default:
                 throw new ItemNotSpecifiedException();
             }
-        } catch (ParamInvalidException | ParamMissingException e) {
+        } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
     }
+
+    //@@author xingjie99
+    protected static LocalDate extractStartDate(String params)
+            throws ParserException {
+        LocalDate startDate = ParserUtils.extractGeneralDate(params, Command.COMMAND_PREFIX_START_DATE);
+        if (startDate == null) {
+            logger.log(Level.WARNING, "Detected empty start date input after prefix but date is required!");
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_START_DATE);
+        }
+        return startDate;
+    }
+
+    //@@author xingjie99
+    protected static LocalDate extractEndDate(String params)
+            throws ParserException {
+        LocalDate endDate = ParserUtils.extractGeneralDate(params, Command.COMMAND_PREFIX_END_DATE);
+        if (endDate == null) {
+            logger.log(Level.WARNING, "Detected empty end date input after prefix but date is required!");
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_END_DATE);
+        }
+        return endDate;
+    }
+    //@@author
+
+    protected static ArrayList<Integer> extractDayOfTheWeek(String params)
+            throws ParserException {
+        try {
+            String numberString = ParserUtils.extractRelevantParameter(params, Command.COMMAND_PREFIX_DAY_OF_THE_WEEK);
+            String[] numberStringArray = numberString.split(Command.COMMAND_INDEX_DELIMITER);
+            ArrayList<Integer> daysOfTheWeek = new ArrayList<>();
+            for (int i = 0; i < numberStringArray.length; i++) {
+                String dayString = numberStringArray[i].trim();
+                if (dayString.split(" ").length > 1) {
+                    throw new ParserException(String.format(
+                            ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS, dayString.split(" ")[1]));
+                }
+                Integer day = Integer.parseInt(numberStringArray[i].trim());
+                if (day < ParserMessages.MONDAY || day > ParserMessages.SUNDAY) {
+                    throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK);
+                }
+                if (daysOfTheWeek.contains(day)) {
+                    throw new ParserException(ParserMessages.MESSAGE_ERROR_REPEATED_DAY_OF_THE_WEEK);
+                }
+                daysOfTheWeek.add(day);
+            }
+            logger.log(Level.WARNING, String.format("Days of the week %s", daysOfTheWeek.toString()));
+            return daysOfTheWeek;
+        } catch (NumberFormatException e) {
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK);
+        } catch (MissingParamException e) {
+            logger.log(Level.WARNING, "Detected empty day input after prefix but day is required!");
+            throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_DAY_OF_THE_WEEK);
+        }
+    }
+
+
 
 
 }
