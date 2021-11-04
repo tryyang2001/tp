@@ -11,12 +11,14 @@ import seedu.duke.ui.Ui;
  */
 public class NameCreator extends AttributeCreator {
 
-    private static final String LS = System.lineSeparator();    
+    private static final String LS = System.lineSeparator();
     private static final String MESSAGE_BYE_DETECTED = "The command word 'bye' is detected." + LS
             + "Do you wish to exit this program or to set yor name as %s." + LS
             + "Type '1' if you wish to exit. Type '2' if you wish to set your name as your input." + LS
             + "Else, type in any key for Fitbot to ask for your name again.";
     private static final String CHECK_REPEAT_MESSAGE = "";
+    public static final String FIRST_OPTION = "1";
+    public static final String SECOND_OPTION = "2";
     private Name name = new Name();
     private static final String MESSAGE_INTRO_NAME = "What's your name?";
     private static final String MESSAGE_NAME = "Nice name you have there! Hello %s";
@@ -62,9 +64,9 @@ public class NameCreator extends AttributeCreator {
         ui.formatMessageFramedWithDivider(String.format(MESSAGE_BYE_DETECTED, userInput));
         String userConfirmByeInput = ui.getUserInput().trim();
         System.out.println(userConfirmByeInput);
-        if (userConfirmByeInput.equals("1")) {
+        if (userConfirmByeInput.equals(FIRST_OPTION)) {
             exit();
-        } else if (userConfirmByeInput.equals("2")) {
+        } else if (userConfirmByeInput.equals(SECOND_OPTION)) {
             return userInput;
         }
         assert !userConfirmByeInput.equals("1") && !userConfirmByeInput.equals("2") : "other inputs";

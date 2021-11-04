@@ -150,7 +150,7 @@ public class Statistics {
             int numberOfBars;
             numberOfBars = (int) Math.round(((double) calories / maxCalories) * MAX_BAR_LENGTH);
             assert numberOfBars <= MAX_BAR_LENGTH : "30 is the max progress bar limit";
-            for (int i = 0; i < numberOfBars; i++) {
+            for (int i = NO_OFFSET; i < numberOfBars; i++) {
                 progressBar = progressBar + FULL_BLOCK;
             }
             String formattedDate = getFormatDate(dateOffset);
