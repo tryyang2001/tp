@@ -121,23 +121,25 @@ public class DeleteCommandParser implements Parser {
         try {
             String numberString = ParserUtils.extractRelevantParameter(params, prefix);
             String[] numberStringArray = numberString.split(Command.COMMAND_INDEX_DELIMITER);
-            ArrayList<Integer> indexes = new ArrayList<>();
+            ArrayList<Integer> indices = new ArrayList<>();
             for (int i = 0; i < numberStringArray.length; i++) {
                 String indexString = numberStringArray[i].trim();
                 if (indexString.split(" ").length > 1) {
                     throw new ParserException(ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS);
                 }
-                Integer index = ParserUtils.convertItemNumToItemIndex(Integer.parseInt(indexString));
-                if (indexes.contains(index)) {
+                Integer index = (Double.parseDouble(indexString) > Integer.MAX_VALUE)
+                        ? Integer.MAX_VALUE
+                        : ParserUtils.convertItemNumToItemIndex(Integer.parseInt(indexString));
+                if (indices.contains(index)) {
                     throw new ParserException(ParserMessages.MESSAGE_ERROR_DUPLICATE_NUMBERS);
                 }
                 if (index < 0) {
                     throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_ITEM_NUM);
                 }
-                indexes.add(index);
+                indices.add(index);
             }
-            logger.log(Level.WARNING, String.format("Indexes are %s", indexes.toString()));
-            return indexes;
+            logger.log(Level.WARNING, String.format("Indexes are %s", indices.toString()));
+            return indices;
         } catch (NumberFormatException e) {
             throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_ITEM_NUM);
         } catch (MissingParamException e) {

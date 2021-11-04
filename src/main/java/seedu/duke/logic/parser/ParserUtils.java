@@ -127,7 +127,7 @@ public class ParserUtils {
         try {
             String intString = extractRelevantParameterWithoutWhitespace(params, prefix);
             if (Double.parseDouble(intString) > Integer.MAX_VALUE) {
-                System.out.println("too big..");
+                return Integer.MAX_VALUE;
             }
             return Integer.parseInt(intString);
         } catch (NumberFormatException e) {

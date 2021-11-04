@@ -65,7 +65,7 @@ public class CommandMessages {
     public static final String MESSAGE_EMPTY_EXERCISE_BANK = "No exercise items yet in the exercise bank!";
     public static final String MESSAGE_EMPTY_FOOD_BANK = "No food items yet in the food bank!";
     public static final String MESSAGE_ONLY_ONE_IN_LIST = "You have only 1 item in the list!";
-    public static final String MESSAGE_LIST_OUT_OF_BOUNDS = "Please input a valid item number from 1 to %s";
+    public static final String MESSAGE_LIST_OUT_OF_BOUNDS = "Please input a valid item number from 1 to %s!";
     public static final String MESSAGE_FOOD_NOT_FOUND = "Food item with index %d, date %s and time %s "
             + "is not found in the food list!";
     public static final String MESSAGE_EXERCISE_NOT_FOUND = "Exercise item with index %d and date %s "
@@ -154,6 +154,7 @@ public class CommandMessages {
                     + " followed by any of the following prefixes to specify what you are changing!:" + LS + INDENTED_LS
                     + MESSAGE_NAME_FORMAT + INDENTED_LS
                     + MESSAGE_HEIGHT_FORMAT + INDENTED_LS
+                    + MESSAGE_WEIGHT_FORMAT + INDENTED_LS
                     + MESSAGE_AGE_FORMAT + INDENTED_LS
                     + MESSAGE_GOAL_FORMAT + INDENTED_LS
                     + MESSAGE_GENDER_FORMAT + INDENTED_LS
