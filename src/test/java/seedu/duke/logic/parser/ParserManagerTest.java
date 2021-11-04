@@ -6,6 +6,7 @@ import seedu.duke.logic.commands.AddExerciseBankCommand;
 import seedu.duke.logic.commands.AddExerciseCommand;
 import seedu.duke.logic.commands.AddFoodBankCommand;
 import seedu.duke.logic.commands.AddFoodCommand;
+import seedu.duke.logic.commands.AddRecurringExerciseCommand;
 import seedu.duke.logic.commands.ByeCommand;
 import seedu.duke.logic.commands.CalculateBmiCommand;
 import seedu.duke.logic.commands.CalculateBmiWithProfileCommand;
@@ -48,9 +49,38 @@ class ParserManagerTest {
     @Test
     void parseAddCommand_correctInput_addCommand() {
         parseAndAssertCommandType("add f/potato c/20", AddFoodCommand.class);
+        parseAndAssertCommandType("add f/potato c/20", AddFoodCommand.class);
         parseAndAssertCommandType("add e/potato c/20", AddExerciseCommand.class);
         parseAndAssertCommandType("add fbank/potato c/20", AddFoodBankCommand.class);
         parseAndAssertCommandType("add ebank/potato c/20", AddExerciseBankCommand.class);
+        parseAndAssertCommandType("add ebank/exercise c/250", AddExerciseBankCommand.class);
+        parseAndAssertCommandType("add r/exercise c/250 :/11-12-2021 -/30-12-2021 @/1,2,3",
+                AddRecurringExerciseCommand.class);
+        parseAndAssertCommandType("add r/exercise c/250 :/11-12-2021 -/30-12-2021 @/1",
+                AddRecurringExerciseCommand.class);
+    }
+
+    @Test
+    void parseAddCommand_tooManyDelimiters_tooManyDelimitersMessage() {
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS,
+                "add f/pota/to c/20",
+                "add fbank/tac/o c/20",
+                "add ebank/tac/o/o c/20",
+                "add r/exer/cise/ c/250 :/11-12-2021 -/30-12-2021 @/1");
+    }
+
+    @Test
+    void parseAddCommand_extraParameters_invalidCommand() {
+        parseAndAssertCommandType("add f/potato c/20 abc", InvalidCommand.class);
+        parseAndAssertCommandType("add f/potato c/20 a", InvalidCommand.class);
+        parseAndAssertCommandType("add e/potato c/20 12", InvalidCommand.class);
+        parseAndAssertCommandType("add fbank/potato c/20 sjsjd", InvalidCommand.class);
+        parseAndAssertCommandType("add ebank/potato c/20 qqaz", InvalidCommand.class);
+        parseAndAssertCommandType("add ebank/exercise c/250 c", InvalidCommand.class);
+        parseAndAssertCommandType("add r/exercise c/250 :/11-12-2021 -/30-12-2021 @/1,2,3 abc",
+                InvalidCommand.class);
+        parseAndAssertCommandType("add r/exercise c/250 :/11-12-2021 asd -/30-12-2021 @/1,2,3 abc",
+                InvalidCommand.class);
     }
 
     @Test
@@ -58,6 +88,7 @@ class ParserManagerTest {
         parseAndAssertCommandType("add", InvalidCommand.class);
         parseAndAssertCommandType("add a/", InvalidCommand.class);
         parseAndAssertCommandType("add a", InvalidCommand.class);
+        parseAndAssertCommandType("add c/20 f/potato", InvalidCommand.class);
     }
 
     @Test
@@ -70,6 +101,14 @@ class ParserManagerTest {
     void parseAddCommand_caloriesNotANumber_caloriesNotNumberMessage() {
         parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_INVALID_CALORIES_INFO,
                 "add f/potato c/potato", "add e/hiit c/potato");
+    }
+
+    @Test
+    void parseAddRecurringExerciseCommand_daysNotInRange_invalidCommand() {
+        parseAndAssertCommandType("add r/exercise c/250 :/11-12-2021 -/30-12-2021 @/1,2,9",
+               InvalidCommand.class);
+        parseAndAssertCommandType("add r/exercise c/250 :/11-12-2021 -/30-12-2021 @/-1",
+                InvalidCommand.class);
     }
 
     @Test
@@ -113,15 +152,22 @@ class ParserManagerTest {
     }
 
     @Test
+    void parseDeleteFoodCommand_missingParameters_errorMessage() {
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_NO_DATE, "delete f/1",
+                "delete f/1 t/2359");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_NO_TIME, "delete f/1 d/25-12-2021");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_NO_ITEM_NUM,
+                "delete f/ d/25-12-2021 t/2359");
+    }
+
+    @Test
     void parseDeleteCommand_itemNumInvalid_invalidCommand() {
-        parseAndAssertCommandType("delete e/ ", InvalidCommand.class);
-        parseAndAssertCommandType("delete f/", InvalidCommand.class);
-        parseAndAssertCommandType("delete f/potato", InvalidCommand.class);
-        parseAndAssertCommandType("delete e/potato", InvalidCommand.class);
         parseAndAssertCommandType("delete fbank/ ", InvalidCommand.class);
         parseAndAssertCommandType("delete ebank/", InvalidCommand.class);
         parseAndAssertCommandType("delete fbank/potato", InvalidCommand.class);
         parseAndAssertCommandType("delete ebank/potato", InvalidCommand.class);
+        parseAndAssertCommandType("delete u/", InvalidCommand.class);
+        parseAndAssertCommandType("delete u/potato", InvalidCommand.class);
     }
 
     @Test
@@ -136,8 +182,8 @@ class ParserManagerTest {
 
     @Test
     void parseProfileUpdateCommand_correctInput_ProfileCreateCommand() {
-        parseAndAssertCommandType("profile n/hello w/50 h/80 g/50 a/23 s/F x/2", ProfileUpdateCommand.class);
-        parseAndAssertCommandType("profile g/100 w/50 h/80 n/hi potato a/23 s/F x/2", ProfileUpdateCommand.class);
+        parseAndAssertCommandType("profile n/hello w/50 h/80", ProfileUpdateCommand.class);
+        parseAndAssertCommandType("profile g/100 a/23 s/F x/2", ProfileUpdateCommand.class);
         parseAndAssertCommandType("profile h/50 n/hello potato g/20 w/20 a/23 s/F x/2", ProfileUpdateCommand.class);
     }
 
@@ -151,9 +197,21 @@ class ParserManagerTest {
 
     @Test
     void parseProfileCreateCommand_parametersInvalid_tooManyDelimitersMessage() {
-        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/hi n/hello");
-        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/h/i n/hello");
-        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS,"profile n/h/i z/hello");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS,
+                "profile n/hi n/hello", "profile n/h/i n/hello", "profile n/h/i z/hello");
+        parseAndAssertIncorrectWithMessage(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "weight"),
+                "profile w/hello");
+        parseAndAssertIncorrectWithMessage(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "height"),
+                "profile h/hello");
+        parseAndAssertIncorrectWithMessage(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "activity factor"),
+                "profile x/hello");
+        parseAndAssertIncorrectWithMessage(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "age"),
+                "profile a/hello");
+        parseAndAssertIncorrectWithMessage(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "goal"),
+                "profile g/hello");
+        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_INVALID_GENDER,
+                "profile s/fm");
+
     }
 
     @Test
@@ -169,6 +227,7 @@ class ParserManagerTest {
     void parseViewCommand_itemTypeNotSpecified_invalidCommand() {
         parseAndAssertCommandType("view a/", InvalidCommand.class);
         parseAndAssertCommandType("view a", InvalidCommand.class);
+        parseAndAssertCommandType("view ef/", InvalidCommand.class);
     }
 
 

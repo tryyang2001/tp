@@ -8,9 +8,7 @@ import seedu.duke.logic.commands.DeleteFoodBankCommand;
 import seedu.duke.logic.commands.DeleteFoodCommand;
 import seedu.duke.logic.commands.DeleteFutureExerciseCommand;
 import seedu.duke.logic.commands.InvalidCommand;
-import seedu.duke.logic.parser.exceptions.ExtraParamException;
 import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
-import seedu.duke.logic.parser.exceptions.InvalidParamException;
 import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.logic.parser.exceptions.ParserException;
 

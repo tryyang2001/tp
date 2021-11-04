@@ -3,8 +3,8 @@ package seedu.duke.ui;
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
-import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
