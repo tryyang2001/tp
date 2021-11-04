@@ -16,7 +16,7 @@ import seedu.duke.logic.parser.exceptions.ParserException;
 public class UpdateProfileParser implements Parser {
     @Override
     public Command parse(String params) {
-        if (params.isEmpty()) { //no additional parameters, assumed to be view profile command
+        if (params.trim().isEmpty()) { //no additional parameters, assumed to be view profile command
             return new ProfileCommand();
         }
 
