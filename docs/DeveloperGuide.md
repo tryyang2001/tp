@@ -352,7 +352,7 @@ Afterwhich, `Main` calls a loading function that in turns calls the `loadProfile
   <img width="70%" src="images/StorageManagerLoadSequenceRef1.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
 
-The diagram above explains how the application checks if a file exists.
+The diagram above explains how the application checks if a file exists. If it exists, it will not perform any additional functionality. Otherwise, it will generate a new file in preparation for storage.
 
 ##### Reference Diagram 2: Retrieval of data from storage with the use of ProfileDecoder to decode
 
@@ -361,6 +361,11 @@ The diagram above explains how the application checks if a file exists.
 </p>
 
 The diagram above explains the processes to decode the items from the file.
+
+Upon reaching the `decodeProfile(line)` method, it decodes its attributes one by one to ensure that they are able to detect each attribute's readibility from storage.
+If the methods are unable to read the respective attribute from storage, an invalid one will be initialized for `StartState` to catch it, allowing users to change
+their individual attributes instead of losing their entire profile data on startup.
+
 ### Create Profile If Not Exist On Startup
 
 When user first enters _Fitbot_, the profile of the user is not set up (attributes may not exist). If user were to 

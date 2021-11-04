@@ -8,10 +8,8 @@ import seedu.duke.data.profile.attributes.Gender;
 import seedu.duke.data.profile.attributes.Height;
 import seedu.duke.data.profile.attributes.Name;
 import seedu.duke.data.profile.attributes.Weight;
-import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.InvalidDataException;
-
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,18 +25,13 @@ public class ProfileDecoder {
      *
      * @return The profile object with its corresponding characteristics
      * @throws FileNotFoundException          If the file is misplaced/missing
-     * @throws InvalidCharacteristicException When the data is corrupted in the file.
      */
     public static Profile retrieveProfileFromData(String filePath) throws FileNotFoundException {
-        File file = new File(filePath);
-        Scanner in = new Scanner(file);
-        return decodeProfile(in);
-    }
-
-    private static Profile decodeProfile(Scanner in) {
         try {
+            File file = new File(filePath);
+            Scanner in = new Scanner(file);
             if (in.hasNext()) {
-                return decodeProfileDataFromString(in.nextLine());
+                return decodeProfile(in.nextLine());
             }
         } catch (InvalidDataException e) {
             System.out.println(e.getMessage());
@@ -46,10 +39,10 @@ public class ProfileDecoder {
         return new Profile();
     }
 
-    private static Profile decodeProfileDataFromString(String input) throws InvalidDataException {
+    private static Profile decodeProfile(String line) throws InvalidDataException {
         try {
             Profile profile = new Profile();
-            final String[] profileDetails = input.split(StorageManager.FILE_TEXT_DELIMITER);
+            final String[] profileDetails = line.split(StorageManager.FILE_TEXT_DELIMITER);
             final Name name = decodeName(profileDetails[0]);
             final Height height = decodeHeight(profileDetails[1]);
             final Weight weight = decodeWeight(profileDetails[2]);
@@ -60,7 +53,7 @@ public class ProfileDecoder {
             profile.setProfile(name, height, weight, gender, age, calorieGoal, activityFactor);
             return profile;
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new InvalidDataException(StorageManager.FILENAME_PROFILE, input);
+            throw new InvalidDataException(StorageManager.FILENAME_PROFILE, line);
         }
     }
 
