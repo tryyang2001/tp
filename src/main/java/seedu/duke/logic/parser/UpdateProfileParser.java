@@ -10,8 +10,6 @@ import seedu.duke.logic.parser.exceptions.InvalidParamException;
 import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.logic.parser.exceptions.ParserException;
 
-import java.util.logging.Level;
-
 /**
  * Parses input arguments for Update Profile command.
  */
