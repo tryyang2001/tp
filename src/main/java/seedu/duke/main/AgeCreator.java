@@ -30,7 +30,7 @@ public class AgeCreator extends AttributeCreator {
         while (!age.isValid()) {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_AGE);
             try {
-                String userInput = ui.getUserInput();
+                String userInput = ui.getUserInput().trim();
                 ui.checkEmptyUserInput(userInput);
                 confirmInputBye(userInput);
                 int ageInput = Integer.parseInt(userInput);

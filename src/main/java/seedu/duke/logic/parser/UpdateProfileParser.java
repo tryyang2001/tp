@@ -1,5 +1,7 @@
 package seedu.duke.logic.parser;
 
+import seedu.duke.data.profile.Profile;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.InvalidCommand;
@@ -47,7 +49,7 @@ public class UpdateProfileParser implements Parser {
         try {
             return ParserUtils.extractGeneralInteger(params, Command.COMMAND_PREFIX_GOAL);
         } catch (InvalidParamException e) {
-            throw new ParserException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "goal"));
+            throw new ParserException(ProfileUtils.ERROR_CALORIE_GOAL);
         }
     }
 
@@ -55,7 +57,7 @@ public class UpdateProfileParser implements Parser {
         try {
             return ParserUtils.extractGeneralInteger(params, Command.COMMAND_PREFIX_AGE);
         } catch (InvalidParamException e) {
-            throw new ParserException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "age"));
+            throw new ParserException(ProfileUtils.ERROR_AGE);
         }
     }
 
@@ -63,8 +65,7 @@ public class UpdateProfileParser implements Parser {
         try {
             return ParserUtils.extractGeneralInteger(params, Command.COMMAND_PREFIX_ACTIVITY_FACTOR);
         } catch (InvalidParamException e) {
-            throw new ParserException(String.format(
-                    ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "activity factor"));
+            throw new ParserException(ProfileUtils.ERROR_ACTIVITY_FACTOR);
         }
     }
 
@@ -73,7 +74,7 @@ public class UpdateProfileParser implements Parser {
             String stringAfterPrefix = ParserUtils.extractRelevantParameterWithoutWhitespace(
                     params, Command.COMMAND_PREFIX_GENDER);
             if (stringAfterPrefix.length() > 1) {
-                throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_GENDER);
+                throw new ParserException(ProfileUtils.ERROR_GENDER);
             }
             return stringAfterPrefix.charAt(0);
         } catch (MissingParamException e) {

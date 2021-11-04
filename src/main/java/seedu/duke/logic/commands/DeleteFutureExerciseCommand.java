@@ -1,5 +1,7 @@
 package seedu.duke.logic.commands;
 
+import seedu.duke.data.item.Item;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,8 +14,9 @@ public class DeleteFutureExerciseCommand extends Command {
             + " " + COMMAND_PREFIX_UPCOMING_EXERCISE + COMMAND_PREFIX_DELIMITER + "X" + CommandMessages.QUOTATION
             + ", where X is the item number in the future exercise list";
     public static final String MESSAGE_SUCCESS = "An exercise item for the future has been deleted:"
-            + CommandMessages.INDENTED_LS + "%s"
-            + CommandMessages.LS + "Number of upcoming exercise(s) left: %2$d";
+            + CommandMessages.INDENTED_LS + "%s";
+    public static final String MESSAGE_ITEMS_LEFT =
+            CommandMessages.LS + "Number of upcoming exercise(s) left: %d";
     private static final String MESSAGE_FUTURE_EXERCISE_CLEAR = "All future exercise items have been removed.";
     public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_UPCOMING_EXERCISE};
     public static final String MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES = "All of the following upcoming exercises "
@@ -48,6 +51,12 @@ public class DeleteFutureExerciseCommand extends Command {
 
         logger.log(Level.WARNING, "Trying to delete item now");
         try {
+            if ((itemIndexArray.size() == 1)) {
+                Item item = super.futureExerciseItems.deleteItem(itemIndexArray.get(0));
+                return new CommandResult(
+                        String.format(MESSAGE_SUCCESS, item.toStringWithDate())
+                                + String.format(MESSAGE_ITEMS_LEFT, super.futureExerciseItems.getSize()));
+            }
             if ((itemIndexArray.stream()
                     .filter(number -> number > super.futureExerciseItems.getSize() - 1).count()) > 0) {
                 return new CommandResult(String.format(CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS,
@@ -56,7 +65,8 @@ public class DeleteFutureExerciseCommand extends Command {
                 String listOfDeletedFutureExercises = super.futureExerciseItems
                         .deleteMultipleItems(this.itemIndexArray);
                 return new CommandResult(MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES
-                        + listOfDeletedFutureExercises);
+                        + listOfDeletedFutureExercises
+                        + String.format(MESSAGE_ITEMS_LEFT, super.futureExerciseItems.getSize()));
             }
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid exercise item index.");

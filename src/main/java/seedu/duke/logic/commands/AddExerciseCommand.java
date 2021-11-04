@@ -49,7 +49,6 @@ public class AddExerciseCommand extends Command {
                 logger.log(Level.WARNING, "Exercise calorie is invalid");
                 return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
             }
-
         }
 
         exercise = new Exercise(this.description, this.calories, this.date);

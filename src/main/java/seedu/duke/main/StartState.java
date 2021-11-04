@@ -20,8 +20,6 @@ public class StartState {
         this.ui = ui;
     }
 
-    private static final String MESSAGE_CREATE_PROFILE_SUCCESSFUL = "Profile created successfully";
-
     /**
      * Check whether user's profile is complete.
      * If profile is complete, the program will exit this method.
@@ -39,7 +37,7 @@ public class StartState {
         } else {
             createNewProfile();
         }
-        ui.formatMessageWithBottomDivider(MESSAGE_CREATE_PROFILE_SUCCESSFUL,
+       System.out.println(Ui.MESSAGE_CREATE_PROFILE_SUCCESSFUL + ui.LS +
                 ui.MESSAGE_DIRECT_HELP);
         return profile;
     }
@@ -104,7 +102,6 @@ public class StartState {
         } catch (UnableToWriteFileException e) {
             ui.formatMessageFramedWithDivider(e.getMessage());
         }
-        ui.formatMessageWithBottomDivider();
     }
 
     /**

@@ -55,7 +55,7 @@ public class EditFutureExerciseCommand extends Command {
                 }
                 item.setCalories(this.newCalories);
             }
-            if (!this.newDate.equals(null)) {
+            if (this.newDate != null) {
                 if (!this.newDate.isAfter(LocalDate.now())) {
                     return new CommandResult(MESSAGE_INVALID_DATE);
                 }

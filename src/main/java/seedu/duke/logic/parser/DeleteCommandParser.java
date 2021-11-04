@@ -125,8 +125,7 @@ public class DeleteCommandParser implements Parser {
             for (int i = 0; i < numberStringArray.length; i++) {
                 String indexString = numberStringArray[i].trim();
                 if (indexString.split(" ").length > 1) {
-                    throw new ParserException(String.format(
-                            ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS, indexString.split(" ")[1]));
+                    throw new ParserException(ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS);
                 }
                 Integer index = ParserUtils.convertItemNumToItemIndex(Integer.parseInt(indexString));
                 if (indexes.contains(index)) {
