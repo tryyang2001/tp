@@ -92,14 +92,4 @@ public class Exercise extends Item {
                 + FILE_TEXT_DELIMITER
                 + this.getDate().format(DATE_FORMATTER_FOR_STORAGE);
     }
-
-    /**
-     * Checks if the current exercise item is valid.
-     *
-     * @return True if the exercise name and calories are valid, false otherwise.
-     */
-    @Override
-    public boolean isValid() {
-        return super.isValid() && calories > 0;
-    }
 }

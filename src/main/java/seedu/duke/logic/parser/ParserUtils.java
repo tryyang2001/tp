@@ -278,7 +278,7 @@ public class ParserUtils {
     }
 
     protected static boolean isWithinSevenDaysFromToday(LocalDate date) {
-        return isSevenDaysBeforeToday(date) && !date.isAfter(LocalDate.now());
+        return !isSevenDaysBeforeToday(date) && !date.isAfter(LocalDate.now());
     }
 
     protected static boolean isFutureDate(LocalDate date) {
