@@ -16,8 +16,8 @@ public class DeleteExerciseBankCommand extends Command {
             + CommandMessages.LS + "Number of exercise item(s) left in the exercise bank: %2$d";
     private static final String MESSAGE_EXERCISE_CLEAR = "All exercise items in the exercise bank have been removed.";
     public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_EXERCISE_BANK};
-    private static final String MESSAGE_REMOVED_MULTIPLE_EXERCISE_BANK_ITEM = "Requested exercise bank items "
-            + "have been removed.";
+    private static final String MESSAGE_REMOVED_MULTIPLE_EXERCISE_BANK_ITEM = "All of the requested exercise bank "
+            + "items have been removed.";
 
 
     private static Logger logger = Logger.getLogger(DeleteExerciseBankCommand.class.getName());
@@ -46,8 +46,9 @@ public class DeleteExerciseBankCommand extends Command {
         }
         logger.log(Level.WARNING, "Trying to delete item now");
         try {
-            super.exerciseBank.deleteMultipleItems(this.itemIndexArray);
-            return new CommandResult(MESSAGE_REMOVED_MULTIPLE_EXERCISE_BANK_ITEM);
+            String listOfDeletedExerciseBank = super.exerciseBank.deleteMultipleItems(this.itemIndexArray);
+            return new CommandResult(listOfDeletedExerciseBank
+                    + MESSAGE_REMOVED_MULTIPLE_EXERCISE_BANK_ITEM);
 
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid exercise item index.");

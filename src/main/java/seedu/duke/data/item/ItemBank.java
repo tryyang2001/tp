@@ -120,10 +120,20 @@ public class ItemBank {
      * @param itemIndexArray Array of indexes to delete from
      * @throws IndexOutOfBoundsException Throws this exception if any of the index in the provided array does not exist
      */
-    public void deleteMultipleItems(ArrayList<Integer> itemIndexArray) {
-        itemIndexArray.sort(Collections.reverseOrder());
-        for (Integer i : itemIndexArray) {
-            deleteItem(i);
+    public String deleteMultipleItems(ArrayList<Integer> itemIndexArray) {
+        Collections.sort(itemIndexArray);
+        StringBuilder itemsToString = new StringBuilder();
+        int numberPointer = 0;
+        for (Integer index : itemIndexArray) {
+            itemsToString.append(TAB)
+                    .append(index + 1)
+                    .append(". ")
+                    .append(getItem(index - numberPointer).toStringWithoutDateAndTime())
+                    .append(" is deleted.")
+                    .append(LS);
+            deleteItem(index - numberPointer);
+            numberPointer++;
         }
+        return itemsToString.toString();
     }
 }
