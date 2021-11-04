@@ -374,6 +374,7 @@ and if it does not exist, _Fitbot_ will guide user through to fill up the profil
 
 On startup, the main function will run checkAndCreateProfile() (not in diagram), which will cause StartState
 instance to be created by dataManager and run  new StartState.checkAndCreateProfile().
+
 Step 1: the checkAndCreateProfile() will check if there is a profile exist, by checking all the attributes. 
 If all attributes are correct, the profile will be returned. If there is all the attributes are incorrect or there is no
 attribute in storage, the StartState will self invocate by calling createProfile().
@@ -390,6 +391,7 @@ Step 4: The StartState will replace the reference of old profile instance with t
 shown by a cross at its lifeline. The profile in the StartState will then be returned to the dataManager.
 
 ####Design Considerations
+
 The purpose of replacing the new profile with the old profile is to ensure that if the new user decides to close the 
 program without finishing creating profile, the profile attributes keyed in by the user will not be saved. It will only 
 save all the profile attributes when all the attributes has been inputted by the user are present and valid.
