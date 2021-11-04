@@ -3,6 +3,7 @@ package seedu.duke.logic.parser;
 import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.commands.Command;
+import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.parser.exceptions.ExtraParamException;
 import seedu.duke.logic.parser.exceptions.InvalidParamException;
 import seedu.duke.logic.parser.exceptions.MissingParamException;
@@ -183,8 +184,7 @@ public class ParserUtils {
             return calories;
         } catch (InvalidParamException e) {
             logger.log(Level.WARNING, "Detected non-digit calories input");
-            throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_CALORIES_INFO);
-            //TODO: Replace with error message from Item
+            throw new ParserException(CommandMessages.MESSAGE_INVALID_CALORIES);
         }
     }
 
@@ -282,7 +282,7 @@ public class ParserUtils {
     }
 
     protected static boolean isWithinSevenDaysFromToday(LocalDate date) {
-        return isSevenDaysBeforeToday(date) && !date.isAfter(LocalDate.now());
+        return !isSevenDaysBeforeToday(date) && !date.isAfter(LocalDate.now());
     }
 
     protected static boolean isFutureDate(LocalDate date) {

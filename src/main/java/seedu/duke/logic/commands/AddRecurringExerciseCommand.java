@@ -1,5 +1,6 @@
 package seedu.duke.logic.commands;
 
+import seedu.duke.data.item.Item;
 import seedu.duke.data.item.exceptions.ItemNotFoundInBankException;
 
 import java.time.LocalDate;
@@ -64,9 +65,9 @@ public class AddRecurringExerciseCommand extends Command {
                 return new CommandResult(String.format(
                         CommandMessages.MESSAGE_INVALID_EXERCISE_NOT_IN_BANK, this.description));
             }
-        } else if (this.calories <= 0) {
-            logger.log(Level.WARNING, "Exercise calorie is invalid");
-            return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
+        } else if (calories < Item.LOWEST_CALORIE || calories > Item.HIGHEST_CALORIE) {
+            logger.log(Level.WARNING, "Detected impossible calorie value");
+            return new CommandResult(CommandMessages.MESSAGE_INVALID_CALORIES);
         }
         assert this.endDate.isAfter(this.startDate) : "End date is after start date";
         if (!this.startDate.isAfter(LocalDate.now())) {
@@ -76,11 +77,6 @@ public class AddRecurringExerciseCommand extends Command {
                     this.endDate.format(CommandMessages.DATE_FORMATTER)));
         }
         assert this.startDate.isAfter(LocalDate.now()) : "Start and end dates are in the future";
-        if (this.calories <= 0) {
-            logger.log(Level.WARNING, "Exercise calorie is invalid");
-            return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
-        }
-        assert this.calories > 0 : "Exercise calorie is valid";
         int numberOfFutureExercises = futureExerciseItems.getSize();
         futureExerciseItems.addRecurringExercises(this.description, this.calories,
                 this.startDate, this.endDate, this.dayOfTheWeek);

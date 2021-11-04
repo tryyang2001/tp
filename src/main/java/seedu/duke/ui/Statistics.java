@@ -25,8 +25,8 @@ public class Statistics {
     private static final String MESSAGE_CALORIE_NET = "Your net calorie intake is: %d";
     private static final String MESSAGE_CALORIE_GOAL = "Your calorie goal is: %d";
     private static final String MESSAGE_CALORIE_EXACT = "You have reached your calorie goal exactly. Good job!";
-    private static final String MESSAGE_CALORIE_LESS_THAN = "You are %s cal away from your goal";
-    private static final String MESSAGE_CALORIE_MORE_THAN = "You have exceeded your calorie goal by %s cal ";
+    private static final String MESSAGE_CALORIE_LESS_THAN = "You are %s cal away from your goal!";
+    private static final String MESSAGE_CALORIE_MORE_THAN = "You have exceeded your calorie goal by %s cal! ";
     private static final String OVERVIEW_HEADER = "-*WEEKLY OVERVIEW*-" + LS
             + "Hi %s, this is your calorie summary for the week." + LS;
     private static final String FOOD_HEADER = "Food:" + LS

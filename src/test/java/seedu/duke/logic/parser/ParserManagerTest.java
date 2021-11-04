@@ -2,6 +2,8 @@ package seedu.duke.logic.parser;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.duke.data.profile.Profile;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.commands.AddExerciseBankCommand;
 import seedu.duke.logic.commands.AddExerciseCommand;
 import seedu.duke.logic.commands.AddFoodBankCommand;
@@ -11,6 +13,7 @@ import seedu.duke.logic.commands.ByeCommand;
 import seedu.duke.logic.commands.CalculateBmiCommand;
 import seedu.duke.logic.commands.CalculateBmiWithProfileCommand;
 import seedu.duke.logic.commands.Command;
+import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.HelpCommand;
 import seedu.duke.logic.commands.InvalidCommand;
 import seedu.duke.logic.commands.OverviewCommand;
@@ -99,7 +102,7 @@ class ParserManagerTest {
 
     @Test
     void parseAddCommand_caloriesNotANumber_caloriesNotNumberMessage() {
-        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_INVALID_CALORIES_INFO,
+        parseAndAssertIncorrectWithMessage(CommandMessages.MESSAGE_INVALID_CALORIES,
                 "add f/potato c/potato", "add e/hiit c/potato");
     }
 
@@ -138,10 +141,10 @@ class ParserManagerTest {
     @Test
     void parseCalculateBmiCommand_parametersInvalid_errorMessage() {
         parseAndAssertIncorrectWithMessage(
-                String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "height"),
+                ProfileUtils.ERROR_HEIGHT,
                 "BMI w/20 h/potato");
         parseAndAssertIncorrectWithMessage(
-                String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "weight"),
+                ProfileUtils.ERROR_WEIGHT,
                 "BMI w/potato h/20");
     }
 
@@ -199,17 +202,17 @@ class ParserManagerTest {
     void parseProfileCreateCommand_parametersInvalid_tooManyDelimitersMessage() {
         parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS,
                 "profile n/hi n/hello", "profile n/h/i n/hello", "profile n/h/i z/hello");
-        parseAndAssertIncorrectWithMessage(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "weight"),
+        parseAndAssertIncorrectWithMessage(ProfileUtils.ERROR_WEIGHT,
                 "profile w/hello");
-        parseAndAssertIncorrectWithMessage(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "height"),
+        parseAndAssertIncorrectWithMessage(ProfileUtils.ERROR_HEIGHT,
                 "profile h/hello");
-        parseAndAssertIncorrectWithMessage(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "activity factor"),
+        parseAndAssertIncorrectWithMessage(ProfileUtils.ERROR_ACTIVITY_FACTOR,
                 "profile x/hello");
-        parseAndAssertIncorrectWithMessage(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "age"),
+        parseAndAssertIncorrectWithMessage(ProfileUtils.ERROR_AGE,
                 "profile a/hello");
-        parseAndAssertIncorrectWithMessage(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "goal"),
+        parseAndAssertIncorrectWithMessage(ProfileUtils.ERROR_CALORIE_GOAL,
                 "profile g/hello");
-        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_INVALID_GENDER,
+        parseAndAssertIncorrectWithMessage(ProfileUtils.ERROR_GENDER,
                 "profile s/fm");
 
     }

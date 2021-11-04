@@ -18,11 +18,9 @@ public class ParserMessages {
     protected static final String MESSAGE_ERROR_NO_CALORIES_INFO = "Please input the number of calories using "
             + "the prefix "
             + QUOTATION + Command.COMMAND_PREFIX_CALORIES + Command.COMMAND_PREFIX_DELIMITER + QUOTATION + "!";
-    protected static final String MESSAGE_ERROR_INVALID_CALORIES_INFO =
-            "Please input calories as a whole number from 1 to 10 000! E.g 123";
     protected static final String MESSAGE_ERROR_NO_ITEM_NUM = "Please input the item number!";
     protected static final String MESSAGE_ERROR_INVALID_ITEM_NUM = "Please input the item number as a whole number "
-            + "greater than 0! E.g 1";
+            + "greater than 0!";
     protected static final String MESSAGE_ERROR_TOO_MANY_DELIMITERS = "Please do not use the character "
             + QUOTATION + Command.COMMAND_PREFIX_DELIMITER + QUOTATION
             + " other than to specify parameters relevant to this command!";
