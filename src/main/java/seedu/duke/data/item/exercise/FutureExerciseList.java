@@ -3,6 +3,7 @@ package seedu.duke.data.item.exercise;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class FutureExerciseList extends ExerciseList {
 
@@ -69,5 +70,35 @@ public class FutureExerciseList extends ExerciseList {
             }
             super.sortList();
         }
+    }
+
+    /**
+     * Deletes multiple items in the FutureExerciseList.
+     *
+     * @param itemIndexArray Array of indexes to delete from
+     * @throws IndexOutOfBoundsException Throws this exception if any of the index in the provided array does not exist
+     */
+    @Override
+    public String deleteMultipleItems(ArrayList<Integer> itemIndexArray) {
+        Collections.sort(itemIndexArray);
+        StringBuilder itemsToString = new StringBuilder();
+        int numberPointer = 0;
+        for (Integer index : itemIndexArray) {
+            itemsToString.append(TAB)
+                    .append(index + 1)
+                    .append(". ")
+                    .append(getItem(index - numberPointer))
+                    .append(" (")
+                    .append(getDayOfWeek(getItem(index - numberPointer).getDate()))
+                    .append(" ")
+                    .append(getItem(index - numberPointer).getDate()
+                            .format(DateTimeFormatter.ofPattern(DATE_FORMAT)))
+                    .append(")")
+                    .append(" is deleted.")
+                    .append(LS);
+            deleteItem(index - numberPointer);
+            numberPointer++;
+        }
+        return itemsToString.toString();
     }
 }

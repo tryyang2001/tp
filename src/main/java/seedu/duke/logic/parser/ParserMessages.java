@@ -37,14 +37,15 @@ public class ParserMessages {
     protected static final String MESSAGE_ERROR_INVALID_TIME_FORMAT = "Invalid time! Please input a valid time as "
             + "HHMM";
     protected static final String MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK = "Invalid day format! Please input day(s) "
-            + "between 1 and 7."
+            + "between 1 and 7 with a comma in between the days." + LS
             + LS + "1 : Monday"
             + LS + "2 : Tuesday"
             + LS + "3 : Wednesday"
             + LS + "4 : Thursday"
             + LS + "5 : Friday"
             + LS + "6 : Saturday"
-            + LS + "7 : Sunday";
+            + LS + "7 : Sunday"
+            + LS + LS + "E.G: @/1,3,5,6";
     protected static final String MESSAGE_ERROR_NO_DATE = "Please input the date for this item using the prefix "
             + QUOTATION + Command.COMMAND_PREFIX_DATE + Command.COMMAND_PREFIX_DELIMITER + QUOTATION + "!";
     protected static final String MESSAGE_ERROR_NO_START_DATE = "Please input the start date for this item "
