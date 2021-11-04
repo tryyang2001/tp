@@ -395,7 +395,9 @@ Step 4: The StartState will replace the reference of old profile instance with t
 (not shown in diagram).  Since the old profile instance is being dereferenced, it has reached the end of the lifeline,
 shown by a cross at its lifeline. The profile in the StartState will then be returned to the dataManager.
 
+
 ####Design Considerations
+
 
 The purpose of replacing the new profile with the old profile is to ensure that if the new user decides to close the 
 program without finishing creating profile, the profile attributes keyed in by the user will not be saved. It will only 
@@ -509,6 +511,7 @@ Given below are some instructions that can be used to test the application manua
     5. (more test cases)
 
 ### Launch and shut down
+
 1. Initial launch
    - Prerequisite: There is no fitbot.jar file on your desktop.
    - Test case:
@@ -519,6 +522,7 @@ Given below are some instructions that can be used to test the application manua
    Expected: a data folder will be created in the file that contain Fitbot.jar.
 
 ### Setting Up Profile
+
 2. Setting Up Profile
     - Prerequisite: Fitbot.jar is in a folder with or without data folder.
     - Test case:
