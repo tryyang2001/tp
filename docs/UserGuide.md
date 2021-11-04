@@ -209,6 +209,9 @@ ________________________________________________________________________________
 
 After setting up the profile, you can start recording your food and exercises with the commands below.
 
+❗ You can exit _Fitbot_ with the `bye` command, but if you exit before completing the profile, all attributes will
+not be saved.
+
 
 ## **3. Terminology**
 
