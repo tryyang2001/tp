@@ -47,9 +47,9 @@ public class EditExerciseBankCommand extends Command {
                 item.setName(this.newName);
             }
             if (this.newCalories != null) {
-                if (this.newCalories <= 0) {
-                    logger.log(Level.WARNING, "Exercise calorie is invalid");
-                    return new CommandResult(CommandMessages.MESSAGE_ZERO_EXERCISE_CALORIES);
+                if (this.newCalories < Item.LOWEST_CALORIE || this.newCalories > Item.HIGHEST_CALORIE) {
+                    logger.log(Level.WARNING, "Detected impossible exercise calorie burnt.");
+                    return new CommandResult(CommandMessages.MESSAGE_INVALID_CALORIES);
                 }
                 item.setCalories(this.newCalories);
             }

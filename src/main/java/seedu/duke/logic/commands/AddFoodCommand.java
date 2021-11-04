@@ -44,17 +44,12 @@ public class AddFoodCommand extends Command {
                 return new CommandResult(String.format(
                         CommandMessages.MESSAGE_INVALID_FOOD_NOT_IN_BANK, this.description));
             }
-        } else {
-            if (this.calories < 0) {
-                logger.log(Level.WARNING, "Detected negative food calorie");
-                return new CommandResult(CommandMessages.MESSAGE_ZERO_FOOD_CALORIES);
-            }
         }
 
         food = new Food(this.description, this.calories, this.dateTime);
         if (!food.isValid()) {
             logger.log(Level.WARNING, "Detected impossible value for food calorie");
-            return new CommandResult(CommandMessages.MESSAGE_INVALID_FOOD_CALORIES);
+            return new CommandResult(CommandMessages.MESSAGE_INVALID_CALORIES);
         }
         super.foodItems.addItem(food);
         assert foodItems.getSize() > 0 : "The size of the food list should at least larger than 0";

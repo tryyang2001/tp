@@ -17,8 +17,6 @@ public class Food extends Item {
     private static final int EARLIEST_MORNING_HOUR = 5;
     private static final int LATEST_MORNING_HOUR = 11;
     public static final String MESSAGE_FOOD = "%s @ %s";
-    public static final int HIGHEST_CALORIE_FOOD = 10000;
-    public static final int LOWEST_CALORIE_FOOD = 0;
     protected LocalDateTime dateTime;
     protected TimePeriod timePeriod;
 
@@ -161,18 +159,6 @@ public class Food extends Item {
                 + super.toFileTextString()
                 + FILE_TEXT_DELIMITER
                 + this.getDateTime().format(DATE_TIME_FORMATTER);
-    }
-
-    /**
-     * Checks if the name and the calorie of the food item is valid.
-     *
-     * @return True if the name and the calorie of the food is valid, false otherwise
-     */
-    @Override
-    public boolean isValid() {
-        boolean isValidName = super.isValid();
-        boolean isValidCalorie = this.calories >= LOWEST_CALORIE_FOOD && this.calories <= HIGHEST_CALORIE_FOOD;
-        return isValidCalorie && isValidName;
     }
 
     //====================Private methods=========================

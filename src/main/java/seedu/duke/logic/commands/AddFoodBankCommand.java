@@ -1,6 +1,7 @@
 package seedu.duke.logic.commands;
 
 
+import seedu.duke.data.item.Item;
 import seedu.duke.data.item.exceptions.DuplicateItemInBankException;
 import seedu.duke.data.item.food.Food;
 
@@ -28,11 +29,11 @@ public class AddFoodBankCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (food.getCalories() < 0) {
+        if (!food.isValid()) {
             logger.log(Level.WARNING, "Food calorie is invalid");
-            return new CommandResult(CommandMessages.MESSAGE_ZERO_FOOD_CALORIES);
+            return new CommandResult(CommandMessages.MESSAGE_INVALID_CALORIES);
         }
-        assert food.getCalories() >= 0 : "Food calorie is valid";
+        assert food.getCalories() > 0 : "Food calorie is valid";
         try {
             super.foodBank.addItem(this.food);
             logger.log(Level.WARNING, "Food is successfully added to food bank");
