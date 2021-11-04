@@ -11,14 +11,15 @@ import seedu.duke.ui.Ui;
  */
 public class CreateName extends AttributeCreator {
 
-    public static final String MESSAGE_BYE_DETECTED = "The command word 'bye' is detected.\n "
-            + "Do you wish to exit this program or to set yor name as %s.\n"
-            + "Type '1' if you wish to exit. Type '2' if you wish to set your name as your input.\n "
+    private static final String LS = System.lineSeparator();    
+    private static final String MESSAGE_BYE_DETECTED = "The command word 'bye' is detected." + LS
+            + "Do you wish to exit this program or to set yor name as %s." + LS
+            + "Type '1' if you wish to exit. Type '2' if you wish to set your name as your input." + LS
             + "Else, type in any key for Fitbot to ask for your name again.";
-    public static final String CHECK_REPEAT_MESSAGE = "";
+    private static final String CHECK_REPEAT_MESSAGE = "";
     private Name name = new Name();
-    public static final String MESSAGE_INTRO_NAME = "What's your name?";
-    public static final String MESSAGE_NAME = "Nice name you have there! Hello %s";
+    private static final String MESSAGE_INTRO_NAME = "What's your name?";
+    private static final String MESSAGE_NAME = "Nice name you have there! Hello %s";
 
     public CreateName(Ui ui) {
         super(ui);
