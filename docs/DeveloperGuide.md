@@ -389,6 +389,13 @@ Step 4: The StartState will replace the reference of old profile instance with t
 (not shown in diagram).  Since the old profile instance is being dereferenced, it has reached the end of the lifeline,
 shown by a cross at its lifeline. The profile in the StartState will then be returned to the dataManager.
 
+####Design Considerations
+The purpose of replacing the new profile with the old profile is to ensure that if the new user decides to close the 
+program without finishing creating profile, the profile attributes keyed in by the user will not be saved. It will only 
+save all the profile attributes when all the attributes has been inputted by the user are present and valid.
+
+
+
 Note: Due to limitation of the uml diagram, the lifeline could not be deleted after the 'X'.
 ## Product scope
 ### Target user profile
