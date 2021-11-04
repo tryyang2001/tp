@@ -10,10 +10,9 @@ import seedu.duke.ui.Ui;
 /**
  * Creates a CalorieGoal Class and prompts user for valid calorie goal input.
  */
-public class CreateCalorieGoal {
+public class CalorieGoalCreator extends AttributeCreator {
 
 
-    private Ui ui;
     private CalorieGoal calorieGoal;
     private static final String MESSAGE_CALORIE_GOAL = "You calorie goal is %s cal.";
     private static final String MESSAGE_INTRO_CALORIE_GOAL = "Please input your net calorie goal.";
@@ -22,8 +21,9 @@ public class CreateCalorieGoal {
             + CalorieGoal.LIMIT_LOWER_CALORIES + " to "
             + CalorieGoal.LIMIT_UPPER_CALORIES;
 
-    public CreateCalorieGoal(Ui ui) {
-        this.ui = ui;
+    public CalorieGoalCreator(Ui ui) {
+        super(ui);
+        ;
     }
 
     /**
@@ -38,6 +38,7 @@ public class CreateCalorieGoal {
             try {
                 String userInput = ui.getUserInput();
                 ui.checkEmptyUserInput(userInput);
+                confirmInputBye(userInput);
                 int calorieGoalInput = Integer.parseInt(userInput);
                 calorieGoal = new CalorieGoal(calorieGoalInput);
                 if (calorieGoal.isValid()) {

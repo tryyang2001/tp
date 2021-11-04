@@ -8,9 +8,8 @@ import seedu.duke.ui.Ui;
 /**
  * Creates an Age Class and prompts user for valid age input.
  */
-public class CreateAge {
+public class AgeCreator extends AttributeCreator {
 
-    private Ui ui;
     private Age age = new Age();
     private static final String MESSAGE_INTRO_AGE = "How old are you?";
     private static final String MESSAGE_AGE = "You are %s years old.";
@@ -18,8 +17,8 @@ public class CreateAge {
             + "please input a valid positive whole number";
 
 
-    public CreateAge(Ui ui) {
-        this.ui = ui;
+    public AgeCreator(Ui ui) {
+        super(ui);
     }
 
     /**
@@ -33,6 +32,7 @@ public class CreateAge {
             try {
                 String userInput = ui.getUserInput();
                 ui.checkEmptyUserInput(userInput);
+                confirmInputBye(userInput);
                 int ageInput = Integer.parseInt(userInput);
                 age.setAge(ageInput);
                 if (age.isValid()) {
