@@ -17,7 +17,7 @@ public class DeleteFoodBankCommand extends Command {
     private static final String MESSAGE_FOOD_CLEAR = "All food items in the food bank have been removed.";
     public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_FOOD_BANK};
     private static final String MESSAGE_REMOVED_MULTIPLE_FOOD_BANK_ITEM =
-            "All of the requested food bank items have been deleted.";
+            "All of the following food bank items have been deleted:";
 
 
     private static Logger logger = Logger.getLogger(DeleteFoodBankCommand.class.getName());
@@ -49,8 +49,14 @@ public class DeleteFoodBankCommand extends Command {
 
         logger.log(Level.WARNING, "Trying to delete item now");
         try {
-            String listOfDeletedFoodBank = super.foodBank.deleteMultipleItems(this.itemIndexArray);
-            return new CommandResult(listOfDeletedFoodBank + MESSAGE_REMOVED_MULTIPLE_FOOD_BANK_ITEM);
+            if ((itemIndexArray.stream()
+                    .filter(number -> number > super.futureExerciseItems.getSize() - 1).count()) > 0) {
+                return new CommandResult(String.format(
+                        CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS, super.foodBank.getSize()));
+            } else {
+                String listOfDeletedFoodBank = super.foodBank.deleteMultipleItems(this.itemIndexArray);
+                return new CommandResult(MESSAGE_REMOVED_MULTIPLE_FOOD_BANK_ITEM + listOfDeletedFoodBank);
+            }
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid food item index.");
             if (super.foodBank.getSize() == 1) {
