@@ -122,9 +122,6 @@ public class ItemBank {
      */
     public String deleteMultipleItems(ArrayList<Integer> itemIndexArray) {
         Collections.sort(itemIndexArray);
-        if ((itemIndexArray.stream().filter(number -> number > getSize() - 1).count()) > 0){
-            return "hihi";
-        }
         StringBuilder itemsToString = new StringBuilder();
         int numberPointer = 0;
         for (Integer index : itemIndexArray) {

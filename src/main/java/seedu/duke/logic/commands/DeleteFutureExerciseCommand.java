@@ -53,7 +53,8 @@ public class DeleteFutureExerciseCommand extends Command {
                 return new CommandResult(String.format(CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS,
                         super.futureExerciseItems.getSize()));
             } else {
-                String listOfDeletedFutureExercises = super.futureExerciseItems.deleteMultipleItems(this.itemIndexArray);
+                String listOfDeletedFutureExercises = super.futureExerciseItems
+                        .deleteMultipleItems(this.itemIndexArray);
                 return new CommandResult(MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES
                         + listOfDeletedFutureExercises);
             }
