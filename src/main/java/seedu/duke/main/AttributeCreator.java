@@ -5,6 +5,7 @@ import seedu.duke.ui.Ui;
 public class AttributeCreator {
 
 
+    public static final int STATUS = 0;
     protected Ui ui;
 
     AttributeCreator(Ui ui) {
@@ -21,7 +22,7 @@ public class AttributeCreator {
 
     protected void exit() {
         ui.formatMessageFramedWithDivider(MESSAGE_SUCCESS);
-        System.exit(0);
+        System.exit(STATUS);
     }
 
     protected void confirmInputBye(String userInput) {
