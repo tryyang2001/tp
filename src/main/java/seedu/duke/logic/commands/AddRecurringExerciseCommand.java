@@ -65,7 +65,7 @@ public class AddRecurringExerciseCommand extends Command {
             }
         } else if (this.calories <= 0) {
             logger.log(Level.WARNING, "Exercise calorie is invalid");
-            return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
+            return new CommandResult(CommandMessages.MESSAGE_ZERO_EXERCISE_CALORIES);
         }
         assert this.endDate.isAfter(this.startDate) : "End date is after start date";
         if (!this.startDate.isAfter(LocalDate.now())) {
@@ -77,7 +77,7 @@ public class AddRecurringExerciseCommand extends Command {
         assert this.startDate.isAfter(LocalDate.now()) : "Start and end dates are in the future";
         if (this.calories <= 0) {
             logger.log(Level.WARNING, "Exercise calorie is invalid");
-            return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
+            return new CommandResult(CommandMessages.MESSAGE_ZERO_EXERCISE_CALORIES);
         }
         assert this.calories > 0 : "Exercise calorie is valid";
         int numberOfFutureExercises = futureExerciseItems.getSize();

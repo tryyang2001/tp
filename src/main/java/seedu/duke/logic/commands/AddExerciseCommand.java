@@ -46,13 +46,17 @@ public class AddExerciseCommand extends Command {
             }
         } else {
             if (this.calories <= 0) {
-                logger.log(Level.WARNING, "Exercise calorie is invalid");
-                return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
+                logger.log(Level.WARNING, "Detected zero or smaller exercise calorie.");
+                return new CommandResult(CommandMessages.MESSAGE_ZERO_EXERCISE_CALORIES);
             }
 
         }
 
         exercise = new Exercise(this.description, this.calories, this.date);
+        if (!exercise.isValid()) {
+            logger.log(Level.WARNING, "Detected impossible calorie burnt for the exercise.");
+            return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
+        }
         assert exercise.getCalories() > 0 : "Exercise calorie is valid";
         super.exerciseItems.addItem(exercise);
         logger.log(Level.WARNING, "Exercise is successfully added");

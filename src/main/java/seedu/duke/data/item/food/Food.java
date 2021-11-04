@@ -17,6 +17,8 @@ public class Food extends Item {
     private static final int EARLIEST_MORNING_HOUR = 5;
     private static final int LATEST_MORNING_HOUR = 11;
     public static final String MESSAGE_FOOD = "%s @ %s";
+    public static final int HIGHEST_CALORIE_FOOD = 10000;
+    public static final int LOWEST_CALORIE_FOOD = 0;
     protected LocalDateTime dateTime;
     protected TimePeriod timePeriod;
 
@@ -169,8 +171,8 @@ public class Food extends Item {
     @Override
     public boolean isValid() {
         boolean isValidName = super.isValid();
-        boolean isValidCalorie = this.calories > 0;
-        return isValidName && isValidCalorie;
+        boolean isValidCalorie = this.calories >= LOWEST_CALORIE_FOOD && this.calories <= HIGHEST_CALORIE_FOOD;
+        return isValidCalorie && isValidName;
     }
 
     //====================Private methods=========================

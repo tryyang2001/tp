@@ -29,7 +29,7 @@ public class AddExerciseBankCommand extends Command {
     public CommandResult execute() {
         if (exercise.getCalories() <= 0) {
             logger.log(Level.WARNING, "Exercise calorie is invalid");
-            return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
+            return new CommandResult(CommandMessages.MESSAGE_ZERO_EXERCISE_CALORIES);
         }
         assert exercise.getCalories() > 0 : "Exercise calorie is valid";
         try {

@@ -30,7 +30,7 @@ public class AddFoodBankCommand extends Command {
     public CommandResult execute() {
         if (food.getCalories() < 0) {
             logger.log(Level.WARNING, "Food calorie is invalid");
-            return new CommandResult(CommandMessages.MESSAGE_INVALID_FOOD_CALORIES);
+            return new CommandResult(CommandMessages.MESSAGE_ZERO_FOOD_CALORIES);
         }
         assert food.getCalories() >= 0 : "Food calorie is valid";
         try {

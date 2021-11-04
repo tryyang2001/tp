@@ -47,7 +47,7 @@ public class EditFoodBankCommand extends Command {
             if (this.newCalories != null) {
                 if (this.newCalories < 0) {
                     logger.log(Level.WARNING, "Detected negative food calorie");
-                    return new CommandResult(CommandMessages.MESSAGE_INVALID_FOOD_CALORIES);
+                    return new CommandResult(CommandMessages.MESSAGE_ZERO_FOOD_CALORIES);
                 }
                 item.setCalories(this.newCalories);
             }

@@ -55,10 +55,14 @@ public class CommandMessages {
 
 
     //================ invalid attribute messages ================
-    public static final String MESSAGE_INVALID_FOOD_CALORIES =
+    public static final String MESSAGE_ZERO_FOOD_CALORIES =
             "Food calories cannot be less than 0" + LS + "Try a positive value instead!";
-    public static final String MESSAGE_INVALID_EXERCISE_CALORIES =
+    public static final String MESSAGE_INVALID_FOOD_CALORIES =
+            "Food calories cannot be that high!" + LS +  "Try a reasonable value instead!";
+    public static final String MESSAGE_ZERO_EXERCISE_CALORIES =
             "Exercise calories cannot be less than or equal to 0" + LS + "Try a positive value instead";
+    public static final String MESSAGE_INVALID_EXERCISE_CALORIES =
+            "Exercise calories burnt cannot be that high!" + LS +  "Try a reasonable value instead!";
     public static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise items yet in the past 7 days!";
     public static final String MESSAGE_EMPTY_FUTURE_EXERCISE_LIST = "No future exercise items yet!";
     public static final String MESSAGE_EMPTY_FOOD_LIST = "No food items yet in the past 7 days!";

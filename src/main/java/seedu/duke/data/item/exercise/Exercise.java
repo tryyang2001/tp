@@ -7,6 +7,8 @@ import java.time.LocalDate;
 public class Exercise extends Item {
     public static final String EXERCISE_TYPE = "E";
     public static final String AT = " @ ";
+    public static final int HIGHEST_CALORIE_BURNT_EXERCISE = 10000;
+    public static final int LOWEST_CALORIE_BURNT_EXERCISE = 0;
     protected LocalDate date;
 
     /**
@@ -100,6 +102,9 @@ public class Exercise extends Item {
      */
     @Override
     public boolean isValid() {
-        return super.isValid() && calories > 0;
+        boolean isValidName = super.isValid();
+        boolean isValidCalorie = this.calories > LOWEST_CALORIE_BURNT_EXERCISE
+                && this.calories <= HIGHEST_CALORIE_BURNT_EXERCISE;
+        return isValidCalorie && isValidName;
     }
 }

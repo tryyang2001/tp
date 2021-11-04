@@ -51,7 +51,7 @@ public class EditFutureExerciseCommand extends Command {
             if (this.newCalories != null) {
                 if (this.newCalories <= 0) {
                     logger.log(Level.WARNING, "Exercise calorie is invalid");
-                    return new CommandResult(CommandMessages.MESSAGE_INVALID_EXERCISE_CALORIES);
+                    return new CommandResult(CommandMessages.MESSAGE_ZERO_EXERCISE_CALORIES);
                 }
                 item.setCalories(this.newCalories);
             }
