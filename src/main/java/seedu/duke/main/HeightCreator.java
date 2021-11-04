@@ -8,7 +8,7 @@ import seedu.duke.ui.Ui;
 /**
  * Creates a Height Class and prompts user for valid height input.
  */
-public class CreateHeight extends AttributeCreator {
+public class HeightCreator extends AttributeCreator {
 
     private static final String MESSAGE_HEIGHT = "Your height is %scm.";
     private static final String MESSAGE_INTRO_HEIGHT = "What's your height? (in cm)";
@@ -16,7 +16,7 @@ public class CreateHeight extends AttributeCreator {
             + " please input a valid positive number";
     private Height height = new Height();
 
-    public CreateHeight(Ui ui) {
+    public HeightCreator(Ui ui) {
         super(ui);
     }
 

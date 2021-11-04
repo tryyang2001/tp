@@ -9,7 +9,7 @@ import seedu.duke.ui.Ui;
 /**
  * Creates a Name Class and prompts user for valid name input.
  */
-public class CreateName extends AttributeCreator {
+public class NameCreator extends AttributeCreator {
 
     private static final String LS = System.lineSeparator();    
     private static final String MESSAGE_BYE_DETECTED = "The command word 'bye' is detected." + LS
@@ -21,7 +21,7 @@ public class CreateName extends AttributeCreator {
     private static final String MESSAGE_INTRO_NAME = "What's your name?";
     private static final String MESSAGE_NAME = "Nice name you have there! Hello %s";
 
-    public CreateName(Ui ui) {
+    public NameCreator(Ui ui) {
         super(ui);
     }
 

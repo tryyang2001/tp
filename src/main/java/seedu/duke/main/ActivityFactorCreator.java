@@ -8,7 +8,7 @@ import seedu.duke.ui.Ui;
 /**
  * Creates a ActivityFactor Class and prompts user for valid activity factor input.
  */
-public class CreateActivityFactor extends AttributeCreator {
+public class ActivityFactorCreator extends AttributeCreator {
 
     private ActivityFactor activityFactor = new ActivityFactor();
     private static final String LS = System.lineSeparator();
@@ -23,7 +23,7 @@ public class CreateActivityFactor extends AttributeCreator {
             + "4 -> Very Active - Frequent exercise or sports, around 6-7 days a week" + LS
             + "5 -> If you are extra active - Sports or exercising is your passion and a physical jobscope.";
 
-    public CreateActivityFactor(Ui ui) {
+    public ActivityFactorCreator(Ui ui) {
         super(ui);
     }
 

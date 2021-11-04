@@ -9,13 +9,13 @@ import seedu.duke.ui.Ui;
 /**
  * Creates a Weight Class and prompts user for valid weight input.
  */
-public class CreateWeight extends AttributeCreator {
+public class WeightCreator extends AttributeCreator {
 
     public static final String MESSAGE_INTRO_WEIGHT = "What's your weight? (in kg)";
     public static final String MESSAGE_WEIGHT = "Your weight is %skg.";
     private Weight weight = new Weight();
 
-    public CreateWeight(Ui ui) {
+    public WeightCreator(Ui ui) {
         super(ui);
     }
 

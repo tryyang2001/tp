@@ -10,7 +10,7 @@ import seedu.duke.ui.Ui;
 /**
  * Creates a CalorieGoal Class and prompts user for valid calorie goal input.
  */
-public class CreateCalorieGoal extends AttributeCreator {
+public class CalorieGoalCreator extends AttributeCreator {
 
 
     private CalorieGoal calorieGoal;
@@ -21,7 +21,7 @@ public class CreateCalorieGoal extends AttributeCreator {
             + CalorieGoal.LIMIT_LOWER_CALORIES + " to "
             + CalorieGoal.LIMIT_UPPER_CALORIES;
 
-    public CreateCalorieGoal(Ui ui) {
+    public CalorieGoalCreator(Ui ui) {
         super(ui);
         ;
     }

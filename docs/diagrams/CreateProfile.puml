@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+hide footbox
+!include Style.puml
+participant ":StartState" As StartState MAIN_COLOUR
+-> StartState ++ MAIN_COLOUR: checkAndCreateProfile()
+participant ":Profile" as oldProfile DATA_COLOUR
+StartState -> oldProfile ++ DATA_COLOUR :checkProfileComplete()
+oldProfile --> StartState --
+opt profile.checkProfileComplete()
+<-- StartState : profile
+end
+StartState -> StartState ++ MAIN_COLOUR: createProfile()
+participant ":Profile" as newProfile DATA_COLOUR
+create newProfile
+StartState ->newProfile ++ DATA_COLOUR : new Profile
+loop !profile.checkProfileComplete
+ref over StartState,newProfile
+create Profile attributes
+end
+end
+newProfile --> StartState --
+participant ":StoreManager" as StoreManager STORAGE_COLOUR
+StartState -> StoreManager ++ STORAGE_COLOUR: saveProfile(profile)
+StoreManager --> StartState --
+StartState --> StartState -- MAIN_COLOUR : replace profile
+<-- StartState -- : profile
+destroy oldProfile
+
+
+@enduml

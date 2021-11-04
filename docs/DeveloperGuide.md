@@ -23,6 +23,7 @@ of Fitbot and some design considerations.
    - [Add Food Item Feature](#proposed-add-a-food-item-feature)
    - [Design Considerations](#design-considerations)
    - [Loading Of Data On Startup](#loading-of-data-on-startup)
+   - [Create Profile If Not Exist On Startup](#create-profile-if-not-exist-on-startup)
 - [Product Scope](#product-scope)
    - [Target User Profile](#target-user-profile)
    - [Value Proposition](#value-proposition)
@@ -360,7 +361,35 @@ The diagram above explains how the application checks if a file exists.
 </p>
 
 The diagram above explains the processes to decode the items from the file.
+### Create Profile If Not Exist On Startup
 
+When user first enters _Fitbot_, the profile of the user is not set up (attributes may not exist). If user were to 
+interact with the application, there might be incorrect output, 
+therefore the checkAndCreateProfile() is implemented to check whether the profile exist
+and if it does not exist, _Fitbot_ will guide user through to fill up the profile attributes.
+
+<p align="center" width="100%">
+  <img width="70%" src="images/CreateProfile.png" alt="CreateProfileDiagram"/>
+</p>
+
+On startup, the main function will run checkAndCreateProfile() (not in diagram), which will cause StartState
+instance to be created by dataManager and run  new StartState.checkAndCreateProfile().
+Step 1: the checkAndCreateProfile() will check if there is a profile exist, by checking all the attributes. 
+If all attributes are correct, the profile will be returned. If there is all the attributes are incorrect or there is no
+attribute in storage, the StartState will self invocate by calling createProfile().
+
+Step 2: createProfile() will instantiate a new profile instance. Using a while loop to check whether all attributes have
+been updated, the createProfile() will ensure that all attributes in the new profile instance are valid before 
+proceeding to next step.
+
+Step 3: Once all the profile attributes are set up, it will store the profile attributes into storage, by calling 
+saveProfile() in StorageManager class. 
+
+Step 4: The StartState will replace the reference of old profile instance with the new profile instance
+(not shown in diagram).  Since the old profile instance is being dereferenced, it has reached the end of the lifeline,
+shown by a cross at its lifeline. The profile in the StartState will then be returned to the dataManager.
+
+Note: Due to limitation of the uml diagram, the lifeline could not be deleted after the 'X'.
 ## Product scope
 ### Target user profile
 

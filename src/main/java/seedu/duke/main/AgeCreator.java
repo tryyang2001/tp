@@ -8,7 +8,7 @@ import seedu.duke.ui.Ui;
 /**
  * Creates an Age Class and prompts user for valid age input.
  */
-public class CreateAge extends AttributeCreator {
+public class AgeCreator extends AttributeCreator {
 
     private Age age = new Age();
     private static final String MESSAGE_INTRO_AGE = "How old are you?";
@@ -17,7 +17,7 @@ public class CreateAge extends AttributeCreator {
             + "please input a valid positive whole number";
 
 
-    public CreateAge(Ui ui) {
+    public AgeCreator(Ui ui) {
         super(ui);
     }
 

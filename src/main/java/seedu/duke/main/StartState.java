@@ -114,7 +114,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileActivityFactor(Profile newProfile) throws MissingParamException {
-        newProfile.setProfileActivityFactor(new CreateActivityFactor(ui).createActivityFactor());
+        newProfile.setProfileActivityFactor(new ActivityFactorCreator(ui).createActivityFactor());
     }
 
     /**
@@ -124,7 +124,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileCalorieGoal(Profile newProfile) throws MissingParamException {
-        newProfile.setProfileCalorieGoal(new CreateCalorieGoal(ui).createNewCalorieGoal());
+        newProfile.setProfileCalorieGoal(new CalorieGoalCreator(ui).createNewCalorieGoal());
     }
 
     /**
@@ -134,7 +134,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileAge(Profile newProfile) throws MissingParamException {
-        newProfile.setProfileAge(new CreateAge(ui).createNewAge());
+        newProfile.setProfileAge(new AgeCreator(ui).createNewAge());
     }
 
     /**
@@ -143,7 +143,7 @@ public class StartState {
      * @param newProfile instance of a profile class.
      */
     private void createNewProfileGender(Profile newProfile) throws MissingParamException {
-        newProfile.setProfileGender(new CreateGender(ui).createNewGender());
+        newProfile.setProfileGender(new GenderCreator(ui).createNewGender());
     }
 
     /**
@@ -153,7 +153,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileWeight(Profile newProfile) throws MissingParamException {
-        newProfile.setProfileWeight(new CreateWeight(ui).createNewWeight());
+        newProfile.setProfileWeight(new WeightCreator(ui).createNewWeight());
     }
 
     /**
@@ -163,7 +163,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileHeight(Profile newProfile) throws MissingParamException {
-        newProfile.setProfileHeight(new CreateHeight(ui).createNewHeight());
+        newProfile.setProfileHeight(new HeightCreator(ui).createNewHeight());
     }
 
     /**
@@ -173,6 +173,6 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileName(Profile newProfile) throws MissingParamException {
-        newProfile.setProfileName(new CreateName(ui).createNewName());
+        newProfile.setProfileName(new NameCreator(ui).createNewName());
     }
 }

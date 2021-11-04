@@ -8,7 +8,7 @@ import seedu.duke.ui.Ui;
 /**
  * Creates a Gender Class and prompts user for valid gender input.
  */
-public class CreateGender extends AttributeCreator {
+public class GenderCreator extends AttributeCreator {
 
     private Gender gender = new Gender();
     public static final String MESSAGE_INTRO_GENDER = "What is your gender?(If you are a male, type 'm'"
@@ -17,7 +17,7 @@ public class CreateGender extends AttributeCreator {
     public static final String MESSAGE_MALE = "You are a male.";
     public static final String MESSAGE_FEMALE = "You are a female.";
 
-    public CreateGender(Ui ui) {
+    public GenderCreator(Ui ui) {
         super(ui);
     }
 
