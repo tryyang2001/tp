@@ -5,7 +5,9 @@
  | |    | | |_| |_) | (_) | |_
  |_|    |_|\__|_.__/ \___/ \__|
 Welcome to Fitbot! Fitbot is here to help you to keep track of your calories.
-Fitbot realised that your profile has not been created. Let's start creating a profile below!
+
+*========================================================================================================*
+      Fitbot realised that your profile has not been created. Let's start creating a profile below!
 __________________________________________________________________________________________________________
 What's your name?
 __________________________________________________________________________________________________________

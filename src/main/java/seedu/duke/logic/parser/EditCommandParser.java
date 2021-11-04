@@ -6,10 +6,7 @@ import seedu.duke.logic.commands.EditExerciseBankCommand;
 import seedu.duke.logic.commands.EditFoodBankCommand;
 import seedu.duke.logic.commands.EditFutureExerciseCommand;
 import seedu.duke.logic.commands.InvalidCommand;
-import seedu.duke.logic.parser.exceptions.ExtraParamException;
 import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
-import seedu.duke.logic.parser.exceptions.InvalidParamException;
-import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.logic.parser.exceptions.ParserException;
 
 import java.time.LocalDate;

@@ -1,5 +1,7 @@
 package seedu.duke.logic.commands;
 
+import seedu.duke.data.item.Item;
+
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,8 +14,9 @@ public class DeleteExerciseBankCommand extends Command {
             + " " + COMMAND_PREFIX_EXERCISE_BANK + COMMAND_PREFIX_DELIMITER + "X" + CommandMessages.QUOTATION
             + ", where X is the item number in the exercise bank list";
     public static final String MESSAGE_SUCCESS = "An exercise item has been deleted from the exercise bank:"
-            + CommandMessages.INDENTED_LS + "%s"
-            + CommandMessages.LS + "Number of exercise item(s) left in the exercise bank: %2$d";
+            + CommandMessages.INDENTED_LS + "%s";
+    public static  final String MESSAGE_ITEMS_LEFT =
+            CommandMessages.LS + "Number of exercise item(s) left in the exercise bank: %d";
     private static final String MESSAGE_EXERCISE_CLEAR = "All exercise items in the exercise bank have been removed.";
     public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_EXERCISE_BANK};
     private static final String MESSAGE_REMOVED_MULTIPLE_EXERCISE_BANK_ITEM = "All of the following exercise bank "
@@ -46,14 +49,21 @@ public class DeleteExerciseBankCommand extends Command {
         }
         logger.log(Level.WARNING, "Trying to delete item now");
         try {
+            if ((itemIndexArray.size() == 1)) {
+                Item item = super.exerciseBank.deleteItem(itemIndexArray.get(0));
+                return new CommandResult(
+                        String.format(MESSAGE_SUCCESS, item.toStringWithoutDateAndTime())
+                                + String.format(MESSAGE_ITEMS_LEFT, super.exerciseBank.getSize()));
+            }
             if ((itemIndexArray.stream()
-                    .filter(number -> number > super.futureExerciseItems.getSize() - 1).count()) > 0) {
+                    .filter(number -> number > super.exerciseBank.getSize() - 1).count()) > 0) {
                 return new CommandResult(String.format(
                         CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS, super.exerciseBank.getSize()));
             } else {
                 String listOfDeletedExerciseBank = super.exerciseBank.deleteMultipleItems(this.itemIndexArray);
                 return new CommandResult(MESSAGE_REMOVED_MULTIPLE_EXERCISE_BANK_ITEM
-                        + listOfDeletedExerciseBank);
+                        + listOfDeletedExerciseBank
+                        + String.format(MESSAGE_ITEMS_LEFT, super.exerciseBank.getSize()));
             }
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid exercise item index.");

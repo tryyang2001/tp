@@ -18,9 +18,10 @@ public class AddRecurringExerciseCommand extends Command {
     public static final String MESSAGE_INVALID_FUTURE_DATES = "Make sure that your start date (%s) "
             + "and end date (%s) are in the future";
     public static final String MESSAGE_NO_EXERCISE_ADDED = "Day(s) not present between %s and %s";
-    public static final String MESSAGE_SUCCESS = "Recurring exercise item for the future has been added";
-    private static final int ONE_WEEK = 7;
-    private static final int ONE_DAY = 1;
+    public static final String MESSAGE_SUCCESS = "Recurring exercise item for the future has been added!"
+            + CommandMessages.LS + "You can view your upcoming exercises by typing "
+            + CommandMessages.QUOTATION + Command.COMMAND_WORD_VIEW + " " + Command.COMMAND_PREFIX_UPCOMING_EXERCISE
+            + Command.COMMAND_PREFIX_DELIMITER  + CommandMessages.QUOTATION + "!";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_RECURRING,
             COMMAND_PREFIX_CALORIES,
