@@ -1,6 +1,17 @@
-# Weida - Project Portfolio Page
+# Xing Jie - Project Portfolio Page
 
 ## Overview
-## Overview
-## Overview
+
 ### Summary of Contributions
+
+#### **New Feature**:
+
+#### **Code Contributed**:
+
+#### **Project Management**:
+
+#### **Enhancements to Existing Features**:
+
+#### **Documentation**:
+
+#### **Community**:
