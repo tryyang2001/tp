@@ -61,7 +61,6 @@ public class NameCreator extends AttributeCreator {
         }
         ui.formatMessageFramedWithDivider(String.format(MESSAGE_BYE_DETECTED, userInput));
         String userConfirmByeInput = ui.getUserInput().trim();
-       // System.out.println(userConfirmByeInput);
         if (userConfirmByeInput.equals(FIRST_OPTION)) {
             exit();
         } else if (userConfirmByeInput.equals(SECOND_OPTION)) {

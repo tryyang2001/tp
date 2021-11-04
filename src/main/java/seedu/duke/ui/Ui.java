@@ -41,11 +41,11 @@ public class Ui {
             + LS + "                " + "Please follow the instructions below so that your profile can be complete.";
     private static final String MESSAGE_NEW_PROFILE = LS + STAR_DIVIDER + LS + "      "
             + "Fitbot realised that your profile has not been created."
-            + " Let's start creating a profile below!" ;
+            + " Let's start creating a profile below!";
     private static final String MESSAGE_EMPTY_INPUT = "Input cannot be empty";
     public static final String MESSAGE_CREATE_PROFILE_SUCCESSFUL = LS
             + "                                    "
-            + "Profile created successfully!" + LS + STAR_DIVIDER + LS ;
+            + "Profile created successfully!" + LS + STAR_DIVIDER + LS;
 
     private Scanner scanner;
 

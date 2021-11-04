@@ -21,7 +21,7 @@ public class AddRecurringExerciseCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Recurring exercise item for the future has been added!"
             + CommandMessages.LS + "You can view your upcoming exercises by typing "
             + CommandMessages.QUOTATION + Command.COMMAND_WORD_VIEW + " " + Command.COMMAND_PREFIX_UPCOMING_EXERCISE
-            + Command.COMMAND_PREFIX_DELIMITER  + CommandMessages.QUOTATION + "!" ;
+            + Command.COMMAND_PREFIX_DELIMITER  + CommandMessages.QUOTATION + "!";
     public static final String[] EXPECTED_PREFIXES = {
             COMMAND_PREFIX_RECURRING,
             COMMAND_PREFIX_CALORIES,

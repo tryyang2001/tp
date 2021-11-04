@@ -37,8 +37,8 @@ public class StartState {
         } else {
             createNewProfile();
         }
-       System.out.println(Ui.MESSAGE_CREATE_PROFILE_SUCCESSFUL + ui.LS +
-                ui.MESSAGE_DIRECT_HELP);
+
+        System.out.println(Ui.MESSAGE_CREATE_PROFILE_SUCCESSFUL + ui.LS + ui.MESSAGE_DIRECT_HELP);
         return profile;
     }
 

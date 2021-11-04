@@ -43,7 +43,7 @@ public class HelpCommand extends Command {
             + "          a/             Age of user" + LS
             + "          g/             Net calorie goal of user." + LS
             + "                         Net calorie is based on calorie of food consumed - "
-            + "calories burnt from exercise and bmr"+ LS
+            + "calories burnt from exercise and bmr" + LS
             + "          x/             Activity factor of user, range 1 to 5" + LS
             + "      If no prefixes are given, user will be shown the current profile particulars.";
     private static String overview = LS
