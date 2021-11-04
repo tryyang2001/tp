@@ -55,17 +55,15 @@ public class CommandMessages {
 
 
     //================ invalid attribute messages ================
-    public static final String MESSAGE_INVALID_FOOD_CALORIES =
-            "Food calories cannot be less than 0" + LS + "Try a positive value instead!";
-    public static final String MESSAGE_INVALID_EXERCISE_CALORIES =
-            "Exercise calories cannot be less than or equal to 0" + LS + "Try a positive value instead";
+    public static final String MESSAGE_INVALID_CALORIES =
+            "Please input calories as a whole number from 1 to 10 000!";
     public static final String MESSAGE_EMPTY_EXERCISE_LIST = "No exercise items yet in the past 7 days!";
     public static final String MESSAGE_EMPTY_FUTURE_EXERCISE_LIST = "No future exercise items yet!";
     public static final String MESSAGE_EMPTY_FOOD_LIST = "No food items yet in the past 7 days!";
     public static final String MESSAGE_EMPTY_EXERCISE_BANK = "No exercise items yet in the exercise bank!";
     public static final String MESSAGE_EMPTY_FOOD_BANK = "No food items yet in the food bank!";
     public static final String MESSAGE_ONLY_ONE_IN_LIST = "You have only 1 item in the list!";
-    public static final String MESSAGE_LIST_OUT_OF_BOUNDS = "Please input a valid item number from 1 to %s";
+    public static final String MESSAGE_LIST_OUT_OF_BOUNDS = "Please input a valid item number from 1 to %s!";
     public static final String MESSAGE_FOOD_NOT_FOUND = "Food item with index %d, date %s and time %s "
             + "is not found in the food list!";
     public static final String MESSAGE_EXERCISE_NOT_FOUND = "Exercise item with index %d and date %s "
@@ -78,7 +76,7 @@ public class CommandMessages {
             + QUOTATION + Command.COMMAND_PREFIX_CALORIES + Command.COMMAND_PREFIX_DELIMITER + QUOTATION + "!";
     public static final String MESSAGE_FOOD_ALREADY_EXISTS_IN_BANK = "The food with name "
             + QUOTATION + "%s" + QUOTATION
-            + " already exists in the food bank! (Names are case insensitive)"
+            + " already exists in the food bank! (Names in the bank are case insensitive)"
             + LS + "Try using another name, or delete/edit the existing item first!";
     public static final String MESSAGE_EXERCISE_ALREADY_EXISTS_IN_BANK = "The exercise with name "
             + QUOTATION + "%s" + QUOTATION
@@ -154,6 +152,7 @@ public class CommandMessages {
                     + " followed by any of the following prefixes to specify what you are changing!:" + LS + INDENTED_LS
                     + MESSAGE_NAME_FORMAT + INDENTED_LS
                     + MESSAGE_HEIGHT_FORMAT + INDENTED_LS
+                    + MESSAGE_WEIGHT_FORMAT + INDENTED_LS
                     + MESSAGE_AGE_FORMAT + INDENTED_LS
                     + MESSAGE_GOAL_FORMAT + INDENTED_LS
                     + MESSAGE_GENDER_FORMAT + INDENTED_LS

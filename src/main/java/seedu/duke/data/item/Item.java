@@ -17,6 +17,8 @@ public abstract class Item implements Verifiable {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     public static final DateTimeFormatter DATE_FORMAT_FOR_PRINTING = DateTimeFormatter.ofPattern("dd MMM yyyy");
     public static final String PREFIX_DELIMITER = "/";
+    public static final int HIGHEST_CALORIE = 10000;
+    public static final int LOWEST_CALORIE = 0;
     protected String name;
     protected int calories;
 
@@ -97,7 +99,9 @@ public abstract class Item implements Verifiable {
      */
     @Override
     public boolean isValid() {
-        return !name.contains(PREFIX_DELIMITER) && !name.contains(FILE_TEXT_DELIMITER);
+        boolean isValidName = !name.contains(PREFIX_DELIMITER) && !name.contains(FILE_TEXT_DELIMITER);
+        boolean isValidCalorie = this.calories > LOWEST_CALORIE && this.calories <= HIGHEST_CALORIE;
+        return isValidName && isValidCalorie;
     }
 
     //====================Abstract methods=========================

@@ -33,19 +33,19 @@ public class HelpCommand extends Command {
             + "      Format: help";
     private static String profile = LS
             + "profile -- View or modify profile details" + LS
-            + "      Format: profile n/NAME h/HEIGHT(CM) w/WEIGHT(KG) a/AGE g/CALORIEGOAL s/GENDER(M/F)"
-            + " x/ACTIVITYFACTOR(1-5)" + LS
+            + "      Format: profile {n/NAME} {h/HEIGHT(CM)} {w/WEIGHT(KG)} {a/AGE} {g/CALORIEGOAL} {s/GENDER(M/F)}"
+            + " {x/ACTIVITYFACTOR(1-5)}" + LS
             + "        Prefix               Input " + LS
             + "          n/             Name of user" + LS
             + "          h/             Height of user in cm" + LS
             + "          w/             Weight of user in kg" + LS
             + "          s/             Gender of user, m for male, f for female" + LS
             + "          a/             Age of user" + LS
-            + "          g/             Net calorie goal of user. (Net calorie is based on calorie of food consumed"
-            + LS
-            + "                           - calories burnt from exercise and bmr" + LS
+            + "          g/             Net calorie goal of user." + LS
+            + "                         Net calorie is based on calorie of food consumed - "
+            + "calories burnt from exercise and bmr" + LS
             + "          x/             Activity factor of user, range 1 to 5" + LS
-            + "      If no identifiers are given, user can view the profile particulars.";
+            + "      If no prefixes are given, user will be shown the current profile particulars.";
     private static String overview = LS
             + "overview -- View weekly and daily summary of calories" + LS
             + "      Format: overview";
@@ -81,12 +81,12 @@ public class HelpCommand extends Command {
             + "      Format: add fbank/ITEM c/CALORIES" + LS
             + "        Prefix               Input" + LS
             + "          fbank/         Description of food" + LS
-            + "          c/             Calories burnt from exercise" + LS
+            + "          c/             Calories of the food" + LS
             + LS
             + "      Add Exercise Item in ExerciseBank" + LS
             + "      Format: add fbank/ITEM c/CALORIES" + LS
             + "        Prefix               Input" + LS
-            + "          fbank/         Description of food" + LS
+            + "          fbank/         Description of exercise" + LS
             + "          c/             Calories burnt from exercise";
     private static String view = LS
             + "      Viewing Food List" + LS
@@ -113,23 +113,23 @@ public class HelpCommand extends Command {
             + "      Delete Exercise Item" + LS
             + "      Format: delete e/LIST_NO. d/DD-MM-YYYY" + LS
             + "        Prefix               Input" + LS
-            + "          e/             Description of exercise" + LS
+            + "          e/             Index of exercise in Exercise List within the given date" + LS
             + "          d/             Date of exercise in DD-MM-YYYY" + LS
             + "  " + LS
             + "      Delete Upcoming Exercise Items from Upcoming Exercise List" + LS
             + "      Format: delete u/LIST_NO." + LS
             + "        Prefix               Input" + LS
-            + "          u/             The index of the item with in the upcoming Exercise List" + LS
+            + "          u/             The index of the item within the upcoming Exercise List" + LS
             + LS
             + "      Delete Food Item from Food Bank" + LS
             + "      Format: delete fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
             + "        Prefix               Input" + LS
-            + "          fbank/         The index of the item with in the food bank" + LS
+            + "          fbank/         The index of the item within the food bank" + LS
             + LS
             + "      Delete Exercise Item from Exercise Bank" + LS
             + "      Format: delete ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
             + "        Prefix               Input" + LS
-            + "          ebank/         The index of the item with in the exercise bank";
+            + "          ebank/         The index of the item within the exercise bank";
     private static String edit = "      Edit Food Bank" + LS
             + "      Format: edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
             + "        Prefix               Input" + LS

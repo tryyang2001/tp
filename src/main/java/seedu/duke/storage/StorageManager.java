@@ -74,13 +74,17 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
                 loadProfile());
     }
 
-    public void saveAll(DataManager dataManager) throws UnableToWriteFileException {
-        saveProfile(dataManager.getProfile());
-        saveExerciseList(dataManager.getExerciseItems());
-        saveFoodList(dataManager.getFoodItems());
-        saveFutureExerciseList(dataManager.getFutureExerciseItems());
-        saveFoodBank(dataManager.getFoodBank());
-        saveExerciseBank(dataManager.getExerciseBank());
+    public void saveAll(DataManager dataManager) {
+        try {
+            saveProfile(dataManager.getProfile());
+            saveExerciseList(dataManager.getExerciseItems());
+            saveFoodList(dataManager.getFoodItems());
+            saveFutureExerciseList(dataManager.getFutureExerciseItems());
+            saveFoodBank(dataManager.getFoodBank());
+            saveExerciseBank(dataManager.getExerciseBank());
+        } catch (UnableToWriteFileException e) {
+            System.out.println("Fitbot was unable to save all your session data. :(");
+        }
     }
 
 

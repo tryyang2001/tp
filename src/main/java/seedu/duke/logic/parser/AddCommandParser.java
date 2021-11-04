@@ -9,9 +9,7 @@ import seedu.duke.logic.commands.AddRecurringExerciseCommand;
 import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.commands.InvalidCommand;
-import seedu.duke.logic.parser.exceptions.ExtraParamException;
 import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
-import seedu.duke.logic.parser.exceptions.InvalidParamException;
 import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.logic.parser.exceptions.ParserException;
 
@@ -55,13 +53,13 @@ public class AddCommandParser implements Parser {
 
     protected Command parseAddToExercise(String params, String itemTypePrefix) {
         try {
+            if (ParserUtils.hasExtraDelimiters(params, AddExerciseCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
             final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
             final Integer calories = ParserUtils.extractItemCalories(params);
             final LocalDate date = ParserUtils.extractDate(params, false);
             logger.log(Level.WARNING, String.format("date detected is: %s", date));
-            if (ParserUtils.hasExtraDelimiters(params, AddExerciseCommand.EXPECTED_PREFIXES)) {
-                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-            }
             if (ParserUtils.isSevenDaysBeforeToday(date)) {
                 return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
                         LocalDate.now().minusDays(7).format(DATE_FORMAT),
@@ -80,14 +78,18 @@ public class AddCommandParser implements Parser {
 
     protected Command parseAddToFood(String params, String itemTypePrefix) {
         try {
+            if (ParserUtils.hasExtraDelimiters(params, AddFoodCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
             final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
             final Integer calories = ParserUtils.extractItemCalories(params);
             final LocalDateTime dateTime = ParserUtils.extractDateTime(params);
             logger.log(Level.WARNING, String.format("dateTime detected is: %s", dateTime));
+
             if (ParserUtils.hasExtraDelimiters(params, AddFoodCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
-            if (ParserUtils.isWithinSevenDaysFromToday(dateTime.toLocalDate())) {
+            if (!ParserUtils.isWithinSevenDaysFromToday(dateTime.toLocalDate())) {
                 return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
                         LocalDate.now().minusDays(7).format(DATE_FORMAT),
                         LocalDate.now().format(DATE_FORMAT)));
@@ -174,8 +176,7 @@ public class AddCommandParser implements Parser {
             for (int i = 0; i < numberStringArray.length; i++) {
                 String dayString = numberStringArray[i].trim();
                 if (dayString.split(" ").length > 1) {
-                    throw new ParserException(String.format(
-                            ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS, dayString.split(" ")[1]));
+                    throw new ParserException(ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS);
                 }
                 Integer day = Integer.parseInt(numberStringArray[i].trim());
                 if (day < ParserMessages.MONDAY || day > ParserMessages.SUNDAY) {

@@ -161,18 +161,6 @@ public class Food extends Item {
                 + this.getDateTime().format(DATE_TIME_FORMATTER);
     }
 
-    /**
-     * Checks if the name and the calorie of the food item is valid.
-     *
-     * @return True if the name and the calorie of the food is valid, false otherwise
-     */
-    @Override
-    public boolean isValid() {
-        boolean isValidName = super.isValid();
-        boolean isValidCalorie = this.calories > 0;
-        return isValidName && isValidCalorie;
-    }
-
     //====================Private methods=========================
 
     /**

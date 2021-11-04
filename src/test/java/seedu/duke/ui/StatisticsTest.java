@@ -26,7 +26,7 @@ class StatisticsTest {
         int exerciseCalories = 2000;
         int netCalories = foodCalories - exerciseCalories;
         String message = stats.printCaloriesMessage(netCalories, caloriesGoal);
-        assertEquals("You are 4000 cal away from your goal", message);
+        assertEquals("You are 4000 cal away from your goal!", message);
     }
 
     @Test
@@ -39,7 +39,7 @@ class StatisticsTest {
         int caloriesGoal = 5000;
         int foodCalories = 3000;
         int exerciseCalories = 2000;
-        String expectedResult = "You are 6448 cal away from your goal";
+        String expectedResult = "You are 6448 cal away from your goal!";
         assertEquals(expectedResult, stats.getCaloriesReport(foodCalories, exerciseCalories, caloriesGoal)[4]);
     }
 
