@@ -35,7 +35,7 @@ public class Ui {
             + "available commands by typing " + HelpCommand.MESSAGE_COMMAND_FORMAT + ".";
     private static final String MESSAGE_FIX_PROFILE = "Fitbot realised that some of your profile "
             + "attributes are missing.\n"
-            + "Please follow the guide below so that your profile can be complete.";
+            + "Please follow the instructions below so that your profile can be complete.";
     private static final String MESSAGE_NEW_PROFILE = "Fitbot realised that your profile has not been created."
             + " Let's start creating a profile below!";
     private static final String MESSAGE_EMPTY_INPUT = "Input cannot be empty";
@@ -92,9 +92,9 @@ public class Ui {
         }
         if (isProfilePresent) {
             System.out.println(MESSAGE_FIX_PROFILE);
+        } else {
+            System.out.println(MESSAGE_NEW_PROFILE);
         }
-
-        System.out.println(MESSAGE_NEW_PROFILE);
     }
 
     /**
