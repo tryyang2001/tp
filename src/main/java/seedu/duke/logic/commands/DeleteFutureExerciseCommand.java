@@ -16,8 +16,8 @@ public class DeleteFutureExerciseCommand extends Command {
             + CommandMessages.LS + "Number of upcoming exercise(s) left: %2$d";
     private static final String MESSAGE_FUTURE_EXERCISE_CLEAR = "All future exercise items have been removed.";
     public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_UPCOMING_EXERCISE};
-    public static final String MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES = "All of the requested upcoming exercises "
-            + "have been deleted.";
+    public static final String MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES = "All of the following upcoming exercises "
+            + "have been deleted:";
 
 
     private static Logger logger = Logger.getLogger(DeleteFutureExerciseCommand.class.getName());
@@ -48,10 +48,15 @@ public class DeleteFutureExerciseCommand extends Command {
 
         logger.log(Level.WARNING, "Trying to delete item now");
         try {
-            String listOfDeletedFutureExercises = super.futureExerciseItems.deleteMultipleItems(this.itemIndexArray);
-            return new CommandResult(listOfDeletedFutureExercises
-                    + MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES);
-
+            if ((itemIndexArray.stream()
+                    .filter(number -> number > super.futureExerciseItems.getSize() - 1).count()) > 0) {
+                return new CommandResult(String.format(CommandMessages.MESSAGE_LIST_OUT_OF_BOUNDS,
+                        super.futureExerciseItems.getSize()));
+            } else {
+                String listOfDeletedFutureExercises = super.futureExerciseItems.deleteMultipleItems(this.itemIndexArray);
+                return new CommandResult(MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES
+                        + listOfDeletedFutureExercises);
+            }
         } catch (IndexOutOfBoundsException e) {
             logger.log(Level.WARNING, "Detected invalid exercise item index.");
             if (super.futureExerciseItems.getSize() == 1) {

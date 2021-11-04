@@ -122,18 +122,20 @@ public class ItemBank {
      */
     public String deleteMultipleItems(ArrayList<Integer> itemIndexArray) {
         Collections.sort(itemIndexArray);
+        if ((itemIndexArray.stream().filter(number -> number > getSize() - 1).count()) > 0){
+            return "hihi";
+        }
         StringBuilder itemsToString = new StringBuilder();
         int numberPointer = 0;
         for (Integer index : itemIndexArray) {
-            itemsToString.append(TAB)
+            itemsToString.append(LS)
+                    .append(TAB)
                     .append(index + 1)
                     .append(". ")
-                    .append(getItem(index - numberPointer).toStringWithoutDateAndTime())
-                    .append(" is deleted.")
-                    .append(LS);
-            deleteItem(index - numberPointer);
+                    .append(deleteItem(index - numberPointer).toStringWithoutDateAndTime())
+                    .append(" is deleted.");
             numberPointer++;
         }
-        return itemsToString.toString();
+        return itemsToString.toString().stripTrailing();
     }
 }

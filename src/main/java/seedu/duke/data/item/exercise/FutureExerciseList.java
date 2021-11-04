@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class FutureExerciseList extends ExerciseList {
 
@@ -84,21 +85,19 @@ public class FutureExerciseList extends ExerciseList {
         StringBuilder itemsToString = new StringBuilder();
         int numberPointer = 0;
         for (Integer index : itemIndexArray) {
-            itemsToString.append(TAB)
+            itemsToString.append(LS)
+                    .append(TAB)
                     .append(index + 1)
                     .append(". ")
                     .append(getItem(index - numberPointer))
                     .append(" (")
                     .append(getDayOfWeek(getItem(index - numberPointer).getDate()))
                     .append(" ")
-                    .append(getItem(index - numberPointer).getDate()
+                    .append(deleteItem(index - numberPointer).getDate()
                             .format(DateTimeFormatter.ofPattern(DATE_FORMAT)))
-                    .append(")")
-                    .append(" is deleted.")
-                    .append(LS);
-            deleteItem(index - numberPointer);
+                    .append(")");
             numberPointer++;
         }
-        return itemsToString.toString();
+        return itemsToString.toString().stripTrailing();
     }
 }
