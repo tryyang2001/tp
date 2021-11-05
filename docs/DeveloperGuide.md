@@ -155,12 +155,11 @@ Below shows a class diagram of how `Ui` component interacts with the rest of the
 
 
 <p align="center" width="100%">
-  <img width="50%" src="images/Ui.png" alt="Ui Class Diagram"/>
+  <img width="50%" src="images/UiClassDiagram.png" alt="Ui Class Diagram"/>
 </p>
 
-
-
-
+Ui Class also consists of `Statistics` Class, which is instantiated by `OverviewCommand` Class and returns messages to
+back to the `OverviewCommand` Class, before passing message to `Ui` for formatting.
 
 ### Logic Component
  
@@ -241,6 +240,22 @@ where:
 - ProfileStorage utilizes the static methods in encoder and decoder for loading or saving operations.
 
 This way ensures that each class has a _single responsibility_ with little coupling between each other.
+
+
+### Main Component
+
+#### Create Profile (StartState)
+
+<p align="center" width="100%">
+  <img width="50%" src="images/StartState.png" alt="Architecture Sequence Diagram"/>
+</p>
+
+- When the `StartState` method is being called, it instantiated and execute methods in the 7 classes, which are 
+`NameCreator`, `HeightCreator`, `WeightCreator`, `GenderCreator`, `AgeCreator`, `CalorieGoalCreator` and 
+`ActivityFactorCreator`.
+- The above Classes instantiated by `StartState` are inherited from `AttributeCreator` class.
+
+
 
 ## Implementation
 
@@ -390,7 +405,7 @@ Step 4: The StartState will replace the reference of old profile instance with t
 (not shown in diagram).  Since the old profile instance is being dereferenced, it has reached the end of the lifeline,
 shown by a cross at its lifeline. The profile in the StartState will then be returned to the dataManager.
 
-####Design Considerations
+#### Design Considerations
 
 The purpose of replacing the new profile with the old profile is to ensure that if the new user decides to close the 
 program without finishing creating profile, the profile attributes keyed in by the user will not be saved. It will only 

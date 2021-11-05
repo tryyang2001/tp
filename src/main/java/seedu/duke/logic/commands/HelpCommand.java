@@ -133,23 +133,23 @@ public class HelpCommand extends Command {
     private static String edit = "      Edit Food Bank" + LS
             + "      Format: edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
             + "        Prefix               Input" + LS
-            + "          fbank/         The index of the item with in the food bank" + LS
+            + "          fbank/         The index of the item within the food bank" + LS
             + "          n/             New description of food name" + LS
             + "          c/             Calories of food" + LS
             + "   " + LS
             + "      Edit Exercise Bank" + LS
             + "      Format: edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
             + "        Prefix               Input" + LS
-            + "          ebank/         The index of the item with in the exercise bank" + LS
+            + "          ebank/         The index of the item within the exercise bank" + LS
             + "          n/             New description of exercise name" + LS
             + "          c/             Calories burnt from exercise" + LS
             + LS
             + "     Edit Upcoming Exercise List" + LS
             + "     Format: edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
-            + "       Prefix             Input" + LS
-            + "         u/            The index of the item with in the upcoming Exercise List" + LS
-            + "         n/            New description of exercise name" + LS
-            + "         c/            Calories burnt from exercise";
+            + "        Prefix               Input" + LS
+            + "          u/             The index of the item within the upcoming Exercise List" + LS
+            + "          n/             New description of exercise name" + LS
+            + "          c/             Calories burnt from exercise";
 
     private String buildHelpString2() {
         StringBuilder helpMessage = new StringBuilder(EMPTY);
