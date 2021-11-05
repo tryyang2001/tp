@@ -22,18 +22,20 @@ activate ProfileDecoder STORAGE_COLOUR
     activate Scanner STORAGE_COLOUR
         Scanner --> ProfileDecoder:
     deactivate
-    ProfileDecoder -> ProfileDecoder ++ STORAGE_COLOUR: decodeProfile
     alt in.hasNext
         ProfileDecoder -> Scanner : nextLine()
         activate Scanner STORAGE_COLOUR
             Scanner --> ProfileDecoder: line
         deactivate
-        ProfileDecoder -> ProfileDecoder ++ STORAGE_COLOUR: decodeProfileDataFromString(line)
+        ProfileDecoder -> ProfileDecoder ++ STORAGE_COLOUR: decodeProfile(line)
         ProfileDecoder -> Profile ** : new Profile()
         activate Profile DATA_COLOUR
             Profile --> ProfileDecoder : profile
         deactivate
-        ProfileDecoder -> Profile: setProfileWithRawInputs(name, ...)
+        ref over ProfileDecoder
+        Decode all the attributes one by one
+        end ref
+        ProfileDecoder -> Profile: setProfile(name, height, ...)
         activate Profile DATA_COLOUR
             Profile --> ProfileDecoder :
         deactivate
@@ -46,7 +48,6 @@ activate ProfileDecoder STORAGE_COLOUR
         deactivate
         destroy Profile2
     end
-    ProfileDecoder --> ProfileDecoder -- : profile
     destroy Scanner
     destroy File
     ProfileDecoder --> ProfileStorage : profile
