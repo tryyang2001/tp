@@ -154,7 +154,7 @@ public class AddCommandParser implements Parser {
         }
         return startDate;
     }
-    
+
     protected static LocalDate extractEndDate(String params)
             throws ParserException {
         LocalDate endDate = ParserUtils.extractGeneralDate(params, Command.COMMAND_PREFIX_END_DATE);
