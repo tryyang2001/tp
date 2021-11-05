@@ -23,7 +23,6 @@ public class CalorieGoalCreator extends AttributeCreator {
 
     public CalorieGoalCreator(Ui ui) {
         super(ui);
-        ;
     }
 
     /**
