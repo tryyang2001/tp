@@ -13,8 +13,7 @@ public class NameCreator extends AttributeCreator {
 
     private static final String LS = System.lineSeparator();
     private static final String MESSAGE_BYE_DETECTED = "The command word 'bye' is detected." + LS
-            + "Do you wish to exit this program or to set yor name as %s." + LS
-            + "Type '1' if you wish to exit. Type '2' if you wish to set your name as your input." + LS
+            + "Type '1' if you wish to exit. Type '2' if you wish to set your name as 'bye'." + LS
             + "Else, type in any key for Fitbot to ask for your name again.";
     private static final String CHECK_REPEAT_MESSAGE = "";
     public static final String FIRST_OPTION = "1";
@@ -40,7 +39,6 @@ public class NameCreator extends AttributeCreator {
             userInput = checkAndConfirmInputBye(userInput);
             if (userInput.equals(CHECK_REPEAT_MESSAGE)) {
                 ui.formatMessageWithTopDivider();
-                System.out.println(userInput);
                 continue;
             }
             name.setName(userInput);
@@ -63,7 +61,6 @@ public class NameCreator extends AttributeCreator {
         }
         ui.formatMessageFramedWithDivider(String.format(MESSAGE_BYE_DETECTED, userInput));
         String userConfirmByeInput = ui.getUserInput().trim();
-        System.out.println(userConfirmByeInput);
         if (userConfirmByeInput.equals(FIRST_OPTION)) {
             exit();
         } else if (userConfirmByeInput.equals(SECOND_OPTION)) {

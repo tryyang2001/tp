@@ -8,7 +8,6 @@ import seedu.duke.data.item.exercise.FutureExerciseList;
 import seedu.duke.data.item.food.Food;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
-import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
 import java.time.LocalDate;
 

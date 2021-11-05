@@ -1,6 +1,9 @@
 package seedu.duke.logic.parser;
 
+import seedu.duke.data.profile.Profile;
+import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.commands.Command;
+import seedu.duke.logic.commands.CommandMessages;
 import seedu.duke.logic.parser.exceptions.ExtraParamException;
 import seedu.duke.logic.parser.exceptions.InvalidParamException;
 import seedu.duke.logic.parser.exceptions.MissingParamException;
@@ -75,8 +78,7 @@ public class ParserUtils {
             throws MissingParamException, ExtraParamException {
         String[] paramsSplitByWhitespace = extractRelevantParameter(params, prefix).split(" ", 2);
         if (paramsSplitByWhitespace.length == 2) {
-            throw new ExtraParamException(
-                    String.format(ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS, paramsSplitByWhitespace[1]));
+            throw new ExtraParamException(ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS);
         }
         return paramsSplitByWhitespace[0];
 
@@ -125,6 +127,9 @@ public class ParserUtils {
             throws InvalidParamException, ParserException {
         try {
             String intString = extractRelevantParameterWithoutWhitespace(params, prefix);
+            if (Double.parseDouble(intString) > Integer.MAX_VALUE) {
+                return Integer.MAX_VALUE;
+            }
             return Integer.parseInt(intString);
         } catch (NumberFormatException e) {
             throw new InvalidParamException();
@@ -172,7 +177,6 @@ public class ParserUtils {
         }
     }
 
-
     protected static Integer extractItemCalories(String params)
             throws ParserException {
         try {
@@ -180,7 +184,7 @@ public class ParserUtils {
             return calories;
         } catch (InvalidParamException e) {
             logger.log(Level.WARNING, "Detected non-digit calories input");
-            throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_CALORIES_INFO);
+            throw new ParserException(CommandMessages.MESSAGE_INVALID_CALORIES);
         }
     }
 
@@ -203,7 +207,7 @@ public class ParserUtils {
             return extractGeneralDouble(params, Command.COMMAND_PREFIX_HEIGHT);
         } catch (InvalidParamException e) {
             logger.log(Level.WARNING, "Detected non-digit height input.");
-            throw new ParserException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "height"));
+            throw new ParserException(ProfileUtils.ERROR_HEIGHT);
         }
     }
 
@@ -212,7 +216,7 @@ public class ParserUtils {
             return extractGeneralDouble(params, Command.COMMAND_PREFIX_WEIGHT);
         } catch (InvalidParamException e) {
             logger.log(Level.WARNING, "Detected non-digit weight input.");
-            throw new ParserException(String.format(ParserMessages.MESSAGE_ERROR_NOT_A_NUMBER, "weight"));
+            throw new ParserException(ProfileUtils.ERROR_WEIGHT);
         }
     }
 

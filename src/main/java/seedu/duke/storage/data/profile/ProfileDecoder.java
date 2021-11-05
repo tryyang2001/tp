@@ -1,7 +1,13 @@
 package seedu.duke.storage.data.profile;
 
 import seedu.duke.data.profile.Profile;
-import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
+import seedu.duke.data.profile.attributes.ActivityFactor;
+import seedu.duke.data.profile.attributes.Age;
+import seedu.duke.data.profile.attributes.CalorieGoal;
+import seedu.duke.data.profile.attributes.Gender;
+import seedu.duke.data.profile.attributes.Height;
+import seedu.duke.data.profile.attributes.Name;
+import seedu.duke.data.profile.attributes.Weight;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
@@ -19,18 +25,13 @@ public class ProfileDecoder {
      *
      * @return The profile object with its corresponding characteristics
      * @throws FileNotFoundException          If the file is misplaced/missing
-     * @throws InvalidCharacteristicException When the data is corrupted in the file.
      */
     public static Profile retrieveProfileFromData(String filePath) throws FileNotFoundException {
-        File file = new File(filePath);
-        Scanner in = new Scanner(file);
-        return decodeProfile(in);
-    }
-
-    private static Profile decodeProfile(Scanner in) {
         try {
+            File file = new File(filePath);
+            Scanner in = new Scanner(file);
             if (in.hasNext()) {
-                return decodeProfileDataFromString(in.nextLine());
+                return decodeProfile(in.nextLine());
             }
         } catch (InvalidDataException e) {
             System.out.println(e.getMessage());
@@ -38,22 +39,78 @@ public class ProfileDecoder {
         return new Profile();
     }
 
-    private static Profile decodeProfileDataFromString(String input) throws InvalidDataException {
+    private static Profile decodeProfile(String line) throws InvalidDataException {
         try {
             Profile profile = new Profile();
-            final String[] profileDetails = input.split(StorageManager.FILE_TEXT_DELIMITER);
-            final String name = profileDetails[0];
-            final double height = Double.parseDouble(profileDetails[1]);
-            final double weight = Double.parseDouble(profileDetails[2]);
-            final char gender = profileDetails[3].charAt(0);
-            final int age = Integer.parseInt(profileDetails[4]);
-            final int calorieGoal = Integer.parseInt(profileDetails[5]);
-            final int activityFactor = Integer.parseInt(profileDetails[6]);
-            profile.setProfileWithRawInputs(name, height, weight, gender, age, calorieGoal, activityFactor);
+            final String[] profileDetails = line.split(StorageManager.FILE_TEXT_DELIMITER);
+            final Name name = decodeName(profileDetails[0]);
+            final Height height = decodeHeight(profileDetails[1]);
+            final Weight weight = decodeWeight(profileDetails[2]);
+            final Gender gender = decodeGender(profileDetails[3]);
+            final Age age = decodeAge(profileDetails[4]);
+            final CalorieGoal calorieGoal = decodeCalorieGoal(profileDetails[5]);
+            final ActivityFactor activityFactor = decodeActivityFactor(profileDetails[6]);
+            profile.setProfile(name, height, weight, gender, age, calorieGoal, activityFactor);
             return profile;
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new InvalidDataException(StorageManager.FILENAME_PROFILE, input);
+            throw new InvalidDataException(StorageManager.FILENAME_PROFILE, line);
         }
     }
 
+    private static Name decodeName(String detail) {
+        return new Name(detail);
+    }
+
+    private static Height decodeHeight(String detail) {
+        try {
+            return new Height(Double.parseDouble(detail));
+        } catch (NumberFormatException e) {
+            //Returns an invalid height for startup to detect
+            return new Height(Double.MIN_VALUE);
+        }
+    }
+
+    private static Weight decodeWeight(String detail) {
+        try {
+            return new Weight(Double.parseDouble(detail));
+        } catch (NumberFormatException e) {
+            //Returns an invalid weight for startup to detect
+            return new Weight(Double.MIN_VALUE);
+        }
+    }
+
+    private static Gender decodeGender(String detail) {
+        if (detail.length() > 1) {
+            //Returns an invalid gender for startup to detect
+            return new Gender('X');
+        }
+        return new Gender(detail.charAt(0));
+    }
+
+    private static Age decodeAge(String detail) {
+        try {
+            return new Age(Integer.parseInt(detail));
+        } catch (NumberFormatException e) {
+            //Returns an invalid Age for startup to detect
+            return new Age(Integer.MIN_VALUE);
+        }
+    }
+
+    private static CalorieGoal decodeCalorieGoal(String detail) {
+        try {
+            return new CalorieGoal(Integer.parseInt(detail));
+        } catch (NumberFormatException e) {
+            //Returns an invalid CalorieGoal for startup to detect
+            return new CalorieGoal(Integer.MIN_VALUE);
+        }
+    }
+
+    private static ActivityFactor decodeActivityFactor(String detail) {
+        try {
+            return new ActivityFactor(Integer.parseInt(detail));
+        } catch (NumberFormatException e) {
+            //Returns an invalid ActivityFactor for startup to detect
+            return new ActivityFactor(Integer.MIN_VALUE);
+        }
+    }
 }

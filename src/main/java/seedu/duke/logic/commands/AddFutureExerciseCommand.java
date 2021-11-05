@@ -16,14 +16,11 @@ public class AddFutureExerciseCommand extends Command {
     public static final String MESSAGE_SUCCESS = "An exercise item for the future has been added:"
             + CommandMessages.INDENTED_LS + "%s";
 
-
     private static Logger logger = Logger.getLogger(AddFutureExerciseCommand.class.getName());
-
 
     private final String description;
     private Integer calories;
     private final LocalDate date;
-
 
     public AddFutureExerciseCommand(String description, Integer calories, LocalDate date) {
         this.description = description;
