@@ -40,6 +40,14 @@ public class EditCommandParser implements Parser {
         }
     }
 
+    /**
+     * Parses input arguments for Edit commands for banks.
+     *
+     * @param params User input arguments
+     * @param itemTypePrefix Prefix of the banks
+     * @return Command to execute
+     * @throws ItemNotSpecifiedException Error when list is not specified
+     */
     protected Command parseEditBank(String params, String itemTypePrefix)
             throws ItemNotSpecifiedException {
         try {
@@ -69,6 +77,14 @@ public class EditCommandParser implements Parser {
         }
     }
 
+    /**
+     * Parses input arguments for Edit commands for upcoming exercise.
+     *
+     * @param params User input arguments
+     * @param itemTypePrefix Prefix of upcoming exercise
+     * @return Command to execute
+     * @throws ItemNotSpecifiedException Error when list is not specified
+     */
     protected Command parseEditUpcomingExercise(String params, String itemTypePrefix)
             throws ItemNotSpecifiedException {
         try {

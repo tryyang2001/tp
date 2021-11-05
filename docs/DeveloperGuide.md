@@ -352,7 +352,7 @@ Afterwhich, `Main` calls a loading function that in turns calls the `loadProfile
   <img width="70%" src="images/StorageManagerLoadSequenceRef1.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
 
-The diagram above explains how the application checks if a file exists.
+The diagram above explains how the application checks if a file exists. If it exists, it will not perform any additional functionality. Otherwise, it will generate a new file in preparation for storage.
 
 ##### Reference Diagram 2: Retrieval of data from storage with the use of ProfileDecoder to decode
 
@@ -361,35 +361,44 @@ The diagram above explains how the application checks if a file exists.
 </p>
 
 The diagram above explains the processes to decode the items from the file.
+
+Upon reaching the `decodeProfile(line)` method, it decodes its attributes one by one to ensure that they are able to detect each attribute's readibility from storage.
+If the methods are unable to read the respective attribute from storage, an invalid one will be initialized for `StartState` to catch it, allowing users to change
+their individual attributes instead of losing their entire profile data on startup.
+
 ### Create Profile If Not Exist On Startup
 
 When user first enters _Fitbot_, the profile of the user is not set up (attributes may not exist). If user were to 
 interact with the application, there might be incorrect output, 
-therefore the checkAndCreateProfile() is implemented to check whether the profile exist
+therefore the `checkAndCreateProfile()` is implemented to check whether the profile exist
 and if it does not exist, _Fitbot_ will guide user through to fill up the profile attributes.
 
 <p align="center" width="100%">
   <img width="70%" src="images/CreateProfile.png" alt="CreateProfileDiagram"/>
 </p>
 
-On startup, the main function will run checkAndCreateProfile() (not in diagram), which will cause StartState
-instance to be created by dataManager and run  new StartState.checkAndCreateProfile().
-Step 1: the checkAndCreateProfile() will check if there is a profile exist, by checking all the attributes. 
-If all attributes are correct, the profile will be returned. If there is all the attributes are incorrect or there is no
-attribute in storage, the StartState will self invocate by calling createProfile().
+On startup, the main function will run `checkAndCreateProfile()` (not in diagram), which will cause StartState
+instance to be created by dataManager and run  `new StartState.checkAndCreateProfile()`.
 
-Step 2: createProfile() will instantiate a new profile instance. Using a while loop to check whether all attributes have
-been updated, the createProfile() will ensure that all attributes in the new profile instance are valid before 
+Step 1: the `checkAndCreateProfile()` will check if there is a profile exist, by checking all the attributes. 
+If all attributes are correct, the profile will be returned. If there is all the attributes are incorrect or there is no
+attribute in storage, the StartState will self invocate by calling `createProfile()`.
+
+Step 2: `createProfile()` will instantiate a new profile instance. Using a while loop to check whether all attributes
+ have been updated, the `createProfile()` will ensure that all attributes in the new profile instance are valid before 
 proceeding to next step.
 
 Step 3: Once all the profile attributes are set up, it will store the profile attributes into storage, by calling 
-saveProfile() in StorageManager class. 
+`saveProfile()` in StorageManager class. 
 
 Step 4: The StartState will replace the reference of old profile instance with the new profile instance
 (not shown in diagram).  Since the old profile instance is being dereferenced, it has reached the end of the lifeline,
 shown by a cross at its lifeline. The profile in the StartState will then be returned to the dataManager.
 
+
 ####Design Considerations
+
+
 The purpose of replacing the new profile with the old profile is to ensure that if the new user decides to close the 
 program without finishing creating profile, the profile attributes keyed in by the user will not be saved. It will only 
 save all the profile attributes when all the attributes has been inputted by the user are present and valid.
@@ -502,6 +511,7 @@ Given below are some instructions that can be used to test the application manua
     5. (more test cases)
 
 ### Launch and shut down
+
 1. Initial launch
    - Prerequisite: There is no fitbot.jar file on your desktop.
    - Test case:
@@ -512,6 +522,7 @@ Given below are some instructions that can be used to test the application manua
    Expected: a data folder will be created in the file that contain Fitbot.jar.
 
 ### Setting Up Profile
+
 2. Setting Up Profile
     - Prerequisite: Fitbot.jar is in a folder with or without data folder.
     - Test case:
