@@ -5,6 +5,7 @@ hide footbox
 autoactivate on
 
 participant ":Main" AS Main MAIN_COLOUR
+participant ":LogicManager" AS LogicManager LOGIC_COLOUR
 participant ":ParserManager" AS ParserManager LOGIC_COLOUR
 participant ":AddCommandParser" AS AddCommandParser LOGIC_COLOUR
 participant "c:AddFoodCommand" AS AddFoodCommand LOGIC_COLOUR
@@ -12,8 +13,17 @@ participant "r:CommandResult" AS CommandResult LOGIC_COLOUR
 participant "f:Food" AS Food DATA_COLOUR
 participant ":FoodList" AS FoodList DATA_COLOUR
 activate Main MAIN_COLOUR
+
+create LogicManager
+Main -> LogicManager LOGIC_COLOUR : new LogicManager(storageManager, dataManager)
+return
+
+Main -> LogicManager LOGIC_COLOUR : execute("add f/potato c/30")
+
+
+
 create ParserManager
-Main -> ParserManager LOGIC_COLOUR
+LogicManager-> ParserManager LOGIC_COLOUR
 return
 Main -> ParserManager LOGIC_COLOUR : parseCommand ("add f/potato c/30")
 ref over ParserManager
