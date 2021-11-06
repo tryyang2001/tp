@@ -8,7 +8,7 @@ main -> ui ++ UI_COLOUR: getUserInput()
 main++ MAIN_COLOUR
 -> ui   UI_COLOUR : addFoodItem
 ui --> main --
-create ":Parser" as parser LOGIC_COLOUR
+'create ":Parser" as parser LOGIC_COLOUR
 main -> parser ++ LOGIC_COLOUR : parseAddFoodItem()
 participant ":Data" as itemlist DATA_COLOUR
 parser -> itemlist ++ DATA_COLOUR : addFoodItem()
@@ -16,7 +16,7 @@ itemlist --> parser --  :
 parser --> main --
 participant ":Storage" as storage STORAGE_COLOUR
 main -> storage ++ STORAGE_COLOUR: saveFoodList()
-destroy parser
+'destroy parser
 storage -> storage ++ STORAGE_COLOUR: save to file
 storage --> storage --
 storage --> main --
