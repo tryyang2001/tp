@@ -215,27 +215,27 @@ not be saved.
 
 ## **3. Terminology**
 
-***Calorie*** - A unit used to measure the energy of an item. One calorie is the amount of energy required to raise the
+***Calorie*** - Calorie is a unit used to measure the energy of an item. One calorie is the amount of energy required to raise the
 temperature of one gram of water by one degree Celsius. On average, a male will require approximately 2500 cal consumed
 from food per day while a female will require around 2000 cal intake per day.\
 \
-***Calorie goal*** - The amount of calorie you wish to achieve per day. It is the value you want to achieve from your 
-calorie intake minus the calorie burnt naturally and physically per day. If you are planning to lose weight, it is 
+***Calorie goal*** - The calorie goal is defined as the amount of calorie you wish to achieve per day. It is the value you want to achieve from your 
+calorie intake **minus** the calorie burnt naturally and physically per day. If you are planning to lose weight, it is 
 recommended to set your daily calorie goal as negative value. On the other hand, positive value calorie goal may mean that 
 you are going to increase or maintain your body weight.
 
-***Net Calorie*** - The difference between calorie goal and the total calorie burnt from exercising and 
+***Net Calorie*** - Net calorie is the difference between calorie goal and the total calorie burnt from exercising and 
 [body metabolism](https://www.news-medical.net/life-sciences/What-is-Metabolism.aspx).
 For your information, we use [basal metabolic rate (BMR)](https://en.wikipedia.org/wiki/Basal_metabolic_rate) to compute
 the rate of calorie consumed by body metabolic activity.\
 \
-***Activity factor*** - A measure of the level of activity. The value is used in the calculation of BMR. In our application, 
+***Activity factor*** - Activity factor is a measure of the level of activity. The value is used in the calculation of BMR. In our application, 
 we use an integer ranged from 1 to 5 to measure the activity factor:
-- Integer 1: Little to no exercise (0-1 day of exercises a week)
-- Integer 2: Lightly active (1-3 days of exercises a week)
-- Integer 3: Moderately active (3-5 days of exercises a week)
-- Integer 4: Very active (6-7 days of exercises a week)
-- Integer 5: Extremely active (when sports is your passion and have a very physical job scope)
+- *Integer 1*: Little to no exercise (0-1 day of exercises a week)
+- *Integer 2*: Lightly active (1-3 days of exercises a week)
+- *Integer 3*: Moderately active (3-5 days of exercises a week)
+- *Integer 4*: Very active (6-7 days of exercises a week)
+- *Integer 5*: Extremely active (when sports is your passion and have a very physical job scope)
 
 ***Body Mass Index (BMI)*** - A measure to evaluate if the body weight is healthy. BMI is computed by using the body
 weight(in kg) divided by the square of the body height(in m). \
@@ -247,12 +247,16 @@ are _Food Item_ and _Exercise Item_.\
 will be handled specifically. It will not be added to the Exercise List but will be saved internally in the storage file. More
 details of the process can be found at [here](#442-adding-recurring-exercise-items-add-r).\
 \
-***Item Bank*** - An item storage that is capable of storing the Food or Exercise Item with its respective calorie. This is
+***Item Bank*** - The item bank is an item storage that is capable of storing the Food or Exercise Item with its respective calorie. This is
 to help you to store the calorie intake of a specific Food or the calorie burnt from a specific Exercise for future use. More details
-of the item bank can be found at [here](#451-adding-food-bank-items-add-fbank).\
+on how to add item into the item bank can be found at [here](#451-adding-food-bank-items-add-fbank).\
 \
-***Parameters*** - Parameters are values in the command format that _Fitbot_ expects you to provide.
-
+***Parameters*** - Parameters are values in the command format that _Fitbot_ expects you to provide. For example, `height` and `weight`
+are parameters used to obtain your body height and weight values.\
+\
+***Prefix*** - Prefix is used to help Fitbot identifies the corresponding parameters you provided. For example, to allow Fitbot
+to save your body height and weight, prefixes `h/` and `w/` are used. More details about how to use the prefixes in each 
+command are shown in the **Feature** section (the next section). 
 
 ## **4. Features**
 
@@ -370,12 +374,12 @@ ________________________________________________________________________________
 💡 **Tip:** It is possible to add Food Item without providing the calorie of it. You can do this by saving the corresponding 
 Food Item into the Food Bank. More details can be found at [Section 4.5](#45-building-your-food-bank).
 
-❗ The input date `DD-MM-YYYY` must within the past 7 days (including today). For example, if today date is `20-10-2021`, then the input
+❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `20-10-2021`, then the input
 date must be within `13-10-2021` to `20-10-2021`.
 
 #### 4.2.2 Viewing Food List `view f/`
 
-You may want to view how many calories you have taken in this week. This command will show a list of Food Items and 
+You may want to view which food you have consumed and how many calories you have taken in this week. This command will show a list of Food Items and 
 their calories added within the past 7 days (including today) from the list.
 
 Format: `view f/`
@@ -414,7 +418,7 @@ ________________________________________________________________________________
 
 #### 4.2.3 Deleting Food Items `delete f/`
 
-When you mistakenly add a wrong Food Item inside your Food List, there is no need to worry! This command allows you to 
+When you accidentally add a wrong Food Item inside your Food List, there is no need to worry! This command allows you to 
 remove a specific Food Item in the Food List.
 
 Format: `delete f/LIST_NO d/DD-MM-YYYY t/HHMM` deletes the *n<sup>th</sup>* Food Item in the Food List which has the date (`DD-MM-YYYY`)
@@ -461,7 +465,7 @@ it is assumed that the date and time is based on the date and time of input.
 💡 **Tip:** It is possible to add Exercise Item without providing the calorie burnt on it. You can do this by saving the corresponding
 Exercise Item into the Exercise Bank. More details can be found at [here](#46-building-your-exercise-bank).
 
-❗ The input date `DD-MM-YYYY` must within the past 7 days (including today). For example, if today date is `20-10-2021`, then the input
+❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `20-10-2021`, then the input
 date must be within `13-10-2021` to `20-10-2021`.
 
 Example:

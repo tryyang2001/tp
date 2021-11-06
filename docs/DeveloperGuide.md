@@ -129,11 +129,11 @@ in `Data` component, they form **_dependencies_** with those classes.
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.
 
 #### ItemBank class
-`ItemBank` is the **_highest [superclass](#_superclass_)_** that contains one attribute called `internalItems` which is an _array list_ of `item`.\
-`ItemList` being the **[_subclass_](#_subclass_)** of `ItemBank` and **_[superclass](#_superclass_)_** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a [dependency](#_dependency_) on `Item` class.\
-`FoodList` and `ExerciseList` are **[_subclass_](#_subclass_)** that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a [dependency](#_dependency_)
+`ItemBank` is the ***highest superclass*** that contains one attribute called `internalItems` which is an _array list_ of `item`.\
+`ItemList` being the ***subclass*** of `ItemBank` and ***superclass*** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.\
+`FoodList` and `ExerciseList` are ***subclass***  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
 on `Food` class and `Exercise` class respectively.\
-`FutureExerciseList` is a **[_subclass_](#_subclass_)** that inherit all the methods available from `ExerciseList` and contains other methods that form a [dependency](#_dependency_)
+`FutureExerciseList` is a ***subclass***  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
 on `Exercise` class.
 
 #### Item class
@@ -144,7 +144,7 @@ An `Item` class contains two attributes, `name` which represents the name of the
 value must present when a `Food` object is created.\
 `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
 \
-Classes such as `ItemList` and `Item` are _**[abstract class](#_abstract-class_)**_, because they do not add meaningful value to the user if one tries to create them.
+Classes such as `ItemList` and `Item` are ***abstract class***, because they do not add meaningful value to the user if one tries to create them.
 
 
 
@@ -264,7 +264,7 @@ The purpose of this feature is to allow the user to add food item to the food li
 sequence diagram of the process of adding the food item. 
 
 When the user gives an input, the `parser` from the `Logic` component will try to read the input, and then call the correct
-command. In this case we assume that the correct format of **Add Food** input is given and the AddFoodCommand has already been
+command. In this case we assume that the correct format of **Add Food** input is given and the `AddFoodCommand` has already been
 called and created.
 
 Step 1: When the `execute` method in the `AddFoodCommand` is being called, it will first check that if the `isCalorieFromBank`
@@ -440,18 +440,6 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 2. Should be able to hold up to at least a year of data without a slowdown of performance in daily use.
 3. Any user that is comfortable with typing of speeds >55 words per minute would be able to accomplish these tasks faster than if they used a mouse to navigate.
 ## Glossary
-#### _dependency_ 
-In UML diagram, dependency is a directed relationship which is used to show that some elements or a set of elements requires, 
-needs or depends on other model elements for specification or implementation.
-#### _superclass_
-A class from which other classes inherit its code. The class that inherits its code will be able to access some/all 
-functionalities from the superclass.
-#### _subclass_  
-A class that inherits code from the other classes. Such class will be able to access some/all functionalities from its superclass, 
-but not vice versa.
-#### _abstract class_
-A class that cannot be created using constructor. Usually such class is a superclass, and it does not give meaningful 
-value if one tries to construct it.
 #### _self invocation_
 In UML sequence diagram, a method that does a calling to another of its own methods is called self-invocation. 
 #### _array list_
@@ -513,7 +501,7 @@ Given below are some instructions that can be used to test the application manua
 ### Launch and shut down
 
 1. Initial launch
-   - Prerequisite: There is no fitbot.jar file on your desktop.
+   - Prerequisite: There is no Fitbot.jar file on your desktop.
    - Test case:
      1. Download the jar file and copy into an empty folder
      2. Go to your command prompt, and go into your directory.

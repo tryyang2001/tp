@@ -12,7 +12,7 @@ The following items listed below are what I have contributed to the team:
 - What it does: It allows users to load all the data upon startup of the application and save data depending on the command that is being executed. 
 - Justification: Having a storage utility is crucial in our app's functionality of calculating the past week of exercise/food consumed,
 as well as remembering one's profile attributes that lead to the calculations.
-- Highlights: This feature loads and saves all the different data structures we have came up with, including FoodList, ExerciseList, FutureExerciseList, ItemBank, Profile. It can detect an anomly within the file and handle it in a way that it can be dealt with later on
+- Highlights: This feature loads and saves all the different data structures we have came up with, including FoodList, ExerciseList, FutureExerciseList, ItemBank, Profile. It can detect an anomaly within the file and handle it in a way that it can be dealt with later on
 in another state whereby users can modify their attributes again in case they have accidentally corrupted a particular attribute.
 
 #### **New Feature**: Profile 
