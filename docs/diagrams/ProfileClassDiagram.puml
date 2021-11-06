@@ -18,16 +18,18 @@ class ProfileUtils DATA_COLOUR
 class "<<enumeration>>\nActivityLevel" DATA_COLOUR
 class "<<Interface>>\nVerifiable" DATA_COLOUR
 
-Profile *-- "1" Name
-Profile *-- "1" Height
-Profile *-- "1" Weight
-Profile *-- "1" Age
-Profile *-- "1" Gender
-Profile *-- "1" CalorieGoal
-Profile *-- "1" ActivityFactor
-ActivityFactor .up.> "<<enumeration>>\nActivityLevel"
-ProfileUtils .left.> "<<enumeration>>\nActivityLevel"
-Profile <.left. ProfileUtils
+ProfileUtils <.up. " "
+Profile <.up. " "
+Profile *-- "1" Name : name
+Profile *-- "1" Height : height
+Profile *-- "1" Weight : weight
+Profile *-- "1" Age : age
+Profile *-- "1" Gender : gender
+Profile *-- "1" CalorieGoal : calorieGoal
+Profile *-- "1" ActivityFactor : activityFactor
+ActivityFactor .up.> "<<enumeration>>\nActivityLevel" :> retrieves
+ProfileUtils .down.> "<<enumeration>>\nActivityLevel" :> calculates with
+Profile <.up. ProfileUtils :< manipulates
 
 "<<Interface>>\nVerifiable" <|.up. Name
 "<<Interface>>\nVerifiable" <|.up. Height
