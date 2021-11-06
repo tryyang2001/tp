@@ -23,7 +23,6 @@ public class CalorieGoalCreator extends AttributeCreator {
 
     public CalorieGoalCreator(Ui ui) {
         super(ui);
-        ;
     }
 
     /**
@@ -46,7 +45,8 @@ public class CalorieGoalCreator extends AttributeCreator {
                             String.format(MESSAGE_CALORIE_GOAL,
                                     calorieGoal.getCalorieGoal()));
                 } else {
-                    ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_CALORIE_GOAL);
+                    ui.formatMessageWithTopDivider(ProfileUtils.ERROR_CALORIE_GOAL);
+
                 }
                 checkInput = true;
             } catch (NumberFormatException e) {
