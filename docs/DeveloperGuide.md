@@ -213,8 +213,8 @@ This particular case illustrates how a user input add f/potato c/20 is parsed an
 </p>
 
 `StorageManager` initializes all `Storage` subclasses with their respective paths. 
-Acting as a medium, it then interacts with each of the respective `Storage` subclasses. 
-This design declutters the code in Main and provides a platform to ensure each of the subclasses were utilized. 
+Acting as an agent, it then interacts with each of the respective `Storage` subclasses, utilizing their `load` and `save` functionalities. 
+This design de-clutters the code in Main and provides a platform to ensure each of the subclasses were utilized. 
 It is also implemented with all of the `StorageInterface` interfaces to enforce methods of loading and saving to be fully implemented into the code.
 
 The `StorageManager` component loads and saves:
@@ -237,9 +237,9 @@ After inheritance, it then implements loading and saving methods interfaced by `
 where:
 - ProfileEncoder encodes the list to the profile.txt file.
 - ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
-- ProfileStorage utilizes the static methods in encoder and decoder for loading or saving operations.
+- ProfileStorage utilizes the static methods FileChecker and FileSaver to check if file exists and to write to the corresponding file.
 
-This way ensures that each class has a _single responsibility_ with little coupling between each other.
+This way of implementation ensures that each class has a _single responsibility_ with little coupling between each other.
 
 
 ### Main Component
@@ -354,7 +354,7 @@ Therefore, since they are similar in behaviour and function, we will only be loo
 
 Upon successful launch of the application, `Main` will call to initialize `StorageManager`. 
 This in turn initializes all the subclasses of `Storage`, including `ProfileStorage`, with their respective file paths. 
-Afterwhich, `Main` calls a loading function that in turns calls the `loadProfile()` method of `ProfileStorage`.
+Afterwhich, `Main` calls a loading function `loadAll` that in turns calls the `loadProfile()` method of `ProfileStorage`.
 
 `ProfileStorage` then does 2 things: 
 
@@ -377,9 +377,9 @@ The diagram above explains how the application checks if a file exists. If it ex
 
 The diagram above explains the processes to decode the items from the file.
 
-Upon reaching the `decodeProfile(line)` method, it decodes its attributes one by one to ensure that they are able to detect each attribute's readibility from storage.
-If the methods are unable to read the respective attribute from storage, an invalid one will be initialized for `StartState` to catch it, allowing users to change
-their individual attributes instead of losing their entire profile data on startup.
+Upon reaching the `decodeProfile(line)` method, the reference frame depicts a process of decoding its attributes one by one to ensure that they are able to detect each attribute's readability from storage.
+If the methods are unable to read the respective attribute from storage, an invalid attribute will be initialized. This then returns an initialized profile with invalid attributes for `StartState` to catch, allowing users to change
+their attributes instead of losing their entire profile data on startup. 
 
 ### Create Profile If Not Exist On Startup
 
