@@ -1,21 +1,21 @@
-package seedu.duke.ui;
+package seedu.duke.logic;
 
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
 import seedu.duke.data.profile.utilities.ProfileUtils;
+import seedu.duke.ui.Ui;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/* A class that manage the statistics of the calories*/
+/** A class that manage the statistics of the calories. */
 public class Statistics {
     private static final String FULL_BLOCK = "█";
     private static final String HALF_BLOCK = "▌";

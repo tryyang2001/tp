@@ -23,14 +23,14 @@ public class Main {
     /**
      * Entry point of the application.
      */
-    public static void main(String[] args) throws UnableToWriteFileException {
+    public static void main(String[] args) {
         new Main().run(args);
     }
 
     /**
      * Runs the application until command is given to exit it.
      **/
-    private void run(String[] args) throws UnableToWriteFileException {
+    private void run(String[] args) {
         start();
         checkAndCreateProfile();
         enterTaskModeUntilByeCommand();
