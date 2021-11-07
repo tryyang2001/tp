@@ -1,47 +1,28 @@
 package seedu.duke.storage.data.exercise.exercisebank;
 
 import seedu.duke.data.item.ItemBank;
-import seedu.duke.storage.Storage;
-import seedu.duke.storage.data.ItemBankDecoder;
-import seedu.duke.storage.data.ItemEncoder;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
-import seedu.duke.storage.utilities.FileChecker;
-import seedu.duke.storage.utilities.FileSaver;
-
-import java.io.FileNotFoundException;
-import java.util.logging.Level;
 
 /**
- * This storage handles the loading and saving of exercise bank items.
+ * Interface that ensures both the storage and storage manager has the
+ * required functions to load and save from the exercise bank.
  */
-public class ExerciseBankStorage extends Storage implements ExerciseBankStorageInterface {
-
-    public static final String TYPE = "Exercise";
+public interface ExerciseBankStorage {
 
     /**
-     * Constructor for the exercise bank storage.
+     * Loads the exercise bank from the file.
      *
-     * @param filePath of the exercise bank data file
+     * @return ItemBank object with the loaded bank items from the data file.
+     * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
      */
-    public ExerciseBankStorage(String filePath) {
-        this.filePath = filePath;
-        fileName = getFileName(filePath);
-    }
+    ItemBank loadExerciseBank() throws UnableToReadFileException;
 
-    @Override
-    public ItemBank loadExerciseBank() throws UnableToReadFileException {
-        FileChecker.createFileIfMissing(filePath);
-        try {
-            return ItemBankDecoder.retrieveDataFromItemBank(filePath, TYPE);
-        } catch (FileNotFoundException e) {
-            logger.log(Level.FINE, "The path is missing ", filePath);
-            throw new UnableToReadFileException(filePath);
-        }
-    }
+    /**
+     * Saves the exercise bank to the file.
+     *
+     * @throws UnableToReadFileException If the file is inaccessible or due to environment variables
+     */
+    void saveExerciseBank(ItemBank exerciseBank) throws UnableToWriteFileException;
 
-    @Override
-    public void saveExerciseBank(ItemBank exerciseBank) throws UnableToWriteFileException {
-        FileSaver.saveTo(filePath, ItemEncoder.encode(exerciseBank));
-    }
 }

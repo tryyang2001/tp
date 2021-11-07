@@ -6,9 +6,9 @@ import seedu.duke.data.item.exceptions.DuplicateItemInBankException;
 import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.data.item.food.Food;
 import seedu.duke.data.profile.exceptions.InvalidCharacteristicException;
-import seedu.duke.storage.StorageManager;
-import seedu.duke.storage.data.exercise.exercisebank.ExerciseBankStorage;
-import seedu.duke.storage.data.food.foodbank.FoodBankStorage;
+import seedu.duke.storage.Storage;
+import seedu.duke.storage.data.exercise.exercisebank.ExerciseBankStorageUtils;
+import seedu.duke.storage.data.food.foodbank.FoodBankStorageUtils;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
 import java.io.File;
@@ -50,13 +50,13 @@ public class ItemBankDecoder {
     private static void decodeFoodBankDataFromString(ItemBank items, String line,
                                                      String type) throws InvalidDataException {
         try {
-            final String[] itemDetails = line.split(StorageManager.FILE_TEXT_DELIMITER);
+            final String[] itemDetails = line.split(Storage.FILE_TEXT_DELIMITER);
             final String name = itemDetails[1];
             final int calories = Integer.parseInt(itemDetails[2]);
             addToRespectiveBank(items, type, name, calories);
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException
                 | DuplicateItemInBankException | InvalidCharacteristicException e) {
-            throw new InvalidDataException(StorageManager.FILENAME_BANK_FOOD, line);
+            throw new InvalidDataException(Storage.FILENAME_BANK_FOOD, line);
         }
     }
 
@@ -90,10 +90,10 @@ public class ItemBankDecoder {
     }
 
     private static boolean isExerciseType(String type) {
-        return type.equals(ExerciseBankStorage.TYPE);
+        return type.equals(ExerciseBankStorageUtils.TYPE);
     }
 
     private static boolean isFoodType(String type) {
-        return type.equals(FoodBankStorage.TYPE);
+        return type.equals(FoodBankStorageUtils.TYPE);
     }
 }

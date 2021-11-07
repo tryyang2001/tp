@@ -209,7 +209,7 @@ This particular case illustrates how a user input add f/potato c/20 is parsed an
 ### Storage component
 
 <p align="center" width="100%">
-  <img width="90%" src="images/StorageManagerClassDiagram.png" alt="Architecture Sequence Diagram"/>
+  <img width="90%" src="images/StorageManagerClassDiagram.png" alt="Storage Component"/>
 </p>
 
 `StorageManager` initializes all `Storage` subclasses with their respective paths. 

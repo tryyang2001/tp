@@ -1,7 +1,7 @@
 package seedu.duke.storage.data.exercise.futurelist;
 
 import seedu.duke.data.item.exercise.FutureExerciseList;
-import seedu.duke.storage.Storage;
+import seedu.duke.storage.StorageUtils;
 import seedu.duke.storage.data.ItemEncoder;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
@@ -14,14 +14,14 @@ import java.util.logging.Level;
 /**
  * Storage that handles the saving and loading of data files of upcoming exercises in future exercise storage.
  */
-public class FutureExerciseListStorage extends Storage implements UpcomingStorageInterface {
+public class FutureExerciseListStorageUtils extends StorageUtils implements UpcomingStorage {
 
     /**
      * Constructor for future exercise list storage.
      *
      * @param filePath of where the future exercise list should be stored
      */
-    public FutureExerciseListStorage(String filePath) {
+    public FutureExerciseListStorageUtils(String filePath) {
         this.filePath = filePath;
         this.fileName = getFileName(filePath);
     }

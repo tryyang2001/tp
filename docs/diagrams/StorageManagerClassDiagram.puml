@@ -8,39 +8,41 @@ hide interface fields
 hide interface methods
 
 class StorageManager STORAGE_COLOUR
-class ProfileStorage STORAGE_COLOUR
-class FoodBankStorage STORAGE_COLOUR
-class FoodListStorage STORAGE_COLOUR
-class ExerciseListStorage STORAGE_COLOUR
-class FutureExerciseListStorage STORAGE_COLOUR
-class ExerciseBankStorage STORAGE_COLOUR
-interface "<<interface>>\nProfileStorageInterface" STORAGE_COLOUR
-interface "<<interface>>\nFoodBankStorageInterface" STORAGE_COLOUR
-interface "<<interface>>\nExerciseBankStorageInterface" STORAGE_COLOUR
-interface "<<interface>>\nFoodListStorageInterface" STORAGE_COLOUR
-interface "<<interface>>\nExerciseListStorageInterface" STORAGE_COLOUR
-interface "<<interface>>\nUpcomingStorageInterface" STORAGE_COLOUR
+class ProfileStorageUtils STORAGE_COLOUR
+class FoodBankStorageUtils STORAGE_COLOUR
+class FoodListStorageUtils STORAGE_COLOUR
+class ExerciseListStorageUtils STORAGE_COLOUR
+class FutureExerciseListStorageUtils STORAGE_COLOUR
+class ExerciseBankStorageUtils STORAGE_COLOUR
+class "<<interface>>\nProfileStorage" STORAGE_COLOUR
+class "<<interface>>\nFoodBankStorage" STORAGE_COLOUR
+class "<<interface>>\nExerciseBankStorage" STORAGE_COLOUR
+class "<<interface>>\nFoodListStorage" STORAGE_COLOUR
+class "<<interface>>\nExerciseListStorage" STORAGE_COLOUR
+class "<<interface>>\nUpcomingStorage" STORAGE_COLOUR
+class "<<interface>>\nStorage" STORAGE_COLOUR
 
-StorageManager <.up.. " "
-"<<interface>>\nProfileStorageInterface" <|.. StorageManager
-"<<interface>>\nFoodBankStorageInterface" <|.. StorageManager
-"<<interface>>\nExerciseBankStorageInterface" <|.. StorageManager
-"<<interface>>\nFoodListStorageInterface" <|.. StorageManager
-"<<interface>>\nExerciseListStorageInterface" <|.. StorageManager
-"<<interface>>\nUpcomingStorageInterface" <|.. StorageManager
+"<<interface>>\nProfileStorage" <|-- "<<interface>>\nStorage"
+"<<interface>>\nFoodBankStorage" <|-- "<<interface>>\nStorage"
+"<<interface>>\nExerciseBankStorage" <|-- "<<interface>>\nStorage"
+"<<interface>>\nFoodListStorage" <|-- "<<interface>>\nStorage"
+"<<interface>>\nExerciseListStorage" <|-- "<<interface>>\nStorage"
+"<<interface>>\nUpcomingStorage" <|-- "<<interface>>\nStorage"
 
-"<<interface>>\nProfileStorageInterface" <|.. ProfileStorage
-"<<interface>>\nFoodBankStorageInterface" <|.. FoodBankStorage
-"<<interface>>\nExerciseBankStorageInterface" <|.. ExerciseBankStorage
-"<<interface>>\nFoodListStorageInterface" <|.. FoodListStorage
-"<<interface>>\nExerciseListStorageInterface" <|.. ExerciseListStorage
-"<<interface>>\nUpcomingStorageInterface" <|.. FutureExerciseListStorage
+StorageManager <|.up. "<<interface>>\nStorage"
 
-StorageManager --> "1" ProfileStorage
-StorageManager --> "1" FoodBankStorage
-StorageManager --> "1" ExerciseBankStorage
-StorageManager --> "1" FoodListStorage
-StorageManager --> "1" ExerciseListStorage
-StorageManager --> "1" FutureExerciseListStorage
+"<<interface>>\nProfileStorage" <|.. ProfileStorageUtils
+"<<interface>>\nFoodBankStorage" <|.. FoodBankStorageUtils
+"<<interface>>\nExerciseBankStorage" <|.. ExerciseBankStorageUtils
+"<<interface>>\nFoodListStorage" <|.. FoodListStorageUtils
+"<<interface>>\nExerciseListStorage" <|.. ExerciseListStorageUtils
+"<<interface>>\nUpcomingStorage" <|.. FutureExerciseListStorageUtils
+
+StorageManager --> "1" "<<interface>>\nProfileStorage"
+StorageManager --> "1" "<<interface>>\nFoodBankStorage"
+StorageManager --> "1" "<<interface>>\nExerciseBankStorage"
+StorageManager --> "1" "<<interface>>\nFoodListStorage"
+StorageManager --> "1" "<<interface>>\nExerciseListStorage"
+StorageManager --> "1" "<<interface>>\nUpcomingStorage"
 
 @enduml
