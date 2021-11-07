@@ -21,6 +21,7 @@ interface "<<interface>>\nFoodListStorageInterface" STORAGE_COLOUR
 interface "<<interface>>\nExerciseListStorageInterface" STORAGE_COLOUR
 interface "<<interface>>\nUpcomingStorageInterface" STORAGE_COLOUR
 
+StorageManager <.up.. " "
 "<<interface>>\nProfileStorageInterface" <|.. StorageManager
 "<<interface>>\nFoodBankStorageInterface" <|.. StorageManager
 "<<interface>>\nExerciseBankStorageInterface" <|.. StorageManager

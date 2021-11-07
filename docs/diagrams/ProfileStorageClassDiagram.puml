@@ -15,11 +15,12 @@ class FileChecker STORAGE_COLOUR
 class FileSaver STORAGE_COLOUR
 interface "<<interface>>\nProfileStorageInterface" STORAGE_COLOUR
 
+ProfileStorage <.up.. " "
 "{abstract}\nStorage" <|-down- ProfileStorage
 "<<interface>>\nProfileStorageInterface" <|.left. ProfileStorage
-ProfileDecoder <.up. ProfileStorage
-ProfileEncoder <.up. ProfileStorage
-ProfileStorage .down.> FileChecker
-ProfileStorage .left.> FileSaver
+ProfileDecoder <.up. ProfileStorage :< decodes
+ProfileEncoder <.up. ProfileStorage :< encodes
+ProfileStorage .down.> FileChecker :> checks for file
+ProfileStorage .left.> FileSaver :> saves
 
 @enduml

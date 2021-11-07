@@ -7,21 +7,21 @@ Fitbot is a desktop app that helps university students who are looking to keep t
 ### Summary of Contributions
 The following items listed below are what I have contributed to the team:
 
+#### **New Feature**: Profile
+
+- What it does: Contains the user's attributes such as Name, Height, Weight, Age, Gender, Calorie Goal, Activity Factor.
+- Justification: These attributes are required in the Harris-Benedict Equation we used to calculate one's Basal Metabolic Rate, which is
+  important in determining an accurate calorie budget for the day.
+- Highlights: This feature incorporates its individual classes of each attribute to ensure data integrity is preserved and profile is a container that
+  holds these attributes together.
+
 #### **New Feature**: Saving and loading of data from Storage
 
 - What it does: It allows users to load all the data upon startup of the application and save data depending on the command that is being executed. 
 - Justification: Having a storage utility is crucial in our app's functionality of calculating the past week of exercise/food consumed,
 as well as remembering one's profile attributes that lead to the calculations.
-- Highlights: This feature loads and saves all the different data structures we have came up with, including FoodList, ExerciseList, FutureExerciseList, ItemBank, Profile. It can detect an anomly within the file and handle it in a way that it can be dealt with later on
+- Highlights: This feature loads and saves all the different data structures we have come up with, including FoodList, ExerciseList, FutureExerciseList, ItemBank, Profile. It can detect an anomaly within the file and handle it in a way that it can be dealt with later on
 in another state whereby users can modify their attributes again in case they have accidentally corrupted a particular attribute.
-
-#### **New Feature**: Profile 
-
-- What it does: Contains the user's attributes such as Name, Height, Weight, Age, Gender, Calorie Goal, Activity Factor.
-- Justification: These attributes are required in the Harris-Benedict Equation we used to calculate one's Basal Metabolic Rate, which is 
-important in determining an accurate calorie budget for the day.
-- Highlights: This feature incorporates its individual classes of each attribute to ensure data integrity is preserved and profile is container that 
-holds these attributes together.
 
 
 #### **Code Contributed**:
@@ -32,24 +32,38 @@ holds these attributes together.
 
 - Aided in setting up the GitHub repo and initializing the project during the early stages of the project
 - Helped to find bugs and assign new issues on a consistent basis
-- PRs reviewed: 
+- PRs reviewed: [#34](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/34), [#35](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/35), 
+[#80](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/80), [#119](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/119)
+
 
 [comment]: <> (TODO add the PRs reviewed on github prs..)
 
 #### **Enhancements To Existing Features**:
 
+**Add verifiability to various Profile attributes**
+
+- As our program loads the attributes from storage (to see whether it has been modified maliciously), it detects the attribute validity. With this
+implementation, we are able to utilize the StartState (implemented by Yi Zhi) to rectify the problem without discarding the entire profile data. ([#88](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/88))
+
+**Creation of StorageManager Class**
+
+- As we grew in our list of features, our storages for the various features grew as well. As such, acting as an agent, it encapsulates all storages required to make our program work with their respective functionality (loading/saving). ([#99](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/99))
+
 **Creation of DataManager Class**
 
 - After deliberating with the other members, a DataManager class was created to encompass all the different types of Data we have (FoodList, Profile, ExerciseBank etc.)
-and ensured all the items are localised in this class. This declutters Main.java and primarily acts as a container for the various items.
+and ensured all the items are localised in this class. This de-clutters Main.java and primarily acts as an agent for the various items. ([#143](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/143))
 
 #### **Documentation**:
 
-- User Guide: Section 4.2 (Profile commands and its calculation of BMI)
+
+- User Guide: Section 4.2 (Profile commands and its calculation of BMI) ([#126](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/126))
 - Developer Guide:
-  - Profile Class Diagram (Design)
-  - StorageManager Class Diagram (Design)
-  - ProfileStorage Class Diagram (Design)
-  - Loading of Data on Startup (Implementation)
+  - Profile Class Diagram (Design) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208))
+  - StorageManager Class Diagram (Design) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208))
+  - ProfileStorage Class Diagram (Design) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208))
+  - Loading of Data on Startup (Implementation) ([#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208))
+
+(some documentation were done on Notion before being transferred, hence there was a lack of PRs)
 
 #### **Community**:

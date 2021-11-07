@@ -3,10 +3,12 @@
 
 !include style.puml
 hide footbox
+skinparam ParticipantPadding 1
 
 participant ":Main" As Main MAIN_COLOUR
 participant "storage:StorageManager" As StorageManager STORAGE_COLOUR
 participant "profileStorage:ProfileStorage" As ProfileStorage STORAGE_COLOUR
+
 
 create "storage:StorageManager" As StorageManager STORAGE_COLOUR
 Main -> StorageManager **: new StorageManager()
@@ -21,7 +23,9 @@ deactivate
 
 
 Main -> StorageManager: loadAll()
+
 activate StorageManager STORAGE_COLOUR
+    StorageManager -> StorageManager ++ STORAGE_COLOUR : loadProfile()
     StorageManager -> ProfileStorage : loadProfile()
     activate ProfileStorage STORAGE_COLOUR
         participant ":FileChecker" As FileChecker STORAGE_COLOUR
@@ -34,7 +38,9 @@ activate StorageManager STORAGE_COLOUR
         end ref
         ProfileStorage --> StorageManager:profile
     deactivate
+    StorageManager --> StorageManager -- :profile
     StorageManager --> Main: data
 deactivate
+
 
 @enduml
