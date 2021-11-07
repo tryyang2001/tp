@@ -60,7 +60,7 @@ _italics_ | Text that has been _italicised_ indicates that it is a term specific
   - [4.2.3 Deleting Food Items `delete f/`](#423-deleting-food-items-delete-f)
 - [4.3 Recording Your Exercises](#43-recording-your-exercises)
   - [4.3.1 Adding Exercise Items `add e/`](#431-adding-exercise-items-add-e) 
-  - [4.3.2 Viewing Exercise Items `view e/` `view u/`](#432-viewing-exercise-items-view-e-view-u)
+  - [4.3.2 Viewing Exercise Items `view e/`](#432-viewing-exercise-items-view-e)
   - [4.3.3 Deleting Exercises `delete e/`](#433-deleting-exercises-delete-e)
 - [4.4 Scheduling Your Exercises](#44-scheduling-your-exercises)
   - [4.4.1 Adding Upcoming Exercise Items `add e/`](#441-adding-upcoming-exercise-items-add-e)
@@ -215,27 +215,27 @@ not be saved.
 
 ## **3. Terminology**
 
-***Calorie*** - A unit used to measure the energy of an item. One calorie is the amount of energy required to raise the
+***Calorie*** - Calorie is a unit used to measure the energy of an item. One calorie is the amount of energy required to raise the
 temperature of one gram of water by one degree Celsius. On average, a male will require approximately 2500 cal consumed
 from food per day while a female will require around 2000 cal intake per day.\
 \
-***Calorie goal*** - The amount of calorie you wish to achieve per day. It is the value you want to achieve from your 
-calorie intake minus the calorie burnt naturally and physically per day. If you are planning to lose weight, it is 
+***Calorie goal*** - The calorie goal is defined as the amount of calorie you wish to achieve per day. It is the value you want to achieve from your 
+calorie intake **minus** the calorie burnt naturally and physically per day. If you are planning to lose weight, it is 
 recommended to set your daily calorie goal as negative value. On the other hand, positive value calorie goal may mean that 
 you are going to increase or maintain your body weight.
 
-***Net Calorie*** - The difference between calorie goal and the total calorie burnt from exercising and 
+***Net Calorie*** - Net calorie is the difference between calorie goal and the total calorie burnt from exercising and 
 [body metabolism](https://www.news-medical.net/life-sciences/What-is-Metabolism.aspx).
 For your information, we use [basal metabolic rate (BMR)](https://en.wikipedia.org/wiki/Basal_metabolic_rate) to compute
 the rate of calorie consumed by body metabolic activity.\
 \
-***Activity factor*** - A measure of the level of activity. The value is used in the calculation of BMR. In our application, 
+***Activity factor*** - Activity factor is a measure of the level of activity. The value is used in the calculation of BMR. In our application, 
 we use an integer ranged from 1 to 5 to measure the activity factor:
-- Integer 1: Little to no exercise (0-1 day of exercises a week)
-- Integer 2: Lightly active (1-3 days of exercises a week)
-- Integer 3: Moderately active (3-5 days of exercises a week)
-- Integer 4: Very active (6-7 days of exercises a week)
-- Integer 5: Extremely active (when sports is your passion and have a very physical job scope)
+- *Integer 1*: Little to no exercise (0-1 day of exercises a week)
+- *Integer 2*: Lightly active (1-3 days of exercises a week)
+- *Integer 3*: Moderately active (3-5 days of exercises a week)
+- *Integer 4*: Very active (6-7 days of exercises a week)
+- *Integer 5*: Extremely active (when sports is your passion and have a very physical job scope)
 
 ***Body Mass Index (BMI)*** - A measure to evaluate if the body weight is healthy. BMI is computed by using the body
 weight(in kg) divided by the square of the body height(in m). \
@@ -247,12 +247,16 @@ are _Food Item_ and _Exercise Item_.\
 will be handled specifically. It will not be added to the Exercise List but will be saved internally in the storage file. More
 details of the process can be found at [here](#442-adding-recurring-exercise-items-add-r).\
 \
-***Item Bank*** - An item storage that is capable of storing the Food or Exercise Item with its respective calorie. This is
+***Item Bank*** - The item bank is an item storage that is capable of storing the Food or Exercise Item with its respective calorie. This is
 to help you to store the calorie intake of a specific Food or the calorie burnt from a specific Exercise for future use. More details
-of the item bank can be found at [here](#451-adding-food-bank-items-add-fbank).\
+on how to add item into the item bank can be found at [here](#451-adding-food-bank-items-add-fbank).\
 \
-***Parameters*** - Parameters are values in the command format that _Fitbot_ expects you to provide.
-
+***Parameters*** - Parameters are values in the command format that _Fitbot_ expects you to provide. For example, `height` and `weight`
+are parameters used to obtain your body height and weight values.\
+\
+***Prefix*** - Prefix is used to help Fitbot identifies the corresponding parameters you provided. For example, to allow Fitbot
+to save your body height and weight, prefixes `h/` and `w/` are used. More details about how to use the prefixes in each 
+command are shown in the **Feature** section (the next section). 
 
 ## **4. Features**
 
@@ -356,26 +360,26 @@ Format: `add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}` adds a Food Item consu
 date (`DD-MM-YYYY`) and time (`HHMM`).
 
 Example: 
-- `add f/chicken rice c/607 d/21-10-2021 t/1400` adds record of food consumed: chicken rice with 607 calories gained on 21 Oct 2021 1400 to the food list.
+- `add f/chicken rice c/607 d/04-11-2021 t/1400` adds record of food consumed: chicken rice with 607 calories gained on 04 Nov 2021 1400 to the food list.
 
 ```text
-add f/chicken rice c/607 d/21-10-2021 t/1400
-__________________________________________________________________________________________
+add f/chicken rice c/607 d/04-11-2021 t/1400
+__________________________________________________________________________________________________________
 A food item has been added:
-    chicken rice (607 cal) @ 14:00, 21 Oct 2021
-__________________________________________________________________________________________
+	chicken rice (607 cal) @ 14:00, 04 Nov 2021
+__________________________________________________________________________________________________________
 ```
 💡 **Tip:** If you do not specify the date and time of the Food Item, it is assumed that the date and time is based on the date and time of input.
 
 💡 **Tip:** It is possible to add Food Item without providing the calorie of it. You can do this by saving the corresponding 
 Food Item into the Food Bank. More details can be found at [Section 4.5](#45-building-your-food-bank).
 
-❗ The input date `DD-MM-YYYY` must within the past 7 days (including today). For example, if today date is `20-10-2021`, then the input
-date must be within `13-10-2021` to `20-10-2021`.
+❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `08-11-2021`, then the input
+date must be within `01-11-2021` to `08-11-2021`.
 
 #### 4.2.2 Viewing Food List `view f/`
 
-You may want to view how many calories you have taken in this week. This command will show a list of Food Items and 
+You may want to view which food you have consumed and how many calories you have taken in this week. This command will show a list of Food Items and 
 their calories added within the past 7 days (including today) from the list.
 
 Format: `view f/`
@@ -387,7 +391,7 @@ view f/
 __________________________________________________________________________________________________________
 Here is a summary of all the food items you have consumed in the past week:
 ..........................................................................................................
-You have consumed 3 food item(s) on Friday (22 Oct 2021):
+You have consumed 3 food item(s) on Thursday (04 Nov 2021):
 In the morning:
 	1. donut x2 (607 cal) @ 10:00
 In the afternoon:
@@ -396,16 +400,19 @@ In the evening:
 	1. yong tau foo (560 cal) @ 19:20
 Total calories consumed in the day: 1774 cal
 ..........................................................................................................
-You have consumed 4 food item(s) on Saturday (23 Oct 2021):
+You have consumed 3 food item(s) on Friday (05 Nov 2021):
 In the morning:
 	1. butter bread x2 (418 cal) @ 08:30
 In the afternoon:
 	1. penang laksa (377 cal) @ 13:00
 In the evening:
 	1. sliced fish bee hoon (349 cal) @ 18:40
+Total calories consumed in the day: 1144 cal
+..........................................................................................................
+You have consumed 1 food item(s) on Saturday (06 Nov 2021):
 At night:
 	1. roti prata x3 (507 cal) @ 23:50
-Total calories consumed in the day: 1651 cal
+Total calories consumed in the day: 507 cal
 ..........................................................................................................
 Total number of food consumed in this week: 7
 Total calories consumed in this week: 3425 cal
@@ -414,7 +421,7 @@ ________________________________________________________________________________
 
 #### 4.2.3 Deleting Food Items `delete f/`
 
-When you mistakenly add a wrong Food Item inside your Food List, there is no need to worry! This command allows you to 
+When you accidentally add a wrong Food Item inside your Food List, there is no need to worry! This command allows you to 
 remove a specific Food Item in the Food List.
 
 Format: `delete f/LIST_NO d/DD-MM-YYYY t/HHMM` deletes the *n<sup>th</sup>* Food Item in the Food List which has the date (`DD-MM-YYYY`)
@@ -426,10 +433,10 @@ and time (`HHMM`), where *n* is the index of the Food to delete.
 Example:
 
 ```text
-delete f/1 d/22-10-2021 t/1000
+delete f/1 d/04-11-2021 t/1000
 __________________________________________________________________________________________________________
 A food item has been deleted:
-	donut x2 (607 cal) @ 10:00, 22 Oct 2021
+	donut x2 (607 cal) @ 10:00, 04 Nov 2021
 __________________________________________________________________________________________________________
 ```
 💡  **Tip:** If you wish to remove all the Food Items from the list, there is a shortcut command: `delete f/all`.
@@ -461,21 +468,21 @@ it is assumed that the date and time is based on the date and time of input.
 💡 **Tip:** It is possible to add Exercise Item without providing the calorie burnt on it. You can do this by saving the corresponding
 Exercise Item into the Exercise Bank. More details can be found at [here](#46-building-your-exercise-bank).
 
-❗ The input date `DD-MM-YYYY` must within the past 7 days (including today). For example, if today date is `20-10-2021`, then the input
-date must be within `13-10-2021` to `20-10-2021`.
+❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `08-11-2021`, then the input
+date must be within `01-11-2021` to `08-11-2021`.
 
 Example:
-- `add e/hiit c/290 d/21-10-2021` adds record of exercise done: hiit with 290 calories burnt on 21 Oct 2021 to the Exercise List.
+- `add e/hiit c/290 d/07-11-2021` adds record of exercise done: hiit with 290 calories burnt on 07 Nov 2021 to the Exercise List.
 
 ```text
-add e/hiit c/290 d/21-10-2021
-__________________________________________________________________________________________
-An exercise has been added:
-    hiit (290 cal) @ 21 Oct 2021
-__________________________________________________________________________________________
+add e/hiit c/290 d/07-11-2021
+__________________________________________________________________________________________________________
+An exercise item has been added:
+	hiit (290 cal) @ 07 Nov 2021
+__________________________________________________________________________________________________________
 ```
 
-#### 4.3.2 Viewing Exercise Items `view e/` `view u/`
+#### 4.3.2 Viewing Exercise Items `view e/`
 
 It is possible to view and check all the exercises you have added. This command is for you to view all the exercises taken 
 and the calories that are added within the past 7 days (including today) from the list.
@@ -489,16 +496,25 @@ view e/
 __________________________________________________________________________________________________________
 Here is a summary of all the exercises you have done in the past week:
 ..........................................................................................................
-You have done 1 exercise(s) on Friday (22 Oct 2021):
+You have done 1 exercise(s) on Sunday (31 Oct 2021):
+	1. training (200 cal)
+Total calories burnt in the day: 200 cal
+..........................................................................................................
+You have done 1 exercise(s) on Wednesday (03 Nov 2021):
+	1. 5km run (500 cal)
+Total calories burnt in the day: 500 cal
+..........................................................................................................
+You have done 1 exercise(s) on Friday (05 Nov 2021):
 	1. biking (500 cal)
 Total calories burnt in the day: 500 cal
 ..........................................................................................................
-You have done 1 exercise(s) on Sunday (24 Oct 2021):
-	1. hiit (290 cal)
-Total calories burnt in the day: 290 cal
+You have done 2 exercise(s) on Sunday (07 Nov 2021):
+	1. training (200 cal)
+	2. hiit (290 cal)
+Total calories burnt in the day: 490 cal
 ..........................................................................................................
-Total exercises done in this week: 2
-Total calorie burnt in the week: 790 cal
+Total exercises done in this week: 5
+Total calorie burnt in this week: 1690 cal
 __________________________________________________________________________________________________________
 ```
 ℹ️ It is also possible to view all the Upcoming Exercises from the Upcoming Exercise List that you have added before. More
@@ -515,10 +531,10 @@ where *n* is the index of the exercise to delete.
 
 Example:
 ```
-delete e/1 d/24-10-2021
+delete e/1 d/05-11-2021
 __________________________________________________________________________________________________________
-You have removed the exercise:
-    hiit (290 cal) @ 24 Oct 2021
+An exercise item has been deleted:
+	biking (500 cal) @ 05 Nov 2021
 __________________________________________________________________________________________________________
 ```
 
@@ -548,10 +564,13 @@ Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Upcoming Exercise with i
 `add e/hiit c/290` adds record of exercise done: hiit with 290 calories burnt to the upcoming exercise list.
 ```text
 add e/hiit c/290 d/01-01-2022
-__________________________________________________________________________________________
+__________________________________________________________________________________________________________
 An exercise item for the future has been added:
 	hiit (290 cal) @ 01 Jan 2022
-   ```
+__________________________________________________________________________________________________________
+```
+
+
 
 #### 4.4.2 Adding Recurring Exercise Items `add r/`
 
