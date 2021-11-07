@@ -60,7 +60,7 @@ public class DeleteFoodBankCommand extends Command {
             }
             if ((itemIndexArray.stream()
                     .filter(number -> number > super.foodBank.getSize() - 1).count()) > 0) {
-                if (super.futureExerciseItems.getSize() == 1) {
+                if (super.foodBank.getSize() == 1) {
                     return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
                 }
                 return new CommandResult(String.format(

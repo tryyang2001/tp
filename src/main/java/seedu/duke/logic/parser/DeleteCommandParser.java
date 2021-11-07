@@ -29,34 +29,22 @@ public class DeleteCommandParser implements Parser {
     public Command parse(String params) {
         try {
             final String itemTypePrefix = ParserUtils.extractItemTypePrefix(params);
-            final String description = ParserUtils
-                    .extractItemDescription(params, itemTypePrefix)
-                    .split(" ")[0].trim();
-            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
-
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_EXERCISE:
-                return isClear ? new DeleteExerciseCommand(true)
-                        : parseDeleteFromExercise(params, itemTypePrefix);
+                return parseDeleteFromExercise(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_FOOD:
-                return isClear ? new DeleteFoodCommand(true)
-                        : parseDeleteFromFood(params, itemTypePrefix);
+                return parseDeleteFromFood(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
-                return isClear ? new DeleteFutureExerciseCommand(true)
-                        : parseDeleteFromFuture(params, itemTypePrefix);
+                return parseDeleteFromFuture(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_EXERCISE_BANK:
-                return isClear ? new DeleteExerciseBankCommand(true)
-                        : parseDeleteFromExerciseBank(params, itemTypePrefix);
+                return parseDeleteFromExerciseBank(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_FOOD_BANK:
-                return isClear ? new DeleteFoodBankCommand(true)
-                        : parseDeleteFromFoodBank(params, itemTypePrefix);
+                return parseDeleteFromFoodBank(params, itemTypePrefix);
             default:
                 throw new ItemNotSpecifiedException();
             }
         } catch (ItemNotSpecifiedException e) {
             return new InvalidCommand(CommandMessages.MESSAGE_DELETE_COMMAND_INVALID_FORMAT);
-        } catch (ParserException e) {
-            return new InvalidCommand(ParserMessages.MESSAGE_ERROR_NO_ITEM_NUM);
         }
     }
 
@@ -64,6 +52,13 @@ public class DeleteCommandParser implements Parser {
         try {
             if (ParserUtils.hasExtraDelimiters(params, DeleteExerciseCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
+            final String description = ParserUtils
+                    .extractItemDescription(params, itemTypePrefix)
+                    .split(" ")[0].trim();
+            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+            if (isClear) {
+                return new DeleteExerciseCommand(true);
             }
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
             final LocalDate date = ParserUtils.extractDate(params, true);
@@ -80,6 +75,13 @@ public class DeleteCommandParser implements Parser {
         try {
             if (ParserUtils.hasExtraDelimiters(params, DeleteFoodCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
+            final String description = ParserUtils
+                    .extractItemDescription(params, itemTypePrefix)
+                    .split(" ")[0].trim();
+            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+            if (isClear) {
+                return new DeleteFoodCommand(true);
             }
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
             final LocalDate date = ParserUtils.extractDate(params, true);
@@ -99,6 +101,13 @@ public class DeleteCommandParser implements Parser {
             if (ParserUtils.hasExtraDelimiters(params, DeleteExerciseBankCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
+            final String description = ParserUtils
+                    .extractItemDescription(params, itemTypePrefix)
+                    .split(" ")[0].trim();
+            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+            if (isClear) {
+                return new DeleteExerciseBankCommand(true);
+            }
             final ArrayList<Integer> itemIndexes = extractItemIndexes(params, itemTypePrefix);
             return new DeleteExerciseBankCommand(itemIndexes);
         } catch (ParserException e) {
@@ -111,9 +120,14 @@ public class DeleteCommandParser implements Parser {
             if (ParserUtils.hasExtraDelimiters(params, DeleteFoodBankCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
+            final String description = ParserUtils
+                    .extractItemDescription(params, itemTypePrefix)
+                    .split(" ")[0].trim();
+            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+            if (isClear) {
+                return new DeleteFoodBankCommand(true);
+            }
             final ArrayList<Integer> itemIndexes = extractItemIndexes(params, itemTypePrefix);
-
-
             return new DeleteFoodBankCommand(itemIndexes);
 
         } catch (ParserException e) {
@@ -125,6 +139,13 @@ public class DeleteCommandParser implements Parser {
         try {
             if (ParserUtils.hasExtraDelimiters(params, DeleteFutureExerciseCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
+            final String description = ParserUtils
+                    .extractItemDescription(params, itemTypePrefix)
+                    .split(" ")[0].trim();
+            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+            if (isClear) {
+                return new DeleteFutureExerciseCommand(true);
             }
             final ArrayList<Integer> itemIndexes = extractItemIndexes(params, itemTypePrefix);
 

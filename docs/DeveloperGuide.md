@@ -31,11 +31,14 @@ of Fitbot and some design considerations.
 - [Non-functional Requirements](#non-functional-requirements)
 - [Glossary](#glossary)
 - [Instruction for Manual Testing](#instructions-for-manual-testing)
-  - [Launch and Shut Down](#launch-and-shut-down)
-  - [Building Your Food Bank](#building-your-food-bank)
-  - [Building Your Exercise Bank](#building-your-exercise-bank)
-  - [Manipulating Data](#manipulating-data)
-  - [Saving Data](#saving-data)
+- [Launch](#launch)
+- [Recording Food Item](#recording-food-items)
+- [Building Your Food Bank](#building-your-food-bank)
+- [Building Your Exercise Bank](#building-your-exercise-bank)
+- [Manipulating Data](#manipulating-data)
+- [Saving Data](#saving-data)
+
+
 
 ## Acknowledgements
 
@@ -131,11 +134,11 @@ in `Data` component, they form **_dependencies_** with those classes.
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.
 
 #### ItemBank class
-`ItemBank` is the **_highest [superclass](#_superclass_)_** that contains one attribute called `internalItems` which is an _array list_ of `item`.\
-`ItemList` being the **[_subclass_](#_subclass_)** of `ItemBank` and **_[superclass](#_superclass_)_** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a [dependency](#_dependency_) on `Item` class.\
-`FoodList` and `ExerciseList` are **[_subclass_](#_subclass_)** that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a [dependency](#_dependency_)
+`ItemBank` is the ***highest superclass*** that contains one attribute called `internalItems` which is an _array list_ of `item`.\
+`ItemList` being the ***subclass*** of `ItemBank` and ***superclass*** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.\
+`FoodList` and `ExerciseList` are ***subclass***  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
 on `Food` class and `Exercise` class respectively.\
-`FutureExerciseList` is a **[_subclass_](#_subclass_)** that inherit all the methods available from `ExerciseList` and contains other methods that form a [dependency](#_dependency_)
+`FutureExerciseList` is a ***subclass***  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
 on `Exercise` class.
 
 #### Item class
@@ -146,7 +149,7 @@ An `Item` class contains two attributes, `name` which represents the name of the
 value must present when a `Food` object is created.\
 `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
 \
-Classes such as `ItemList` and `Item` are _**[abstract class](#_abstract-class_)**_, because they do not add meaningful value to the user if one tries to create them.
+Classes such as `ItemList` and `Item` are ***abstract class***, because they do not add meaningful value to the user if one tries to create them.
 
 
 
@@ -205,8 +208,8 @@ which then returns the same `XYZCommand` to `Main`.
 </p>
 
 `StorageManager` initializes all `Storage` subclasses with their respective paths. 
-Acting as a medium, it then interacts with each of the respective `Storage` subclasses. 
-This design declutters the code in Main and provides a platform to ensure each of the subclasses were utilized. 
+Acting as an agent, it then interacts with each of the respective `Storage` subclasses, utilizing their `load` and `save` functionalities. 
+This design de-clutters the code in Main and provides a platform to ensure each of the subclasses were utilized. 
 It is also implemented with all of the `StorageInterface` interfaces to enforce methods of loading and saving to be fully implemented into the code.
 
 The `StorageManager` component loads and saves:
@@ -229,9 +232,9 @@ After inheritance, it then implements loading and saving methods interfaced by `
 where:
 - ProfileEncoder encodes the list to the profile.txt file.
 - ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
-- ProfileStorage utilizes the static methods in encoder and decoder for loading or saving operations.
+- ProfileStorage utilizes the static methods FileChecker and FileSaver to check if file exists and to write to the corresponding file.
 
-This way ensures that each class has a _single responsibility_ with little coupling between each other.
+This way of implementation ensures that each class has a _single responsibility_ with little coupling between each other.
 
 
 ### Main Component
@@ -271,7 +274,7 @@ The purpose of this feature is to allow the user to add food item to the food li
 sequence diagram of the process of adding the food item. 
 
 When the user gives an input, the `parser` from the `Logic` component will try to read the input, and then call the correct
-command. In this case we assume that the correct format of **Add Food** input is given and the AddFoodCommand has already been
+command. In this case we assume that the correct format of **Add Food** input is given and the `AddFoodCommand` has already been
 called and created.
 
 Step 1: When the `execute` method in the `AddFoodCommand` is being called, it will first check that if the `isCalorieFromBank`
@@ -346,7 +349,7 @@ Therefore, since they are similar in behaviour and function, we will only be loo
 
 Upon successful launch of the application, `Main` will call to initialize `StorageManager`. 
 This in turn initializes all the subclasses of `Storage`, including `ProfileStorage`, with their respective file paths. 
-Afterwhich, `Main` calls a loading function that in turns calls the `loadProfile()` method of `ProfileStorage`.
+Afterwhich, `Main` calls a loading function `loadAll` that in turns calls the `loadProfile()` method of `ProfileStorage`.
 
 `ProfileStorage` then does 2 things: 
 
@@ -369,9 +372,9 @@ The diagram above explains how the application checks if a file exists. If it ex
 
 The diagram above explains the processes to decode the items from the file.
 
-Upon reaching the `decodeProfile(line)` method, it decodes its attributes one by one to ensure that they are able to detect each attribute's readibility from storage.
-If the methods are unable to read the respective attribute from storage, an invalid one will be initialized for `StartState` to catch it, allowing users to change
-their individual attributes instead of losing their entire profile data on startup.
+Upon reaching the `decodeProfile(line)` method, the reference frame depicts a process of decoding its attributes one by one to ensure that they are able to detect each attribute's readability from storage.
+If the methods are unable to read the respective attribute from storage, an invalid attribute will be initialized. This then returns an initialized profile with invalid attributes for `StartState` to catch, allowing users to change
+their attributes instead of losing their entire profile data on startup. 
 
 ### Create Profile If Not Exist On Startup
 
@@ -448,18 +451,6 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 2. Should be able to hold up to at least a year of data without a slowdown of performance in daily use.
 3. Any user that is comfortable with typing of speeds >55 words per minute would be able to accomplish these tasks faster than if they used a mouse to navigate.
 ## Glossary
-#### _dependency_ 
-In UML diagram, dependency is a directed relationship which is used to show that some elements or a set of elements requires, 
-needs or depends on other model elements for specification or implementation.
-#### _superclass_
-A class from which other classes inherit its code. The class that inherits its code will be able to access some/all 
-functionalities from the superclass.
-#### _subclass_  
-A class that inherits code from the other classes. Such class will be able to access some/all functionalities from its superclass, 
-but not vice versa.
-#### _abstract class_
-A class that cannot be created using constructor. Usually such class is a superclass, and it does not give meaningful 
-value if one tries to construct it.
 #### _self invocation_
 In UML sequence diagram, a method that does a calling to another of its own methods is called self-invocation. 
 #### _array list_
@@ -485,6 +476,17 @@ which will be sorted lexicographically. \
 
 Given below are some instructions that can be used to test the application manually. 
 
+### Launch 
+
+1. Initial launch
+   - Prerequisite: There is no Fitbot.jar file on your desktop.
+   - Test case:
+      1. Download the jar file and copy into an empty folder
+      2. Go to your command prompt, and go into your directory.
+      3. Run the command `java -jar Fitbot.jar`.
+
+   Expected: a data folder will be created in the file that contain Fitbot.jar.
+
 ### Recording Food Items:
 
 1. Adding a new Food Item when the Food List is empty:
@@ -497,7 +499,6 @@ Given below are some instructions that can be used to test the application manua
    Expected: No Food Item is added to the Food List. A message will show up and tell the user that 
    the date must be within 7 days of today.
    4. (more test cases )
-   
 2. Viewing a new Food Item:
    1. Test case: `view f/` when the Food List is empty\
    Expected: No food item shown. 
@@ -518,16 +519,6 @@ Given below are some instructions that can be used to test the application manua
    number that is greater than 0.
     5. (more test cases)
 
-### Launch and shut down
-
-1. Initial launch
-   - Prerequisite: There is no fitbot.jar file on your desktop.
-   - Test case:
-     1. Download the jar file and copy into an empty folder
-     2. Go to your command prompt, and go into your directory.
-     3. Run the command `java -jar Fitbot.jar`.
-   
-   Expected: a data folder will be created in the file that contain Fitbot.jar.
 
 ### Setting Up Profile
 
@@ -580,7 +571,15 @@ Given below are some instructions that can be used to test the application manua
 ### Building Your Exercise Bank
 
 
-
+### Exiting Program
+1. Exiting Program while setting name when creating a new profile
+   1. Prerequisite: Make sure the profile.txt file is not created. If you have already created the file, you can manually
+      delete it.
+   2. Test case: `bye` when being asked to provide a name\
+      Expected: A question shows up to confirm with the user whether the user wants to exit the program or wants to set his or her
+      name as "bye". The user then need to type 1 to exit the program, 2 to set the name as "bye" and any other key to go back.
+   3. (more test cases)
+   
 ### Manipulating data
 
 1. Data is saved whenever data is manipulated.
@@ -595,11 +594,39 @@ Given below are some instructions that can be used to test the application manua
    
    Expected: food_list.txt should be empty.
 
-### Saving Data
+
+2. Manipulating _Profile_ data in the text files directly.
+    - Prerequisite: Data folder with profile.txt already present. (You have run through the profile creation at least once)
+    - Procedures:
+      1. Navigate to the `/data` folder which is in the same directory as your _Fitbot.jar_
+      2. Open the profile.txt with your editor of choice and view the attributes. It should look something like this: _john|180.0|65.0|M|22|300|2_
+      
+      ![img_1.png](images/profile_text_file.png)
+      4. Edit the height attribute to reflect this: _john|BUG|65.0|M|22|300|2_
+      
+      ![img.png](images/profile_text_file_modified.png)
+      4. Save the file and try to relaunch the application.
+    
+    **Expected**: The application should detect the height is invalid and prompts you to change its value **inside** the application 
+   
+    _Note: This will only work if there are exactly 6 '|' delimiters. Any additional delimiters added will render the entire line invalid and unreadable, causing you to lose all your profile data and restarting the entire profile creation step._ 
+
+
+### Saving of Data
 
 1. Saving data in file
-    - Prerequisite: data folder is generated by Fitbot.jar and there is presence of .txt files.
-    -Test case:
-   1. Replace one of the text file generated by the application with lorem ipsum.
+    - Prerequisite: Data folder is present with items already added to lists. (We will be using _exercise_list.txt_ as an example.)
+    
+   Your exercise_list should look something like this: 
    
-   Expected: The application will be able to pick it up and ignore invalid data in relevant files.
+    ![img.png](images/exercise_list.png)
+
+    - Procedures:
+   1. Change one of the lines generated by the application with _invalid line_.
+
+    ![img_2.png](images/exercise_list_modified.png)
+   2. Launch the application where it should be able to detect the invalid line in storage.
+
+   **Expected**: The user will be notified of the invalid line and it will be subsequently ignored. Upon the next operation that requires saving of data ("bye", "add e/" commands etc.), this invalid line will be overwritten and ignored, preserving the data integrity of the rest of the lines.  
+
+    _Note: The dates used here was during the creation of the DeveloperGuide. We have set hard limits to not accept anything past 10 years prior or greater than 1 year into the future for completeness of our data. For instance, you are unable to set a exercise performed in 1991 as it will just ignore the line without notifying the user._
