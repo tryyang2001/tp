@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** A class that manage the statistics of the calories*/
+/** A class that manage the statistics of the calories. */
 public class Statistics {
     private static final String FULL_BLOCK = "█";
     private static final String HALF_BLOCK = "▌";
