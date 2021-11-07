@@ -495,7 +495,7 @@ ________________________________________________________________________________
 
 ### **4.3 Recording Your Exercises**
 
-Besides Food Items, you may also record Exercises that you have taken into the Exercise List. This will allow you to keep
+Besides Food Items, you may also record Exercises that you have done into the Exercise List. This will allow you to keep
 track of total calories burnt and check whether you have done sufficient exercises. 
 
 #### 4.3.1 Adding Exercise Items `add e/`
@@ -563,7 +563,7 @@ details can be found [here](#443-viewing-upcoming-exercise-items-view-u).
 
 #### 4.3.3 Deleting Exercises `delete e/`
 
-Just in case you have added the wrong Exercise, this command allows you to remove any Exercise from the Exercise List.
+In case you have added the wrong Exercise, this command allows you to remove any Exercise from the Exercise List.
 
 Format: `delete e/LIST_NO d/DD-MM-YYYY` deletes the *n<sup>th</sup>* exercise Item in the Exercise List which contains the date (`DD-MM-YYYY`),
 where *n* is the index of the exercise to delete.
@@ -591,11 +591,12 @@ ________________________________________________________________________________
 
 ### **4.4 Scheduling Your Exercises**
 
-This feature allows you to record all your Upcoming Exercises into the Upcoming Exercise List.
+Besides your current exercises, you may also record all your Upcoming Exercises that you plan to do into the Upcoming Exercise List. 
+This will allow you to plan your exercises in advance and be more aware of your calorie output from your exercises in the near future.
 
 #### 4.4.1 Adding Upcoming Exercise Items `add e/`
 
-This command adds an Upcoming Exercise into the Upcoming Exercise List.
+By adding an Exercise Item with a future date, your exercise will be treated as an Upcoming Exercise and gets added into the Upcoming Exercise List.
 
 Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Upcoming Exercise with its respective calories burnt on the given date (`DD-MM-YYYY`}.
 
@@ -615,7 +616,8 @@ ________________________________________________________________________________
 
 #### 4.4.2 Adding Recurring Exercise Items `add r/`
 
-This command is used to schedule exercises that you do on a regular basis. This can be particularly useful if you have weekly trainings to record!
+It is possible to schedule exercises that you do on a regular basis. By using this command, you can conveniently add recurring exercises
+into the Future Exercise List. This can be particularly useful if you have weekly trainings to record!
 
 Format: `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK {,DAY_OF_THE_WEEK,...}` adds recurring exercise with its respective calories burnt to the Upcoming Exercise List. 
 You may specify which day(s) of the week by providing multiple `DAY_OF_THE_WEEK` that are separated by commas.
@@ -634,7 +636,8 @@ ________________________________________________________________________________
 
 #### 4.4.3 Viewing Upcoming Exercise Items `view u/`
 
-This command is used to view all exercises and the calories added that are scheduled to happen on a future date.
+In order to view all of your upcoming exercises, this command can be used and all of your scheduled exercises and their calories 
+will be displayed for you to see.
 
 Format: `view u/`
 ```text
@@ -656,7 +659,8 @@ ________________________________________________________________________________
 
 #### 4.4.4 Editing Upcoming Exercise Items `edit u/`
 
-This command is used to edit the exercises that are schedule to happen on a future date.
+If you would like to make some changes to the details of your Upcoming Exercises, this command can be used and your Upcoming Exercises
+in the Future Exercise List will be updated.
 
 Format: `edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` edits the n<sup>th</sup> item in the Upcoming Exercise List, where *n* is the index of the Exercise to edit.
 
@@ -675,7 +679,8 @@ ________________________________________________________________________________
 
 #### 4.4.5 Deleting Upcoming Exercise Items `delete u/`
 
-This command is used to delete an exercise that is scheduled to happen on a future date. 
+In case any upcoming exercise is cancelled and you would like to remove it from the Future Exercise List, you can use 
+this command to delete that particular upcoming exercise. Deletion of multiple upcoming exercises is supported to. 
 
 Format: `delete u/LIST_NO {,LIST_NO,...}` deletes the n<sup>th</sup> Upcoming Exercise Item in the Upcoming Exercise List, where *n* is the index of the exercise to delete.
 You may delete multiple Exercise Items at once by providing multiple `LIST_NO` that are separated by commas.
