@@ -36,7 +36,7 @@ XYZCommand -right[hidden]- XYZCommandParser
 ParserManager -down[hidden]-XYZCommandParser
 
 ParserManager ..> Command :> returns
-XYZCommand .|> Command
+XYZCommand -|> Command
 
 note as N1 #white
 ParserMessages and ParserUtils

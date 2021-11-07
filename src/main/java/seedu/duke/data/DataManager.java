@@ -48,19 +48,6 @@ public class DataManager {
         filterExerciseListAndFoodList();
     }
 
-    /**
-     * For initialization at the start of the application.
-     */
-    public DataManager() {
-        this.filteredExerciseItems = new ExerciseList();
-        this.filteredExerciseItems = new ExerciseList();
-        this.futureExerciseItems = new FutureExerciseList();
-        this.filteredFoodItems = new FoodList();
-        this.filteredFoodItems = new FoodList();
-        this.exerciseBank = new ItemBank();
-        this.foodBank = new ItemBank();
-        this.profile = new Profile();
-    }
 
     //@@author xingjie99
 
@@ -137,7 +124,7 @@ public class DataManager {
      */
     private boolean isWithinPastSevenDays(Item item, LocalDate today) {
         boolean isBeforeOrEqualToday = item.getDate().isEqual(today) || item.getDate().isBefore(today);
-        boolean isWithinOneWeek = item.getDate().isAfter(today.minusDays(8));
+        boolean isWithinOneWeek = item.getDate().isAfter(today.minusDays(6));
         return isBeforeOrEqualToday && isWithinOneWeek;
     }
 

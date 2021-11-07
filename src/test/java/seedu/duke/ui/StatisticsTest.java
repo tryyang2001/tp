@@ -1,6 +1,5 @@
 package seedu.duke.ui;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.data.item.exercise.ExerciseList;
 import seedu.duke.data.item.food.FoodList;
@@ -9,6 +8,7 @@ import seedu.duke.data.profile.attributes.ActivityFactor;
 import seedu.duke.data.profile.attributes.Age;
 import seedu.duke.data.profile.attributes.Gender;
 import seedu.duke.data.profile.attributes.Height;
+import seedu.duke.logic.Statistics;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
