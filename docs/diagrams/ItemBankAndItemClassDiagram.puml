@@ -10,9 +10,8 @@ class FoodList DATA_COLOUR
 class ExerciseList DATA_COLOUR
 
 class FutureExerciseList DATA_COLOUR
-interface "<<interface>>\nVerifiable" As Verifiable DATA_COLOUR {
-isValid()
-}
+
+class "<<interface>>\nVerifiable" As Verifiable DATA_COLOUR
 
 
 class "{abstract}\nItem" as Item DATA_COLOUR{
@@ -29,12 +28,11 @@ class Exercise DATA_COLOUR {
 }
 
 enum "<<enumeration>>\nTimePeriod" as TimePeriod DATA_COLOUR {
-Morning, Afternoon,
-Evening, Night
+MORNING, AFTERNOON,
+EVENING, NIGHT
 }
 
 hide TimePeriod method
-hide Verifiable field
 
 ItemBank <|-- ItemList
 ItemList <|-- FoodList
