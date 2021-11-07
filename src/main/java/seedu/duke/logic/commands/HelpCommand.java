@@ -27,7 +27,7 @@ public class HelpCommand extends Command {
             + "        Prefix               Input " + LS
             + "          h/             Height of user in cm" + LS
             + "          w/             Weight of user in kg" + LS
-            + "      If no identifiers are given, bmi will be calculated using the height and weight in the profile.";
+            + "      If no prefixes are given, bmi will be calculated using the height and weight in the profile.";
     private static String help = LS
             + "help -- View help for commands" + LS
             + "      Format: help";
@@ -55,7 +55,7 @@ public class HelpCommand extends Command {
     private static String add = "      Add Food Item" + LS
             + "      Format: add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}" + LS
             + "        Prefix               Input" + LS
-            + "          f/             Description of the Food Item" + LS
+            + "          f/             Description of the food" + LS
             + "          c/             Calories of the food" + LS
             + "          d/             Date of food in DD-MM-YYYY" + LS
             + "          t/             Time of food in HHMM" + LS
@@ -68,8 +68,9 @@ public class HelpCommand extends Command {
             + "          d/             Date of exercise in DD-MM-YYYY" + LS
             + LS
             + "      Add Recurring Exercise to Upcoming Exercise List" + LS
-            + "      Format: add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK" + LS
-            + "      Format: delete e/LIST_NO. d/DD-MM-YYYY" + LS
+            + "      Format: add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK {,DAY_OF_THE_WEEK,...}"
+            + LS
+            + "      Format: delete e/LIST_NO d/DD-MM-YYYY" + LS
             + "        Prefix               Input" + LS
             + "          r/             Description of upcoming exercise" + LS
             + "          c/             Calories burnt from exercise" + LS
@@ -104,50 +105,50 @@ public class HelpCommand extends Command {
             + "      View Food Bank" + LS
             + "      Format: view fbank/";
     private static String delete = "      Deleting Food Item" + LS
-            + "      Format: delete f/LIST_NO. d/DD-MM-YYYY t/HHMM" + LS
+            + "      Format: delete f/LIST_NO d/DD-MM-YYYY t/HHMM" + LS
             + "        Prefix               Input" + LS
             + "          f/             Index of food in Food List within the given date" + LS
             + "          d/             Date of food in DD-MM-YYYY" + LS
             + "          t/             Time of food in HHMM" + LS
             + LS
             + "      Delete Exercise Item" + LS
-            + "      Format: delete e/LIST_NO. d/DD-MM-YYYY" + LS
+            + "      Format: delete e/LIST_NO d/DD-MM-YYYY" + LS
             + "        Prefix               Input" + LS
             + "          e/             Index of exercise in Exercise List within the given date" + LS
             + "          d/             Date of exercise in DD-MM-YYYY" + LS
             + "  " + LS
             + "      Delete Upcoming Exercise Items from Upcoming Exercise List" + LS
-            + "      Format: delete u/LIST_NO." + LS
+            + "      Format: delete u/LIST_NO {,LIST_NO,...}" + LS
             + "        Prefix               Input" + LS
-            + "          u/             The index of the item within the upcoming Exercise List" + LS
+            + "          u/             The index of the item within the Upcoming Exercise List" + LS
             + LS
             + "      Delete Food Item from Food Bank" + LS
-            + "      Format: delete fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
+            + "      Format: delete fbank/LIST_NO {,LIST_NO,...}" + LS
             + "        Prefix               Input" + LS
-            + "          fbank/         The index of the item within the food bank" + LS
+            + "          fbank/         The index of the item within the Food Bank" + LS
             + LS
             + "      Delete Exercise Item from Exercise Bank" + LS
-            + "      Format: delete ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
+            + "      Format: delete ebank/LIST_NO {,LIST_NO,...}" + LS
             + "        Prefix               Input" + LS
-            + "          ebank/         The index of the item within the exercise bank";
+            + "          ebank/         The index of the item within the Exercise Bank";
     private static String edit = "      Edit Food Bank" + LS
-            + "      Format: edit fbank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
+            + "      Format: edit fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}" + LS
             + "        Prefix               Input" + LS
-            + "          fbank/         The index of the item within the food bank" + LS
+            + "          fbank/         The index of the item within the Food Bank" + LS
             + "          n/             New description of food name" + LS
             + "          c/             Calories of food" + LS
             + "   " + LS
             + "      Edit Exercise Bank" + LS
-            + "      Format: edit ebank/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
+            + "      Format: edit ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}" + LS
             + "        Prefix               Input" + LS
-            + "          ebank/         The index of the item within the exercise bank" + LS
+            + "          ebank/         The index of the item within the Exercise Bank" + LS
             + "          n/             New description of exercise name" + LS
             + "          c/             Calories burnt from exercise" + LS
             + LS
             + "     Edit Upcoming Exercise List" + LS
-            + "     Format: edit u/LIST_NO. {n/NEW_NAME} {c/NEW_CALORIES}" + LS
+            + "     Format: edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}" + LS
             + "        Prefix               Input" + LS
-            + "          u/             The index of the item within the upcoming Exercise List" + LS
+            + "          u/             The index of the item within the Upcoming Exercise List" + LS
             + "          n/             New description of exercise name" + LS
             + "          c/             Calories burnt from exercise";
 
