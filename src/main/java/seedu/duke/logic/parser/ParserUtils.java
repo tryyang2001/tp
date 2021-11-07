@@ -277,7 +277,7 @@ public class ParserUtils {
     /*======================== Methods to check data validity ============================*/
 
     protected static boolean isSevenDaysBeforeToday(LocalDate date) {
-        return date.isBefore(LocalDate.now().minusDays(7));
+        return date.isBefore(LocalDate.now().minusDays(6));
     }
 
     protected static boolean isWithinSevenDaysFromToday(LocalDate date) {
