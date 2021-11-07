@@ -35,7 +35,7 @@ _italics_ | Text that has been _italicised_ indicates that it is a term specific
 ℹ️ |This symbol indicates important information. 
 ❗| This symbol indicates important rules to follow. Make sure you **pay extra attention** to the information, else _Fitbot_ will fail to execute certain functions! 
 💡|This symbol indicates tips and tricks that you can use to make your _Fitbot_ experience even smoother.
-
+⏫| This symbol indicates a shortcut to the content page. You may click it to quickly navigate back to the content page.
 
 
 
@@ -106,6 +106,8 @@ If successfully loaded, you will see this logo:
 ![Start Up Screen](./images/StartupLogo.png)
 
 You are now all good to start using _Fitbot_! 
+
+[⏫ Back to content page](#content-page)
 
 ## **2. Set Up Profile**
 
@@ -212,6 +214,7 @@ After setting up the profile, you can start recording your food and exercises wi
 ❗ You can exit _Fitbot_ with the `bye` command, but if you exit before completing the profile, all attributes will
 not be saved.
 
+[⏫ Back to content page](#content-page)
 
 ## **3. Terminology**
 
@@ -245,14 +248,15 @@ are _Food Item_ and _Exercise Item_.\
 \
 ***Upcoming exercise*** - We define the exercise with date after today's date as an Upcoming Exercise. This kind of exercise
 will be handled specifically. It will not be added to the Exercise List but will be saved internally in the storage file. More
-details of the process can be found at [here](#442-adding-recurring-exercise-items-add-r).\
+details of the process can be found [here](#442-adding-recurring-exercise-items-add-r).\
 \
 ***Item Bank*** - An item storage that is capable of storing the Food or Exercise Item with its respective calorie. This is
 to help you to store the calorie intake of a specific Food or the calorie burnt from a specific Exercise for future use. More details
-of the item bank can be found at [here](#451-adding-food-bank-items-add-fbank).\
+of the item bank can be found [here](#451-adding-food-bank-items-add-fbank).\
 \
 ***Parameters*** - Parameters are values in the command format that _Fitbot_ expects you to provide.
 
+[⏫ Back to content page](#content-page)
 
 ## **4. Features**
 
@@ -341,6 +345,8 @@ ________________________________________________________________________________
 The calculated BMI value is 20.1 (Healthy)
 __________________________________________________________________________________________  
 ```  
+
+[⏫ Back to content page](#content-page)
 
 ### **4.2 Recording your food consumption**
 
@@ -439,6 +445,7 @@ ________________________________________________________________________________
 All food items have been removed.
 __________________________________________________________________________________________________________
 ```
+[⏫ Back to content page](#content-page)
 
 ### **4.3 Recording Your Exercises**
 
@@ -530,6 +537,7 @@ ________________________________________________________________________________
 All exercise items have been removed.
 __________________________________________________________________________________________________________
 ```
+[⏫ Back to content page](#content-page)
 
 ### **4.4 Scheduling Your Exercises**
 
@@ -548,9 +556,10 @@ Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Upcoming Exercise with i
 `add e/hiit c/290` adds record of exercise done: hiit with 290 calories burnt to the upcoming exercise list.
 ```text
 add e/hiit c/290 d/01-01-2022
-__________________________________________________________________________________________
+__________________________________________________________________________________________________________
 An exercise item for the future has been added:
-    hiit (290 cal)
+	hiit (290 cal) @ 01 Jan 2022
+__________________________________________________________________________________________________________
    ```
 
 #### 4.4.2 Adding Recurring Exercise Items `add r/`
@@ -586,7 +595,9 @@ ________________________________________________________________________________
 This command is used to edit the exercises that are schedule to happen on a future date.
 Format: `edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` edits the n<sup>th</sup> item in the Upcoming Exercise List, where *n* is the index of the Exercise to edit.
 
-❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.```text
+❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.
+
+```text
 edit u/1 c/150 d/30-11-2021
 ```text
 __________________________________________________________________________________________
@@ -598,17 +609,19 @@ ________________________________________________________________________________
 #### 4.4.5 Deleting Upcoming Exercise Items `delete u/`
 
 This command is used to delete an exercise that is scheduled to happen on a future date.
-Format: `delete u/LIST_NO` deletes the n<sup>th</sup> Upcoming Exercise Item in the Upcoming Exercise List, where *n* is the index of the exercise to delete.
+Format: `delete u/LIST_NO. {,LIST_NO,...}` deletes the n<sup>th</sup> Upcoming Exercise Item in the Upcoming Exercise List, where *n* is the index of the exercise to delete.
+You may delete multiple Exercise Items at once by providing multiple `LIST_NO.` that are separated by commas.
 
 ❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.
 
 Example:
 ```
-delete u/1
+delete u/1,2
 __________________________________________________________________________________________
-An exercise item for the future has been deleted:
-    running (300 cal)
-Number of exercise item(s) left: 1
+All of the following upcoming exercises have been deleted:
+	1. hiit (290 cal) (Saturday 01 Jan 2022)
+	2. running (300 cal) (Sunday 02 Jan 2022)
+Number of upcoming exercise(s) left: 0
 __________________________________________________________________________________________
 ```
 💡   **Tip:** If you wish to remove all the Exercise Items from the Upcoming Exercise List, there is a shortcut command: `delete u/all`.
@@ -618,6 +631,7 @@ ________________________________________________________________________________
 All future exercise items have been removed.
 __________________________________________________________________________________________________________
 ```
+[⏫ Back to content page](#content-page)
 
 ### **4.5. Building your Food Bank**
 Do you have certain dishes or snacks that you frequently consume? Instead of having to key in their calories everytime you want to
@@ -687,22 +701,25 @@ ________________________________________________________________________________
 #### 4.5.4 Deleting Food Bank Items `delete fbank/`
 You can delete an Item from the Food Bank using this command.
 
-Format: `edit fbank/LIST_NO.` deletes the n<sup>th</sup> Item in the Food Bank, where *n* is the index of the Food Item to edit.
+Format: `edit fbank/LIST_NO. {,LIST_NO,...}` deletes the n<sup>th</sup> Item in the Food Bank, where *n* is the index of the Food Item to edit. 
+You may delete multiple Food Items at once by providing multiple `LIST_NO.` that are separated by commas.  
 
 ❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.
 
 Example:
 ```
-delete fbank/2
+delete fbank/1,2
 __________________________________________________________________________________________________________
-A food item has been deleted from the food bank:
-	McSpicy Meal (1081 cal) @ 02:25
-Number of food item(s) left in the food bank: 1
+All of the following food bank items have been deleted:
+	1. Baked Potato (350 cal) is deleted.
+	2. McSpicy Meal (1001 cal) is deleted.
+Number of food item(s) left in the food bank: 0
 __________________________________________________________________________________________________________
 ```
 
 💡   **Tip:** If you wish to remove all the Food Items from the Food Bank, there is a shortcut command: `delete fbank/all`.
 
+[⏫ Back to content page](#content-page)
 
 ### **4.6. Building your Exercise Bank**
 Have a standard workout routine that you use? You can add it into the Exercise Bank for _Fitbot_ to remember the amount of calories you 
@@ -730,10 +747,10 @@ and _Fitbot_ will search up the corresponding calorie value for the item with th
 **case-insensitive**.
 
 ```
-add e/30 min jog
+add e/30 Min Jog
 __________________________________________________________________________________________________________
 An exercise item has been added:
-	30 min jog (450 cal) @ 29 Oct 2021
+	30 Min Jog (450 cal) @ 29 Oct 2021
 __________________________________________________________________________________________________________
 ```
 
@@ -783,7 +800,8 @@ ________________________________________________________________________________
 #### 4.6.4 Deleting Exercise Bank Items `delete ebank/`
 You can delete an Item from the Exercise Bank using this command.
 
-Format: `delete ebank/LIST_NO.` deletes the n<sup>th</sup> Item in the Exercise Bank, where *n* is the index of the Exercise Item to edit.
+Format: `delete ebank/LIST_NO. {,LIST_NO,...}` deletes the n<sup>th</sup> Item in the Exercise Bank, where *n* is the index of the Exercise Item to edit.
+You may delete multiple Exercise Items at once by providing multiple `LIST_NO.` that are separated by commas.  
 
 ❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.
 
@@ -799,6 +817,7 @@ ________________________________________________________________________________
 
 💡   **Tip:** If you wish to remove all the Exercise Items from the Exercise Bank, there is a shortcut command: `delete ebank/all`.
 
+[⏫ Back to content page](#content-page)
 
 ### **4.7 Viewing Your Calorie Summary** `overview`
 This command is used to view the summary of the calories gained from food, calories burnt from exercises as well as
@@ -857,6 +876,7 @@ Your calorie goal is: 123
 You are 3623 cal away from your goal
 __________________________________________________________________________________________________________
 ```
+[⏫ Back to content page](#content-page)
 
 ### **4.8 Viewing Help** `help`
 
@@ -1014,7 +1034,7 @@ ________________________________________________________________________________
 
 ```
 
-
+[⏫ Back to content page](#content-page)
 
 ### **4.9. Exiting Program** `bye`
 
@@ -1029,6 +1049,9 @@ Exiting Fitbot....
 Bye! Hope to see you again soon!!  
 _________________________________________________________________________________________________________  
 ```  
+
+[⏫ Back to content page](#content-page)
+
 ### **5. Data Management**
 
 
@@ -1044,6 +1067,8 @@ Advanced users are welcome to update data directly by editing the data files.
 ❗ If your changes to the data files format are invalid, _Fitbot_ will skip the wrongly formatted line when it loads in the data.
 
 ❗ Ensure that you quit _Fitbot_ if you would like to edit the files. Edits made directly to files when _Fitbot_ is running will not be saved.
+
+[⏫ Back to content page](#content-page)
 
 ### **6. FAQ**
 
@@ -1062,6 +1087,8 @@ only selected .text files, data from past records may be loaded and viewed in _F
 Calorie goal is required to help you check how close or how far you are away from your calorie goal.
 _Fitbot_ needs to know your name to address you.
 
+[⏫ Back to content page](#content-page)
+
 ### **7. Command Summary**
 
 
@@ -1079,6 +1106,6 @@ overview|`overview`|
 profile|`profile {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG} {n/NAME} {s/GENDER} {a/AGE} {g/CALORIE_IN_CAL} {x/ACTIVITY_FACTOR}` <br> `profile`|`profile h/170 w/65 n/John a/22 s/M g/500 x/2`, <br> `profile`
 view|`view`|`view e/`,  <br> `view f/`, <br>  `view fbank/`, <br> `view ebank/`, <br> `view u/`
 
-
+[⏫ Back to content page](#content-page)
 
 

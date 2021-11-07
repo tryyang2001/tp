@@ -32,6 +32,8 @@ of Fitbot and some design considerations.
 - [Glossary](#glossary)
 - [Instruction for Manual Testing](#instructions-for-manual-testing)
   - [Launch and Shut Down](#launch-and-shut-down)
+  - [Building Your Food Bank](#building-your-food-bank)
+  - [Building Your Exercise Bank](#building-your-exercise-bank)
   - [Manipulating Data](#manipulating-data)
   - [Saving Data](#saving-data)
 
@@ -195,16 +197,6 @@ they are able to parse user inputs. They also make use of utility methods stored
 all the parameters relevant to the command. After parsing the input, `XYZCommandParser` returns `XYZCommand` to `ParserManager`,
 which then returns the same `XYZCommand` to `Main`.
 
-[comment]: <> (@@author @tlyi)
-
-The sequence diagram below models the interactions between the different classes within the Logic component.
-This particular case illustrates how a user input add f/potato c/20 is parsed and process to execute the appropriate actions.
-
-<p align="center" width="100%">
-  <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
-</p>
-
-[comment]: <> (@@author)
 
 ### Storage component
 
@@ -547,6 +539,47 @@ Given below are some instructions that can be used to test the application manua
    
    Expected: _Fitbot_will prompt for your name upon start up.
    
+### Building Your Food Bank
+1. Adding Food Bank Items
+   1. Prerequisite: Food Bank does not contain a Food Item with the name "potato".
+   2. Test case: `add fbank/potato` \
+      Expected: Error as the item's calorie details were not provided. 
+   3. Test case: `add fbank/potato c/250`\
+      Expected: Food Item with name 'potato' and calories '250' has been added to Food Bank.
+   4. Test case: `add f/potato` \
+      Expected: Food Item with name 'potato' and calories '250' has been added to Food List. User no longer has
+      to provide the calorie details for 'potato' as it can be retrieved from the Food Bank.
+   5. Test case: `add fbank/potato c/300`\
+      Expected: Error as the name "potato" already exists in the Food Bank, and all names in the Food Bank need to be unique.
+2. Viewing Food Bank Items 
+   1. Test case: `view fbank/` \
+      Expected: Shows the list of Food Items in the Food Bank.
+   2. Test case: `view fbank/a` \
+      Expected: Invalid format. The command word `view` must be followed by `fbank/` exactly.
+3. Editing Food Bank Items
+   1. Prerequisite: Food Bank contains at least one Item. To find the index of the Item you want to edit, use `view fbank/`.
+   2. Test case: `edit fbank/` \
+      Expected: Error as there is no input for item number.
+   3. Test case: `edit fbank/1` \
+      Expected: Error as you need to specify what to edit about this Item.
+   4. Test case: `edit fbank/1 n/tomato` \
+      Expected: Item number 1 in the Food Bank has been changed to 'tomato' (provided that you do not already have an Item named 'tomato' in the Food Bank).
+4. Deleting Food Bank Items
+   1. Prerequisite: Food Bank contains at least 3 Items. To find the index of the Item you want to delete, use `view fbank/`.
+   2. Test case: `delete fbank/1,2` \
+      Expected: Food Bank Items 1 and 2 have been deleted.
+   3. Test case: `delete fbank/1` \
+      Expected: Food Bank Item 1 has been deleted.
+   4. Test case: `delete fbank/x`, where x is any number bigger than the size of the list. \
+      Expected: Error as x is out of the range of the item list.
+   5. Test case: `delete fbank/all` \
+      Expected: All items in the Food Bank have been deleted.
+
+
+
+### Building Your Exercise Bank
+
+
 
 ### Manipulating data
 

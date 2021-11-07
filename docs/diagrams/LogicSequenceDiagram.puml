@@ -14,18 +14,21 @@ participant "f:Food" AS Food DATA_COLOUR
 participant ":FoodList" AS FoodList DATA_COLOUR
 activate Main MAIN_COLOUR
 
+
 create LogicManager
 Main -> LogicManager LOGIC_COLOUR : new LogicManager(storageManager, dataManager)
+
+create ParserManager
+LogicManager-> ParserManager LOGIC_COLOUR
 return
+return
+
 
 Main -> LogicManager LOGIC_COLOUR : execute("add f/potato c/30")
 
 
 
-create ParserManager
-LogicManager-> ParserManager LOGIC_COLOUR
-return
-Main -> ParserManager LOGIC_COLOUR : parseCommand ("add f/potato c/30")
+LogicManager -> ParserManager LOGIC_COLOUR : parseCommand ("add f/potato c/30")
 ref over ParserManager
     determine type
     of command
@@ -50,10 +53,10 @@ return c
 return c
 destroy AddCommandParser
 
-Main -> AddFoodCommand LOGIC_COLOUR : setData(profile, exerciseItems, ...)
+LogicManager -> AddFoodCommand LOGIC_COLOUR : setData(dataManager)
 destroy ParserManager
 return
-Main -> AddFoodCommand LOGIC_COLOUR : execute()
+LogicManager -> AddFoodCommand LOGIC_COLOUR : execute()
 create Food
 AddFoodCommand -> Food DATA_COLOUR : new Food("potato", ...)
 return f
@@ -65,4 +68,6 @@ AddFoodCommand -> CommandResult LOGIC_COLOUR
 return r
 return r
 destroy CommandResult
+return r
+destroy AddFoodCommand
 @enduml
