@@ -11,7 +11,7 @@ class ExerciseList DATA_COLOUR
 
 class FutureExerciseList DATA_COLOUR
 interface "<<interface>>\nVerifiable" As Verifiable DATA_COLOUR {
-isValid()
+
 }
 
 
@@ -34,7 +34,7 @@ Evening, Night
 }
 
 hide TimePeriod method
-hide Verifiable field
+
 
 ItemBank <|-- ItemList
 ItemList <|-- FoodList

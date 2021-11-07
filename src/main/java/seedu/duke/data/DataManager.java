@@ -48,19 +48,6 @@ public class DataManager {
         filterExerciseListAndFoodList();
     }
 
-    /**
-     * For initialization at the start of the application.
-     */
-    public DataManager() {
-        this.filteredExerciseItems = new ExerciseList();
-        this.filteredExerciseItems = new ExerciseList();
-        this.futureExerciseItems = new FutureExerciseList();
-        this.filteredFoodItems = new FoodList();
-        this.filteredFoodItems = new FoodList();
-        this.exerciseBank = new ItemBank();
-        this.foodBank = new ItemBank();
-        this.profile = new Profile();
-    }
 
     //@@author xingjie99
 
