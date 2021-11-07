@@ -10,6 +10,10 @@ import seedu.duke.data.profile.attributes.Age;
 import seedu.duke.data.profile.attributes.Gender;
 import seedu.duke.data.profile.attributes.Height;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StatisticsTest {
