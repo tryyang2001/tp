@@ -40,9 +40,9 @@ public class AddCommandParser implements Parser {
             case Command.COMMAND_PREFIX_RECURRING:
                 return parseAddRecurring(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_EXERCISE_BANK:
-                //Fallthrough
+                return parseAddToExerciseBank(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_FOOD_BANK:
-                return parseAddToBank(params, itemTypePrefix);
+                return parseAddToFoodBank(params, itemTypePrefix);
             default:
                 throw new ItemNotSpecifiedException();
             }
@@ -62,7 +62,7 @@ public class AddCommandParser implements Parser {
             logger.log(Level.WARNING, String.format("date detected is: %s", date));
             if (ParserUtils.isSevenDaysBeforeToday(date)) {
                 return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
-                        LocalDate.now().minusDays(7).format(DATE_FORMAT),
+                        LocalDate.now().minusDays(6).format(DATE_FORMAT),
                         LocalDate.now().format(DATE_FORMAT)));
             }
             if (ParserUtils.isFutureDate(date)) {
@@ -85,13 +85,9 @@ public class AddCommandParser implements Parser {
             final Integer calories = ParserUtils.extractItemCalories(params);
             final LocalDateTime dateTime = ParserUtils.extractDateTime(params);
             logger.log(Level.WARNING, String.format("dateTime detected is: %s", dateTime));
-
-            if (ParserUtils.hasExtraDelimiters(params, AddFoodCommand.EXPECTED_PREFIXES)) {
-                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-            }
             if (!ParserUtils.isWithinSevenDaysFromToday(dateTime.toLocalDate())) {
                 return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
-                        LocalDate.now().minusDays(7).format(DATE_FORMAT),
+                        LocalDate.now().minusDays(6).format(DATE_FORMAT),
                         LocalDate.now().format(DATE_FORMAT)));
             }
             return new AddFoodCommand(description, calories, dateTime);
@@ -102,14 +98,14 @@ public class AddCommandParser implements Parser {
 
     protected Command parseAddRecurring(String params, String itemTypePrefix) {
         try {
+            if (ParserUtils.hasExtraDelimiters(params, AddRecurringExerciseCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
             final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
             final Integer calories = ParserUtils.extractItemCalories(params);
             final LocalDate startDate = extractStartDate(params);
             final LocalDate endDate = extractEndDate(params);
             final ArrayList<Integer> dayOfTheWeek = extractDayOfTheWeek(params);
-            if (ParserUtils.hasExtraDelimiters(params, AddRecurringExerciseCommand.EXPECTED_PREFIXES)) {
-                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-            }
             return new AddRecurringExerciseCommand(description, calories,
                     startDate, endDate, dayOfTheWeek);
         } catch (ParserException e) {
@@ -118,27 +114,33 @@ public class AddCommandParser implements Parser {
     }
 
 
-    protected Command parseAddToBank(String params, String itemTypePrefix) throws ItemNotSpecifiedException {
+    protected Command parseAddToExerciseBank(String params, String itemTypePrefix) {
         try {
+            if (ParserUtils.hasExtraDelimiters(params, AddExerciseBankCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
             final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
             final Integer calories = ParserUtils.extractItemCalories(params);
             if (calories == null) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_NO_CALORIES_INFO);
             }
-            switch (itemTypePrefix) {
-            case Command.COMMAND_PREFIX_EXERCISE_BANK:
-                if (ParserUtils.hasExtraDelimiters(params, AddExerciseBankCommand.EXPECTED_PREFIXES)) {
-                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                }
-                return new AddExerciseBankCommand(description, calories);
-            case Command.COMMAND_PREFIX_FOOD_BANK:
-                if (ParserUtils.hasExtraDelimiters(params, AddFoodBankCommand.EXPECTED_PREFIXES)) {
-                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                }
-                return new AddFoodBankCommand(description, calories);
-            default:
-                throw new ItemNotSpecifiedException();
+            return new AddExerciseBankCommand(description, calories);
+        } catch (ParserException e) {
+            return new InvalidCommand(e.getMessage());
+        }
+    }
+
+    protected Command parseAddToFoodBank(String params, String itemTypePrefix) {
+        try {
+            if (ParserUtils.hasExtraDelimiters(params, AddFoodBankCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
+            final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
+            final Integer calories = ParserUtils.extractItemCalories(params);
+            if (calories == null) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_NO_CALORIES_INFO);
+            }
+            return new AddFoodBankCommand(description, calories);
         } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
@@ -194,8 +196,6 @@ public class AddCommandParser implements Parser {
             throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_DAY_OF_THE_WEEK);
         }
     }
-
-
 
 
 }

@@ -15,18 +15,37 @@ interface Parser <<interface>> LOGIC_COLOUR
 
 ParserManager ..> ParserMessages : > uses
 ParserManager .down.> XYZCommandParser : > creates
-XYZCommandParser .left|> Parser
+XYZCommandParser ..right|> Parser
 XYZCommandParser .up.> ParserMessages : > uses
 
-XYZCommandParser ..> ParserUtils : > uses
-XYZCommandParser ..> XYZCommand : > creates
+
+note as N2 #white
+XYZCommand =
+AddCommand,
+DeleteCommand,
+ViewCommand, etc.
+end note
+
+XYZCommandParser .. N2 #transparent
+N2 .. XYZCommand #transparent
+
+
+XYZCommandParser .left.> ParserUtils : > uses
+XYZCommandParser ...> XYZCommand : > creates
 XYZCommand -right[hidden]- XYZCommandParser
 ParserManager -down[hidden]-XYZCommandParser
 
 ParserManager ..> Command :> returns
-XYZCommand .|> Command
+XYZCommand -|> Command
 
+note as N1 #white
+ParserMessages and ParserUtils
+are purely utility classes
+and contain static
+methods/constants only.
+end note
 
-
+ParserMessages.. N1 #transparent
+N1 .. ParserUtils #transparent
 
 @enduml

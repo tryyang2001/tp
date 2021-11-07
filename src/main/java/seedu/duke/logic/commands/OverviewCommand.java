@@ -1,6 +1,6 @@
 package seedu.duke.logic.commands;
 
-import seedu.duke.ui.Statistics;
+import seedu.duke.logic.Statistics;
 
 /**
  * Represents the command that when executed, displays the overview of calorie statistics.

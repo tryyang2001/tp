@@ -31,9 +31,19 @@ of Fitbot and some design considerations.
 - [Non-functional Requirements](#non-functional-requirements)
 - [Glossary](#glossary)
 - [Instruction for Manual Testing](#instructions-for-manual-testing)
-  - [Launch and Shut Down](#launch-and-shut-down)
+  - [Launch](#launch)
+  - [Setting Up Profile](#setting-up-profile)
+  - [Customising Profile](#customising-profile)
+  - [Recording Food Items](#recording-food-items)
+  - [Recording Exercise Items](#recording-exercise-items)
+  - [Scheduling Exercises](#scheduling-exercises)
+  - [Building Food Bank](#building-food-bank)
+  - [Building Exercise Bank](#building-exercise-bank)
+  - [Exiting Program](#exiting-program)
   - [Manipulating Data](#manipulating-data)
   - [Saving Data](#saving-data)
+
+
 
 ## Acknowledgements
 
@@ -68,7 +78,7 @@ Upon exiting of application:
 Class diagram of Main
 
 <p align="center" width="100%">
-  <img width="100%" src="images/MainClass.png" alt="Main Class Diagram"/>
+  <img width="80%" src="images/MainClass.png" alt="Main Class Diagram"/>
 </p>
 
 When _Fitbot_ is being started, the above instances are being created in the main class. 
@@ -112,7 +122,7 @@ A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Ge
 
 - Using these attributes it is able to calculate an estimated Basal Metabolic Rate (BMR) using the Harris-Benedict Equation based on your activity levels. Therefore, while calculating your net calories for the day, your BMR is factored in to give you an estimated calculation of your net calorie.
 
-- All the attributes inherit a `Verifiable` interface to enable us to check if the attributes are valid. This is important for the setting up of profile or the loading of profile from storage to ensure data integrity of the user's attributes.
+- All the attributes implement a `Verifiable` interface to enable us to check if the attributes are valid. This is important for the setting up of profile or the loading of profile from storage to ensure data integrity of the user's attributes.
 
 
 ### Data Component (ItemBank and Item)
@@ -129,11 +139,11 @@ in `Data` component, they form **_dependencies_** with those classes.
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.
 
 #### ItemBank class
-`ItemBank` is the **_highest [superclass](#_superclass_)_** that contains one attribute called `internalItems` which is an _array list_ of `item`.\
-`ItemList` being the **[_subclass_](#_subclass_)** of `ItemBank` and **_[superclass](#_superclass_)_** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a [dependency](#_dependency_) on `Item` class.\
-`FoodList` and `ExerciseList` are **[_subclass_](#_subclass_)** that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a [dependency](#_dependency_)
+`ItemBank` is the ***highest superclass*** that contains one attribute called `internalItems` which is an _array list_ of `Item`.\
+`ItemList` being the ***subclass*** of `ItemBank` and ***superclass*** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.\
+`FoodList` and `ExerciseList` are ***subclass***  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
 on `Food` class and `Exercise` class respectively.\
-`FutureExerciseList` is a **[_subclass_](#_subclass_)** that inherit all the methods available from `ExerciseList` and contains other methods that form a [dependency](#_dependency_)
+`FutureExerciseList` is a ***subclass***  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
 on `Exercise` class.
 
 #### Item class
@@ -144,9 +154,7 @@ An `Item` class contains two attributes, `name` which represents the name of the
 value must present when a `Food` object is created.\
 `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
 \
-Classes such as `ItemList` and `Item` are _**[abstract class](#_abstract-class_)**_, because they do not add meaningful value to the user if one tries to create them.
-
-
+Abstract classes of Items and ItemLists acts as an agent for meaningful subclasses of Food and Exercise to inherit its attributes and functionality for a more concise use-case.
 
 ### Ui Component
 
@@ -155,7 +163,7 @@ Below shows a class diagram of how `Ui` component interacts with the rest of the
 
 
 <p align="center" width="100%">
-  <img width="50%" src="images/UiClassDiagram.png" alt="Ui Class Diagram"/>
+  <img width="80%" src="images/UiClassDiagram.png" alt="Ui Class Diagram"/>
 </p>
 
 Ui Class also consists of `Statistics` Class, which is instantiated by `OverviewCommand` Class and returns messages to
@@ -169,7 +177,7 @@ Below is a high level class diagram of the `Logic` component, which shows how it
 like `Main` and `Data`.
 
 <p align="center" width="100%">
-  <img width="60%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
+  <img width="90%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
 </p>
 
 The general workflow of the `Logic` component is as follows:
@@ -195,16 +203,6 @@ they are able to parse user inputs. They also make use of utility methods stored
 all the parameters relevant to the command. After parsing the input, `XYZCommandParser` returns `XYZCommand` to `ParserManager`,
 which then returns the same `XYZCommand` to `Main`.
 
-[comment]: <> (@@author @tlyi)
-
-The sequence diagram below models the interactions between the different classes within the Logic component.
-This particular case illustrates how a user input add f/potato c/20 is parsed and process to execute the appropriate actions.
-
-<p align="center" width="100%">
-  <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
-</p>
-
-[comment]: <> (@@author)
 
 ### Storage component
 
@@ -247,7 +245,7 @@ This way of implementation ensures that each class has a _single responsibility_
 #### Create Profile (StartState)
 
 <p align="center" width="100%">
-  <img width="50%" src="images/StartState.png" alt="Architecture Sequence Diagram"/>
+  <img width="100%" src="images/StartState.png" alt="Start State Class Diagram"/>
 </p>
 
 - When the `StartState` method is being called, it instantiated and execute methods in the 7 classes, which are 
@@ -279,7 +277,7 @@ The purpose of this feature is to allow the user to add food item to the food li
 sequence diagram of the process of adding the food item. 
 
 When the user gives an input, the `parser` from the `Logic` component will try to read the input, and then call the correct
-command. In this case we assume that the correct format of **Add Food** input is given and the AddFoodCommand has already been
+command. In this case we assume that the correct format of **Add Food** input is given and the `AddFoodCommand` has already been
 called and created.
 
 Step 1: When the `execute` method in the `AddFoodCommand` is being called, it will first check that if the `isCalorieFromBank`
@@ -317,7 +315,7 @@ naturally sorted and thus no additional sorting required.
 The same reasoning for the class `ItemBank`, which is the superclass of `FoodList` and `ExerciseList`,the current implementation
 data structure is also an [Array List](#_array-list_). In the future increment, since the `ItemBank` need to perform query 
 operation frequently and the items inside need to be sorted alphabetically, the data structure of the attribute will be changed 
-to [TreeMap](#_tree-map_) to achieve O(1) query time.
+to [TreeMap](#_tree-map_) to achieve O(logn) query time.
 
 <p align="center" width="100%">
   <img width="60%" src="images/ItemBankCodeSnippet.png" alt="Item Bank Code Snippet"/>
@@ -381,7 +379,7 @@ Upon reaching the `decodeProfile(line)` method, the reference frame depicts a pr
 If the methods are unable to read the respective attribute from storage, an invalid attribute will be initialized. This then returns an initialized profile with invalid attributes for `StartState` to catch, allowing users to change
 their attributes instead of losing their entire profile data on startup. 
 
-### Create Profile If Not Exist On Startup
+#### Create Profile If Not Exist On Startup
 
 When user first enters _Fitbot_, the profile of the user is not set up (attributes may not exist). If user were to 
 interact with the application, there might be incorrect output, 
@@ -411,7 +409,7 @@ Step 4: The StartState will replace the reference of old profile instance with t
 shown by a cross at its lifeline. The profile in the StartState will then be returned to the dataManager.
 
 
-####Design Considerations
+#### Design Considerations
 
 
 
@@ -456,18 +454,6 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 2. Should be able to hold up to at least a year of data without a slowdown of performance in daily use.
 3. Any user that is comfortable with typing of speeds >55 words per minute would be able to accomplish these tasks faster than if they used a mouse to navigate.
 ## Glossary
-#### _dependency_ 
-In UML diagram, dependency is a directed relationship which is used to show that some elements or a set of elements requires, 
-needs or depends on other model elements for specification or implementation.
-#### _superclass_
-A class from which other classes inherit its code. The class that inherits its code will be able to access some/all 
-functionalities from the superclass.
-#### _subclass_  
-A class that inherits code from the other classes. Such class will be able to access some/all functionalities from its superclass, 
-but not vice versa.
-#### _abstract class_
-A class that cannot be created using constructor. Usually such class is a superclass, and it does not give meaningful 
-value if one tries to construct it.
 #### _self invocation_
 In UML sequence diagram, a method that does a calling to another of its own methods is called self-invocation. 
 #### _array list_
@@ -493,6 +479,32 @@ which will be sorted lexicographically. \
 
 Given below are some instructions that can be used to test the application manually. 
 
+### Launch 
+
+1. Initial launch
+   - Prerequisite: There is no Fitbot.jar file on your desktop.
+   - Test case:
+      1. Download the jar file and copy into an empty folder
+      2. Go to your command prompt, and go into your directory.
+      3. Run the command `java -jar Fitbot.jar`.
+
+   Expected: a data folder will be created in the file that contain Fitbot.jar.
+
+
+
+### Setting Up Profile
+
+2. Setting Up Profile
+   - Prerequisite: Fitbot.jar is in a folder with or without data folder.
+   - Test case:
+   1. Delete profile.txt from data folder if present.
+   2. Run _Fitbot_ using `java -jar Fitbot.jar`.
+
+   Expected: _Fitbot_will prompt for your name upon start up.
+
+
+### Customising Profile
+
 ### Recording Food Items:
 
 1. Adding a new Food Item when the Food List is empty:
@@ -505,7 +517,6 @@ Given below are some instructions that can be used to test the application manua
    Expected: No Food Item is added to the Food List. A message will show up and tell the user that 
    the date must be within 7 days of today.
    4. (more test cases )
-   
 2. Viewing a new Food Item:
    1. Test case: `view f/` when the Food List is empty\
    Expected: No food item shown. 
@@ -525,30 +536,64 @@ Given below are some instructions that can be used to test the application manua
    Expected: No food item is deleted. The output will show a message telling the user that the input index should be a
    number that is greater than 0.
     5. (more test cases)
+    
+### Recording Exercise Items
 
-### Launch and shut down
+### Scheduling Exercises
 
-1. Initial launch
-   - Prerequisite: There is no fitbot.jar file on your desktop.
-   - Test case:
-     1. Download the jar file and copy into an empty folder
-     2. Go to your command prompt, and go into your directory.
-     3. Run the command `java -jar Fitbot.jar`.
+
+
+### Building Food Bank
+1. Adding Food Bank Items
+   1. Prerequisite: Food Bank does not contain a Food Item with the name "potato".
+   2. Test case: `add fbank/potato` \
+      Expected: Error as the item's calorie details were not provided. 
+   3. Test case: `add fbank/potato c/250`\
+      Expected: Food Item with name 'potato' and calories '250' has been added to Food Bank.
+   4. Test case: `add f/potato` \
+      Expected: Food Item with name 'potato' and calories '250' has been added to Food List. User no longer has
+      to provide the calorie details for 'potato' as it can be retrieved from the Food Bank.
+   5. Test case: `add fbank/potato c/300`\
+      Expected: Error as the name "potato" already exists in the Food Bank, and all names in the Food Bank need to be unique.
+2. Viewing Food Bank Items 
+   1. Test case: `view fbank/` \
+      Expected: Shows the list of Food Items in the Food Bank.
+   2. Test case: `view fbank/a` \
+      Expected: Invalid format. The command word `view` must be followed by `fbank/` exactly.
+3. Editing Food Bank Items
+   1. Prerequisite: Food Bank contains at least one Item. To find the index of the Item you want to edit, use `view fbank/`.
+   2. Test case: `edit fbank/` \
+      Expected: Error as there is no input for item number.
+   3. Test case: `edit fbank/1` \
+      Expected: Error as you need to specify what to edit about this Item.
+   4. Test case: `edit fbank/1 n/tomato` \
+      Expected: Item number 1 in the Food Bank has been changed to 'tomato' (provided that you do not already have an Item named 'tomato' in the Food Bank).
+4. Deleting Food Bank Items
+   1. Prerequisite: Food Bank contains at least 3 Items. To find the index of the Item you want to delete, use `view fbank/`.
+   2. Test case: `delete fbank/1,2` \
+      Expected: Food Bank Items 1 and 2 have been deleted.
+   3. Test case: `delete fbank/1` \
+      Expected: Food Bank Item 1 has been deleted.
+   4. Test case: `delete fbank/x`, where x is any number bigger than the size of the list. \
+      Expected: Error as x is out of the range of the item list.
+   5. Test case: `delete fbank/all` \
+      Expected: All items in the Food Bank have been deleted.
+
+
+
+### Building Exercise Bank
+
+
+### Exiting Program
+1. Exiting Program while setting name when creating a new profile
+   1. Prerequisite: Make sure the profile.txt file is not created. If you have already created the file, you can manually
+      delete it.
+   2. Test case: `bye` when being asked to provide a name\
+      Expected: A question shows up to confirm with the user whether the user wants to exit the program or wants to set his or her
+      name as "bye". The user then need to type 1 to exit the program, 2 to set the name as "bye" and any other key to go back.
+   3. (more test cases)
    
-   Expected: a data folder will be created in the file that contain Fitbot.jar.
-
-### Setting Up Profile
-
-2. Setting Up Profile
-    - Prerequisite: Fitbot.jar is in a folder with or without data folder.
-    - Test case:
-   1. Delete profile.txt from data folder if present.
-   2. Run _Fitbot_ using `java -jar Fitbot.jar`.
-   
-   Expected: _Fitbot_will prompt for your name upon start up.
-   
-
-### Manipulating data
+### Manipulating Data
 
 1. Data is saved whenever data is manipulated.
     - Prerequisite: Data folder with food_list.txt already present.
@@ -567,10 +612,10 @@ Given below are some instructions that can be used to test the application manua
     - Prerequisite: Data folder with profile.txt already present. (You have run through the profile creation at least once)
     - Procedures:
       1. Navigate to the `/data` folder which is in the same directory as your _Fitbot.jar_
-      2. Open the profile.txt with your editor of choice and view the attributes. It should look something like this: _john|180.0|65.0|M|22|300|2_
+      2. Open the profile.txt with your editor of choice and view the attributes. It should look something like this: `john|180.0|65.0|M|22|300|2`
       
       ![img_1.png](images/profile_text_file.png)
-      4. Edit the height attribute to reflect this: _john|BUG|65.0|M|22|300|2_
+      3. Edit the height attribute to reflect this: `john|BUG|65.0|M|22|300|2`
       
       ![img.png](images/profile_text_file_modified.png)
       4. Save the file and try to relaunch the application.
@@ -580,7 +625,7 @@ Given below are some instructions that can be used to test the application manua
     _Note: This will only work if there are exactly 6 '|' delimiters. Any additional delimiters added will render the entire line invalid and unreadable, causing you to lose all your profile data and restarting the entire profile creation step._ 
 
 
-### Saving of Data
+### Saving Data
 
 1. Saving data in file
     - Prerequisite: Data folder is present with items already added to lists. (We will be using _exercise_list.txt_ as an example.)

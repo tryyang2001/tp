@@ -14,6 +14,7 @@ public class ExtraParamException extends Exception {
 
     /**
      * Constructor with specific error message.
+     *
      * @param errorMessage Error message to be shown when exception is caught and printed
      */
     public ExtraParamException(String errorMessage) {

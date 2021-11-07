@@ -1,6 +1,5 @@
 package seedu.duke.logic.parser;
 
-import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.commands.CommandMessages;
@@ -21,16 +20,13 @@ public class UpdateProfileParser implements Parser {
         if (params.trim().isEmpty()) { //no additional parameters, assumed to be view profile command
             return new ProfileCommand();
         }
-
-        if (ParserUtils.getNumberOfCorrectParamsDetected(params, ProfileUpdateCommand.EXPECTED_PREFIXES) == 0) {
-            return new InvalidCommand(CommandMessages.MESSAGE_PROFILE_COMMAND_INVALID_FORMAT);
-        }
-
         if (ParserUtils.hasExtraDelimiters(
                 params, ProfileUpdateCommand.EXPECTED_PREFIXES)) {
             return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
         }
-
+        if (ParserUtils.getNumberOfCorrectParamsDetected(params, ProfileUpdateCommand.EXPECTED_PREFIXES) == 0) {
+            return new InvalidCommand(CommandMessages.MESSAGE_PROFILE_COMMAND_INVALID_FORMAT);
+        }
         try {
             final String name = ParserUtils.extractName(params);
             final Double height = ParserUtils.extractHeight(params);
