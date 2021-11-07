@@ -52,7 +52,7 @@ public class ProfileDecoder {
             final ActivityFactor activityFactor = decodeActivityFactor(profileDetails[6]);
             profile.setProfile(name, height, weight, gender, age, calorieGoal, activityFactor);
             return profile;
-        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new InvalidDataException(StorageManager.FILENAME_PROFILE, line);
         }
     }
