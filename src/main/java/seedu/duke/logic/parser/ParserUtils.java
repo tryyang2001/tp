@@ -1,6 +1,5 @@
 package seedu.duke.logic.parser;
 
-import seedu.duke.data.profile.Profile;
 import seedu.duke.data.profile.utilities.ProfileUtils;
 import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.commands.CommandMessages;

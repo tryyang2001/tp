@@ -65,7 +65,7 @@ public class ParserMessages {
     protected static final String MESSAGE_ERROR_INVALID_GENDER = "Please input your gender as M or F!";
     protected static final String MESSAGE_ERROR_EXTRA_PARAMETERS =
             "Error! There were unnecessary parameters detected. "
-            + "Please follow the command format and try again!";
+                    + "Please follow the command format and try again!";
     public static final String MESSAGE_ERROR_DUPLICATE_NUMBERS =
             "Duplicate numbers found! Please input a list of unique numbers.";
 

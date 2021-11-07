@@ -31,7 +31,7 @@ public class DeleteExerciseCommand extends Command {
     }
 
     public DeleteExerciseCommand(boolean isClear) {
-        this.itemIndex = -1;
+        this.isClear = isClear;
     }
 
     @Override
