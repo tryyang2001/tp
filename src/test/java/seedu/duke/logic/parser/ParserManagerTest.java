@@ -159,8 +159,6 @@ class ParserManagerTest {
         parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_NO_DATE, "delete f/1",
                 "delete f/1 t/2359");
         parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_NO_TIME, "delete f/1 d/25-12-2021");
-        parseAndAssertIncorrectWithMessage(ParserMessages.MESSAGE_ERROR_NO_ITEM_NUM,
-                "delete f/ d/25-12-2021 t/2359");
     }
 
     @Test

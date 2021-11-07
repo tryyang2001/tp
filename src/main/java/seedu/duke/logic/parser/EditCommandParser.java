@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.logging.Logger;
 
 //@@author xingjie99
+
 /**
  * Parses input arguments for Edit commands.
  */
@@ -26,9 +27,9 @@ public class EditCommandParser implements Parser {
             final String itemTypePrefix = ParserUtils.extractItemTypePrefix(params);
             switch (itemTypePrefix) {
             case Command.COMMAND_PREFIX_EXERCISE_BANK:
-                //Fallthrough
+                return parseEditExerciseBank(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_FOOD_BANK:
-                return parseEditBank(params, itemTypePrefix);
+                return parseEditFoodBank(params, itemTypePrefix);
             case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
                 return parseEditUpcomingExercise(params, itemTypePrefix);
             default:
@@ -41,16 +42,17 @@ public class EditCommandParser implements Parser {
     }
 
     /**
-     * Parses input arguments for Edit commands for banks.
+     * Parses input arguments for Edit command for exercise bank.
      *
-     * @param params User input arguments
-     * @param itemTypePrefix Prefix of the banks
+     * @param params         User input arguments
+     * @param itemTypePrefix Prefix of the exercise banks
      * @return Command to execute
-     * @throws ItemNotSpecifiedException Error when list is not specified
      */
-    protected Command parseEditBank(String params, String itemTypePrefix)
-            throws ItemNotSpecifiedException {
+    protected Command parseEditExerciseBank(String params, String itemTypePrefix) {
         try {
+            if (ParserUtils.hasExtraDelimiters(params, EditExerciseBankCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
             if (ParserUtils.getNumberOfCorrectParamsDetected(params,
                     Command.COMMAND_PREFIX_NAME, Command.COMMAND_PREFIX_CALORIES) == 0) {
@@ -58,20 +60,32 @@ public class EditCommandParser implements Parser {
             }
             final String description = ParserUtils.extractName(params);
             final Integer calories = ParserUtils.extractItemCalories(params);
-            switch (itemTypePrefix) {
-            case Command.COMMAND_PREFIX_EXERCISE_BANK:
-                if (ParserUtils.hasExtraDelimiters(params, EditExerciseBankCommand.EXPECTED_PREFIXES)) {
-                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                }
-                return new EditExerciseBankCommand(itemIndex, description, calories);
-            case Command.COMMAND_PREFIX_FOOD_BANK:
-                if (ParserUtils.hasExtraDelimiters(params, EditFoodBankCommand.EXPECTED_PREFIXES)) {
-                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                }
-                return new EditFoodBankCommand(itemIndex, description, calories);
-            default:
-                throw new ItemNotSpecifiedException();
+            return new EditExerciseBankCommand(itemIndex, description, calories);
+        } catch (ParserException e) {
+            return new InvalidCommand(e.getMessage());
+        }
+    }
+
+    /**
+     * Parses input arguments for Edit command for food bank.
+     *
+     * @param params         User input arguments
+     * @param itemTypePrefix Prefix of food bank
+     * @return Command to execute
+     */
+    protected Command parseEditFoodBank(String params, String itemTypePrefix) {
+        try {
+            if (ParserUtils.hasExtraDelimiters(params, EditFoodBankCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
+            final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
+            if (ParserUtils.getNumberOfCorrectParamsDetected(params,
+                    Command.COMMAND_PREFIX_NAME, Command.COMMAND_PREFIX_CALORIES) == 0) {
+                return new InvalidCommand(CommandMessages.MESSAGE_EDIT_BANK_NEED_DETAILS);
+            }
+            final String description = ParserUtils.extractName(params);
+            final Integer calories = ParserUtils.extractItemCalories(params);
+            return new EditFoodBankCommand(itemIndex, description, calories);
         } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }
@@ -80,34 +94,27 @@ public class EditCommandParser implements Parser {
     /**
      * Parses input arguments for Edit commands for upcoming exercise.
      *
-     * @param params User input arguments
+     * @param params         User input arguments
      * @param itemTypePrefix Prefix of upcoming exercise
      * @return Command to execute
-     * @throws ItemNotSpecifiedException Error when list is not specified
      */
     protected Command parseEditUpcomingExercise(String params, String itemTypePrefix)
             throws ItemNotSpecifiedException {
         try {
+            if (ParserUtils.hasExtraDelimiters(params, EditFutureExerciseCommand.EXPECTED_PREFIXES)) {
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
+            }
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
             if (ParserUtils.getNumberOfCorrectParamsDetected(params,
                     Command.COMMAND_PREFIX_NAME, Command.COMMAND_PREFIX_CALORIES, Command.COMMAND_PREFIX_DATE) == 0) {
                 return new InvalidCommand(CommandMessages.MESSAGE_EDIT_UPCOMING_EXERCISE_LIST_NEED_DETAILS);
             }
-
             final String description = ParserUtils.extractName(params);
             final Integer calories = ParserUtils.extractItemCalories(params);
             final LocalDate date = ParserUtils.hasRequiredParams(params, Command.COMMAND_PREFIX_DATE)
                     ? ParserUtils.extractDate(params, false)
                     : null;
-            switch (itemTypePrefix) {
-            case Command.COMMAND_PREFIX_UPCOMING_EXERCISE:
-                if (ParserUtils.hasExtraDelimiters(params, EditFutureExerciseCommand.EXPECTED_PREFIXES)) {
-                    return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
-                }
-                return new EditFutureExerciseCommand(itemIndex, description, calories, date);
-            default:
-                throw new ItemNotSpecifiedException();
-            }
+            return new EditFutureExerciseCommand(itemIndex, description, calories, date);
         } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
         }

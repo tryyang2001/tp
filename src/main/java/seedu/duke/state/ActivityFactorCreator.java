@@ -1,4 +1,4 @@
-package seedu.duke.main;
+package seedu.duke.state;
 
 import seedu.duke.data.profile.attributes.ActivityFactor;
 import seedu.duke.data.profile.utilities.ProfileUtils;
@@ -16,7 +16,7 @@ public class ActivityFactorCreator extends AttributeCreator {
     public static final String MESSAGE_INVALID_POSITIVE_INT_INPUT = "Invalid input, "
             + "please input a valid positive whole number";
     private static final String MESSAGE_INTRO_ACTIVITY_FACTOR = "In terms of activity level, how active are you?" + LS
-            + "Based on the rubics below, please key in 1 to 5 based on how active you are." + LS
+            + "Based on the rubrics below, please key in 1 to 5 based on how active you are." + LS
             + "1 -> Sedentary - Little or no exercise" + LS
             + "2 -> Lightly Active - Light exercise or sports, around 1-3 days a week" + LS
             + "3 -> Moderately Active - Regular exercise or sports, around 3-5 days a week" + LS

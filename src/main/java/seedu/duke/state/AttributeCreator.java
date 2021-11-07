@@ -1,4 +1,4 @@
-package seedu.duke.main;
+package seedu.duke.state;
 
 import seedu.duke.ui.Ui;
 

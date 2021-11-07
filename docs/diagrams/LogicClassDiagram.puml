@@ -6,23 +6,33 @@ hide empty members
 skinparam minclassWidth 120
 skinparam Padding 5
 
+class StorageManager STORAGE_COLOUR
+class DataManager DATA_COLOUR
+class LogicManager LOGIC_COLOUR
 class ParserManager LOGIC_COLOUR
 class CommandResult LOGIC_COLOUR
 class XYZCommand LOGIC_COLOUR
 abstract class "{abstract}\nCommand" AS Command LOGIC_COLOUR
 
+
+LogicManager --> ParserManager
+LogicManager --> StorageManager
+LogicManager -> DataManager
+
 ParserManager ..> XYZCommand : > creates
 XYZCommand --|> Command
 Command .right.> CommandResult : > produces
 
-class Data DATA_COLOUR
+
 class Main MAIN_COLOUR
 
-Main ..> ParserManager : > feeds user input
+Main --> LogicManager : > instantiates and \n feeds user input
+Command --> DataManager : > modifies
 ParserManager ..> Command : > returns
-Command --> Data : > modifies
-Main ..> Command : > executes
+StorageManager ..> DataManager : > saves
+LogicManager ..> Command : > executes
 Main ..> CommandResult : > retrieves
+
 
 
 @enduml

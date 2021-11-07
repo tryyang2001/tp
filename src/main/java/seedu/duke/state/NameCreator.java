@@ -1,4 +1,4 @@
-package seedu.duke.main;
+package seedu.duke.state;
 
 import seedu.duke.data.profile.attributes.Name;
 import seedu.duke.data.profile.utilities.ProfileUtils;
@@ -20,7 +20,7 @@ public class NameCreator extends AttributeCreator {
     public static final String SECOND_OPTION = "2";
     private Name name = new Name();
     private static final String MESSAGE_INTRO_NAME = "What's your name?";
-    private static final String MESSAGE_NAME = "Nice name you have there! Hello %s";
+    private static final String MESSAGE_NAME = "Nice name you have there! Hello %s.";
 
     public NameCreator(Ui ui) {
         super(ui);
