@@ -570,18 +570,23 @@ An exercise item for the future has been added:
 __________________________________________________________________________________________________________
 ```
 
+
+
 #### 4.4.2 Adding Recurring Exercise Items `add r/`
 
 This command is used to schedule exercises that you do on a regular basis. This can be particularly useful if you have weekly trainings to record!
 
-Format: `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK` adds recurring exercise with its respective calories burnt to the upcoming list.\
+Format: `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK {,DAY_OF_THE_WEEK,...}` adds recurring exercise with its respective calories burnt to the Upcoming Exercise List. 
+You may specify which day of the week by providing multiple `DAY_OF_THE_WEEK` that are separated by commas.\
 ❗ `START_DATE` and `END_DATE` must be in the future.\
 ❗ `START_DATE` must be before `END_DATE`.\
-❗ `START_DATE` and `END_DATE` must follow `DD-MM-YYYY` format.
+❗ `START_DATE` and `END_DATE` must follow `DD-MM-YYYY` format.\
+❗ `DAY_OF_THE_WEEK` must be an integer between 1 and 7, representing Monday to Sunday respectively.
 ```text
-add r/running c/200 :/01-11-2021 -/30-11-2021 @/14
+add r/running c/200 :/01-12-2021 -/30-12-2021 @/1,4
 __________________________________________________________________________________________
-Recurring exercise item for the future has been added
+Recurring exercise item for the future has been added!
+You can view your upcoming exercises by typing "view u/"!
 __________________________________________________________________________________________
 ```
 
@@ -606,9 +611,10 @@ Format: `edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` edits the n<
 ❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.```text
 edit u/1 c/150 d/30-11-2021
 ```text
+edit u/1 c/150 d/30-11-2021
 __________________________________________________________________________________________
-Exercise item number 1 has been changed to:
-  trg (150cal)
+Item number 1 in upcoming exercises has been changed to:
+	hiit (150 cal) @ 30 Nov 2021
 __________________________________________________________________________________________
 ```
 
@@ -624,8 +630,8 @@ Example:
 delete u/1
 __________________________________________________________________________________________
 An exercise item for the future has been deleted:
-    running (300 cal)
-Number of exercise item(s) left: 1
+    hiit (150 cal) @ 30 Nov 2021
+Number of upcoming exercise(s) left: 1
 __________________________________________________________________________________________
 ```
 💡   **Tip:** If you wish to remove all the Exercise Items from the Upcoming Exercise List, there is a shortcut command: `delete u/all`.
