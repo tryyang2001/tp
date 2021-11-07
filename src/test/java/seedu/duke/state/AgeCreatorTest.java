@@ -17,7 +17,7 @@ class AgeCreatorTest {
 
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    private final String LS = System.lineSeparator();
+    private final String ls = System.lineSeparator();
 
     @BeforeEach
     public void setUp() {
@@ -25,8 +25,8 @@ class AgeCreatorTest {
     }
 
     @Test
-    void setAge_oneInput_throwsException()
-            throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    void setAge_oneInvalidInput_throwsException()
+            throws NoSuchMethodException {
         Method method = ageCreator.getClass().getDeclaredMethod("setAge",String.class);
         method.setAccessible(true);
         Assertions.assertThrows(InvocationTargetException.class, () -> method.invoke(ageCreator,"adg"));
@@ -34,7 +34,7 @@ class AgeCreatorTest {
 
     @Test
     void setAge_emptyInput_throwsException()
-            throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+            throws NoSuchMethodException {
         Method method = ageCreator.getClass().getDeclaredMethod("setAge",String.class);
         method.setAccessible(true);
         Assertions.assertThrows(InvocationTargetException.class, () -> method.invoke(ageCreator,""));
@@ -45,11 +45,12 @@ class AgeCreatorTest {
         Method method = ageCreator.getClass().getDeclaredMethod("setAge",String.class);
         method.setAccessible(true);
         Assertions.assertThrows(InvocationTargetException.class, () -> method.invoke(ageCreator,"    "));
-        Assertions.assertThrows(InvocationTargetException.class, () -> method.invoke(ageCreator," " + LS));
+        Assertions.assertThrows(InvocationTargetException.class, () -> method.invoke(ageCreator," " + ls));
     }
 
     @Test
-    void checkAge_ageInstance_validMessage() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    void checkAge_ageInstance_validMessage()
+            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method method = ageCreator.getClass().getDeclaredMethod("setAge",String.class);
         Method checkMethod = ageCreator.getClass().getDeclaredMethod("checkAge");
         method.setAccessible(true);
@@ -57,17 +58,17 @@ class AgeCreatorTest {
         checkMethod.setAccessible(true);
         checkMethod.invoke(ageCreator);
         String expected = "_________________________________________________________________"
-                + "_________________________________________" + LS
-                + "Your age cannot be this value." + LS
-                + "Maybe you can try a whole number from 10 to 150." + LS
+                + "_________________________________________" + ls
+                + "Your age cannot be this value." + ls
+                + "Maybe you can try a whole number from 10 to 150." + ls
                 + "___________________________________________________________"
                 + "_______________________________________________";
         Assertions.assertEquals(expected, outputStreamCaptor.toString()
                 .trim());
-        String expected1 = expected + LS +
-                "_________________________________________________" +
-                "_________________________________________________________" + LS +
-                "You are 20 years old.";
+        String expected1 = expected + ls
+                + "_________________________________________________"
+                + "_________________________________________________________" + ls
+                + "You are 20 years old.";
         method.invoke(ageCreator,"20");
         checkMethod.invoke(ageCreator);
         Assertions.assertEquals(expected1, outputStreamCaptor.toString()

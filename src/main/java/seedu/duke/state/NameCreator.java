@@ -35,23 +35,34 @@ public class NameCreator extends AttributeCreator {
         while (!name.isValid()) {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_NAME);
             String userInput = ui.getUserInput().trim();
-            ui.checkEmptyUserInput(userInput);
-            userInput = checkAndConfirmInputBye(userInput);
-            if (userInput.equals(CHECK_REPEAT_MESSAGE)) {
-                ui.formatMessageWithTopDivider();
+            if (setName(userInput)) {
                 continue;
             }
-            name.setName(userInput);
-            if (name.isValid()) {
-                ui.formatMessageWithTopDivider(
-                        String.format(MESSAGE_NAME,
-                                name.getName()));
-            } else {
-                ui.formatMessageWithTopDivider(ProfileUtils.ERROR_NAME);
-            }
+            checkName();
         }
         assert name.isValid() : " name is valid";
         return name;
+    }
+
+    private void checkName() {
+        if (name.isValid()) {
+            ui.formatMessageWithTopDivider(
+                    String.format(MESSAGE_NAME,
+                            name.getName()));
+        } else {
+            ui.formatMessageWithTopDivider(ProfileUtils.ERROR_NAME);
+        }
+    }
+
+    private boolean setName(String userInput) throws MissingParamException {
+        ui.checkEmptyUserInput(userInput);
+        userInput = checkAndConfirmInputBye(userInput);
+        if (userInput.equals(CHECK_REPEAT_MESSAGE)) {
+            ui.formatMessageWithTopDivider();
+            return true;
+        }
+        name.setName(userInput);
+        return false;
     }
 
     private String checkAndConfirmInputBye(String userInput) {
