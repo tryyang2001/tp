@@ -552,10 +552,11 @@ Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Upcoming Exercise with i
 `add e/hiit c/290` adds record of exercise done: hiit with 290 calories burnt to the upcoming exercise list.
 ```text
 add e/hiit c/290 d/01-01-2022
-__________________________________________________________________________________________
+__________________________________________________________________________________________________________
 An exercise item for the future has been added:
-    hiit (290 cal)
-   ```
+	hiit (290 cal) @ 01 Jan 2022
+__________________________________________________________________________________________________________
+```
 
 #### 4.4.2 Adding Recurring Exercise Items `add r/`
 

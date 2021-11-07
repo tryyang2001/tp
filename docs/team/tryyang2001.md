@@ -16,6 +16,9 @@ Below are all the contributions done by the author to Fitbot.
   of suppers taken. 
 - Highlights: This feature adds a food item to the food list, and ensures that the food items are sorted according to their date 
   time. 
+- Pull requests: [#34](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/34), [#40](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/40), 
+  [#46](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/46), [#81](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/81)
+  [#82](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/82), [#98](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/98)
 
 #### **New Feature**: View Food Item
 - What it does: This feature allows users to view all the food items he or she added. In addition to that, it also shows the total 
@@ -25,6 +28,9 @@ Below are all the contributions done by the author to Fitbot.
   whenever necessary.
 - Highlights: This feature will show a list of food consumed by the users within 7 days of today. The food items are separated with 
   different date and time period, covered with nice frames.
+- - Pull requests: [#34](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/34), [#40](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/40),
+    [#46](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/46), [#81](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/81)
+    [#82](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/82), [#98](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/98)
 
 #### **New Feature**: Delete Food Item
 - What it does: This feature allows users to delete unwanted food items. 
@@ -33,13 +39,16 @@ Below are all the contributions done by the author to Fitbot.
 - Highlights: This feature will delete the food item specified by the user. It will first check if the food item with the item index, date and time given
   by the user are correct and existing, then delete the corresponding food item. This feature also supports clearing the food list when the users want to 
   have a new food list.
+- Pull requests: [#34](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/34), [#40](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/40),
+  [#46](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/46), [#81](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/81)
+  [#82](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/82), [#98](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/98)
 
 #### **Code Contributed**:
 Here is the [link](https://nus-cs2113-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&since=2021-09-25&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=tryyang2001&tabRepo=AY2122S1-CS2113T-F14-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false) 
 to see the code contributed by the author. 
 
 #### **Project Management**:
-- Creates Github organization for the team
+- Creates Github organization for the team 
 - Helps to set up Github team repository
 - Helps in maintaining issue tracker
 - Helps to edit the code in the gradlew checkstyle file to fix the bug of array indentation
@@ -47,25 +56,46 @@ to see the code contributed by the author.
 - Helps to publish release in team repo
 
 #### **Enhancements To Existing Features**:
+##### **Delete exercise according to date**
+- Since exercises stored in the exercise list are split according to their date, users are now required to delete the exercise
+  by specifying the index and the date.
+- Pull request: [#98](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/98)
+
 ##### **Create Item class and ItemList class to make the code more OOP**
 - Applies inheritance in Food, Exercise, FoodList and ExerciseList classes, helps to extract common methods, refactor 
   codes to improve efficiency, adds javaDoc to all public methods and most of the private methods, and standardizes the 
   code style.
+- Pull request: [#81](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/81)
+  [#82](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/82), [#98](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/98), [#118](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/118)
+
+##### **Implement filtering items within 7 days of today tom improve code efficiency**
+- When the program starts, filters the food list and exercise list to only take in items that are within 7 days of today (including today)
+  so that the users can only view the food and exercise items taken within this period. 
+- Pull request: [#122](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/122), [#140](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/140)
+
+##### **Checking for Food and Exercise Item data validity**
+- Checks whether the date and input calorie from a food or exercise item are valid.
+- Pull request: [#220](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/220)
 
 #### **Documentation**:
 ##### **Contribution to User Guide**
-- Writes documentation for Section 3 (Terminology), 4.2 (Recording Food) and 4.3 (Recording Exercise)
-- Ensures all the links provided in UG are valid
-- Helps to edit Section 7 (Command Summary)
+- Writes documentation for Section 3 (Terminology), 4.2 (Recording Food) and 4.3 (Recording Exercise) [#124](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/124)
+- Fixes formatting issue in UG [#55](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/55), [#56](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/56), [#57](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/57),
+- Ensures all the links provided in UG are valid [#161](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/161)
+- Other Pull request: [#137](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/137)
+  
+  
 
 ##### **Contribution to Documentation Guide**
-- Writes simple introduction, creates content page draft, ensures hyperlinks provided in DG are valid
+- Writes simple introduction, creates content page draft, ensures hyperlinks provided in DG are valid [#132](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/132)
 - Diagrams drawn:
-  - Architecture diagram
-  - ItemBank and Item class diagram
+  - Architecture diagram [#106](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/106)
+  - ItemBank and Item class diagram [#106](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/106), [#183](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/183)
   - Add Food Item sequence diagram
-- Writes design details for Data Component (ItemBank and Item), and the implementation details for Add Food Item. 
-- Writes documentation in glossary
+- Writes design details for Data Component (ItemBank and Item) [#133](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/133)
+- Writes implementation details and design considerations for Add Food Item [#111](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/111)
+- Writes documentation in glossary [#111](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/111), [#137](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/137)
 
 #### **Community**:
-
+- PRs reviewed (with non-trivial comments): [#32](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/32), [#33](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/33), [#35](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/35), [#36](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/36), [#39](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/39), [#43](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/43), [#80](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/80), [#216](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/216),
+- Reported bugs and suggestions for other teams in the class: [Team ConTech Developer Guide Reviews](https://github.com/nus-cs2113-AY2122S1/tp/pull/24)

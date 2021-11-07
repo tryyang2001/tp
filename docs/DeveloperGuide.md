@@ -31,9 +31,10 @@ of Fitbot and some design considerations.
 - [Non-functional Requirements](#non-functional-requirements)
 - [Glossary](#glossary)
 - [Instruction for Manual Testing](#instructions-for-manual-testing)
-  - [Launch and Shut Down](#launch-and-shut-down)
-  - [Manipulating Data](#manipulating-data)
-  - [Saving Data](#saving-data)
+  -[Recording Food Item](#recording-food-items) 
+    - [Launch and Shut Down](#launch-and-shut-down)
+    - [Manipulating Data](#manipulating-data)
+    - [Saving Data](#saving-data)
 
 ## Acknowledgements
 
@@ -493,7 +494,6 @@ Given below are some instructions that can be used to test the application manua
    Expected: No Food Item is added to the Food List. A message will show up and tell the user that 
    the date must be within 7 days of today.
    4. (more test cases )
-   
 2. Viewing a new Food Item:
    1. Test case: `view f/` when the Food List is empty\
    Expected: No food item shown. 
@@ -513,6 +513,16 @@ Given below are some instructions that can be used to test the application manua
    Expected: No food item is deleted. The output will show a message telling the user that the input index should be a
    number that is greater than 0.
     5. (more test cases)
+
+
+### Exiting Program 
+1. Exiting Program while setting name when creating a new profile
+    1. Prerequisite: Make sure the profile.txt file is not created. If you have already created the file, you can manually
+   delete it.
+    2. Test case: `bye` when being asked to provide a name\
+   Expected: A question shows up to confirm with the user whether the user wants to exit the program or wants to set his or her
+   name as "bye". The user then need to type 1 to exit the program, 2 to set the name as "bye" and any other key to go back.
+    3. (more test cases)
 
 ### Launch and shut down
 
