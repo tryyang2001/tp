@@ -62,7 +62,7 @@ public class AddCommandParser implements Parser {
             logger.log(Level.WARNING, String.format("date detected is: %s", date));
             if (ParserUtils.isSevenDaysBeforeToday(date)) {
                 return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
-                        LocalDate.now().minusDays(7).format(DATE_FORMAT),
+                        LocalDate.now().minusDays(6).format(DATE_FORMAT),
                         LocalDate.now().format(DATE_FORMAT)));
             }
             if (ParserUtils.isFutureDate(date)) {
@@ -91,7 +91,7 @@ public class AddCommandParser implements Parser {
             }
             if (!ParserUtils.isWithinSevenDaysFromToday(dateTime.toLocalDate())) {
                 return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
-                        LocalDate.now().minusDays(7).format(DATE_FORMAT),
+                        LocalDate.now().minusDays(6).format(DATE_FORMAT),
                         LocalDate.now().format(DATE_FORMAT)));
             }
             return new AddFoodCommand(description, calories, dateTime);
