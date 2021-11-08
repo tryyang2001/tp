@@ -4,10 +4,13 @@
 !include style.puml
 hide footbox
 
+group sd Checks for file and create directory if missing
 participant "profileStorage:ProfileStorage" As ProfileStorage STORAGE_COLOUR
 participant ":FileChecker" As FileChecker STORAGE_COLOUR
 participant "file:File" As File STORAGE_COLOUR
 
+
+activate ProfileStorage STORAGE_COLOUR
 ProfileStorage -> FileChecker: createFileIfMissing(filePath)
 activate FileChecker STORAGE_COLOUR
     FileChecker -> File **: new File(filePath)
@@ -26,4 +29,5 @@ activate FileChecker STORAGE_COLOUR
     FileChecker --> ProfileStorage
 deactivate
 
+end
 @enduml

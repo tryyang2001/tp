@@ -7,63 +7,45 @@ import seedu.duke.data.item.exercise.FutureExerciseList;
 import seedu.duke.data.item.food.FoodList;
 import seedu.duke.data.profile.Profile;
 import seedu.duke.storage.data.exercise.exercisebank.ExerciseBankStorage;
-import seedu.duke.storage.data.exercise.exercisebank.ExerciseBankStorageInterface;
+import seedu.duke.storage.data.exercise.exercisebank.ExerciseBankStorageUtils;
+import seedu.duke.storage.data.exercise.exerciselist.ExerciseListStorageUtils;
 import seedu.duke.storage.data.exercise.exerciselist.ExerciseListStorage;
-import seedu.duke.storage.data.exercise.exerciselist.ExerciseStorageInterface;
-import seedu.duke.storage.data.exercise.futurelist.FutureExerciseListStorage;
-import seedu.duke.storage.data.exercise.futurelist.UpcomingStorageInterface;
+import seedu.duke.storage.data.exercise.futurelist.FutureExerciseListStorageUtils;
+import seedu.duke.storage.data.exercise.futurelist.UpcomingStorage;
 import seedu.duke.storage.data.food.foodbank.FoodBankStorage;
-import seedu.duke.storage.data.food.foodbank.FoodBankStorageInterface;
+import seedu.duke.storage.data.food.foodbank.FoodBankStorageUtils;
 import seedu.duke.storage.data.food.foodlist.FoodListStorage;
-import seedu.duke.storage.data.food.foodlist.FoodStorageInterface;
+import seedu.duke.storage.data.food.foodlist.FoodListStorageUtils;
 import seedu.duke.storage.data.profile.ProfileStorage;
-import seedu.duke.storage.data.profile.ProfileStorageInterface;
+import seedu.duke.storage.data.profile.ProfileStorageUtils;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 
 /**
  * Manages the loading and saving from various storage subclasses.
  */
-public class StorageManager implements ProfileStorageInterface, FoodBankStorageInterface,
-        ExerciseBankStorageInterface, ExerciseStorageInterface, UpcomingStorageInterface, FoodStorageInterface {
-
-    public static final String FILE_TEXT_DELIMITER = "\\|";
-
-    public static final String FILEPATH = "./data/";
-    public static final String FILENAME_PROFILE = "profile.txt";
-    public static final String FILEPATH_PROFILE = FILEPATH + FILENAME_PROFILE;
-    public static final String FILENAME_BANK_FOOD = "food_bank.txt";
-    public static final String FILEPATH_BANK_FOOD = FILEPATH + FILENAME_BANK_FOOD;
-    public static final String FILENAME_LIST_FOOD = "food_list.txt";
-    public static final String FILEPATH_LIST_FOOD = FILEPATH + FILENAME_LIST_FOOD;
-    public static final String FILENAME_BANK_EXERCISE = "exercise_bank.txt";
-    public static final String FILEPATH_BANK_EXERCISE = FILEPATH + FILENAME_BANK_EXERCISE;
-    public static final String FILENAME_LIST_EXERCISE = "exercise_list.txt";
-    public static final String FILEPATH_LIST_EXERCISE = FILEPATH + FILENAME_LIST_EXERCISE;
-    public static final String FILENAME_LIST_FUTURE = "future_list.txt";
-    public static final String FILEPATH_LIST_FUTURE = FILEPATH + FILENAME_LIST_FUTURE;
+public class StorageManager implements Storage {
 
     private final ProfileStorage profileStorage;
     private final ExerciseListStorage exerciseListStorage;
     private final FoodListStorage foodListStorage;
-    private final FutureExerciseListStorage futureExerciseListStorage;
+    private final UpcomingStorage futureExerciseListStorage;
     private final FoodBankStorage foodBankStorage;
     private final ExerciseBankStorage exerciseBankStorage;
 
+    /**
+     * Constructor for the StorageManager object.
+     */
     public StorageManager() {
-        this.profileStorage = new ProfileStorage(FILEPATH_PROFILE);
-        this.exerciseListStorage = new ExerciseListStorage(FILEPATH_LIST_EXERCISE);
-        this.foodListStorage = new FoodListStorage(FILEPATH_LIST_FOOD);
-        this.futureExerciseListStorage = new FutureExerciseListStorage(FILEPATH_LIST_FUTURE);
-        this.foodBankStorage = new FoodBankStorage(FILEPATH_BANK_FOOD);
-        this.exerciseBankStorage = new ExerciseBankStorage(FILEPATH_BANK_EXERCISE);
+        this.profileStorage = new ProfileStorageUtils(Storage.FILEPATH_PROFILE);
+        this.exerciseListStorage = new ExerciseListStorageUtils(Storage.FILEPATH_LIST_EXERCISE);
+        this.foodListStorage = new FoodListStorageUtils(Storage.FILEPATH_LIST_FOOD);
+        this.futureExerciseListStorage = new FutureExerciseListStorageUtils(Storage.FILEPATH_LIST_FUTURE);
+        this.foodBankStorage = new FoodBankStorageUtils(Storage.FILEPATH_BANK_FOOD);
+        this.exerciseBankStorage = new ExerciseBankStorageUtils(Storage.FILEPATH_BANK_EXERCISE);
     }
 
-    /**
-     * Loads all the data into a DataManager object.
-     *
-     * @return DataManager containing items loaded from storage
-     */
+    @Override
     public DataManager loadAll() {
         return new DataManager(
                 loadExerciseList(),
@@ -74,6 +56,7 @@ public class StorageManager implements ProfileStorageInterface, FoodBankStorageI
                 loadProfile());
     }
 
+    @Override
     public void saveAll(DataManager dataManager) {
         try {
             saveProfile(dataManager.getProfile());
