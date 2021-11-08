@@ -14,22 +14,16 @@ class FileChecker STORAGE_COLOUR
 class FileSaver STORAGE_COLOUR
 class StorageManager STORAGE_COLOUR
 class XYZStorageUtils STORAGE_COLOUR
-'class FoodBankStorageUtils STORAGE_COLOUR
-'class FoodListStorageUtils STORAGE_COLOUR
-'class ExerciseListStorageUtils STORAGE_COLOUR
-'class FutureExerciseListStorageUtils STORAGE_COLOUR
-'class ExerciseBankStorageUtils STORAGE_COLOUR
+
 class "<<interface>>\nXYZStorage" STORAGE_COLOUR
-'class "<<interface>>\nFoodBankStorage" STORAGE_COLOUR
-'class "<<interface>>\nExerciseBankStorage" STORAGE_COLOUR
-'class "<<interface>>\nFoodListStorage" STORAGE_COLOUR
-'class "<<interface>>\nExerciseListStorage" STORAGE_COLOUR
-'class "<<interface>>\nUpcomingStorage" STORAGE_COLOUR
+
 class "<<interface>>\nStorage" STORAGE_COLOUR
 
-"<<interface>>\nXYZStorage" <|-up- "<<interface>>\nStorage"
+" " ...> StorageManager
 
-StorageManager .up.|> "<<interface>>\nStorage"
+"<<interface>>\nXYZStorage" <|-left- "<<interface>>\nStorage"
+
+StorageManager .left.|> "<<interface>>\nStorage"
 
 "<<interface>>\nXYZStorage" <|.. XYZStorageUtils
 

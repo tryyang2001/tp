@@ -9,6 +9,7 @@ import seedu.duke.storage.utilities.FileChecker;
 import seedu.duke.storage.utilities.FileSaver;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Level;
 
 /**
@@ -28,11 +29,10 @@ public class ExerciseListStorageUtils extends StorageUtils implements ExerciseLi
 
     @Override
     public ExerciseList loadExerciseList() throws UnableToReadFileException {
-        FileChecker.createFileIfMissing(filePath);
         try {
+            FileChecker.createFileIfMissing(filePath);
             return ExerciseListDecoder.retrieveExerciseListFromData(filePath);
-        } catch (FileNotFoundException e) {
-            logger.log(Level.FINE, "The path is missing ", filePath);
+        } catch (IOException e) {
             throw new UnableToReadFileException(filePath);
         }
     }

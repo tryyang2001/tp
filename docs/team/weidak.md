@@ -10,7 +10,7 @@ The following items listed below are what I have contributed to the team:
 #### **New Feature**: Profile
 
 - What it does: Contains the user's attributes such as Name, Height, Weight, Age, Gender, Calorie Goal, Activity Factor.
-- Justification: These attributes are required in the Harris-Benedict Equation we used to calculate one's Basal Metabolic Rate, which is
+- Justification: The main idea behind the profile was to make Fitbot feel more personalized and let it know your characteristics. Most of these attributes are required in the Harris-Benedict Equation we used to calculate one's Basal Metabolic Rate, which is
   important in determining an accurate calorie budget for the day.
 - Highlights: This feature incorporates its individual classes of each attribute to ensure data integrity is preserved and profile is a container that
   holds these attributes together.

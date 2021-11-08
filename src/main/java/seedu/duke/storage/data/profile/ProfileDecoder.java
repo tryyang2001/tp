@@ -36,12 +36,11 @@ public class ProfileDecoder {
         } catch (InvalidDataException e) {
             System.out.println(e.getMessage());
         }
-        return new Profile();
+        throw new FileNotFoundException();
     }
 
     private static Profile decodeProfile(String line) throws InvalidDataException {
         try {
-            Profile profile = new Profile();
             final String[] profileDetails = line.split(Storage.FILE_TEXT_DELIMITER);
             final Name name = decodeName(profileDetails[0]);
             final Height height = decodeHeight(profileDetails[1]);
@@ -50,8 +49,7 @@ public class ProfileDecoder {
             final Age age = decodeAge(profileDetails[4]);
             final CalorieGoal calorieGoal = decodeCalorieGoal(profileDetails[5]);
             final ActivityFactor activityFactor = decodeActivityFactor(profileDetails[6]);
-            profile.setProfile(name, height, weight, gender, age, calorieGoal, activityFactor);
-            return profile;
+            return new Profile(name, height, weight, gender, age, calorieGoal, activityFactor);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidDataException(Storage.FILENAME_PROFILE, line);
         }

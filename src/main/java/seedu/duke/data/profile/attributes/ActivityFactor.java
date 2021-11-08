@@ -12,7 +12,6 @@ public class ActivityFactor implements Verifiable {
     public static final int LIMIT_UPPER_ACTIVITY_FACTOR = 5;
 
     protected int userInput;
-    protected double activityFactor;
 
     public ActivityFactor() {
 

@@ -8,7 +8,7 @@ import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.storage.utilities.FileChecker;
 import seedu.duke.storage.utilities.FileSaver;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Level;
 
 /**
@@ -28,10 +28,10 @@ public class FoodListStorageUtils extends StorageUtils implements FoodListStorag
 
     @Override
     public FoodList loadFoodList() throws UnableToReadFileException {
-        FileChecker.createFileIfMissing(filePath);
         try {
+            FileChecker.createFileIfMissing(filePath);
             return FoodListDecoder.retrieveFoodListFromData(filePath);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             logger.log(Level.FINE, "The path is missing ", filePath);
             throw new UnableToReadFileException(fileName);
         }

@@ -8,7 +8,7 @@ import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.storage.utilities.FileChecker;
 import seedu.duke.storage.utilities.FileSaver;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Level;
 
 /**
@@ -28,19 +28,10 @@ public class FutureExerciseListStorageUtils extends StorageUtils implements Upco
 
     @Override
     public FutureExerciseList loadFutureExerciseList() throws UnableToReadFileException {
-        FileChecker.createFileIfMissing(filePath);
         try {
+            FileChecker.createFileIfMissing(filePath);
             return FutureExerciseListDecoder.retrieveUpcomingListFromData(filePath);
-        } catch (FileNotFoundException e) {
-            logger.log(Level.FINE, "The path is missing ", filePath);
-            throw new UnableToReadFileException(fileName);
-        }
-    }
-
-    private FutureExerciseList readFromFutureListFile() throws UnableToReadFileException {
-        try {
-            return FutureExerciseListDecoder.retrieveUpcomingListFromData(filePath);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             logger.log(Level.FINE, "The path is missing ", filePath);
             throw new UnableToReadFileException(fileName);
         }

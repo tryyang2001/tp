@@ -8,6 +8,7 @@ import seedu.duke.storage.utilities.FileChecker;
 import seedu.duke.storage.utilities.FileSaver;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Level;
 
 /**
@@ -27,10 +28,10 @@ public class ProfileStorageUtils extends StorageUtils implements ProfileStorage 
 
     @Override
     public Profile loadProfile() throws UnableToReadFileException {
-        FileChecker.createFileIfMissing(filePath);
         try {
+            FileChecker.createFileIfMissing(filePath);
             return ProfileDecoder.retrieveProfileFromData(filePath);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new UnableToReadFileException(fileName);
         }
     }

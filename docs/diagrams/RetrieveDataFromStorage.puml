@@ -4,14 +4,15 @@
 !include style.puml
 hide footbox
 
+group sd Retrieval of data from storage with the use of ProfileDecoder to decode
 participant "profileStorage:ProfileStorage" As ProfileStorage STORAGE_COLOUR
 participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
 
 participant "file:File" As File STORAGE_COLOUR
 participant "in:Scanner" As Scanner STORAGE_COLOUR
 participant "profile:Profile" As Profile DATA_COLOUR
-participant ":Profile" As Profile2 DATA_COLOUR
 
+activate ProfileStorage STORAGE_COLOUR
 ProfileStorage -> ProfileDecoder: retrieveProfileFromData(filePath)
 activate ProfileDecoder STORAGE_COLOUR
     ProfileDecoder -> File **: new File(filePath)
@@ -22,35 +23,25 @@ activate ProfileDecoder STORAGE_COLOUR
     activate Scanner STORAGE_COLOUR
         Scanner --> ProfileDecoder:
     deactivate
-    alt in.hasNext
         ProfileDecoder -> Scanner : nextLine()
         activate Scanner STORAGE_COLOUR
             Scanner --> ProfileDecoder: line
         deactivate
         ProfileDecoder -> ProfileDecoder ++ STORAGE_COLOUR: decodeProfile(line)
-        ProfileDecoder -> Profile ** : new Profile()
-        activate Profile DATA_COLOUR
-            Profile --> ProfileDecoder : profile
-        deactivate
+
         ref over ProfileDecoder
-        Decode all the attributes one by one
+        Decode all the attributes
         end ref
-        ProfileDecoder -> Profile: setProfile(name, height, ...)
+        ProfileDecoder -> Profile ** : new Profile(name, height, ...)
         activate Profile DATA_COLOUR
             Profile --> ProfileDecoder :
         deactivate
         ProfileDecoder --> ProfileDecoder -- : profile
         destroy Profile
-    else else
-        ProfileDecoder -> Profile2 ** : new Profile()
-        activate Profile2 DATA_COLOUR
-            Profile2 --> ProfileDecoder : profile
-        deactivate
-        destroy Profile2
-    end
+
     destroy Scanner
     destroy File
     ProfileDecoder --> ProfileStorage : profile
 deactivate
-
+end
 @enduml

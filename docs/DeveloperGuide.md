@@ -206,14 +206,17 @@ which then returns the same `XYZCommand` to `Main`.
 
 ### Storage component
 
+This is a (partial) class diagram that represents the `Storage` component.
+
 <p align="center" width="100%">
-  <img width="90%" src="images/StorageManagerClassDiagram.png" alt="Storage Component"/>
+  <img width="80%" src="images/StorageClassDiagram.png" alt="Storage Class Diagram"/>
 </p>
 
-`StorageManager` initializes all `Storage` subclasses with their respective paths. 
-Acting as an agent, it then interacts with each of the respective `Storage` subclasses, utilizing their `load` and `save` functionalities. 
-This design de-clutters the code in Main and provides a platform to ensure each of the subclasses were utilized. 
-It is also implemented with all of the `StorageInterface` interfaces to enforce methods of loading and saving to be fully implemented into the code.
+1. Firstly, `Storage` inherits each of the `XYZStorage` interfaces. This ensures the `Storage` API has the relevant load and save functions
+of the various storages. 
+2. `StorageManager` then implements the `Storage` API that contains the relevant functionalities and instantiates `XYZStorage` using the respective `XYZStorageUtils`.
+3. Each of the `XYZStorageUtils` utilizes the general classes of `FileChecker` to create/check for their files and `FileSaver` to write to their respective files.
+4. `XYZStorageUtils` also uses `XYZDecoder` to decode files from the saved .txt file and a `XYZEncoder` to encode items into the saved file.
 
 The `StorageManager` component loads and saves:
 
@@ -223,21 +226,7 @@ The `StorageManager` component loads and saves:
 - upcoming exercises: recurring exercises that are scheduled in the future
 - food and exercise banks: names and calories of relevant item
 
-Each `Storage` subclass is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
-
-<p align="center" width="100%">
-  <img width="50%" src="images/ProfileStorageClassDiagram.png" alt="Architecture Sequence Diagram"/>
-</p>
-
-The `ProfileStorage` inherits an abstract class of `Storage` which contains protected attributes of `fileName` and `filePath`.
-After inheritance, it then implements loading and saving methods interfaced by `ProfileStorageInterface` to ensure reading and writing operations.
-
-where:
-- ProfileEncoder encodes the list to the profile.txt file.
-- ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
-- ProfileStorage utilizes the static methods FileChecker and FileSaver to check if file exists and to write to the corresponding file.
-
-This way of implementation ensures that each class has a _single responsibility_ with little coupling between each other.
+This way of design ensures that each class has the correct methods to perform its capabilities.
 
 
 ### Main Component
@@ -346,6 +335,8 @@ This object outputs a message and `AddRecurringExerciseCommand` will return `com
 There are many files that are used for our current implementation. 
 Therefore, since they are similar in behaviour and function, we will only be looking at the loading of the Profile component on the starting up of _Fitbot_.
 
+![StorageManagerLoadSequenceDiagram](images/StorageManagerLoadSequenceDiagram.png)
+
 <p align="center" width="100%">
   <img width="100%" src="images/StorageManagerLoadSequenceDiagram.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
@@ -354,21 +345,23 @@ Upon successful launch of the application, `Main` will call to initialize `Stora
 This in turn initializes all the subclasses of `Storage`, including `ProfileStorage`, with their respective file paths. 
 Afterwhich, `Main` calls a loading function `loadAll` that in turns calls the `loadProfile()` method of `ProfileStorage`.
 
-`ProfileStorage` then does 2 things: 
+`ProfileStorage` then does 2 main things: 
 
 1. Checks and creates the file if it is missing.
 2. Retrieves the data from the file with the use of the ProfileDecoder to decode.
 
-##### Reference Diagram 1: Checks for the file and create directory if it does not exist
+Reference Diagram: Checks for the file and create directory if it does not exist
 
+![ChecksForFile](images/ChecksForFileStorage.png)
 <p align="center" width="100%">
   <img width="70%" src="images/StorageManagerLoadSequenceRef1.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
 
 The diagram above explains how the application checks if a file exists. If it exists, it will not perform any additional functionality. Otherwise, it will generate a new file in preparation for storage.
 
-##### Reference Diagram 2: Retrieval of data from storage with the use of ProfileDecoder to decode
+Reference Diagram: Retrieval of data from storage with the use of ProfileDecoder to decode
 
+![RetrieveDataFromStorage](images/RetrieveDataFromStorage.png)
 <p align="center" width="100%">
   <img width="70%" src="images/StorageManagerLoadSequenceRef2.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
@@ -378,6 +371,36 @@ The diagram above explains the processes to decode the items from the file.
 Upon reaching the `decodeProfile(line)` method, the reference frame depicts a process of decoding its attributes one by one to ensure that they are able to detect each attribute's readability from storage.
 If the methods are unable to read the respective attribute from storage, an invalid attribute will be initialized. This then returns an initialized profile with invalid attributes for `StartState` to catch, allowing users to change
 their attributes instead of losing their entire profile data on startup. 
+
+Reference Diagram: Decode all attributes\
+![DecodeAll](images/DecodeAttributes.png)
+
+Below represents each of the attribute's decoding process:
+
+Reference Diagram: Decode Name\
+![DecodeName](images/DecodeName.png)
+
+Reference Diagram: Decode Height\
+![DecodeHeight](images/DecodeHeight.png)
+
+Reference Diagram: Decode Weight\
+![DecodeWeight](images/DecodeWeight.png)
+
+Reference Diagram: Decode Gender\
+![DecodeGender](images/DecodeGender.png)
+
+Reference Diagram: Decode Age\
+![DecodeAge](images/DecodeAge.png)
+
+Reference Diagram: Decode CalorieGoal\
+![DecodeCalorieGoal](images/DecodeCalorieGoal.png)
+
+Reference Diagram: Decode Name\
+![DecodeActivityFactor](images/DecodeActivityFactor.png)
+
+The other storages load in a similar fashion to this, except for each decoder, they decode `Item` for `ItemBank`s, `Food` for `FoodList` and `Exercise` for `ExerciseList`.
+
+
 
 #### Create Profile If Not Exist On Startup
 
