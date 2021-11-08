@@ -4,7 +4,7 @@
 !include style.puml
 hide footbox
 
-group sd Decode all attributes
+group sd Decode all the attributes
 participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
 
 ref over ProfileDecoder

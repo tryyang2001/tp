@@ -34,7 +34,7 @@ activate StorageManager STORAGE_COLOUR
         participant ":FileChecker" As FileChecker STORAGE_COLOUR
         participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
         ref over ProfileStorage, FileChecker
-            Checks for the file and create directory if it does not exist
+            Checks for the file and create directory if missing
         end ref
         ref over ProfileStorage, ProfileDecoder
             Retrieval of data from storage with the use of ProfileDecoder to decode

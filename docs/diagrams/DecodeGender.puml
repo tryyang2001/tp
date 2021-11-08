@@ -6,7 +6,7 @@ hide footbox
 
 group sd Decode Gender
 participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
-participant Gender DATA_COLOUR
+participant ":Gender" As Gender DATA_COLOUR
 activate ProfileDecoder STORAGE_COLOUR
 alt detail.length() > 1
 ProfileDecoder -> Gender ** DATA_COLOUR: new Gender('X')

@@ -6,7 +6,7 @@ hide footbox
 
 group sd Decode Name
 participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
-participant Name DATA_COLOUR
+participant ":Name" As Name DATA_COLOUR
 
 activate ProfileDecoder STORAGE_COLOUR
 ProfileDecoder -> Name ** DATA_COLOUR: new Name(detail)

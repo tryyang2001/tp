@@ -6,7 +6,7 @@ hide footbox
 
 group sd Decode Height
 participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
-participant Height DATA_COLOUR
+participant ":Height" As Height DATA_COLOUR
 
 activate ProfileDecoder STORAGE_COLOUR
 alt no errors thrown
@@ -17,8 +17,10 @@ deactivate
 destroy Height
 else NumberFormatException
 ProfileDecoder -> Height ** DATA_COLOUR: new Height(Double.MIN_VALUE)
-note right STORAGE_FADED_COLOUR: The (Double.MIN_VALUE) \nhere represents an invalid\ndouble of Height that is handled\nlater on in the startup of the \nbot.
-
+note right STORAGE_FADED_COLOUR
+The (Double.MIN_VALUE) here represents an invalid double
+of Height that is handled later on in the startup of the bot.
+end note
 activate Height DATA_COLOUR
     Height --> ProfileDecoder
 deactivate
