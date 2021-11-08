@@ -1,4 +1,9 @@
-# Yi Zhi - Project Portfolio Page
+---
+layout: page
+title: Yi Zhi's Project Portfolio Page
+---
+
+
 
 ## Overview
 Fitbot is a desktop app that helps university students who are looking to keep track of their calorie consumption and calorie

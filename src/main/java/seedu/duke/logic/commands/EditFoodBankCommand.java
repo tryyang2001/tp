@@ -35,7 +35,7 @@ public class EditFoodBankCommand extends Command {
     @Override
     public CommandResult execute() {
         if (super.foodBank.getSize() == 0) {
-            logger.log(Level.WARNING, "Food bank list is empty.");
+            logger.log(Level.FINE, "Food bank list is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_FOOD_BANK);
         }
         try {
@@ -46,7 +46,7 @@ public class EditFoodBankCommand extends Command {
             }
             if (this.newCalories != null) {
                 if (this.newCalories < Item.LOWEST_CALORIE || this.newCalories > Item.HIGHEST_CALORIE) {
-                    logger.log(Level.WARNING, "Detected impossible exercise calorie burnt.");
+                    logger.log(Level.FINE, "Detected impossible exercise calorie burnt.");
                     return new CommandResult(CommandMessages.MESSAGE_INVALID_CALORIES);
                 }
                 item.setCalories(this.newCalories);
@@ -54,7 +54,7 @@ public class EditFoodBankCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
                     item.toStringWithoutDateAndTime()));
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected invalid food bank item index.");
+            logger.log(Level.FINE, "Detected invalid food bank item index.");
             if (super.foodBank.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
