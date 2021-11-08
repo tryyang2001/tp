@@ -10,7 +10,7 @@ participant "foodBank:FoodBank" As FoodBank DATA_COLOUR
 ?->AddFoodCommand :execute()
 activate AddFoodCommand LOGIC_COLOUR
 
-opt isCalorieFromFoodBank
+opt calories == null
     AddFoodCommand -> FoodBank : findCalorie(description)
     activate FoodBank DATA_COLOUR
     FoodBank --> AddFoodCommand : calories
@@ -25,22 +25,35 @@ Food --> Food --
 Food --> AddFoodCommand : food
 deactivate Food
 
-participant "filteredFoodList:FoodList" As FoodList DATA_COLOUR
-participant "commandResult:CommandResult" As CommandResult LOGIC_COLOUR
-AddFoodCommand -> FoodList : \t\t\t\t\t\t\t\t\t\taddItem(food)
-activate FoodList DATA_COLOUR
-FoodList -> FoodList ++  DATA_COLOUR: sortList()
-FoodList --> FoodList --
-FoodList --> AddFoodCommand
-deactivate FoodList
-AddFoodCommand -> CommandResult **: \t\t\t\t\tnew CommandResult(String.format(MESSAGE_SUCCESS,food))
-activate CommandResult LOGIC_COLOUR
-CommandResult --> AddFoodCommand
-deactivate CommandResult
+AddFoodCommand -> Food : isValid()
+activate Food DATA_COLOUR
+participant ":CommandResult" As CommandResult1 LOGIC_COLOUR
+Food --> AddFoodCommand :isValid
+deactivate Food
+alt isValid
+    participant "filteredFoodList:FoodList" As FoodList DATA_COLOUR
+    participant ":CommandResult" As CommandResult LOGIC_COLOUR
+    AddFoodCommand -> FoodList : \t\t\t\t\t\t\t\t\t\taddItem(food)
+    activate FoodList DATA_COLOUR
+    FoodList -> FoodList ++  DATA_COLOUR: sortList()
+    FoodList --> FoodList --
+    FoodList --> AddFoodCommand
+    deactivate FoodList
+    AddFoodCommand -> CommandResult **: \t\t\t\t\tnew CommandResult(String.format(MESSAGE_SUCCESS,food))
+    activate CommandResult LOGIC_COLOUR
+    CommandResult --> AddFoodCommand
+    deactivate CommandResult
+else else
+    AddFoodCommand -> CommandResult1 **: new CommandResult(String.format(MESSAGE_INVALID_CALORIES, food))
+    activate CommandResult1 LOGIC_COLOUR
+    CommandResult1 --> AddFoodCommand
+    deactivate CommandResult1
+end
 
-?<-- AddFoodCommand : commandResult\t
+?<-- AddFoodCommand : commandResult\t\t
 deactivate AddFoodCommand
 destroy Food
 destroy CommandResult
+destroy CommandResult1
 destroy AddFoodCommand
 @enduml

@@ -20,7 +20,7 @@ of Fitbot and some design considerations.
 - [Logic Component](#logic-component)
 - [Storage Component](#storage-component)
 - [Implementation](#implementation)
-   - [Add Food Item Feature](#proposed-add-a-food-item-feature)
+   - [Add Food Item Feature](#add-a-food-item-feature)
    - [Design Considerations](#design-considerations)
    - [Loading Of Data On Startup](#loading-of-data-on-startup)
    - [Create Profile If Not Exist On Startup](#create-profile-if-not-exist-on-startup)
@@ -65,6 +65,7 @@ The `Main` class consists of the few components as shown below:
 - `Data`: allow users to perform CRUD operations on the data in the application
 - `Storage`: stores all data in the application. Saves a copy of data in relevant files.
   Data will be retrieved from storage upon starting of application.
+- `State`: 
 
 Upon launching of application:
 - The application will check if there are files that are already stored in the respective folder.
@@ -131,30 +132,28 @@ A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Ge
   <img width="90%" src="images/ItemBankAndItemClassDiagram.png" alt="ItemBank And Item Class Diagram"/>
 </p>
 
-The `Data` component is responsible to perform operations such as data modification and query in the code. It receives the commands from the `Logic` component, execute the 
-correct operations, and finally return the command result back to `Logic` component.\
-\
-Above is a high-level **_class diagram_** for the `ItemBank` and `Item` classes in `Data` component. Note that since `Main` and `Logic` components have accessed to some classes
-in `Data` component, they form **_dependencies_** with those classes.
+The `Data` component is responsible to perform operations such as data modification and query in the code.
+
+Above is a high-level **_class diagram_** for the `ItemBank` and `Item` classes in `Data` component. 
+
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.
 
 #### ItemBank class
-`ItemBank` is the ***highest superclass*** that contains one attribute called `internalItems` which is an _array list_ of `Item`.\
-`ItemList` being the ***subclass*** of `ItemBank` and ***superclass*** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.\
-`FoodList` and `ExerciseList` are ***subclass***  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
-on `Food` class and `Exercise` class respectively.\
-`FutureExerciseList` is a ***subclass***  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
+1. `ItemBank` is the *highest superclass* that contains one attribute called `internalItems` which is an _array list_ of `Item`.
+2. `ItemList` being the *subclass* of `ItemBank` and *superclass* of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.
+3. `FoodList` and `ExerciseList` are *subclasses*  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
+on `Food` class and `Exercise` class respectively.
+4. `FutureExerciseList` is a *subclass*  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
 on `Exercise` class.
 
 #### Item class
-An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.\
-`Food` and `Exercise` are the only two **_subclasses_** inherit the `Item` class. \
-`Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores the consumed food date and time, while the latter compute the time period 
-(only value such as **`Morning`, `Afternoon`, `Evening`** and **`Night`** as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
-value must present when a `Food` object is created.\
-`Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
-\
-Abstract classes of Items and ItemLists acts as an agent for meaningful subclasses of Food and Exercise to inherit its attributes and functionality for a more concise use-case.
+1. An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.
+2. `Food` and `Exercise` are the only two **_subclasses_** inherit the `Item` class. 
+3. `Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores the consumed food date and time, while the latter compute the time period 
+(only value such as `MORNING`, `AFTERNOON`, `EVENING`** and **`NIGHT`** as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
+value must present when a `Food` object is created.
+4. `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.
+5. Abstract classes of Items and ItemLists acts as an agent for meaningful subclasses of Food and Exercise to inherit its attributes and functionality for a more concise use-case.
 
 ### Ui Component
 
@@ -269,7 +268,7 @@ This particular case illustrates how a user input add f/potato c/20 is parsed an
   <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
 </p>
 
-#### [Proposed] Add a Food Item Feature
+#### Add a Food Item Feature
 
 ![Add Food Item Sequence Diagram](images/AddFoodItemSequenceDiagram.png)
 
