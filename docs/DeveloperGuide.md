@@ -144,10 +144,10 @@ The main purpose of having `ItemBank` and `Item` classes is to allow user to per
 2. `ItemList` being the *subclass* of `ItemBank` and *superclass* of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.
 3. `FoodList` and `ExerciseList` are *subclasses*  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
 on `Food` class and `Exercise` class respectively.
-4. `FutureExerciseList` is a *subclass*  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
+4. `FutureExerciseList` is a *subclass*  that inherits all the methods available from `ExerciseList` and contains other methods that form a dependency
 on `Exercise` class.
 
-As shown in the diagram above, `DataManager` class has association with `ItemBank`. This implies that it also has association with
+As shown in the diagram above, `DataManager` class has association with `ItemBank`. This also implies that it has association with
 all the subclasses that inherits `ItemBank`. 
 
 #### Item Class Hierarchy
@@ -313,7 +313,7 @@ successfully. This `CommandResult` object is returned to the `AddFoodCommand`.
 Step 5: Once the `CommandResult` class object is returned, the `AddFoodCommand` then return this `commandResult` to the class that calls it. 
 At this stage, the `AddFoodCommand` execution is successfully ended.
 
-After all the steps are done, the `command`, `food` and `commandResult` objects are no longer referenced and hence get removed
+After all the steps are done, the objects of class `AddFoodCommand`, `Food` and `CommandResult` are no longer referenced and hence get removed
 by the `Garbage Collector` in Java. However ,the lifeline of `foodBank` and `foodList` objects are still continuing because they
 are created in `DataManager` class and have the potential to get referenced by other commands call such as `add`, `delete`, `view` and `edit`.
 
