@@ -30,7 +30,12 @@ activate Food DATA_COLOUR
 participant ":CommandResult" As CommandResult1 LOGIC_COLOUR
 Food --> AddFoodCommand :isValid
 deactivate Food
-alt isValid
+alt !isValid
+    AddFoodCommand -> CommandResult1 **: new CommandResult(String.format(MESSAGE_INVALID_CALORIES, food))
+    activate CommandResult1 LOGIC_COLOUR
+    CommandResult1 --> AddFoodCommand
+    deactivate CommandResult1
+else else
     participant "filteredFoodList:FoodList" As FoodList DATA_COLOUR
     participant ":CommandResult" As CommandResult LOGIC_COLOUR
     AddFoodCommand -> FoodList : \t\t\t\t\t\t\t\t\t\taddItem(food)
@@ -43,11 +48,6 @@ alt isValid
     activate CommandResult LOGIC_COLOUR
     CommandResult --> AddFoodCommand
     deactivate CommandResult
-else else
-    AddFoodCommand -> CommandResult1 **: new CommandResult(String.format(MESSAGE_INVALID_CALORIES, food))
-    activate CommandResult1 LOGIC_COLOUR
-    CommandResult1 --> AddFoodCommand
-    deactivate CommandResult1
 end
 
 ?<-- AddFoodCommand : commandResult\t\t

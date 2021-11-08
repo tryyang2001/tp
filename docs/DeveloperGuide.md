@@ -300,25 +300,33 @@ When the user gives an input, the `parser` from the `Logic` component will try t
 command. In this case we assume that the correct format of **Add Food** input is given and the `AddFoodCommand` has already been
 called and created.
 
-Step 1: When the `execute` method in the `AddFoodCommand` is being called, it will first check that if the `isCalorieFromBank`
-condition is `true`, meaning that the description of the input food item can be found in the `FoodBank` object, 
-as shown in the `alt` frames of the sequence diagram. In each alternative paths, a new `Food` class object will be created
-by using the `Food` constructor.
+Step 1: When the `execute` method in the `AddFoodCommand` is being called, it will first check that if the `calories` is equal to null. If this
+condition is true, meaning that the user does not provide the calorie value of the food item, thus the item is expected to be found in the `FoodBank`.
 
-Step 2: When the `Food` constructor is called, it will perform a [self-invocation](#_self-invocation_)`setTimePeriod` to set the enum value `timePeriod`
+Step 2: Once the calorie value is determined, whether from `FoodBank` or user input, the AddFoodCommand then call the constructor
+of the `Food`. When the `Food` constructor is called, it will perform a [self-invocation](#_self-invocation_)`setTimePeriod` to set the enum value `timePeriod`
 of the Food. After that, it returns the Food object to the `AddFoodCommand`.
 
-Step 3: The `AddFoodCommand` then calls the method `addItem` from the `FoodList` object, which performs the add food operation in the
-`Food List`. After the new `Food` Item is added, it will perform a [self-invocation](#_self-invocation_) `sortList` to sort the `FoodList`. Since the 
-`addItem` method is void type, nothing is returned to `AddFoodCommand`.
+Step 3: The newly created Food object `food` is checked if it has a valid calorie value by calling the method `isValid()` in `Food` class. This
+method returns a boolean result `isValid` to `AddFoodCommand`. Then the program will enter an `alt` block which determines whether the `food` object
+should be added to the `foodList`.
 
-Step 4: After the `addItem` method is executed without giving any error, the `AddFoodCommand` then calls a `CommandResult` object.
-This object will return and output the message indicates that the `AddFoodCommand` is executed without any error. At this
-stage, the `AddFoodCommand` is successfully ended.
+Step 4a: If the calorie value is invalid, the boolean `isValid` will be false. When this condition is satisfied, it will enter the first
+alternative path, which then creates a `CommandResult` class object that contains the message to inform the user that the calorie value
+is incorrect. In this path, no food item is added to the `foodList`. This `CommandResult` object is returned to the `AddFoodCommand`.
+
+Step 4b: If the calorie value is valid, the boolean `isValid` is true, the `AddFoodCommand` will call the method `addItem` from the `FoodList` object, which performs the add food operation in the
+`Food List`. After the new `Food` Item is added, it will perform a [self-invocation](#_self-invocation_) `sortList` to sort the `FoodList` according to 
+the date and time of all the food items inside the list. Since the `addItem` method is void type, nothing is returned to `AddFoodCommand`.
+ After the `addItem` method is executed without giving any error, the `AddFoodCommand` then calls a `CommandResult` object that contains the message indicating the command is executed
+successfully. This `CommandResult` object is returned to the `AddFoodCommand`.
+
+Step 5: Once the `CommandResult` class object is returned, the `AddFoodCommand` then return this `commandResult` to the class that calls it. 
+At this stage, the `AddFoodCommand` execution is successfully ended.
 
 After all the steps are done, the `command`, `food` and `commandResult` objects are no longer referenced and hence get removed
 by the `Garbage Collector` in Java. However ,the lifeline of `foodBank` and `foodList` objects are still continuing because they
-are created in `Main` class and have the potential to get referenced by other commands call such as `delete`, `view` and `edit`.
+are created in `DataManager` class and have the potential to get referenced by other commands call such as `add`, `delete`, `view` and `edit`.
 
 One may also observe that the lifeline does not end even though the object is deleted and no longer be referenced. This problem
 is due to the flaw of the drawing tool, *PlantUml* used. For a more accurate sequence diagram, the lifeline should end immediately
