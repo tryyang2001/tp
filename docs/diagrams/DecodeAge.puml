@@ -6,7 +6,7 @@ hide footbox
 
 group sd Decode Age
 participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
-participant Age DATA_COLOUR
+participant ":Age" As Age DATA_COLOUR
 
 activate ProfileDecoder STORAGE_COLOUR
 alt no errors thrown

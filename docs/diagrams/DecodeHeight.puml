@@ -6,7 +6,7 @@ hide footbox
 
 group sd Decode Height
 participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
-participant Height DATA_COLOUR
+participant ":Height" As Height DATA_COLOUR
 
 activate ProfileDecoder STORAGE_COLOUR
 alt no errors thrown

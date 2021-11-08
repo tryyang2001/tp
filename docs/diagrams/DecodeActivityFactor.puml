@@ -6,7 +6,7 @@ hide footbox
 
 group sd Decode ActivityFactor
 participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
-participant ActivityFactor DATA_COLOUR
+participant ":ActivityFactor" As ActivityFactor DATA_COLOUR
 
 activate ProfileDecoder STORAGE_COLOUR
 alt no errors thrown

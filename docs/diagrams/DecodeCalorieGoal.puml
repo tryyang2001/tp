@@ -6,7 +6,7 @@ hide footbox
 
 group sd Decode CalorieGoal
 participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
-participant CalorieGoal DATA_COLOUR
+participant ":CalorieGoal" As CalorieGoal DATA_COLOUR
 
 activate ProfileDecoder STORAGE_COLOUR
 alt no errors thrown
