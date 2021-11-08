@@ -45,12 +45,12 @@ public class AddFutureExerciseCommand extends Command {
 
         exercise = new Exercise(this.description, this.calories, this.date);
         if (!exercise.isValid()) {
-            logger.log(Level.WARNING, "Detected impossible calorie burnt for the exercise.");
+            logger.log(Level.FINE, "Detected impossible calorie burnt for the exercise.");
             return new CommandResult(CommandMessages.MESSAGE_INVALID_CALORIES);
         }
         assert exercise.getCalories() > 0 : "Exercise calorie is valid";
         super.futureExerciseItems.addItem(exercise);
-        logger.log(Level.WARNING, "Exercise is successfully added");
+        logger.log(Level.FINE, "Exercise is successfully added");
         return new CommandResult(String.format(MESSAGE_SUCCESS, exercise.toStringWithDate()));
     }
 }

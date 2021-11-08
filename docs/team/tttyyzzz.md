@@ -1,4 +1,9 @@
-# Yi Zhi - Project Portfolio Page
+---
+layout: page
+title: Yi Zhi's Project Portfolio Page
+---
+
+
 
 ## Overview
 

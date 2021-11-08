@@ -4,20 +4,13 @@ package seedu.duke.logic.parser.exceptions;
  * Represents an error where there are extra parameters specified for the command.
  */
 public class ExtraParamException extends Exception {
-    private static String errorMessage;
+    private static final String ERROR_MESSAGE =  "Error! There were unnecessary parameters detected. "
+            + "Please follow the command format and try again!";
 
     /**
-     * General constructor without error message.
+     * General constructor that constructs an exception with a standard error message for extra parameters.
      */
     public ExtraParamException() {
-    }
-
-    /**
-     * Constructor with specific error message.
-     *
-     * @param errorMessage Error message to be shown when exception is caught and printed
-     */
-    public ExtraParamException(String errorMessage) {
-        super(errorMessage);
+        super(ERROR_MESSAGE);
     }
 }

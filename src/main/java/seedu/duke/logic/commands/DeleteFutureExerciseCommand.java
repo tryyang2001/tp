@@ -40,16 +40,16 @@ public class DeleteFutureExerciseCommand extends Command {
     @Override
     public CommandResult execute() {
         if (super.futureExerciseItems.getSize() == 0) {
-            logger.log(Level.WARNING, "Future exercise list is empty.");
+            logger.log(Level.FINE, "Future exercise list is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_FUTURE_EXERCISE_LIST);
         }
         if (this.isClear) {
-            logger.log(Level.WARNING, "Clearing future exercise list");
+            logger.log(Level.FINE, "Clearing future exercise list");
             super.futureExerciseItems.clearList();
             return new CommandResult(MESSAGE_FUTURE_EXERCISE_CLEAR);
         }
 
-        logger.log(Level.WARNING, "Trying to delete item now");
+        logger.log(Level.FINE, "Trying to delete item now");
         try {
             if ((itemIndexArray.size() == 1)) {
                 Item item = super.futureExerciseItems.deleteItem(itemIndexArray.get(0));
@@ -72,7 +72,7 @@ public class DeleteFutureExerciseCommand extends Command {
                         + String.format(MESSAGE_ITEMS_LEFT, super.futureExerciseItems.getSize()));
             }
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected invalid exercise item index.");
+            logger.log(Level.FINE, "Detected invalid exercise item index.");
             if (super.futureExerciseItems.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }
