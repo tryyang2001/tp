@@ -636,7 +636,7 @@ You may specify which day(s) of the week by providing multiple `DAY_OF_THE_WEEK`
 ❗ `START_DATE` and `END_DATE` must be in the future.\
 ❗ `START_DATE` must be before `END_DATE`.\
 ❗ `START_DATE` and `END_DATE` must follow `DD-MM-YYYY` format.\
-❗ `DAY_OF_THE_WEEK` must be an integer between 1 and 7, representing Monday to Sunday respectively.
+❗ `DAY_OF_THE_WEEK` must be an integer between 1 and 7, representing Monday to Sunday respectively.\
 ❗ `START_DATE` and `END_DATE` can only be within a year from today as any exercises beyond a year is too far into the future.
 
 

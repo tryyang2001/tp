@@ -61,13 +61,20 @@ and ensured all the items are localised in this class. This de-clutters Main.jav
 #### **Documentation**:
 
 
-- User Guide: Section 4.2 (Profile commands and its calculation of BMI) ([#126](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/126))
+- User Guide:
+  - Section 4.2 (Profile commands and its calculation of BMI) ([#126](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/126), [#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
+  - Section 8
 - Developer Guide:
-  - Profile Class Diagram (Design) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208))
-  - StorageManager Class Diagram (Design) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208))
-  - ProfileStorage Class Diagram (Design) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208))
-  - Loading of Data on Startup (Implementation) ([#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208))
-
-(some documentation were done on Notion before being transferred, hence there was a lack of PRs)
+  - Diagrams: 
+    - [Data Component Diagram (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#data-component) ([#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
+    - [Profile Class Diagram (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#data-component-profile) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208)[#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
+    - [Storage Class Diagram (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#storage-component) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208)[#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
+    - [All the diagrams under "Loading of Data on Startup" (Implementation)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#loading-of-data-on-startup) ([#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208) ,[#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
+  - Explanations: 
+    - [Explanation for Profile Component (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#data-component-profile) ([#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
+    - [Explanation for Storage Component (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#storage-component)
+    - [Explanation for "Loading of Data on Startup" (Implementation)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#loading-of-data-on-startup)
+  - Manual Testing:
+    - [Manipulating and saving data](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#manipulating-and-saving-data)
 
 #### **Community**:
