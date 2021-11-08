@@ -31,21 +31,29 @@ public class AgeCreator extends AttributeCreator {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_AGE);
             try {
                 String userInput = ui.getUserInput().trim();
-                ui.checkEmptyUserInput(userInput);
-                confirmInputBye(userInput);
-                int ageInput = Integer.parseInt(userInput);
-                age.setAge(ageInput);
-                if (age.isValid()) {
-                    ui.formatMessageWithTopDivider(
-                            String.format(MESSAGE_AGE,
-                                    age.getAge()));
-                } else {
-                    ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_AGE);
-                }
+                setAge(userInput);
+                checkAge();
             } catch (NumberFormatException e) {
                 ui.formatMessageWithTopDivider(MESSAGE_INVALID_POSITIVE_INT_INPUT);
             }
         }
         return age;
+    }
+
+    private void checkAge() {
+        if (age.isValid()) {
+            ui.formatMessageWithTopDivider(
+                    String.format(MESSAGE_AGE,
+                            age.getAge()));
+        } else {
+            ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_AGE);
+        }
+    }
+
+    private void setAge(String userInput) throws MissingParamException {
+        ui.checkEmptyUserInput(userInput);
+        confirmInputBye(userInput);
+        int ageInput = Integer.parseInt(userInput);
+        age.setAge(ageInput);
     }
 }
