@@ -64,7 +64,7 @@ Object-Oriented Programming fashion.
 The `Main` class consists of the few components as shown below:
 - `Ui`: Facilitates interaction between user and application
 - `Logic`: Parses commands and execute them respectively
-- `Data`: Allows users to perform CRUD operations on the data in the application
+- `Data`: Allows users to perform Create, Read, Update, Delete (CRUD) operations on the data in the application
 - `Storage`: Stores all data in the application. Saves a copy of data in relevant files.
   Data will be retrieved from storage upon starting of application.
 - `State`: Helps the user to restore or create profile data. 
@@ -105,7 +105,7 @@ and run the `exit()` command to exit the application.
 ### **Data Component**
 
 <p align="center" width="100%">
-  <img width="80%" src="images/DataComponent.png" alt="Data Component Diagram"/>
+  <img width="60%" src="images/DataComponent.png" alt="Data Component Diagram"/>
 </p>
 
 The `Data` component is responsible to perform operations such as data modification and query in the code.
@@ -119,7 +119,7 @@ In `Data` component, it consists of:
 #### **Data Component (Profile)**
 
 <p align="center" width="100%">
-  <img width="90%" src="images/ProfileClassDiagram.png" alt="Profile Diagram"/>
+  <img width="100%" src="images/ProfileClassDiagram.png" alt="Profile Diagram"/>
 </p>
 
 A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Gender`, `Age`, `CalorieGoal` and `ActivityFactor`
