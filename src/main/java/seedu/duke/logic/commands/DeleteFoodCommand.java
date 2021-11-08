@@ -46,7 +46,6 @@ public class DeleteFoodCommand extends Command {
             assert foodItems.getSize() == 0 : "The size of the food list should be 0 after clear";
             return new CommandResult(MESSAGE_FOOD_CLEAR);
         }
-        assert this.itemIndex > 0 : "Deleting an object only";
         if (super.foodItems.getSize() == 0) {
             logger.log(Level.WARNING, "Food list is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_FOOD_LIST);
