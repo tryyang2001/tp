@@ -335,10 +335,8 @@ This object outputs a message and `AddRecurringExerciseCommand` will return `com
 There are many files that are used for our current implementation. 
 Therefore, since they are similar in behaviour and function, we will only be looking at the loading of the Profile component on the starting up of _Fitbot_.
 
-![StorageManagerLoadSequenceDiagram](images/StorageManagerLoadSequenceDiagram.png)
-
 <p align="center" width="100%">
-  <img width="100%" src="images/StorageManagerLoadSequenceDiagram.png" alt="ProfileStorageLoadSequenceDiagram"/>
+  <img width="auto" src="images/StorageManagerLoadSequenceDiagram.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
 
 Upon successful launch of the application, `Main` will call to initialize `StorageManager`. 
@@ -352,18 +350,16 @@ Afterwhich, `Main` calls a loading function `loadAll` that in turns calls the `l
 
 Reference Diagram: Checks for the file and create directory if it does not exist
 
-![ChecksForFile](images/ChecksForFileStorage.png)
 <p align="center" width="100%">
-  <img width="70%" src="images/StorageManagerLoadSequenceRef1.png" alt="ProfileStorageLoadSequenceDiagram"/>
+  <img width="auto" src="images/ChecksForFileStorage.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
 
 The diagram above explains how the application checks if a file exists. If it exists, it will not perform any additional functionality. Otherwise, it will generate a new file in preparation for storage.
 
 Reference Diagram: Retrieval of data from storage with the use of ProfileDecoder to decode
 
-![RetrieveDataFromStorage](images/RetrieveDataFromStorage.png)
 <p align="center" width="100%">
-  <img width="70%" src="images/StorageManagerLoadSequenceRef2.png" alt="ProfileStorageLoadSequenceDiagram"/>
+  <img width="auto" src="images/RetrieveDataFromStorage.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
 
 The diagram above explains the processes to decode the items from the file.
