@@ -15,9 +15,9 @@ class XYZCommand LOGIC_COLOUR
 abstract class "{abstract}\nCommand" AS Command LOGIC_COLOUR
 
 
-LogicManager --> ParserManager
-LogicManager --> StorageManager
-LogicManager -> DataManager
+LogicManager --> "1" ParserManager
+LogicManager --> "1" StorageManager
+LogicManager -> "1" DataManager
 
 ParserManager ..> XYZCommand : > creates
 XYZCommand --|> Command
@@ -26,7 +26,7 @@ Command .right.> CommandResult : > produces
 
 class Main MAIN_COLOUR
 
-Main --> LogicManager : > instantiates and \n feeds user input
+Main --> "1" LogicManager : > instantiates and \n feeds user input
 Command --> DataManager : > modifies
 ParserManager ..> Command : > returns
 StorageManager ..> DataManager : > saves

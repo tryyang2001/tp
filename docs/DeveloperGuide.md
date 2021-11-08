@@ -47,8 +47,10 @@ of Fitbot and some design considerations.
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
-
+Firstly, we would like to acknowledge [AddressBook Level-2](https://github.com/se-edu/addressbook-level2/blob/master/test/java/seedu/addressbook/parser/ParserTest.java) as we adapted its utility methods for
+testing in one of our classes, `ParserManager`. \
+We would also like to acknowledge [AddressBook Level-3](https://se-education.org/addressbook-level3/) for providing many useful insights on how to write and structure our code in 
+Object-Oriented Programming fashion. 
 
 ## Design 
 
@@ -191,34 +193,41 @@ Note: The Main class has 2 activation bars are due to the `run()` function which
 The `Logic` component is responsible for making sense of user input.
 
 Below is a high level class diagram of the `Logic` component, which shows how it interacts with other components 
-like `Main` and `Data`.
+like `Main`, `Storage` and `Data`.
+
 
 <p align="center" width="100%">
   <img width="90%" src="images/LogicClassDiagram.png" alt="Logic Class Diagram"/> 
 </p>
 
 The general workflow of the `Logic` component is as follows:
-1. After `Main`  receives user input, it feeds this user input to the `ParserManager`.
-2. The `ParserManager` parses the user input and creates an `Command` object.
+1. When the program first starts, `Main` instantiates `LogicManager` and initialises it with `StorageManager` and `DataManager`. At the same time, `ParserManager` is also instantiated within `LogicManager`.
+2. Whenever `Main`  receives user input, it feeds this user input to the `LogicManager`.
+3. `LogicManager` then calls on `ParserManager` to parse the user input.
+4. The `ParserManager` parses the user input and creates a `Command` object.
    - More specifically, it creates a `XYZCommand` object, where `XYZ` is a placeholder for the 
       specific command type, e.g `AddFoodCommand`, `UpdateProfileCommand`, etc.
    - `XYZCommand` class inherits from the abstract class `Command`, which is used to represent all executable commands in the application.
-3. `ParserManager` returns the `Command` object to `Main`, which then executes the `Command`.
-4. After execution, all `Command` objects stores the result of the execution in a `CommandResult` object. 
-This `CommandResult` object is then returned to `Main`.
+5. `ParserManager` returns the `Command` object to `LogicManager`, which then executes the `Command`.
+6. During execution, `Command` will perform data manipulation on `DataManager`.
+7. After execution, all `Command` objects stores the result of the execution in a `CommandResult` object. 
+This `CommandResult` object is then returned to `LogicManager`.
+8. Depending on the type of `Command` being executed which affects the type of data that has been manipulated, `LogicManager` will call upon `StorageManager` to save the affected data to the file system.
+9. Finally, `CommandResult` is returned to `Main`.
 
-Here is a more detailed class diagram of the `Logic` component.
-
+Here is a more detailed class diagram illustrating the classes within the `Logic` component.
 <p align="center" width="100%">
   <img width="80%" src="images/ParserClassDiagram.png" alt="Parser Class Diagram">
 </p>
 
-Taking a closer look into the parsing process, the `ParserManager` actually does not do most of the parsing itself.
-Instead, `ParserManager` creates `XYZCommandParser`,  which is then responsible 
-for creating the specific `XYZCommand`. All `XYZCommandParser` classes implement the interface `Parser`, which dictates that 
-they are able to parse user inputs. They also make use of utility methods stored in `ParserUtils` to extract 
-all the parameters relevant to the command. After parsing the input, `XYZCommandParser` returns `XYZCommand` to `ParserManager`,
-which then returns the same `XYZCommand` to `Main`.
+Taking a closer look into the parsing process, the `ParserManager` actually does not do most of the parsing itself. This is how the parsing process works:
+1. `ParserManager` creates `XYZCommandParser`,  which is then responsible for creating the specific `XYZCommand`. 
+   - All `XYZCommandParser` classes implement the interface `Parser`, which dictates that 
+   they are able to parse user inputs. 
+   - They also make use of utility methods stored in `ParserUtils` to extract 
+   all the parameters relevant to the command, and constants in `ParserMessages` to format the desired output. 
+2. After parsing the input, `XYZCommandParser` returns `XYZCommand` to `ParserManager`,
+   which then returns the same `XYZCommand` to `LogicManager`.
 
 
 ### Storage component
@@ -267,14 +276,66 @@ are inherited from `AttributeCreator` to conform DRY principle, by extracting ou
 This section describes some noteworthy details on how certain features are implemented
 and some design considerations.
 
+❗️ **Note**: Due to limitations of PlantUML, the lifeline in sequence diagrams does not end at the destroy marker (X) as it should, but reaches the end of the diagram instead.
 
 #### Parsing of Commands
 The sequence diagram below models the interactions between the different classes within the Logic component.
 This particular case illustrates how a user input add f/potato c/20 is parsed and process to execute the appropriate actions.
 
+
 <p align="center" width="100%">
   <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
 </p>
+
+Step 1: When the program first starts, `Main` instantiates `LogicManager`, and initialises it with the objects `storageManager` and `dataManager`. This is so that `LogicManager` has access to the storage and data components.
+
+Step 2: `LogicManager` then instantiates a `ParserManager` object. This is the class where all the parsing of commands will occur.
+
+Step 3: In the case where `Main` receives the user input `add f/potato c/30`, `Main` will call the method `execute` from `LogicManager`, and provides the user input as the argument.
+
+Step 4: `LogicManager` then calls the `parseCommand` method from `ParserManager`. Now, `ParserManager` will start to parse the user input.
+
+Step 5: Firstly, `ParserManager` has to determine the type of `Command` it is trying to parse. The details of this process is shown in the sequence diagram below.
+
+
+<p align="center" width="100%">
+  <img width="80%" src="images/ParseCommandRefFrame.png" alt="Parse Command Ref Frame"/>
+</p>
+
+Step 6: As seen in the above diagram, `ParserManager` first splits the input into command word and the remaining parameters. In this case, the command word is `add`, and the parameters are `f/potato c/30`. 
+
+Step 7: Depending on the command word, `ParserManager` will then instantiate the appropriate `XYZCommandParser`. In this case, since the command word is `add`, an `AddCommandParser` object is created. 
+However, if the command word is not known to the program (i.e. is not equal to any `XYZ` specified), an `InvalidCommand` will be created and returned immediately.
+
+Step 8: After the appropriate `AddCommandParser` is created, `ParserManager` will then call the method `parse` on the `AddCommandParser`. `AddCommandParser` will then start to parse all the required parameters specific to the `AddCommand`. This process is explained in detail in the below sequence diagram.
+
+
+<p align="center" width="100%">
+  <img width="100%" src="images/ParseParametersRefFrame.png" alt="Parse Parameters Ref Frame"/>
+</p>
+
+Step 9: Since the `AddCommand` can be called for different items in the program, such as `FoodList`,  `ExerciseList`, etc., `AddCommandParser` will first call the `extractItemTypePrefix` method from `ParserUtils`. 
+Note that all methods from `ParserUtils` are static as `ParserUtils` is purely a utility class. This method will extract the item type prefix, which is the first parameter provided after the command word. In this case, `f` is extracted and returned to `AddCommandParser`.
+If at this point the item type prefix extracted is not known to the program, an `InvalidCommand` will be created and returned immediately. 
+
+Step 10: After determining that the `AddCommand` is to be performed on the `FoodList`, `AddCommandParser` will call its own method, `parseAddToFood`.
+
+Step 11: Inside the method `parseAddToFood`, `AddCommandParser` will first call the method `hasExtraDelimiters` from `ParserUtils` to determine if there are extra `/` characters in the input, which would make it invalid. If yes, an `InvalidCommand` will be created and returned immediately.
+
+Step 12: Then, `AddCommandParser` will call the relevant methods from `ParserUtils` to extract specific parameters. In this case, the methods `extractItemDescription`, `extractItemCalories` and `extractDateTime` are called.
+
+Step 13: If all the parameters extracted are valid, then `AddCommandParser` will instantiate and initialise an `AddFoodCommand` object with the extracted details. Else, if any of the parameters are invalid, an `InvalidCommand` would be created and returned immediately.
+
+Step 14: The instantiated `Command` object is then returned to `ParserManager`, which then returns it to `LogicManager`. In this case, `AddFoodCommand` is returned.
+
+Step 15: `LogicManager` then calls the method `setData` on `AddFoodCommand` to provide it with the program's data. 
+
+Step 16: `LogicManager` then calls the method `execute` on `AddFoodCommand` to perform the data manipulation process. For example, in this case, a food item will be added to the `FoodList`. The details of this process is not shown here, but can be seen in [this section](#add-a-food-item-feature).
+
+Step 17: Finally, `AddFoodCommand` instantiates a `CommandResult` object representing the result of the execution. This `CommandResult` is then returned to `LogicManager`, which then returns it to `Main`. 
+
+
+
 
 #### Add a Food Item Feature
 
@@ -503,7 +564,7 @@ save all the profile attributes when all the attributes has been inputted by the
 
 
 
-Note: Due to limitation of the uml diagram, the lifeline could not be deleted after the 'X'.
+
 ## Product scope
 ### Target user profile
 
@@ -795,7 +856,40 @@ Given below are some instructions that can be used to test the application manua
 
 
 ### Building Exercise Bank
-
+1. Adding Exercise Bank Items
+    1. Prerequisite: Exercise Bank does not contain a Exercise Item with the name "30 mins jogging".
+    2. Test case: `add ebank/30 mins jogging` \
+       Expected: Error as the item's calorie details were not provided.
+    3. Test case: `add ebank/30 mins jogging c/500`\
+       Expected: Exercise Item with name '30 mins jogging' and calories '500' has been added to Exercise Bank.
+    4. Test case: `add e/30 Mins Jogging` \
+       Expected: Exercise Item with name '30 Mins Jogging' and calories '500' has been added to Food List. User no longer has
+       to provide the calorie details for '30 Mins Jogging' as it can be retrieved from the Exercise Bank, since the match for item name in the Item Banks is case-insensitive.
+    5. Test case: `add ebank/30 mins jogging c/300`\
+       Expected: Error as the name "30 mins jogging" already exists in the Exercise Bank, and all names in the Exercise Bank need to be unique.
+2. Viewing Exercise Bank Items
+    1. Test case: `view ebank/` \
+       Expected: Shows the list of Exercise Items in the Exercise Bank.
+    2. Test case: `view ebank/a` \
+       Expected: Invalid format. The command word `view` must be followed by `ebank/` exactly.
+3. Editing Exercise Bank Items
+    1. Prerequisite: Exercise Bank contains at least one Item. To find the index of the Item you want to edit, use `view ebank/`.
+    2. Test case: `edit ebank/` \
+       Expected: Error as there is no input for item number.
+    3. Test case: `edit ebank/1` \
+       Expected: Error as you need to specify what to edit about this Item.
+    4. Test case: `edit ebank/1 n/cycling` \
+       Expected: Item number 1 in the Exercise Bank has been changed to 'cycling' (provided that you do not already have an Item named 'cycling' in the Exercise Bank).
+4. Deleting Exercise Bank Items
+    1. Prerequisite: Exercise Bank contains at least 3 Items. To find the index of the Item you want to delete, use `view ebank/`.
+    2. Test case: `delete ebank/1,2` \
+       Expected: Exercise Bank Items 1 and 2 have been deleted.
+    3. Test case: `delete ebank/1` \
+       Expected: Exercise Bank Item 1 has been deleted.
+    4. Test case: `delete ebank/x`, where x is any number bigger than the size of the list. \
+       Expected: Error as x is out of the range of the item list.
+    5. Test case: `delete ebank/all` \
+       Expected: All items in the Exercise Bank have been deleted.
 
 ### Exiting Program
 1. Exiting Program while setting name when creating a new profile
