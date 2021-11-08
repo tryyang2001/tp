@@ -17,8 +17,11 @@ deactivate
 destroy CalorieGoal
 else NumberFormatException
 ProfileDecoder -> CalorieGoal ** DATA_COLOUR: new CalorieGoal(Integer.MIN_VALUE)
-note right STORAGE_FADED_COLOUR: The (Integer.MIN_VALUE) \nhere represents an invalid integer of \nCalorieGoal that is handled\nlater on in the startup of the \nbot.
-
+note right STORAGE_FADED_COLOUR
+ The (Integer.MIN_VALUE) here represents an invalid integer
+ of CalorieGoal that is handled later on in the startup of
+ the bot.
+end note
 activate CalorieGoal DATA_COLOUR
     CalorieGoal --> ProfileDecoder
 deactivate

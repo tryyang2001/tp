@@ -17,8 +17,10 @@ deactivate
 destroy Weight
 else NumberFormatException
 ProfileDecoder -> Weight ** DATA_COLOUR: new Weight(Double.MIN_VALUE)
-note right STORAGE_FADED_COLOUR: The (Double.MIN_VALUE) \nhere represents an invalid\ndouble of Weight that is handled\nlater on in the startup of the \nbot.
-
+note right STORAGE_FADED_COLOUR
+The (Double.MIN_VALUE) here represents an invalid double
+of Weight that is handled later on in the startup of the bot.
+end note
 activate Weight DATA_COLOUR
     Weight --> ProfileDecoder
 deactivate
