@@ -6,7 +6,7 @@ title: Developer Guide
 The aim of this guide is to help the reader to understand how the system and components of Fitbot is
 designed, implemented and tested. In the same time, this developer guide also serves to help developers who are interested in understanding the architecture
 of Fitbot and some design considerations.
-[Don't know about Fitbot? Click here to find more.](#https://ay2122s1-cs2113t-f14-2.github.io/tp/UserGuide.html)
+[Don't know about Fitbot? Click here to find more.](https://ay2122s1-cs2113t-f14-2.github.io/tp/)
 
 ## Content page
 [Acknowledgements](#acknowledgements)
@@ -45,14 +45,14 @@ of Fitbot and some design considerations.
 
 
 
-## Acknowledgements
+## **Acknowledgements**
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 
-## Design 
+## **Design** 
 
-### Architecture
+### **Architecture**
 
 <p align="center" width="100%">
   <image width="70%" src="images/ArchitectureDiagram.png" alt="Architecture Diagram"/>
@@ -100,10 +100,10 @@ and run the `exit()` command to exit the application.
 
   
 
-### Data Component
+### **Data Component**
 
 <p align="center" width="100%">
-  <img width="100%" src="images/DataComponent.png" alt="Data Component Diagram"/>
+  <img width="80%" src="images/DataComponent.png" alt="Data Component Diagram"/>
 </p>
 
 The `Data` component is responsible to perform operations such as data modification and query in the code.
@@ -114,7 +114,7 @@ In `Data` component, it consists of:
 3. `Item` package which is responsible to any manipulation and modification of data for `Item` such as `Food` and `Exercise`.
 4. `Verifiable` interface which is responsible to check data validity in storage files.
 
-#### Data Component (Profile)
+#### **Data Component (Profile)**
 
 <p align="center" width="100%">
   <img width="90%" src="images/ProfileClassDiagram.png" alt="Profile Diagram"/>
@@ -128,10 +128,10 @@ A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Ge
 
 The `ProfileUtils` class is used in performing calculations (such as BMR or BMI) with the various attributes of the `Profile` class.
 
-#### Data Component (Item)
+#### **Data Component (Item)**
 
 <p align="center" width="100%">
-  <img width="90%" src="images/ItemBankAndItemClassDiagram.png" alt="ItemBank And Item Class Diagram"/>
+  <img width="80%" src="images/ItemBankAndItemClassDiagram.png" alt="ItemBank And Item Class Diagram"/>
 </p>
 
 Above is a high-level class diagram for all the classes in `Item` package. In `Item` package, it has 
@@ -139,7 +139,7 @@ two different class hierarchy, one is `ItemBank`, and one is `Item`.
 
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.
 
-##### ItemBank Class Hierarchy
+#### ItemBank Class Hierarchy
 1. `ItemBank` is the *highest superclass* that contains one attribute called `internalItems` which is an _array list_ of `Item`.
 2. `ItemList` being the *subclass* of `ItemBank` and *superclass* of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.
 3. `FoodList` and `ExerciseList` are *subclasses*  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
@@ -150,7 +150,7 @@ on `Exercise` class.
 As shown in the diagram above, `DataManager` class has association with `ItemBank`. This implies that it also has association with
 all the subclasses that inherits `ItemBank`. 
 
-##### Item Class Hierarchy
+#### Item Class Hierarchy
 1. An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.
 2. `Food` and `Exercise` are the only two **_subclasses_** inherit the `Item` class. 
 3. `Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores the consumed food date and time, while the latter compute the time period 
@@ -164,7 +164,7 @@ in the storage files. If the data in storage file is invalid, that item will not
 
 Abstract classes of Items and ItemLists acts as an agent for meaningful subclasses of Food and Exercise to inherit its attributes and functionality for a more concise use-case.
 
-### Ui Component
+### **Ui Component**
 
 The purpose of `Ui` component is to interact with the user. It reads in input from the user and prints messages on the 
 console. Below shows a sequence diagram of how `Ui` component interacts with the rest of the application.
@@ -186,7 +186,7 @@ The sequence interaction in ref will be elaborated in Parsing of Commands under 
 Note: The Main class has 2 activation bars are due to the `run()` function which will then activate 
 `enterTaskModeUntilByeCommand()`. In the example above, it is assumed that `bye` command is not used as example.
 
-### Logic Component
+### **Logic Component**
  
 The `Logic` component is responsible for making sense of user input.
 
@@ -221,7 +221,7 @@ all the parameters relevant to the command. After parsing the input, `XYZCommand
 which then returns the same `XYZCommand` to `Main`.
 
 
-### Storage component
+### **Storage component**
 
 This is a (partial) class diagram that represents the `Storage` component.
 
@@ -246,9 +246,9 @@ The `StorageManager` component loads and saves:
 This way of design ensures that each class has the correct methods to perform its capabilities.
 
 
-### State Component
+### **State Component**
 
-#### Create Profile (StartState)
+#### **Create Profile (StartState)**
 
 <p align="center" width="100%">
   <img width="100%" src="images/StartState.png" alt="Start State Class Diagram"/>
@@ -262,13 +262,13 @@ are inherited from `AttributeCreator` to conform DRY principle, by extracting ou
 
 
 
-## Implementation
+### **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented
 and some design considerations.
 
 
-#### Parsing of Commands
+#### **Parsing of Commands**
 The sequence diagram below models the interactions between the different classes within the Logic component.
 This particular case illustrates how a user input add f/potato c/20 is parsed and process to execute the appropriate actions.
 
@@ -276,10 +276,10 @@ This particular case illustrates how a user input add f/potato c/20 is parsed an
   <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
 </p>
 
-#### Add a Food Item Feature
+#### **Add a Food Item Feature**
 
 <p align="center" width="100%">
-  <img width="90%" src="images/AddFoodItemSequenceDiagram.png" alt="Add Food Item Sequence Diagram"/>
+  <img width="100%" src="images/AddFoodItemSequenceDiagram.png" alt="Add Food Item Sequence Diagram"/>
 </p>
 
 The purpose of this feature is to allow the user to add food item to the food list. The above diagram shown is the 
@@ -321,7 +321,7 @@ One may also observe that the lifeline does not end even though the object is de
 is due to the flaw of the drawing tool, *PlantUml* used. For a more accurate sequence diagram, the lifeline should end immediately
 once the object is no longer referenced.
 
-#### Design considerations:
+#### **Design considerations:**
 
 The current data structure used in `FoodList` is [Array List](#_array-list_). The rationale of choosing an array list implementation is because
 it supports resizability and random accessibility. However, the drawback of such an array list is that sorting requires 
@@ -338,7 +338,7 @@ to [TreeMap](#_tree-map_) to achieve O(logn) query time.
   <img width="60%" src="images/ItemBankCodeSnippet.png" alt="Item Bank Code Snippet"/>
 </p>
 
-#### [Proposed] Add a Recurring Exercise Feature
+#### **[Proposed] Add a Recurring Exercise Feature**
 
 ![Add Recurring Exercise Sequence Diagram](images/AddRecurringExerciseSequenceDiagram.png)
 
@@ -358,7 +358,7 @@ Step 3: After `addRecurringExercises` method is executed, `AddRecurringExerciseC
 This object outputs a message and `AddRecurringExerciseCommand` will return `commandResult`, indicating that
 `AddRecurringExerciseCommand` is successfully executed and ended.
 
-#### Loading of Data On StartUp
+#### **Loading of Data On StartUp**
 
 There are many files that are used for our current implementation. 
 Therefore, since they are similar in behaviour and function, we will only be looking at the loading of the Profile component on the starting up of _Fitbot_.
@@ -462,7 +462,7 @@ The other storages load in a similar fashion to this, except for each decoder, t
 
 
 
-#### Create Profile If Not Exist On Startup
+#### **Create Profile If Not Exist On Startup**
 
 When user first enters _Fitbot_, the profile of the user is not set up (attributes may not exist). If user were to 
 interact with the application, there might be incorrect output, 
@@ -492,7 +492,7 @@ Step 4: The StartState will replace the reference of old profile instance with t
 shown by a cross at its lifeline. The profile in the StartState will then be returned to the dataManager.
 
 
-#### Design Considerations
+#### **Design Considerations**
 
 
 
@@ -503,18 +503,18 @@ save all the profile attributes when all the attributes has been inputted by the
 
 
 Note: Due to limitation of the uml diagram, the lifeline could not be deleted after the 'X'.
-## Product scope
-### Target user profile
+## **Product scope**
+### **Target user profile**
 
 University students who are looking to keep track of their calorie consumption and calorie outputs.
 
-### Value proposition
+### **Value proposition**
 
 During these restricted COVID-19 times, we are confined to home-based learning. As a result, we tend to be less active and have fewer opportunities to stay active. This app aims to help you to gain or lose weight based on your goal of implementing a calorie deficit or calorie surplus.
 
 Its overview shows your progress over the weeks, indicating whether or not you have hit your daily calorie goal target for the past 7 days.
 
-## User Stories
+## **User Stories**
 
 |Version| As a ... | I want to ... | So that I can ...|
 |--------|----------|---------------|------------------|
@@ -546,12 +546,12 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 
 
 
-## Non-Functional Requirements
+## **Non-Functional Requirements**
 
 1. Should work on any OS as long as it has Java 11 or above installed on their PC.
 2. Should be able to hold up to at least a year of data without a slowdown of performance in daily use.
 3. Any user that is comfortable with typing of speeds >55 words per minute would be able to accomplish these tasks faster than if they used a mouse to navigate.
-## Glossary
+## **Glossary**
 #### _self invocation_
 In UML sequence diagram, a method that does a calling to another of its own methods is called self-invocation. 
 #### _array list_
@@ -573,11 +573,11 @@ to the natural order of its keys. In the case of `ItemBank`, the key should be t
 which will be sorted lexicographically. \
 (more coming in the future...)
 
-## Instructions for manual testing
+## **Instructions for manual testing**
 
 Given below are some instructions that can be used to test the application manually. 
 
-### Launch 
+### **Launch**
 
 1. Initial launch
    - Prerequisite: There is no Fitbot.jar file on your desktop.
@@ -590,7 +590,7 @@ Given below are some instructions that can be used to test the application manua
 
 
 
-### Setting Up Profile
+### **Setting Up Profile**
 
 1. Setting Up Profile I
    - Prerequisite: Fitbot.jar is in a folder with or without data folder.
@@ -615,7 +615,7 @@ Given below are some instructions that can be used to test the application manua
    Expected: _Fitbot_ is able to exit.
 
 
-### Customising Profile
+### **Customising Profile**
 
 1. Viewing current profile:
    1. Prerequisite: Have an initialized profile after the startup of the program
@@ -642,7 +642,7 @@ Given below are some instructions that can be used to test the application manua
    10. Test case: `profile x/2 w/90 h/190 a/22 s/m g/500 n/Johnny English`\
    Expected: Profile will change even with the parameters not being in order. This allows users flexibility to change their attributes in any order and with whichever parameters they want. (At least 1 attribute and at max 7 attributes can be changed at once)
 
-### Recording Food Items:
+### **Recording Food Items:**
 
 1. Adding a new Food Item when the Food List is empty:
    1. Prerequisite: Checks if the food list is empty using `view f/`. An output message showing that
@@ -674,7 +674,7 @@ Given below are some instructions that can be used to test the application manua
    number that is greater than 0.
     5. (more test cases)
     
-### Recording Exercise Items
+### **Recording Exercise Items**
 
 1. Adding Exercise Items
     1. Prerequisite: View the current Exercise List using `view e/`.
@@ -706,7 +706,7 @@ Given below are some instructions that can be used to test the application manua
        Expected:  All Exercise Item in the Exercise List are deleted. Message will show up and inform the user that all exercises
        in the Exercise List are deleted.
 
-### Scheduling Exercises
+### **Scheduling Exercises**
 
 1. Adding Upcoming Exercise Items
     1. Prerequisite: View the current Upcoming Exercise List using `view u/`.
@@ -755,7 +755,7 @@ Given below are some instructions that can be used to test the application manua
        Expected:  All Upcoming Exercise Items in the Upcoming Exercise List are deleted. Message will show up and inform the user that all upcoming exercises
        in the Upcoming Exercise List are deleted.
 
-### Building Food Bank
+### **Building Food Bank**
 1. Adding Food Bank Items
    1. Prerequisite: Food Bank does not contain a Food Item with the name "potato".
    2. Test case: `add fbank/potato` \
@@ -793,10 +793,10 @@ Given below are some instructions that can be used to test the application manua
 
 
 
-### Building Exercise Bank
+### **Building Exercise Bank**
 
 
-### Exiting Program
+### **Exiting Program**
 1. Exiting Program while setting name when creating a new profile
    1. Prerequisite: Make sure the profile.txt file is not created. If you have already created the file, you can manually
       delete it.
@@ -805,7 +805,7 @@ Given below are some instructions that can be used to test the application manua
       name as "bye". The user then need to type 1 to exit the program, 2 to set the name as "bye" and any other key to go back.
    3. (more test cases)
    
-### Manipulating and Saving Data
+### **Manipulating and Saving Data**
 
 1. Manipulating _Profile_ data in the text files directly.
     - Prerequisite: Data folder with profile.txt already present. (You have run through the profile creation at least once)
