@@ -583,26 +583,26 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 |v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
 |v1.0|new user|want to store food records|track my food intake|
 |v1.0|new user|want to store exercise records| track my exercises|
-|v1.0|new user|delete exercise records| amend wrong inputs.|
-|v1.0|new user|delete food records| amend wrong inputs.|
-|v1.0|new user|to see how close or how far i am from the calorie target| so that I could manage my calorie input.|
-|v1.0|new user|save my profile data|reduce the hassle of typing repeatedly upon application startup.|
-|v1.0|new user|calculate BMI|gauge whether I am in the healthy range.|
+|v1.0|new user|delete exercise records| amend wrong inputs|
+|v1.0|new user|delete food records| amend wrong inputs|
+|v1.0|new user|to see how close or how far i am from the calorie target| so that I could manage my calorie input|
+|v1.0|new user|save my profile data|reduce the hassle of typing repeatedly upon application startup|
+|v1.0|new user|calculate BMI|gauge whether I am in the healthy range|
 |v1.0|new user|store all records|refer to them whenever needed|
 |v2.0|new user|have a profile| to keep track of all information to calculate my net calories|
 |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
-|v2.0|user|set up profile first before entering application|so that a more accurate analysis could be done.|
+|v2.0|user|set up profile first before entering application|so that a more accurate analysis could be done|
 |v2.0|user|have a summary|see my calorie targets
 |v2.0|user|have a history|spend less time typing all the requirements to store items|
 |v2.0|user|have an exercise list that update itself|have more time for exercises|
 |v2.0|user|have a sorted food list|see what I have eaten on different times of the day|
-|v2.0|user|have varying inputs methods|reduce unnecessary hassle.|
+|v2.0|user|have varying inputs methods|reduce unnecessary hassle|
 |v2.0|user|have a delete all command|start afresh|
-|v2.0|user|have sorted food list|view the meals I have eaten throughout the week.|
-|v2.0|user|have sorted food list by meal time|track the number of supper meals I have in a week.|
-|v2.0|frequent user|to have the ability to edit past records|so that I can edit past wrong inputs.|
-|v2.0|university student|to be able to store weekly recurring sports activities| I can reduce hassle of input entries.|
-|v2.0|body-conscious user|to calculate net calories inclusive of BMR.|
+|v2.0|user|have sorted food list|view the meals I have eaten throughout the week|
+|v2.0|user|have sorted food list by meal time|track the number of supper meals I have in a week|
+|v2.0|frequent user|have the ability to edit past records|edit past wrong inputs|
+|v2.0|university student|be able to store weekly recurring sports activities|reduce hassle of input entries|
+|v2.0|body-conscious user|calculate net calories inclusive of BMR|have a more accurate guage of calories burnt|
 
 
 
