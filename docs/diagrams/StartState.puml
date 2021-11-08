@@ -6,15 +6,15 @@ hide empty members
 skinparam minclassWidth 120
 skinparam Padding 5
 
-class AttributeCreator MAIN_COLOUR
-class NameCreator MAIN_COLOUR
-class HeightCreator MAIN_COLOUR
-class WeightCreator MAIN_COLOUR
-class GenderCreator MAIN_COLOUR
-class AgeCreator MAIN_COLOUR
-class CalorieGoalCreator MAIN_COLOUR
-class ActivityFactorCreator MAIN_COLOUR
-class StartState MAIN_COLOUR
+class AttributeCreator STATE_COLOUR
+class NameCreator STATE_COLOUR
+class HeightCreator STATE_COLOUR
+class WeightCreator STATE_COLOUR
+class GenderCreator STATE_COLOUR
+class AgeCreator STATE_COLOUR
+class CalorieGoalCreator STATE_COLOUR
+class ActivityFactorCreator STATE_COLOUR
+class StartState STATE_COLOUR
 
 
 StartState ..> NameCreator : > executes
