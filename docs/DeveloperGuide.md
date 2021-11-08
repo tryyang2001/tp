@@ -585,6 +585,31 @@ Given below are some instructions that can be used to test the application manua
 
 ### Customising Profile
 
+1. Viewing current profile:
+   1. Prerequisite: Have an initialized profile after the startup of the program
+   2. Test case: `profile`\
+   Expected: Displays your profile in a viewable format
+2. Changing attributes:
+   1. Prerequisite: N.A.
+   2. Test case: `profile n/John|`\
+   Expected: Name is not changed as the use of `|` character is illegal.
+   3. Test case: `profile n/John/`\
+   Expected: Name is not changed as the use of `/` character is also illegal.
+   4. Test case: `profile h/-20` \
+   Expected: An error message shows that you can only input a number between 1 and 300, and height will not change.
+   5. Test case: `profile w/-200` \
+   Expected: An error message shows that you can only input a number between 1 and 300, and weight will not change.
+   6. Test case: `profile a/170`\
+   Expected: An error message shows that you can only input a whole number between 10 and 150.
+   7. Test case: `profile s/mfe`\
+   Expected: Error message displays that you should only use 'M' or 'F' only.
+   8. Test case: `profile g/20000`\
+   Expected: Error message that displays that you can only input from -3000 to 10000.
+   9. Test case: `profile x/0`\
+   Expected: Error message asking you to try a whole number from 1 to 5 instead.
+   10. Test case: `profile x/2 w/90 h/190 a/22 s/m g/500 n/Johnny English`\
+   Expected: Profile will change even with the parameters not being in order. This allows users flexibility to change their attributes in any order and with whichever parameters they want. (At least 1 attribute and at max 7 attributes can be changed at once)
+
 ### Recording Food Items:
 
 1. Adding a new Food Item when the Food List is empty:
