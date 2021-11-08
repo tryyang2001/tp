@@ -5,7 +5,7 @@
 hide footbox
 
 participant "command:AddFoodCommand" As AddFoodCommand LOGIC_COLOUR
-participant "foodBank:FoodBank" As FoodBank DATA_COLOUR
+participant "foodBank:ItemBank" As FoodBank DATA_COLOUR
 
 ?->AddFoodCommand :execute()
 activate AddFoodCommand LOGIC_COLOUR

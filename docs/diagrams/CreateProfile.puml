@@ -2,14 +2,14 @@
 'https://plantuml.com/sequence-diagram
 hide footbox
 !include Style.puml
-participant ":StartState" As StartState MAIN_COLOUR
--> StartState ++ MAIN_COLOUR: checkAndCreateProfile()
+participant ":StartState" As StartState STATE_COLOUR
+-> StartState ++ STATE_COLOUR: checkAndCreateProfile()
 participant "oldProfile:Profile" as oldProfile DATA_COLOUR
 StartState -> oldProfile ++ DATA_COLOUR :checkProfileComplete()
 oldProfile --> StartState --
 alt profile.checkProfileComplete()
 else
-StartState -> StartState ++ MAIN_COLOUR: createProfile()
+StartState -> StartState ++ STATE_COLOUR: createProfile()
 participant "newProfile:Profile" as newProfile DATA_COLOUR
 create newProfile
 StartState ->newProfile ++ DATA_COLOUR : new Profile()

@@ -27,7 +27,7 @@ Command .right.> CommandResult : > produces
 class Main MAIN_COLOUR
 
 Main --> "1" LogicManager : > instantiates and \n feeds user input
-Command --> DataManager : > modifies
+Command --> "1" DataManager : > modifies
 ParserManager ..> Command : > returns
 StorageManager ..> DataManager : > saves
 LogicManager ..> Command : > executes

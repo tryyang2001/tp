@@ -9,8 +9,6 @@ participant ":AddCommandParser" AS AddCommandParser LOGIC_COLOUR
 participant ":XYZCommandParser" AS XYZCommandParser LOGIC_COLOUR
 -> ParserManager : parseCommand("add f/potato c/30")
 participant ":InvalidCommand" AS InvalidCommand LOGIC_COLOUR
-activate ParserManager LOGIC_COLOUR
-
 
 activate ParserManager LOGIC_COLOUR
 
