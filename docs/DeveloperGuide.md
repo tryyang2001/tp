@@ -685,7 +685,7 @@ Given below are some instructions that can be used to test the application manua
             </li>
             <li>Launch the application where it should be able to detect the invalid line in storage.</li>
          </ol>   
-        <li>The user will be notified of the invalid line and it will be subsequently ignored. Upon the next operation that requires saving of data ("bye", "add e/" commands etc.), this invalid line will be overwritten and ignored, preserving the data integrity of the rest of the lines.</li>
+        <li>Expected: The user will be notified of the invalid line and it will be subsequently ignored. Upon the next operation that requires saving of data ("bye", "add e/" commands etc.), this invalid line will be overwritten and ignored, preserving the data integrity of the rest of the lines.</li>
     </ul>
 </ul>
 
