@@ -110,6 +110,7 @@ A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Ge
 
 - All the attributes implement a `Verifiable` interface to enable us to check if the attributes are valid. This is important for the setting up of profile or the loading of profile from storage to ensure data integrity of the user's attributes.
 
+The `ProfileUtils` class is used in performing calculations (such as BMR or BMI) with the various attributes of the `Profile` class.
 
 ### Data Component (ItemBank and Item)
 
