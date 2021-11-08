@@ -348,18 +348,18 @@ Afterwhich, `Main` calls a loading function `loadAll` that in turns calls the `l
 1. Checks and creates the file if it is missing.
 2. Retrieves the data from the file with the use of the ProfileDecoder to decode.
 
-Reference Diagram: Checks for the file and create directory if it does not exist
 
 <p align="center" width="100%">
   <img width="auto" src="images/ChecksForFileStorage.png" alt="ProfileStorageLoadSequenceDiagram"/>
+<i>Reference Diagram: Checks for the file and create directory if it does not exist</i>
 </p>
 
 The diagram above explains how the application checks if a file exists. If it exists, it will not perform any additional functionality. Otherwise, it will generate a new file in preparation for storage.
 
-Reference Diagram: Retrieval of data from storage with the use of ProfileDecoder to decode
 
 <p align="center" width="100%">
   <img width="auto" src="images/RetrieveDataFromStorage.png" alt="ProfileStorageLoadSequenceDiagram"/>
+<i>Reference Diagram: Retrieval of data from storage with the use of ProfileDecoder to decode</i>
 </p>
 
 The diagram above explains the processes to decode the items from the file.
@@ -368,55 +368,54 @@ Upon reaching the `decodeProfile(line)` method, the reference frame depicts a pr
 If the methods are unable to read the respective attribute from storage, an invalid attribute will be initialized. This then returns an initialized profile with invalid attributes for `StartState` to catch, allowing users to change
 their attributes instead of losing their entire profile data on startup. 
 
-Reference Diagram: Decode all attributes
 
 <p align="center" width="100%">
   <img width="auto" src="images/DecodeAttributes.png" alt="ProfileStorageLoadSequenceDiagram"/>
+<i>Reference Diagram: Decode all attributes</i>
 </p>
 
 Below represents each of the attribute's decoding process:
 
-Reference Diagram: Decode Name
-
 <p align="center" width="100%">
   <img width="auto" src="images/DecodeName.png" alt="ProfileStorageLoadSequenceDiagram"/>
+<i>Reference Diagram: Decode Name</i>
 </p>
 
-Reference Diagram: Decode Height
 
 <p align="center" width="100%">
   <img width="auto" src="images/DecodeHeight.png" alt="ProfileStorageLoadSequenceDiagram"/>
+<i>Reference Diagram: Decode Height</i>
 </p>
 
 
-Reference Diagram: Decode Weight
 
 <p align="center" width="100%">
   <img width="auto" src="images/DecodeWeight.png" alt="ProfileStorageLoadSequenceDiagram"/>
+<i>Reference Diagram: Decode Weight</i>
 </p>
 
-Reference Diagram: Decode Gender
 
 <p align="center" width="100%">
   <img width="auto" src="images/DecodeGender.png" alt="ProfileStorageLoadSequenceDiagram"/>
+<i>Reference Diagram: Decode Gender</i>
 </p>
 
-Reference Diagram: Decode Age
 
 <p align="center" width="100%">
   <img width="auto" src="images/DecodeAge.png" alt="ProfileStorageLoadSequenceDiagram"/>
+<i>Reference Diagram: Decode Age</i>
 </p>
 
-Reference Diagram: Decode CalorieGoal
 
 <p align="center" width="100%">
   <img width="auto" src="images/DecodeCalorieGoal.png" alt="ProfileStorageLoadSequenceDiagram"/>
+<i>Reference Diagram: Decode CalorieGoal</i>
 </p>
 
-Reference Diagram: Decode ActivityFactor
 
 <p align="center" width="100%">
   <img width="auto" src="images/DecodeActivityFactor.png" alt="ProfileStorageLoadSequenceDiagram"/>
+<i>Reference Diagram: Decode ActivityFactor</i>
 </p>
 
 The other storages load in a similar fashion to this, except for each decoder, they decode `Item` for `ItemBank`s, `Food` for `FoodList` and `Exercise` for `ExerciseList`.
