@@ -30,21 +30,29 @@ public class HeightCreator extends AttributeCreator {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_HEIGHT);
             try {
                 String userInput = ui.getUserInput();
-                ui.checkEmptyUserInput(userInput);
-                confirmInputBye(userInput);
-                double heightInput = Double.parseDouble(userInput);
-                height.setHeight(heightInput);
-                if (height.isValid()) {
-                    ui.formatMessageWithTopDivider(
-                            String.format(MESSAGE_HEIGHT,
-                                    height.getHeight()));
-                } else {
-                    ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_HEIGHT);
-                }
+                setHeight(userInput);
+                checkHeight();
             } catch (NumberFormatException e) {
                 ui.formatMessageWithTopDivider(MESSAGE_INVALID_POSITIVE_DOUBLE_INPUT);
             }
         }
         return height;
+    }
+
+    private void checkHeight() {
+        if (height.isValid()) {
+            ui.formatMessageWithTopDivider(
+                    String.format(MESSAGE_HEIGHT,
+                            height.getHeight()));
+        } else {
+            ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_HEIGHT);
+        }
+    }
+
+    private void setHeight(String userInput) throws MissingParamException {
+        ui.checkEmptyUserInput(userInput);
+        confirmInputBye(userInput);
+        double heightInput = Double.parseDouble(userInput);
+        height.setHeight(heightInput);
     }
 }

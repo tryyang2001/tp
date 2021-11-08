@@ -30,22 +30,28 @@ public class GenderCreator extends AttributeCreator {
         while (!gender.isValid()) {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_GENDER);
             String userInput = ui.getUserInput();
-            ui.checkEmptyUserInput(userInput);
-            confirmInputBye(userInput);
-            if (userInput.length() == 1) {
-                char genderInput = userInput.charAt(0);
-                gender.setGender(genderInput);
-            }
-            if (gender.isValid()) {
-                ui.formatMessageWithTopDivider(
-                        getGenderMessage(gender.getGender()));
-            } else {
-                ui.formatMessageWithTopDivider(ProfileUtils.ERROR_GENDER);
-            }
-
-
+            setGender(userInput);
+            checkGender();
         }
         return gender;
+    }
+
+    private void checkGender() {
+        if (gender.isValid()) {
+            ui.formatMessageWithTopDivider(
+                    getGenderMessage(gender.getGender()));
+        } else {
+            ui.formatMessageWithTopDivider(ProfileUtils.ERROR_GENDER);
+        }
+    }
+
+    private void setGender(String userInput) throws MissingParamException {
+        ui.checkEmptyUserInput(userInput);
+        confirmInputBye(userInput);
+        if (userInput.length() == 1) {
+            char genderInput = userInput.charAt(0);
+            gender.setGender(genderInput);
+        }
     }
 
     private String getGenderMessage(char gender) {

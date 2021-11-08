@@ -4,12 +4,15 @@
 hide circle
 
 class  "        Ui        " as Ui
+class "     State     " as State STATE_COLOUR
 
 class DataManager DATA_COLOUR
 DataManager "1" <-- Main: stores <
 LogicManager "1" <-- Main : parse <
 Ui "1" <-- Main : formats output <
 StorageManager "1" <-- Main : retrieves <
+State "1" <-- Main : checks <
+
 
 class Main MAIN_COLOUR {
 start()

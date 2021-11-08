@@ -1,4 +1,8 @@
-# Tay Weida - Project Portfolio Page
+---
+layout: page
+title: Weida's Project Portfolio Page
+---
+
 
 ## Overview
 

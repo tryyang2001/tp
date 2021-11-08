@@ -40,7 +40,7 @@ public class EditFutureExerciseCommand extends Command {
     @Override
     public CommandResult execute() {
         if (super.futureExerciseItems.getSize() == 0) {
-            logger.log(Level.WARNING, "Future exercise list is empty.");
+            logger.log(Level.FINE, "Future exercise list is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_FUTURE_EXERCISE_LIST);
         }
         try {
@@ -50,7 +50,7 @@ public class EditFutureExerciseCommand extends Command {
             }
             if (this.newCalories != null) {
                 if (this.newCalories < Item.LOWEST_CALORIE || this.newCalories > Item.HIGHEST_CALORIE) {
-                    logger.log(Level.WARNING, "Detected impossible exercise calorie burnt.");
+                    logger.log(Level.FINE, "Detected impossible exercise calorie burnt.");
                     return new CommandResult(CommandMessages.MESSAGE_INVALID_CALORIES);
                 }
                 item.setCalories(this.newCalories);
@@ -65,7 +65,7 @@ public class EditFutureExerciseCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
                     item.toStringWithDate()));
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected invalid exercise item index.");
+            logger.log(Level.FINE, "Detected invalid exercise item index.");
             if (super.futureExerciseItems.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }

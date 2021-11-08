@@ -1,4 +1,7 @@
-# **Rui Yang - Project Portfolio Page**
+---
+layout: page
+title: Rui Yang's Project Portfolio Page
+---
 
 ## **Overview**
 

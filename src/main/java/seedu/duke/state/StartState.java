@@ -1,10 +1,14 @@
 package seedu.duke.state;
 
 import seedu.duke.data.profile.Profile;
+import seedu.duke.logic.Statistics;
 import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Ui;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //@@author tttyyzzz
 
@@ -13,6 +17,7 @@ public class StartState {
     private Profile profile;
     private StorageManager storageManager;
     private Ui ui;
+    private static Logger logger = Logger.getLogger(Statistics.class.getName());
 
     public StartState(Profile profile, StorageManager storageManager, Ui ui) {
         this.profile = profile;
@@ -29,12 +34,15 @@ public class StartState {
      */
     public Profile checkAndCreateProfile() {
         if (profile.checkProfileComplete()) {
+            logger.log(Level.FINE,"profile is complete");
             return profile;
         }
         if (profile.checkProfilePresent()) {
             assert !profile.checkProfileComplete() : "profile is incomplete";
+            logger.log(Level.FINE,"profile is partially complete");
             repairProfile();
         } else {
+            logger.log(Level.FINE,"profile is totally wrong or incomplete");
             createNewProfile();
         }
 
@@ -111,6 +119,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileActivityFactor(Profile newProfile) throws MissingParamException {
+        logger.log(Level.FINE,"creating activity factor");
         newProfile.setProfileActivityFactor(new ActivityFactorCreator(ui).createActivityFactor());
     }
 
@@ -121,6 +130,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileCalorieGoal(Profile newProfile) throws MissingParamException {
+        logger.log(Level.FINE,"creating calorie goal");
         newProfile.setProfileCalorieGoal(new CalorieGoalCreator(ui).createNewCalorieGoal());
     }
 
@@ -131,6 +141,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileAge(Profile newProfile) throws MissingParamException {
+        logger.log(Level.FINE,"creating age");
         newProfile.setProfileAge(new AgeCreator(ui).createNewAge());
     }
 
@@ -140,6 +151,7 @@ public class StartState {
      * @param newProfile instance of a profile class.
      */
     private void createNewProfileGender(Profile newProfile) throws MissingParamException {
+        logger.log(Level.FINE,"creating gender");
         newProfile.setProfileGender(new GenderCreator(ui).createNewGender());
     }
 
@@ -150,6 +162,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileWeight(Profile newProfile) throws MissingParamException {
+        logger.log(Level.FINE,"crating weight");
         newProfile.setProfileWeight(new WeightCreator(ui).createNewWeight());
     }
 
@@ -160,6 +173,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileHeight(Profile newProfile) throws MissingParamException {
+        logger.log(Level.FINE,"creating height");
         newProfile.setProfileHeight(new HeightCreator(ui).createNewHeight());
     }
 
@@ -170,6 +184,7 @@ public class StartState {
      * @throws MissingParamException if user input a string of 0 characters.
      */
     private void createNewProfileName(Profile newProfile) throws MissingParamException {
+        logger.log(Level.FINE,"crating name");
         newProfile.setProfileName(new NameCreator(ui).createNewName());
     }
 }

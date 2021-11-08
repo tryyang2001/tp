@@ -37,7 +37,7 @@ public class EditExerciseBankCommand extends Command {
     @Override
     public CommandResult execute() {
         if (super.exerciseBank.getSize() == 0) {
-            logger.log(Level.WARNING, "Exercise bank list is empty.");
+            logger.log(Level.FINE, "Exercise bank list is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_EXERCISE_BANK);
         }
         try {
@@ -48,7 +48,7 @@ public class EditExerciseBankCommand extends Command {
             }
             if (this.newCalories != null) {
                 if (this.newCalories < Item.LOWEST_CALORIE || this.newCalories > Item.HIGHEST_CALORIE) {
-                    logger.log(Level.WARNING, "Detected impossible exercise calorie burnt.");
+                    logger.log(Level.FINE, "Detected impossible exercise calorie burnt.");
                     return new CommandResult(CommandMessages.MESSAGE_INVALID_CALORIES);
                 }
                 item.setCalories(this.newCalories);
@@ -56,7 +56,7 @@ public class EditExerciseBankCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.itemIndex + 1,
                     super.exerciseBank.getItem(this.itemIndex).toStringWithoutDateAndTime()));
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected invalid exercise bank item index.");
+            logger.log(Level.FINE, "Detected invalid exercise bank item index.");
             if (super.exerciseBank.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class ExerciseList extends ItemList {
     public static final String MESSAGE_EXERCISE_DONE_PER_DAY = "You have done %d exercise(s) on %s (%s):";
     public static final String MESSAGE_TOTAL_CALORIE_BURNT_PER_DAY = "Total calories burnt in the day: %d cal";
-    public static final String MESSAGE_TOTAL_CALORIE_BURNT_PER_WEEK = "Total calorie burnt in this week: %d cal";
+    public static final String MESSAGE_TOTAL_CALORIE_BURNT_PER_WEEK = "Total calories burnt in this week: %d cal";
     public static final String MESSAGE_TOTAL_EXERCISE_DONE_PER_WEEK = "Total exercises done in this week: %d";
 
     /**

@@ -36,23 +36,31 @@ public class CalorieGoalCreator extends AttributeCreator {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_CALORIE_GOAL);
             try {
                 String userInput = ui.getUserInput().trim();
-                ui.checkEmptyUserInput(userInput);
-                confirmInputBye(userInput);
-                int calorieGoalInput = Integer.parseInt(userInput);
-                calorieGoal = new CalorieGoal(calorieGoalInput);
-                if (calorieGoal.isValid()) {
-                    ui.formatMessageWithTopDivider(
-                            String.format(MESSAGE_CALORIE_GOAL,
-                                    calorieGoal.getCalorieGoal()));
-                } else {
-                    ui.formatMessageWithTopDivider(ProfileUtils.ERROR_CALORIE_GOAL);
-
-                }
+                setCalorieGoal(userInput);
+                checkCalorieGoal();
                 checkInput = true;
             } catch (NumberFormatException e) {
                 ui.formatMessageWithTopDivider(MESSAGE_INVALID_POSITIVE_INT_INPUT);
             }
         } while (!checkInput || !calorieGoal.isValid());
         return calorieGoal;
+    }
+
+    private void checkCalorieGoal() {
+        if (calorieGoal.isValid()) {
+            ui.formatMessageWithTopDivider(
+                    String.format(MESSAGE_CALORIE_GOAL,
+                            calorieGoal.getCalorieGoal()));
+        } else {
+            ui.formatMessageWithTopDivider(ProfileUtils.ERROR_CALORIE_GOAL);
+
+        }
+    }
+
+    private void setCalorieGoal(String userInput) throws MissingParamException {
+        ui.checkEmptyUserInput(userInput);
+        confirmInputBye(userInput);
+        int calorieGoalInput = Integer.parseInt(userInput);
+        calorieGoal = new CalorieGoal(calorieGoalInput);
     }
 }
