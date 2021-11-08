@@ -37,22 +37,29 @@ public class ActivityFactorCreator extends AttributeCreator {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_ACTIVITY_FACTOR);
             try {
                 String userInput = ui.getUserInput().trim();
-                ui.checkEmptyUserInput(userInput);
-                confirmInputBye(userInput);
-                int activityFactorInput = Integer.parseInt(userInput);
-                activityFactor.setUserInput(activityFactorInput);
-                if (activityFactor.isValid()) {
-                    ui.formatMessageWithTopDivider(
-                            String.format(MESSAGE_ACTIVITY_FACTOR,
-                                    activityFactor.getUserInput()));
-                } else {
-                    ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_ACTIVITY_FACTOR);
-                }
-                ;
+                setActivityFactor(userInput);
+                checkActivityFactor();
             } catch (NumberFormatException e) {
                 ui.formatMessageWithTopDivider(MESSAGE_INVALID_POSITIVE_INT_INPUT);
             }
         }
         return activityFactor;
+    }
+
+    private void checkActivityFactor() {
+        if (activityFactor.isValid()) {
+            ui.formatMessageWithTopDivider(
+                    String.format(MESSAGE_ACTIVITY_FACTOR,
+                            activityFactor.getUserInput()));
+        } else {
+            ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_ACTIVITY_FACTOR);
+        }
+    }
+
+    private void setActivityFactor(String userInput) throws MissingParamException {
+        ui.checkEmptyUserInput(userInput);
+        confirmInputBye(userInput);
+        int activityFactorInput = Integer.parseInt(userInput);
+        activityFactor.setUserInput(activityFactorInput);
     }
 }

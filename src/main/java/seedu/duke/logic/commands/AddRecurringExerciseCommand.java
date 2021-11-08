@@ -50,7 +50,7 @@ public class AddRecurringExerciseCommand extends Command {
     @Override
     public CommandResult execute() {
         if (this.startDate.isAfter(this.endDate)) {
-            logger.log(Level.WARNING, "Start date is after end date");
+            logger.log(Level.FINE, "Start date is after end date");
             return new CommandResult(String.format(MESSAGE_INVALID_DATES,
                     this.startDate.format(CommandMessages.DATE_FORMATTER),
                     this.endDate.format(CommandMessages.DATE_FORMATTER)));
@@ -66,12 +66,12 @@ public class AddRecurringExerciseCommand extends Command {
                         CommandMessages.MESSAGE_INVALID_EXERCISE_NOT_IN_BANK, this.description));
             }
         } else if (calories < Item.LOWEST_CALORIE || calories > Item.HIGHEST_CALORIE) {
-            logger.log(Level.WARNING, "Detected impossible calorie value");
+            logger.log(Level.FINE, "Detected impossible calorie value");
             return new CommandResult(CommandMessages.MESSAGE_INVALID_CALORIES);
         }
         assert this.endDate.isAfter(this.startDate) : "End date is after start date";
         if (!this.startDate.isAfter(LocalDate.now())) {
-            logger.log(Level.WARNING, "Recurring exercises are for future only");
+            logger.log(Level.FINE, "Recurring exercises are for future only");
             return new CommandResult(String.format(MESSAGE_INVALID_FUTURE_DATES,
                     this.startDate.format(CommandMessages.DATE_FORMATTER),
                     this.endDate.format(CommandMessages.DATE_FORMATTER)));
@@ -86,7 +86,7 @@ public class AddRecurringExerciseCommand extends Command {
                     this.endDate.format(CommandMessages.DATE_FORMATTER)));
         }
 
-        logger.log(Level.WARNING, "Recurring exercise is successfully added");
+        logger.log(Level.FINE, "Recurring exercise is successfully added");
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

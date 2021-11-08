@@ -13,6 +13,7 @@ public class WeightCreator extends AttributeCreator {
 
     public static final String MESSAGE_INTRO_WEIGHT = "What's your weight? (in kg)";
     public static final String MESSAGE_WEIGHT = "Your weight is %skg.";
+    public static final String MESSAGE_INVALID_WEIGHT_INPUT = "Invalid input, please input a valid positive number";
     private Weight weight = new Weight();
 
     public WeightCreator(Ui ui) {
@@ -29,21 +30,29 @@ public class WeightCreator extends AttributeCreator {
             ui.formatMessageWithBottomDivider(MESSAGE_INTRO_WEIGHT);
             try {
                 String userInput = ui.getUserInput();
-                ui.checkEmptyUserInput(userInput);
-                confirmInputBye(userInput);
-                double weightInput = Double.parseDouble(userInput);
-                weight.setWeight(weightInput);
-                if (weight.isValid()) {
-                    ui.formatMessageWithTopDivider(
-                            String.format(MESSAGE_WEIGHT,
-                                    weight.getWeight()));
-                } else {
-                    ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_WEIGHT);
-                }
+                setWeight(userInput);
+                checkWeight();
             } catch (NumberFormatException e) {
-                ui.formatMessageWithTopDivider("Invalid input, please input a valid positive number");
+                ui.formatMessageWithTopDivider(MESSAGE_INVALID_WEIGHT_INPUT);
             }
         }
         return weight;
+    }
+
+    private void checkWeight() {
+        if (weight.isValid()) {
+            ui.formatMessageWithTopDivider(
+                    String.format(MESSAGE_WEIGHT,
+                            weight.getWeight()));
+        } else {
+            ui.formatMessageFramedWithDivider(ProfileUtils.ERROR_WEIGHT);
+        }
+    }
+
+    private void setWeight(String userInput) throws MissingParamException {
+        ui.checkEmptyUserInput(userInput);
+        confirmInputBye(userInput);
+        double weightInput = Double.parseDouble(userInput);
+        weight.setWeight(weightInput);
     }
 }

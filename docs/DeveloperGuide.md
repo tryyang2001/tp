@@ -68,10 +68,12 @@ The `Main` class consists of the few components as shown below:
   Data will be retrieved from storage upon starting of application.
 - `State`: Helps the user to restore or create profile data. 
 
+
 Upon launching of application:
 - The application will check if there are files that are already stored in the respective folder.
   If there is such files, the contents of the files will be loaded to the data section of the application.
-  Instances of profile, data(e.g. FoodList, ExerciseList, FutureExerciseList, ItemBank) and storage will be created
+  Instances of profile, data(e.g. FoodList, ExerciseList, FutureExerciseList, ItemBank) and storage will be created.
+- If there is no such files, the files will be created.
 
 
 Upon exiting of application:
@@ -83,36 +85,21 @@ Class diagram of Main
   <img width="80%" src="images/MainClass.png" alt="Main Class Diagram"/>
 </p>
 
-When _Fitbot_ is being started, the above instances are being created in the main class. 
-All the classes are marked as 1 as the main class require these instance to perform successful operations.
-ItemBank contains 2 instances as 1 is required for foodBank while the other is for exerciseBank.
+When _Fitbot_ is being started, the above instances (`Ui`,`State`, `LogicManager`,`DataManager` and `StorageManager`)
+are being created in the main class. The main class will require 1 of each instance for the application to function.
+
 
 - Main class start of by running the `start()` function which loads all information using StorageManager class to the 
 Profile, FoodList, ExerciseList,ItemBank(foodBank, exerciseBank).
 -Next main class will check if user contains the profile using the `checkAndCreateProfile()`. If user does not have
 a profile, the application will assist user to create a profile by prompting questions.
-- `loadsFutureExercisesToList()` loads future exercises to FutureExerciseList.
-- After loading and creating profile, the main program will enter `enterTaskModeUntlByeCommand()` for user
-to interact with the application
+-After setting up/ ensuring that user have a profile, the main program will enter `enterTaskModeUntlByeCommand()` 
+for user to interact with the application
 - Once user has keyed in the command `bye`, the main program will exit out of the `enterTaskModeUntlByeCommand()`
 and run the `exit()` command to exit the application.
 
 
-
-Interaction between the classes could be shown by the uml sequence diagram below.
-
-<p align="center" width="100%">
-  <img width="100%" src="images/Architecture.png" alt="Architecture Sequence Diagram"/>
-</p>
-
-
--When there is an input, the Ui class will retrieve the information from the user.
--Once the Main class receives the input, it creates a new Parser class to parse the commands.
--Depends on the method, in this case add food command, main class will execute the command class(not shown)
-based on the command the parser detects.
-- The command class will add the food item into the `Data` and updates the `storage` instance accordingly.
-- when all the operations above are completed, the Main class will pass a message to Ui class.
-- Ui class wll then format the message and print it to console for the user.
+  
 
 ### Data Component
 
@@ -179,16 +166,25 @@ Abstract classes of Items and ItemLists acts as an agent for meaningful subclass
 
 ### Ui Component
 
-The `Ui` component interacts with the user. It reads in input from the user and prints messages on the console.
-Below shows a class diagram of how `Ui` component interacts with the rest of the application.
+The purpose of `Ui` component is to interact with the user. It reads in input from the user and prints messages on the 
+console. Below shows a sequence diagram of how `Ui` component interacts with the rest of the application.
 
 
 <p align="center" width="100%">
-  <img width="80%" src="images/UiClassDiagram.png" alt="Ui Class Diagram"/>
+  <img width="80%" src="images/UiSequenceDiagram.png" alt="Ui Sequence Diagram"/>
 </p>
 
-Ui Class also consists of `Statistics` Class, which is instantiated by `OverviewCommand` Class and returns messages to
-back to the `OverviewCommand` Class, before passing message to `Ui` for formatting.
+Step 1: The main program starts off with the run command (command not shown but the activation bar is present), and the 
+run command self invoke itself by calling `enterTaskModeUntilByeCommand()`,\
+Step 2: In this method, the main class will prompt for user input using `getUserInput()`.\
+Step 3: Once the ui instance received user input, the main command will process the data(not shown).
+Step 4: After processing the data, no matter success or fail, the main command will tap on ui instance again to print
+message on the console using `formatMessageFramedWithDivider()`
+
+The sequence interaction in ref will be elaborated in Parsing of Commands under [Implementation](#implementation).
+
+Note: The Main class has 2 activation bars are due to the `run()` function which will then activate 
+`enterTaskModeUntilByeCommand()`. In the example above, it is assumed that `bye` command is not used as example.
 
 ### Logic Component
  
@@ -261,7 +257,7 @@ where:
 This way of implementation ensures that each class has a _single responsibility_ with little coupling between each other.
 
 
-### Main Component
+### State Component
 
 #### Create Profile (StartState)
 
@@ -272,7 +268,8 @@ This way of implementation ensures that each class has a _single responsibility_
 - When the `StartState` method is being called, it instantiated and execute methods in the 7 classes, which are 
 `NameCreator`, `HeightCreator`, `WeightCreator`, `GenderCreator`, `AgeCreator`, `CalorieGoalCreator` and 
 `ActivityFactorCreator`.
-- The above Classes instantiated by `StartState` are inherited from `AttributeCreator` class.
+- The above Classes instantiated by `StartState` are inherited from `AttributeCreator` class. These profile attributes
+are inherited from `AttributeCreator` to conform DRY principle, by extracting out common methods.
 
 
 
@@ -461,14 +458,29 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 |v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
 |v1.0|new user|want to store food records|track my food intake|
 |v1.0|new user|want to store exercise records| track my exercises|
+|v1.0|new user|delete exercise records| amend wrong inputs.|
+|v1.0|new user|delete food records| amend wrong inputs.|
+|v1.0|new user|to see how close or how far i am from the calorie target| so that I could manage my calorie input.|
+|v1.0|new user|save my profile data|reduce the hassle of typing repeatedly upon application startup.|
+|v1.0|new user|calculate BMI|gauge whether I am in the healthy range.|
 |v1.0|new user|store all records|refer to them whenever needed|
 |v2.0|new user|have a profile| to keep track of all information to calculate my net calories|
 |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|v2.0|user|set up profile first before entering application|so that a more accurate analysis could be done.|
 |v2.0|user|have a summary|see my calorie targets
 |v2.0|user|have a history|spend less time typing all the requirements to store items|
 |v2.0|user|have an exercise list that update itself|have more time for exercises|
 |v2.0|user|have a sorted food list|see what I have eaten on different times of the day|
+|v2.0|user|have varying inputs methods|reduce unnecessary hassle.|
 |v2.0|user|have a delete all command|start afresh|
+|v2.0|user|have sorted food list|view the meals I have eaten throughout the week.|
+|v2.0|user|have sorted food list by meal time|track the number of supper meals I have in a week.|
+|v2.0|frequent user|to have the ability to edit past records|so that I can edit past wrong inputs.|
+|v2.0|university student|to be able to store weekly recurring sports activities| I can reduce hassle of input entries.|
+|v2.0|body-conscious user|to calculate net calories inclusive of BMR.|
+
+
+
 
 
 ## Non-Functional Requirements
@@ -517,13 +529,27 @@ Given below are some instructions that can be used to test the application manua
 
 ### Setting Up Profile
 
-2. Setting Up Profile
+1. Setting Up Profile I
    - Prerequisite: Fitbot.jar is in a folder with or without data folder.
    - Test case:
    1. Delete profile.txt from data folder if present.
    2. Run _Fitbot_ using `java -jar Fitbot.jar`.
 
    Expected: _Fitbot_will prompt for your name upon start up.
+
+2. Setting Up Profile II
+  - Prerequisite: profile.txt is present.
+  - Test case:
+    1. Change 1 of the attribute to an invalid attribute.
+    2. Run _Fitbot_ using `java -jar Fitbot.jar`.
+  Expected: _Fitbot_ will prompt for the attribute missing.
+
+3. Setting Up Profile III
+    - Prerequisite: profile.txt is deleted/ not present.
+    - Test case:
+   1. Fill in some of the profile attributes. Do not fill up all of them.
+   2. Type the command `bye`.
+   Expected: _Fitbot_ is able to exit.
 
 
 ### Customising Profile

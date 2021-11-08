@@ -39,15 +39,15 @@ public class DeleteExerciseBankCommand extends Command {
     @Override
     public CommandResult execute() {
         if (super.exerciseBank.getSize() == 0) {
-            logger.log(Level.WARNING, "Exercise bank is empty.");
+            logger.log(Level.FINE, "Exercise bank is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_EXERCISE_BANK);
         }
         if (this.isClear) {
-            logger.log(Level.WARNING, "Clearing exercise bank");
+            logger.log(Level.FINE, "Clearing exercise bank");
             super.exerciseBank.clearList();
             return new CommandResult(MESSAGE_EXERCISE_CLEAR);
         }
-        logger.log(Level.WARNING, "Trying to delete item now");
+        logger.log(Level.FINE, "Trying to delete item now");
         try {
             if ((itemIndexArray.size() == 1)) {
                 Item item = super.exerciseBank.deleteItem(itemIndexArray.get(0));
@@ -69,7 +69,7 @@ public class DeleteExerciseBankCommand extends Command {
                         + String.format(MESSAGE_ITEMS_LEFT, super.exerciseBank.getSize()));
             }
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected invalid exercise item index.");
+            logger.log(Level.FINE, "Detected invalid exercise item index.");
             if (super.exerciseBank.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }

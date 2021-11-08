@@ -8,6 +8,7 @@ import seedu.duke.logic.commands.DeleteFoodBankCommand;
 import seedu.duke.logic.commands.DeleteFoodCommand;
 import seedu.duke.logic.commands.DeleteFutureExerciseCommand;
 import seedu.duke.logic.commands.InvalidCommand;
+import seedu.duke.logic.parser.exceptions.ExtraParamException;
 import seedu.duke.logic.parser.exceptions.ItemNotSpecifiedException;
 import seedu.duke.logic.parser.exceptions.MissingParamException;
 import seedu.duke.logic.parser.exceptions.ParserException;
@@ -53,18 +54,15 @@ public class DeleteCommandParser implements Parser {
             if (ParserUtils.hasExtraDelimiters(params, DeleteExerciseCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
-            final String description = ParserUtils
-                    .extractItemDescription(params, itemTypePrefix)
-                    .split(" ")[0].trim();
-            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+            boolean isClear = extractIsClear(params, itemTypePrefix);
             if (isClear) {
                 return new DeleteExerciseCommand(true);
             }
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
             final LocalDate date = ParserUtils.extractDate(params, true);
-            logger.log(Level.WARNING, String.format("date detected is: %s", date));
+            logger.log(Level.FINE, String.format("date detected is: %s", date));
 
-            logger.log(Level.WARNING, String.format("deleting exercise item %s from %s", itemIndex, date));
+            logger.log(Level.FINE, String.format("deleting exercise item %s from %s", itemIndex, date));
             return new DeleteExerciseCommand(itemIndex, date);
         } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
@@ -76,20 +74,17 @@ public class DeleteCommandParser implements Parser {
             if (ParserUtils.hasExtraDelimiters(params, DeleteFoodCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
-            final String description = ParserUtils
-                    .extractItemDescription(params, itemTypePrefix)
-                    .split(" ")[0].trim();
-            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+            boolean isClear = extractIsClear(params, itemTypePrefix);
             if (isClear) {
                 return new DeleteFoodCommand(true);
             }
             final int itemIndex = ParserUtils.extractItemIndex(params, itemTypePrefix);
             final LocalDate date = ParserUtils.extractDate(params, true);
-            logger.log(Level.WARNING, String.format("date detected is: %s", date));
+            logger.log(Level.FINE, String.format("date detected is: %s", date));
 
 
             final LocalTime time = ParserUtils.extractTime(params, true);
-            logger.log(Level.WARNING, String.format("deleting food item %s from %s %s", itemIndex, date, time));
+            logger.log(Level.FINE, String.format("deleting food item %s from %s %s", itemIndex, date, time));
             return new DeleteFoodCommand(itemIndex, date, time);
         } catch (ParserException e) {
             return new InvalidCommand(e.getMessage());
@@ -101,10 +96,7 @@ public class DeleteCommandParser implements Parser {
             if (ParserUtils.hasExtraDelimiters(params, DeleteExerciseBankCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
-            final String description = ParserUtils
-                    .extractItemDescription(params, itemTypePrefix)
-                    .split(" ")[0].trim();
-            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+            boolean isClear = extractIsClear(params, itemTypePrefix);
             if (isClear) {
                 return new DeleteExerciseBankCommand(true);
             }
@@ -120,10 +112,7 @@ public class DeleteCommandParser implements Parser {
             if (ParserUtils.hasExtraDelimiters(params, DeleteFoodBankCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
-            final String description = ParserUtils
-                    .extractItemDescription(params, itemTypePrefix)
-                    .split(" ")[0].trim();
-            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+            boolean isClear = extractIsClear(params, itemTypePrefix);
             if (isClear) {
                 return new DeleteFoodBankCommand(true);
             }
@@ -140,10 +129,7 @@ public class DeleteCommandParser implements Parser {
             if (ParserUtils.hasExtraDelimiters(params, DeleteFutureExerciseCommand.EXPECTED_PREFIXES)) {
                 return new InvalidCommand(ParserMessages.MESSAGE_ERROR_TOO_MANY_DELIMITERS);
             }
-            final String description = ParserUtils
-                    .extractItemDescription(params, itemTypePrefix)
-                    .split(" ")[0].trim();
-            boolean isClear = description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+            boolean isClear = extractIsClear(params, itemTypePrefix);
             if (isClear) {
                 return new DeleteFutureExerciseCommand(true);
             }
@@ -177,13 +163,22 @@ public class DeleteCommandParser implements Parser {
                 }
                 indices.add(index);
             }
-            logger.log(Level.WARNING, String.format("Indexes are %s", indices.toString()));
+            logger.log(Level.FINE, String.format("Indexes are %s", indices.toString()));
             return indices;
         } catch (NumberFormatException e) {
             throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_ITEM_NUM);
         } catch (MissingParamException e) {
-            logger.log(Level.WARNING, "Detected empty item num input after prefix but item num is required!");
+            logger.log(Level.FINE, "Detected empty item num input after prefix but item num is required!");
             throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_ITEM_NUM);
+        }
+    }
+
+    protected static boolean extractIsClear(String params, String prefix) {
+        try {
+            String description = ParserUtils.extractRelevantParameterWithoutWhitespace(params, prefix);
+            return description.equalsIgnoreCase(Command.COMMAND_WORD_DELETE_ALL);
+        } catch (ExtraParamException | MissingParamException e) {
+            return false;
         }
 
     }

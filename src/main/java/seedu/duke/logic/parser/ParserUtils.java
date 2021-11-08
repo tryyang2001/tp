@@ -77,7 +77,7 @@ public class ParserUtils {
             throws MissingParamException, ExtraParamException {
         String[] paramsSplitByWhitespace = extractRelevantParameter(params, prefix).split(" ", 2);
         if (paramsSplitByWhitespace.length == 2) {
-            throw new ExtraParamException(ParserMessages.MESSAGE_ERROR_EXTRA_PARAMETERS);
+            throw new ExtraParamException();
         }
         return paramsSplitByWhitespace[0];
 
@@ -87,7 +87,7 @@ public class ParserUtils {
             throws ParserException {
         try {
             String dateString = extractRelevantParameterWithoutWhitespace(params, prefix);
-            logger.log(Level.WARNING, String.format("date string detected is: %s", dateString));
+            logger.log(Level.FINE, String.format("date string detected is: %s", dateString));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.DATE_FORMAT);
             LocalDate date = LocalDate.parse(dateString, formatter);
             YearMonth currentMonth = YearMonth.of(date.getYear(), date.getMonth());
@@ -109,7 +109,7 @@ public class ParserUtils {
             throws ParserException {
         try {
             String timeString = extractRelevantParameterWithoutWhitespace(params, Command.COMMAND_PREFIX_TIME);
-            logger.log(Level.WARNING, String.format("time string detected is: %s", timeString));
+            logger.log(Level.FINE, String.format("time string detected is: %s", timeString));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ParserMessages.TIME_FORMAT);
             return LocalTime.parse(timeString, formatter);
         } catch (DateTimeParseException e) {
@@ -133,7 +133,7 @@ public class ParserUtils {
         } catch (NumberFormatException e) {
             throw new InvalidParamException();
         } catch (MissingParamException e) {
-            logger.log(Level.WARNING, "No integer given, return null");
+            logger.log(Level.FINE, "No integer given, return null");
             return null;
         } catch (ExtraParamException e) {
             throw new ParserException(e.getMessage());
@@ -148,7 +148,7 @@ public class ParserUtils {
         } catch (NumberFormatException e) {
             throw new InvalidParamException();
         } catch (MissingParamException e) {
-            logger.log(Level.WARNING, "No double given but not required, return null");
+            logger.log(Level.FINE, "No double given but not required, return null");
             return null;
         } catch (ExtraParamException e) {
             throw new ParserException(e.getMessage());
@@ -164,14 +164,14 @@ public class ParserUtils {
             throws ParserException {
         try {
             String description = extractRelevantParameter(params, prefix);
-            logger.log(Level.WARNING, String.format("Item name:%s", description));
+            logger.log(Level.FINE, String.format("Item name:%s", description));
             if (description.equals(ParserMessages.EMPTY)) {
-                logger.log(Level.WARNING, "Detected empty description");
+                logger.log(Level.FINE, "Detected empty description");
                 throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_DESCRIPTION);
             }
             return description;
         } catch (MissingParamException e) {
-            logger.log(Level.WARNING, String.format("Detected missing command prefix (%s)", prefix));
+            logger.log(Level.FINE, String.format("Detected missing command prefix (%s)", prefix));
             throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_DESCRIPTION);
         }
     }
@@ -182,7 +182,7 @@ public class ParserUtils {
             Integer calories = extractGeneralInteger(params, Command.COMMAND_PREFIX_CALORIES);
             return calories;
         } catch (InvalidParamException e) {
-            logger.log(Level.WARNING, "Detected non-digit calories input");
+            logger.log(Level.FINE, "Detected non-digit calories input");
             throw new ParserException(CommandMessages.MESSAGE_INVALID_CALORIES);
         }
     }
@@ -191,12 +191,12 @@ public class ParserUtils {
         try {
             String name = extractRelevantParameter(params, Command.COMMAND_PREFIX_NAME);
             if (name.equals(ParserMessages.EMPTY)) {
-                logger.log(Level.WARNING, "Detected empty name input.");
+                logger.log(Level.FINE, "Detected empty name input.");
                 throw new ParserException(ParserMessages.MESSAGE_ERROR_NAME_EMPTY_STRING);
             }
             return name;
         } catch (MissingParamException e) {
-            logger.log(Level.WARNING, "Detected missing name prefix, returning null string.");
+            logger.log(Level.FINE, "Detected missing name prefix, returning null string.");
             return null;
         }
     }
@@ -205,7 +205,7 @@ public class ParserUtils {
         try {
             return extractGeneralDouble(params, Command.COMMAND_PREFIX_HEIGHT);
         } catch (InvalidParamException e) {
-            logger.log(Level.WARNING, "Detected non-digit height input.");
+            logger.log(Level.FINE, "Detected non-digit height input.");
             throw new ParserException(ProfileUtils.ERROR_HEIGHT);
         }
     }
@@ -214,7 +214,7 @@ public class ParserUtils {
         try {
             return extractGeneralDouble(params, Command.COMMAND_PREFIX_WEIGHT);
         } catch (InvalidParamException e) {
-            logger.log(Level.WARNING, "Detected non-digit weight input.");
+            logger.log(Level.FINE, "Detected non-digit weight input.");
             throw new ParserException(ProfileUtils.ERROR_WEIGHT);
         }
     }
@@ -223,11 +223,11 @@ public class ParserUtils {
             throws ParserException {
         LocalDate localDate = extractGeneralDate(params, Command.COMMAND_PREFIX_DATE);
         if (localDate == null && isRequired) {
-            logger.log(Level.WARNING, "Detected empty date input after prefix but date is required!");
+            logger.log(Level.FINE, "Detected empty date input after prefix but date is required!");
             throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_DATE);
         }
         if (localDate == null && !isRequired) {
-            logger.log(Level.WARNING, "Detected empty date input after prefix, assuming date to be now");
+            logger.log(Level.FINE, "Detected empty date input after prefix, assuming date to be now");
             return LocalDate.now();
         }
         return localDate;
@@ -237,11 +237,11 @@ public class ParserUtils {
             throws ParserException {
         LocalTime localTime = extractGeneralTime(params, Command.COMMAND_PREFIX_TIME);
         if (localTime == null && isRequired) {
-            logger.log(Level.WARNING, "Detected empty time input after prefix but time is required!");
+            logger.log(Level.FINE, "Detected empty time input after prefix but time is required!");
             throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_TIME);
         }
         if (localTime == null && !isRequired) {
-            logger.log(Level.WARNING, "Detected empty time input after prefix, assuming time to be now");
+            logger.log(Level.FINE, "Detected empty time input after prefix, assuming time to be now");
             return LocalTime.now();
         }
         return localTime;
@@ -312,7 +312,7 @@ public class ParserUtils {
                 count++;
             }
         }
-        logger.log(Level.WARNING, String.format("no. of corrected params detected: %s", count));
+        logger.log(Level.FINE, String.format("no. of corrected params detected: %s", count));
         return count;
     }
 
@@ -330,7 +330,7 @@ public class ParserUtils {
                 numOfDelimiters++;
             }
         }
-        logger.log(Level.WARNING, String.format("no. of delimiters detected: %s", numOfDelimiters));
+        logger.log(Level.FINE, String.format("no. of delimiters detected: %s", numOfDelimiters));
         return numOfDelimiters > expectedNum;
     }
 }

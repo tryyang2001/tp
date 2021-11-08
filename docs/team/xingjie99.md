@@ -1,4 +1,8 @@
-# Xing Jie - Project Portfolio Page
+---
+layout: page
+title: Xing Jie's Project Portfolio Page
+---
+
 
 ## Overview
 

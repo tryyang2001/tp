@@ -48,12 +48,12 @@ public class AddFoodCommand extends Command {
 
         food = new Food(this.description, this.calories, this.dateTime);
         if (!food.isValid()) {
-            logger.log(Level.WARNING, "Detected impossible value for food calorie");
+            logger.log(Level.FINE, "Detected impossible value for food calorie");
             return new CommandResult(CommandMessages.MESSAGE_INVALID_CALORIES);
         }
         super.foodItems.addItem(food);
         assert foodItems.getSize() > 0 : "The size of the food list should at least larger than 0";
-        logger.log(Level.WARNING, "New food item has been added to the food list");
+        logger.log(Level.FINE, "New food item has been added to the food list");
         return new CommandResult(String.format(MESSAGE_SUCCESS, food.toStringWithDate()));
 
     }
