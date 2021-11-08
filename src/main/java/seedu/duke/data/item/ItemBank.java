@@ -129,8 +129,7 @@ public class ItemBank {
                     .append(TAB)
                     .append(index + 1)
                     .append(". ")
-                    .append(deleteItem(index - numberPointer).toStringWithoutDateAndTime())
-                    .append(" is deleted.");
+                    .append(deleteItem(index - numberPointer).toStringWithoutDateAndTime());
             numberPointer++;
         }
         return itemsToString.toString().stripTrailing();

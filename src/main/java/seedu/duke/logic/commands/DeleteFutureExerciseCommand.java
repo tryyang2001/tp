@@ -17,7 +17,7 @@ public class DeleteFutureExerciseCommand extends Command {
             + CommandMessages.INDENTED_LS + "%s";
     public static final String MESSAGE_ITEMS_LEFT =
             CommandMessages.LS + "Number of upcoming exercise(s) left: %d";
-    private static final String MESSAGE_FUTURE_EXERCISE_CLEAR = "All future exercise items have been removed.";
+    private static final String MESSAGE_FUTURE_EXERCISE_CLEAR = "All upcoming exercise items have been removed.";
     public static final String[] EXPECTED_PREFIXES = {COMMAND_PREFIX_UPCOMING_EXERCISE};
     public static final String MESSAGE_REMOVED_MULTIPLE_UPCOMING_EXERCISES = "All of the following upcoming exercises "
             + "have been deleted:";
