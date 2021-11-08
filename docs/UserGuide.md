@@ -86,11 +86,11 @@ _italics_ | Text that has been _italicised_ indicates that it is a term specific
 - [5.1 Saving Data](#51-saving-the-data)
 - [5.2 Editing Data](#52-editing-the-data-file)
 
-[6. FAQ](#6-faq)
+[6. Data Limits](#6-data-limits)
 
-[7. Command Summary](#7-command-summary)
+[7. FAQ](#7-faq)
 
-[8. Data Limits](#8-data-limits)
+[8. Command Summary](#8-command-summary)
 
 ## **1. Terminology**
 
@@ -636,8 +636,8 @@ You may specify which day(s) of the week by providing multiple `DAY_OF_THE_WEEK`
 ❗ `START_DATE` and `END_DATE` must be in the future.\
 ❗ `START_DATE` must be before `END_DATE`.\
 ❗ `START_DATE` and `END_DATE` must follow `DD-MM-YYYY` format.\
+❗ `START_DATE` and `END_DATE` can only be within a year from today as any exercises beyond a year is too far into the future.\
 ❗ `DAY_OF_THE_WEEK` must be an integer between 1 and 7, representing Monday to Sunday respectively.
-❗ `START_DATE` and `END_DATE` can only be within a year from today as any exercises beyond a year is too far into the future.
 
 
 Example:
@@ -1167,7 +1167,28 @@ Advanced users are welcomed to update data directly by editing the data files.
 
 [⏫ Back to content page](#content-page)
 
-### **6. FAQ**
+### **6. Data Limits**
+
+You can see all the data range available in order to help you better understand the input and output. Note that _all the ranges stated here are inclusive of the boundaries._
+
+- Items:
+  (Assuming today's date is 08 Nov 2021)
+  - For food and exercise dates: Past 7 days inclusive of today (eg. 02 Nov 2021 - 08 Nov 2021).
+  - For upcoming exercise dates: Tomorrow until 1 year later (eg. 09 Nov 2021 - 08 Nov 2021).
+  - Names for items: No usage of `|` or `/` inside the named items. Can substitute with `-` instead.
+  - Calories: Whole number from 1 to 10,000.
+- Profile:
+  - Name: No usage of `|` or `/` inside the names. Can be substituted with `-` instead.
+  - Height: Number from 1 to 300.
+  - Weight: Number from 1 to 300.
+  - Age: Whole number from 10 to 150.
+  - Gender: Only 'M' or 'F' characters are accepted (case insensitive). Any additional characters will render the input invalid.
+  - Calorie Goal: Whole number from -3000 to 10000.
+  - Activity Factor: Whole number from 1 to 5.
+
+[⏫ Back to content page](#content-page)
+
+### **7. FAQ**
 
 **Q:** How do I transfer my data to another computer?\
 **A:** Zip the folder with _Fitbot_ and its data files, and transfer to the new computer. Extract the zipped folder onto your new computer and follow steps 1, 4 and 5 in [Quick Start](#2-quick-start) to get your _Fitbot_ running on your new computer.
@@ -1186,7 +1207,7 @@ _Fitbot_ needs to know your name to address you.
 
 [⏫ Back to content page](#content-page)
 
-### **7. Command Summary**
+### **8. Command Summary**
 
 
 | Action | Format | Examples |
@@ -1200,26 +1221,5 @@ help | `help`|
 overview|`overview`|
 profile|`profile {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG} {n/NAME} {s/GENDER} {a/AGE} {g/CALORIE_IN_CAL} {x/ACTIVITY_FACTOR}`<br><br> `profile`|`profile h/170 w/65 n/John a/22 s/M g/500 x/2` <br><br> `profile`
 view|`view e/`  <br><br> `view f/` <br><br> `view u/` <br><br> `view fbank/` <br><br> `view ebank/`
-
-[⏫ Back to content page](#content-page)
-
-### **8. Data Limits**
-
-_All the ranges stated here are inclusive of the boundaries._
-
-- Items:
-    (Assuming today's date is 08 Nov 2021)
-  - For food and exercise dates: Past 7 days inclusive of today (eg. 02 Nov 2021 - 08 Nov 2021).
-  - For upcoming exercise dates: Tomorrow until 1 year later (eg. 09 Nov 2021 - 08 Nov 2021).
-  - Names for items: No usage of `|` or `/` inside the named items. Can substitute with `-` instead.
-  - Calories: Whole number from 1 to 10,000.
-- Profile:
-  - Name: No usage of `|` or `/` inside the names. Can be substituted with `-` instead.
-  - Height: Number from 1 to 300.
-  - Weight: Number from 1 to 300.
-  - Age: Whole number from 10 to 150.
-  - Gender: Only 'M' or 'F' characters are accepted (case insensitive). Any additional characters will render the input invalid.
-  - Calorie Goal: Whole number from -3000 to 10000.
-  - Activity Factor: Whole number from 1 to 5.
 
 [⏫ Back to content page](#content-page)
