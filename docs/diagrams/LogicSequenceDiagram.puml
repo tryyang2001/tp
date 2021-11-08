@@ -10,8 +10,6 @@ participant ":ParserManager" AS ParserManager LOGIC_COLOUR
 participant ":AddCommandParser" AS AddCommandParser LOGIC_COLOUR
 participant "c:AddFoodCommand" AS AddFoodCommand LOGIC_COLOUR
 participant "r:CommandResult" AS CommandResult LOGIC_COLOUR
-participant "f:Food" AS Food DATA_COLOUR
-participant ":FoodList" AS FoodList DATA_COLOUR
 activate Main MAIN_COLOUR
 
 
@@ -57,14 +55,12 @@ LogicManager -> AddFoodCommand LOGIC_COLOUR : setData(dataManager)
 destroy ParserManager
 return
 LogicManager -> AddFoodCommand LOGIC_COLOUR : execute()
-create Food
-AddFoodCommand -> Food DATA_COLOUR : new Food("potato", ...)
-return f
-AddFoodCommand -> FoodList DATA_COLOUR : add(f)
-return
-destroy Food
+note over AddFoodCommand #WHITE : The data manipulation process \n is not shown here.
+
+
 create CommandResult
 AddFoodCommand -> CommandResult LOGIC_COLOUR
+
 return r
 return r
 destroy CommandResult
