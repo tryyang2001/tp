@@ -41,7 +41,6 @@ public class DeleteExerciseCommand extends Command {
             super.exerciseItems.clearList();
             return new CommandResult(MESSAGE_EXERCISE_CLEAR);
         }
-        assert this.itemIndex > 0 : "Deleting an item only";
         if (super.exerciseItems.getSize() == 0) {
             logger.log(Level.FINE, "Exercise list is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_EXERCISE_LIST);
