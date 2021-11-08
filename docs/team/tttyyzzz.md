@@ -11,23 +11,26 @@ output with the speed and convenience of command-line based tools, especially in
 
 ### Summary of Contributions
 Summary of contributions are as listed below.
+
 ### **New Feature**
 #### **creation of create profile**
+
 - What it does: _Fitbot_ will prompt and guide user for profile particulars before allowing users to type in 
 other commands.
-- Justification: There are some commands that require profile attributes such as `BMI` and `Overview` commands.
-A bug might occur if the user decides to use the commands above first instead of setting up profile.
+
+- Justification: There are some commands that require profile attributes such as `BMI` and `Overview` commands. A bug might occur if the user decides to use the commands above first instead of setting up profile.
 - Highlights: If the user profile is not complete, profile data will not be saved.
 
 ### **New Feature**
 #### **Overview**
--What it does: create a summary of the daily and weekly overview of the calories gained from food and 
+- What it does: create a summary of the daily and weekly overview of the calories gained from food and 
 lost from exercise.
--Justification: allows users to have a better user experience and allow users to visualised data.
+- Justification: allows users to have a better user experience and allow users to visualised data.
 - Highlights: There is bar graph in the overview
-
-**creation of `Help` Class**
-A summary of all the commands and their formats.
+- 
+### **New Feature**
+#### **creation of `Help` Class**
+- What it does: A summary of all the commands and their formats.
 
 ### **New Feature**
 Fitbot start-up page.
