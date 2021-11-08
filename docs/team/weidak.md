@@ -35,9 +35,8 @@ in another state whereby users can modify their attributes again in case they ha
 #### **Project Management**:
 
 - Aided in setting up the GitHub repo and initializing the project during the early stages of the project
-- Helped to find bugs and assign new issues on a consistent basis
-- PRs reviewed: [#34](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/34), [#35](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/35), 
-[#80](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/80), [#119](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/119)
+- Created issues and user stories for `v1.0`, and generally helped to find bugs and assign new issues on a consistent basis such as Documentation or type.Task related.
+
 
 
 [comment]: <> (TODO add the PRs reviewed on github prs..)
@@ -84,3 +83,5 @@ and ensured all the items are localised in this class. This de-clutters Main.jav
 #### **Community**:
 
 - Helped other team review their Developer Guide ([here](https://github.com/nus-cs2113-AY2122S1/tp/pull/38/files/573949f70d1e1057b046baeb5df957ba63857559))
+- PRs reviewed (With non-trivial comments): [#34](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/34), [#35](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/35),
+    [#80](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/80), [#119](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/119)
