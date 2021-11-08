@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 /** A class that manage the statistics of the calories. */
 public class Statistics {
     private static final String FULL_BLOCK = "█";
-    private static final String HALF_BLOCK = "▌";
     private static final String LS = System.lineSeparator();
     private static final String MESSAGE_CALORIE_GAIN = "Your calorie gained from food is: %d";
     private static final String MESSAGE_CALORIE_LOST = "Your calorie lost from exercise is: %d";
@@ -74,7 +73,7 @@ public class Statistics {
      * @param calorieGoal      is the goal set by the user
      * @return formatted strings.
      */
-    public String[] getCaloriesReport(int exerciseCalories, int foodCalories, int calorieGoal) {
+    String[] getCaloriesReport(int exerciseCalories, int foodCalories, int calorieGoal) {
         int netCalories = calculateNetCalories(foodCalories, exerciseCalories);
         return new String[]{String.format(MESSAGE_CALORIE_GAIN, foodCalories),
                 String.format(MESSAGE_CALORIE_LOST, exerciseCalories),
@@ -91,7 +90,7 @@ public class Statistics {
         }
     }
 
-    public String getCurrentDayOverview() {
+    private String getCurrentDayOverview() {
         int foodCalories = foodItems.getTotalCaloriesWithDate(date);
         int exerciseCalories = exerciseItems.getTotalCaloriesWithDate(date);
         int calorieGoal = profile.getProfileCalorieGoal().getCalorieGoal();
@@ -115,7 +114,7 @@ public class Statistics {
         } else {
             assert calorieDifference == 0 : "calorieDifference should be 0";
 
-            message = String.format(MESSAGE_CALORIE_EXACT);
+            message = MESSAGE_CALORIE_EXACT;
         }
         return message;
     }
@@ -148,11 +147,12 @@ public class Statistics {
         for (int calories : dailyCalories) {
             String progressBar = "";
             int numberOfBars;
-            numberOfBars = (int) Math.round(((double) calories / maxCalories) * MAX_BAR_LENGTH);
+            numberOfBars = (int)(((double) calories / maxCalories) * MAX_BAR_LENGTH);
             assert numberOfBars <= MAX_BAR_LENGTH : "30 is the max progress bar limit";
             for (int i = NO_OFFSET; i < numberOfBars; i++) {
                 progressBar = progressBar + FULL_BLOCK;
             }
+            logger.log(Level.FINE, String.valueOf(numberOfBars));
             String formattedDate = getFormatDate(dateOffset);
             graph.append(String.format(GRAPH_BUILDER, formattedDate, progressBar, calories)).append(Ui.LS);
             dateOffset--;
@@ -211,6 +211,7 @@ public class Statistics {
      */
     public String overviewSummary() {
         setLocalDate(); // need ensure that the date is on the time of query
+        logger.log(Level.FINE, String.valueOf(date));
         StringBuilder overviewSummary = new StringBuilder();
         overviewSummary.append(String.format(OVERVIEW_HEADER, profile.getProfileName().getName())).append(Ui.LS)
                 .append(String.format(FOOD_HEADER, getTotalWeeklyCalories(getDailyFoodCalories()),

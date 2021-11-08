@@ -8,7 +8,7 @@ import seedu.duke.storage.exceptions.UnableToWriteFileException;
  * Interface that ensures both the storage and storage manager has the
  * required functions to load and save from the future exercise list in storage.
  */
-public interface UpcomingStorageInterface {
+public interface UpcomingStorage {
 
     /**
      * Loads the future exercise list from storage.

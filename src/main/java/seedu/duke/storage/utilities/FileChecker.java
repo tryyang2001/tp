@@ -20,14 +20,10 @@ public class FileChecker {
      * @param path The file path that it is checking
      * @throws UnableToReadFileException If it is unable to find the path specified
      */
-    public static void createFileIfMissing(String path) throws UnableToReadFileException {
+    public static void createFileIfMissing(String path) throws IOException {
         final File file = new File(path);
-        try {
-            createDirectory();
-            checkFileExists(file);
-        } catch (IOException e) {
-            throw new UnableToReadFileException(getFileName(path));
-        }
+        createDirectory();
+        checkFileExists(file);
     }
 
     private static void checkFileExists(File fileToCheck) throws IOException {

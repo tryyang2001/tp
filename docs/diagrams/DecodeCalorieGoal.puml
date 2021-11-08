@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!include style.puml
+hide footbox
+
+group sd Decode CalorieGoal
+participant ":ProfileDecoder" As ProfileDecoder STORAGE_COLOUR
+participant CalorieGoal DATA_COLOUR
+
+activate ProfileDecoder STORAGE_COLOUR
+alt no errors thrown
+ProfileDecoder -> CalorieGoal ** DATA_COLOUR: new CalorieGoal(Integer.parse(detail))
+activate CalorieGoal DATA_COLOUR
+    CalorieGoal --> ProfileDecoder
+deactivate
+destroy CalorieGoal
+else NumberFormatException
+ProfileDecoder -> CalorieGoal ** DATA_COLOUR: new CalorieGoal(Integer.MIN_VALUE)
+note right STORAGE_FADED_COLOUR: The (Integer.MIN_VALUE) \nhere represents an invalid integer of \nCalorieGoal that is handled\nlater on in the startup of the \nbot.
+
+activate CalorieGoal DATA_COLOUR
+    CalorieGoal --> ProfileDecoder
+deactivate
+destroy CalorieGoal
+
+end
+
+end
+@enduml

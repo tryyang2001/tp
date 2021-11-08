@@ -4,6 +4,7 @@ import seedu.duke.data.DataManager;
 import seedu.duke.logic.LogicManager;
 import seedu.duke.logic.commands.CommandResult;
 import seedu.duke.state.StartState;
+import seedu.duke.storage.Storage;
 import seedu.duke.storage.StorageManager;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
 import seedu.duke.ui.Ui;
@@ -18,6 +19,8 @@ public class Main {
     private Ui ui;
     private StorageManager storageManager;
     private LogicManager logicManager;
+    private StartState startState;
+
 
 
     /**
@@ -38,8 +41,11 @@ public class Main {
     }
 
     //@@author tttyyzzz
+    /**
+     * Checks the attributes of profile in dataManager.
+     */
     private void checkAndCreateProfile() {
-        dataManager.setProfile(new StartState(dataManager.getProfile(), storageManager, ui).checkAndCreateProfile());
+        dataManager.setProfile(startState.checkAndCreateProfile());
     }
     //@@author
 
@@ -52,6 +58,7 @@ public class Main {
         this.ui = new Ui();
         this.dataManager = storageManager.loadAll();
         this.logicManager = new LogicManager(storageManager, dataManager);
+        this.startState = new StartState(dataManager.getProfile(), storageManager, ui);
         ui.printStartMessage(
                 dataManager.getProfile().checkProfileComplete(),
                 dataManager.getProfile().checkProfilePresent());

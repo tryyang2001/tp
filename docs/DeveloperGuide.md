@@ -13,14 +13,15 @@ of Fitbot and some design considerations.
 
 [Design](#design)
 - [Architecture](#architecture)
-- [Data Component (Profile)](#data-component-profile)
-- [Data Component (ItemBank and Item)](#data-component-itembank-and-item)
-  - [ItemBank](#itembank-class)
-  - [Item](#item-class)
+- [Data Component](#data-component)
+  - [Data Component (Profile)](#data-component-profile)
+  - [Data Component (ItemBank and Item)](#data-component-item)
+    - [ItemBank Class Hierarchy](#itembank-class-hierarchy)
+    - [Item Class Hierarchy](#item-class-hierarchy)
 - [Logic Component](#logic-component)
 - [Storage Component](#storage-component)
 - [Implementation](#implementation)
-   - [Add Food Item Feature](#proposed-add-a-food-item-feature)
+   - [Add Food Item Feature](#add-a-food-item-feature)
    - [Design Considerations](#design-considerations)
    - [Loading Of Data On Startup](#loading-of-data-on-startup)
    - [Create Profile If Not Exist On Startup](#create-profile-if-not-exist-on-startup)
@@ -40,8 +41,7 @@ of Fitbot and some design considerations.
   - [Building Food Bank](#building-food-bank)
   - [Building Exercise Bank](#building-exercise-bank)
   - [Exiting Program](#exiting-program)
-  - [Manipulating Data](#manipulating-data)
-  - [Saving Data](#saving-data)
+  - [Manipulating And Saving Data](#manipulating-and-saving-data)
 
 
 
@@ -62,16 +62,19 @@ Object-Oriented Programming fashion.
 
 `Main` class is the component that interacts with all the necessary classes.
 The `Main` class consists of the few components as shown below:
-- `Ui`: The interaction between user and application
-- `Logic`: Parse commands and execute them respectively
-- `Data`: allow users to perform CRUD operations on the data in the application
-- `Storage`: stores all data in the application. Saves a copy of data in relevant files.
+- `Ui`: Facilitates interaction between user and application
+- `Logic`: Parses commands and execute them respectively
+- `Data`: Allows users to perform CRUD operations on the data in the application
+- `Storage`: Stores all data in the application. Saves a copy of data in relevant files.
   Data will be retrieved from storage upon starting of application.
+- `State`: Helps the user to restore or create profile data. 
+
 
 Upon launching of application:
 - The application will check if there are files that are already stored in the respective folder.
   If there is such files, the contents of the files will be loaded to the data section of the application.
-  Instances of profile, data(e.g. FoodList, ExerciseList, FutureExerciseList, ItemBank) and storage will be created
+  Instances of profile, data(e.g. FoodList, ExerciseList, FutureExerciseList, ItemBank) and storage will be created.
+- If there is no such files, the files will be created.
 
 
 Upon exiting of application:
@@ -83,41 +86,40 @@ Class diagram of Main
   <img width="80%" src="images/MainClass.png" alt="Main Class Diagram"/>
 </p>
 
-When _Fitbot_ is being started, the above instances are being created in the main class. 
-All the classes are marked as 1 as the main class require these instance to perform successful operations.
-ItemBank contains 2 instances as 1 is required for foodBank while the other is for exerciseBank.
+When _Fitbot_ is being started, the above instances (`Ui`,`State`, `LogicManager`,`DataManager` and `StorageManager`)
+are being created in the main class. The main class will require 1 of each instance for the application to function.
+
 
 - Main class start of by running the `start()` function which loads all information using StorageManager class to the 
 Profile, FoodList, ExerciseList,ItemBank(foodBank, exerciseBank).
 -Next main class will check if user contains the profile using the `checkAndCreateProfile()`. If user does not have
 a profile, the application will assist user to create a profile by prompting questions.
-- `loadsFutureExercisesToList()` loads future exercises to FutureExerciseList.
-- After loading and creating profile, the main program will enter `enterTaskModeUntlByeCommand()` for user
-to interact with the application
+-After setting up/ ensuring that user have a profile, the main program will enter `enterTaskModeUntlByeCommand()` 
+for user to interact with the application
 - Once user has keyed in the command `bye`, the main program will exit out of the `enterTaskModeUntlByeCommand()`
 and run the `exit()` command to exit the application.
 
 
+  
 
-Interaction between the classes could be shown by the uml sequence diagram below.
+### Data Component
 
 <p align="center" width="100%">
-  <img width="100%" src="images/Architecture.png" alt="Architecture Sequence Diagram"/>
+  <img width="100%" src="images/DataComponent.png" alt="Data Component Diagram"/>
 </p>
 
+The `Data` component is responsible to perform operations such as data modification and query in the code.
 
--When there is an input, the Ui class will retrieve the information from the user.
--Once the Main class receives the input, it creates a new Parser class to parse the commands.
--Depends on the method, in this case add food command, main class will execute the command class(not shown)
-based on the command the parser detects.
-- The command class will add the food item into the `Data` and updates the `storage` instance accordingly.
-- when all the operations above are completed, the Main class will pass a message to Ui class.
-- Ui class wll then format the message and print it to console for the user.
+In `Data` component, it consists of:
+1. `DataManager` class which is responsible to help interaction between classes in `Logic` Component and classes in `Data` Component.
+2. `Profile` package which is responsible to any manipulation and modification of data for `Profile`.
+3. `Item` package which is responsible to any manipulation and modification of data for `Item` such as `Food` and `Exercise`.
+4. `Verifiable` interface which is responsible to check data validity in storage files.
 
-### Data Component (Profile)
+#### Data Component (Profile)
 
 <p align="center" width="100%">
-  <img width="90%" src="images/ProfileClassDiagram.png" alt="Architecture Sequence Diagram"/>
+  <img width="90%" src="images/ProfileClassDiagram.png" alt="Profile Diagram"/>
 </p>
 
 A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Gender`, `Age`, `CalorieGoal` and `ActivityFactor`
@@ -126,50 +128,65 @@ A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Ge
 
 - All the attributes implement a `Verifiable` interface to enable us to check if the attributes are valid. This is important for the setting up of profile or the loading of profile from storage to ensure data integrity of the user's attributes.
 
+The `ProfileUtils` class is used in performing calculations (such as BMR or BMI) with the various attributes of the `Profile` class.
 
-### Data Component (ItemBank and Item)
+#### Data Component (Item)
 
 <p align="center" width="100%">
   <img width="90%" src="images/ItemBankAndItemClassDiagram.png" alt="ItemBank And Item Class Diagram"/>
 </p>
 
-The `Data` component is responsible to perform operations such as data modification and query in the code. It receives the commands from the `Logic` component, execute the 
-correct operations, and finally return the command result back to `Logic` component.\
-\
-Above is a high-level **_class diagram_** for the `ItemBank` and `Item` classes in `Data` component. Note that since `Main` and `Logic` components have accessed to some classes
-in `Data` component, they form **_dependencies_** with those classes.
+Above is a high-level class diagram for all the classes in `Item` package. In `Item` package, it has 
+two different class hierarchy, one is `ItemBank`, and one is `Item`.
+
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.
 
-#### ItemBank class
-`ItemBank` is the ***highest superclass*** that contains one attribute called `internalItems` which is an _array list_ of `Item`.\
-`ItemList` being the ***subclass*** of `ItemBank` and ***superclass*** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.\
-`FoodList` and `ExerciseList` are ***subclass***  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
-on `Food` class and `Exercise` class respectively.\
-`FutureExerciseList` is a ***subclass***  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
+##### ItemBank Class Hierarchy
+1. `ItemBank` is the *highest superclass* that contains one attribute called `internalItems` which is an _array list_ of `Item`.
+2. `ItemList` being the *subclass* of `ItemBank` and *superclass* of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.
+3. `FoodList` and `ExerciseList` are *subclasses*  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
+on `Food` class and `Exercise` class respectively.
+4. `FutureExerciseList` is a *subclass*  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
 on `Exercise` class.
 
-#### Item class
-An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.\
-`Food` and `Exercise` are the only two **_subclasses_** inherit the `Item` class. \
-`Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores the consumed food date and time, while the latter compute the time period 
-(only value such as **`Morning`, `Afternoon`, `Evening`** and **`Night`** as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
-value must present when a `Food` object is created.\
-`Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
-\
+As shown in the diagram above, `DataManager` class has association with `ItemBank`. This implies that it also has association with
+all the subclasses that inherits `ItemBank`. 
+
+##### Item Class Hierarchy
+1. An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.
+2. `Food` and `Exercise` are the only two **_subclasses_** inherit the `Item` class. 
+3. `Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores the consumed food date and time, while the latter compute the time period 
+(only value such as `MORNING`, `AFTERNOON`, `EVENING` and `NIGHT` as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
+value must present when a `Food` object is created.
+4. `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.
+
+As shown in the diagram above, the `Item` class implements interface `Verifiable`. This interface contains method to check the validity for the items 
+in the storage files. If the data in storage file is invalid, that item will not be loaded to the program. Note that since the superclass 
+`Item` implements `Verifiable`, its subclasses `Food` and `Exercise` also implement the interface.
+
 Abstract classes of Items and ItemLists acts as an agent for meaningful subclasses of Food and Exercise to inherit its attributes and functionality for a more concise use-case.
 
 ### Ui Component
 
-The `Ui` component interacts with the user. It reads in input from the user and prints messages on the console.
-Below shows a class diagram of how `Ui` component interacts with the rest of the application.
+The purpose of `Ui` component is to interact with the user. It reads in input from the user and prints messages on the 
+console. Below shows a sequence diagram of how `Ui` component interacts with the rest of the application.
 
 
 <p align="center" width="100%">
-  <img width="80%" src="images/UiClassDiagram.png" alt="Ui Class Diagram"/>
+  <img width="80%" src="images/UiSequenceDiagram.png" alt="Ui Sequence Diagram"/>
 </p>
 
-Ui Class also consists of `Statistics` Class, which is instantiated by `OverviewCommand` Class and returns messages to
-back to the `OverviewCommand` Class, before passing message to `Ui` for formatting.
+Step 1: The main program starts off with the run command (command not shown but the activation bar is present), and the 
+run command self invoke itself by calling `enterTaskModeUntilByeCommand()`,\
+Step 2: In this method, the main class will prompt for user input using `getUserInput()`.\
+Step 3: Once the ui instance received user input, the main command will process the data(not shown).
+Step 4: After processing the data, no matter success or fail, the main command will tap on ui instance again to print
+message on the console using `formatMessageFramedWithDivider()`
+
+The sequence interaction in ref will be elaborated in Parsing of Commands under [Implementation](#implementation).
+
+Note: The Main class has 2 activation bars are due to the `run()` function which will then activate 
+`enterTaskModeUntilByeCommand()`. In the example above, it is assumed that `bye` command is not used as example.
 
 ### Logic Component
  
@@ -215,14 +232,17 @@ Taking a closer look into the parsing process, the `ParserManager` actually does
 
 ### Storage component
 
+This is a (partial) class diagram that represents the `Storage` component.
+
 <p align="center" width="100%">
-  <img width="90%" src="images/StorageManagerClassDiagram.png" alt="Architecture Sequence Diagram"/>
+  <img width="80%" src="images/StorageClassDiagram.png" alt="Storage Class Diagram"/>
 </p>
 
-`StorageManager` initializes all `Storage` subclasses with their respective paths. 
-Acting as an agent, it then interacts with each of the respective `Storage` subclasses, utilizing their `load` and `save` functionalities. 
-This design de-clutters the code in Main and provides a platform to ensure each of the subclasses were utilized. 
-It is also implemented with all of the `StorageInterface` interfaces to enforce methods of loading and saving to be fully implemented into the code.
+1. Firstly, `Storage` inherits each of the `XYZStorage` interfaces. This ensures the `Storage` API has the relevant load and save functions
+of the various storages. 
+2. `StorageManager` then implements the `Storage` API that contains the relevant functionalities and instantiates `XYZStorage` using the respective `XYZStorageUtils`.
+3. Each of the `XYZStorageUtils` utilizes the general classes of `FileChecker` to create/check for their files and `FileSaver` to write to their respective files.
+4. `XYZStorageUtils` also uses `XYZDecoder` to decode files from the saved .txt file and a `XYZEncoder` to encode items into the saved file.
 
 The `StorageManager` component loads and saves:
 
@@ -232,24 +252,10 @@ The `StorageManager` component loads and saves:
 - upcoming exercises: recurring exercises that are scheduled in the future
 - food and exercise banks: names and calories of relevant item
 
-Each `Storage` subclass is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
-
-<p align="center" width="100%">
-  <img width="50%" src="images/ProfileStorageClassDiagram.png" alt="Architecture Sequence Diagram"/>
-</p>
-
-The `ProfileStorage` inherits an abstract class of `Storage` which contains protected attributes of `fileName` and `filePath`.
-After inheritance, it then implements loading and saving methods interfaced by `ProfileStorageInterface` to ensure reading and writing operations.
-
-where:
-- ProfileEncoder encodes the list to the profile.txt file.
-- ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
-- ProfileStorage utilizes the static methods FileChecker and FileSaver to check if file exists and to write to the corresponding file.
-
-This way of implementation ensures that each class has a _single responsibility_ with little coupling between each other.
+This way of design ensures that each class has the correct methods to perform its capabilities.
 
 
-### Main Component
+### State Component
 
 #### Create Profile (StartState)
 
@@ -260,7 +266,8 @@ This way of implementation ensures that each class has a _single responsibility_
 - When the `StartState` method is being called, it instantiated and execute methods in the 7 classes, which are 
 `NameCreator`, `HeightCreator`, `WeightCreator`, `GenderCreator`, `AgeCreator`, `CalorieGoalCreator` and 
 `ActivityFactorCreator`.
-- The above Classes instantiated by `StartState` are inherited from `AttributeCreator` class.
+- The above Classes instantiated by `StartState` are inherited from `AttributeCreator` class. These profile attributes
+are inherited from `AttributeCreator` to conform DRY principle, by extracting out common methods.
 
 
 
@@ -330,9 +337,11 @@ Step 17: Finally, `AddFoodCommand` instantiates a `CommandResult` object represe
 
 
 
-#### [Proposed] Add a Food Item Feature
+#### Add a Food Item Feature
 
-![Add Food Item Sequence Diagram](images/AddFoodItemSequenceDiagram.png)
+<p align="center" width="100%">
+  <img width="90%" src="images/AddFoodItemSequenceDiagram.png" alt="Add Food Item Sequence Diagram"/>
+</p>
 
 The purpose of this feature is to allow the user to add food item to the food list. The above diagram shown is the 
 sequence diagram of the process of adding the food item. 
@@ -341,25 +350,33 @@ When the user gives an input, the `parser` from the `Logic` component will try t
 command. In this case we assume that the correct format of **Add Food** input is given and the `AddFoodCommand` has already been
 called and created.
 
-Step 1: When the `execute` method in the `AddFoodCommand` is being called, it will first check that if the `isCalorieFromBank`
-condition is `true`, meaning that the description of the input food item can be found in the `FoodBank` object, 
-as shown in the `alt` frames of the sequence diagram. In each alternative paths, a new `Food` class object will be created
-by using the `Food` constructor.
+Step 1: When the `execute` method in the `AddFoodCommand` is being called, it will first check that if the `calories` is equal to null. If this
+condition is true, meaning that the user does not provide the calorie value of the food item, thus the item is expected to be found in the `FoodBank`.
 
-Step 2: When the `Food` constructor is called, it will perform a [self-invocation](#_self-invocation_)`setTimePeriod` to set the enum value `timePeriod`
+Step 2: Once the calorie value is determined, whether from `FoodBank` or user input, the AddFoodCommand then call the constructor
+of the `Food`. When the `Food` constructor is called, it will perform a [self-invocation](#_self-invocation_)`setTimePeriod` to set the enum value `timePeriod`
 of the Food. After that, it returns the Food object to the `AddFoodCommand`.
 
-Step 3: The `AddFoodCommand` then calls the method `addItem` from the `FoodList` object, which performs the add food operation in the
-`Food List`. After the new `Food` Item is added, it will perform a [self-invocation](#_self-invocation_) `sortList` to sort the `FoodList`. Since the 
-`addItem` method is void type, nothing is returned to `AddFoodCommand`.
+Step 3: The newly created Food object `food` is checked if it has a valid calorie value by calling the method `isValid()` in `Food` class. This
+method returns a boolean result `isValid` to `AddFoodCommand`. Then the program will enter an `alt` block which determines whether the `food` object
+should be added to the `foodList`.
 
-Step 4: After the `addItem` method is executed without giving any error, the `AddFoodCommand` then calls a `CommandResult` object.
-This object will return and output the message indicates that the `AddFoodCommand` is executed without any error. At this
-stage, the `AddFoodCommand` is successfully ended.
+Step 4a: If the calorie value is invalid, the boolean `isValid` will be false. When this condition is satisfied, it will enter the first
+alternative path, which then creates a `CommandResult` class object that contains the message to inform the user that the calorie value
+is incorrect. In this path, no food item is added to the `foodList`. This `CommandResult` object is returned to the `AddFoodCommand`.
+
+Step 4b: If the calorie value is valid, the boolean `isValid` is true, the `AddFoodCommand` will call the method `addItem` from the `FoodList` object, which performs the add food operation in the
+`Food List`. After the new `Food` Item is added, it will perform a [self-invocation](#_self-invocation_) `sortList` to sort the `FoodList` according to 
+the date and time of all the food items inside the list. Since the `addItem` method is void type, nothing is returned to `AddFoodCommand`.
+ After the `addItem` method is executed without giving any error, the `AddFoodCommand` then calls a `CommandResult` object that contains the message indicating the command is executed
+successfully. This `CommandResult` object is returned to the `AddFoodCommand`.
+
+Step 5: Once the `CommandResult` class object is returned, the `AddFoodCommand` then return this `commandResult` to the class that calls it. 
+At this stage, the `AddFoodCommand` execution is successfully ended.
 
 After all the steps are done, the `command`, `food` and `commandResult` objects are no longer referenced and hence get removed
 by the `Garbage Collector` in Java. However ,the lifeline of `foodBank` and `foodList` objects are still continuing because they
-are created in `Main` class and have the potential to get referenced by other commands call such as `delete`, `view` and `edit`.
+are created in `DataManager` class and have the potential to get referenced by other commands call such as `add`, `delete`, `view` and `edit`.
 
 One may also observe that the lifeline does not end even though the object is deleted and no longer be referenced. This problem
 is due to the flaw of the drawing tool, *PlantUml* used. For a more accurate sequence diagram, the lifeline should end immediately
@@ -408,37 +425,103 @@ There are many files that are used for our current implementation.
 Therefore, since they are similar in behaviour and function, we will only be looking at the loading of the Profile component on the starting up of _Fitbot_.
 
 <p align="center" width="100%">
-  <img width="100%" src="images/StorageManagerLoadSequenceDiagram.png" alt="ProfileStorageLoadSequenceDiagram"/>
+  <img width="auto" src="images/StorageManagerLoadSequenceDiagram.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
 
 Upon successful launch of the application, `Main` will call to initialize `StorageManager`. 
 This in turn initializes all the subclasses of `Storage`, including `ProfileStorage`, with their respective file paths. 
-Afterwhich, `Main` calls a loading function `loadAll` that in turns calls the `loadProfile()` method of `ProfileStorage`.
+Afterwhich, `Main` calls a loading function `loadAll` that calls an internal `loadProfile()` function (self-invocation). This then calls the `loadProfile()` method of `ProfileStorage`.
 
-`ProfileStorage` then does 2 things: 
+`ProfileStorage` then does 2 main things: 
 
 1. Checks and creates the file if it is missing.
 2. Retrieves the data from the file with the use of the ProfileDecoder to decode.
 
-##### Reference Diagram 1: Checks for the file and create directory if it does not exist
 
 <p align="center" width="100%">
-  <img width="70%" src="images/StorageManagerLoadSequenceRef1.png" alt="ProfileStorageLoadSequenceDiagram"/>
+  <img width="auto" src="images/ChecksForFileStorage.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
+<p align="center"><i>Reference Diagram: Checks for the file and create directory if it does not exist</i></p>
 
 The diagram above explains how the application checks if a file exists. If it exists, it will not perform any additional functionality. Otherwise, it will generate a new file in preparation for storage.
 
-##### Reference Diagram 2: Retrieval of data from storage with the use of ProfileDecoder to decode
 
 <p align="center" width="100%">
-  <img width="70%" src="images/StorageManagerLoadSequenceRef2.png" alt="ProfileStorageLoadSequenceDiagram"/>
+  <img width="auto" src="images/RetrieveDataFromStorage.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
+<p align="center"><i>Reference Diagram: Retrieval of data from storage with the use of ProfileDecoder to decode</i></p>
+
 
 The diagram above explains the processes to decode the items from the file.
 
 Upon reaching the `decodeProfile(line)` method, the reference frame depicts a process of decoding its attributes one by one to ensure that they are able to detect each attribute's readability from storage.
 If the methods are unable to read the respective attribute from storage, an invalid attribute will be initialized. This then returns an initialized profile with invalid attributes for `StartState` to catch, allowing users to change
 their attributes instead of losing their entire profile data on startup. 
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeAttributes.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode all attributes</i></p>
+
+
+Below represents each of the attribute's decoding process:
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeName.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode Name</i></p>
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeHeight.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
+<p align="center"><i>Reference Diagram: Decode Height</i>
+</p>
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeWeight.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode Weight</i></p>
+
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeGender.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode Gender</i></p>
+
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeAge.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode Age</i></p>
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeCalorieGoal.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode CalorieGoal</i></p>
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeActivityFactor.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode ActivityFactor</i></p>
+
+
+The other storages load in a similar fashion to this, except for each decoder, they decode `Item` for `ItemBank`s, `Food` for `FoodList` and `Exercise` for `ExerciseList`.
+
+
 
 #### Create Profile If Not Exist On Startup
 
@@ -499,14 +582,29 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 |v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
 |v1.0|new user|want to store food records|track my food intake|
 |v1.0|new user|want to store exercise records| track my exercises|
+|v1.0|new user|delete exercise records| amend wrong inputs.|
+|v1.0|new user|delete food records| amend wrong inputs.|
+|v1.0|new user|to see how close or how far i am from the calorie target| so that I could manage my calorie input.|
+|v1.0|new user|save my profile data|reduce the hassle of typing repeatedly upon application startup.|
+|v1.0|new user|calculate BMI|gauge whether I am in the healthy range.|
 |v1.0|new user|store all records|refer to them whenever needed|
 |v2.0|new user|have a profile| to keep track of all information to calculate my net calories|
 |v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+|v2.0|user|set up profile first before entering application|so that a more accurate analysis could be done.|
 |v2.0|user|have a summary|see my calorie targets
 |v2.0|user|have a history|spend less time typing all the requirements to store items|
 |v2.0|user|have an exercise list that update itself|have more time for exercises|
 |v2.0|user|have a sorted food list|see what I have eaten on different times of the day|
+|v2.0|user|have varying inputs methods|reduce unnecessary hassle.|
 |v2.0|user|have a delete all command|start afresh|
+|v2.0|user|have sorted food list|view the meals I have eaten throughout the week.|
+|v2.0|user|have sorted food list by meal time|track the number of supper meals I have in a week.|
+|v2.0|frequent user|to have the ability to edit past records|so that I can edit past wrong inputs.|
+|v2.0|university student|to be able to store weekly recurring sports activities| I can reduce hassle of input entries.|
+|v2.0|body-conscious user|to calculate net calories inclusive of BMR.|
+
+
+
 
 
 ## Non-Functional Requirements
@@ -555,7 +653,7 @@ Given below are some instructions that can be used to test the application manua
 
 ### Setting Up Profile
 
-2. Setting Up Profile
+1. Setting Up Profile I
    - Prerequisite: Fitbot.jar is in a folder with or without data folder.
    - Test case:
    1. Delete profile.txt from data folder if present.
@@ -563,8 +661,47 @@ Given below are some instructions that can be used to test the application manua
 
    Expected: _Fitbot_will prompt for your name upon start up.
 
+2. Setting Up Profile II
+  - Prerequisite: profile.txt is present.
+  - Test case:
+    1. Change 1 of the attribute to an invalid attribute.
+    2. Run _Fitbot_ using `java -jar Fitbot.jar`.
+  Expected: _Fitbot_ will prompt for the attribute missing.
+
+3. Setting Up Profile III
+    - Prerequisite: profile.txt is deleted/ not present.
+    - Test case:
+   1. Fill in some of the profile attributes. Do not fill up all of them.
+   2. Type the command `bye`.
+   Expected: _Fitbot_ is able to exit.
+
 
 ### Customising Profile
+
+1. Viewing current profile:
+   1. Prerequisite: Have an initialized profile after the startup of the program
+   2. Test case: `profile`\
+   Expected: Displays your profile in a viewable format
+2. Changing attributes:
+   1. Prerequisite: N.A.
+   2. Test case: `profile n/John|`\
+   Expected: Name is not changed as the use of `|` character is illegal.
+   3. Test case: `profile n/John/`\
+   Expected: Name is not changed as the use of `/` character is also illegal.
+   4. Test case: `profile h/-20` \
+   Expected: An error message shows that you can only input a number between 1 and 300, and height will not change.
+   5. Test case: `profile w/-200` \
+   Expected: An error message shows that you can only input a number between 1 and 300, and weight will not change.
+   6. Test case: `profile a/170`\
+   Expected: An error message shows that you can only input a whole number between 10 and 150.
+   7. Test case: `profile s/mfe`\
+   Expected: Error message displays that you should only use 'M' or 'F' only.
+   8. Test case: `profile g/20000`\
+   Expected: Error message that displays that you can only input from -3000 to 10000.
+   9. Test case: `profile x/0`\
+   Expected: Error message asking you to try a whole number from 1 to 5 instead.
+   10. Test case: `profile x/2 w/90 h/190 a/22 s/m g/500 n/Johnny English`\
+   Expected: Profile will change even with the parameters not being in order. This allows users flexibility to change their attributes in any order and with whichever parameters they want. (At least 1 attribute and at max 7 attributes can be changed at once)
 
 ### Recording Food Items:
 
@@ -600,9 +737,84 @@ Given below are some instructions that can be used to test the application manua
     
 ### Recording Exercise Items
 
+1. Adding Exercise Items
+    1. Prerequisite: View the current Exercise List using `view e/`.
+    2. Test case: `add e/running c/200` \
+       Expected: A new Exercise Item is added to the Exercise List. Details of the added exercise are shown.
+       The date of the exercise is the date when the user calls this command.
+    3. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and within the past 7 days of today) \
+       Expected: A new Exercise Item is added to the Exercise List. Details of the added exercise are shown.
+       The date of the exercise is the date that the user input.
+    4. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and not within the past 7 days of today) \
+       Expected: No Exercise Item is added to the Exercise List. Error message will show up and inform the user that
+       a valid date within 7 days of today is required.
+2. Viewing Exercise Items
+    1. Test case: `view e/` when the Exercise List is empty\
+       Expected: Message indicating that the Exercise List is empty is shown.
+    2. Test case: `view e/` when the Exercise List is not empty\
+       Expected: All of the Exercise Items are displayed.
+3. Deleting Exercise Items
+    1. Prerequisite: View the current Exercise List using `view e/`.
+    2. Test case: `delete e/1 d/x` when the Exercise List is empty (where x is a date in DD-MM-YYYY format and within 7 days of today)\
+       Expected: No Exercise Item is deleted from the Exercise List. Error message will show up and inform the user that
+       the Exercise List is empty.
+    3. Test case: `delete e/1 d/x` when the Exercise List contains at least one exercise with date x (where x is a date in DD-MM-YYYY format)\
+       Expected:  The Exercise Item with index 1 is deleted. Details of the deleted exercise are shown.
+    4. Test case: `delete e/2 d/x`\ when the Exercise List contains only one exercise with date x (where x is a date in DD-MM-YYYY format)\
+       Expected: No Exercise Item is deleted from the Exercise List. Error message will show up and inform the user that
+       the Exercise Item with index 2 on date x is not found in the Exercise List.
+    5. Test case: `delete e/all` \
+       Expected:  All Exercise Item in the Exercise List are deleted. Message will show up and inform the user that all exercises
+       in the Exercise List are deleted.
+
 ### Scheduling Exercises
 
+1. Adding Upcoming Exercise Items
+    1. Prerequisite: View the current Upcoming Exercise List using `view u/`.
+    2. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and one year within the future) \
+       Expected: A new Upcoming Exercise Item is added to the Upcoming Exercise List. Details of the added upcoming exercise are shown.
+    3. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and more than one year in the future) \
+       Expected: No Upcoming Exercise Item is added to the Upcoming Exercise List. Error message will show up and inform the user that
+       a valid future date within one year from today is required.
+2. Adding Recurring Exercise Items
+    1. Prerequisite: View the current Upcoming Exercise List using `view u/`.
+    2. Test case: `add r/running c/200 :/x -/y @/1,3 ` when y occurs after x (where x and y are dates in DD-MM-YYYY format and both one year within the future) \
+       Expected: Upcoming Exercise Items that occur on Monday and Wednesday (`@/1,3`) between date x and y are added to the Upcoming Exercise List. 
+       A message, indicating that the recurring exercises have been added, will show up.
+    3. Test case: `add r/running c/200 :/x -/y @/1,3 ` when x occurs after y (where x and y are dates in DD-MM-YYYY format) \
+       Expected: No Upcoming Exercise Item is added to the Upcoming Exercise List. Error message will show up and inform the user that
+       y should occur after x.
+    4. Test case: `add r/running c/200 :/x -/y @/1,3 ` when y occurs after x (where x and y are dates in DD-MM-YYYY format and one or more of them are more than one year in the future) \
+       Expected: No Upcoming Exercise Item is added to the Upcoming Exercise List. Error message will show up and inform the user that
+       both x and y should be within one year in the future.
 
+3. Viewing Upcoming Exercise Items
+    1. Test case: `view u/` when the Upcoming Exercise List is empty\
+       Expected: Message indicating that the Upcoming Exercise List is empty is shown.
+    2. Test case: `view u/` when the Upcoming Exercise List is not empty\
+       Expected: All of the Upcoming Exercise Items are displayed.
+4. Editing Upcoming Exercise Items
+    1. Prerequisite: View the current Upcoming Exercise List using `view u/`.
+    2. Test case: `edit u/` \
+       Expected: No Upcoming Exercise Item is edited. Error message will show up and inform the user that there should be an input for item number.
+    3. Test case: `edit u/1` \
+       Expected: No Upcoming Exercise Item is edited. Error message will show up and inform the user that there should be an input for the details to be edited.
+    4. Test case: `edit u/1 n/runnning` when the Upcoming Exercise List is empty
+       Expected: No Upcoming Exercise Item is edited. Error message will show up and inform the user that the Upcoming Exercise List is empty.
+    5. Test case: `edit u/1 n/running` when the Upcoming Exercise List is not empty
+       Expected: The name of the Upcoming Exercise List with index 1 in the Upcoming Exercise List is updated to 'running'. Details of the newly updated Upcoming Exercise Item will be shown.
+5. Deleting Upcoming Exercise Items
+    1. Prerequisite: View the current Exercise List using `view u/`.
+    2. Test case: `delete u/1` when the Exercise List is empty\
+       Expected: No Upcoming Exercise Item is deleted from the Upcoming Exercise List. Error message will show up and inform the user that
+       the Upcoming Exercise List is empty.
+    3. Test case: `delete u/1` when the Upcoming Exercise List contains at least one upcoming exercise\
+       Expected:  The Upcoming Exercise Item with index 1 is deleted. Details of the deleted upcoming exercise are shown.
+    4. Test case: `delete u/1,2,3` when the Exercise List contains three or more exercises\
+       Expected: The Upcoming Exercise Items with index 1, 2, 3 are deleted. Details of all the deleted upcoming exercises are shown.
+    5. Test case: `delete u/all` \
+       Expected:  All Upcoming Exercise Items in the Upcoming Exercise List are deleted. Message will show up and inform the user that all upcoming exercises
+       in the Upcoming Exercise List are deleted.
 
 ### Building Food Bank
 1. Adding Food Bank Items
@@ -687,53 +899,48 @@ Given below are some instructions that can be used to test the application manua
       name as "bye". The user then need to type 1 to exit the program, 2 to set the name as "bye" and any other key to go back.
    3. (more test cases)
    
-### Manipulating Data
+### Manipulating and Saving Data
 
-1. Data is saved whenever data is manipulated.
-    - Prerequisite: Data folder with food_list.txt already present.
-    - Test case
-      1. run the application
-      2. add a food entry into the application.
-      3. Exit the application.
-      4. The file food_list.txt should have one entry.
-      5. Run the application and delete the entry using `delete` command.
-      6. Exit the application again.
-   
-   Expected: food_list.txt should be empty.
-
-
-2. Manipulating _Profile_ data in the text files directly.
+1. Manipulating _Profile_ data in the text files directly.
     - Prerequisite: Data folder with profile.txt already present. (You have run through the profile creation at least once)
-    - Procedures:
-      1. Navigate to the `/data` folder which is in the same directory as your _Fitbot.jar_
-      2. Open the profile.txt with your editor of choice and view the attributes. It should look something like this: `john|180.0|65.0|M|22|300|2`
-      
-      ![img_1.png](images/profile_text_file.png)
-      3. Edit the height attribute to reflect this: `john|BUG|65.0|M|22|300|2`
-      
-      ![img.png](images/profile_text_file_modified.png)
-      4. Save the file and try to relaunch the application.
-    
-    **Expected**: The application should detect the height is invalid and prompts you to change its value **inside** the application 
-   
-    _Note: This will only work if there are exactly 6 '|' delimiters. Any additional delimiters added will render the entire line invalid and unreadable, causing you to lose all your profile data and restarting the entire profile creation step._ 
+<ul>
+    <ul><li>Procecures:</li>
+        <ol>
+            <li>Navigate to the <code>/data</code> folder which is in the same directory as your <i></i>Fitbot.jar</i>)</li>
+            <li><p>Open the profile.txt with your editor of choice and view the attributes. It should look something like this: <code>john|180.0|65.0|M|22|300|2</code></p>
+                <p align="center"><img src="images/profile_text_file.png" alt="profile_text_file.png" /></p>
+            </li>
+            <li><p>Edit the height attribute to reflect this: <code>john|BUG|65.0|M|22|300|2</code></p>
+                <p align="center"><img src="images/profile_text_file_modified.png" alt="profile_text_file_modified.png" /></p>
+            </li>
+            <li>Save the file and try to relaunch the application.</li>
+         </ol>   
+        <li>Expected: The application should detect the height is invalid and prompts you to change its value inside the application</li>
+    </ul>
+</ul>
 
 
-### Saving Data
+2. Manipulating saved text files, leading to invalid line.
+    - Causes of invalid lines in storage: Invalid number of delimiters present, unrecognizable texts and empty spaces (eg. `E|run|309`, where the date field is not present)
 
-1. Saving data in file
-    - Prerequisite: Data folder is present with items already added to lists. (We will be using _exercise_list.txt_ as an example.)
-    
-   Your exercise_list should look something like this: 
-   
-    ![img.png](images/exercise_list.png)
+<ul>
+    <ul>
+        <li>
+            <p>Prerequisite: Data folder is present with items already added to lists. (We will be using _exercise_list.txt_ as an example.)</p>
+            <p>Your exercise_list.txt should look something like this:</p>
+            <p align="center"><img src="images/exercise_list.png"/></p>
+        </li>
+        <li>Procecures:</li>
+        <ol>
+            <li><p>Change one of the lines generated by the application with <code>invalid line</code>.</p>
+                <p align="center"><img src="images/exercise_list_modified.png" alt="exercise_list_modified" /></p>
+            </li>
+            <li>Launch the application where it should be able to detect the invalid line in storage.</li>
+         </ol>   
+        <li>Expected: The user will be notified of the invalid line and it will be subsequently ignored. Upon the next operation that requires saving of data ("bye", "add e/" commands etc.), this invalid line will be overwritten and ignored, preserving the data integrity of the rest of the lines.</li>
+    </ul>
+</ul>
 
-    - Procedures:
-   1. Change one of the lines generated by the application with _invalid line_.
+   _Note: The dates used here was during the creation of the DeveloperGuide. We have set hard limits to not accept anything past 10 years prior or greater than 1 year into the future for completeness of our data. For instance, you are unable to set a exercise performed in 1991 as it will just ignore the line without notifying the user._
 
-    ![img_2.png](images/exercise_list_modified.png)
-   2. Launch the application where it should be able to detect the invalid line in storage.
 
-   **Expected**: The user will be notified of the invalid line and it will be subsequently ignored. Upon the next operation that requires saving of data ("bye", "add e/" commands etc.), this invalid line will be overwritten and ignored, preserving the data integrity of the rest of the lines.  
-
-    _Note: The dates used here was during the creation of the DeveloperGuide. We have set hard limits to not accept anything past 10 years prior or greater than 1 year into the future for completeness of our data. For instance, you are unable to set a exercise performed in 1991 as it will just ignore the line without notifying the user._
