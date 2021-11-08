@@ -57,7 +57,7 @@ Object-Oriented Programming fashion.
 ### **Architecture**
 
 <p align="center" width="100%">
-  <image width="70%" src="images/ArchitectureDiagram.png" alt="Architecture Diagram"/>
+  <image width="90%" src="images/Architecture.png" alt="Architecture Diagram"/>
 </p>
 
 `Main` class is the component that interacts with all the necessary classes.
