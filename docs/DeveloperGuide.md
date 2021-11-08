@@ -544,12 +544,12 @@ Given below are some instructions that can be used to test the application manua
     2. Test case: `add e/running c/200` \
        Expected: A new Exercise Item is added to the Exercise List. Details of the added exercise are shown.
        The date of the exercise is the date when the user calls this command.
-    3. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and within 7 days of today) \
+    3. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and within the past 7 days of today) \
        Expected: A new Exercise Item is added to the Exercise List. Details of the added exercise are shown.
        The date of the exercise is the date that the user input.
-    4. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and not within 7 days of today) \
+    4. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and not within the past 7 days of today) \
        Expected: No Exercise Item is added to the Exercise List. Error message will show up and inform the user that
-       a valid date (within 7 days of today) is needed.
+       a valid date within 7 days of today is required.
 2. Viewing Exercise Items
     1. Test case: `view e/` when the Exercise List is empty\
        Expected: Message indicating that the Exercise List is empty is shown.
@@ -565,10 +565,58 @@ Given below are some instructions that can be used to test the application manua
     4. Test case: `delete e/2 d/x`\ when the Exercise List contains only one exercise with date x (where x is a date in DD-MM-YYYY format)\
        Expected: No Exercise Item is deleted from the Exercise List. Error message will show up and inform the user that
        the Exercise Item with index 2 on date x is not found in the Exercise List.
+    5. Test case: `delete e/all` \
+       Expected:  All Exercise Item in the Exercise List are deleted. Message will show up and inform the user that all exercises
+       in the Exercise List are deleted.
 
 ### Scheduling Exercises
 
+1. Adding Upcoming Exercise Items
+    1. Prerequisite: View the current Upcoming Exercise List using `view u/`.
+    2. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and one year within the future) \
+       Expected: A new Upcoming Exercise Item is added to the Upcoming Exercise List. Details of the added upcoming exercise are shown.
+    3. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and more than one year in the future) \
+       Expected: No Upcoming Exercise Item is added to the Upcoming Exercise List. Error message will show up and inform the user that
+       a valid future date within one year from today is required.
+2. Adding Recurring Exercise Items
+    1. Prerequisite: View the current Upcoming Exercise List using `view u/`.
+    2. Test case: `add r/running c/200 :/x -/y @/1,3 ` when y occurs after x (where x and y are dates in DD-MM-YYYY format and both one year within the future) \
+       Expected: Upcoming Exercise Items that occur on Monday and Wednesday (`@/1,3`) between date x and y are added to the Upcoming Exercise List. 
+       A message, indicating that the recurring exercises have been added, will show up.
+    3. Test case: `add r/running c/200 :/x -/y @/1,3 ` when x occurs after y (where x and y are dates in DD-MM-YYYY format) \
+       Expected: No Upcoming Exercise Item is added to the Upcoming Exercise List. Error message will show up and inform the user that
+       y should occur after x.
+    4. Test case: `add r/running c/200 :/x -/y @/1,3 ` when y occurs after x (where x and y are dates in DD-MM-YYYY format and one or more of them are more than one year in the future) \
+       Expected: No Upcoming Exercise Item is added to the Upcoming Exercise List. Error message will show up and inform the user that
+       both x and y should be within one year in the future.
 
+3. Viewing Upcoming Exercise Items
+    1. Test case: `view u/` when the Upcoming Exercise List is empty\
+       Expected: Message indicating that the Upcoming Exercise List is empty is shown.
+    2. Test case: `view u/` when the Upcoming Exercise List is not empty\
+       Expected: All of the Upcoming Exercise Items are displayed.
+4. Editing Upcoming Exercise Items
+    1. Prerequisite: View the current Upcoming Exercise List using `view u/`.
+    2. Test case: `edit u/` \
+       Expected: No Upcoming Exercise Item is edited. Error message will show up and inform the user that there should be an input for item number.
+    3. Test case: `edit u/1` \
+       Expected: No Upcoming Exercise Item is edited. Error message will show up and inform the user that there should be an input for the details to be edited.
+    4. Test case: `edit u/1 n/runnning` when the Upcoming Exercise List is empty
+       Expected: No Upcoming Exercise Item is edited. Error message will show up and inform the user that the Upcoming Exercise List is empty.
+    5. Test case: `edit u/1 n/running` when the Upcoming Exercise List is not empty
+       Expected: The name of the Upcoming Exercise List with index 1 in the Upcoming Exercise List is updated to 'running'. Details of the newly updated Upcoming Exercise Item will be shown.
+5. Deleting Upcoming Exercise Items
+    1. Prerequisite: View the current Exercise List using `view u/`.
+    2. Test case: `delete u/1` when the Exercise List is empty\
+       Expected: No Upcoming Exercise Item is deleted from the Upcoming Exercise List. Error message will show up and inform the user that
+       the Upcoming Exercise List is empty.
+    3. Test case: `delete u/1` when the Upcoming Exercise List contains at least one upcoming exercise\
+       Expected:  The Upcoming Exercise Item with index 1 is deleted. Details of the deleted upcoming exercise are shown.
+    4. Test case: `delete u/1,2,3` when the Exercise List contains three or more exercises\
+       Expected: The Upcoming Exercise Items with index 1, 2, 3 are deleted. Details of all the deleted upcoming exercises are shown.
+    5. Test case: `delete u/all` \
+       Expected:  All Upcoming Exercise Items in the Upcoming Exercise List are deleted. Message will show up and inform the user that all upcoming exercises
+       in the Upcoming Exercise List are deleted.
 
 ### Building Food Bank
 1. Adding Food Bank Items

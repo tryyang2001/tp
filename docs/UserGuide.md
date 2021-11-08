@@ -608,7 +608,8 @@ Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Upcoming Exercise Item w
 
 
 ❗️ The date `DD-MM-YYYY` provided must be in the future. Otherwise, if it is within the past 7 days (including today), it will be
-  added to the [Exercise List](#431-adding-exercise-items-add-e) instead.
+  added to the [Exercise List](#431-adding-exercise-items-add-e) instead.\
+❗ The date `DD-MM-YYYY` can only be within a year from today as any exercises beyond a year is too far into the future.
 
 Example:
 ```text
@@ -633,6 +634,8 @@ You may specify which day(s) of the week by providing multiple `DAY_OF_THE_WEEK`
 ❗ `START_DATE` must be before `END_DATE`.\
 ❗ `START_DATE` and `END_DATE` must follow `DD-MM-YYYY` format.\
 ❗ `DAY_OF_THE_WEEK` must be an integer between 1 and 7, representing Monday to Sunday respectively.
+❗ `START_DATE` and `END_DATE` can only be within a year from today as any exercises beyond a year is too far into the future.
+
 
 Example:
 ```text
