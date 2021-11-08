@@ -67,8 +67,8 @@ This was done in several increments.
   - Added documentation for all Food Bank and Exercise Bank related commands, i.e. the sections [_"Building Your Food Bank"_](https://ay2122s1-cs2113t-f14-2.github.io/tp/UserGuide.html#45-building-your-food-bank) and [_"Building Your Exercise Bank"_](https://ay2122s1-cs2113t-f14-2.github.io/tp/UserGuide.html#46-building-your-exercise-bank).
   - Added shortcuts back to content page after every major section for easier navigation ([#230](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/230))
 - Developer Guide:
-  - Added documentation for the [_`Logic` component_](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#logic-component) ([#134](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/134),)
-  - Added documentation for the implementation of [_"Parsing of Commands"_](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#parsing-of-commands)
+  - Added documentation for the [_`Logic` component_](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#logic-component) ([#134](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/134), [#241](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/241))
+  - Added documentation for the implementation of [_"Parsing of Commands"_](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#parsing-of-commands) ([#241](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/241))
   - Added instructions of manual testing on [_"Building Food Bank"_](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#building-food-bank) and [_"Building Exercise Bank"_](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#building-exercise-bank) ([#230](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/230))
   - Standardised styling for PlantUML diagrams ([#117](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/117))
 - Standardised the styling on Github Pages for Product Website. ([#115](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/115), [#236](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/236))
