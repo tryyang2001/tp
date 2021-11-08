@@ -660,7 +660,7 @@ Given below are some instructions that can be used to test the application manua
    1. Delete profile.txt from data folder if present.
    2. Run _Fitbot_ using `java -jar Fitbot.jar`.
 
-   Expected: _Fitbot_will prompt for your name upon start up.
+   Expected: _Fitbot_ will prompt for your name upon start up.
 
 2. Setting Up Profile II
    - Prerequisite: profile.txt is present.
@@ -689,7 +689,7 @@ Given below are some instructions that can be used to test the application manua
    2. Test case: `profile`\
    Expected: Displays your profile in a viewable format
 2. Changing attributes:
-   1. Prerequisite: N.A.
+   1. Prerequisite: Have an initialized profile after the startup of the program
    2. Test case: `profile n/John|`\
    Expected: Name is not changed as the use of `|` character is illegal.
    3. Test case: `profile n/John/`\
@@ -911,7 +911,7 @@ Given below are some instructions that can be used to test the application manua
 <ul>
     <ul><li>Procecures:</li>
         <ol>
-            <li>Navigate to the <code>/data</code> folder which is in the same directory as your <i></i>Fitbot.jar</i>)</li>
+            <li>Navigate to the <code>/data</code> folder which is in the same directory as your Fitbot.jar)</li>
             <li><p>Open the profile.txt with your editor of choice and view the attributes. It should look something like this: <code>john|180.0|65.0|M|22|300|2</code></p>
                 <p align="center"><img src="images/profile_text_file.png" alt="profile_text_file.png" /></p>
             </li>
@@ -931,7 +931,7 @@ Given below are some instructions that can be used to test the application manua
 <ul>
     <ul>
         <li>
-            <p>Prerequisite: Data folder is present with items already added to lists. (We will be using _exercise_list.txt_ as an example.)</p>
+            <p>Prerequisite: Data folder is present with items already added to lists. (We will be using exercise_list.txt as an example.)</p>
             <p>Your exercise_list.txt should look something like this:</p>
             <p align="center"><img src="images/exercise_list.png"/></p>
         </li>

@@ -33,6 +33,6 @@ public abstract class ListDecoder {
         LocalDate lowerLimit = LocalDate.now().minusDays(7);
         //Before 1 year from today
         LocalDate upperLimit = LocalDate.now().plusYears(1);
-        return date.isAfter(lowerLimit) && date.isBefore(upperLimit);
+        return date.isAfter(lowerLimit) && !date.isAfter(upperLimit);
     }
 }

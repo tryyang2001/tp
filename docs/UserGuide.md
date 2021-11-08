@@ -374,7 +374,7 @@ ________________________________________________________________________________
 You can calculate your [BMI](#1-terminology) using this command. 
 _Fitbot_ will also tell you the status of your BMI *(underweight, healthy, overweight, obese)* based on the calculated value.
 
-Format: `bmi {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG}`
+Format: `bmi {h/HEIGHT_IN_CM w/WEIGHT_IN_KG}`
 
 💡 **Tip:** If you do not provide the two optional parameters of height and weight, the BMI will be computed based on the current 
 height and weight values in your profile.
@@ -986,6 +986,7 @@ Format: `help`
 Example:
 ```text
 help
+__________________________________________________________________________________________________________
 Welcome to the help page.
 Below are the commands to get you started.
 More details could be found on: 
@@ -1026,9 +1027,9 @@ add -- Add food or exercise record to the current list.
           c/             Calories of the food
 
       Add Exercise Item in ExerciseBank
-      Format: add fbank/ITEM c/CALORIES
+      Format: add ebank/ITEM c/CALORIES
         Prefix               Input
-          fbank/         Description of exercise
+          ebank/         Description of exercise
           c/             Calories burnt from exercise
 
 bmi -- Calculate the Body-Mass-Index of user
@@ -1122,11 +1123,11 @@ view -- View all the food and/or exercises added.
       View Upcoming Exercise List
       Format: view u/
 
-      View Exercise Bank
-      Format: view ebank/
-
       View Food Bank
       Format: view fbank/
+
+      View Exercise Bank
+      Format: view ebank/
 __________________________________________________________________________________________________________
 ```
 

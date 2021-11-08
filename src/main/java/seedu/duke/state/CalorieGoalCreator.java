@@ -60,7 +60,8 @@ public class CalorieGoalCreator extends AttributeCreator {
     private void setCalorieGoal(String userInput) throws MissingParamException {
         ui.checkEmptyUserInput(userInput);
         confirmInputBye(userInput);
-        int calorieGoalInput = Integer.parseInt(userInput);
+        int calorieGoalInput = (Double.parseDouble(userInput) > Integer.MAX_VALUE)
+                ? Integer.MAX_VALUE : Integer.parseInt(userInput);
         calorieGoal = new CalorieGoal(calorieGoalInput);
     }
 }
