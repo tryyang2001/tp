@@ -11,7 +11,7 @@ class ParserUtils LOGIC_COLOUR
 class XYZCommandParser LOGIC_COLOUR
 class XYZCommand LOGIC_COLOUR
 abstract class "{abstract}\nCommand" AS Command LOGIC_COLOUR
-interface Parser <<interface>> LOGIC_COLOUR
+class Parser <<interface>> LOGIC_COLOUR
 
 ParserManager ..> ParserMessages : > uses
 ParserManager .down.> XYZCommandParser : > creates
@@ -31,7 +31,7 @@ N2 .. XYZCommand #transparent
 
 
 XYZCommandParser .left.> ParserUtils : > uses
-XYZCommandParser ...> XYZCommand : > creates
+XYZCommandParser ...> XYZCommand : > creates and returns
 XYZCommand -right[hidden]- XYZCommandParser
 ParserManager -down[hidden]-XYZCommandParser
 
