@@ -9,7 +9,7 @@ import seedu.duke.storage.data.food.foodlist.FoodListStorage;
 import seedu.duke.storage.data.profile.ProfileStorage;
 
 /**
- * API of the Storage component
+ * API of the Storage component.
  */
 public interface Storage extends ProfileStorage, FoodListStorage, ExerciseListStorage,
         UpcomingStorage, FoodBankStorage, ExerciseBankStorage {
