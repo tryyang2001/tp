@@ -663,18 +663,23 @@ Given below are some instructions that can be used to test the application manua
    Expected: _Fitbot_will prompt for your name upon start up.
 
 2. Setting Up Profile II
-  - Prerequisite: profile.txt is present.
-  - Test case:
-    1. Change 1 of the attribute to an invalid attribute.
-    2. Run _Fitbot_ using `java -jar Fitbot.jar`.
-  Expected: _Fitbot_ will prompt for the attribute missing.
+   - Prerequisite: profile.txt is present.
+   - Test case:
+     1. Change 1 of the attribute to an invalid attribute.
+     2. Run _Fitbot_ using `java -jar Fitbot.jar`.\
+   Expected: _Fitbot_ will prompt for the attribute missing.
 
 3. Setting Up Profile III
     - Prerequisite: profile.txt is deleted/ not present.
     - Test case:
-   1. Fill in some of the profile attributes. Do not fill up all of them.
-   2. Type the command `bye`.
+   1. When being asked to type a name, type the command `bye`.\
+   Expected: A question shows up to confirm with the user whether the user wants to exit the program or wants to set his or her
+      name as "bye". The user then need to type 1 to exit the program, 2 to set the name as "bye" and any other key to go back.
+   2. Restart the program, checks whether profile.txt is deleted/ not present.
+   3. Fill in some of the profile attributes. Do not fill up all of them.
+   4. Type the command `bye`.\
    Expected: _Fitbot_ is able to exit.
+
 
 
 ### **Customising Profile**
@@ -712,29 +717,29 @@ Given below are some instructions that can be used to test the application manua
    2. Test case: `add f/chicken rice c/607` \
    Expected: New Food Item is added to the Food List. A message telling the user that a new food item has been added will show up. 
    The date and time are the date and time when the user call this command.
-   3. Test case: `add f/chicken rice c/607 d/10-10-2021 t/1200` \
+   3. Test case: `add f/chicken rice c/607 d/x t/1200` (where x is a date in DD-MM-YYYY format and within 7 days of today)\
    Expected: No Food Item is added to the Food List. A message will show up and tell the user that 
    the date must be within 7 days of today.
-   4. (more test cases )
 2. Viewing a new Food Item:
    1. Test case: `view f/` when the Food List is empty\
-   Expected: No food item shown. 
+   Expected: No food item shown. A message will show up, telling the user that there is no food items within 7 days of today.
    2. Test case: `view f/` after calling `add f/chicken rice c/607`\
    Expected: The output will show the food list with at least one food item chicken rice, with calorie 607 cal and the date and 
    time is when the user called the `add` command.
-   3. (more test cases)
 3. Deleting Food Item:
     1. Prerequisite: Simply replace the date to any date that is within 7 days of today date. The time field is also optional
    and can be replaced with any valid timing.
-    2. Test case: `delete f/1 d/08-11-2021 t/1400` when the Food List is empty\
+    2. Test case: `delete f/1 d/x t/1400` when the Food List is empty (where x is a date in DD-MM-YYYY format and within 7 days of today)\
    Expected: No food item is deleted. The output will show a message telling the user that the Food List is empty.
-    3. Test case: `delete f/1 d/09-11-2021 t/1400` after calling `add f/chicken rice c/607 d/09-11-2021 t/1400`\
+    3. Test case: `delete f/1 d/x t/1400` after calling `add f/chicken rice c/607 d/x t/1400` (where x is a date in DD-MM-YYYY format and within 7 days of today)\
    Expected:  The food item with index 1 is removed. The output will show a message teling the user that the food item
    is deleted. (Note that the food item will be `chicken rice` if there is only one food in the food list)
-    4. Test case: `delete f/-1 d/09-11-2021 t/1400`\
+    4. Test case: `delete f/-1 d/x t/1400` (where x is a date in DD-MM-YYYY format and within 7 days of today)\
    Expected: No food item is deleted. The output will show a message telling the user that the input index should be a
    number that is greater than 0.
-    5. (more test cases)
+    5. Test case: `delete f/all` \
+   Expected: All Food Items in the Food List are deleted. Message will show up and inform the user that all food items
+   in the Food List are deleted.
     
 ### **Recording Exercise Items**
 
@@ -746,7 +751,7 @@ Given below are some instructions that can be used to test the application manua
     3. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and within the past 7 days of today) \
        Expected: A new Exercise Item is added to the Exercise List. Details of the added exercise are shown.
        The date of the exercise is the date that the user input.
-    4. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and not within the past 7 days of today) \
+    4. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and more than 7 days ago) \
        Expected: No Exercise Item is added to the Exercise List. Error message will show up and inform the user that
        a valid date within 7 days of today is required.
 2. Viewing Exercise Items
@@ -761,7 +766,7 @@ Given below are some instructions that can be used to test the application manua
        the Exercise List is empty.
     3. Test case: `delete e/1 d/x` when the Exercise List contains at least one exercise with date x (where x is a date in DD-MM-YYYY format)\
        Expected:  The Exercise Item with index 1 is deleted. Details of the deleted exercise are shown.
-    4. Test case: `delete e/2 d/x`\ when the Exercise List contains only one exercise with date x (where x is a date in DD-MM-YYYY format)\
+    4. Test case: `delete e/2 d/x` when the Exercise List contains only one exercise with date x (where x is a date in DD-MM-YYYY format)\
        Expected: No Exercise Item is deleted from the Exercise List. Error message will show up and inform the user that
        the Exercise Item with index 2 on date x is not found in the Exercise List.
     5. Test case: `delete e/all` \
@@ -781,11 +786,14 @@ Given below are some instructions that can be used to test the application manua
     1. Prerequisite: View the current Upcoming Exercise List using `view u/`.
     2. Test case: `add r/running c/200 :/x -/y @/1,3 ` when y occurs after x (where x and y are dates in DD-MM-YYYY format and both one year within the future) \
        Expected: Upcoming Exercise Items that occur on Monday and Wednesday (`@/1,3`) between date x and y are added to the Upcoming Exercise List. 
-       A message, indicating that the recurring exercises have been added, will show up.
+       A message will show up, indicating that the recurring exercises have been added.
     3. Test case: `add r/running c/200 :/x -/y @/1,3 ` when x occurs after y (where x and y are dates in DD-MM-YYYY format) \
        Expected: No Upcoming Exercise Item is added to the Upcoming Exercise List. Error message will show up and inform the user that
        y should occur after x.
     4. Test case: `add r/running c/200 :/x -/y @/1,3 ` when y occurs after x (where x and y are dates in DD-MM-YYYY format and one or more of them are more than one year in the future) \
+       Expected: No Upcoming Exercise Item is added to the Upcoming Exercise List. Error message will show up and inform the user that
+       both x and y should be within one year in the future.
+    5. Test case: add r/running c/200 :/x -/y @/1,3  (where x and y are dates in DD-MM-YYYY format and one or more of them are in the past)\
        Expected: No Upcoming Exercise Item is added to the Upcoming Exercise List. Error message will show up and inform the user that
        both x and y should be within one year in the future.
 
@@ -800,9 +808,9 @@ Given below are some instructions that can be used to test the application manua
        Expected: No Upcoming Exercise Item is edited. Error message will show up and inform the user that there should be an input for item number.
     3. Test case: `edit u/1` \
        Expected: No Upcoming Exercise Item is edited. Error message will show up and inform the user that there should be an input for the details to be edited.
-    4. Test case: `edit u/1 n/runnning` when the Upcoming Exercise List is empty
+    4. Test case: `edit u/1 n/runnning` when the Upcoming Exercise List is empty \
        Expected: No Upcoming Exercise Item is edited. Error message will show up and inform the user that the Upcoming Exercise List is empty.
-    5. Test case: `edit u/1 n/running` when the Upcoming Exercise List is not empty
+    5. Test case: `edit u/1 n/running` when the Upcoming Exercise List is not empty \
        Expected: The name of the Upcoming Exercise List with index 1 in the Upcoming Exercise List is updated to 'running'. Details of the newly updated Upcoming Exercise Item will be shown.
 5. Deleting Upcoming Exercise Items
     1. Prerequisite: View the current Exercise List using `view u/`.
@@ -811,7 +819,7 @@ Given below are some instructions that can be used to test the application manua
        the Upcoming Exercise List is empty.
     3. Test case: `delete u/1` when the Upcoming Exercise List contains at least one upcoming exercise\
        Expected:  The Upcoming Exercise Item with index 1 is deleted. Details of the deleted upcoming exercise are shown.
-    4. Test case: `delete u/1,2,3` when the Exercise List contains three or more exercises\
+    4. Test case: `delete u/1,2,3` when the Exercise List contains three or more upcoming exercises\
        Expected: The Upcoming Exercise Items with index 1, 2, 3 are deleted. Details of all the deleted upcoming exercises are shown.
     5. Test case: `delete u/all` \
        Expected:  All Upcoming Exercise Items in the Upcoming Exercise List are deleted. Message will show up and inform the user that all upcoming exercises
@@ -852,10 +860,7 @@ Given below are some instructions that can be used to test the application manua
       Expected: Error as x is out of the range of the item list.
    5. Test case: `delete fbank/all` \
       Expected: All items in the Food Bank have been deleted.
-
-
-
-
+   
 ### **Building Exercise Bank**
 
 1. Adding Exercise Bank Items
@@ -894,13 +899,10 @@ Given below are some instructions that can be used to test the application manua
        Expected: All items in the Exercise Bank have been deleted.
 
 ### **Exiting Program**
-1. Exiting Program while setting name when creating a new profile
-   1. Prerequisite: Make sure the profile.txt file is not created. If you have already created the file, you can manually
-      delete it.
-   2. Test case: `bye` when being asked to provide a name\
-      Expected: A question shows up to confirm with the user whether the user wants to exit the program or wants to set his or her
-      name as "bye". The user then need to type 1 to exit the program, 2 to set the name as "bye" and any other key to go back.
-   3. (more test cases)
+1. Exiting Program at any time
+    1. Prerequisite: Ensures that Fitbot is still running.
+    2. Test case: `bye` \
+   Expected: A goodbye message will show up, and the program is terminated successfully.
    
 ### **Manipulating and Saving Data**
 
