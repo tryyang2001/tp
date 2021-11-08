@@ -13,10 +13,11 @@ of Fitbot and some design considerations.
 
 [Design](#design)
 - [Architecture](#architecture)
-- [Data Component (Profile)](#data-component-profile)
-- [Data Component (ItemBank and Item)](#data-component-itembank-and-item)
-  - [ItemBank](#itembank-class)
-  - [Item](#item-class)
+- [Data Component](#data-component)
+  - [Data Component (Profile)](#data-component-profile)
+  - [Data Component (ItemBank and Item)](#data-component-item)
+    - [ItemBank Class Hierarchy](#itembank-class-hierarchy)
+    - [Item Class Hierarchy](#item-class-hierarchy)
 - [Logic Component](#logic-component)
 - [Storage Component](#storage-component)
 - [Implementation](#implementation)
@@ -60,12 +61,12 @@ of Fitbot and some design considerations.
 
 `Main` class is the component that interacts with all the necessary classes.
 The `Main` class consists of the few components as shown below:
-- `Ui`: The interaction between user and application
-- `Logic`: Parse commands and execute them respectively
-- `Data`: allow users to perform CRUD operations on the data in the application
-- `Storage`: stores all data in the application. Saves a copy of data in relevant files.
+- `Ui`: Facilitates interaction between user and application
+- `Logic`: Parses commands and execute them respectively
+- `Data`: Allows users to perform CRUD operations on the data in the application
+- `Storage`: Stores all data in the application. Saves a copy of data in relevant files.
   Data will be retrieved from storage upon starting of application.
-- `State`: 
+- `State`: Helps the user to restore or create profile data. 
 
 Upon launching of application:
 - The application will check if there are files that are already stored in the respective folder.
@@ -113,10 +114,24 @@ based on the command the parser detects.
 - when all the operations above are completed, the Main class will pass a message to Ui class.
 - Ui class wll then format the message and print it to console for the user.
 
-### Data Component (Profile)
+### Data Component
 
 <p align="center" width="100%">
-  <img width="90%" src="images/ProfileClassDiagram.png" alt="Architecture Sequence Diagram"/>
+  <img width="100%" src="images/DataComponent.png" alt="Data Component Diagram"/>
+</p>
+
+The `Data` component is responsible to perform operations such as data modification and query in the code.
+
+In `Data` component, it consists of:
+1. `DataManager` class which is responsible to help interaction between classes in `Logic` Component and classes in `Data` Component.
+2. `Profile` package which is responsible to any manipulation and modification of data for `Profile`.
+3. `Item` package which is responsible to any manipulation and modification of data for `Item` such as `Food` and `Exercise`.
+4. `Verifiable` interface which is responsible to check data validity in storage files.
+
+#### Data Component (Profile)
+
+<p align="center" width="100%">
+  <img width="90%" src="images/ProfileClassDiagram.png" alt="Profile Diagram"/>
 </p>
 
 A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Gender`, `Age`, `CalorieGoal` and `ActivityFactor`
@@ -126,19 +141,18 @@ A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Ge
 - All the attributes implement a `Verifiable` interface to enable us to check if the attributes are valid. This is important for the setting up of profile or the loading of profile from storage to ensure data integrity of the user's attributes.
 
 
-### Data Component (ItemBank and Item)
+#### Data Component (Item)
 
 <p align="center" width="100%">
   <img width="90%" src="images/ItemBankAndItemClassDiagram.png" alt="ItemBank And Item Class Diagram"/>
 </p>
 
-The `Data` component is responsible to perform operations such as data modification and query in the code.
-
-Above is a high-level **_class diagram_** for the `ItemBank` and `Item` classes in `Data` component. 
+Above is a high-level class diagram for all the classes in `Item` package. In `Item` package, it has 
+two different class hierarchy, one is `ItemBank`, and one is `Item`.
 
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.
 
-#### ItemBank class
+##### ItemBank Class Hierarchy
 1. `ItemBank` is the *highest superclass* that contains one attribute called `internalItems` which is an _array list_ of `Item`.
 2. `ItemList` being the *subclass* of `ItemBank` and *superclass* of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.
 3. `FoodList` and `ExerciseList` are *subclasses*  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
@@ -146,14 +160,22 @@ on `Food` class and `Exercise` class respectively.
 4. `FutureExerciseList` is a *subclass*  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
 on `Exercise` class.
 
-#### Item class
+As shown in the diagram above, `DataManager` class has association with `ItemBank`. This implies that it also has association with
+all the subclasses that inherits `ItemBank`. 
+
+##### Item Class Hierarchy
 1. An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.
 2. `Food` and `Exercise` are the only two **_subclasses_** inherit the `Item` class. 
 3. `Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores the consumed food date and time, while the latter compute the time period 
-(only value such as `MORNING`, `AFTERNOON`, `EVENING`** and **`NIGHT`** as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
+(only value such as `MORNING`, `AFTERNOON`, `EVENING` and `NIGHT` as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
 value must present when a `Food` object is created.
 4. `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.
-5. Abstract classes of Items and ItemLists acts as an agent for meaningful subclasses of Food and Exercise to inherit its attributes and functionality for a more concise use-case.
+
+As shown in the diagram above, the `Item` class implements interface `Verifiable`. This interface contains method to check the validity for the items 
+in the storage files. If the data in storage file is invalid, that item will not be loaded to the program. Note that since the superclass 
+`Item` implements `Verifiable`, its subclasses `Food` and `Exercise` also implement the interface.
+
+Abstract classes of Items and ItemLists acts as an agent for meaningful subclasses of Food and Exercise to inherit its attributes and functionality for a more concise use-case.
 
 ### Ui Component
 
@@ -270,7 +292,9 @@ This particular case illustrates how a user input add f/potato c/20 is parsed an
 
 #### Add a Food Item Feature
 
-![Add Food Item Sequence Diagram](images/AddFoodItemSequenceDiagram.png)
+<p align="center" width="100%">
+  <img width="90%" src="images/AddFoodItemSequenceDiagram.png" alt="Add Food Item Sequence Diagram"/>
+</p>
 
 The purpose of this feature is to allow the user to add food item to the food list. The above diagram shown is the 
 sequence diagram of the process of adding the food item. 
