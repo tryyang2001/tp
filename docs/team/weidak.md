@@ -58,23 +58,29 @@ implementation, we are able to utilize the StartState (implemented by Yi Zhi) to
 - After deliberating with the other members, a DataManager class was created to encompass all the different types of Data we have (FoodList, Profile, ExerciseBank etc.)
 and ensured all the items are localised in this class. This de-clutters Main.java and primarily acts as an agent for the various items. ([#143](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/143))
 
+**Storage OOP**
+
+- Using a `Storage.java` API, it interfaces all other Storage-related interfaces and ensures the methods for each `Storage` superinterface is implemented. As such, they are initialised by each storage's class of `XYZStorageUtils.java` and brought together in the `StorageManager.java` class.
+
 #### **Documentation**:
 
 
 - User Guide:
-  - Section 4.2 (Profile commands and its calculation of BMI) ([#126](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/126), [#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
-  - Section 8
+  - [Section 4.2 (Customising your profile)](https://ay2122s1-cs2113t-f14-2.github.io/tp/UserGuide.html#41-customising-your-profile) ([#126](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/126), [#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
+  - [Section 6 (Data Limits)](https://ay2122s1-cs2113t-f14-2.github.io/tp/UserGuide.html#6-data-limits) ([#243](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
 - Developer Guide:
   - Diagrams: 
     - [Data Component Diagram (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#data-component) ([#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
     - [Profile Class Diagram (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#data-component-profile) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208)[#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
-    - [Storage Class Diagram (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#storage-component) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208)[#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
+    - [Storage Class Diagram (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#storage-component) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208), [#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
     - [All the diagrams under "Loading of Data on Startup" (Implementation)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#loading-of-data-on-startup) ([#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208) ,[#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
   - Explanations: 
-    - [Explanation for Profile Component (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#data-component-profile) ([#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
-    - [Explanation for Storage Component (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#storage-component)
-    - [Explanation for "Loading of Data on Startup" (Implementation)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#loading-of-data-on-startup)
+    - [Explanation for Profile Component (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#data-component-profile) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
+    - [Explanation for Storage Component (Design)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#storage-component) ([#108](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/108), [#135](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/135), [#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208), [#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
+    - [Explanation for "Loading of Data on Startup" (Implementation)](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#loading-of-data-on-startup) ([#208](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/208), [#238](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/238))
   - Manual Testing:
-    - [Manipulating and saving data](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#manipulating-and-saving-data)
+    - [Manipulating and saving data](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html#manipulating-and-saving-data) ([#229](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/229))
 
 #### **Community**:
+
+- Helped other team review their Developer Guide ([here](https://github.com/nus-cs2113-AY2122S1/tp/pull/38/files/573949f70d1e1057b046baeb5df957ba63857559))
