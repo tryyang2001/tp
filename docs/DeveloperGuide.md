@@ -13,14 +13,15 @@ of Fitbot and some design considerations.
 
 [Design](#design)
 - [Architecture](#architecture)
-- [Data Component (Profile)](#data-component-profile)
-- [Data Component (ItemBank and Item)](#data-component-itembank-and-item)
-  - [ItemBank](#itembank-class)
-  - [Item](#item-class)
+- [Data Component](#data-component)
+  - [Data Component (Profile)](#data-component-profile)
+  - [Data Component (ItemBank and Item)](#data-component-item)
+    - [ItemBank Class Hierarchy](#itembank-class-hierarchy)
+    - [Item Class Hierarchy](#item-class-hierarchy)
 - [Logic Component](#logic-component)
 - [Storage Component](#storage-component)
 - [Implementation](#implementation)
-   - [Add Food Item Feature](#proposed-add-a-food-item-feature)
+   - [Add Food Item Feature](#add-a-food-item-feature)
    - [Design Considerations](#design-considerations)
    - [Loading Of Data On Startup](#loading-of-data-on-startup)
    - [Create Profile If Not Exist On Startup](#create-profile-if-not-exist-on-startup)
@@ -59,12 +60,13 @@ of Fitbot and some design considerations.
 
 `Main` class is the component that interacts with all the necessary classes.
 The `Main` class consists of the few components as shown below:
-- `Ui`: The interaction between user and application
-- `Logic`: Parse commands and execute them respectively
-- `Data`: allow users to perform CRUD operations on the data in the application
-- `Storage`: stores all data in the application. Saves a copy of data in relevant files.
+- `Ui`: Facilitates interaction between user and application
+- `Logic`: Parses commands and execute them respectively
+- `Data`: Allows users to perform CRUD operations on the data in the application
+- `Storage`: Stores all data in the application. Saves a copy of data in relevant files.
   Data will be retrieved from storage upon starting of application.
-- `State`: Check if the profile of user if complete and valid. Will prompt user for input if profile is not valid.
+- `State`: Helps the user to restore or create profile data. 
+
 
 Upon launching of application:
 - The application will check if there are files that are already stored in the respective folder.
@@ -98,10 +100,24 @@ and run the `exit()` command to exit the application.
 
   
 
-### Data Component (Profile)
+### Data Component
 
 <p align="center" width="100%">
-  <img width="90%" src="images/ProfileClassDiagram.png" alt="Architecture Sequence Diagram"/>
+  <img width="100%" src="images/DataComponent.png" alt="Data Component Diagram"/>
+</p>
+
+The `Data` component is responsible to perform operations such as data modification and query in the code.
+
+In `Data` component, it consists of:
+1. `DataManager` class which is responsible to help interaction between classes in `Logic` Component and classes in `Data` Component.
+2. `Profile` package which is responsible to any manipulation and modification of data for `Profile`.
+3. `Item` package which is responsible to any manipulation and modification of data for `Item` such as `Food` and `Exercise`.
+4. `Verifiable` interface which is responsible to check data validity in storage files.
+
+#### Data Component (Profile)
+
+<p align="center" width="100%">
+  <img width="90%" src="images/ProfileClassDiagram.png" alt="Profile Diagram"/>
 </p>
 
 A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Gender`, `Age`, `CalorieGoal` and `ActivityFactor`
@@ -112,35 +128,40 @@ A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Ge
 
 The `ProfileUtils` class is used in performing calculations (such as BMR or BMI) with the various attributes of the `Profile` class.
 
-### Data Component (ItemBank and Item)
+#### Data Component (Item)
 
 <p align="center" width="100%">
   <img width="90%" src="images/ItemBankAndItemClassDiagram.png" alt="ItemBank And Item Class Diagram"/>
 </p>
 
-The `Data` component is responsible to perform operations such as data modification and query in the code. It receives the commands from the `Logic` component, execute the 
-correct operations, and finally return the command result back to `Logic` component.\
-\
-Above is a high-level **_class diagram_** for the `ItemBank` and `Item` classes in `Data` component. Note that since `Main` and `Logic` components have accessed to some classes
-in `Data` component, they form **_dependencies_** with those classes.
+Above is a high-level class diagram for all the classes in `Item` package. In `Item` package, it has 
+two different class hierarchy, one is `ItemBank`, and one is `Item`.
+
 The main purpose of having `ItemBank` and `Item` classes is to allow user to perform writing, reading, editing and deleting operations in the program.
 
-#### ItemBank class
-`ItemBank` is the ***highest superclass*** that contains one attribute called `internalItems` which is an _array list_ of `Item`.\
-`ItemList` being the ***subclass*** of `ItemBank` and ***superclass*** of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.\
-`FoodList` and `ExerciseList` are ***subclass***  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
-on `Food` class and `Exercise` class respectively.\
-`FutureExerciseList` is a ***subclass***  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
+##### ItemBank Class Hierarchy
+1. `ItemBank` is the *highest superclass* that contains one attribute called `internalItems` which is an _array list_ of `Item`.
+2. `ItemList` being the *subclass* of `ItemBank` and *superclass* of `FoodList` and `ExerciseList`, which inherits all the methods available from `ItemBank`, with additional methods that form a dependency on `Item` class.
+3. `FoodList` and `ExerciseList` are *subclasses*  that inherit all the methods available from `ItemList`, while each of them also contains more methods that form a dependency
+on `Food` class and `Exercise` class respectively.
+4. `FutureExerciseList` is a *subclass*  that inherit all the methods available from `ExerciseList` and contains other methods that form a dependency
 on `Exercise` class.
 
-#### Item class
-An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.\
-`Food` and `Exercise` are the only two **_subclasses_** inherit the `Item` class. \
-`Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores the consumed food date and time, while the latter compute the time period 
-(only value such as **`Morning`, `Afternoon`, `Evening`** and **`Night`** as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
-value must present when a `Food` object is created.\
-`Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.\
-\
+As shown in the diagram above, `DataManager` class has association with `ItemBank`. This implies that it also has association with
+all the subclasses that inherits `ItemBank`. 
+
+##### Item Class Hierarchy
+1. An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.
+2. `Food` and `Exercise` are the only two **_subclasses_** inherit the `Item` class. 
+3. `Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores the consumed food date and time, while the latter compute the time period 
+(only value such as `MORNING`, `AFTERNOON`, `EVENING` and `NIGHT` as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
+value must present when a `Food` object is created.
+4. `Exercise` class has one extra attribute called `date` which stores the date of the exercise taken.
+
+As shown in the diagram above, the `Item` class implements interface `Verifiable`. This interface contains method to check the validity for the items 
+in the storage files. If the data in storage file is invalid, that item will not be loaded to the program. Note that since the superclass 
+`Item` implements `Verifiable`, its subclasses `Food` and `Exercise` also implement the interface.
+
 Abstract classes of Items and ItemLists acts as an agent for meaningful subclasses of Food and Exercise to inherit its attributes and functionality for a more concise use-case.
 
 ### Ui Component
@@ -255,9 +276,11 @@ This particular case illustrates how a user input add f/potato c/20 is parsed an
   <img width="100%" src="images/LogicSequenceDiagram.png" alt="Logic Sequence Diagram"/>
 </p>
 
-#### [Proposed] Add a Food Item Feature
+#### Add a Food Item Feature
 
-![Add Food Item Sequence Diagram](images/AddFoodItemSequenceDiagram.png)
+<p align="center" width="100%">
+  <img width="90%" src="images/AddFoodItemSequenceDiagram.png" alt="Add Food Item Sequence Diagram"/>
+</p>
 
 The purpose of this feature is to allow the user to add food item to the food list. The above diagram shown is the 
 sequence diagram of the process of adding the food item. 
@@ -266,25 +289,33 @@ When the user gives an input, the `parser` from the `Logic` component will try t
 command. In this case we assume that the correct format of **Add Food** input is given and the `AddFoodCommand` has already been
 called and created.
 
-Step 1: When the `execute` method in the `AddFoodCommand` is being called, it will first check that if the `isCalorieFromBank`
-condition is `true`, meaning that the description of the input food item can be found in the `FoodBank` object, 
-as shown in the `alt` frames of the sequence diagram. In each alternative paths, a new `Food` class object will be created
-by using the `Food` constructor.
+Step 1: When the `execute` method in the `AddFoodCommand` is being called, it will first check that if the `calories` is equal to null. If this
+condition is true, meaning that the user does not provide the calorie value of the food item, thus the item is expected to be found in the `FoodBank`.
 
-Step 2: When the `Food` constructor is called, it will perform a [self-invocation](#_self-invocation_)`setTimePeriod` to set the enum value `timePeriod`
+Step 2: Once the calorie value is determined, whether from `FoodBank` or user input, the AddFoodCommand then call the constructor
+of the `Food`. When the `Food` constructor is called, it will perform a [self-invocation](#_self-invocation_)`setTimePeriod` to set the enum value `timePeriod`
 of the Food. After that, it returns the Food object to the `AddFoodCommand`.
 
-Step 3: The `AddFoodCommand` then calls the method `addItem` from the `FoodList` object, which performs the add food operation in the
-`Food List`. After the new `Food` Item is added, it will perform a [self-invocation](#_self-invocation_) `sortList` to sort the `FoodList`. Since the 
-`addItem` method is void type, nothing is returned to `AddFoodCommand`.
+Step 3: The newly created Food object `food` is checked if it has a valid calorie value by calling the method `isValid()` in `Food` class. This
+method returns a boolean result `isValid` to `AddFoodCommand`. Then the program will enter an `alt` block which determines whether the `food` object
+should be added to the `foodList`.
 
-Step 4: After the `addItem` method is executed without giving any error, the `AddFoodCommand` then calls a `CommandResult` object.
-This object will return and output the message indicates that the `AddFoodCommand` is executed without any error. At this
-stage, the `AddFoodCommand` is successfully ended.
+Step 4a: If the calorie value is invalid, the boolean `isValid` will be false. When this condition is satisfied, it will enter the first
+alternative path, which then creates a `CommandResult` class object that contains the message to inform the user that the calorie value
+is incorrect. In this path, no food item is added to the `foodList`. This `CommandResult` object is returned to the `AddFoodCommand`.
+
+Step 4b: If the calorie value is valid, the boolean `isValid` is true, the `AddFoodCommand` will call the method `addItem` from the `FoodList` object, which performs the add food operation in the
+`Food List`. After the new `Food` Item is added, it will perform a [self-invocation](#_self-invocation_) `sortList` to sort the `FoodList` according to 
+the date and time of all the food items inside the list. Since the `addItem` method is void type, nothing is returned to `AddFoodCommand`.
+ After the `addItem` method is executed without giving any error, the `AddFoodCommand` then calls a `CommandResult` object that contains the message indicating the command is executed
+successfully. This `CommandResult` object is returned to the `AddFoodCommand`.
+
+Step 5: Once the `CommandResult` class object is returned, the `AddFoodCommand` then return this `commandResult` to the class that calls it. 
+At this stage, the `AddFoodCommand` execution is successfully ended.
 
 After all the steps are done, the `command`, `food` and `commandResult` objects are no longer referenced and hence get removed
 by the `Garbage Collector` in Java. However ,the lifeline of `foodBank` and `foodList` objects are still continuing because they
-are created in `Main` class and have the potential to get referenced by other commands call such as `delete`, `view` and `edit`.
+are created in `DataManager` class and have the potential to get referenced by other commands call such as `add`, `delete`, `view` and `edit`.
 
 One may also observe that the lifeline does not end even though the object is deleted and no longer be referenced. This problem
 is due to the flaw of the drawing tool, *PlantUml* used. For a more accurate sequence diagram, the lifeline should end immediately
@@ -509,7 +540,7 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 |v2.0|user|have sorted food list by meal time|track the number of supper meals I have in a week.|
 |v2.0|frequent user|to have the ability to edit past records|so that I can edit past wrong inputs.|
 |v2.0|university student|to be able to store weekly recurring sports activities| I can reduce hassle of input entries.|
-|v2.0|body-concious user|to calculate net calories inclusive of BMR.|
+|v2.0|body-conscious user|to calculate net calories inclusive of BMR.|
 
 
 

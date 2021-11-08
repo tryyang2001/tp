@@ -61,7 +61,7 @@ public class FoodList extends ItemList {
      * @return The integer value count which indicates the number of food items consumed at night
      */
     public int getSupperCount() {
-        return (int) internalItems.stream().filter(f -> f.getTimePeriod().equals(TimePeriod.Night)).count();
+        return (int) internalItems.stream().filter(f -> f.getTimePeriod().equals(TimePeriod.NIGHT)).count();
     }
 
     //====================Printing methods=========================
@@ -186,16 +186,16 @@ public class FoodList extends ItemList {
      */
     private void addTimePeriodMessage(TimePeriod timePeriod, StringBuilder foodListInString) {
         switch (timePeriod) {
-        case Morning:
+        case MORNING:
             foodListInString.append(MESSAGE_MORNING).append(ItemList.LS);
             break;
-        case Afternoon:
+        case AFTERNOON:
             foodListInString.append(MESSAGE_AFTERNOON).append(ItemList.LS);
             break;
-        case Evening:
+        case EVENING:
             foodListInString.append(MESSAGE_EVENING).append(ItemList.LS);
             break;
-        case Night:
+        case NIGHT:
             foodListInString.append(MESSAGE_NIGHT).append(ItemList.LS);
             break;
         default:
@@ -286,16 +286,16 @@ public class FoodList extends ItemList {
                                                  FoodList eveningList, FoodList nightList) {
         for (int i = 1; i <= subList.getSize(); i++) {
             switch (subList.getItem(i - 1).getTimePeriod()) {
-            case Morning:
+            case MORNING:
                 morningList.addItem(subList.getItem(i - 1));
                 break;
-            case Afternoon:
+            case AFTERNOON:
                 afternoonList.addItem(subList.getItem(i - 1));
                 break;
-            case Evening:
+            case EVENING:
                 eveningList.addItem(subList.getItem(i - 1));
                 break;
-            case Night:
+            case NIGHT:
                 nightList.addItem(subList.getItem(i - 1));
                 break;
             default:

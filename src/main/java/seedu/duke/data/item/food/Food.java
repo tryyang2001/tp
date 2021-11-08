@@ -170,13 +170,13 @@ public class Food extends Item {
      */
     private void setTimePeriod(LocalDateTime dateTime) {
         if (isMorning(dateTime)) {
-            this.timePeriod = TimePeriod.Morning;
+            this.timePeriod = TimePeriod.MORNING;
         } else if (isAfternoon(dateTime)) {
-            this.timePeriod = TimePeriod.Afternoon;
+            this.timePeriod = TimePeriod.AFTERNOON;
         } else if (isEvening(dateTime)) {
-            this.timePeriod = TimePeriod.Evening;
+            this.timePeriod = TimePeriod.EVENING;
         } else if (isNight(dateTime)) {
-            this.timePeriod = TimePeriod.Night;
+            this.timePeriod = TimePeriod.NIGHT;
         } else {
             this.timePeriod = null;
         }
