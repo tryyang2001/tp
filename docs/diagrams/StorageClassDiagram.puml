@@ -7,6 +7,7 @@ hide class methods
 hide interface fields
 hide interface methods
 
+package Storage {
 class XYZDecoder STORAGE_COLOUR
 class XYZEncoder STORAGE_COLOUR
 
@@ -19,7 +20,17 @@ class "<<interface>>\nXYZStorage" STORAGE_COLOUR
 
 class "<<interface>>\nStorage" STORAGE_COLOUR
 
-" " ...> StorageManager
+}
+
+package Data {
+}
+
+package Logic {
+}
+
+Data <.. "StorageManager"
+Logic --> "StorageManager"
+Logic -left-> Data
 
 "<<interface>>\nXYZStorage" <|-left- "<<interface>>\nStorage"
 
