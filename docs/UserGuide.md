@@ -302,7 +302,7 @@ not be saved.
   e.g. `add f/potato c/200 d/07-11-2021` or `add f/potato d/07-11-2021 c/200` both adds a Food Item called "potato" with 200 calories on 07 Nov 2021.
 
 ❗ Please do not use the characters `/` and `|` in your input other than to specify parameters!
-([more details](#8-data-limits))
+([more details](#6-data-limits))
 
 ### **4.1 Customising Your Profile**
 
@@ -411,7 +411,7 @@ Format: `add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}` adds a Food Item consu
 date (`DD-MM-YYYY`) and time (`HHMM`).
 
 ❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `07-11-2021`, then the input
-date must be within `01-11-2021` to `07-11-2021`. ([more details](#8-data-limits))
+date must be within `01-11-2021` to `07-11-2021`. ([more details](#6-data-limits))
 
 
 Example:
@@ -516,7 +516,7 @@ Format: `add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Exercise Item with its 
 and it will be added to the [Upcoming Exercise List](#441-adding-upcoming-exercise-items-add-e) instead.
 
 ❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `07-11-2021`, then the input
-date must be within `01-11-2021` to `07-11-2021`. ([more details](#8-data-limits))
+date must be within `01-11-2021` to `07-11-2021`. ([more details](#6-data-limits))
 
 Example:
 
