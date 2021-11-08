@@ -173,7 +173,8 @@ Note that the special characters `/` and `|` are not allowed!
 
 ```text
 *========================================================================================================*
-      Fitbot realised that your profile has not been created. Let's start creating a profile below!
+      Fitbot realised that your profile has not been created. 
+      Let's start creating a profile below!
 __________________________________________________________________________________________________________
 What's your name?
 __________________________________________________________________________________________________________
@@ -259,7 +260,8 @@ Based on the rubrics below, please key in 1 to 5 based on how active you are.
 2 -> Lightly Active - Light exercise or sports, around 1-3 days a week
 3 -> Moderately Active - Regular exercise or sports, around 3-5 days a week
 4 -> Very Active - Frequent exercise or sports, around 6-7 days a week
-5 -> If you are extra active - Sports or exercising is your passion and a physical jobscope.
+5 -> If you are extra active - Sports or exercising is your passion and 
+     a physical jobscope.
 __________________________________________________________________________________________________________
 2
 ```
@@ -272,7 +274,8 @@ Your activity factor is 2.
                                     Profile created successfully!
 *========================================================================================================*
 
-You can start by typing a command or view the list of available commands by typing "help".
+You can start by typing a command or view the list of available commands by typing 
+"help".
 __________________________________________________________________________________________________________
 
 ```
@@ -964,7 +967,8 @@ Daily net calories**:
 Number of supper meals this week: 1
 
 ** Net calories = Food consumed - Exercise output - your basal metabolic rate, where 
-your basal metabolic rate is a factor of your age, gender, height and weight retrieved from your profile.
+your basal metabolic rate is a factor of your age, gender, height and weight retrieved 
+from your profile.
 All calculations are done in calories.
 __________________________________________________________________________________________________________
 This is your calorie overview for today:
@@ -992,7 +996,8 @@ Below are the commands to get you started.
 More details could be found on: 
 https://tinyurl.com/fitbot-user-guide
 
-In the formats of the command, prefixes wrapped in curly brackets {} means that they are optional.
+In the formats of the command, prefixes wrapped in curly brackets {} means 
+that they are optional.
 
 add -- Add food or exercise record to the current list.
       Add Food Item
@@ -1011,7 +1016,8 @@ add -- Add food or exercise record to the current list.
           d/             Date of exercise in DD-MM-YYYY
 
       Add Recurring Exercise to Upcoming Exercise List
-      Format: add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK {,DAY_OF_THE_WEEK,...}
+      Format: add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK 
+              {,DAY_OF_THE_WEEK,...}
       Format: delete e/LIST_NO d/DD-MM-YYYY
         Prefix               Input
           r/             Description of upcoming exercise
@@ -1037,7 +1043,8 @@ bmi -- Calculate the Body-Mass-Index of user
         Prefix               Input 
           h/             Height of user in cm
           w/             Weight of user in kg
-      If no prefixes are given, bmi will be calculated using the height and weight in the profile.
+      If no prefixes are given, bmi will be calculated using the height and weight 
+      in the profile.
 
 bye -- Exit the program.
       Format: bye
@@ -1097,7 +1104,8 @@ help -- View help for commands
       Format: help
 
 profile -- View or modify profile details
-      Format: profile {n/NAME} {h/HEIGHT(CM)} {w/WEIGHT(KG)} {a/AGE} {g/CALORIEGOAL} {s/GENDER(M/F)} {x/ACTIVITYFACTOR(1-5)}
+      Format: profile {n/NAME} {h/HEIGHT(CM)} {w/WEIGHT(KG)} {a/AGE} {g/CALORIEGOAL} 
+              {s/GENDER(M/F)} {x/ACTIVITYFACTOR(1-5)}
         Prefix               Input 
           n/             Name of user
           h/             Height of user in cm
@@ -1105,7 +1113,8 @@ profile -- View or modify profile details
           s/             Gender of user, m for male, f for female
           a/             Age of user
           g/             Net calorie goal of user.
-                         Net calorie is based on calorie of food consumed - calories burnt from exercise and bmr
+                         Net calorie is based on calorie of food consumed - calories 
+                         burnt from exercise and bmr
           x/             Activity factor of user, range 1 to 5
       If no prefixes are given, user will be shown the current profile particulars.
 
