@@ -59,7 +59,7 @@ class AgeCreatorTest {
         checkMethod.invoke(ageCreator);
         String expected = "_________________________________________________________________"
                 + "_________________________________________" + ls
-                + "Your age cannot be this value." + ls
+                + "Your age cannot be this value!" + ls
                 + "Maybe you can try a whole number from 10 to 150." + ls
                 + "___________________________________________________________"
                 + "_______________________________________________";

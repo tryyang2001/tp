@@ -61,6 +61,7 @@ class ActivityFactorCreatorTest {
         checkMethod.invoke(activityFactorCreator);
         String expected = "_________________________________________________________"
                 + "_________________________________________________" + ls
+                + "Your activity factor cannot be of this value!" + ls
                 + "Maybe you can try a whole number from 1 to 5." + ls
                 + "__________________________________________________________________"
                 + "________________________________________";
