@@ -11,38 +11,14 @@ output with the speed and convenience of command-line based tools, especially in
 ### **Summary of Contributions**
 Below are all the contributions done by the author to Fitbot.
 
-#### **New Feature**: Add Food Item
-- What it does: This feature allows users to add a new food item to the food list, together with the calorie of the food item,
+#### **New Feature**: Add, View and Delete Food Item
+- What it does: This feature allows users to add, view and delete food item to the food list, together with the calorie of the food item,
   and the date and time when consuming the food.
 - Justification: This feature is one of the core feature in Fitbot application. It can help the users to keep track of the 
   food calorie taken. With all the food items stored in a list, this feature enables calculation of total calorie, and the number
   of suppers taken. 
-- Highlights: This feature adds a food item to the food list, and ensures that the food items are sorted according to their date 
-  time. 
+- Highlights: This feature adds a food item to the food list, view all the food items in the food list and delete unwanted food item
 - Pull requests: [#34](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/34), [#40](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/40), 
-  [#46](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/46), [#81](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/81)
-  [#82](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/82), [#98](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/98)
-
-#### **New Feature**: View Food Item
-- What it does: This feature allows users to view all the food items he or she added. In addition to that, it also shows the total 
-  food item consumed for each date and time period in the week. Moreover, it also shows the total calorie consumed 
-  for each day and also in the week.
-- Justification: This feature allows users to check their food list, so that they can do some operations such as `add` and `delete` 
-  whenever necessary.
-- Highlights: This feature will show a list of food consumed by the users within 7 days of today. The food items are separated with 
-  different date and time period, covered with nice frames.
-- - Pull requests: [#34](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/34), [#40](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/40),
-    [#46](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/46), [#81](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/81)
-    [#82](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/82), [#98](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/98)
-
-#### **New Feature**: Delete Food Item
-- What it does: This feature allows users to delete unwanted food items. 
-- Justification: Whenever the user adds a wrong food item or makes a typo, he or she may want to delete it. This feature allows the permanent deletion of
-  food item.
-- Highlights: This feature will delete the food item specified by the user. It will first check if the food item with the item index, date and time given
-  by the user are correct and existing, then delete the corresponding food item. This feature also supports clearing the food list when the users want to 
-  have a new food list.
-- Pull requests: [#34](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/34), [#40](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/40),
   [#46](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/46), [#81](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/81)
   [#82](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/82), [#98](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/98)
 
@@ -51,12 +27,10 @@ Here is the [link](https://nus-cs2113-ay2122s1.github.io/tp-dashboard/?search=&s
 to see the code contributed by the author. 
 
 #### **Project Management**:
-- Creates Github organization for the team 
-- Helps to set up Github team repository
+- Creates Github organization for the team and set up Github team repository
 - Helps in maintaining issue tracker
-- Helps to edit the code in the gradlew checkstyle file to fix the bug of array indentation
 - Helps to review, approve and merge Github pull requests
-- Helps to publish release in team repo
+- Helps to publish release v1.0 and v2.0 in team repo
 
 #### **Enhancements To Existing Features**:
 ##### **Delete exercise according to date**
@@ -86,8 +60,6 @@ to see the code contributed by the author.
 - Fixes formatting issue in UG [#55](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/55), [#56](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/56), [#57](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/57),
 - Ensures all the links provided in UG are valid [#161](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/161)
 - Other Pull request: [#137](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/137)
-  
-  
 
 ##### **Contribution to Documentation Guide**
 - Writes simple introduction, creates content page draft, ensures hyperlinks provided in DG are valid [#132](https://github.com/AY2122S1-CS2113T-F14-2/tp/pull/132)
