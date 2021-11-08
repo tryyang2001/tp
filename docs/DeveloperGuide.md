@@ -18,11 +18,14 @@ of Fitbot and some design considerations.
   - [Data Component (ItemBank and Item)](#data-component-item)
     - [ItemBank Class Hierarchy](#itembank-class-hierarchy)
     - [Item Class Hierarchy](#item-class-hierarchy)
+- [Ui Component](#ui-component)
 - [Logic Component](#logic-component)
 - [Storage Component](#storage-component)
+- [State Component](#state-component)
 - [Implementation](#implementation)
+   - [Parsing of Commands](#parsing-of-commands)
    - [Add Food Item Feature](#add-a-food-item-feature)
-   - [Design Considerations](#design-considerations)
+   - [Add a Recurring Exercise Feature](#add-a-recurring-exercise-feature)
    - [Loading Of Data On Startup](#loading-of-data-on-startup)
    - [Create Profile If Not Exist On Startup](#create-profile-if-not-exist-on-startup)
 - [Product Scope](#product-scope)
@@ -133,7 +136,7 @@ The `ProfileUtils` class is used in performing calculations (such as BMR or BMI)
 #### **Data Component (Item)**
 
 <p align="center" width="100%">
-  <img width="80%" src="images/ItemBankAndItemClassDiagram.png" alt="ItemBank And Item Class Diagram"/>
+  <img width="70%" src="images/ItemBankAndItemClassDiagram.png" alt="ItemBank And Item Class Diagram"/>
 </p>
 
 Above is a high-level class diagram for all the classes in `Item` package. In `Item` package, it has 
@@ -154,7 +157,7 @@ all the subclasses that inherits `ItemBank`.
 
 #### Item Class Hierarchy
 1. An `Item` class contains two attributes, `name` which represents the name of the item, and `calories` which represents the calorie intake/burnt from the item.
-2. `Food` and `Exercise` are the only two **_subclasses_** inherit the `Item` class. 
+2. `Food` and `Exercise` are the only two _subclasses_ that inherit the `Item` class. 
 3. `Food` class has two extra attributes called `dateTime` and `timePeriod`, the former stores the consumed food date and time, while the latter compute the time period 
 (only value such as `MORNING`, `AFTERNOON`, `EVENING` and `NIGHT` as shown in the enumeration class `TimePeriod`) of the food consumed time. Note that the `timePeriod` 
 value must present when a `Food` object is created.
@@ -176,16 +179,16 @@ console. Below shows a sequence diagram of how `Ui` component interacts with the
   <img width="80%" src="images/UiSequenceDiagram.png" alt="Ui Sequence Diagram"/>
 </p>
 
-Step 1: The main program starts off with the run command (command not shown but the activation bar is present), and the 
-run command self invoke itself by calling `enterTaskModeUntilByeCommand()`,\
-Step 2: In this method, the main class will prompt for user input using `getUserInput()`.\
-Step 3: Once the ui instance received user input, the main command will process the data(not shown).
-Step 4: After processing the data, no matter success or fail, the main command will tap on ui instance again to print
-message on the console using `formatMessageFramedWithDivider()`
+Step 1: The main program starts off with the `run()` method (method not shown but the activation bar is present), and the 
+`run()` method self invokes itself by calling `enterTaskModeUntilByeCommand()`,\
+Step 2: In this method, the `Main` class will prompt for user input using `getUserInput()`.\
+Step 3: Once the `Ui` instance received user input, the `Main` class will process the data. This process will be elaborated in [Parsing of Commands](#parsing-of-commands) under [Implementation](#implementation).
+Step 4: After processing the data, no matter success or fail, the `Main` class will tap on `Ui` instance again to print
+message on the console using `formatMessageFramedWithDivider()`.
 
-The sequence interaction in ref will be elaborated in Parsing of Commands under [Implementation](#implementation).
 
-Note: The Main class has 2 activation bars are due to the `run()` function which will then activate 
+
+Note: The `Main` class has 2 activation bars due to the `run()` method which will then activate 
 `enterTaskModeUntilByeCommand()`. In the example above, it is assumed that `bye` command is not used as example.
 
 ### **Logic Component**
@@ -235,7 +238,7 @@ Taking a closer look into the parsing process, the `ParserManager` actually does
 This is a (partial) class diagram that represents the `Storage` component.
 
 <p align="center" width="100%">
-  <img width="80%" src="images/StorageClassDiagram.png" alt="Storage Class Diagram"/>
+  <img width="75%" src="images/StorageClassDiagram.png" alt="Storage Class Diagram"/>
 </p>
 
 1. Firstly, `Storage` inherits each of the `XYZStorage` interfaces. This ensures the `Storage` API has the relevant load and save functions
@@ -344,7 +347,7 @@ Step 17: Finally, `AddFoodCommand` instantiates a `CommandResult` object represe
 The purpose of this feature is to allow the user to add food item to the food list. The above diagram shown is the 
 sequence diagram of the process of adding the food item. 
 
-When the user gives an input, the `parser` from the `Logic` component will try to read the input, and then call the correct
+When the user gives an input, `ParserManager` from the `Logic` component will try to read the input, and then call the correct
 command. In this case we assume that the correct format of **Add Food** input is given and the `AddFoodCommand` has already been
 called and created.
 
@@ -352,7 +355,7 @@ Step 1: When the `execute` method in the `AddFoodCommand` is being called, it wi
 condition is true, meaning that the user does not provide the calorie value of the food item, thus the item is expected to be found in the `FoodBank`.
 
 Step 2: Once the calorie value is determined, whether from `FoodBank` or user input, the AddFoodCommand then call the constructor
-of the `Food`. When the `Food` constructor is called, it will perform a [self-invocation](#_self-invocation_)`setTimePeriod` to set the enum value `timePeriod`
+of the `Food`. When the `Food` constructor is called, it will perform a [self-invocation](#self-invocation)`setTimePeriod` to set the enum value `timePeriod`
 of the Food. After that, it returns the Food object to the `AddFoodCommand`.
 
 Step 3: The newly created Food object `food` is checked if it has a valid calorie value by calling the method `isValid()` in `Food` class. This
@@ -364,7 +367,7 @@ alternative path, which then creates a `CommandResult` class object that contain
 is incorrect. In this path, no food item is added to the `foodList`. This `CommandResult` object is returned to the `AddFoodCommand`.
 
 Step 4b: If the calorie value is valid, the boolean `isValid` is true, the `AddFoodCommand` will call the method `addItem` from the `FoodList` object, which performs the add food operation in the
-`Food List`. After the new `Food` Item is added, it will perform a [self-invocation](#_self-invocation_) `sortList` to sort the `FoodList` according to 
+`Food List`. After the new `Food` Item is added, it will perform a [self-invocation](#self-invocation) `sortList` to sort the `FoodList` according to 
 the date and time of all the food items inside the list. Since the `addItem` method is void type, nothing is returned to `AddFoodCommand`.
  After the `addItem` method is executed without giving any error, the `AddFoodCommand` then calls a `CommandResult` object that contains the message indicating the command is executed
 successfully. This `CommandResult` object is returned to the `AddFoodCommand`.
@@ -382,22 +385,19 @@ once the object is no longer referenced.
 
 #### **Design considerations:**
 
-The current data structure used in `FoodList` is [Array List](#_array-list_). The rationale of choosing an array list implementation is because
+The current data structure used in `FoodList` is [Array List](#array-list). The rationale of choosing an array list implementation is because
 it supports resizability and random accessibility. However, the drawback of such an array list is that sorting requires 
 O(n<sup>2</sup>), which slows down the code efficiency. In the future increment, alternative data structures such as
-[Priority Queue](#_priority-queue_) and [Min Heap](#_min-heap_) can be implemented to achieve O(logn) addition and they are
+[Priority Queue](#priority-queue) and [Min Heap](#min-heap) can be implemented to achieve O(logn) addition and they are
 naturally sorted and thus no additional sorting required.
 
 The same reasoning for the class `ItemBank`, which is the superclass of `FoodList` and `ExerciseList`,the current implementation
-data structure is also an [Array List](#_array-list_). In the future increment, since the `ItemBank` need to perform query 
+data structure is also an [Array List](#array-list). In the future increment, since the `ItemBank` need to perform query 
 operation frequently and the items inside need to be sorted alphabetically, the data structure of the attribute will be changed 
-to [TreeMap](#_tree-map_) to achieve O(logn) query time.
+to [TreeMap](#tree-map) to achieve O(logn) query time.
 
-<p align="center" width="100%">
-  <img width="60%" src="images/ItemBankCodeSnippet.png" alt="Item Bank Code Snippet"/>
-</p>
 
-#### **[Proposed] Add a Recurring Exercise Feature**
+#### **Add a Recurring Exercise Feature**
 
 ![Add Recurring Exercise Sequence Diagram](images/AddRecurringExerciseSequenceDiagram.png)
 
@@ -405,10 +405,10 @@ The purpose of this feature is to allow the user to add recurring exercises to t
 is the sequence diagram of adding recurring exercises to the future exercise list, assuming that the user input satisfies the restrictions
 and does not cause any errors to be thrown.
 
-Step 1: The `parser` from the `Logic` component parses the input given by the user and calls the `execute` method in
-`AddRecurringExerciseCommand`. The condition `isCalorieFromBank` is checked to see if the user input any calories for
+Step 1: The `ParserManager` from the `Logic` component parses the input given by the user and calls the `execute` method in
+`AddRecurringExerciseCommand`. The condition `calories == null` is checked to see if the user input any calories for
 the recurring exercise. If it is `true`, it means that no calories input is detected and the method 
-`getCaloriesOfItemWithMatchingName` in class `ItemBank` is called, and it will return an int value of `calories`.
+`findCalories` in class `ItemBank` is called, and it will return an int value of `calories`.
 
 Step 2: Within `execute` method, `addRecurringItem` method in `FutureExerciseList` is also called. This method will 
 iteratively call the constructor for `Exercise` class and add the exercises into `FutureExerciseList` via the self-invocation
@@ -561,10 +561,6 @@ program without finishing creating profile, the profile attributes keyed in by t
 save all the profile attributes when all the attributes has been inputted by the user are present and valid.
 
 
-
-
-Note: Due to limitation of the uml diagram, the lifeline could not be deleted after the 'X'.
-
 ## **Product scope**
 ### **Target user profile**
 
@@ -602,7 +598,7 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 |v2.0|user|have sorted food list by meal time|track the number of supper meals I have in a week|
 |v2.0|frequent user|have the ability to edit past records|edit past wrong inputs|
 |v2.0|university student|be able to store weekly recurring sports activities|reduce hassle of input entries|
-|v2.0|body-conscious user|calculate net calories inclusive of BMR|have a more accurate guage of calories burnt|
+|v2.0|body-conscious user|calculate net calories inclusive of BMR|have a more accurate gauge of calories burnt|
 
 
 
@@ -613,7 +609,9 @@ Its overview shows your progress over the weeks, indicating whether or not you h
 1. Should work on any OS as long as it has Java 11 or above installed on their PC.
 2. Should be able to hold up to at least a year of data without a slowdown of performance in daily use.
 3. Any user that is comfortable with typing of speeds >55 words per minute would be able to accomplish these tasks faster than if they used a mouse to navigate.
+
 ## **Glossary**
+
 #### _self invocation_
 In UML sequence diagram, a method that does a calling to another of its own methods is called self-invocation. 
 #### _array list_
