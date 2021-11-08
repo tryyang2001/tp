@@ -323,7 +323,8 @@ to [TreeMap](#_tree-map_) to achieve O(logn) query time.
 ![Add Recurring Exercise Sequence Diagram](images/AddRecurringExerciseSequenceDiagram.png)
 
 The purpose of this feature is to allow the user to add recurring exercises to the future exercise list. The above diagram 
-is the sequence diagram of adding recurring exercises to the future exercise list.
+is the sequence diagram of adding recurring exercises to the future exercise list, assuming that the user input satisfies the restrictions
+and does not cause any errors to be thrown.
 
 Step 1: The `parser` from the `Logic` component parses the input given by the user and calls the `execute` method in
 `AddRecurringExerciseCommand`. The condition `isCalorieFromBank` is checked to see if the user input any calories for
