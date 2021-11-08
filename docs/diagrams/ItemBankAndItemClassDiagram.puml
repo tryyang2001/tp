@@ -44,7 +44,7 @@ Verifiable <|.left. Item : "\t\t"
 Item <|-left- Food
 Item <|-- Exercise
 Item "*" <-- ItemBank: "internalItems\n\n\n"
-TimePeriod "1 " <-up- Food : "timePeriod\n\n"
+TimePeriod "1 " <-up- Food : "\n\n\n timePeriod"
 
 Food <.. FoodList
 Exercise <.. ExerciseList
