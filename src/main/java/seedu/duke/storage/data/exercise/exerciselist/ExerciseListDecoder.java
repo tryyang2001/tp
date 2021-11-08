@@ -2,7 +2,7 @@ package seedu.duke.storage.data.exercise.exerciselist;
 
 import seedu.duke.data.item.exercise.Exercise;
 import seedu.duke.data.item.exercise.ExerciseList;
-import seedu.duke.storage.StorageManager;
+import seedu.duke.storage.Storage;
 import seedu.duke.storage.data.ListDecoder;
 import seedu.duke.storage.exceptions.InvalidDataException;
 
@@ -42,17 +42,17 @@ public class ExerciseListDecoder extends ListDecoder {
 
     private static void decodeExerciseDataFromString(ExerciseList exercises, String line) throws InvalidDataException {
         try {
-            final String[] exerciseDetails = line.split(StorageManager.FILE_TEXT_DELIMITER);
+            final String[] exerciseDetails = line.split(Storage.FILE_TEXT_DELIMITER);
             final String name = exerciseDetails[1];
             final int calories = Integer.parseInt(exerciseDetails[2]);
             final LocalDate dateOfExercise = parseDate(exerciseDetails[3]);
             final Exercise exercise = new Exercise(name, calories, dateOfExercise);
             if (!exercise.isValid() || !isWithinPastTenYears(dateOfExercise)) {
-                throw new InvalidDataException(StorageManager.FILENAME_LIST_EXERCISE, line);
+                throw new InvalidDataException(Storage.FILENAME_LIST_EXERCISE, line);
             }
             exercises.addItem(exercise);
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
-            throw new InvalidDataException(StorageManager.FILENAME_LIST_EXERCISE, line);
+            throw new InvalidDataException(Storage.FILENAME_LIST_EXERCISE, line);
         }
     }
 }

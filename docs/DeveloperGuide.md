@@ -41,8 +41,7 @@ of Fitbot and some design considerations.
   - [Building Food Bank](#building-food-bank)
   - [Building Exercise Bank](#building-exercise-bank)
   - [Exiting Program](#exiting-program)
-  - [Manipulating Data](#manipulating-data)
-  - [Saving Data](#saving-data)
+  - [Manipulating And Saving Data](#manipulating-and-saving-data)
 
 
 
@@ -127,6 +126,7 @@ A `Profile` class has various attributes such as `Name`, `Height`, `Weight`, `Ge
 
 - All the attributes implement a `Verifiable` interface to enable us to check if the attributes are valid. This is important for the setting up of profile or the loading of profile from storage to ensure data integrity of the user's attributes.
 
+The `ProfileUtils` class is used in performing calculations (such as BMR or BMI) with the various attributes of the `Profile` class.
 
 #### Data Component (Item)
 
@@ -223,14 +223,17 @@ which then returns the same `XYZCommand` to `Main`.
 
 ### Storage component
 
+This is a (partial) class diagram that represents the `Storage` component.
+
 <p align="center" width="100%">
-  <img width="90%" src="images/StorageManagerClassDiagram.png" alt="Architecture Sequence Diagram"/>
+  <img width="80%" src="images/StorageClassDiagram.png" alt="Storage Class Diagram"/>
 </p>
 
-`StorageManager` initializes all `Storage` subclasses with their respective paths. 
-Acting as an agent, it then interacts with each of the respective `Storage` subclasses, utilizing their `load` and `save` functionalities. 
-This design de-clutters the code in Main and provides a platform to ensure each of the subclasses were utilized. 
-It is also implemented with all of the `StorageInterface` interfaces to enforce methods of loading and saving to be fully implemented into the code.
+1. Firstly, `Storage` inherits each of the `XYZStorage` interfaces. This ensures the `Storage` API has the relevant load and save functions
+of the various storages. 
+2. `StorageManager` then implements the `Storage` API that contains the relevant functionalities and instantiates `XYZStorage` using the respective `XYZStorageUtils`.
+3. Each of the `XYZStorageUtils` utilizes the general classes of `FileChecker` to create/check for their files and `FileSaver` to write to their respective files.
+4. `XYZStorageUtils` also uses `XYZDecoder` to decode files from the saved .txt file and a `XYZEncoder` to encode items into the saved file.
 
 The `StorageManager` component loads and saves:
 
@@ -240,21 +243,7 @@ The `StorageManager` component loads and saves:
 - upcoming exercises: recurring exercises that are scheduled in the future
 - food and exercise banks: names and calories of relevant item
 
-Each `Storage` subclass is able to decode/encode details from the bot and is designed this way (Using ProfileStorage as an example)
-
-<p align="center" width="100%">
-  <img width="50%" src="images/ProfileStorageClassDiagram.png" alt="Architecture Sequence Diagram"/>
-</p>
-
-The `ProfileStorage` inherits an abstract class of `Storage` which contains protected attributes of `fileName` and `filePath`.
-After inheritance, it then implements loading and saving methods interfaced by `ProfileStorageInterface` to ensure reading and writing operations.
-
-where:
-- ProfileEncoder encodes the list to the profile.txt file.
-- ProfileDecoder decodes the list from profile.txt file and inputs into the bot.
-- ProfileStorage utilizes the static methods FileChecker and FileSaver to check if file exists and to write to the corresponding file.
-
-This way of implementation ensures that each class has a _single responsibility_ with little coupling between each other.
+This way of design ensures that each class has the correct methods to perform its capabilities.
 
 
 ### State Component
@@ -375,37 +364,103 @@ There are many files that are used for our current implementation.
 Therefore, since they are similar in behaviour and function, we will only be looking at the loading of the Profile component on the starting up of _Fitbot_.
 
 <p align="center" width="100%">
-  <img width="100%" src="images/StorageManagerLoadSequenceDiagram.png" alt="ProfileStorageLoadSequenceDiagram"/>
+  <img width="auto" src="images/StorageManagerLoadSequenceDiagram.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
 
 Upon successful launch of the application, `Main` will call to initialize `StorageManager`. 
 This in turn initializes all the subclasses of `Storage`, including `ProfileStorage`, with their respective file paths. 
-Afterwhich, `Main` calls a loading function `loadAll` that in turns calls the `loadProfile()` method of `ProfileStorage`.
+Afterwhich, `Main` calls a loading function `loadAll` that calls an internal `loadProfile()` function (self-invocation). This then calls the `loadProfile()` method of `ProfileStorage`.
 
-`ProfileStorage` then does 2 things: 
+`ProfileStorage` then does 2 main things: 
 
 1. Checks and creates the file if it is missing.
 2. Retrieves the data from the file with the use of the ProfileDecoder to decode.
 
-##### Reference Diagram 1: Checks for the file and create directory if it does not exist
 
 <p align="center" width="100%">
-  <img width="70%" src="images/StorageManagerLoadSequenceRef1.png" alt="ProfileStorageLoadSequenceDiagram"/>
+  <img width="auto" src="images/ChecksForFileStorage.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
+<p align="center"><i>Reference Diagram: Checks for the file and create directory if it does not exist</i></p>
 
 The diagram above explains how the application checks if a file exists. If it exists, it will not perform any additional functionality. Otherwise, it will generate a new file in preparation for storage.
 
-##### Reference Diagram 2: Retrieval of data from storage with the use of ProfileDecoder to decode
 
 <p align="center" width="100%">
-  <img width="70%" src="images/StorageManagerLoadSequenceRef2.png" alt="ProfileStorageLoadSequenceDiagram"/>
+  <img width="auto" src="images/RetrieveDataFromStorage.png" alt="ProfileStorageLoadSequenceDiagram"/>
 </p>
+<p align="center"><i>Reference Diagram: Retrieval of data from storage with the use of ProfileDecoder to decode</i></p>
+
 
 The diagram above explains the processes to decode the items from the file.
 
 Upon reaching the `decodeProfile(line)` method, the reference frame depicts a process of decoding its attributes one by one to ensure that they are able to detect each attribute's readability from storage.
 If the methods are unable to read the respective attribute from storage, an invalid attribute will be initialized. This then returns an initialized profile with invalid attributes for `StartState` to catch, allowing users to change
 their attributes instead of losing their entire profile data on startup. 
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeAttributes.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode all attributes</i></p>
+
+
+Below represents each of the attribute's decoding process:
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeName.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode Name</i></p>
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeHeight.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
+<p align="center"><i>Reference Diagram: Decode Height</i>
+</p>
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeWeight.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode Weight</i></p>
+
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeGender.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode Gender</i></p>
+
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeAge.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode Age</i></p>
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeCalorieGoal.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode CalorieGoal</i></p>
+
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeActivityFactor.png" alt="ProfileStorageLoadSequenceDiagram"/>
+
+</p>
+<p align="center"><i>Reference Diagram: Decode ActivityFactor</i></p>
+
+
+The other storages load in a similar fashion to this, except for each decoder, they decode `Item` for `ItemBank`s, `Food` for `FoodList` and `Exercise` for `ExerciseList`.
+
+
 
 #### Create Profile If Not Exist On Startup
 
@@ -561,6 +616,31 @@ Given below are some instructions that can be used to test the application manua
 
 
 ### Customising Profile
+
+1. Viewing current profile:
+   1. Prerequisite: Have an initialized profile after the startup of the program
+   2. Test case: `profile`\
+   Expected: Displays your profile in a viewable format
+2. Changing attributes:
+   1. Prerequisite: N.A.
+   2. Test case: `profile n/John|`\
+   Expected: Name is not changed as the use of `|` character is illegal.
+   3. Test case: `profile n/John/`\
+   Expected: Name is not changed as the use of `/` character is also illegal.
+   4. Test case: `profile h/-20` \
+   Expected: An error message shows that you can only input a number between 1 and 300, and height will not change.
+   5. Test case: `profile w/-200` \
+   Expected: An error message shows that you can only input a number between 1 and 300, and weight will not change.
+   6. Test case: `profile a/170`\
+   Expected: An error message shows that you can only input a whole number between 10 and 150.
+   7. Test case: `profile s/mfe`\
+   Expected: Error message displays that you should only use 'M' or 'F' only.
+   8. Test case: `profile g/20000`\
+   Expected: Error message that displays that you can only input from -3000 to 10000.
+   9. Test case: `profile x/0`\
+   Expected: Error message asking you to try a whole number from 1 to 5 instead.
+   10. Test case: `profile x/2 w/90 h/190 a/22 s/m g/500 n/Johnny English`\
+   Expected: Profile will change even with the parameters not being in order. This allows users flexibility to change their attributes in any order and with whichever parameters they want. (At least 1 attribute and at max 7 attributes can be changed at once)
 
 ### Recording Food Items:
 
@@ -725,53 +805,48 @@ Given below are some instructions that can be used to test the application manua
       name as "bye". The user then need to type 1 to exit the program, 2 to set the name as "bye" and any other key to go back.
    3. (more test cases)
    
-### Manipulating Data
+### Manipulating and Saving Data
 
-1. Data is saved whenever data is manipulated.
-    - Prerequisite: Data folder with food_list.txt already present.
-    - Test case
-      1. run the application
-      2. add a food entry into the application.
-      3. Exit the application.
-      4. The file food_list.txt should have one entry.
-      5. Run the application and delete the entry using `delete` command.
-      6. Exit the application again.
-   
-   Expected: food_list.txt should be empty.
-
-
-2. Manipulating _Profile_ data in the text files directly.
+1. Manipulating _Profile_ data in the text files directly.
     - Prerequisite: Data folder with profile.txt already present. (You have run through the profile creation at least once)
-    - Procedures:
-      1. Navigate to the `/data` folder which is in the same directory as your _Fitbot.jar_
-      2. Open the profile.txt with your editor of choice and view the attributes. It should look something like this: `john|180.0|65.0|M|22|300|2`
-      
-      ![img_1.png](images/profile_text_file.png)
-      3. Edit the height attribute to reflect this: `john|BUG|65.0|M|22|300|2`
-      
-      ![img.png](images/profile_text_file_modified.png)
-      4. Save the file and try to relaunch the application.
-    
-    **Expected**: The application should detect the height is invalid and prompts you to change its value **inside** the application 
-   
-    _Note: This will only work if there are exactly 6 '|' delimiters. Any additional delimiters added will render the entire line invalid and unreadable, causing you to lose all your profile data and restarting the entire profile creation step._ 
+<ul>
+    <ul><li>Procecures:</li>
+        <ol>
+            <li>Navigate to the <code>/data</code> folder which is in the same directory as your <i></i>Fitbot.jar</i>)</li>
+            <li><p>Open the profile.txt with your editor of choice and view the attributes. It should look something like this: <code>john|180.0|65.0|M|22|300|2</code></p>
+                <p align="center"><img src="images/profile_text_file.png" alt="profile_text_file.png" /></p>
+            </li>
+            <li><p>Edit the height attribute to reflect this: <code>john|BUG|65.0|M|22|300|2</code></p>
+                <p align="center"><img src="images/profile_text_file_modified.png" alt="profile_text_file_modified.png" /></p>
+            </li>
+            <li>Save the file and try to relaunch the application.</li>
+         </ol>   
+        <li>Expected: The application should detect the height is invalid and prompts you to change its value inside the application</li>
+    </ul>
+</ul>
 
 
-### Saving Data
+2. Manipulating saved text files, leading to invalid line.
+    - Causes of invalid lines in storage: Invalid number of delimiters present, unrecognizable texts and empty spaces (eg. `E|run|309`, where the date field is not present)
 
-1. Saving data in file
-    - Prerequisite: Data folder is present with items already added to lists. (We will be using _exercise_list.txt_ as an example.)
-    
-   Your exercise_list should look something like this: 
-   
-    ![img.png](images/exercise_list.png)
+<ul>
+    <ul>
+        <li>
+            <p>Prerequisite: Data folder is present with items already added to lists. (We will be using _exercise_list.txt_ as an example.)</p>
+            <p>Your exercise_list.txt should look something like this:</p>
+            <p align="center"><img src="images/exercise_list.png"/></p>
+        </li>
+        <li>Procecures:</li>
+        <ol>
+            <li><p>Change one of the lines generated by the application with <code>invalid line</code>.</p>
+                <p align="center"><img src="images/exercise_list_modified.png" alt="exercise_list_modified" /></p>
+            </li>
+            <li>Launch the application where it should be able to detect the invalid line in storage.</li>
+         </ol>   
+        <li>Expected: The user will be notified of the invalid line and it will be subsequently ignored. Upon the next operation that requires saving of data ("bye", "add e/" commands etc.), this invalid line will be overwritten and ignored, preserving the data integrity of the rest of the lines.</li>
+    </ul>
+</ul>
 
-    - Procedures:
-   1. Change one of the lines generated by the application with _invalid line_.
+   _Note: The dates used here was during the creation of the DeveloperGuide. We have set hard limits to not accept anything past 10 years prior or greater than 1 year into the future for completeness of our data. For instance, you are unable to set a exercise performed in 1991 as it will just ignore the line without notifying the user._
 
-    ![img_2.png](images/exercise_list_modified.png)
-   2. Launch the application where it should be able to detect the invalid line in storage.
 
-   **Expected**: The user will be notified of the invalid line and it will be subsequently ignored. Upon the next operation that requires saving of data ("bye", "add e/" commands etc.), this invalid line will be overwritten and ignored, preserving the data integrity of the rest of the lines.  
-
-    _Note: The dates used here was during the creation of the DeveloperGuide. We have set hard limits to not accept anything past 10 years prior or greater than 1 year into the future for completeness of our data. For instance, you are unable to set a exercise performed in 1991 as it will just ignore the line without notifying the user._

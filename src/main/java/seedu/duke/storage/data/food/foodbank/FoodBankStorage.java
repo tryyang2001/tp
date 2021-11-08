@@ -1,47 +1,27 @@
 package seedu.duke.storage.data.food.foodbank;
 
 import seedu.duke.data.item.ItemBank;
-import seedu.duke.storage.Storage;
-import seedu.duke.storage.data.ItemBankDecoder;
-import seedu.duke.storage.data.ItemEncoder;
 import seedu.duke.storage.exceptions.UnableToReadFileException;
 import seedu.duke.storage.exceptions.UnableToWriteFileException;
-import seedu.duke.storage.utilities.FileChecker;
-import seedu.duke.storage.utilities.FileSaver;
-
-import java.io.FileNotFoundException;
-import java.util.logging.Level;
 
 /**
- * A Storage class that handles the saving and loading of the FoodBank.
+ * Interface that ensures the storage device has a load and save food bank method.
  */
-public class FoodBankStorage extends Storage implements FoodBankStorageInterface {
-
-    public static final String TYPE = "Food";
+public interface FoodBankStorage {
 
     /**
-     * Constructs the food bank storage handler with its respective path.
+     * Loads the food bank file from data storage.
      *
-     * @param path the directory to save the food bank file
+     * @return FoodBank object from data storage
+     * @throws UnableToReadFileException if the filepath given is inaccessible or I/O was interrupted
      */
-    public FoodBankStorage(String path) {
-        this.filePath = path;
-        this.fileName = getFileName(path);
-    }
+    ItemBank loadFoodBank() throws UnableToReadFileException;
 
-    @Override
-    public ItemBank loadFoodBank() throws UnableToReadFileException {
-        FileChecker.createFileIfMissing(filePath);
-        try {
-            return ItemBankDecoder.retrieveDataFromItemBank(filePath, TYPE);
-        } catch (FileNotFoundException e) {
-            logger.log(Level.FINE, "The path is missing ", filePath);
-            throw new UnableToReadFileException(filePath);
-        }
-    }
-
-    @Override
-    public void saveFoodBank(ItemBank foodBank) throws UnableToWriteFileException {
-        FileSaver.saveTo(filePath, ItemEncoder.encode(foodBank));
-    }
+    /**
+     * Saves the Food Bank into storage.
+     * Used when there is an update to the Food Bank.
+     *
+     * @param foodBank FoodBank that is to be saved
+     */
+    void saveFoodBank(ItemBank foodBank) throws UnableToWriteFileException;
 }

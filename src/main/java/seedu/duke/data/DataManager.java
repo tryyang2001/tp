@@ -124,7 +124,7 @@ public class DataManager {
      */
     private boolean isWithinPastSevenDays(Item item, LocalDate today) {
         boolean isBeforeOrEqualToday = item.getDate().isEqual(today) || item.getDate().isBefore(today);
-        boolean isWithinOneWeek = item.getDate().isAfter(today.minusDays(6));
+        boolean isWithinOneWeek = item.getDate().isAfter(today.minusDays(7));
         return isBeforeOrEqualToday && isWithinOneWeek;
     }
 
