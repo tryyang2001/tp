@@ -12,7 +12,7 @@ output with the speed and convenience of command-line based tools, especially in
 ### Summary of Contributions
 Summary of contributions are as listed below.
 ### **New Feature**
-####**creation of create profile**
+#### **creation of create profile**
 - What it does: _Fitbot_ will prompt and guide user for profile particulars before allowing users to type in 
 other commands.
 - Justification: There are some commands that require profile attributes such as `BMI` and `Overview` commands.
@@ -20,7 +20,7 @@ A bug might occur if the user decides to use the commands above first instead of
 - Highlights: If the user profile is not complete, profile data will not be saved.
 
 ### **New Feature**
-####**Overview**
+#### **Overview**
 -What it does: create a summary of the daily and weekly overview of the calories gained from food and 
 lost from exercise.
 -Justification: allows users to have a better user experience and allow users to visualised data.
@@ -53,12 +53,16 @@ Allow users to have the option to quit the application if they wish to quit whil
 - Section 3: Set Up profile
 - Section 4.7: Viewing Your Calorie Summary `overview`
 - Section 4.8: Viewing Help `help`
+
 [Link to user guide](https://ay2122s1-cs2113t-f14-2.github.io/tp/UserGuide.html)
+
 **Developer Guide**
 - Explanation for Main Architecture Diagram.
 - Explanation of _Ui component_ (includes ui sequence diagram)
 - Explanation of _State component_ (includes state class diagram)
 - Explanation of _Create Profile If Not Exist On Startup_ (create profile sequence diagram)
 - Give test cases for _Setting Up Profile_ in _Instructions for manual testing_
+
 [Link to developer guide](https://ay2122s1-cs2113t-f14-2.github.io/tp/DeveloperGuide.html)
+
 #### **Community**:
