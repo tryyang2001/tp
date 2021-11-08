@@ -539,6 +539,33 @@ Given below are some instructions that can be used to test the application manua
     
 ### Recording Exercise Items
 
+1. Adding Exercise Items
+    1. Prerequisite: View the current Exercise List using `view e/`.
+    2. Test case: `add e/running c/200` \
+       Expected: A new Exercise Item is added to the Exercise List. Details of the added exercise are shown.
+       The date of the exercise is the date when the user calls this command.
+    3. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and within 7 days of today) \
+       Expected: A new Exercise Item is added to the Exercise List. Details of the added exercise are shown.
+       The date of the exercise is the date that the user input.
+    4. Test case: `add e/running c/200 d/x` (where x is a date in DD-MM-YYYY format and not within 7 days of today) \
+       Expected: No Exercise Item is added to the Exercise List. Error message will show up and inform the user that
+       a valid date (within 7 days of today) is needed.
+2. Viewing Exercise Items
+    1. Test case: `view e/` when the Exercise List is empty\
+       Expected: Message indicating that the Exercise List is empty is shown.
+    2. Test case: `view e/` when the Exercise List is not empty\
+       Expected: All of the Exercise Items are displayed.
+3. Deleting Exercise Items
+    1. Prerequisite: View the current Exercise List using `view e/`.
+    2. Test case: `delete e/1 d/x` when the Exercise List is empty (where x is a date in DD-MM-YYYY format and within 7 days of today)\
+       Expected: No Exercise Item is deleted from the Exercise List. Error message will show up and inform the user that
+       the Exercise List is empty.
+    3. Test case: `delete e/1 d/x` when the Exercise List contains at least one exercise with date x (where x is a date in DD-MM-YYYY format)\
+       Expected:  The Exercise Item with index 1 is deleted. Details of the deleted exercise are shown.
+    4. Test case: `delete e/2 d/x`\ when the Exercise List contains only one exercise with date x (where x is a date in DD-MM-YYYY format)\
+       Expected: No Exercise Item is deleted from the Exercise List. Error message will show up and inform the user that
+       the Exercise Item with index 2 on date x is not found in the Exercise List.
+
 ### Scheduling Exercises
 
 
