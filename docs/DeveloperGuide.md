@@ -368,31 +368,56 @@ Upon reaching the `decodeProfile(line)` method, the reference frame depicts a pr
 If the methods are unable to read the respective attribute from storage, an invalid attribute will be initialized. This then returns an initialized profile with invalid attributes for `StartState` to catch, allowing users to change
 their attributes instead of losing their entire profile data on startup. 
 
-Reference Diagram: Decode all attributes\
-![DecodeAll](images/DecodeAttributes.png)
+Reference Diagram: Decode all attributes
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeAttributes.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
 
 Below represents each of the attribute's decoding process:
 
-Reference Diagram: Decode Name\
-![DecodeName](images/DecodeName.png)
+Reference Diagram: Decode Name
 
-Reference Diagram: Decode Height\
-![DecodeHeight](images/DecodeHeight.png)
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeName.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
 
-Reference Diagram: Decode Weight\
-![DecodeWeight](images/DecodeWeight.png)
+Reference Diagram: Decode Height
 
-Reference Diagram: Decode Gender\
-![DecodeGender](images/DecodeGender.png)
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeHeight.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
 
-Reference Diagram: Decode Age\
-![DecodeAge](images/DecodeAge.png)
 
-Reference Diagram: Decode CalorieGoal\
-![DecodeCalorieGoal](images/DecodeCalorieGoal.png)
+Reference Diagram: Decode Weight
 
-Reference Diagram: Decode Name\
-![DecodeActivityFactor](images/DecodeActivityFactor.png)
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeWeight.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
+
+Reference Diagram: Decode Gender
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeGender.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
+
+Reference Diagram: Decode Age
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeAge.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
+
+Reference Diagram: Decode CalorieGoal
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeCalorieGoal.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
+
+Reference Diagram: Decode ActivityFactor
+
+<p align="center" width="100%">
+  <img width="auto" src="images/DecodeActivityFactor.png" alt="ProfileStorageLoadSequenceDiagram"/>
+</p>
 
 The other storages load in a similar fashion to this, except for each decoder, they decode `Item` for `ItemBank`s, `Food` for `FoodList` and `Exercise` for `ExerciseList`.
 
