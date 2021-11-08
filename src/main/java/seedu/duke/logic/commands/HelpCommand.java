@@ -85,9 +85,9 @@ public class HelpCommand extends Command {
             + "          c/             Calories of the food" + LS
             + LS
             + "      Add Exercise Item in ExerciseBank" + LS
-            + "      Format: add fbank/ITEM c/CALORIES" + LS
+            + "      Format: add ebank/ITEM c/CALORIES" + LS
             + "        Prefix               Input" + LS
-            + "          fbank/         Description of exercise" + LS
+            + "          ebank/         Description of exercise" + LS
             + "          c/             Calories burnt from exercise";
     private static String view = LS
             + "      Viewing Food List" + LS
@@ -99,11 +99,12 @@ public class HelpCommand extends Command {
             + "      View Upcoming Exercise List" + LS
             + "      Format: view u/" + LS
             + LS
-            + "      View Exercise Bank" + LS
-            + "      Format: view ebank/" + LS
-            + LS
             + "      View Food Bank" + LS
-            + "      Format: view fbank/";
+            + "      Format: view fbank/" + LS
+            + LS
+            + "      View Exercise Bank" + LS
+            + "      Format: view ebank/";
+
     private static String delete = "      Deleting Food Item" + LS
             + "      Format: delete f/LIST_NO d/DD-MM-YYYY t/HHMM" + LS
             + "        Prefix               Input" + LS

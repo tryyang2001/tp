@@ -44,9 +44,10 @@ public class ProfileUtils {
     public static final String ERROR_WEIGHT = "Your weight cannot be of this value!" + LS
             + "Maybe you can try a number from " + Weight.LOWER_WEIGHT_LIMIT + " to " + Weight.UPPER_WEIGHT_LIMIT + ".";
     public static final String ERROR_GENDER = "Please type in M or F only!";
-    public static final String ERROR_AGE = "Your age cannot be this value." + LS
+    public static final String ERROR_AGE = "Your age cannot be this value!" + LS
             + "Maybe you can try a whole number from " + Age.LOWER_AGE_LIMIT + " to " + Age.UPPER_AGE_LIMIT + ".";
-    public static final String ERROR_ACTIVITY_FACTOR = "Maybe you can try a whole number from "
+    public static final String ERROR_ACTIVITY_FACTOR = "Your activity factor cannot be of this value!" + LS
+            + "Maybe you can try a whole number from "
             + ActivityFactor.LIMIT_LOWER_ACTIVITY_FACTOR
             + " to "
             + ActivityFactor.LIMIT_UPPER_ACTIVITY_FACTOR + ".";

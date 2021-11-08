@@ -93,13 +93,21 @@ public class StartState {
         ui.formatMessageWithTopDivider();
         while (!newProfile.checkProfileComplete()) {
             try {
-                createNewProfileName(newProfile);
-                createNewProfileHeight(newProfile);
-                createNewProfileWeight(newProfile);
-                createNewProfileGender(newProfile);
-                createNewProfileAge(newProfile);
-                createNewProfileCalorieGoal(newProfile);
-                createNewProfileActivityFactor(newProfile);
+                if (!newProfile.getProfileName().isValid()) {
+                    createNewProfileName(newProfile); // if user just enter and exit, it will cause his name to be null
+                } else if (!newProfile.getProfileHeight().isValid()) {
+                    createNewProfileHeight(newProfile);
+                } else if (!newProfile.getProfileWeight().isValid()) {
+                    createNewProfileWeight(newProfile);
+                } else if (!newProfile.getProfileGender().isValid()) {
+                    createNewProfileGender(newProfile);
+                } else if (!newProfile.getProfileAge().isValid()) {
+                    createNewProfileAge(newProfile);
+                } else if (!newProfile.getProfileActivityFactor().isValid()) {
+                    createNewProfileActivityFactor(newProfile);
+                } else if (!newProfile.getProfileCalorieGoal().isValid()) {
+                    createNewProfileCalorieGoal(newProfile);
+                }
             } catch (MissingParamException e) {
                 System.out.println(e.getMessage());
             }

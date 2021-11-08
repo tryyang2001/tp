@@ -53,7 +53,9 @@ public class AgeCreator extends AttributeCreator {
     private void setAge(String userInput) throws MissingParamException {
         ui.checkEmptyUserInput(userInput);
         confirmInputBye(userInput);
-        int ageInput = Integer.parseInt(userInput);
+        int ageInput = (Double.parseDouble(userInput) > Integer.MAX_VALUE)
+                ? Integer.MAX_VALUE
+                : Integer.parseInt(userInput);
         age.setAge(ageInput);
     }
 }
