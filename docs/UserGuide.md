@@ -90,7 +90,7 @@ _italics_ | Text that has been _italicised_ indicates that it is a term specific
 
 [7. Command Summary](#7-command-summary)
 
-
+[8. Data Limits](#8-data-limits)
 
 ## **1. Terminology**
 
@@ -277,7 +277,7 @@ ________________________________________________________________________________
 
 ```
 
-After setting up the profile, you are now ready to use the rest of _Fitbot_'s features!
+After setting up the profile, you are now ready to use the rest of _Fitbot_'s features! 
 
 ❗ You can exit _Fitbot_ with the `bye` command, but if you exit before completing the profile, all attributes will
 not be saved.
@@ -302,7 +302,7 @@ not be saved.
   e.g. `add f/potato c/200 d/07-11-2021` or `add f/potato d/07-11-2021 c/200` both adds a Food Item called "potato" with 200 calories on 07 Nov 2021.
 
 ❗ Please do not use the characters `/` and `|` in your input other than to specify parameters!
-
+([more details](#8-data-limits))
 
 ### **4.1 Customising Your Profile**
 
@@ -411,7 +411,8 @@ Format: `add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}` adds a Food Item consu
 date (`DD-MM-YYYY`) and time (`HHMM`).
 
 ❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `07-11-2021`, then the input
-date must be within `01-11-2021` to `07-11-2021`.
+date must be within `01-11-2021` to `07-11-2021`. ([more details](#8-data-limits))
+
 
 Example:
 ```text
@@ -515,7 +516,7 @@ Format: `add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Exercise Item with its 
 and it will be added to the [Upcoming Exercise List](#441-adding-upcoming-exercise-items-add-e) instead.
 
 ❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `07-11-2021`, then the input
-date must be within `01-11-2021` to `07-11-2021`.
+date must be within `01-11-2021` to `07-11-2021`. ([more details](#8-data-limits))
 
 Example:
 
@@ -611,8 +612,8 @@ Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Upcoming Exercise Item w
 
 ❗️ The date `DD-MM-YYYY` provided must be in the future. Otherwise, if it is within the past 7 days (including today), it will be
   added to the [Exercise List](#431-adding-exercise-items-add-e) instead.\
-❗ The date `DD-MM-YYYY` can only be within a year from today as any exercises beyond a year is too far into the future.
-
+❗ The date `DD-MM-YYYY` can only be within a year from tomorrow as any exercises beyond a year is too far into the future. ([more details](#8-data-limits))
+ 
 Example:
 ```text
 add e/hiit c/290 d/01-01-2022
@@ -1202,4 +1203,23 @@ view|`view e/`  <br><br> `view f/` <br><br> `view u/` <br><br> `view fbank/` <br
 
 [⏫ Back to content page](#content-page)
 
+### **8. Data Limits**
 
+_All the ranges stated here are inclusive of the boundaries._
+
+- Items:
+    (Assuming today's date is 08 Nov 2021)
+  - For food and exercise dates: Past 7 days inclusive of today (eg. 02 Nov 2021 - 08 Nov 2021).
+  - For upcoming exercise dates: Tomorrow until 1 year later (eg. 09 Nov 2021 - 08 Nov 2021).
+  - Names for items: No usage of `|` or `/` inside the named items. Can substitute with `-` instead.
+  - Calories: Whole number from 1 to 10,000.
+- Profile:
+  - Name: No usage of `|` or `/` inside the names. Can be substituted with `-` instead.
+  - Height: Number from 1 to 300.
+  - Weight: Number from 1 to 300.
+  - Age: Whole number from 10 to 150.
+  - Gender: Only 'M' or 'F' characters are accepted (case insensitive). Any additional characters will render the input invalid.
+  - Calorie Goal: Whole number from -3000 to 10000.
+  - Activity Factor: Whole number from 1 to 5.
+
+[⏫ Back to content page](#content-page)
