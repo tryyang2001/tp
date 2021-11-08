@@ -160,6 +160,8 @@ Step 3: Once the ui instance received user input, the main command will process 
 Step 4: After processing the data, no matter success or fail, the main command will tap on ui instance again to print
 message on the console using `formatMessageFramedWithDivider()`
 
+The sequence interaction in ref will be elaborated in Parsing of Commands under [Implementation](#implementation).
+
 Note: The Main class has 2 activation bars are due to the `run()` function which will then activate 
 `enterTaskModeUntilByeCommand()`. In the example above, it is assumed that `bye` command is not used as example.
 

@@ -11,7 +11,7 @@ main -> ui ++ UI_COLOUR : getUserInput()
 user -> ui : type command
 ui --> main -- :     command
 ref over main
-parse command and update data
+parsing of commands
 end
 main -> ui ++ UI_COLOUR: formatMessageFramedWithDivider()
 ui -> user : prints message \n on console
