@@ -40,9 +40,8 @@ public class Main {
     }
 
     //@@author tttyyzzz
-
     /**
-     * Checks the attributes of profile in dataManager
+     * Checks the attributes of profile in dataManager.
      */
     private void checkAndCreateProfile() {
         dataManager.setProfile(startState.checkAndCreateProfile());
