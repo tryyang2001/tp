@@ -41,16 +41,16 @@ public class DeleteFoodBankCommand extends Command {
     @Override
     public CommandResult execute() {
         if (super.foodBank.getSize() == 0) {
-            logger.log(Level.WARNING, "food bank is empty.");
+            logger.log(Level.FINE, "food bank is empty.");
             return new CommandResult(CommandMessages.MESSAGE_EMPTY_FOOD_BANK);
         }
         if (this.isClear) {
-            logger.log(Level.WARNING, "Clearing food bank");
+            logger.log(Level.FINE, "Clearing food bank");
             super.foodBank.clearList();
             return new CommandResult(MESSAGE_FOOD_CLEAR);
         }
 
-        logger.log(Level.WARNING, "Trying to delete item now");
+        logger.log(Level.FINE, "Trying to delete item now");
         try {
             if ((itemIndexArray.size() == 1)) {
                 Item item = super.foodBank.deleteItem(itemIndexArray.get(0));
@@ -72,7 +72,7 @@ public class DeleteFoodBankCommand extends Command {
                         + String.format(MESSAGE_ITEMS_LEFT, super.foodBank.getSize()));
             }
         } catch (IndexOutOfBoundsException e) {
-            logger.log(Level.WARNING, "Detected invalid food item index.");
+            logger.log(Level.FINE, "Detected invalid food item index.");
             if (super.foodBank.getSize() == 1) {
                 return new CommandResult(CommandMessages.MESSAGE_ONLY_ONE_IN_LIST);
             }

@@ -59,14 +59,14 @@ public class AddCommandParser implements Parser {
             final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
             final Integer calories = ParserUtils.extractItemCalories(params);
             final LocalDate date = ParserUtils.extractDate(params, false);
-            logger.log(Level.WARNING, String.format("date detected is: %s", date));
+            logger.log(Level.FINE, String.format("date detected is: %s", date));
             if (ParserUtils.isSevenDaysBeforeToday(date)) {
                 return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
                         LocalDate.now().minusDays(6).format(DATE_FORMAT),
                         LocalDate.now().format(DATE_FORMAT)));
             }
             if (ParserUtils.isFutureDate(date)) {
-                logger.log(Level.WARNING, String.format("adding to future list"));
+                logger.log(Level.FINE, String.format("adding to future list"));
                 return new AddFutureExerciseCommand(description, calories, date);
             }
             return new AddExerciseCommand(description, calories, date);
@@ -84,7 +84,7 @@ public class AddCommandParser implements Parser {
             final String description = ParserUtils.extractItemDescription(params, itemTypePrefix);
             final Integer calories = ParserUtils.extractItemCalories(params);
             final LocalDateTime dateTime = ParserUtils.extractDateTime(params);
-            logger.log(Level.WARNING, String.format("dateTime detected is: %s", dateTime));
+            logger.log(Level.FINE, String.format("dateTime detected is: %s", dateTime));
             if (!ParserUtils.isWithinSevenDaysFromToday(dateTime.toLocalDate())) {
                 return new InvalidCommand(String.format(ParserMessages.MESSAGE_ERROR_ITEM_DATE_TOO_OLD,
                         LocalDate.now().minusDays(6).format(DATE_FORMAT),
@@ -151,7 +151,7 @@ public class AddCommandParser implements Parser {
             throws ParserException {
         LocalDate startDate = ParserUtils.extractGeneralDate(params, Command.COMMAND_PREFIX_START_DATE);
         if (startDate == null) {
-            logger.log(Level.WARNING, "Detected empty start date input after prefix but date is required!");
+            logger.log(Level.FINE, "Detected empty start date input after prefix but date is required!");
             throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_START_DATE);
         }
         return startDate;
@@ -161,7 +161,7 @@ public class AddCommandParser implements Parser {
             throws ParserException {
         LocalDate endDate = ParserUtils.extractGeneralDate(params, Command.COMMAND_PREFIX_END_DATE);
         if (endDate == null) {
-            logger.log(Level.WARNING, "Detected empty end date input after prefix but date is required!");
+            logger.log(Level.FINE, "Detected empty end date input after prefix but date is required!");
             throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_END_DATE);
         }
         return endDate;
@@ -187,12 +187,12 @@ public class AddCommandParser implements Parser {
                 }
                 daysOfTheWeek.add(day);
             }
-            logger.log(Level.WARNING, String.format("Days of the week %s", daysOfTheWeek.toString()));
+            logger.log(Level.FINE, String.format("Days of the week %s", daysOfTheWeek.toString()));
             return daysOfTheWeek;
         } catch (NumberFormatException e) {
             throw new ParserException(ParserMessages.MESSAGE_ERROR_INVALID_DAY_OF_THE_WEEK);
         } catch (MissingParamException e) {
-            logger.log(Level.WARNING, "Detected empty day input after prefix but day is required!");
+            logger.log(Level.FINE, "Detected empty day input after prefix but day is required!");
             throw new ParserException(ParserMessages.MESSAGE_ERROR_NO_DAY_OF_THE_WEEK);
         }
     }

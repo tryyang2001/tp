@@ -5,6 +5,7 @@ import seedu.duke.logic.commands.Command;
 import seedu.duke.logic.commands.HelpCommand;
 import seedu.duke.logic.commands.InvalidCommand;
 import seedu.duke.logic.commands.OverviewCommand;
+import seedu.duke.logic.parser.exceptions.ExtraParamException;
 
 import java.util.logging.Logger;
 
@@ -32,28 +33,40 @@ public class ParserManager {
         final String[] commandAndParams = splitInputIntoCommandAndParams(input);
         final String commandWord = commandAndParams[0].toLowerCase(); //case-insensitive (all lower case)
         final String params = " " + commandAndParams[1];
-
-        switch (commandWord) {
-        case Command.COMMAND_WORD_ADD:
-            return new AddCommandParser().parse(params);
-        case Command.COMMAND_WORD_DELETE:
-            return new DeleteCommandParser().parse(params);
-        case Command.COMMAND_WORD_VIEW:
-            return new ViewCommandParser().parse(params);
-        case Command.COMMAND_WORD_EDIT:
-            return new EditCommandParser().parse(params);
-        case Command.COMMAND_WORD_BMI:
-            return new BmiParser().parse(params);
-        case Command.COMMAND_WORD_PROFILE:
-            return new UpdateProfileParser().parse(params);
-        case OverviewCommand.COMMAND_WORD:
-            return new OverviewCommand();
-        case ByeCommand.COMMAND_WORD:
-            return new ByeCommand();
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-        default:
-            return new InvalidCommand(ParserMessages.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST);
+        try {
+            switch (commandWord) {
+            case Command.COMMAND_WORD_ADD:
+                return new AddCommandParser().parse(params);
+            case Command.COMMAND_WORD_DELETE:
+                return new DeleteCommandParser().parse(params);
+            case Command.COMMAND_WORD_VIEW:
+                return new ViewCommandParser().parse(params);
+            case Command.COMMAND_WORD_EDIT:
+                return new EditCommandParser().parse(params);
+            case Command.COMMAND_WORD_BMI:
+                return new BmiParser().parse(params);
+            case Command.COMMAND_WORD_PROFILE:
+                return new UpdateProfileParser().parse(params);
+            case OverviewCommand.COMMAND_WORD:
+                if (!params.trim().isEmpty()) {
+                    throw new ExtraParamException();
+                }
+                return new OverviewCommand();
+            case ByeCommand.COMMAND_WORD:
+                if (!params.trim().isEmpty()) {
+                    throw new ExtraParamException();
+                }
+                return new ByeCommand();
+            case HelpCommand.COMMAND_WORD:
+                if (!params.trim().isEmpty()) {
+                    throw new ExtraParamException();
+                }
+                return new HelpCommand();
+            default:
+                return new InvalidCommand(ParserMessages.MESSAGE_ERROR_COMMAND_DOES_NOT_EXIST);
+            }
+        } catch (ExtraParamException e) {
+            return new InvalidCommand(e.getMessage());
         }
 
     }
