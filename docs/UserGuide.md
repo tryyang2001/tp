@@ -21,7 +21,7 @@ maximise your user experience.
 
 To preface, _Fitbot_ was developed with modern-day university students in mind as our target audience. As a result, we do expect users to have a basic level 
 of comfort with using computers, and it would be even better if you are familiar with CLI. However, if you do not, do not worry as we
-have provided a comprehensive set of instructions to [get started](#1-quick-start)!
+have provided a comprehensive set of instructions to [get started](#2-quick-start)!
 
 
 Throughout this guide, we will be using some special formatting and symbols to bring your attention to certain aspects:
@@ -98,17 +98,16 @@ _italics_ | Text that has been _italicised_ indicates that it is a term specific
 temperature of one gram of water by one degree Celsius. On average, a male will require approximately 2500 cal consumed
 from food per day while a female will require around 2000 cal intake per day.\
 \
-***Calorie goal*** - The calorie goal is defined as the amount of calorie you wish to achieve per day. It is the value you want to achieve from your
-calorie intake **minus** the calorie burnt naturally and physically per day. If you are planning to lose weight, it is
-recommended to set your daily calorie goal as negative value. On the other hand, positive value calorie goal may mean that
-you are going to increase or maintain your body weight.
+***Calorie goal*** - The calorie goal is defined as the amount of calories you wish to achieve per day. It calculated by subtracting the calories you burnt naturally and physically per day from your calorie intake. 
+If you are planning to lose weight, it is recommended to set your daily calorie goal as a negative value and if you are planning to gain weight, it is recommended to set your daily calorie goal as
+a positive value calorie goal.
 
-***Net Calorie*** - Net calorie is the difference between calorie goal and the total calorie burnt from exercising and
+***Net Calorie*** - Net calorie is the difference between calorie goal and the total calories burnt from exercising and
 [body metabolism](https://www.news-medical.net/life-sciences/What-is-Metabolism.aspx).
 For your information, we use [basal metabolic rate (BMR)](https://en.wikipedia.org/wiki/Basal_metabolic_rate) to compute
-the rate of calorie consumed by body metabolic activity.\
+the rate of calories consumed by body metabolic activity.\
 \
-***Activity factor*** - Activity factor is a measure of the level of activity. The value is used in the calculation of BMR. In our application,
+***Activity factor*** - Activity factor is a measure of the level of activity. This value is used in the calculation of BMR. In our application,
 we use an integer ranged from 1 to 5 to measure the activity factor:
 - *Integer 1*: Little to no exercise (0-1 day of exercises a week)
 - *Integer 2*: Lightly active (1-3 days of exercises a week)
@@ -117,23 +116,23 @@ we use an integer ranged from 1 to 5 to measure the activity factor:
 - *Integer 5*: Extremely active (when sports is your passion and have a very physical job scope)
 
 ***Body Mass Index (BMI)*** - A measure to evaluate if the body weight is healthy. BMI is computed by using the body
-weight(in kg) divided by the square of the body height(in m). \
+weight (in kg) divided by the square of the body height (in m). \
 \
 ***Item*** - We use the term _Item_ to represent the items that can be stored in _Fitbot_. The available items
 are _Food Item_ and _Exercise Item_.\
 \
-***Upcoming exercise*** - We define the exercise with date after today's date as an Upcoming Exercise. This kind of exercise
+***Upcoming Exercise*** - We define the exercise with date after today's date as an Upcoming Exercise. This kind of exercise
 will be handled specifically. It will not be added to the Exercise List but will be saved internally in the storage file. More
 details of the process can be found [here](#442-adding-recurring-exercise-items-add-r).\
 \
-***Item Bank*** - The item bank is an item storage that is capable of storing the Food or Exercise Item with its respective calorie. This is
-to help you to store the calorie intake of a specific Food or the calorie burnt from a specific Exercise for future use. More details
-on how to add item into the item bank can be found [here](#451-adding-food-bank-items-add-fbank).\
+***Item Bank*** - The Item Bank is an item storage that is capable of storing the Food or Exercise Item with its respective calories. This is
+to help you to store the calorie intake of a specific Food Item or the calories burnt from a specific Exercise Item for future use. More details
+on how to add item into the Item Bank can be found [here](#451-adding-food-bank-items-add-fbank).\
 \
 ***Parameters*** - Parameters are values in the command format that _Fitbot_ expects you to provide. For example, `height` and `weight`
 are parameters used to obtain your body height and weight values.\
 \
-***Prefix*** - Prefix is used to help Fitbot identifies the corresponding parameters you provided. For example, to allow Fitbot
+***Prefix*** - Prefix is used to help _Fitbot_ identifies the corresponding parameters you provided. For example, to allow _Fitbot_
 to save your body height and weight, prefixes `h/` and `w/` are used. More details about how to use the prefixes in each
 command can be found [here](#4-features).
 
@@ -165,7 +164,7 @@ _Fitbot_ will ask you for your particulars.
 
 Particulars required include name, height, weight, age, gender, calorie goal and activity factor. The application will prompt for your particulars again if your input is incorrect.
 
-Below are the questions that you will encounter.
+Below are the questions that you will be prompted.
 
 **Name Input**
 
@@ -223,7 +222,7 @@ f
 
 **Age Input**
 
-Please input your age as a positive whole number. (e.g. 21)
+Please input your age as a positive whole number (e.g. 21).
 
 ```text
 __________________________________________________________________________________________________________
@@ -236,7 +235,7 @@ ________________________________________________________________________________
 
 **Calorie Goal**
 
-To customise your experience, let _Fitbot_ know what your [daily net calorie goal](#1-terminology) (in cal) is so that _Fitbot_ can tell you if you are on track. \
+To customise your experience, let _Fitbot_ know what your [net calorie goal](#1-terminology) (in cal) is so that _Fitbot_ can tell you if you are on track. \
 Please input your calorie goal as a whole number in the range of -3000 to 10000 (e.g. 1500).
 
 ```text
@@ -315,7 +314,9 @@ Refer to [3. Set Up Profile](#3-set-up-profile) to set up your profile for the f
 
 #### 4.1.2 Viewing Profile: `profile`
 
-Typing `profile` lets you view your name, height, weight, gender, age, calorie goal and activity factor.
+This command allows you to view your name, height, weight, gender, age, calorie goal and activity factor.
+
+Format: `profile`
 
 Example:
 
@@ -328,15 +329,16 @@ Hello Lisa! This is your profile:
 	Weight 			50.0kg 
 	Gender 			F 
 	Age 			21 
-	Calories goal 		1500 cal 
+	Calorie goal 		1500 cal 
 	Activity factor 	2 
 ======================================* 
 __________________________________________________________________________________________________________ 
 ```
 #### 4.1.3 Updating Profile Attributes 
 
-Change your profile attributes with the following command: \
-`profile {n/NAME} {h/HEIGHT} {w/WEIGHT} {s/GENDER} {a/AGE} {g/CALORIE_GOAL} {x/ACTIVITY_FACTOR}` \
+You can update your profile attributes using this command.
+
+Format: `profile {n/NAME} {h/HEIGHT} {w/WEIGHT} {s/GENDER} {a/AGE} {g/CALORIE_GOAL} {x/ACTIVITY_FACTOR}` \
 \
 where : 
 \
@@ -348,6 +350,7 @@ where :
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gender (M or F) \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; activity factor (1: Sedentary - 5: Extremely Active)
 
+❗️ Please input at least 1 of the optional parameters (in no particular order)!
 
 Example:
 ```text
@@ -365,16 +368,17 @@ Hello Lisa! This is your profile:
 ===========================================================*
 __________________________________________________________________________________________________________
 ```
-❗️ Please input at least 1 of the optional parameters (in no particular order)!
 
 #### 4.1.4 Calculating BMI `bmi`
 
-You can calculate your [BMI](#1-terminology) using the command `bmi {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG}`. 
+You can calculate your [BMI](#1-terminology) using this command. 
 _Fitbot_ will also tell you the status of your BMI *(underweight, healthy, overweight, obese)* based on the calculated value.
 
+Format: `bmi {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG}`
 
-If you do not provide the two optional parameters of height and weight, the BMI will be computed based on the current 
-height and weight values in your profile. 
+💡 **Tip:** If you do not provide the two optional parameters of height and weight, the BMI will be computed based on the current 
+height and weight values in your profile.
+
 Example:
 - `bmi` calculates the BMI value based on the current height and weight in your profile.
 - `bmi h/180 w/65` calculates the BMI value based on height 180cm and weight 65cm.
@@ -395,16 +399,19 @@ ________________________________________________________________________________
 
 ### **4.2 Recording Your Food Consumption**
 
-You can record all the food items consumed within a week into the Food List. This allows you
+You can record all the Food Items consumed within a week into the Food List. This allows you
 to keep track of your food calorie consumption and gain a better understanding of your diet habits. 
 
 #### 4.2.1 Adding Food Items `add f/`
 
-You can record food items consumed on a specific date and time with a specific calorie value into the Food List. 
-This command allows you to add a new Food Item to the Food List. Repeated food items on the same day and time is supported too.
+You can record Food Items consumed on a specific date and time with a specific calorie value into the Food List. 
+This command allows you to add a new Food Item to the Food List. Repeated Food Items on the same day and time is supported too.
 
 Format: `add f/ITEM {c/CALORIES} {d/DD-MM-YYYY} {t/HHMM}` adds a Food Item consumed with its respective calories on the given
 date (`DD-MM-YYYY`) and time (`HHMM`).
+
+❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `07-11-2021`, then the input
+date must be within `01-11-2021` to `07-11-2021`.
 
 Example:
 ```text
@@ -416,15 +423,14 @@ ________________________________________________________________________________
 ```
 💡 **Tip:** If you do not specify the date and time of the Food Item, it is assumed that the date and time is based on the date and time of input.
 
-💡 **Tip:** It is possible to add Food Item without providing the calorie of it. You can do this by saving the corresponding 
+💡 **Tip:** It is possible to add Food Item without providing the calories of it. You can do this by saving the corresponding 
 Food Item into the Food Bank. More details can be found [here](#45-building-your-food-bank).
 
-❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `08-11-2021`, then the input
-date must be within `01-11-2021` to `08-11-2021`.
+
 
 #### 4.2.2 Viewing Food List `view f/`
 
-You may want to view what food items you have consumed and how many calories you have taken in this week. This command will show 
+You may want to view what Food Items you have consumed and how many calories you have taken in this week. This command will show 
 the list of Food Items and their calories that you have added within the past 7 days (including today) into the Food List.
 
 Format: `view f/`
@@ -495,7 +501,7 @@ ________________________________________________________________________________
 
 ### **4.3 Recording Your Exercises**
 
-Besides Food Items, you may also record Exercises that you have done into the Exercise List. This will allow you to keep
+Besides Food Items, you may also record exercises that you have done into the Exercise List. This will allow you to keep
 track of total calories burnt and check whether you have done sufficient exercises. 
 
 #### 4.3.1 Adding Exercise Items `add e/`
@@ -508,14 +514,8 @@ Format: `add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Exercise Item with its 
 ℹ️ If the date `DD-MM-YYYY` provided is in the future, this exercise will be treated as an Upcoming Exercise Item, 
 and it will be added to the [Upcoming Exercise List](#441-adding-upcoming-exercise-items-add-e) instead.
 
-💡 **Tip:** Similar to [Food Item](#421-adding-food-items-add-f), if you do not specify the date and time of the Exercise Item, 
-it is assumed that the date and time is based on the date and time of input.
-
-💡 **Tip:** It is possible to add Exercise Item without providing the calorie burnt from it. You can do this by saving the corresponding
-Exercise Item into the Exercise Bank. More details can be found at [here](#46-building-your-exercise-bank).
-
-❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `08-11-2021`, then the input
-date must be within `01-11-2021` to `08-11-2021`.
+❗ The input date `DD-MM-YYYY` must be within the past 7 days (including today). For example, if today date is `07-11-2021`, then the input
+date must be within `01-11-2021` to `07-11-2021`.
 
 Example:
 
@@ -527,10 +527,16 @@ An exercise item has been added:
 __________________________________________________________________________________________________________
 ```
 
+💡 **Tip:** Similar to [Food Item](#421-adding-food-items-add-f), if you do not specify the date and time of the Exercise Item,
+it is assumed that the date and time is based on the date and time of input.
+
+💡 **Tip:** It is possible to add Exercise Item without providing the calories burnt from it. You can do this by saving the corresponding
+Exercise Item into the Exercise Bank. More details can be found at [here](#46-building-your-exercise-bank).
+
 #### 4.3.2 Viewing Exercise Items `view e/`
 
-It is possible to view and check all the exercises you have added. This command is for you to view all the exercises taken 
-and the calories that are added within the past 7 days (including today) from the list.
+It is possible to view and check all the exercises you have added. This command is for you to view all the exercises that you have done 
+and their calories within the past 7 days (including today) in the list.
 
 Format: `view e/`
 
@@ -555,17 +561,17 @@ You have done 2 exercise(s) on Sunday (07 Nov 2021):
 Total calories burnt in the day: 490 cal
 ..........................................................................................................
 Total exercises done in this week: 4
-Total calorie burnt in this week: 1490 cal
+Total calories burnt in this week: 1490 cal
 __________________________________________________________________________________________________________
 ```
-ℹ️ It is also possible to view all the Upcoming Exercises from the Upcoming Exercise List that you have added before. More
+ℹ️ It is also possible to view all the Upcoming Exercise Items from the Upcoming Exercise List that you have added before. More
 details can be found [here](#443-viewing-upcoming-exercise-items-view-u).
 
 #### 4.3.3 Deleting Exercises `delete e/`
 
-In case you have added the wrong Exercise, this command allows you to remove any Exercise from the Exercise List.
+In case you have added the wrong exercise, this command allows you to remove any exercise from the Exercise List.
 
-Format: `delete e/LIST_NO d/DD-MM-YYYY` deletes the *n<sup>th</sup>* exercise Item in the Exercise List which contains the date (`DD-MM-YYYY`),
+Format: `delete e/LIST_NO d/DD-MM-YYYY` deletes the *n<sup>th</sup>* Exercise Item in the Exercise List which contains the date (`DD-MM-YYYY`),
 where *n* is the index of the exercise to delete.
 
 ❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.
@@ -591,19 +597,20 @@ ________________________________________________________________________________
 
 ### **4.4 Scheduling Your Exercises**
 
-Besides your current exercises, you may also record all your Upcoming Exercises that you plan to do into the Upcoming Exercise List. 
+Besides your current exercises, you may also record all your Upcoming Exercise Items that you plan to do into the Upcoming Exercise List. 
 This will allow you to plan your exercises in advance and be more aware of your calorie output from your exercises in the near future.
 
 #### 4.4.1 Adding Upcoming Exercise Items `add e/`
 
-By adding an Exercise Item with a future date, your exercise will be treated as an Upcoming Exercise and gets added into the Upcoming Exercise List.
+By adding an Exercise Item with a future date, your exercise will be treated as an Upcoming Exercise Item and gets added into the Upcoming Exercise List.
 
-Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Upcoming Exercise with its respective calories burnt on the given date (`DD-MM-YYYY`}.
+Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Upcoming Exercise Item with its respective calories burnt on the given date (`DD-MM-YYYY`}.
 
 
 ❗️ The date `DD-MM-YYYY` provided must be in the future. Otherwise, if it is within the past 7 days (including today), it will be
   added to the [Exercise List](#431-adding-exercise-items-add-e) instead.
 
+Example:
 ```text
 add e/hiit c/290 d/01-01-2022
 __________________________________________________________________________________________________________
@@ -617,15 +624,17 @@ ________________________________________________________________________________
 #### 4.4.2 Adding Recurring Exercise Items `add r/`
 
 It is possible to schedule exercises that you do on a regular basis. By using this command, you can conveniently add recurring exercises
-into the Future Exercise List. This can be particularly useful if you have weekly trainings to record!
+into the Upcoming Exercise List. This can be particularly useful if you have weekly trainings to record!
 
-Format: `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK {,DAY_OF_THE_WEEK,...}` adds recurring exercise with its respective calories burnt to the Upcoming Exercise List. 
+Format: `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK {,DAY_OF_THE_WEEK,...}` adds recurring exercises with its respective calories burnt to the Upcoming Exercise List. 
 You may specify which day(s) of the week by providing multiple `DAY_OF_THE_WEEK` that are separated by commas.
 
 ❗ `START_DATE` and `END_DATE` must be in the future.\
 ❗ `START_DATE` must be before `END_DATE`.\
 ❗ `START_DATE` and `END_DATE` must follow `DD-MM-YYYY` format.\
 ❗ `DAY_OF_THE_WEEK` must be an integer between 1 and 7, representing Monday to Sunday respectively.
+
+Example:
 ```text
 add r/running c/200 :/01-12-2021 -/30-12-2021 @/1,4
 __________________________________________________________________________________________________________
@@ -636,10 +645,12 @@ ________________________________________________________________________________
 
 #### 4.4.3 Viewing Upcoming Exercise Items `view u/`
 
-In order to view all of your upcoming exercises, this command can be used and all of your scheduled exercises and their calories 
+In order to view all of your Upcoming Exercise Items, this command can be used and all of your scheduled exercises and their calories 
 will be displayed for you to see.
 
 Format: `view u/`
+
+Example:
 ```text
 view u/
 __________________________________________________________________________________________________________
@@ -659,13 +670,16 @@ ________________________________________________________________________________
 
 #### 4.4.4 Editing Upcoming Exercise Items `edit u/`
 
-If you would like to make some changes to the details of your Upcoming Exercises, this command can be used and your Upcoming Exercises
-in the Future Exercise List will be updated.
+If you would like to make some changes to the details of your Upcoming Exercise Items, this command can be used and your Upcoming Exercise Items
+in the Upcoming Exercise List will be updated.
 
 Format: `edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` edits the n<sup>th</sup> item in the Upcoming Exercise List, where *n* is the index of the Exercise to edit.
 
-❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.
+❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.\
+❗ Though the parameters are optional, do provide at least one of them so that _Fitbot_ knows what you want to update about the Item!
 
+
+Example:
 ```text
 edit u/1 c/150 d/30-11-2021
 __________________________________________________________________________________________
@@ -674,13 +688,10 @@ Item number 1 in upcoming exercises has been changed to:
 __________________________________________________________________________________________
 ```
 
-❗️ Though the parameters are optional, do provide at least one of them so that _Fitbot_ knows what you want to update about the Item!
-
-
 #### 4.4.5 Deleting Upcoming Exercise Items `delete u/`
 
-In case any upcoming exercise is cancelled and you would like to remove it from the Future Exercise List, you can use 
-this command to delete that particular upcoming exercise. Deletion of multiple upcoming exercises is supported to. 
+In case any Upcoming Exercise Item is cancelled and you would like to remove it from the Upcoming Exercise List, you can use 
+this command to delete that particular Upcoming Exercise Item. Deletion of multiple Upcoming Exercise Items is supported too. 
 
 Format: `delete u/LIST_NO {,LIST_NO,...}` deletes the n<sup>th</sup> Upcoming Exercise Item in the Upcoming Exercise List, where *n* is the index of the exercise to delete.
 You may delete multiple Exercise Items at once by providing multiple `LIST_NO` that are separated by commas.
@@ -701,7 +712,7 @@ ________________________________________________________________________________
 ```
 delete u/all
 __________________________________________________________________________________________________________
-All future exercise items have been removed.
+All upcoming exercise items have been removed.
 __________________________________________________________________________________________________________
 ```
 [⏫ Back to content page](#content-page)
@@ -715,6 +726,8 @@ you would only have to provide the name of the item!
 You can add a Food Item into the Food Bank using this command.
 
 Format: `add fbank/ITEM c/CALORIES`
+
+Example:
 ```
 add fbank/McSpicy Meal c/1081 
 __________________________________________________________________________________________________________
@@ -730,6 +743,7 @@ After adding the item to the Food Bank, you can now add the item into the Food L
 Simply provide the name of the item and _Fitbot_ will search up the corresponding calorie value for the item with the same name for you from the Food Bank! As before, note that the matching of names is 
 **case-insensitive**.
 
+Example:
 ```
 add f/mcspicy meal d/07-11-2021 t/1536
 __________________________________________________________________________________________________________
@@ -743,6 +757,7 @@ You can view all the Items in the Food Bank using this command.
 
 Format: `view fbank/`
 
+Example:
 ```
 view fbank/
 __________________________________________________________________________________________________________
@@ -757,7 +772,8 @@ If you have entered any wrong information or wish to update existing Items in th
 
 Format:  `edit fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}` edits the n<sup>th</sup> Item in the Food Bank, where *n* is the index of the Food Item to edit.
 
-❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.
+❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.\
+❗ Though the parameters are optional, do provide at least one of them so that _Fitbot_ knows what you want to update about the Item!
 
 Example:
 ```
@@ -767,8 +783,6 @@ Item number 1 in the food bank has been changed to:
 	Baked Potato (350 cal)
 __________________________________________________________________________________________________________
 ```
-
-❗️ Though the parameters are optional, do provide at least one of them so that _Fitbot_ knows what you want to update about the Item! 
 
 #### 4.5.4 Deleting Food Bank Items `delete fbank/`
 You can delete an Item from the Food Bank using this command.
@@ -790,6 +804,12 @@ ________________________________________________________________________________
 ```
 
 💡   **Tip:** If you wish to remove all the Food Items from the Food Bank, there is a shortcut command: `delete fbank/all`.
+```
+delete fbank/all
+__________________________________________________________________________________________________________
+All food items in the food bank have been removed.
+__________________________________________________________________________________________________________
+```
 
 [⏫ Back to content page](#content-page)
 
@@ -802,6 +822,8 @@ burn from it!
 You can add an Exercise Item into the Exercise Bank using this command.
 
 Format: `add ebank/ITEM c/CALORIES`
+
+Example:
 ```
 add ebank/30 min jog c/450
 __________________________________________________________________________________________________________
@@ -817,6 +839,7 @@ Similar to the Food Bank, after adding the item to the Exercise Bank, the next t
 and _Fitbot_ will search up the corresponding calorie value for the item with the same name for you from the Exercise Bank! As before, note that the matching of names is
 **case-insensitive**.
 
+Example:
 ```
 add e/30 Min Jog d/07-11-2021
 __________________________________________________________________________________________________________
@@ -825,18 +848,13 @@ An exercise item has been added:
 __________________________________________________________________________________________________________
 ```
 
-
-
-Format: `edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` edits the n<sup>th</sup> item in the Upcoming Exercise List, where *n* is the index of the Exercise to edit.
-
-❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.
-
 #### 4.6.2 Viewing Exercise Bank `view ebank/`
 You can view all the Items in the Exercise Bank using this command.
 
 
 Format: `view ebank/`
 
+Example:
 ```
 view ebank/
 __________________________________________________________________________________________________________
@@ -851,11 +869,11 @@ If you have entered any wrong information or wish to update existing Items in th
 
 Format:  `edit ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}` edits the n<sup>th</sup> Item in the Exercise Bank, where *n* is the index of the Exercise Item to edit.
 
-❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.
+❗ `LIST_NO` must be a positive integer within the range of the number of Items in the list.\
+❗ Though the parameters are optional, do provide at least one of them so that _Fitbot_ knows what you want to update about the Item!
+
 
 Example:
-
-
 ``` 
 edit ebank/1 n/35 min jog
 __________________________________________________________________________________________________________
@@ -863,7 +881,6 @@ Item number 1 in the exercise bank has been changed to:
 	35 min jog (450 cal)
 __________________________________________________________________________________________________________
 ```
-❗️ Though the parameters are optional, do provide at least one of them so that _Fitbot_ knows what you want to update about the Item!
 
 
 #### 4.6.4 Deleting Exercise Bank Items `delete ebank/`
@@ -885,6 +902,13 @@ ________________________________________________________________________________
 ```
 
 💡   **Tip:** If you wish to remove all the Exercise Items from the Exercise Bank, there is a shortcut command: `delete ebank/all`.
+```
+delete ebank/all
+__________________________________________________________________________________________________________
+All exercise items in the exercise bank have been removed.
+__________________________________________________________________________________________________________
+```
+
 
 [⏫ Back to content page](#content-page)
 
@@ -954,7 +978,6 @@ If you need help using _Fitbot_, you can use this command to see a list of comma
 Format: `help`
 
 Example:
-
 ```text
 help
 Welcome to the help page.
@@ -1105,10 +1128,11 @@ ________________________________________________________________________________
 
 ### **4.9. Exiting Program** `bye`
 
-This command is used to exit _Fitbot_.
+You can use this command to exit _Fitbot_.
 
 Format: `bye`
 
+Example:
 ```text  
 bye  
 _________________________________________________________________________________________________________
@@ -1161,15 +1185,15 @@ _Fitbot_ needs to know your name to address you.
 
 | Action | Format | Examples |
 |--------|-------|----------|
-add|`add f/ITEM {c/CALORIE} {d/DD-MM-YYYY} {t/HHMM}` <br>`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` <br> `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK {,DAY_OF_THE_WEEK,...}` <br>  `add fbank/ITEM c/CALORIES` <br>  `add ebank/ITEM c/CALORIES`| `add f/chicken rice c/607 d/20-10-2021`, <br>`add e/hiit c/290 d/23-10-2021` <br> `add r/handball training c/432 :/24-10-2021 -/11-11-2021 @/1,3` <br>  `add fbank/chicken rice c/667`<br> `add ebank/5km run c/478`
-bmi|`bmi h/HEIGHT_IN_CM w/WEIGHT_IN_KG` <br> `bmi`|`bmi h/170 w/65` , <br> `bmi`
+add|`add f/ITEM {c/CALORIE} {d/DD-MM-YYYY} {t/HHMM}` <br><br>`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` <br><br> `add r/ITEM c/CALORIES :/START_DATE -/END_DATE @/DAY_OF_THE_WEEK {,DAY_OF_THE_WEEK,...}` <br><br>  `add fbank/ITEM c/CALORIES` <br><br>  `add ebank/ITEM c/CALORIES`| `add f/chicken rice c/607 d/20-10-2021` <br><br>`add e/hiit c/290 d/23-10-2021` <br><br> `add r/handball training c/432 :/24-10-2021 -/11-11-2021 @/1,3` <br><br>  `add fbank/chicken rice c/667`<br><br> `add ebank/5km run c/478`
+bmi|`bmi h/HEIGHT_IN_CM w/WEIGHT_IN_KG` <br><br> `bmi`|`bmi h/170 w/65` , <br><br> `bmi`
 bye|`bye`|
-delete|`delete f/LIST_NO d/DD-MM-YYYY t/HHMM` <br> `delete e/LIST_NO d/DD-MM-YYYY` <br> `delete u/LIST_NO {,LIST_NO,...}` <br> `delete fbank/LIST_NO {,LIST_NO,...}` <br> `delete ebank/LIST_NO {,LIST_NO,...}` <br> `delete f/all` <br> `delete e/all` <br> `delete u/all` <br> `delete fbank/all` <br> `delete ebank/all` | `delete f/1`, <br> `delete e/2`, <br> `delete u/1,2`, <br> `delete fbank/2,3`, <br> `delete ebank/2,5`, <br> `delete f/all`, <br>  `delete e/all`, <br> `delete u/all`, <br> `delete fbank/all`, <br> `delete ebank/all` <br> 
-edit| `edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` <br> `edit fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}` <br> `edit ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}`| `edit u/1 n/volleyball training c/560 d/24-10-2021` <br> `edit fbank/1 n/2.4km run c/267` <br> `edit ebank/1 n/chicken rice c/800`
+delete|`delete f/LIST_NO d/DD-MM-YYYY t/HHMM` <br><br> `delete e/LIST_NO d/DD-MM-YYYY` <br><br> `delete u/LIST_NO {,LIST_NO,...}` <br><br> `delete fbank/LIST_NO {,LIST_NO,...}` <br><br> `delete ebank/LIST_NO {,LIST_NO,...}` <br><br> `delete f/all` <br><br> `delete e/all` <br><br> `delete u/all` <br><br> `delete fbank/all` <br><br> `delete ebank/all` | `delete f/1 d/04-11-2021 t/1000` <br><br> `delete e/1 d/05-11-2021` <br><br> `delete u/1,2` <br><br> `delete fbank/2,3` <br><br> `delete ebank/2,5` <br><br><br><br><br><br><br><br><br><br><br>
+edit| `edit u/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES} {d/NEW_DATE}` <br><br> `edit fbank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}` <br><br> `edit ebank/LIST_NO {n/NEW_NAME} {c/NEW_CALORIES}`| `edit u/1 n/volleyball training c/560 d/24-10-2021` <br><br> `edit fbank/1 n/2.4km run c/267` <br><br> `edit ebank/1 n/chicken rice c/800`
 help | `help`|
 overview|`overview`|
-profile|`profile {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG} {n/NAME} {s/GENDER} {a/AGE} {g/CALORIE_IN_CAL} {x/ACTIVITY_FACTOR}` <br> `profile`|`profile h/170 w/65 n/John a/22 s/M g/500 x/2`, <br> `profile`
-view|`view e/`  <br> `view f/` <br> `view u/` <br> `view fbank/` <br> `view ebank/`
+profile|`profile {h/HEIGHT_IN_CM} {w/WEIGHT_IN_KG} {n/NAME} {s/GENDER} {a/AGE} {g/CALORIE_IN_CAL} {x/ACTIVITY_FACTOR}`<br><br> `profile`|`profile h/170 w/65 n/John a/22 s/M g/500 x/2` <br><br> `profile`
+view|`view e/`  <br><br> `view f/` <br><br> `view u/` <br><br> `view fbank/` <br><br> `view ebank/`
 
 [⏫ Back to content page](#content-page)
 
