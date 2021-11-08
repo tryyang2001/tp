@@ -612,7 +612,7 @@ Format:`add e/ITEM {c/CALORIES} {d/DD-MM-YYYY}` adds an Upcoming Exercise Item w
 
 ❗️ The date `DD-MM-YYYY` provided must be in the future. Otherwise, if it is within the past 7 days (including today), it will be
   added to the [Exercise List](#431-adding-exercise-items-add-e) instead.\
-❗ The date `DD-MM-YYYY` can only be within a year from tomorrow as any exercises beyond a year is too far into the future. ([more details](#8-data-limits))
+❗ The date `DD-MM-YYYY` can only be within a year from tomorrow as any exercises beyond a year is too far into the future. ([more details](#6-data-limits))
  
 Example:
 ```text
